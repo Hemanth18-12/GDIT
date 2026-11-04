@@ -11,3 +11,4 @@ namespace LegacyOfTemples.Core
         void Interact();
     }
 }
+

@@ -17,3 +17,4 @@ namespace LegacyOfTemples.Core
         public const string Villager = "villager";
     }
 }
+
