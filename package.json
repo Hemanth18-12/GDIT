@@ -1,0 +1,19 @@
+{
+  "name": "legacy-of-temples",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Legacy of Temples: A third-person 3D web game built with Three.js and Vite",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "three": "^0.170.0"
+  },
+  "devDependencies": {
+    "vite": "^5.4.10"
+  }
+}
+

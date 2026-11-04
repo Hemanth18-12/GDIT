@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Legacy of Temples</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html, body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background-color: #0d0f12;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        color: #f0f3f6;
+        user-select: none;
+      }
+      #game-canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        display: block;
+        z-index: 1;
+      }
+      #ui-root {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        pointer-events: none;
+        z-index: 10;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 24px;
+      }
+      .hud-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+      }
+      .title-card {
+        background: rgba(13, 15, 18, 0.75);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(218, 165, 32, 0.35);
+        border-radius: 8px;
+        padding: 12px 18px;
+      }
+      .title-card h1 {
+        font-size: 1.25rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #f7d070;
+      }
+      .title-card p {
+        font-size: 0.85rem;
+        color: #9aa4b2;
+        margin-top: 4px;
+      }
+      .hud-prompt {
+        align-self: center;
+        background: rgba(18, 22, 28, 0.85);
+        border: 1px solid #d4af37;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 20px;
+        font-size: 0.95rem;
+        letter-spacing: 0.04em;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        transition: opacity 0.2s ease, transform 0.2s ease;
+      }
+      .hud-prompt.hidden {
+        opacity: 0;
+        transform: translateY(10px);
+        pointer-events: none;
+      }
+      .hud-dialogue {
+        align-self: center;
+        width: min(720px, 90vw);
+        background: rgba(15, 18, 24, 0.92);
+        border: 1px solid rgba(218, 165, 32, 0.5);
+        border-radius: 10px;
+        padding: 16px 20px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
+        pointer-events: auto;
+      }
+      .hud-dialogue.hidden {
+        display: none;
+      }
+      .hud-dialogue .speaker {
+        font-weight: 700;
+        color: #f5c542;
+        font-size: 0.95rem;
+        margin-bottom: 6px;
+        text-transform: capitalize;
+      }
+      .hud-dialogue .message {
+        font-size: 1rem;
+        line-height: 1.5;
+        color: #e6edf3;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="game-canvas"></canvas>
+    <div id="ui-root">
+      <header class="hud-header">
+        <div class="title-card">
+          <h1>Legacy of Temples</h1>
+          <p id="hud-status">Initializing ancient sanctuary...</p>
+        </div>
+      </header>
+      <div id="hud-prompt" class="hud-prompt hidden">Press [E] to Inspect</div>
+      <div id="hud-dialogue" class="hud-dialogue hidden">
+        <div id="dialogue-speaker" class="speaker">Speaker</div>
+        <div id="dialogue-message" class="message">Dialogue message goes here.</div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
+
