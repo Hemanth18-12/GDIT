@@ -1,123 +1,137 @@
 # Legacy of Temples
 
-A third-person 3D web game set across ancient Indian heritage temples, powered by **Vite** and **Three.js** (plain JavaScript ES modules).
+A third-person 3D action-investigation game set across ancient Indian heritage temples, developed in **Unity 6 (6000.6.8f1)** using the **Universal Render Pipeline (URP)**.
 
 ---
 
-## 🏛️ Project Architecture
+## 🛠️ Project Information
 
-The engine is built around a decoupled architecture where systems communicate via an asynchronous/synchronous `EventBus` and adhere to strict module contracts.
-
-```
-src/
-├── core/
-│   ├── constants.js       # Scene IDs, Character IDs, Bus events
-│   └── EventBus.js        # Event publish/subscribe bus (on, off, emit)
-├── world/
-│   └── index.js           # World environment, scene loader, spawns, interactables
-├── characters/
-│   └── index.js           # Player and NPC management, movement, spawn controller
-├── gameplay/
-│   └── index.js           # Game progression, interaction resolution, state machine
-├── ui/
-│   └── index.js           # HUD, prompts, dialogue overlay, status bar
-└── main.js                # Bootstrap: Three.js renderer/camera/scene/clock + update loop
-```
+- **Engine Version**: Unity 6 (`6000.6.8f1`)
+- **Render Pipeline**: Universal Render Pipeline (URP)
+- **Scripting Language**: C# (.NET Standard 2.1 / C# 9.0+)
+- **Target Platforms**: PC / Mac Standalone / WebGL
 
 ---
 
-## 📜 Module Contracts
+## 👥 3-Person Team Folder Ownership
 
-### 1. World Module (`src/world/index.js`)
-```javascript
-export async function initWorld({ scene, camera, renderer, bus }) -> {
-  update(dt),
-  loadScene(id),
-  getSpawn(name),
-  colliders: [],
-  registerInteractable({ id, object3d, radius, prompt }),
-  interactables: []
+To prevent merge conflicts and maintain clean isolation, work is partitioned across distinct folders and assemblies:
+
+| Member | Domain | Assigned Folders & Assets | Assembly Definition |
+| :--- | :--- | :--- | :--- |
+| **Member 1** | **World & Environment** | `Assets/_Project/Scripts/World/`<br>`Assets/_Project/Scenes/Environments/`<br>`Assets/_Project/Models/Environment/` | `LOT.World` |
+| **Member 2** | **Characters & AI** | `Assets/_Project/Scripts/Characters/`<br>`Assets/_Project/Models/Characters/`<br>`Assets/_Project/Animations/` | `LOT.Characters` |
+| **Member 3** | **Gameplay, UI & Audio** | `Assets/_Project/Scripts/Gameplay/`<br>`Assets/_Project/Scripts/UI/`<br>`Assets/_Project/Audio/`<br>`Assets/_Project/Prefabs/`<br>`Assets/_Project/Scenes/Dev/` | `LOT.Gameplay`<br>`LOT.UI` |
+| **Shared** | **Core Systems** | `Assets/_Project/Scripts/Core/` | `LOT.Core` |
+
+---
+
+## 🌿 Branching & Collaboration Rules
+
+1. **Never commit directly to `main`**: All features must be developed on separate member branches (`member1-world`, `member2-characters`, `member3-gameplay`) and merged via Pull Requests.
+2. **Always commit `.meta` files**: Every file and folder inside `Assets/` must have its matching `.meta` file staged and committed. Never delete or ignore `.meta` files.
+3. **Never edit another member's folder or scene**: Cross-system interaction must occur exclusively through `LOT.Core` events (`EventBus`) and contracts (`IInteractable`).
+4. **Use Visible Meta Files and Force Text serialization**: Verify `ProjectSettings/EditorSettings.asset` and `ProjectSettings/VersionControlSettings.asset` maintain text serialization.
+
+---
+
+## 📜 Core Contract (`LegacyOfTemples.Core`)
+
+Assembly: `LOT.Core` (No dependencies; referenced by `LOT.World`, `LOT.Characters`, `LOT.Gameplay`, `LOT.UI`).
+
+### 1. `GameState`
+```csharp
+namespace LegacyOfTemples.Core
+{
+    public enum GameState
+    {
+        Menu,
+        Intro,
+        Playing,
+        Puzzle,
+        Chase,
+        Ending
+    }
 }
 ```
 
-### 2. Characters Module (`src/characters/index.js`)
-```javascript
-export async function initCharacters({ scene, bus, world }) -> {
-  player,
-  npcs: {},
-  update(dt),
-  spawn(id, position)
+### 2. `IInteractable`
+```csharp
+using UnityEngine;
+
+namespace LegacyOfTemples.Core
+{
+    public interface IInteractable
+    {
+        string Id { get; }
+        string Prompt { get; }
+        Transform Anchor { get; }
+        float Radius { get; }
+        void Interact();
+    }
 }
 ```
 
-### 3. Gameplay Module (`src/gameplay/index.js`)
-```javascript
-export async function initGameplay({ scene, bus, world, characters }) -> {
-  update(dt),
-  start()
+### 3. `EventBus`
+```csharp
+namespace LegacyOfTemples.Core
+{
+    public static class EventBus
+    {
+        // Actions
+        public static event Action<string> OnSceneChanged;
+        public static event Action<IInteractable> OnPlayerInteract;
+        public static event Action<string> OnClueFound;
+        public static event Action<string> OnPuzzleSolved;
+        public static event Action<string> OnDialogueStart;
+        public static event Action<string> OnDialogueEnd;
+        public static event Action<string> OnIdolRecovered;
+        public static event Action<GameState> OnGameState;
+
+        // Safe Raise Methods
+        public static void RaiseSceneChanged(string sceneName);
+        public static void RaisePlayerInteract(IInteractable interactable);
+        public static void RaiseClueFound(string clueId);
+        public static void RaisePuzzleSolved(string puzzleId);
+        public static void RaiseDialogueStart(string dialogueId);
+        public static void RaiseDialogueEnd(string dialogueId);
+        public static void RaiseIdolRecovered(string idolId);
+        public static void RaiseGameState(GameState state);
+    }
 }
 ```
 
----
+### 4. `Constants`
+```csharp
+namespace LegacyOfTemples.Core
+{
+    public static class Constants
+    {
+        // Scene IDs
+        public const string Courtyard = "Courtyard";
+        public const string Sanctum = "Sanctum";
+        public const string PuzzleWall = "PuzzleWall";
+        public const string ShrineCrime = "ShrineCrime";
+        public const string JunglePath = "JunglePath";
 
-## 🔑 Identifiers & Events
-
-### Scene IDs
-- `courtyard` - Ancient temple entrance and courtyards
-- `sanctum` - Inner sanctum (Garbhagriha) where the relic was held
-- `puzzle_wall` - Inscribed stone puzzle barrier
-- `shrine_crime` - Crime scene showing marks of relic theft
-- `jungle_path` - Dense forest escape route used by perpetrators
-
-### Character IDs
-- `investigator` - Player character investigating the theft
-- `robber1` - Primary suspect fleeing with temple treasures
-- `robber2` - Accomplice assisting the getaway
-- `priest` - Temple guardian providing crucial testimony
-- `villager` - Eyewitness from the surrounding settlement
-
-### Bus Events
-- `scene:changed` - Emitted when world transitions between scenes
-- `player:interact` - Emitted when player presses interaction key [E]
-- `clue:found` - Emitted upon discovering temple evidence or artifacts
-- `puzzle:solved` - Emitted when temple architectural puzzles are unlocked
-- `dialogue:start` - Emitted to open dialogues with NPCs or inspectables
-- `dialogue:end` - Emitted when conversations terminate
-- `idol:recovered` - Emitted when the sacred stolen idol is retrieved
-- `game:state` - Emitted on overarching gameplay phase transitions
-
----
-
-## 🎮 Controls
-
-- **W / A / S / D** or **Arrow Keys**: Move investigator
-- **E**: Interact / Talk / Inspect relics / Advance dialogue
+        // Character IDs
+        public const string Investigator = "investigator";
+        public const string Robber1 = "robber1";
+        public const string Robber2 = "robber2";
+        public const string Priest = "priest";
+        public const string Villager = "villager";
+    }
+}
+```
 
 ---
 
 ## 🚀 Getting Started
 
-### Prerequisites
-- Node.js (v18+)
-- npm (v9+)
-
-### Installation
-```bash
-npm install
-```
-
-### Development Server
-```bash
-npm run dev
-```
-
-### Production Build
-```bash
-npm run build
-```
-
-### Preview Production Build
-```bash
-npm run preview
-```
-
+1. Clone repository:
+   ```bash
+   git clone https://github.com/Hemanth18-12/GDIT.git
+   ```
+2. Open **Unity Hub**.
+3. Click **Add** -> **Add project from disk** -> Select the cloned repository root folder.
+4. Ensure Unity Editor **6000.6.8f1** is selected and open the project.

@@ -1,0 +1,42 @@
+* text=auto
+
+# Unity text files
+*.unity text
+*.prefab text
+*.asset text
+*.mat text
+*.meta text
+*.anim text
+*.controller text
+*.overrideController text
+*.physicMaterial text
+*.physicsMaterial2D text
+*.playable text
+*.mask text
+*.brush text
+*.terrainlayer text
+*.guiskin text
+*.giparams text
+*.renderTexture text
+*.lighting text
+*.inputactions text
+*.asmdef text
+*.asmref text
+*.cs text diff=csharp
+*.cginc text
+*.shader text
+*.hlsl text
+*.compute text
+
+# Unity binary files
+*.cubemap binary
+*.flare binary
+*.fontsettings binary
+*.guiskin binary
+*.mesh binary
+*.mixer binary
+*.physicMaterial binary
+*.physicsMaterial2D binary
+*.renderTexture binary
+*.substance binary
+*.texture2D binary

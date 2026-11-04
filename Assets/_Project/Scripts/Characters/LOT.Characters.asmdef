@@ -1,0 +1,16 @@
+{
+    "name": "LOT.Characters",
+    "rootNamespace": "LegacyOfTemples.Characters",
+    "references": [
+        "LOT.Core"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

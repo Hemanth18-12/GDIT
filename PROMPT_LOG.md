@@ -1,44 +1,34 @@
-# Prompt Log
+# Prompt Log - Legacy of Temples
 
-## P0 - Project Scaffold & Core Contracts
+## P0 - Web Scaffold & Core Contracts (Archived)
 - **Date**: 2026-11-04
-- **Summary**: Initialized the "Legacy of Temples" Vite + Three.js project with modular ES module architecture, strict interface contracts, EventBus communication, and working functional stubs.
-- **Files Created**:
-  - `package.json`
-  - `vite.config.js`
-  - `index.html`
+- **Summary**: Initial prototype web scaffold in Vite + Three.js.
+
+## P1-v1 - World Environments (Archived Web Prototype)
+- **Date**: 2026-11-04
+- **Summary**: Implemented 5 complete Odisha-style 3D temple environments for Three.js web prototype.
+
+## P0-Unity - Shared Unity 6 URP Base & Core Contract Setup
+- **Date**: 2026-11-04
+- **Engine**: Unity 6 (`6000.6.8f1`) URP
+- **Summary**: Established the base Unity 6 Universal Render Pipeline (URP) project structure for a 3-person team on GitHub. Implemented team folder partitioning under `Assets/_Project/`, isolated Assembly Definitions (`LOT.Core`, `LOT.World`, `LOT.Characters`, `LOT.Gameplay`, `LOT.UI`), and defined the stable Core contract (`GameState`, `IInteractable`, `EventBus`, `Constants`). Configured Force Text serialization, Visible Meta Files, standard Unity `.gitignore`, `.gitattributes`, and full `.meta` tracking.
+- **Files Created / Configured**:
   - `.gitignore`
+  - `.gitattributes`
   - `README.md`
   - `PROMPT_LOG.md`
-  - `public/models/.gitkeep`
-  - `public/audio/.gitkeep`
-  - `src/main.js`
-  - `src/core/EventBus.js`
-  - `src/core/constants.js`
-  - `src/world/index.js`
-  - `src/characters/index.js`
-  - `src/gameplay/index.js`
-  - `src/ui/index.js`
-- **Verification**: Ran `npm install` and `npm run build` to confirm clean compilation and asset bundling without errors.
-
-## P1-v1 - World Environments & Contracts Implementation
-- **Date**: 2026-11-04
-- **Summary**: Implemented 5 complete Odisha-style 3D temple environments (`courtyard`, `sanctum`, `puzzle_wall`, `shrine_crime`, `jungle_path`) loadable via `loadScene(id)`. Integrated procedural textures (Khondalite sandstone, wet flagstones, relief friezes, red silk, jungle ground, parchment), AABB collision resolution for walls and obstacles, quality manager targeting 60 FPS (with light counts <= 8), animated loading overlay, named spawn point resolution, and dev keys 1-5 for instant scene switching.
-- **Files Created**:
-  - `public/models/env/.gitkeep`
-  - `src/world/textures.js`
-  - `src/world/collision.js`
-  - `src/world/quality.js`
-  - `src/world/overlay.js`
-  - `src/world/architecture.js`
-  - `src/world/scenes/courtyard.js`
-  - `src/world/scenes/sanctum.js`
-  - `src/world/scenes/puzzle_wall.js`
-  - `src/world/scenes/shrine_crime.js`
-  - `src/world/scenes/jungle_path.js`
-- **Files Modified**:
-  - `src/world/index.js`
-- **Known Issues**:
-  - None. Procedural geometries and canvas textures load instantly with zero external network dependencies, while optionally supporting custom GLB models in `public/models/env/` when provided.
-
-
+  - `ProjectSettings/` (EditorSettings, VersionControlSettings, Quality, URP settings)
+  - `Packages/` (manifest.json, packages-lock.json)
+  - `Assets/_Project/` folder hierarchy (`Scripts/Core`, `Scripts/World`, `Scripts/Characters`, `Scripts/Gameplay`, `Scripts/UI`, `Scenes/Environments`, `Scenes/Dev`, `Prefabs`, `Models/Characters`, `Models/Environment`, `Audio`, `Animations`) with `.gitkeep` and `.meta` files.
+  - Assembly Definitions:
+    - `Assets/_Project/Scripts/Core/LOT.Core.asmdef`
+    - `Assets/_Project/Scripts/World/LOT.World.asmdef`
+    - `Assets/_Project/Scripts/Characters/LOT.Characters.asmdef`
+    - `Assets/_Project/Scripts/Gameplay/LOT.Gameplay.asmdef`
+    - `Assets/_Project/Scripts/UI/LOT.UI.asmdef`
+  - Core Contract Scripts:
+    - `Assets/_Project/Scripts/Core/GameState.cs`
+    - `Assets/_Project/Scripts/Core/IInteractable.cs`
+    - `Assets/_Project/Scripts/Core/EventBus.cs`
+    - `Assets/_Project/Scripts/Core/Constants.cs`
+- **Verification**: Verified syntax and compilation integrity across all C# scripts and Assembly Definitions. Confirmed no gameplay, world, or character logic was introduced in this step.
