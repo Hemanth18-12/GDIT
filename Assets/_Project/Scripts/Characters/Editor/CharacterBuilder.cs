@@ -424,16 +424,357 @@ namespace LegacyOfTemples.Characters.Editor
             PlacePlayerInCourtyard();
         }
 
+        #endregion
+
+        #region Priest Prefab Builder (Step 3)
+
+        [MenuItem("Tools/Legacy/Characters/Build Priest Prefab")]
+        public static GameObject BuildPriestPrefab()
+        {
+            EnsureDirectoryExists(PrefabBasePath);
+            EnsureDirectoryExists(ConfigBasePath);
+
+            string prefabPath = $"{PrefabBasePath}/Priest.prefab";
+
+            GameObject root = new GameObject("Priest");
+            root.tag = "Untagged";
+
+            CharacterController cc = root.AddComponent<CharacterController>();
+            cc.height = 1.75f;
+            cc.radius = 0.35f;
+            cc.center = new Vector3(0, 0.88f, 0);
+
+            GameObject model = new GameObject("Model");
+            model.transform.parent = root.transform;
+
+            Material silkMat = GetCharacterMaterial("mat_Char_PriestSilk");
+            Material angavastramMat = GetCharacterMaterial("mat_Char_PriestAngavastram");
+            Material skinMat = GetCharacterMaterial("mat_Char_SkinTone");
+            Material brassMat = GetCharacterMaterial("mat_Char_GoldBrass");
+            Material woodMat = GetCharacterMaterial("mat_Char_LeatherBrown");
+
+            // Dhoti & Upper Bare Torso with Sacred Thread (Janeu)
+            CreatePartBox("Hips_Dhoti", model.transform, new Vector3(0, 0.85f, 0), new Vector3(0.44f, 0.35f, 0.30f), silkMat);
+            CreatePartBox("Torso", model.transform, new Vector3(0, 1.25f, 0), new Vector3(0.42f, 0.45f, 0.28f), skinMat);
+
+            // Angavastram (Silk Shawl draped across chest)
+            GameObject shawl = CreatePartBox("Shawl_Drape", model.transform, new Vector3(-0.06f, 1.26f, 0.02f), new Vector3(0.18f, 0.52f, 0.30f), angavastramMat);
+            shawl.transform.localRotation = Quaternion.Euler(0, 0, 18f);
+
+            // Sacred Thread (Janeu)
+            GameObject janeu = CreatePartBox("Janeu_Thread", model.transform, new Vector3(0.04f, 1.25f, 0.03f), new Vector3(0.02f, 0.48f, 0.29f), angavastramMat);
+            janeu.transform.localRotation = Quaternion.Euler(0, 0, -28f);
+
+            // Head, Tilak, Shaved Crown with Choti Tuft
+            CreatePartCylinder("Neck", model.transform, new Vector3(0, 1.50f, 0), new Vector3(0.16f, 0.08f, 0.16f), skinMat);
+            CreatePartSphere("Head", model.transform, new Vector3(0, 1.68f, 0), new Vector3(0.30f, 0.34f, 0.30f), skinMat);
+            CreatePartBox("Tilak_Sandalwood", model.transform, new Vector3(0, 1.74f, 0.145f), new Vector3(0.06f, 0.12f, 0.02f), angavastramMat);
+            CreatePartSphere("Choti_Tuft", model.transform, new Vector3(0, 1.82f, -0.14f), new Vector3(0.10f, 0.14f, 0.10f), woodMat);
+
+            // Arms holding brass Aarti Thali
+            CreatePartCylinder("Arm_L_Upper", model.transform, new Vector3(-0.28f, 1.28f, 0.08f), new Vector3(0.11f, 0.26f, 0.11f), skinMat).transform.localRotation = Quaternion.Euler(35f, 0, 0);
+            CreatePartCylinder("Arm_L_Forearm", model.transform, new Vector3(-0.20f, 1.10f, 0.26f), new Vector3(0.10f, 0.24f, 0.10f), skinMat).transform.localRotation = Quaternion.Euler(75f, -20f, 0);
+
+            CreatePartCylinder("Arm_R_Upper", model.transform, new Vector3(0.28f, 1.28f, 0.08f), new Vector3(0.11f, 0.26f, 0.11f), skinMat).transform.localRotation = Quaternion.Euler(35f, 0, 0);
+            CreatePartCylinder("Arm_R_Forearm", model.transform, new Vector3(0.20f, 1.10f, 0.26f), new Vector3(0.10f, 0.24f, 0.10f), skinMat).transform.localRotation = Quaternion.Euler(75f, 20f, 0);
+
+            // Brass Aarti Offering Plate
+            CreatePartCylinder("Aarti_Plate", model.transform, new Vector3(0, 1.05f, 0.38f), new Vector3(0.32f, 0.03f, 0.32f), brassMat);
+            CreatePartSphere("Aarti_Flame", model.transform, new Vector3(0, 1.12f, 0.38f), new Vector3(0.10f, 0.15f, 0.10f), GetCharacterMaterial("mat_Char_SaffronAccent"));
+
+            // Legs in silk dhoti
+            CreatePartCylinder("Leg_L", model.transform, new Vector3(-0.13f, 0.42f, 0), new Vector3(0.15f, 0.42f, 0.15f), silkMat);
+            CreatePartCylinder("Leg_R", model.transform, new Vector3(0.13f, 0.42f, 0), new Vector3(0.15f, 0.42f, 0.15f), silkMat);
+            CreatePartBox("Foot_L", model.transform, new Vector3(-0.13f, 0.06f, 0.05f), new Vector3(0.12f, 0.10f, 0.22f), skinMat);
+            CreatePartBox("Foot_R", model.transform, new Vector3(0.13f, 0.06f, 0.05f), new Vector3(0.12f, 0.10f, 0.22f), skinMat);
+
+            GameObject prefab = PrefabUtility.SaveAsPrefabAsset(root, prefabPath);
+            UnityEngine.Object.DestroyImmediate(root);
+
+            string configPath = $"{ConfigBasePath}/PriestConfig.asset";
+            CharacterConfig config = AssetDatabase.LoadAssetAtPath<CharacterConfig>(configPath);
+            if (config == null)
+            {
+                config = ScriptableObject.CreateInstance<CharacterConfig>();
+                AssetDatabase.CreateAsset(config, configPath);
+            }
+            config.SetConfig(Constants.Priest, "Priest Madhav", false, prefab, 3.2f);
+            EditorUtility.SetDirty(config);
+            AssetDatabase.SaveAssets();
+
+            Debug.Log($"[CharacterBuilder] Successfully created Priest prefab at '{prefabPath}'.");
+            return prefab;
+        }
+
+        #endregion
+
+        #region Villager Prefab Builder (Step 3)
+
+        [MenuItem("Tools/Legacy/Characters/Build Villager Prefab")]
+        public static GameObject BuildVillagerPrefab()
+        {
+            EnsureDirectoryExists(PrefabBasePath);
+            EnsureDirectoryExists(ConfigBasePath);
+
+            string prefabPath = $"{PrefabBasePath}/Villager.prefab";
+
+            GameObject root = new GameObject("Villager");
+            root.tag = "Untagged";
+
+            CharacterController cc = root.AddComponent<CharacterController>();
+            cc.height = 1.72f;
+            cc.radius = 0.35f;
+            cc.center = new Vector3(0, 0.86f, 0);
+
+            GameObject model = new GameObject("Model");
+            model.transform.parent = root.transform;
+
+            Material kurtaMat = GetCharacterMaterial("mat_Char_VillagerKurta");
+            Material dhotiMat = GetCharacterMaterial("mat_Char_DhotiKhaki");
+            Material gamuchaMat = GetCharacterMaterial("mat_Char_SaffronAccent");
+            Material skinMat = GetCharacterMaterial("mat_Char_SkinTone");
+            Material hairMat = GetCharacterMaterial("mat_Char_DarkHair");
+
+            // Kurta Torso
+            CreatePartBox("Torso_Kurta", model.transform, new Vector3(0, 1.22f, 0), new Vector3(0.42f, 0.44f, 0.28f), kurtaMat);
+            CreatePartBox("Kurta_Skirt", model.transform, new Vector3(0, 0.90f, 0), new Vector3(0.44f, 0.24f, 0.30f), kurtaMat);
+
+            // Gamucha Towel on Shoulder
+            GameObject towel = CreatePartBox("Gamucha_Towel", model.transform, new Vector3(0.20f, 1.34f, 0.02f), new Vector3(0.12f, 0.32f, 0.18f), gamuchaMat);
+            towel.transform.localRotation = Quaternion.Euler(0, 0, -12f);
+
+            // Head & Hair
+            CreatePartCylinder("Neck", model.transform, new Vector3(0, 1.48f, 0), new Vector3(0.15f, 0.08f, 0.15f), skinMat);
+            CreatePartSphere("Head", model.transform, new Vector3(0, 1.66f, 0), new Vector3(0.29f, 0.33f, 0.29f), skinMat);
+            CreatePartSphere("Hair", model.transform, new Vector3(0, 1.76f, -0.05f), new Vector3(0.31f, 0.16f, 0.31f), hairMat);
+
+            // Arms (expressive posture)
+            CreatePartCylinder("Arm_L_Upper", model.transform, new Vector3(-0.28f, 1.25f, 0), new Vector3(0.11f, 0.26f, 0.11f), kurtaMat);
+            CreatePartCylinder("Arm_L_Forearm", model.transform, new Vector3(-0.28f, 1.00f, 0.06f), new Vector3(0.10f, 0.24f, 0.10f), skinMat);
+            CreatePartSphere("Hand_L", model.transform, new Vector3(-0.28f, 0.86f, 0.10f), new Vector3(0.11f, 0.11f, 0.11f), skinMat);
+
+            CreatePartCylinder("Arm_R_Upper", model.transform, new Vector3(0.28f, 1.25f, 0), new Vector3(0.11f, 0.26f, 0.11f), kurtaMat);
+            CreatePartCylinder("Arm_R_Forearm", model.transform, new Vector3(0.28f, 1.00f, 0.06f), new Vector3(0.10f, 0.24f, 0.10f), skinMat);
+            CreatePartSphere("Hand_R", model.transform, new Vector3(0.28f, 0.86f, 0.10f), new Vector3(0.11f, 0.11f, 0.11f), skinMat);
+
+            // Lungi & Feet
+            CreatePartBox("Hips_Lungi", model.transform, new Vector3(0, 0.70f, 0), new Vector3(0.40f, 0.28f, 0.28f), dhotiMat);
+            CreatePartCylinder("Leg_L", model.transform, new Vector3(-0.13f, 0.38f, 0), new Vector3(0.13f, 0.38f, 0.13f), dhotiMat);
+            CreatePartCylinder("Leg_R", model.transform, new Vector3(0.13f, 0.38f, 0), new Vector3(0.13f, 0.38f, 0.13f), dhotiMat);
+            CreatePartBox("Foot_L", model.transform, new Vector3(-0.13f, 0.05f, 0.04f), new Vector3(0.12f, 0.10f, 0.22f), skinMat);
+            CreatePartBox("Foot_R", model.transform, new Vector3(0.13f, 0.05f, 0.04f), new Vector3(0.12f, 0.10f, 0.22f), skinMat);
+
+            GameObject prefab = PrefabUtility.SaveAsPrefabAsset(root, prefabPath);
+            UnityEngine.Object.DestroyImmediate(root);
+
+            string configPath = $"{ConfigBasePath}/VillagerConfig.asset";
+            CharacterConfig config = AssetDatabase.LoadAssetAtPath<CharacterConfig>(configPath);
+            if (config == null)
+            {
+                config = ScriptableObject.CreateInstance<CharacterConfig>();
+                AssetDatabase.CreateAsset(config, configPath);
+            }
+            config.SetConfig(Constants.Villager, "Villager Ramesh", false, prefab, 3.8f);
+            EditorUtility.SetDirty(config);
+            AssetDatabase.SaveAssets();
+
+            Debug.Log($"[CharacterBuilder] Successfully created Villager prefab at '{prefabPath}'.");
+            return prefab;
+        }
+
+        #endregion
+
+        #region Robber1 Prefab Builder (Step 3)
+
+        [MenuItem("Tools/Legacy/Characters/Build Robber1 Prefab")]
+        public static GameObject BuildRobber1Prefab()
+        {
+            EnsureDirectoryExists(PrefabBasePath);
+            EnsureDirectoryExists(ConfigBasePath);
+
+            string prefabPath = $"{PrefabBasePath}/Robber1.prefab";
+
+            GameObject root = new GameObject("Robber1");
+            root.tag = "Untagged";
+
+            CharacterController cc = root.AddComponent<CharacterController>();
+            cc.height = 1.76f;
+            cc.radius = 0.35f;
+            cc.center = new Vector3(0, 0.88f, 0);
+
+            GameObject model = new GameObject("Model");
+            model.transform.parent = root.transform;
+
+            Material stealthMat = GetCharacterMaterial("mat_Char_RobberDark");
+            Material redMaskMat = GetCharacterMaterial("mat_Char_RobberRedMask");
+            Material leatherMat = GetCharacterMaterial("mat_Char_LeatherBrown");
+            Material brassMat = GetCharacterMaterial("mat_Char_GoldBrass");
+            Material skinMat = GetCharacterMaterial("mat_Char_SkinTone");
+
+            // Midnight Stealth Tunic & Belt
+            CreatePartBox("Torso_Stealth", model.transform, new Vector3(0, 1.24f, 0), new Vector3(0.42f, 0.44f, 0.28f), stealthMat);
+            CreatePartBox("Belt_Pouch", model.transform, new Vector3(0, 1.02f, 0), new Vector3(0.44f, 0.08f, 0.30f), leatherMat);
+            CreatePartSphere("Stolen_JewelPouch", model.transform, new Vector3(-0.20f, 0.98f, 0.12f), new Vector3(0.18f, 0.18f, 0.18f), brassMat);
+
+            // Head with Crimson Face Mask
+            CreatePartCylinder("Neck", model.transform, new Vector3(0, 1.50f, 0), new Vector3(0.15f, 0.08f, 0.15f), stealthMat);
+            CreatePartSphere("Head", model.transform, new Vector3(0, 1.68f, 0), new Vector3(0.30f, 0.34f, 0.30f), skinMat);
+            CreatePartBox("RedCloth_FaceMask", model.transform, new Vector3(0, 1.62f, 0.08f), new Vector3(0.32f, 0.18f, 0.24f), redMaskMat);
+            CreatePartSphere("Hood_Dark", model.transform, new Vector3(0, 1.75f, -0.04f), new Vector3(0.33f, 0.22f, 0.33f), stealthMat);
+
+            // Stealth Arms & Dagger
+            CreatePartCylinder("Arm_L_Upper", model.transform, new Vector3(-0.29f, 1.25f, 0), new Vector3(0.11f, 0.28f, 0.11f), stealthMat);
+            CreatePartCylinder("Arm_L_Forearm", model.transform, new Vector3(-0.29f, 1.00f, 0), new Vector3(0.10f, 0.24f, 0.10f), leatherMat);
+            CreatePartSphere("Hand_L", model.transform, new Vector3(-0.29f, 0.85f, 0), new Vector3(0.11f, 0.11f, 0.11f), skinMat);
+
+            CreatePartCylinder("Arm_R_Upper", model.transform, new Vector3(0.29f, 1.25f, 0), new Vector3(0.11f, 0.28f, 0.11f), stealthMat);
+            CreatePartCylinder("Arm_R_Forearm", model.transform, new Vector3(0.29f, 1.00f, 0.10f), new Vector3(0.10f, 0.24f, 0.10f), leatherMat);
+            CreatePartSphere("Hand_R", model.transform, new Vector3(0.29f, 0.85f, 0.15f), new Vector3(0.11f, 0.11f, 0.11f), skinMat);
+
+            // Dagger in Right Hand
+            CreatePartBox("Dagger_Blade", model.transform, new Vector3(0.29f, 0.82f, 0.32f), new Vector3(0.04f, 0.02f, 0.28f), brassMat);
+            CreatePartBox("Dagger_Hilt", model.transform, new Vector3(0.29f, 0.82f, 0.18f), new Vector3(0.08f, 0.04f, 0.04f), leatherMat);
+
+            // Dark Pants & Stealth Boots
+            CreatePartBox("Hips_Dark", model.transform, new Vector3(0, 0.88f, 0), new Vector3(0.40f, 0.24f, 0.28f), stealthMat);
+            CreatePartCylinder("Leg_L", model.transform, new Vector3(-0.13f, 0.55f, 0), new Vector3(0.13f, 0.32f, 0.13f), stealthMat);
+            CreatePartBox("Boot_L", model.transform, new Vector3(-0.13f, 0.20f, 0.03f), new Vector3(0.13f, 0.40f, 0.22f), leatherMat);
+
+            CreatePartCylinder("Leg_R", model.transform, new Vector3(0.13f, 0.55f, 0), new Vector3(0.13f, 0.32f, 0.13f), stealthMat);
+            CreatePartBox("Boot_R", model.transform, new Vector3(0.13f, 0.20f, 0.03f), new Vector3(0.13f, 0.40f, 0.22f), leatherMat);
+
+            GameObject prefab = PrefabUtility.SaveAsPrefabAsset(root, prefabPath);
+            UnityEngine.Object.DestroyImmediate(root);
+
+            string configPath = $"{ConfigBasePath}/Robber1Config.asset";
+            CharacterConfig config = AssetDatabase.LoadAssetAtPath<CharacterConfig>(configPath);
+            if (config == null)
+            {
+                config = ScriptableObject.CreateInstance<CharacterConfig>();
+                AssetDatabase.CreateAsset(config, configPath);
+            }
+            config.SetConfig(Constants.Robber1, "Chhaya (Robber 1)", false, prefab, 5.2f);
+            EditorUtility.SetDirty(config);
+            AssetDatabase.SaveAssets();
+
+            Debug.Log($"[CharacterBuilder] Successfully created Robber1 prefab at '{prefabPath}'.");
+            return prefab;
+        }
+
+        #endregion
+
+        #region Robber2 Prefab Builder (Step 3)
+
+        [MenuItem("Tools/Legacy/Characters/Build Robber2 Prefab")]
+        public static GameObject BuildRobber2Prefab()
+        {
+            EnsureDirectoryExists(PrefabBasePath);
+            EnsureDirectoryExists(ConfigBasePath);
+
+            string prefabPath = $"{PrefabBasePath}/Robber2.prefab";
+
+            GameObject root = new GameObject("Robber2");
+            root.tag = "Untagged";
+
+            CharacterController cc = root.AddComponent<CharacterController>();
+            cc.height = 1.90f;
+            cc.radius = 0.42f;
+            cc.center = new Vector3(0, 0.95f, 0);
+
+            GameObject model = new GameObject("Model");
+            model.transform.parent = root.transform;
+
+            Material leatherMat = GetCharacterMaterial("mat_Char_LeatherBrown");
+            Material stealthMat = GetCharacterMaterial("mat_Char_RobberDark");
+            Material redClothMat = GetCharacterMaterial("mat_Char_RobberRedMask");
+            Material skinMat = GetCharacterMaterial("mat_Char_SkinTone");
+            Material brassMat = GetCharacterMaterial("mat_Char_GoldBrass");
+            Material sackMat = GetCharacterMaterial("mat_Char_DhotiKhaki");
+
+            // Broad Heavy Torso & Leather Vest
+            CreatePartBox("Torso_Heavy", model.transform, new Vector3(0, 1.35f, 0), new Vector3(0.55f, 0.50f, 0.36f), leatherMat);
+            CreatePartBox("Belt_Heavy", model.transform, new Vector3(0, 1.10f, 0), new Vector3(0.56f, 0.12f, 0.38f), stealthMat);
+
+            // Heavy Sack for Stolen Idols slung over back
+            GameObject sack = CreatePartSphere("Stolen_IdolSack", model.transform, new Vector3(0.08f, 1.40f, -0.32f), new Vector3(0.48f, 0.65f, 0.44f), sackMat);
+            sack.transform.localRotation = Quaternion.Euler(20f, 0, 10f);
+
+            // Head, Red Armband, Fierce Beard
+            CreatePartCylinder("Neck", model.transform, new Vector3(0, 1.62f, 0), new Vector3(0.20f, 0.10f, 0.20f), skinMat);
+            CreatePartSphere("Head", model.transform, new Vector3(0, 1.82f, 0), new Vector3(0.34f, 0.38f, 0.34f), skinMat);
+            CreatePartBox("Beard", model.transform, new Vector3(0, 1.74f, 0.14f), new Vector3(0.28f, 0.22f, 0.18f), GetCharacterMaterial("mat_Char_DarkHair"));
+
+            // Brawny Arms & Crowbar / Iron Pry-Bar
+            CreatePartCylinder("Arm_L_Upper", model.transform, new Vector3(-0.36f, 1.35f, 0), new Vector3(0.16f, 0.30f, 0.16f), skinMat);
+            CreatePartCylinder("Arm_L_Armband", model.transform, new Vector3(-0.36f, 1.35f, 0), new Vector3(0.17f, 0.08f, 0.17f), redClothMat);
+            CreatePartCylinder("Arm_L_Forearm", model.transform, new Vector3(-0.36f, 1.05f, 0), new Vector3(0.14f, 0.26f, 0.14f), skinMat);
+            CreatePartSphere("Hand_L", model.transform, new Vector3(-0.36f, 0.88f, 0), new Vector3(0.14f, 0.14f, 0.14f), skinMat);
+
+            CreatePartCylinder("Arm_R_Upper", model.transform, new Vector3(0.36f, 1.35f, 0), new Vector3(0.16f, 0.30f, 0.16f), skinMat);
+            CreatePartCylinder("Arm_R_Armband", model.transform, new Vector3(0.36f, 1.35f, 0), new Vector3(0.17f, 0.08f, 0.17f), redClothMat);
+            CreatePartCylinder("Arm_R_Forearm", model.transform, new Vector3(0.36f, 1.05f, 0.10f), new Vector3(0.14f, 0.26f, 0.14f), skinMat);
+            CreatePartSphere("Hand_R", model.transform, new Vector3(0.36f, 0.88f, 0.16f), new Vector3(0.14f, 0.14f, 0.14f), skinMat);
+
+            // Iron Crowbar / Prybar in Hand
+            CreatePartCylinder("Crowbar_Shaft", model.transform, new Vector3(0.36f, 0.85f, 0.30f), new Vector3(0.05f, 0.85f, 0.05f), stealthMat).transform.localRotation = Quaternion.Euler(70f, 0, 0);
+
+            // Heavy Legs & Boots
+            CreatePartBox("Hips_Heavy", model.transform, new Vector3(0, 0.95f, 0), new Vector3(0.50f, 0.28f, 0.34f), stealthMat);
+            CreatePartCylinder("Leg_L", model.transform, new Vector3(-0.16f, 0.60f, 0), new Vector3(0.17f, 0.35f, 0.17f), stealthMat);
+            CreatePartBox("Boot_L", model.transform, new Vector3(-0.16f, 0.24f, 0.04f), new Vector3(0.17f, 0.44f, 0.26f), leatherMat);
+
+            CreatePartCylinder("Leg_R", model.transform, new Vector3(0.16f, 0.60f, 0), new Vector3(0.17f, 0.35f, 0.17f), stealthMat);
+            CreatePartBox("Boot_R", model.transform, new Vector3(0.16f, 0.24f, 0.04f), new Vector3(0.17f, 0.44f, 0.26f), leatherMat);
+
+            GameObject prefab = PrefabUtility.SaveAsPrefabAsset(root, prefabPath);
+            UnityEngine.Object.DestroyImmediate(root);
+
+            string configPath = $"{ConfigBasePath}/Robber2Config.asset";
+            CharacterConfig config = AssetDatabase.LoadAssetAtPath<CharacterConfig>(configPath);
+            if (config == null)
+            {
+                config = ScriptableObject.CreateInstance<CharacterConfig>();
+                AssetDatabase.CreateAsset(config, configPath);
+            }
+            config.SetConfig(Constants.Robber2, "Vikram (Robber 2)", false, prefab, 4.0f);
+            EditorUtility.SetDirty(config);
+            AssetDatabase.SaveAssets();
+
+            Debug.Log($"[CharacterBuilder] Successfully created Robber2 prefab at '{prefabPath}'.");
+            return prefab;
+        }
+
+        #endregion
+
+        #region Master Build All Characters
+
         [MenuItem("Tools/Legacy/Characters/Build All Character Prefabs")]
         public static void BuildAllCharacterPrefabs()
         {
             BuildInvestigatorPrefab();
-            Debug.Log("[CharacterBuilder] Build All Characters completed.");
+            BuildPriestPrefab();
+            BuildVillagerPrefab();
+            BuildRobber1Prefab();
+            BuildRobber2Prefab();
+
+            // Register all configs in CharacterManager if present in open scene
+            CharacterManager cm = UnityEngine.Object.FindAnyObjectByType<CharacterManager>();
+            if (cm != null)
+            {
+                string[] configNames = { "InvestigatorConfig", "PriestConfig", "VillagerConfig", "Robber1Config", "Robber2Config" };
+                foreach (string cn in configNames)
+                {
+                    CharacterConfig cfg = AssetDatabase.LoadAssetAtPath<CharacterConfig>($"{ConfigBasePath}/{cn}.asset");
+                    if (cfg != null) cm.RegisterConfig(cfg);
+                }
+            }
+
+            Debug.Log("[CharacterBuilder] Successfully built all 5 character prefabs (Investigator, Priest, Villager, Robber1, Robber2)!");
         }
 
-        public static void BuildInvestigatorBatch()
+        public static void BuildAllCharactersBatch()
         {
-            BuildInvestigatorPrefab();
+            BuildAllCharacterPrefabs();
         }
 
         #endregion

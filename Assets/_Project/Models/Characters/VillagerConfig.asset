@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c139e14b17946eb94d08161d9e488d7, type: 3}
+  m_Name: VillagerConfig
+  m_EditorClassIdentifier: LOT.Characters::LegacyOfTemples.Characters.CharacterConfig
+  characterId: villager
+  displayName: Villager Ramesh
+  isPlayer: 0
+  prefab: {fileID: 63695347839237498, guid: 56228619dad3340a9a25a1d40d10ed19, type: 3}
+  moveSpeed: 3.8
+  runSpeed: 7
+  rotationSpeed: 12
+  primaryColor: {r: 0.78, g: 0.68, b: 0.52, a: 1}
+  accentColor: {r: 0.24, g: 0.18, b: 0.14, a: 1}
