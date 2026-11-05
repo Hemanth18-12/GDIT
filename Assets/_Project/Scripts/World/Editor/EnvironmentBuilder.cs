@@ -1484,7 +1484,8 @@ namespace LegacyOfTemples.World.Editor
                 $"{ScenesBasePath}/Sanctum.unity",
                 $"{ScenesBasePath}/PuzzleWall.unity",
                 $"{ScenesBasePath}/ShrineCrime.unity",
-                $"{ScenesBasePath}/JunglePath.unity"
+                $"{ScenesBasePath}/JunglePath.unity",
+                "Assets/_Project/Scenes/Dev/CharacterTest.unity"
             };
 
             List<EditorBuildSettingsScene> buildScenes = new List<EditorBuildSettingsScene>();

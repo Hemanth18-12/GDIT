@@ -410,12 +410,52 @@ namespace LegacyOfTemples.Characters.Editor
                 cm = cmObj.AddComponent<CharacterManager>();
             }
 
-            string configPath = $"{ConfigBasePath}/InvestigatorConfig.asset";
-            CharacterConfig invConfig = AssetDatabase.LoadAssetAtPath<CharacterConfig>(configPath);
-            if (invConfig != null) cm.RegisterConfig(invConfig);
+            // Register all character configs
+            string[] configs = { "InvestigatorConfig", "PriestConfig", "VillagerConfig", "Robber1Config", "Robber2Config" };
+            foreach (string cn in configs)
+            {
+                CharacterConfig cfg = AssetDatabase.LoadAssetAtPath<CharacterConfig>($"{ConfigBasePath}/{cn}.asset");
+                if (cfg != null) cm.RegisterConfig(cfg);
+            }
+
+            // Spawn Priest NPC in Courtyard if not present
+            GameObject priestPrefab = AssetDatabase.LoadAssetAtPath<GameObject>($"{PrefabBasePath}/Priest.prefab");
+            if (priestPrefab != null && GameObject.Find("NPC_Priest") == null)
+            {
+                Transform priestSp = FindSpawnPoint(spawns, "priest_spawn");
+                Vector3 pPos = priestSp != null ? priestSp.position : new Vector3(3f, 0, 2f);
+                Quaternion pRot = priestSp != null ? priestSp.rotation : Quaternion.Euler(0, -90f, 0);
+                GameObject priest = (GameObject)PrefabUtility.InstantiatePrefab(priestPrefab);
+                priest.name = "NPC_Priest";
+                priest.transform.position = pPos;
+                priest.transform.rotation = pRot;
+            }
+
+            // Spawn Villager NPC in Courtyard if not present
+            GameObject villagerPrefab = AssetDatabase.LoadAssetAtPath<GameObject>($"{PrefabBasePath}/Villager.prefab");
+            if (villagerPrefab != null && GameObject.Find("NPC_Villager") == null)
+            {
+                Transform villagerSp = FindSpawnPoint(spawns, "villager_spawn");
+                Vector3 vPos = villagerSp != null ? villagerSp.position : new Vector3(-8f, 0, 10f);
+                Quaternion vRot = villagerSp != null ? villagerSp.rotation : Quaternion.Euler(0, 90f, 0);
+                GameObject villager = (GameObject)PrefabUtility.InstantiatePrefab(villagerPrefab);
+                villager.name = "NPC_Villager";
+                villager.transform.position = vPos;
+                villager.transform.rotation = vRot;
+            }
 
             EditorSceneManager.SaveScene(scene, scenePath);
-            Debug.Log($"[CharacterBuilder] Successfully placed Player at player_start {spawnPos} in Courtyard scene.");
+            Debug.Log($"[CharacterBuilder] Successfully placed Player at player_start {spawnPos} and NPCs in Courtyard scene.");
+        }
+
+        private static Transform FindSpawnPoint(SpawnPoint[] spawns, string spawnId)
+        {
+            if (spawns == null) return null;
+            foreach (var sp in spawns)
+            {
+                if (sp != null && sp.SpawnId == spawnId) return sp.transform;
+            }
+            return null;
         }
 
         public static void BuildCharacterTestSceneBatch()
@@ -487,6 +527,15 @@ namespace LegacyOfTemples.Characters.Editor
             CreatePartCylinder("Leg_R", model.transform, new Vector3(0.13f, 0.42f, 0), new Vector3(0.15f, 0.42f, 0.15f), silkMat);
             CreatePartBox("Foot_L", model.transform, new Vector3(-0.13f, 0.06f, 0.05f), new Vector3(0.12f, 0.10f, 0.22f), skinMat);
             CreatePartBox("Foot_R", model.transform, new Vector3(0.13f, 0.06f, 0.05f), new Vector3(0.12f, 0.10f, 0.22f), skinMat);
+
+            // NPC Helpers: Face player & Dialogue trigger
+            root.AddComponent<NPCFacePlayer>();
+            NPCDialogueTrigger dt = root.AddComponent<NPCDialogueTrigger>();
+            dt.Setup(Constants.Priest, "Priest Madhav", new string[] {
+                "Investigator Aryan! Calamity has struck our sacred temple!",
+                "The thieves violated the sanctum and ripped the consecrated idols from the altar pedestal.",
+                "Search the ransacked shrine room... they fled in a hurry and surely dropped clues."
+            }, 2.8f);
 
             GameObject prefab = PrefabUtility.SaveAsPrefabAsset(root, prefabPath);
             UnityEngine.Object.DestroyImmediate(root);
@@ -563,6 +612,15 @@ namespace LegacyOfTemples.Characters.Editor
             CreatePartCylinder("Leg_R", model.transform, new Vector3(0.13f, 0.38f, 0), new Vector3(0.13f, 0.38f, 0.13f), dhotiMat);
             CreatePartBox("Foot_L", model.transform, new Vector3(-0.13f, 0.05f, 0.04f), new Vector3(0.12f, 0.10f, 0.22f), skinMat);
             CreatePartBox("Foot_R", model.transform, new Vector3(0.13f, 0.05f, 0.04f), new Vector3(0.12f, 0.10f, 0.22f), skinMat);
+
+            // NPC Helpers: Face player & Dialogue trigger
+            root.AddComponent<NPCFacePlayer>();
+            NPCDialogueTrigger dt = root.AddComponent<NPCDialogueTrigger>();
+            dt.Setup(Constants.Villager, "Villager Ramesh", new string[] {
+                "Sahib! I saw two dark shadows fleeing from the temple gates into the night mist!",
+                "One was carrying a heavy bulging sack, and the other had a red mask tied across his face.",
+                "They hurried down towards the ancient overgrown jungle path by the stream!"
+            }, 2.8f);
 
             GameObject prefab = PrefabUtility.SaveAsPrefabAsset(root, prefabPath);
             UnityEngine.Object.DestroyImmediate(root);
@@ -642,6 +700,14 @@ namespace LegacyOfTemples.Characters.Editor
 
             CreatePartCylinder("Leg_R", model.transform, new Vector3(0.13f, 0.55f, 0), new Vector3(0.13f, 0.32f, 0.13f), stealthMat);
             CreatePartBox("Boot_R", model.transform, new Vector3(0.13f, 0.20f, 0.03f), new Vector3(0.13f, 0.40f, 0.22f), leatherMat);
+
+            // NPC Helpers: Face player & Dialogue trigger
+            root.AddComponent<NPCFacePlayer>();
+            NPCDialogueTrigger dt = root.AddComponent<NPCDialogueTrigger>();
+            dt.Setup(Constants.Robber1, "Chhaya", new string[] {
+                "Tsk. You followed our tracks this far into the jungle, detective?",
+                "The sacred idols are already ours. You will not leave this moonlit path alive!"
+            }, 3.0f);
 
             GameObject prefab = PrefabUtility.SaveAsPrefabAsset(root, prefabPath);
             UnityEngine.Object.DestroyImmediate(root);
@@ -726,6 +792,14 @@ namespace LegacyOfTemples.Characters.Editor
             CreatePartCylinder("Leg_R", model.transform, new Vector3(0.16f, 0.60f, 0), new Vector3(0.17f, 0.35f, 0.17f), stealthMat);
             CreatePartBox("Boot_R", model.transform, new Vector3(0.16f, 0.24f, 0.04f), new Vector3(0.17f, 0.44f, 0.26f), leatherMat);
 
+            // NPC Helpers: Face player & Dialogue trigger
+            root.AddComponent<NPCFacePlayer>();
+            NPCDialogueTrigger dt = root.AddComponent<NPCDialogueTrigger>();
+            dt.Setup(Constants.Robber2, "Vikram", new string[] {
+                "Back off, detective! These golden deities will fetch a fortune!",
+                "Take one more step and my iron crowbar will crack your skull!"
+            }, 3.0f);
+
             GameObject prefab = PrefabUtility.SaveAsPrefabAsset(root, prefabPath);
             UnityEngine.Object.DestroyImmediate(root);
 
@@ -775,6 +849,13 @@ namespace LegacyOfTemples.Characters.Editor
         public static void BuildAllCharactersBatch()
         {
             BuildAllCharacterPrefabs();
+        }
+
+        public static void BuildAllAndPlacePlayerBatch()
+        {
+            BuildAllCharacterPrefabs();
+            BuildCharacterTestScene();
+            PlacePlayerInCourtyard();
         }
 
         #endregion

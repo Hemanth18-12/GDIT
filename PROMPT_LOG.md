@@ -61,3 +61,31 @@
   - `ProjectSettings/EditorBuildSettings.asset`
 - **Verification**: Built and verified in Unity 6 batch mode for all 6 steps in sequence: (1) Core world scripts, (2) Courtyard, (3) Sanctum, (4) PuzzleWall, (5) ShrineCrime, (6) JunglePath. Executed `Tools/Legacy/Build All Environments` in batch mode with 0 compile errors and 0 warnings.
 - **Known Issues**: None.
+
+## P2-Unity - Characters, Locomotion & NPC Systems
+- **Date**: 2026-11-05
+- **Engine**: Unity 6 (`6000.6.8f1`) URP
+- **Summary**: Implemented the complete Phase 2 Characters system for "Legacy of Temples". Built `CharacterManager` singleton supporting scene-driven and manual character spawning, `CharacterConfig` scriptable objects, `PlayerController` with third-person camera-relative locomotion, sprint, jump, gravity, and interactable scanning HUD, and `OrbitCamera` with smooth damping, zoom, and wall collision avoidance. Generated 5 procedural stylized Indian 3D character prefabs with dedicated URP Lit materials: Investigator Aryan, Priest Madhav, Villager Ramesh, Robber 1 Chhaya, and Robber 2 Vikram. Implemented NPC helpers (`NPCFacePlayer`, `NPCDialogueTrigger` with `IInteractable` support and dialogue UI), created the `CharacterTest` dev scene, and placed the Investigator player directly at `player_start` in the Courtyard scene alongside Priest and Villager NPCs to verify collider collision, interaction, and camera tracking.
+- **Characters Built**:
+  1. `Investigator Aryan` (Player): Trench coat, dhoti, leather straps, satchel bag for relics, brass loupe, saffron pagri, `PlayerController`, `CharacterController`.
+  2. `Priest Madhav` (NPC): Sacred saffron silk dhoti, white silk angavastram, rudraksha mala, sandalwood tilak, brass aarti offering dish, `NPCFacePlayer`, `NPCDialogueTrigger`.
+  3. `Villager Ramesh` (NPC): Earthy green kurta, cotton lungi, saffron gamucha towel, expressive witness pose, `NPCFacePlayer`, `NPCDialogueTrigger`.
+  4. `Robber 1 Chhaya` (NPC): Midnight stealth tunic, crimson face mask, dagger, stolen jewel pouch, `NPCFacePlayer`, `NPCDialogueTrigger`.
+  5. `Robber 2 Vikram` (NPC): Heavy leather vest, red armbands, stolen idol sack, iron crowbar, `NPCFacePlayer`, `NPCDialogueTrigger`.
+- **Files Created / Modified**:
+  - `Assets/_Project/Scripts/Characters/LOT.Characters.asmdef` (+ references `LOT.World`)
+  - `Assets/_Project/Scripts/Characters/CharacterConfig.cs` (+ meta)
+  - `Assets/_Project/Scripts/Characters/CharacterManager.cs` (+ meta)
+  - `Assets/_Project/Scripts/Characters/PlayerController.cs` (+ meta)
+  - `Assets/_Project/Scripts/Characters/OrbitCamera.cs` (+ meta)
+  - `Assets/_Project/Scripts/Characters/NPCDialogueTrigger.cs` (+ meta)
+  - `Assets/_Project/Scripts/Characters/NPCFacePlayer.cs` (+ meta)
+  - `Assets/_Project/Scripts/Characters/Editor/LOT.Characters.Editor.asmdef` (+ meta)
+  - `Assets/_Project/Scripts/Characters/Editor/CharacterBuilder.cs` (+ meta)
+  - `Assets/_Project/Prefabs/Characters/` (Investigator, Priest, Villager, Robber1, Robber2 prefabs + meta files)
+  - `Assets/_Project/Models/Characters/` (5 CharacterConfig asset files + 12 Character materials + meta files)
+  - `Assets/_Project/Scenes/Dev/CharacterTest.unity` (+ meta)
+  - `Assets/_Project/Scenes/Environments/Courtyard.unity` (Player at `player_start`, Orbit Camera, Priest & Villager NPCs)
+  - `Assets/_Project/Scripts/World/Editor/EnvironmentBuilder.cs`
+- **Verification**: Built and tested in Unity 6 batch mode for all 4 steps in sequence: (1) CharacterManager + CharacterConfig + Investigator prefab, (2) PlayerController + OrbitCamera + CharacterTest scene, (3) 4 other characters, (4) NPC helpers and Courtyard player placement. Confirmed zero compile errors and zero warnings.
+- **Known Issues**: None.

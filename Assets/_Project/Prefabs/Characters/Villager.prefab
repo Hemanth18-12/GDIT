@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5221916091299772703}
   - component: {fileID: 3924308710812118242}
+  - component: {fileID: 3580934293353007413}
+  - component: {fileID: 4803260053690237556}
   m_Layer: 0
   m_Name: Villager
   m_TagString: Untagged
@@ -58,6 +60,40 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.86, z: 0}
+--- !u!114 &3580934293353007413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 63695347839237498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa73d29b5bdd440cbf0111a5529713b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: LOT.Characters::LegacyOfTemples.Characters.NPCFacePlayer
+  detectionDistance: 6
+  turnSpeed: 4
+  returnToDefault: 1
+--- !u!114 &4803260053690237556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 63695347839237498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8746d0c3d3c94c6c80f28765884a3d35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: LOT.Characters::LegacyOfTemples.Characters.NPCDialogueTrigger
+  characterId: villager
+  speakerName: Villager Ramesh
+  interactionRadius: 2.8
+  dialogueLines:
+  - Sahib! I saw two dark shadows fleeing from the temple gates into the night mist!
+  - One was carrying a heavy bulging sack, and the other had a red mask tied across his face.
+  - They hurried down towards the ancient overgrown jungle path by the stream!
 --- !u!1 &86224322940381911
 GameObject:
   m_ObjectHideFlags: 0

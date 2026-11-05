@@ -460,6 +460,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5632866096805299292}
   - component: {fileID: 5901822130461199154}
+  - component: {fileID: 1813026386463858474}
+  - component: {fileID: 6605483857485380169}
   m_Layer: 0
   m_Name: Robber2
   m_TagString: Untagged
@@ -508,6 +510,39 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.95, z: 0}
+--- !u!114 &1813026386463858474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2284504599054697479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa73d29b5bdd440cbf0111a5529713b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: LOT.Characters::LegacyOfTemples.Characters.NPCFacePlayer
+  detectionDistance: 6
+  turnSpeed: 4
+  returnToDefault: 1
+--- !u!114 &6605483857485380169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2284504599054697479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8746d0c3d3c94c6c80f28765884a3d35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: LOT.Characters::LegacyOfTemples.Characters.NPCDialogueTrigger
+  characterId: robber2
+  speakerName: Vikram
+  interactionRadius: 3
+  dialogueLines:
+  - Back off, detective! These golden deities will fetch a fortune!
+  - Take one more step and my iron crowbar will crack your skull!
 --- !u!1 &2515791253450866194
 GameObject:
   m_ObjectHideFlags: 0

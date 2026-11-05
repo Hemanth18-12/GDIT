@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4542361443913788070}
   - component: {fileID: 1521935660113789052}
+  - component: {fileID: 7408618881214458557}
+  - component: {fileID: 2232671749327029780}
   m_Layer: 0
   m_Name: Priest
   m_TagString: Untagged
@@ -58,6 +60,40 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.88, z: 0}
+--- !u!114 &7408618881214458557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 190522129507732977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa73d29b5bdd440cbf0111a5529713b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: LOT.Characters::LegacyOfTemples.Characters.NPCFacePlayer
+  detectionDistance: 6
+  turnSpeed: 4
+  returnToDefault: 1
+--- !u!114 &2232671749327029780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 190522129507732977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8746d0c3d3c94c6c80f28765884a3d35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: LOT.Characters::LegacyOfTemples.Characters.NPCDialogueTrigger
+  characterId: priest
+  speakerName: Priest Madhav
+  interactionRadius: 2.8
+  dialogueLines:
+  - Investigator Aryan! Calamity has struck our sacred temple!
+  - The thieves violated the sanctum and ripped the consecrated idols from the altar pedestal.
+  - Search the ransacked shrine room... they fled in a hurry and surely dropped clues.
 --- !u!1 &1166825613381669390
 GameObject:
   m_ObjectHideFlags: 0
