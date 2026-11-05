@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6017295051312070790}
   - component: {fileID: 3580934293353007413}
   - component: {fileID: 4803260053690237556}
+  - component: {fileID: 3561174394944121168}
   m_Layer: 0
   m_Name: Villager
   m_TagString: Untagged
@@ -92,6 +93,22 @@ MonoBehaviour:
   - Namaste, Detective! I was bringing fresh marigold garlands to the temple when the alarm bells began ringing frantically.
   - The sanctum was desecrated! I saw dark armored thieves escaping toward the jungle path with sacks shining with sacred gold!
   - Elderly Priest Ananda is weeping inside the courtyard. Please speak with him immediately!
+--- !u!114 &3561174394944121168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 63695347839237498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd7d9dfc76e074bd5966b593463bcd49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: LOT.Characters::LegacyOfTemples.Characters.NPCHeadIndicator
+  characterName: Meera (Villager)
+  tagColor: {r: 0.4, g: 0.95, b: 0.5, a: 1}
+  heightOffset: 1.95
+  maxVisibleDistance: 25
 --- !u!1001 &3328392100278741594
 PrefabInstance:
   m_ObjectHideFlags: 0

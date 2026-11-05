@@ -44,24 +44,28 @@ namespace LegacyOfTemples.World.Editor
                     mat.SetColor("_BaseColor", new Color(0.76f, 0.65f, 0.52f));
                     mat.SetFloat("_Smoothness", 0.22f);
                     mat.SetFloat("_Metallic", 0.02f);
+                    AssignTexture(mat, "tex_WarmSandstoneCarved.png", "tex_WarmSandstone_Normal.png", new Vector2(4f, 4f));
                     break;
 
                 case "mat_StoneFloorWet":
-                    mat.SetColor("_BaseColor", new Color(0.48f, 0.44f, 0.40f)); // Warm grey stone, NO blue tint
-                    mat.SetFloat("_Smoothness", 0.38f); // Subtle wet sheen, NO mirror glare
+                    mat.SetColor("_BaseColor", new Color(0.55f, 0.52f, 0.48f)); // Warm grey stone, NO blue tint
+                    mat.SetFloat("_Smoothness", 0.42f); // Subtle wet sheen, NO mirror glare
                     mat.SetFloat("_Metallic", 0.0f); // Non-metallic natural stone
+                    AssignTexture(mat, "tex_WetPlazaPaving.png", "tex_WetPlaza_Normal.png", new Vector2(10f, 10f));
                     break;
 
                 case "mat_WarmTempleStone":
-                    mat.SetColor("_BaseColor", new Color(0.76f, 0.60f, 0.46f)); // Warm Odisha sandstone
-                    mat.SetFloat("_Smoothness", 0.20f);
+                    mat.SetColor("_BaseColor", new Color(0.85f, 0.70f, 0.55f)); // Warm Odisha sandstone
+                    mat.SetFloat("_Smoothness", 0.22f);
                     mat.SetFloat("_Metallic", 0.02f);
+                    AssignTexture(mat, "tex_WarmSandstoneCarved.png", "tex_WarmSandstone_Normal.png", new Vector2(4f, 4f));
                     break;
 
                 case "mat_LightStone":
-                    mat.SetColor("_BaseColor", new Color(0.86f, 0.74f, 0.62f)); // Carved light sandstone
-                    mat.SetFloat("_Smoothness", 0.22f);
+                    mat.SetColor("_BaseColor", new Color(0.90f, 0.80f, 0.70f)); // Carved light sandstone with deity reliefs
+                    mat.SetFloat("_Smoothness", 0.25f);
                     mat.SetFloat("_Metallic", 0.02f);
+                    AssignTexture(mat, "tex_CarvedDeityRelief.png", "tex_CarvedDeity_Normal.png", new Vector2(2f, 2f));
                     break;
 
                 case "mat_DarkStone":
@@ -110,6 +114,7 @@ namespace LegacyOfTemples.World.Editor
                     mat.SetColor("_BaseColor", new Color(0.65f, 0.56f, 0.48f));
                     mat.SetFloat("_Smoothness", 0.28f);
                     mat.SetFloat("_Metallic", 0.05f);
+                    AssignTexture(mat, "tex_CarvedDeityRelief.png", "tex_CarvedDeity_Normal.png", new Vector2(1f, 3f));
                     break;
 
                 case "mat_GoldBrass":
@@ -190,6 +195,29 @@ namespace LegacyOfTemples.World.Editor
             }
             AssetDatabase.SaveAssets();
             return mat;
+        }
+
+        private static void AssignTexture(Material mat, string baseTexName, string normalTexName, Vector2 tiling)
+        {
+            if (!string.IsNullOrEmpty(baseTexName))
+            {
+                Texture2D baseTex = AssetDatabase.LoadAssetAtPath<Texture2D>($"Assets/_Project/Models/Environment/Textures/{baseTexName}");
+                if (baseTex != null)
+                {
+                    mat.SetTexture("_BaseMap", baseTex);
+                    mat.SetTextureScale("_BaseMap", tiling);
+                }
+            }
+            if (!string.IsNullOrEmpty(normalTexName))
+            {
+                Texture2D normalTex = AssetDatabase.LoadAssetAtPath<Texture2D>($"Assets/_Project/Models/Environment/Textures/{normalTexName}");
+                if (normalTex != null)
+                {
+                    mat.SetTexture("_BumpMap", normalTex);
+                    mat.SetTextureScale("_BumpMap", tiling);
+                    mat.EnableKeyword("_NORMALMAP");
+                }
+            }
         }
 
         #endregion
@@ -635,36 +663,44 @@ namespace LegacyOfTemples.World.Editor
             BuildGajasimhaStatue("LionStatue_Left", lionsRoot.transform, new Vector3(-3.5f, 0, 1.8f), 0f, stoneMat, brassMat);
             BuildGajasimhaStatue("LionStatue_Right", lionsRoot.transform, new Vector3(3.5f, 0, 1.8f), 0f, stoneMat, brassMat);
 
+            // Sacred Parshvadevata Deity Niches (Carved Odisha reliefs flanking temple portal)
+            GameObject deityRoot = new GameObject("Parshvadevata_DeityNiches");
+            deityRoot.transform.parent = envRoot.transform;
+            CreateBox("DeityNiche_Left_Narasimha", deityRoot.transform, new Vector3(-2.8f, 1.4f, 0.5f), new Vector3(1.2f, 2.2f, 0.6f), lightStoneMat, true);
+            CreateBox("DeityNiche_Right_Varaha", deityRoot.transform, new Vector3(2.8f, 1.4f, 0.5f), new Vector3(1.2f, 2.2f, 0.6f), lightStoneMat, true);
+
             // Brass Oil Lamps (4 Flickering Warm Lights - Max 8 Real-time lights: 1 Sun + 4 Lamps = 5)
             GameObject lampsRoot = new GameObject("Brass_OilLamps");
             lampsRoot.transform.parent = envRoot.transform;
-            CreateOilLamp(lampsRoot.transform, new Vector3(-6.0f, 0, 6.5f), "Deepastambha_LeftFront");
-            CreateOilLamp(lampsRoot.transform, new Vector3(6.0f, 0, 6.5f), "Deepastambha_RightFront");
-            CreateOilLamp(lampsRoot.transform, new Vector3(-4.0f, 1.2f, -0.6f), "Deepastambha_LeftPlinth");
-            CreateOilLamp(lampsRoot.transform, new Vector3(4.0f, 1.2f, -0.6f), "Deepastambha_RightPlinth");
+            CreateOilLamp(lampsRoot.transform, new Vector3(-4.5f, 0, 10.0f), "Deepastambha_LeftCourtyard");
+            CreateOilLamp(lampsRoot.transform, new Vector3(4.5f, 0, 10.0f), "Deepastambha_RightCourtyard");
+            CreateOilLamp(lampsRoot.transform, new Vector3(-3.2f, 1.2f, -0.6f), "Deepastambha_LeftPlinth");
+            CreateOilLamp(lampsRoot.transform, new Vector3(3.2f, 1.2f, -0.6f), "Deepastambha_RightPlinth");
 
             // 4. Spawns
             GameObject spawnRoot = new GameObject("--- SPAWN POINTS ---");
-            CreateSpawnPoint(spawnRoot.transform, "player_start", new Vector3(0f, 0.05f, 16f), new Vector3(0, 0, -1));
-            CreateSpawnPoint(spawnRoot.transform, "priest_spawn", new Vector3(3.2f, 0.05f, 2.5f), new Vector3(-1, 0, 0));
-            CreateSpawnPoint(spawnRoot.transform, "villager_spawn", new Vector3(-3.2f, 0.05f, 2.5f), new Vector3(1, 0, 0));
+            CreateSpawnPoint(spawnRoot.transform, "player_start", new Vector3(0f, 0.05f, 15f), new Vector3(0, 0, -1));
+            CreateSpawnPoint(spawnRoot.transform, "priest_spawn", new Vector3(1.8f, 0.05f, 11.5f), new Vector3(-0.3f, 0, 1.0f));
+            CreateSpawnPoint(spawnRoot.transform, "villager_spawn", new Vector3(-1.8f, 0.05f, 11.5f), new Vector3(0.3f, 0, 1.0f));
             CreateSpawnPoint(spawnRoot.transform, "robber_spawn", new Vector3(12f, 0.05f, -12f), new Vector3(-1, 0, 0.5f));
 
             // 5. Interactables
             GameObject interactRoot = new GameObject("--- INTERACTABLES ---");
             CreateInteractable(interactRoot.transform, "courtyard_lion_left", "Inspect Gajasimha guardian statue", new Vector3(-3.5f, 0.8f, 1.8f), 2.5f);
             CreateInteractable(interactRoot.transform, "courtyard_lion_right", "Inspect Gajasimha guardian statue", new Vector3(3.5f, 0.8f, 1.8f), 2.5f);
-            CreateInteractable(interactRoot.transform, "courtyard_lamp", "Examine brass oil lamp", new Vector3(-6.0f, 0.8f, 6.5f), 2.2f);
+            CreateInteractable(interactRoot.transform, "deity_niche_narasimha", "Examine sacred Narasimha carved stone relief", new Vector3(-2.8f, 1.2f, 0.5f), 2.5f);
+            CreateInteractable(interactRoot.transform, "deity_niche_varaha", "Examine sacred Varaha carved stone relief", new Vector3(2.8f, 1.2f, 0.5f), 2.5f);
+            CreateInteractable(interactRoot.transform, "courtyard_lamp", "Examine brass oil lamp", new Vector3(-4.5f, 0.8f, 10.0f), 2.2f);
             CreateInteractable(interactRoot.transform, "courtyard_sanctum_entrance", "Enter the inner sanctum", new Vector3(0f, 1.2f, -1.2f), 3.0f);
 
-            // 6. Spawn Real Characters
+            // 6. Spawn Real Characters (Visible immediately in front of Detective Aryan)
             GameObject charRoot = new GameObject("Characters");
 
             GameObject invPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/Characters/Investigator.prefab");
             if (invPrefab != null)
             {
                 GameObject playerInst = (GameObject)PrefabUtility.InstantiatePrefab(invPrefab, charRoot.transform);
-                playerInst.transform.position = new Vector3(0f, 0.05f, 16f);
+                playerInst.transform.position = new Vector3(0f, 0.05f, 15f);
                 playerInst.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
 
                 OrbitCamera cam = UnityEngine.Object.FindAnyObjectByType<OrbitCamera>();
@@ -678,16 +714,16 @@ namespace LegacyOfTemples.World.Editor
             if (priestPrefab != null)
             {
                 GameObject priestInst = (GameObject)PrefabUtility.InstantiatePrefab(priestPrefab, charRoot.transform);
-                priestInst.transform.position = new Vector3(3.2f, 0.05f, 2.5f);
-                priestInst.transform.rotation = Quaternion.Euler(0f, 135f, 0f);
+                priestInst.transform.position = new Vector3(1.8f, 0.05f, 11.5f);
+                priestInst.transform.rotation = Quaternion.Euler(0f, 195f, 0f);
             }
 
             GameObject villagerPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/Characters/Villager.prefab");
             if (villagerPrefab != null)
             {
                 GameObject villagerInst = (GameObject)PrefabUtility.InstantiatePrefab(villagerPrefab, charRoot.transform);
-                villagerInst.transform.position = new Vector3(-3.2f, 0.05f, 2.5f);
-                villagerInst.transform.rotation = Quaternion.Euler(0f, -135f, 0f);
+                villagerInst.transform.position = new Vector3(-1.8f, 0.05f, 11.5f);
+                villagerInst.transform.rotation = Quaternion.Euler(0f, 165f, 0f);
             }
 
             // Save Scene
@@ -1041,6 +1077,39 @@ namespace LegacyOfTemples.World.Editor
             CreateInteractable(interactRoot.transform, "sanctum_hanging_bell", "Ring temple bell", new Vector3(0f, 3.2f, -2.5f), 2.2f);
             CreateInteractable(interactRoot.transform, "sanctum_fallen_garland", "Inspect discarded marigold garland", new Vector3(1.2f, 0.2f, -5.6f), 2.0f);
 
+            // 6. Spawn Real Characters
+            GameObject charRoot = new GameObject("Characters");
+
+            GameObject invPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/Characters/Investigator.prefab");
+            if (invPrefab != null)
+            {
+                GameObject playerInst = (GameObject)PrefabUtility.InstantiatePrefab(invPrefab, charRoot.transform);
+                playerInst.transform.position = new Vector3(0f, 0.05f, 10.5f);
+                playerInst.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+
+                OrbitCamera cam = UnityEngine.Object.FindAnyObjectByType<OrbitCamera>();
+                if (cam != null)
+                {
+                    cam.SetTarget(playerInst.transform);
+                }
+            }
+
+            GameObject priestPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/Characters/Priest.prefab");
+            if (priestPrefab != null)
+            {
+                GameObject priestInst = (GameObject)PrefabUtility.InstantiatePrefab(priestPrefab, charRoot.transform);
+                priestInst.transform.position = new Vector3(1.5f, 0.05f, -4.5f);
+                priestInst.transform.rotation = Quaternion.Euler(0f, 210f, 0f);
+            }
+
+            GameObject villagerPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/Characters/Villager.prefab");
+            if (villagerPrefab != null)
+            {
+                GameObject villagerInst = (GameObject)PrefabUtility.InstantiatePrefab(villagerPrefab, charRoot.transform);
+                villagerInst.transform.position = new Vector3(-1.8f, 0.05f, 6.0f);
+                villagerInst.transform.rotation = Quaternion.Euler(0f, 150f, 0f);
+            }
+
             // Save Scene
             EditorSceneManager.SaveScene(scene, scenePath);
             Debug.Log($"[EnvironmentBuilder] Sanctum scene generated successfully at '{scenePath}'.");
@@ -1194,6 +1263,23 @@ namespace LegacyOfTemples.World.Editor
             CreateSpawnPoint(spawnRoot.transform, "priest_spawn", new Vector3(-3.5f, 0f, 4.0f), new Vector3(0.5f, 0, -1));
             CreateSpawnPoint(spawnRoot.transform, "robber_spawn", new Vector3(3.5f, 0f, 2.0f), new Vector3(-0.5f, 0, -1));
             CreateSpawnPoint(spawnRoot.transform, "villager_spawn", new Vector3(0f, 0f, 8.0f), new Vector3(0, 0, -1));
+
+            // 9. Spawn Player in PuzzleWall
+            GameObject charRoot = new GameObject("Characters");
+
+            GameObject invPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/Characters/Investigator.prefab");
+            if (invPrefab != null)
+            {
+                GameObject playerInst = (GameObject)PrefabUtility.InstantiatePrefab(invPrefab, charRoot.transform);
+                playerInst.transform.position = new Vector3(0f, 0.05f, 5.0f);
+                playerInst.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+
+                OrbitCamera cam = UnityEngine.Object.FindAnyObjectByType<OrbitCamera>();
+                if (cam != null)
+                {
+                    cam.SetTarget(playerInst.transform);
+                }
+            }
 
             // Save Scene
             EditorSceneManager.SaveScene(scene, scenePath);
@@ -1421,6 +1507,46 @@ namespace LegacyOfTemples.World.Editor
             CreateSpawnPoint(spawnRoot.transform, "priest_spawn", new Vector3(3.0f, 0f, 0f), new Vector3(-1, 0, 0));
             CreateSpawnPoint(spawnRoot.transform, "robber_spawn", new Vector3(-4.0f, 0f, -8.0f), new Vector3(0.5f, 0, 1));
 
+            // 9. Interactables
+            GameObject interactRoot = new GameObject("--- INTERACTABLES ---");
+            CreateInteractable(interactRoot.transform, "broken_lamp", "Examine shattered oil lamp and spilled oil", new Vector3(-2.2f, 0.4f, -2.5f), 2.5f);
+            CreateInteractable(interactRoot.transform, "red_cloth", "Inspect torn red robber cloth snagged on stone", new Vector3(-7.3f, 1.8f, 1.2f), 2.5f);
+            CreateInteractable(interactRoot.transform, "footprints", "Examine muddy footprints fleeing out the door", new Vector3(0.5f, 0.2f, 5.0f), 2.5f);
+            CreateInteractable(interactRoot.transform, "shrine_smashed_pedestal", "Examine smashed offering pedestal", new Vector3(0.3f, 0.8f, -7.2f), 2.5f);
+
+            // 10. Spawn Characters
+            GameObject charRoot = new GameObject("Characters");
+
+            GameObject invPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/Characters/Investigator.prefab");
+            if (invPrefab != null)
+            {
+                GameObject playerInst = (GameObject)PrefabUtility.InstantiatePrefab(invPrefab, charRoot.transform);
+                playerInst.transform.position = new Vector3(0f, 0.05f, 7.5f);
+                playerInst.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+
+                OrbitCamera cam = UnityEngine.Object.FindAnyObjectByType<OrbitCamera>();
+                if (cam != null)
+                {
+                    cam.SetTarget(playerInst.transform);
+                }
+            }
+
+            GameObject priestPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/Characters/Priest.prefab");
+            if (priestPrefab != null)
+            {
+                GameObject priestInst = (GameObject)PrefabUtility.InstantiatePrefab(priestPrefab, charRoot.transform);
+                priestInst.transform.position = new Vector3(2.5f, 0.05f, 4.0f);
+                priestInst.transform.rotation = Quaternion.Euler(0f, 210f, 0f);
+            }
+
+            GameObject villagerPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/Characters/Villager.prefab");
+            if (villagerPrefab != null)
+            {
+                GameObject villagerInst = (GameObject)PrefabUtility.InstantiatePrefab(villagerPrefab, charRoot.transform);
+                villagerInst.transform.position = new Vector3(-2.5f, 0.05f, 4.0f);
+                villagerInst.transform.rotation = Quaternion.Euler(0f, 150f, 0f);
+            }
+
             // Save Scene
             EditorSceneManager.SaveScene(scene, scenePath);
             Debug.Log($"[EnvironmentBuilder] ShrineCrime scene generated successfully at '{scenePath}'.");
@@ -1644,6 +1770,51 @@ namespace LegacyOfTemples.World.Editor
             CreateInteractable(interactRoot.transform, "muddy_trail", "Follow robber trail deeper into the jungle", new Vector3(0f, 0.4f, 2.0f), 2.8f);
             CreateInteractable(interactRoot.transform, "jungle_ruined_steps", "Examine moss-covered ancient temple steps", new Vector3(0f, 1.4f, -7.5f), 2.6f);
             CreateInteractable(interactRoot.transform, "jungle_distant_temple", "Gaze at the distant glowing temple spire", new Vector3(0f, 1.5f, 13.0f), 3.2f);
+            CreateInteractable(interactRoot.transform, "stolen_jagannath_idol", "Recover the Sacred Lord Jagannath Idol!", new Vector3(0f, 2.8f, -14.0f), 3.0f);
+
+            // 6. Spawn Real Characters & Recoverable Idol
+            GameObject charRoot = new GameObject("Characters");
+
+            GameObject invPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/Characters/Investigator.prefab");
+            if (invPrefab != null)
+            {
+                GameObject playerInst = (GameObject)PrefabUtility.InstantiatePrefab(invPrefab, charRoot.transform);
+                playerInst.transform.position = new Vector3(0f, 0.05f, 18.0f);
+                playerInst.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+
+                OrbitCamera cam = UnityEngine.Object.FindAnyObjectByType<OrbitCamera>();
+                if (cam != null)
+                {
+                    cam.SetTarget(playerInst.transform);
+                }
+            }
+
+            GameObject r1Prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/Characters/Robber1.prefab");
+            if (r1Prefab != null)
+            {
+                GameObject r1Inst = (GameObject)PrefabUtility.InstantiatePrefab(r1Prefab, charRoot.transform);
+                r1Inst.transform.position = new Vector3(1.6f, 2.45f, -13.5f);
+                r1Inst.transform.rotation = Quaternion.Euler(0f, 20f, 0f);
+            }
+
+            GameObject r2Prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/Characters/Robber2.prefab");
+            if (r2Prefab != null)
+            {
+                GameObject r2Inst = (GameObject)PrefabUtility.InstantiatePrefab(r2Prefab, charRoot.transform);
+                r2Inst.transform.position = new Vector3(-1.6f, 2.45f, -13.5f);
+                r2Inst.transform.rotation = Quaternion.Euler(0f, -20f, 0f);
+            }
+
+            // Authentic Stolen Lord Jagannath Idol on the jungle ruin altar
+            GameObject idolPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Models/Environment/Idol_Jagannath.fbx");
+            if (idolPrefab != null)
+            {
+                GameObject idolInst = (GameObject)PrefabUtility.InstantiatePrefab(idolPrefab, envRoot.transform);
+                idolInst.name = "StolenIdol_LordJagannath";
+                idolInst.transform.position = new Vector3(0f, 2.45f, -14.0f);
+                idolInst.transform.rotation = Quaternion.identity;
+                idolInst.transform.localScale = Vector3.one * 1.2f;
+            }
 
             // Save Scene
             EditorSceneManager.SaveScene(scene, scenePath);

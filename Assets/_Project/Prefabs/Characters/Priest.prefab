@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5228400970568753530}
   - component: {fileID: 7408618881214458557}
   - component: {fileID: 2232671749327029780}
+  - component: {fileID: 188583761044422004}
   - component: {fileID: 4634425024872355809}
   m_Layer: 0
   m_Name: Priest
@@ -93,6 +94,22 @@ MonoBehaviour:
   - Har Har Mahadev... Oh investigator, what an unspeakable sacrilege has befallen our ancient sanctuary!
   - The sacred Jagannath idol has been wrenched from the central altar by ruthless defilers!
   - The thieves fled through the broken shrine toward the treacherous moonlit jungle. You must follow their trail and recover the Lord!
+--- !u!114 &188583761044422004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 190522129507732977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd7d9dfc76e074bd5966b593463bcd49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: LOT.Characters::LegacyOfTemples.Characters.NPCHeadIndicator
+  characterName: Priest Ananda
+  tagColor: {r: 1, g: 0.78, b: 0.25, a: 1}
+  heightOffset: 1.95
+  maxVisibleDistance: 25
 --- !u!95 &4634425024872355809
 Animator:
   serializedVersion: 7

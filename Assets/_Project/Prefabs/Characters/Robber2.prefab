@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7995981910195599977}
   - component: {fileID: 1813026386463858474}
   - component: {fileID: 6605483857485380169}
+  - component: {fileID: 892735608621850521}
   - component: {fileID: 1564444732374756144}
   m_Layer: 0
   m_Name: Robber2
@@ -92,6 +93,22 @@ MonoBehaviour:
   dialogueLines:
   - Turn back, detective! The sanctum belongs to the void now.
   - Cross this threshold, and you will never leave these ruins alive!
+--- !u!114 &892735608621850521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2284504599054697479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd7d9dfc76e074bd5966b593463bcd49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: LOT.Characters::LegacyOfTemples.Characters.NPCHeadIndicator
+  characterName: Rudra (Accomplice)
+  tagColor: {r: 0.95, g: 0.45, b: 0.35, a: 1}
+  heightOffset: 1.95
+  maxVisibleDistance: 25
 --- !u!95 &1564444732374756144
 Animator:
   serializedVersion: 7

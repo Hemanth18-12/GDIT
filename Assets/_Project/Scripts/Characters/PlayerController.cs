@@ -32,20 +32,6 @@ namespace LegacyOfTemples.Characters
         private GUIStyle promptBoxStyle;
         private GUIStyle promptTextStyle;
 
-        // Procedural Locomotion Bones (Legs, Knees, Arms)
-        private Transform bonePelvis;
-        private Transform boneHipL;
-        private Transform boneKneeL;
-        private Transform boneFootL;
-        private Transform boneHipR;
-        private Transform boneKneeR;
-        private Transform boneFootR;
-        private Transform boneSpine;
-        private Transform boneArmL;
-        private Transform boneArmR;
-        private float walkCyclePhase = 0f;
-        private float currentLocomotionWeight = 0f;
-
         public bool IsMoving { get; private set; }
         public bool IsRunning { get; private set; }
         public bool IsCrouching { get; private set; }
@@ -61,78 +47,6 @@ namespace LegacyOfTemples.Characters
             if (cameraTransform == null && Camera.main != null)
             {
                 cameraTransform = Camera.main.transform;
-            }
-            CacheBones();
-        }
-
-        private void CacheBones()
-        {
-            Transform[] allChildren = GetComponentsInChildren<Transform>(true);
-            foreach (var t in allChildren)
-            {
-                string n = t.name.ToLowerInvariant();
-                if (n == "bip_pelvis" || n.EndsWith("hips")) bonePelvis = t;
-                else if (n == "bip_hip_l" || n.EndsWith("leftupleg")) boneHipL = t;
-                else if (n == "bip_knee_l" || n.EndsWith("leftleg")) boneKneeL = t;
-                else if (n == "bip_foot_l" || n.EndsWith("leftfoot")) boneFootL = t;
-                else if (n == "bip_hip_r" || n.EndsWith("rightupleg")) boneHipR = t;
-                else if (n == "bip_knee_r" || n.EndsWith("rightleg")) boneKneeR = t;
-                else if (n == "bip_foot_r" || n.EndsWith("rightfoot")) boneFootR = t;
-                else if (n == "bip_spine_0" || n.EndsWith("spine")) boneSpine = t;
-                else if (n == "bip_upperarm_l" || n.EndsWith("leftarm")) boneArmL = t;
-                else if (n == "bip_upperarm_r" || n.EndsWith("rightarm")) boneArmR = t;
-            }
-        }
-
-        private void LateUpdate()
-        {
-            ApplyProceduralLocomotion();
-        }
-
-        private void ApplyProceduralLocomotion()
-        {
-            float speed = characterController != null ? characterController.velocity.magnitude : 0f;
-            bool isActuallyMoving = IsMoving || speed > 0.15f;
-
-            if (isActuallyMoving)
-            {
-                float freq = IsRunning ? 13.0f : (IsCrouching ? 5.5f : 8.5f);
-                walkCyclePhase += Time.deltaTime * freq;
-                if (walkCyclePhase > Mathf.PI * 2f) walkCyclePhase -= Mathf.PI * 2f;
-            }
-
-            float targetWeight = isActuallyMoving ? 1f : 0f;
-            currentLocomotionWeight = Mathf.MoveTowards(currentLocomotionWeight, targetWeight, Time.deltaTime * 7f);
-
-            if (currentLocomotionWeight > 0.001f)
-            {
-                float w = walkCyclePhase;
-                float strideMax = IsRunning ? 44.0f : (IsCrouching ? 20.0f : 28.0f);
-                float lSwing = Mathf.Sin(w) * strideMax * currentLocomotionWeight;
-                float rSwing = Mathf.Sin(w + Mathf.PI) * strideMax * currentLocomotionWeight;
-
-                float kneeBendMax = IsRunning ? 75.0f : (IsCrouching ? 45.0f : 55.0f);
-                float lKneeBend = -Mathf.Max(0f, -Mathf.Sin(w)) * kneeBendMax * currentLocomotionWeight;
-                float rKneeBend = -Mathf.Max(0f, -Mathf.Sin(w + Mathf.PI)) * kneeBendMax * currentLocomotionWeight;
-
-                if (IsCrouching)
-                {
-                    lKneeBend -= 28f * currentLocomotionWeight;
-                    rKneeBend -= 28f * currentLocomotionWeight;
-                }
-
-                if (boneHipL != null) boneHipL.localRotation *= Quaternion.Euler(lSwing, 0f, 0f);
-                if (boneKneeL != null) boneKneeL.localRotation *= Quaternion.Euler(lKneeBend, 0f, 0f);
-                if (boneHipR != null) boneHipR.localRotation *= Quaternion.Euler(rSwing, 0f, 0f);
-                if (boneKneeR != null) boneKneeR.localRotation *= Quaternion.Euler(rKneeBend, 0f, 0f);
-
-                // Arm swing opposite to legs
-                float armSwingMax = IsRunning ? 38.0f : (IsCrouching ? 14.0f : 24.0f);
-                float lArmSwing = -Mathf.Sin(w) * armSwingMax * currentLocomotionWeight;
-                float rArmSwing = Mathf.Sin(w) * armSwingMax * currentLocomotionWeight;
-
-                if (boneArmL != null) boneArmL.localRotation *= Quaternion.Euler(lArmSwing, 0f, 0f);
-                if (boneArmR != null) boneArmR.localRotation *= Quaternion.Euler(rArmSwing, 0f, 0f);
             }
         }
 

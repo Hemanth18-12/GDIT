@@ -50,6 +50,11 @@ namespace LegacyOfTemples.Characters.Editor
             Debug.Log("[HeritageCharacterImporter] Successfully completed Heritage Character Import & Rigging!");
         }
 
+        public static void ImportAllHeritageCharactersBatch()
+        {
+            ImportAllHeritageCharacters();
+        }
+
         private static void EnsureDirectories()
         {
             string[] dirs = { ModelsBasePath, TexturesBasePath, MaterialsBasePath, PrefabBasePath, AnimationBasePath };
@@ -554,6 +559,9 @@ namespace LegacyOfTemples.Characters.Editor
                 2.8f
             );
 
+            NPCHeadIndicator ind = root.AddComponent<NPCHeadIndicator>();
+            ind.Setup("Meera (Villager)", new Color(0.4f, 0.95f, 0.5f), 1.95f);
+
             // Animator
             Animator anim = root.GetComponentInChildren<Animator>();
             if (anim == null) anim = root.AddComponent<Animator>();
@@ -610,6 +618,9 @@ namespace LegacyOfTemples.Characters.Editor
                 2.8f
             );
 
+            NPCHeadIndicator ind = root.AddComponent<NPCHeadIndicator>();
+            ind.Setup("Priest Ananda", new Color(1.0f, 0.78f, 0.25f), 1.95f);
+
             Animator anim = root.GetComponentInChildren<Animator>();
             if (anim == null) anim = root.AddComponent<Animator>();
             anim.runtimeAnimatorController = animController;
@@ -664,6 +675,9 @@ namespace LegacyOfTemples.Characters.Editor
                 2.8f
             );
 
+            NPCHeadIndicator ind = root.AddComponent<NPCHeadIndicator>();
+            ind.Setup("Kala (Thief Leader)", new Color(0.95f, 0.35f, 0.35f), 1.95f);
+
             Animator anim = root.GetComponentInChildren<Animator>();
             if (anim == null) anim = root.AddComponent<Animator>();
             anim.runtimeAnimatorController = animController;
@@ -717,6 +731,9 @@ namespace LegacyOfTemples.Characters.Editor
                 },
                 2.8f
             );
+
+            NPCHeadIndicator ind = root.AddComponent<NPCHeadIndicator>();
+            ind.Setup("Rudra (Accomplice)", new Color(0.95f, 0.45f, 0.35f), 1.95f);
 
             Animator anim = root.GetComponentInChildren<Animator>();
             if (anim == null) anim = root.AddComponent<Animator>();
@@ -865,8 +882,8 @@ namespace LegacyOfTemples.Characters.Editor
                 if (priestPrefab != null)
                 {
                     GameObject priestInst = (GameObject)PrefabUtility.InstantiatePrefab(priestPrefab);
-                    priestInst.transform.position = new Vector3(-3.5f, 0.05f, 2.5f);
-                    priestInst.transform.rotation = Quaternion.Euler(0f, 135f, 0f);
+                    priestInst.transform.position = new Vector3(1.8f, 0.05f, 11.5f);
+                    priestInst.transform.rotation = Quaternion.Euler(0f, 195f, 0f);
                     priestInst.transform.SetParent(charRoot.transform);
                 }
 
@@ -875,8 +892,8 @@ namespace LegacyOfTemples.Characters.Editor
                 if (villagerPrefab != null)
                 {
                     GameObject villagerInst = (GameObject)PrefabUtility.InstantiatePrefab(villagerPrefab);
-                    villagerInst.transform.position = new Vector3(3.5f, 0.05f, 2.5f);
-                    villagerInst.transform.rotation = Quaternion.Euler(0f, -135f, 0f);
+                    villagerInst.transform.position = new Vector3(-1.8f, 0.05f, 11.5f);
+                    villagerInst.transform.rotation = Quaternion.Euler(0f, 165f, 0f);
                     villagerInst.transform.SetParent(charRoot.transform);
                 }
 

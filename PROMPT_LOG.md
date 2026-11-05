@@ -177,3 +177,44 @@
   - `Assets/_Project/Scenes/Dev/CharacterTest.unity`
 - **Verification**: Batch mode compilation, import, and verification executed via `HeritageCharacterImporter.ImportAllHeritageCharacters` and `EnvironmentBuilder.VerifyCourtyardVisuals`. Confirmed 0 compile errors, 0 runtime exceptions, 182 temple meshes, 5 real-time lights, and exit code 0.
 - **Known Issues**: None.
+
+## P6 - Natural Locomotion Gait, NPC Overhead Indicators, Front NPC Staging, and Carved Temple PBR Materials
+- **Date**: 2026-11-06
+- **Engine**: Unity 6 (`6000.6.8f1`) URP
+- **Summary**:
+  1. **Natural Human Locomotion Gait (Eliminated Leg Contortion)**:
+     - Diagnosed and eliminated the grotesque leg-to-head contortion caused by additive procedural Euler rotations in `PlayerController.LateUpdate` that conflicted with bone coordinate space.
+     - Re-baked natural, subtle human gait actions in Blender directly into `Investigator.fbx`:
+       - `Investigator_Idle`: natural breathing stance, feet firmly planted.
+       - `Investigator_Walk`: subtle 11° stride, 22° knee bend, 10° arm swing.
+       - `Investigator_Run`: 20° stride, 38° knee bend, 18° arm swing.
+       - `Investigator_Crouch`: low sneaking stance.
+       - `Investigator_Interact`: 28° right-arm clue reach.
+     - Connected all 5 animation clips in `CharacterAnimator.controller`.
+  2. **NPC Visibility & Overhead Nameplates**:
+     - Created `NPCHeadIndicator.cs` rendering floating 3D world-to-screen nameplates above character heads (`✦ PRIEST ANANDA ✦`, `✦ MEERA (VILLAGER) ✦`, `✦ KALA (THIEF LEADER) ✦`, `✦ RUDRA (ACCOMPLICE) ✦`) with interactive `[E] Talk` callout.
+     - Re-staged character positions in Courtyard so Priest Ananda and Villager Meera stand right in front of Detective Aryan (Z=11.5m vs player Z=15.0m) facing the player, immediately visible upon scene launch.
+  3. **Authentic Carved Temple PBR Textures & Deity Reliefs**:
+     - Generated 6 high-resolution PBR texture maps:
+       - `tex_WarmSandstoneCarved.png` & `tex_WarmSandstone_Normal.png` (carved bhumi tiers, pilasters, lotus rosettes)
+       - `tex_CarvedDeityRelief.png` & `tex_CarvedDeity_Normal.png` (sacred Narasimha/Vishnu deity frieze reliefs)
+       - `tex_WetPlazaPaving.png` & `tex_WetPlaza_Normal.png` (dressed stone flagstones with subtle mortar)
+     - Applied carved textures across temple walls, pillars, and deity niches (`mat_WarmTempleStone`, `mat_StoneTemple`, `mat_CarvedPillar`, `mat_LightStone`, `mat_StoneFloorWet`).
+     - Added carved Parshvadevata deity niches flanking the grand entrance steps.
+     - Placed authentic 3D multi-colored Lord Jagannath idol (`Idol_Jagannath.fbx`) on the jungle ruin altar awaiting recovery by Detective Aryan.
+  4. **All 5 Scenes Rebuilt & Validated**:
+     - Rebuilt `Courtyard`, `Sanctum`, `PuzzleWall`, `ShrineCrime`, and `JunglePath` with full character placement and lighting.
+     - Verified Courtyard visuals: 182 temple meshes, 5 real-time lights (budget <= 8 for 60 FPS), 0 errors, exit code 0.
+- **Files Created / Modified**:
+  - `Assets/_Project/Models/Environment/Textures/` (`tex_WarmSandstoneCarved.png`, `tex_WarmSandstone_Normal.png`, `tex_CarvedDeityRelief.png`, `tex_CarvedDeity_Normal.png`, `tex_WetPlazaPaving.png`, `tex_WetPlaza_Normal.png` + metas)
+  - `Assets/_Project/Scripts/Characters/PlayerController.cs` (removed broken procedural contortion override)
+  - `Assets/_Project/Scripts/Characters/NPCHeadIndicator.cs` (+ meta, floating overhead 3D nameplates)
+  - `Assets/_Project/Scripts/Characters/Editor/HeritageCharacterImporter.cs` (NPC indicators, front positioning, batch method)
+  - `Assets/_Project/Scripts/World/Editor/EnvironmentBuilder.cs` (carved PBR texture assignments, deity niches, all 5 scene character stagings, batch method)
+  - `Assets/_Project/Models/Characters/Investigator.fbx` (re-baked 5 natural gait actions)
+  - `Assets/_Project/Animations/CharacterAnimator.controller`
+  - `Assets/_Project/Prefabs/Characters/` (`Investigator.prefab`, `Priest.prefab`, `Villager.prefab`, `Robber1.prefab`, `Robber2.prefab`)
+  - `Assets/_Project/Scenes/Environments/` (`Courtyard.unity`, `Sanctum.unity`, `PuzzleWall.unity`, `ShrineCrime.unity`, `JunglePath.unity`)
+  - `Assets/_Project/Scenes/Dev/CharacterTest.unity`
+- **Verification**: Executed batch mode verification `HeritageCharacterImporter.ImportAllHeritageCharactersBatch`, `EnvironmentBuilder.BuildAllEnvironmentsBatch`, and `EnvironmentBuilder.VerifyCourtyardVisuals`. Exit code 0, 0 compile errors, 0 runtime exceptions.
+- **Known Issues**: None.
