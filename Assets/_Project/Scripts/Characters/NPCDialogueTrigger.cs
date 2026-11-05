@@ -188,3 +188,4 @@ namespace LegacyOfTemples.Characters
         }
     }
 }
+

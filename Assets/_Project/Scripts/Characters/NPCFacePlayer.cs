@@ -57,3 +57,4 @@ namespace LegacyOfTemples.Characters
         }
     }
 }
+
