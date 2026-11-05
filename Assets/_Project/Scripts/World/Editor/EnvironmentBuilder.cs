@@ -720,11 +720,232 @@ namespace LegacyOfTemples.World.Editor
         {
             EnsureDirectoryExists(ScenesBasePath);
             string scenePath = $"{ScenesBasePath}/PuzzleWall.unity";
+
             Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
-            SetupStandardCameraAndManager(scene, new Vector3(0f, 2.5f, 7.0f), new Vector3(5f, 180f, 0f), Constants.PuzzleWall);
+
+            // 1. System & Atmosphere
+            SetupStandardCameraAndManager(scene, new Vector3(0f, 2.8f, 6.5f), new Vector3(6f, 180f, 0f), Constants.PuzzleWall);
+
+            GameObject lightRoot = new GameObject("--- LIGHTING & ATMOSPHERE ---");
+
+            // Spotlight illuminating the central carved puzzle wall
+            GameObject spotObj = new GameObject("Spotlight_PuzzleWallFocus");
+            spotObj.transform.parent = lightRoot.transform;
+            spotObj.transform.position = new Vector3(0f, 5.5f, 2.5f);
+            spotObj.transform.rotation = Quaternion.Euler(35f, 180f, 0f);
+            Light spotLight = spotObj.AddComponent<Light>();
+            spotLight.type = LightType.Spot;
+            spotLight.color = new Color(1.0f, 0.88f, 0.62f);
+            spotLight.intensity = 3.2f;
+            spotLight.range = 10.5f;
+            spotLight.spotAngle = 55f;
+            spotLight.shadows = LightShadows.Soft;
+
+            // Directional fill
+            GameObject fillObj = new GameObject("Directional_ChamberFill");
+            fillObj.transform.parent = lightRoot.transform;
+            fillObj.transform.rotation = Quaternion.Euler(55f, 30f, 0f);
+            Light fillLight = fillObj.AddComponent<Light>();
+            fillLight.type = LightType.Directional;
+            fillLight.color = new Color(0.25f, 0.32f, 0.45f);
+            fillLight.intensity = 0.25f;
+
+            RenderSettings.ambientMode = AmbientMode.Flat;
+            RenderSettings.ambientLight = new Color(0.12f, 0.10f, 0.14f);
+            RenderSettings.fog = true;
+            RenderSettings.fogMode = FogMode.ExponentialSquared;
+            RenderSettings.fogDensity = 0.015f;
+            RenderSettings.fogColor = new Color(0.14f, 0.11f, 0.13f);
+
+            // 2. Materials
+            Material stoneMat = GetMaterial("mat_StoneTemple");
+            Material wetFloorMat = GetMaterial("mat_StoneFloorWet");
+            Material pillarMat = GetMaterial("mat_CarvedPillar");
+            Material reliefMat = GetMaterial("mat_LimestoneRelief");
+            Material brassMat = GetMaterial("mat_GoldBrass");
+            Material darkWoodMat = GetMaterial("mat_DarkWood");
+            Material saffronMat = GetMaterial("mat_SaffronCloth");
+
+            // 3. Environment Hierarchy
+            GameObject envRoot = new GameObject("--- ENVIRONMENT ---");
+
+            // Chamber Floor (16m x 12m)
+            CreateBox("PuzzleChamber_Floor", envRoot.transform, new Vector3(0, -0.25f, 3.5f), new Vector3(16f, 0.5f, 12f), wetFloorMat, true);
+
+            // Perimeter Walls & Ceiling
+            GameObject wallsRoot = new GameObject("PuzzleChamber_Walls");
+            wallsRoot.transform.parent = envRoot.transform;
+            CreateBox("Wall_East", wallsRoot.transform, new Vector3(8f, 3.5f, 3.5f), new Vector3(1.2f, 7.0f, 12f), stoneMat, true);
+            CreateBox("Wall_West", wallsRoot.transform, new Vector3(-8f, 3.5f, 3.5f), new Vector3(1.2f, 7.0f, 12f), stoneMat, true);
+            CreateBox("Wall_South", wallsRoot.transform, new Vector3(0, 3.5f, 9.5f), new Vector3(16f, 7.0f, 1.2f), stoneMat, true);
+            CreateBox("Chamber_Ceiling", envRoot.transform, new Vector3(0, 7.25f, 3.5f), new Vector3(16.5f, 0.5f, 12.5f), stoneMat, true);
+
+            // Massive Carved Puzzle Wall (North Wall at z = -2.5f)
+            GameObject pWallRoot = new GameObject("Carved_PuzzleWallStructure");
+            pWallRoot.transform.parent = envRoot.transform;
+
+            // Main wall body
+            CreateBox("PuzzleWall_MainBacking", pWallRoot.transform, new Vector3(0, 3.5f, -2.5f), new Vector3(16f, 7.0f, 1.5f), stoneMat, true);
+
+            // Ornamental framing pillars and lintel
+            CreateBox("FramePillar_Left", pWallRoot.transform, new Vector3(-5.2f, 3.5f, -1.6f), new Vector3(1.2f, 7.0f, 0.6f), pillarMat, true);
+            CreateBox("FramePillar_Right", pWallRoot.transform, new Vector3(5.2f, 3.5f, -1.6f), new Vector3(1.2f, 7.0f, 0.6f), pillarMat, true);
+            CreateBox("FrameLintel_Top", pWallRoot.transform, new Vector3(0, 6.6f, -1.6f), new Vector3(11.6f, 0.8f, 0.6f), pillarMat, true);
+
+            // Wall Carved Relief Ledge
+            GameObject ledgeObj = CreateBox("PuzzleWall_LedgeShelf", pWallRoot.transform, new Vector3(0, 0.85f, -1.25f), new Vector3(7.2f, 0.7f, 1.2f), stoneMat, true);
+
+            // Saffron tapestries flanking the puzzle wall
+            CreateBox("WallBanner_Left", pWallRoot.transform, new Vector3(-6.2f, 3.8f, -1.65f), new Vector3(1.0f, 4.2f, 0.05f), saffronMat, false);
+            CreateBox("WallBanner_Right", pWallRoot.transform, new Vector3(6.2f, 3.8f, -1.65f), new Vector3(1.0f, 4.2f, 0.05f), saffronMat, false);
+
+            // 4. Central Rotating Lotus / Chakra Wheel (wheel_center)
+            BuildPuzzleChakraWheel(pWallRoot.transform, new Vector3(0, 3.6f, -1.6f), brassMat, reliefMat);
+
+            // 5. Four Carved Relief Panels: Lotus, Conch, Wheel, Kalash
+            BuildReliefPanel(pWallRoot.transform, "panel_lotus", "Inspect Lotus Relief Panel", new Vector3(-2.8f, 4.7f, -1.65f), "lotus", stoneMat, reliefMat);
+            BuildReliefPanel(pWallRoot.transform, "panel_conch", "Inspect Conch Relief Panel", new Vector3(2.8f, 4.7f, -1.65f), "conch", stoneMat, reliefMat);
+            BuildReliefPanel(pWallRoot.transform, "panel_wheel", "Inspect Wheel Relief Panel", new Vector3(-2.8f, 2.3f, -1.65f), "wheel", stoneMat, reliefMat);
+            BuildReliefPanel(pWallRoot.transform, "panel_kalash", "Inspect Kalash Relief Panel", new Vector3(2.8f, 2.3f, -1.65f), "kalash", stoneMat, reliefMat);
+
+            // 6. Ancient Scroll on Ledge
+            BuildScrollOnLedge(pWallRoot.transform, new Vector3(0, 1.25f, -1.15f), darkWoodMat, reliefMat);
+
+            // 7. Flanking Braziers (2 Flickering Warm Lights)
+            GameObject lampsRoot = new GameObject("PuzzleChamber_Braziers");
+            lampsRoot.transform.parent = envRoot.transform;
+            CreateOilLamp(lampsRoot.transform, new Vector3(-4.8f, 0, 0.5f), "Brazier_Left");
+            CreateOilLamp(lampsRoot.transform, new Vector3(4.8f, 0, 0.5f), "Brazier_Right");
+
+            // 8. Spawns
+            GameObject spawnRoot = new GameObject("--- SPAWN POINTS ---");
+            CreateSpawnPoint(spawnRoot.transform, "player_start", new Vector3(0f, 0f, 5.0f), new Vector3(0, 0, -1));
+            CreateSpawnPoint(spawnRoot.transform, "priest_spawn", new Vector3(-3.5f, 0f, 4.0f), new Vector3(0.5f, 0, -1));
+            CreateSpawnPoint(spawnRoot.transform, "robber_spawn", new Vector3(3.5f, 0f, 2.0f), new Vector3(-0.5f, 0, -1));
+            CreateSpawnPoint(spawnRoot.transform, "villager_spawn", new Vector3(0f, 0f, 8.0f), new Vector3(0, 0, -1));
+
+            // Save Scene
             EditorSceneManager.SaveScene(scene, scenePath);
-            Debug.Log($"[EnvironmentBuilder] PuzzleWall stub saved at '{scenePath}'.");
+            Debug.Log($"[EnvironmentBuilder] PuzzleWall scene generated successfully at '{scenePath}'.");
             UpdateBuildSettings();
+        }
+
+        private static void BuildPuzzleChakraWheel(Transform parent, Vector3 localPos, Material brassMat, Material accentMat)
+        {
+            GameObject wheelObj = new GameObject("ChakraWheel_Structure");
+            wheelObj.transform.parent = parent;
+            wheelObj.transform.localPosition = localPos;
+
+            // Outer carved rim disc
+            GameObject rim = CreateCylinder("OuterRim", wheelObj.transform, Vector3.zero, new Vector3(2.5f, 0.15f, 2.5f), brassMat, true);
+            rim.transform.localRotation = Quaternion.Euler(90f, 0, 0);
+
+            // Inner center boss hub
+            GameObject hub = CreateCylinder("CenterHub", wheelObj.transform, new Vector3(0, 0, -0.05f), new Vector3(0.85f, 0.22f, 0.85f), accentMat, true);
+            hub.transform.localRotation = Quaternion.Euler(90f, 0, 0);
+
+            // 8 radiating lotus/chakra spokes
+            for (int i = 0; i < 8; i++)
+            {
+                float angle = i * 45f;
+                GameObject spoke = CreateBox($"Spoke_{i + 1}", wheelObj.transform, Vector3.zero, new Vector3(0.14f, 2.2f, 0.12f), brassMat, false);
+                spoke.transform.localRotation = Quaternion.Euler(0, 0, angle);
+            }
+
+            // Central Sacred Gem / Boss
+            GameObject gem = CreateSphere("CenterGem", wheelObj.transform, new Vector3(0, 0, -0.15f), new Vector3(0.4f, 0.4f, 0.3f), GetMaterial("mat_Flame"), false);
+
+            // Interactable component for wheel_center
+            InteractableObject io = wheelObj.AddComponent<InteractableObject>();
+            io.Setup("wheel_center", "Turn Sacred Chakra Wheel", 2.5f);
+
+            BoxCollider col = wheelObj.AddComponent<BoxCollider>();
+            col.isTrigger = true;
+            col.size = new Vector3(2.8f, 2.8f, 1.2f);
+        }
+
+        private static void BuildReliefPanel(Transform parent, string id, string prompt, Vector3 localPos, string motifType, Material baseMat, Material reliefMat)
+        {
+            GameObject panelRoot = new GameObject($"ReliefPanel_{id}");
+            panelRoot.transform.parent = parent;
+            panelRoot.transform.localPosition = localPos;
+
+            // Carved stone panel tablet base
+            CreateBox("PanelTablet", panelRoot.transform, Vector3.zero, new Vector3(1.7f, 1.7f, 0.18f), baseMat, true);
+            CreateBox("BorderMoulding", panelRoot.transform, new Vector3(0, 0, -0.05f), new Vector3(1.85f, 1.85f, 0.08f), reliefMat, false);
+
+            // Carved Motif in Center
+            GameObject motifObj = new GameObject($"Motif_{motifType}");
+            motifObj.transform.parent = panelRoot.transform;
+            motifObj.transform.localPosition = new Vector3(0, 0, -0.12f);
+
+            switch (motifType)
+            {
+                case "lotus":
+                    // Carved Lotus Petals
+                    for (int p = 0; p < 6; p++)
+                    {
+                        float a = p * 60f;
+                        GameObject petal = CreateSphere($"Petal_{p}", motifObj.transform, Vector3.zero, new Vector3(0.35f, 0.7f, 0.12f), reliefMat, false);
+                        petal.transform.localRotation = Quaternion.Euler(0, 0, a);
+                    }
+                    CreateSphere("LotusCenter", motifObj.transform, Vector3.zero, new Vector3(0.35f, 0.35f, 0.18f), GetMaterial("mat_GoldBrass"), false);
+                    break;
+
+                case "conch":
+                    // Carved Conch (Shankha) spiral
+                    CreateSphere("ConchBody", motifObj.transform, new Vector3(-0.1f, -0.1f, 0), new Vector3(0.7f, 0.95f, 0.3f), reliefMat, false);
+                    CreateCylinder("ConchTip", motifObj.transform, new Vector3(0.2f, 0.35f, 0), new Vector3(0.25f, 0.45f, 0.25f), reliefMat, false);
+                    break;
+
+                case "wheel":
+                    // Sudarshana Sun-Wheel motif
+                    CreateCylinder("WheelRim", motifObj.transform, Vector3.zero, new Vector3(0.9f, 0.08f, 0.9f), reliefMat, false).transform.localRotation = Quaternion.Euler(90f, 0, 0);
+                    CreateSphere("WheelHub", motifObj.transform, Vector3.zero, new Vector3(0.35f, 0.35f, 0.15f), GetMaterial("mat_GoldBrass"), false);
+                    break;
+
+                case "kalash":
+                    // Sacred Kalasha Urn with leaves
+                    CreateSphere("KalashPot", motifObj.transform, new Vector3(0, -0.15f, 0), new Vector3(0.75f, 0.7f, 0.45f), reliefMat, false);
+                    CreateCylinder("KalashNeck", motifObj.transform, new Vector3(0, 0.25f, 0), new Vector3(0.45f, 0.18f, 0.35f), reliefMat, false);
+                    CreateSphere("CoconutTop", motifObj.transform, new Vector3(0, 0.45f, 0), new Vector3(0.35f, 0.4f, 0.35f), GetMaterial("mat_GoldBrass"), false);
+                    break;
+            }
+
+            // Interactable Setup
+            InteractableObject io = panelRoot.AddComponent<InteractableObject>();
+            io.Setup(id, prompt, 2.2f);
+
+            BoxCollider trigger = panelRoot.AddComponent<BoxCollider>();
+            trigger.isTrigger = true;
+            trigger.size = new Vector3(2.0f, 2.0f, 1.2f);
+        }
+
+        private static void BuildScrollOnLedge(Transform parent, Vector3 localPos, Material woodMat, Material parchmentMat)
+        {
+            GameObject scrollRoot = new GameObject("Scroll_AncientTempleClue");
+            scrollRoot.transform.parent = parent;
+            scrollRoot.transform.localPosition = localPos;
+
+            // Rolled wooden handles
+            CreateCylinder("HandleLeft", scrollRoot.transform, new Vector3(-0.6f, 0, 0), new Vector3(0.08f, 0.35f, 0.08f), woodMat, true).transform.localRotation = Quaternion.Euler(0, 0, 90f);
+            CreateCylinder("HandleRight", scrollRoot.transform, new Vector3(0.6f, 0, 0), new Vector3(0.08f, 0.35f, 0.08f), woodMat, true).transform.localRotation = Quaternion.Euler(0, 0, 90f);
+
+            // Unrolled parchment sheet
+            GameObject sheet = CreateBox("ParchmentSheet", scrollRoot.transform, new Vector3(0, 0.02f, 0), new Vector3(1.1f, 0.02f, 0.65f), parchmentMat, true);
+            sheet.transform.localRotation = Quaternion.Euler(-12f, 0, 0);
+
+            // Clue inscriptions simulation
+            CreateBox("InscribedLine1", scrollRoot.transform, new Vector3(0, 0.04f, 0.12f), new Vector3(0.85f, 0.01f, 0.06f), GetMaterial("mat_DarkWood"), false);
+            CreateBox("InscribedLine2", scrollRoot.transform, new Vector3(0, 0.04f, -0.02f), new Vector3(0.80f, 0.01f, 0.06f), GetMaterial("mat_DarkWood"), false);
+            CreateBox("InscribedLine3", scrollRoot.transform, new Vector3(0, 0.04f, -0.15f), new Vector3(0.70f, 0.01f, 0.06f), GetMaterial("mat_DarkWood"), false);
+
+            InteractableObject io = scrollRoot.AddComponent<InteractableObject>();
+            io.Setup("scroll", "Read ancient temple scroll", 2.0f);
+
+            BoxCollider col = scrollRoot.AddComponent<BoxCollider>();
+            col.isTrigger = true;
+            col.size = new Vector3(1.5f, 0.8f, 1.2f);
         }
 
         [MenuItem("Tools/Legacy/Environments/Build ShrineCrime")]
