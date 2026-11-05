@@ -531,11 +531,188 @@ namespace LegacyOfTemples.World.Editor
         {
             EnsureDirectoryExists(ScenesBasePath);
             string scenePath = $"{ScenesBasePath}/Sanctum.unity";
+
             Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
-            SetupStandardCameraAndManager(scene, new Vector3(0f, 3.0f, 14.0f), new Vector3(8f, 180f, 0f), Constants.Sanctum);
+
+            // 1. System & Atmosphere
+            SetupStandardCameraAndManager(scene, new Vector3(0f, 3.2f, 13.5f), new Vector3(7f, 180f, 0f), Constants.Sanctum);
+
+            GameObject lightRoot = new GameObject("--- LIGHTING & ATMOSPHERE ---");
+
+            // Cool moonlight beam through high ceiling clerestory
+            GameObject moonObj = new GameObject("Directional_MoonlightBeam");
+            moonObj.transform.parent = lightRoot.transform;
+            moonObj.transform.rotation = Quaternion.Euler(50f, 25f, 0f);
+            Light moonLight = moonObj.AddComponent<Light>();
+            moonLight.type = LightType.Directional;
+            moonLight.color = new Color(0.28f, 0.42f, 0.65f);
+            moonLight.intensity = 0.35f;
+            moonLight.shadows = LightShadows.Soft;
+
+            RenderSettings.ambientMode = AmbientMode.Flat;
+            RenderSettings.ambientLight = new Color(0.06f, 0.05f, 0.08f);
+            RenderSettings.fog = true;
+            RenderSettings.fogMode = FogMode.ExponentialSquared;
+            RenderSettings.fogDensity = 0.024f;
+            RenderSettings.fogColor = new Color(0.12f, 0.09f, 0.10f);
+
+            // Light shaft volume towards the central altar
+            GameObject shaft = CreateCylinder("Moonlight_ShaftVolume", lightRoot.transform, new Vector3(0, 4.8f, -7.0f), new Vector3(2.6f, 4.5f, 2.6f), GetMaterial("mat_LimestoneRelief"), false);
+            shaft.transform.localRotation = Quaternion.Euler(15f, 0, 0);
+
+            // 2. Materials
+            Material stoneMat = GetMaterial("mat_StoneTemple");
+            Material wetFloorMat = GetMaterial("mat_StoneFloorWet");
+            Material pillarMat = GetMaterial("mat_CarvedPillar");
+            Material brassMat = GetMaterial("mat_GoldBrass");
+            Material redSilkMat = GetMaterial("mat_DarkRedCloth");
+            Material saffronMat = GetMaterial("mat_SaffronCloth");
+            Material flowerMat = GetMaterial("mat_MarigoldFlowers");
+            Material darkWoodMat = GetMaterial("mat_DarkWood");
+
+            // 3. Environment Hierarchy
+            GameObject envRoot = new GameObject("--- ENVIRONMENT ---");
+
+            // Sanctum Hall Floor
+            CreateBox("Sanctum_Floor", envRoot.transform, new Vector3(0, -0.25f, 0), new Vector3(18f, 0.5f, 26f), wetFloorMat, true);
+
+            // High Stone Perimeter Walls
+            GameObject wallsRoot = new GameObject("Sanctum_Walls");
+            wallsRoot.transform.parent = envRoot.transform;
+            CreateBox("Wall_North", wallsRoot.transform, new Vector3(0, 4.25f, -13f), new Vector3(18f, 8.5f, 1.2f), stoneMat, true);
+            CreateBox("Wall_East", wallsRoot.transform, new Vector3(9f, 4.25f, 0), new Vector3(1.2f, 8.5f, 26f), stoneMat, true);
+            CreateBox("Wall_West", wallsRoot.transform, new Vector3(-9f, 4.25f, 0), new Vector3(1.2f, 8.5f, 26f), stoneMat, true);
+
+            // South Entrance Wall with Open Portal
+            CreateBox("Wall_South_Left", wallsRoot.transform, new Vector3(-5.5f, 4.25f, 13f), new Vector3(7f, 8.5f, 1.2f), stoneMat, true);
+            CreateBox("Wall_South_Right", wallsRoot.transform, new Vector3(5.5f, 4.25f, 13f), new Vector3(7f, 8.5f, 1.2f), stoneMat, true);
+            CreateBox("Wall_South_ArchTop", wallsRoot.transform, new Vector3(0, 6.75f, 13f), new Vector3(4.2f, 3.5f, 1.2f), stoneMat, true);
+
+            // Vaulted Ceiling & Stone Beams
+            CreateBox("Ceiling_Main", envRoot.transform, new Vector3(0, 8.75f, 0), new Vector3(18.5f, 0.5f, 26.5f), stoneMat, true);
+            for (float bz = -10f; bz <= 10f; bz += 5f)
+            {
+                CreateBox($"CeilingBeam_Z{bz:F0}", envRoot.transform, new Vector3(0, 8.2f, bz), new Vector3(17.8f, 0.6f, 0.8f), stoneMat, true);
+            }
+
+            // 8 Carved Colonnade Pillars
+            GameObject pillarsRoot = new GameObject("Sanctum_Pillars");
+            pillarsRoot.transform.parent = envRoot.transform;
+            float[] pillarZ = { -7.5f, -2.5f, 2.5f, 7.5f };
+            for (int p = 0; p < pillarZ.Length; p++)
+            {
+                BuildCarvedPillar($"Pillar_Left_{p + 1}", pillarsRoot.transform, new Vector3(-4.2f, 0, pillarZ[p]), pillarMat, brassMat);
+                BuildCarvedPillar($"Pillar_Right_{p + 1}", pillarsRoot.transform, new Vector3(4.2f, 0, pillarZ[p]), pillarMat, brassMat);
+            }
+
+            // Hanging Brass Temple Bells
+            GameObject bellsRoot = new GameObject("Hanging_BrassBells");
+            bellsRoot.transform.parent = envRoot.transform;
+            BuildHangingBell("CeremonialBell_Center", bellsRoot.transform, new Vector3(0, 3.8f, -2.5f), brassMat, 1.0f);
+            BuildHangingBell("AisleBell_Left", bellsRoot.transform, new Vector3(-4.2f, 4.2f, 2.5f), brassMat, 0.7f);
+            BuildHangingBell("AisleBell_Right", bellsRoot.transform, new Vector3(4.2f, 4.2f, 2.5f), brassMat, 0.7f);
+
+            // Silk Ceremonial Curtains
+            GameObject curtainsRoot = new GameObject("Sanctum_SilkCurtains");
+            curtainsRoot.transform.parent = envRoot.transform;
+            CreateBox("BackCurtain_Red", curtainsRoot.transform, new Vector3(0, 4.2f, -12.3f), new Vector3(8.0f, 6.5f, 0.08f), redSilkMat, false);
+            CreateBox("SideDrape_Left", curtainsRoot.transform, new Vector3(-4.2f, 4.0f, -10.0f), new Vector3(0.08f, 6.0f, 3.5f), saffronMat, false);
+            CreateBox("SideDrape_Right", curtainsRoot.transform, new Vector3(4.2f, 4.0f, -10.0f), new Vector3(0.08f, 6.0f, 3.5f), saffronMat, false);
+
+            // Marigold Garlands
+            GameObject garlandsRoot = new GameObject("Marigold_Garlands");
+            garlandsRoot.transform.parent = envRoot.transform;
+            // Garland draped around left pillar
+            CreateCylinder("Garland_Pillar1", garlandsRoot.transform, new Vector3(-4.2f, 2.5f, -7.5f), new Vector3(0.95f, 0.12f, 0.95f), flowerMat, false);
+            CreateCylinder("Garland_Pillar2", garlandsRoot.transform, new Vector3(4.2f, 2.5f, -7.5f), new Vector3(0.95f, 0.12f, 0.95f), flowerMat, false);
+            // Discarded torn garland on floor near altar
+            CreateBox("Garland_FallenPiece1", garlandsRoot.transform, new Vector3(1.1f, 0.05f, -5.8f), new Vector3(1.2f, 0.08f, 0.25f), flowerMat, false);
+            CreateBox("Garland_FallenPiece2", garlandsRoot.transform, new Vector3(1.4f, 0.05f, -5.5f), new Vector3(0.6f, 0.08f, 0.45f), flowerMat, false);
+
+            // Central Altar Platform (Vedi) & EMPTY Idol Pedestal
+            GameObject altarRoot = new GameObject("CentralAltar_Sanctum");
+            altarRoot.transform.parent = envRoot.transform;
+
+            // Raised platform
+            CreateBox("Altar_Plinth", altarRoot.transform, new Vector3(0, 0.35f, -7.5f), new Vector3(5.2f, 0.7f, 5.2f), stoneMat, true);
+            CreateBox("Altar_Step", altarRoot.transform, new Vector3(0, 0.18f, -4.6f), new Vector3(3.2f, 0.35f, 0.6f), stoneMat, true);
+
+            // Empty Idol Pedestal (Violation Scene)
+            GameObject pedestal = new GameObject("Empty_IdolPedestal");
+            pedestal.transform.parent = altarRoot.transform;
+            pedestal.transform.localPosition = new Vector3(0, 0.7f, -7.5f);
+
+            CreateBox("PedestalBase", pedestal.transform, new Vector3(0, 0.25f, 0), new Vector3(1.8f, 0.5f, 1.5f), darkWoodMat, true);
+            CreateBox("PedestalTopRim", pedestal.transform, new Vector3(0, 0.55f, 0), new Vector3(1.6f, 0.1f, 1.3f), brassMat, true);
+            // Empty hollow depression where the idol was ripped off
+            CreateBox("StolenIdol_EmptySocket", pedestal.transform, new Vector3(0, 0.62f, 0), new Vector3(0.85f, 0.04f, 0.65f), wetFloorMat, false);
+            // Fallen sacred brass offering bowl
+            CreateSphere("OfferingBowl_Overturned", pedestal.transform, new Vector3(0.65f, 0.58f, 0.3f), new Vector3(0.28f, 0.12f, 0.28f), brassMat, false);
+
+            // 4 Flickering Warm Oil Lamps (Max real-time lights <= 8)
+            GameObject lampsRoot = new GameObject("Sanctum_OilLamps");
+            lampsRoot.transform.parent = envRoot.transform;
+            CreateOilLamp(lampsRoot.transform, new Vector3(-2.2f, 0.7f, -7.5f), "AltarLamp_Left");
+            CreateOilLamp(lampsRoot.transform, new Vector3(2.2f, 0.7f, -7.5f), "AltarLamp_Right");
+            CreateOilLamp(lampsRoot.transform, new Vector3(-4.2f, 0f, 0.0f), "AisleLamp_Left");
+            CreateOilLamp(lampsRoot.transform, new Vector3(4.2f, 0f, 0.0f), "AisleLamp_Right");
+
+            // 4. Spawns
+            GameObject spawnRoot = new GameObject("--- SPAWN POINTS ---");
+            CreateSpawnPoint(spawnRoot.transform, "player_start", new Vector3(0f, 0f, 11f), new Vector3(0, 0, -1));
+            CreateSpawnPoint(spawnRoot.transform, "priest_spawn", new Vector3(2.5f, 0f, -1.0f), new Vector3(-1, 0, 0));
+            CreateSpawnPoint(spawnRoot.transform, "robber_spawn", new Vector3(-4.0f, 0f, -6.0f), new Vector3(1, 0, 0.5f));
+            CreateSpawnPoint(spawnRoot.transform, "villager_spawn", new Vector3(-3.0f, 0f, 8.0f), new Vector3(1, 0, -0.5f));
+
+            // 5. Interactables
+            GameObject interactRoot = new GameObject("--- INTERACTABLES ---");
+            CreateInteractable(interactRoot.transform, "sanctum_empty_altar", "Examine empty idol pedestal", new Vector3(0f, 1.0f, -7.5f), 2.5f);
+            CreateInteractable(interactRoot.transform, "sanctum_hanging_bell", "Ring temple bell", new Vector3(0f, 3.2f, -2.5f), 2.2f);
+            CreateInteractable(interactRoot.transform, "sanctum_fallen_garland", "Inspect discarded marigold garland", new Vector3(1.2f, 0.2f, -5.6f), 2.0f);
+
+            // Save Scene
             EditorSceneManager.SaveScene(scene, scenePath);
-            Debug.Log($"[EnvironmentBuilder] Sanctum stub saved at '{scenePath}'.");
+            Debug.Log($"[EnvironmentBuilder] Sanctum scene generated successfully at '{scenePath}'.");
             UpdateBuildSettings();
+        }
+
+        private static void BuildCarvedPillar(string name, Transform parent, Vector3 localPos, Material pillarMat, Material accentMat)
+        {
+            GameObject pillarObj = new GameObject(name);
+            pillarObj.transform.parent = parent;
+            pillarObj.transform.localPosition = localPos;
+
+            // Plinth Base
+            CreateBox("Plinth_Lower", pillarObj.transform, new Vector3(0, 0.3f, 0), new Vector3(1.3f, 0.6f, 1.3f), pillarMat, true);
+            CreateBox("Plinth_Upper", pillarObj.transform, new Vector3(0, 0.7f, 0), new Vector3(1.1f, 0.2f, 1.1f), accentMat, true);
+
+            // Carved Shaft
+            CreateCylinder("Shaft_Main", pillarObj.transform, new Vector3(0, 4.0f, 0), new Vector3(0.85f, 3.1f, 0.85f), pillarMat, true);
+
+            // Decorative Mid-Rings
+            CreateCylinder("Ring_Mid", pillarObj.transform, new Vector3(0, 3.8f, 0), new Vector3(0.98f, 0.15f, 0.98f), accentMat, false);
+            CreateCylinder("Ring_Upper", pillarObj.transform, new Vector3(0, 6.2f, 0), new Vector3(0.98f, 0.15f, 0.98f), accentMat, false);
+
+            // Capital Bracket
+            CreateBox("Capital_Lower", pillarObj.transform, new Vector3(0, 7.3f, 0), new Vector3(1.2f, 0.3f, 1.2f), accentMat, true);
+            CreateBox("Capital_Bracket", pillarObj.transform, new Vector3(0, 7.7f, 0), new Vector3(1.5f, 0.5f, 1.5f), pillarMat, true);
+        }
+
+        private static void BuildHangingBell(string name, Transform parent, Vector3 localPos, Material brassMat, float scale = 1.0f)
+        {
+            GameObject bellRoot = new GameObject(name);
+            bellRoot.transform.parent = parent;
+            bellRoot.transform.localPosition = localPos;
+
+            // Suspension Chain
+            CreateCylinder("Chain", bellRoot.transform, new Vector3(0, 1.5f * scale, 0), new Vector3(0.06f * scale, 1.5f * scale, 0.06f * scale), brassMat, false);
+
+            // Bell Body
+            CreateCylinder("BellCrown", bellRoot.transform, new Vector3(0, 0.3f * scale, 0), new Vector3(0.5f * scale, 0.25f * scale, 0.5f * scale), brassMat, true);
+            CreateCylinder("BellFlange", bellRoot.transform, new Vector3(0, -0.05f * scale, 0), new Vector3(0.8f * scale, 0.15f * scale, 0.8f * scale), brassMat, true);
+
+            // Clapper
+            CreateSphere("Clapper", bellRoot.transform, new Vector3(0, -0.2f * scale, 0), new Vector3(0.2f * scale, 0.2f * scale, 0.2f * scale), brassMat, false);
         }
 
         [MenuItem("Tools/Legacy/Environments/Build PuzzleWall")]
