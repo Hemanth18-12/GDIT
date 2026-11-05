@@ -1183,11 +1183,248 @@ namespace LegacyOfTemples.World.Editor
         {
             EnsureDirectoryExists(ScenesBasePath);
             string scenePath = $"{ScenesBasePath}/JunglePath.unity";
+
             Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
-            SetupStandardCameraAndManager(scene, new Vector3(0f, 3.5f, 20.0f), new Vector3(10f, 180f, 0f), Constants.JunglePath);
+
+            // 1. System & Atmosphere
+            SetupStandardCameraAndManager(scene, new Vector3(0f, 4.0f, 22.0f), new Vector3(9f, 180f, 0f), Constants.JunglePath);
+
+            GameObject lightRoot = new GameObject("--- LIGHTING & ATMOSPHERE ---");
+
+            // Cool moonlight directional light piercing the dense canopy
+            GameObject moonObj = new GameObject("Directional_JungleMoonlight");
+            moonObj.transform.parent = lightRoot.transform;
+            moonObj.transform.rotation = Quaternion.Euler(35f, 130f, 0f);
+            Light moonLight = moonObj.AddComponent<Light>();
+            moonLight.type = LightType.Directional;
+            moonLight.color = new Color(0.38f, 0.58f, 0.88f);
+            moonLight.intensity = 0.85f;
+            moonLight.shadows = LightShadows.Soft;
+
+            RenderSettings.ambientMode = AmbientMode.Flat;
+            RenderSettings.ambientLight = new Color(0.04f, 0.08f, 0.12f);
+            RenderSettings.fog = true;
+            RenderSettings.fogMode = FogMode.ExponentialSquared;
+            RenderSettings.fogDensity = 0.018f;
+            RenderSettings.fogColor = new Color(0.05f, 0.12f, 0.16f);
+
+            // 2. Materials
+            Material mudMat = GetMaterial("mat_MudPath");
+            Material streamMat = GetMaterial("mat_JungleStream");
+            Material stoneMat = GetMaterial("mat_StoneTemple");
+            Material mossMat = GetMaterial("mat_JungleMoss");
+            Material barkMat = GetMaterial("mat_JungleBark");
+            Material brassMat = GetMaterial("mat_GoldBrass");
+            Material footprintMat = GetMaterial("mat_CrimeFootprint");
+
+            // 3. Environment Hierarchy
+            GameObject envRoot = new GameObject("--- ENVIRONMENT ---");
+
+            // Main Jungle Ground (40m x 60m)
+            CreateBox("Jungle_GroundTerrain", envRoot.transform, new Vector3(0, -0.25f, 0), new Vector3(40f, 0.5f, 60f), mudMat, true);
+
+            // Natural Ravine Boundary Boulders (colliders preventing falling off)
+            BuildRavineBoulders(envRoot.transform, stoneMat, mossMat);
+
+            // Flowing Water Stream Cutting Across Path at z = 0
+            GameObject streamRoot = new GameObject("Jungle_StreamChannel");
+            streamRoot.transform.parent = envRoot.transform;
+            CreateBox("StreamWaterSurface", streamRoot.transform, new Vector3(0, 0.05f, 0), new Vector3(32f, 0.1f, 4.5f), streamMat, false);
+
+            // Stream Stepping Stones / Crossing Rocks
+            CreateCylinder("CrossingRock_1", streamRoot.transform, new Vector3(-0.6f, 0.15f, -1.2f), new Vector3(1.1f, 0.25f, 1.1f), stoneMat, true);
+            CreateCylinder("CrossingRock_2", streamRoot.transform, new Vector3(0.5f, 0.15f, 0.0f), new Vector3(1.2f, 0.25f, 1.2f), mossMat, true);
+            CreateCylinder("CrossingRock_3", streamRoot.transform, new Vector3(-0.4f, 0.15f, 1.3f), new Vector3(1.1f, 0.25f, 1.1f), stoneMat, true);
+
+            // Ruined Mossy Temple Steps leading up slope to north
+            BuildRuinedStaircase(envRoot.transform, stoneMat, mossMat);
+
+            // Jungle Banyan Trees & Creeping Vines
+            BuildJungleTrees(envRoot.transform, barkMat, mossMat);
+
+            // Distant Glowing Temple Spire on the Horizon
+            BuildDistantGlowingTemple(envRoot.transform, stoneMat, brassMat, lightRoot.transform);
+
+            // Torches along the jungle trail (3 Flickering Warm Lights)
+            GameObject torchesRoot = new GameObject("Jungle_TrailTorches");
+            torchesRoot.transform.parent = envRoot.transform;
+            CreateTorch(torchesRoot.transform, new Vector3(-3.2f, 0.2f, 2.8f), Vector3.zero, "Torch_StreamBank");
+            CreateTorch(torchesRoot.transform, new Vector3(3.2f, 1.2f, -3.2f), Vector3.zero, "Torch_StepBase");
+            CreateTorch(torchesRoot.transform, new Vector3(-2.2f, 2.6f, -13.5f), Vector3.zero, "Torch_HideoutRidge");
+
+            // Trail of Robber Footprints
+            BuildJungleFootprintsTrail(envRoot.transform, footprintMat);
+
+            // Low Ground Mist Layers
+            GameObject mistRoot = new GameObject("LowGround_MistLayers");
+            mistRoot.transform.parent = envRoot.transform;
+            CreateBox("MistLayer_Stream", mistRoot.transform, new Vector3(0, 0.2f, 0), new Vector3(28f, 0.04f, 6.0f), mossMat, false);
+            CreateBox("MistLayer_Ruins", mistRoot.transform, new Vector3(0, 1.8f, -8.0f), new Vector3(22f, 0.04f, 12.0f), mossMat, false);
+
+            // 4. Spawns
+            GameObject spawnRoot = new GameObject("--- SPAWN POINTS ---");
+            CreateSpawnPoint(spawnRoot.transform, "player_start", new Vector3(0f, 0f, 18.0f), new Vector3(0, 0, -1));
+            CreateSpawnPoint(spawnRoot.transform, "robber_spawn", new Vector3(2.5f, 0f, -14.0f), new Vector3(-0.5f, 0, 1));
+            CreateSpawnPoint(spawnRoot.transform, "villager_spawn", new Vector3(-4.0f, 0f, 16.0f), new Vector3(0.5f, 0, -1));
+            CreateSpawnPoint(spawnRoot.transform, "priest_spawn", new Vector3(3.5f, 0f, 15.0f), new Vector3(-0.5f, 0, -1));
+
+            // 5. Interactables
+            GameObject interactRoot = new GameObject("--- INTERACTABLES ---");
+            CreateInteractable(interactRoot.transform, "muddy_trail", "Follow robber trail deeper into the jungle", new Vector3(0f, 0.4f, 2.0f), 2.8f);
+            CreateInteractable(interactRoot.transform, "jungle_ruined_steps", "Examine moss-covered ancient temple steps", new Vector3(0f, 1.4f, -7.5f), 2.6f);
+            CreateInteractable(interactRoot.transform, "jungle_distant_temple", "Gaze at the distant glowing temple spire", new Vector3(0f, 1.5f, 13.0f), 3.2f);
+
+            // Save Scene
             EditorSceneManager.SaveScene(scene, scenePath);
-            Debug.Log($"[EnvironmentBuilder] JunglePath stub saved at '{scenePath}'.");
+            Debug.Log($"[EnvironmentBuilder] JunglePath scene generated successfully at '{scenePath}'.");
             UpdateBuildSettings();
+        }
+
+        private static void BuildRavineBoulders(Transform parent, Material stoneMat, Material mossMat)
+        {
+            GameObject bouldersRoot = new GameObject("Ravine_BoundaryColliders");
+            bouldersRoot.transform.parent = parent;
+
+            // West Ravine Cliffs (x = -14m)
+            for (float z = -25f; z <= 25f; z += 6f)
+            {
+                float sy = UnityEngine.Random.Range(3.5f, 6.0f);
+                float sx = UnityEngine.Random.Range(4.0f, 6.5f);
+                CreateBox($"Cliff_West_{z:F0}", bouldersRoot.transform, new Vector3(-15.5f, sy * 0.5f, z), new Vector3(sx, sy, 7.5f), (z % 2 == 0 ? stoneMat : mossMat), true);
+            }
+
+            // East Ravine Cliffs (x = 14m)
+            for (float z = -25f; z <= 25f; z += 6f)
+            {
+                float sy = UnityEngine.Random.Range(3.5f, 6.0f);
+                float sx = UnityEngine.Random.Range(4.0f, 6.5f);
+                CreateBox($"Cliff_East_{z:F0}", bouldersRoot.transform, new Vector3(15.5f, sy * 0.5f, z), new Vector3(sx, sy, 7.5f), (z % 2 == 0 ? mossMat : stoneMat), true);
+            }
+
+            // North and South Boundaries
+            CreateBox("Cliff_North", bouldersRoot.transform, new Vector3(0, 3.5f, -28f), new Vector3(40f, 7.0f, 4.0f), stoneMat, true);
+            CreateBox("Cliff_South", bouldersRoot.transform, new Vector3(0, 3.5f, 28f), new Vector3(40f, 7.0f, 4.0f), stoneMat, true);
+        }
+
+        private static void BuildRuinedStaircase(Transform parent, Material stoneMat, Material mossMat)
+        {
+            GameObject stairsRoot = new GameObject("Ruined_MossySteps");
+            stairsRoot.transform.parent = parent;
+
+            int stepCount = 7;
+            float stepDepth = 1.1f;
+            float stepRise = 0.35f;
+            float startZ = -4.0f;
+
+            for (int s = 0; s < stepCount; s++)
+            {
+                float curZ = startZ - s * stepDepth;
+                float curY = (s + 1) * stepRise;
+                Material sm = (s % 2 == 0 ? stoneMat : mossMat);
+                CreateBox($"RuinedStep_{s + 1}", stairsRoot.transform, new Vector3(0, curY * 0.5f, curZ), new Vector3(6.5f, curY, stepDepth), sm, true);
+            }
+
+            // Upper ruin platform at top of stairs
+            float topY = stepCount * stepRise;
+            float topZ = startZ - stepCount * stepDepth;
+            CreateBox("Ruin_UpperPlatform", stairsRoot.transform, new Vector3(0, topY * 0.5f, topZ - 3.0f), new Vector3(9.0f, topY, 6.0f), stoneMat, true);
+
+            // Flanking Ruined Pillars with dangling ivy
+            GameObject pLeft = CreateBox("RuinedPillar_Left", stairsRoot.transform, new Vector3(-3.2f, topY + 2.0f, topZ), new Vector3(1.1f, 4.0f, 1.1f), mossMat, true);
+            pLeft.transform.localRotation = Quaternion.Euler(0, 0, -8f);
+
+            GameObject pRight = CreateBox("RuinedPillar_Right", stairsRoot.transform, new Vector3(3.2f, topY + 1.5f, topZ), new Vector3(1.1f, 3.0f, 1.1f), stoneMat, true);
+            pRight.transform.localRotation = Quaternion.Euler(6f, 0, 10f);
+
+            // Fallen arch stone slab across stairs
+            GameObject brokenLintel = CreateBox("BrokenLintel_Slab", stairsRoot.transform, new Vector3(1.8f, topY + 0.3f, topZ + 1.5f), new Vector3(3.2f, 0.45f, 0.8f), stoneMat, true);
+            brokenLintel.transform.localRotation = Quaternion.Euler(15f, 35f, -10f);
+        }
+
+        private static void BuildJungleTrees(Transform parent, Material barkMat, Material mossMat)
+        {
+            GameObject treesRoot = new GameObject("Jungle_BanyanTreesAndVines");
+            treesRoot.transform.parent = parent;
+
+            Vector3[] treePos = {
+                new Vector3(-8.5f, 0, 12f),
+                new Vector3(8.5f, 0, 10f),
+                new Vector3(-9.2f, 0, -2.5f),
+                new Vector3(9.0f, 0, -1.8f),
+                new Vector3(-7.5f, 2.5f, -11f),
+                new Vector3(7.8f, 2.5f, -12f)
+            };
+
+            for (int t = 0; t < treePos.Length; t++)
+            {
+                GameObject tree = new GameObject($"BanyanTree_{t + 1}");
+                tree.transform.parent = treesRoot.transform;
+                tree.transform.localPosition = treePos[t];
+
+                // Gnarled Trunk
+                CreateCylinder("Trunk", tree.transform, new Vector3(0, 3.5f, 0), new Vector3(1.6f, 3.5f, 1.6f), barkMat, true);
+                CreateCylinder("ButtressRoot1", tree.transform, new Vector3(0.8f, 1.2f, 0.4f), new Vector3(0.7f, 1.2f, 0.7f), barkMat, false);
+                CreateCylinder("ButtressRoot2", tree.transform, new Vector3(-0.7f, 1.0f, -0.5f), new Vector3(0.6f, 1.0f, 0.6f), barkMat, false);
+
+                // Spreading Foliage Canopy
+                CreateSphere("Canopy_Main", tree.transform, new Vector3(0, 7.5f, 0), new Vector3(6.5f, 4.0f, 6.5f), mossMat, false);
+                CreateSphere("Canopy_Sub1", tree.transform, new Vector3(2.0f, 6.8f, 1.5f), new Vector3(4.5f, 3.2f, 4.5f), mossMat, false);
+
+                // Dangling jungle vines
+                CreateCylinder("HangingVine1", tree.transform, new Vector3(1.5f, 4.2f, 0.8f), new Vector3(0.12f, 2.2f, 0.12f), mossMat, false);
+                CreateCylinder("HangingVine2", tree.transform, new Vector3(-1.4f, 4.6f, -0.6f), new Vector3(0.10f, 2.5f, 0.10f), mossMat, false);
+            }
+        }
+
+        private static void BuildDistantGlowingTemple(Transform parent, Material stoneMat, Material brassMat, Transform lightParent)
+        {
+            GameObject distRoot = new GameObject("Distant_GlowingTempleSilhouette");
+            distRoot.transform.parent = parent;
+            distRoot.transform.localPosition = new Vector3(0, 12f, -50f);
+
+            // Tall Sikhara Tower rising above the dark jungle horizon
+            CreateBox("TowerBase", distRoot.transform, new Vector3(0, 2f, 0), new Vector3(10f, 8f, 10f), stoneMat, false);
+            CreateBox("TowerSpireMid", distRoot.transform, new Vector3(0, 8f, 0), new Vector3(7.5f, 6f, 7.5f), stoneMat, false);
+            CreateBox("TowerSpirePeak", distRoot.transform, new Vector3(0, 13f, 0), new Vector3(5.0f, 5f, 5.0f), stoneMat, false);
+            CreateCylinder("Amalaka_Crown", distRoot.transform, new Vector3(0, 16.5f, 0), new Vector3(3.5f, 0.8f, 3.5f), brassMat, false);
+            CreateSphere("Kalasa_Finial", distRoot.transform, new Vector3(0, 18.0f, 0), new Vector3(1.4f, 1.8f, 1.4f), brassMat, false);
+
+            // Warm golden glow illuminating the temple spire
+            GameObject glowLightObj = new GameObject("PointLight_DistantTempleGlow");
+            glowLightObj.transform.parent = lightParent;
+            glowLightObj.transform.position = new Vector3(0, 24f, -46f);
+
+            Light glowLt = glowLightObj.AddComponent<Light>();
+            glowLt.type = LightType.Point;
+            glowLt.color = new Color(1.0f, 0.72f, 0.25f);
+            glowLt.intensity = 2.8f;
+            glowLt.range = 35.0f;
+            glowLt.shadows = LightShadows.None;
+        }
+
+        private static void BuildJungleFootprintsTrail(Transform parent, Material footprintMat)
+        {
+            GameObject trailRoot = new GameObject("Jungle_RobberMuddyTrail");
+            trailRoot.transform.parent = parent;
+
+            Vector3[] pathPoints = {
+                new Vector3(0.3f, 0.02f, 10.0f),
+                new Vector3(-0.2f, 0.02f, 7.5f),
+                new Vector3(0.4f, 0.02f, 5.0f),
+                new Vector3(-0.1f, 0.02f, 2.5f),
+                new Vector3(0.3f, 0.02f, -1.8f),
+                new Vector3(-0.2f, 0.5f, -4.5f),
+                new Vector3(0.2f, 0.9f, -6.8f),
+                new Vector3(-0.1f, 1.4f, -9.0f),
+                new Vector3(0.5f, 1.8f, -11.5f),
+                new Vector3(1.2f, 2.45f, -14.0f)
+            };
+
+            for (int i = 0; i < pathPoints.Length; i++)
+            {
+                GameObject fp = CreateBox($"TrailPrint_{i + 1}", trailRoot.transform, pathPoints[i], new Vector3(0.25f, 0.02f, 0.48f), footprintMat, false);
+                fp.transform.localRotation = Quaternion.Euler(0, (i % 2 == 0 ? 15f : -10f), 0);
+            }
         }
 
         [MenuItem("Tools/Legacy/Build All Environments")]
