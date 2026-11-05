@@ -15,6 +15,13 @@ namespace LegacyOfTemples.World
         private Vector3 initialPosition;
         private float noiseOffset;
 
+        public void Configure(float min, float max, float spd = 12f)
+        {
+            minIntensity = min;
+            maxIntensity = max;
+            speed = spd;
+        }
+
         private void Awake()
         {
             targetLight = GetComponent<Light>();
