@@ -1,0 +1,22 @@
+{
+    "name": "LOT.Characters.Editor",
+    "rootNamespace": "LegacyOfTemples.Characters.Editor",
+    "references": [
+        "LOT.Core",
+        "LOT.World",
+        "LOT.Characters",
+        "Unity.RenderPipelines.Universal.Runtime",
+        "Unity.RenderPipelines.Core.Runtime"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
