@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: PriestConfig
   m_EditorClassIdentifier: LOT.Characters::LegacyOfTemples.Characters.CharacterConfig
   characterId: priest
-  displayName: Priest Madhav
+  displayName: Priest Ananda
   isPlayer: 0
   prefab: {fileID: 190522129507732977, guid: 137eaedab0e624880a615ded1463b815, type: 3}
-  moveSpeed: 3.2
+  moveSpeed: 4.5
   runSpeed: 7
   rotationSpeed: 12
   primaryColor: {r: 0.78, g: 0.68, b: 0.52, a: 1}

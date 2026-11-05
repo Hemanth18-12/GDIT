@@ -12,6 +12,12 @@ namespace LegacyOfTemples.Characters
         private Transform playerTransform;
         private Quaternion initialRotation;
 
+        public void Setup(float distance = 6.0f, float speed = 4.0f)
+        {
+            detectionDistance = distance;
+            turnSpeed = speed;
+        }
+
         private void Start()
         {
             initialRotation = transform.rotation;

@@ -89,3 +89,32 @@
   - `Assets/_Project/Scripts/World/Editor/EnvironmentBuilder.cs`
 - **Verification**: Built and tested in Unity 6 batch mode for all 4 steps in sequence: (1) CharacterManager + CharacterConfig + Investigator prefab, (2) PlayerController + OrbitCamera + CharacterTest scene, (3) 4 other characters, (4) NPC helpers and Courtyard player placement. Confirmed zero compile errors and zero warnings.
 - **Known Issues**: None.
+
+## P3-Heritage - Real 3D Characters Asset Swap & Placeholder Cleanup
+- **Date**: 2026-11-05
+- **Engine**: Unity 6 (`6000.6.8f1`) URP
+- **Summary**: Replaced all procedural primitive placeholder characters with high-fidelity authentic 3D models extracted and rigged from the user's `Heritage Mystery Project` (`assets.blend` and source asset libraries). Automated the export pipeline in Blender 5.2.2 batch mode with mesh decimation for optimal real-time performance, standard human scaling (1.7m - 1.85m), feet pivot alignment, and FBX conversion. Configured Unity ModelImporter with Humanoid avatar for the Villager (Mixamo rig) and Generic avatars with skinned/static mesh renderers for Investigator, Priest, Robber1, and Robber2. Generated URP Lit PBR materials with Albedo, Normal, Metallic, and Smoothness maps. Created the state machine `CharacterAnimator.controller` supporting Locomotion, Idle, Walk, Run, Crouch, and Interact states with Catwalk Idle animation integration. Completely deleted primitive placeholder builder scripts and materials. Renamed and updated the Villager character to Meera (female villager in an authentic red and green saree with gold embroidery) with tailored dialogue lines. Exported Lord Jagannath idol and temple architectures to `Models/Environment/` for future environment integration.
+- **Assets Imported**:
+  - `Investigator.fbx` (2.9 MB): Noir Detective Gumshoe hero with trench coat, hat, glasses, 121-bone skeleton, 5 PBR materials.
+  - `Villager.fbx` (13 MB): Meera, Indian woman in red/green saree, 73-bone Mixamo Humanoid rig, Catwalk Idle animation clip (`AvatarRoot|mixamo.com|Layer0`), 6 PBR materials.
+  - `Priest.fbx` (4.2 MB): Priest Ananda, elderly Hindu temple priest with dhoti, shawl, and rudraksha beads, 4K PBR textures.
+  - `Robber1.fbx` (2.8 MB): Shadow Robber Leader (Corrupted King in Black Armor with Bone Crown), PBR textures.
+  - `Robber2.fbx` (2.8 MB): Shadow Robber Accomplice (Corrupted Archangel Boss with Six Wings), PBR textures.
+  - `Idol_Jagannath.fbx` (6.4 MB) & `Temple_Jagannath.fbx` (2.0 MB): Staged in `Assets/_Project/Models/Environment/`.
+  - `CharacterAnimator.controller`: Complete state machine with Idle, Walk, Run, Crouch, Interact states.
+- **Assets Cleaned / Deleted**:
+  - Deleted `Assets/_Project/Scripts/Characters/Editor/CharacterBuilder.cs` (+ meta).
+  - Deleted 12 obsolete procedural materials: `mat_Char_TrenchCoat`, `mat_Char_DhotiKhaki`, `mat_Char_LeatherBrown`, `mat_Char_SkinTone`, `mat_Char_SaffronAccent`, `mat_Char_GoldBrass`, `mat_Char_DarkHair`, `mat_Char_PriestSilk`, `mat_Char_PriestAngavastram`, `mat_Char_RobberDark`, `mat_Char_RobberRedMask`, `mat_Char_VillagerKurta` (+ meta files).
+- **Files Created / Modified**:
+  - `Assets/_Project/Scripts/Characters/Editor/HeritageCharacterImporter.cs` (+ meta)
+  - `Assets/_Project/Scripts/Characters/PlayerController.cs` (Animator parameter binding)
+  - `Assets/_Project/Scripts/Characters/NPCFacePlayer.cs`
+  - `Assets/_Project/Models/Characters/` (5 FBX files + meta, 12 PBR materials + meta, Textures folder)
+  - `Assets/_Project/Models/Environment/` (`Idol_Jagannath.fbx`, `Temple_Jagannath.fbx` + meta)
+  - `Assets/_Project/Animations/CharacterAnimator.controller` (+ meta)
+  - `Assets/_Project/Prefabs/Characters/` (All 5 prefabs updated + meta)
+  - `Assets/_Project/Scenes/Environments/Courtyard.unity` (Real characters spawned at player_start, priest_spawn, villager_spawn)
+  - `Assets/_Project/Scenes/Dev/CharacterTest.unity` (Showcases all 5 real characters side-by-side)
+  - `README.md` (Added Art & Asset Credits section)
+- **Verification**: Executed Unity 6 batch mode importer and validator (`HeritageCharacterImporter.ValidateHeritageCharacters`). Confirmed 0 errors, 0 warnings, and clean exit code 0.
+- **Known Issues**: None.

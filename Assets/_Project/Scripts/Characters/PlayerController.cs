@@ -21,6 +21,9 @@ namespace LegacyOfTemples.Characters
         [Header("Camera Reference")]
         [SerializeField] private Transform cameraTransform;
 
+        [Header("Animation")]
+        [SerializeField] private Animator animator;
+
         private CharacterController characterController;
         private Vector3 moveVelocity;
         private float verticalVelocity;
@@ -35,6 +38,10 @@ namespace LegacyOfTemples.Characters
         private void Awake()
         {
             characterController = GetComponent<CharacterController>();
+            if (animator == null)
+            {
+                animator = GetComponentInChildren<Animator>();
+            }
             if (cameraTransform == null && Camera.main != null)
             {
                 cameraTransform = Camera.main.transform;
@@ -118,6 +125,13 @@ namespace LegacyOfTemples.Characters
 
             Vector3 finalMove = (moveDir * targetSpeed) + Vector3.up * verticalVelocity;
             characterController.Move(finalMove * Time.deltaTime);
+
+            if (animator != null)
+            {
+                animator.SetBool("IsMoving", IsMoving);
+                animator.SetBool("IsRunning", IsRunning);
+                animator.SetFloat("Speed", IsMoving ? (IsRunning ? runSpeed : walkSpeed) : 0f);
+            }
         }
 
         private void HandleInteractionScan()
@@ -146,6 +160,10 @@ namespace LegacyOfTemples.Characters
             if (nearestInteractable != null)
             {
                 Debug.Log($"[PlayerController] Interacting with: {nearestInteractable.Id} ({nearestInteractable.Prompt})");
+                if (animator != null)
+                {
+                    animator.SetTrigger("Interact");
+                }
                 nearestInteractable.Interact();
             }
         }

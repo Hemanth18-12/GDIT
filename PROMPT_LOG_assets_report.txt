@@ -1,0 +1,784 @@
+00:00.376  blend            | Read blend: "/Users/hemanth/Desktop/GDIT/Heritage Mystery Project/assets.blend"
+================================================================================
+BLENDER ASSETS INSPECTION: /Users/hemanth/Desktop/GDIT/Heritage Mystery Project/assets.blend
+================================================================================
+
+--- COLLECTIONS ---
+Collection: Collection (Objects: 42)
+  - Light (LIGHT)
+  - Camera (CAMERA)
+  - AvatarRoot (ARMATURE)
+  - AvatarEyelashes (MESH)
+  - AvatarLeftCornea (MESH)
+  - AvatarRightCornea (MESH)
+  - AvatarTeethLower (MESH)
+  - haircut (MESH)
+  - AvatarBody (MESH)
+  - AvatarHead (MESH)
+  - AvatarLeftEyeball (MESH)
+  - AvatarRightEyeball (MESH)
+  - AvatarTeethUpper (MESH)
+  - outfit (MESH)
+  - tripo_node_ca66fc79 (MESH)
+  - tripo_node_0f07ddad (MESH)
+  - Object_01 (MESH)
+  - M_MED_CAU_Jonesy_Head_01.smd (MESH)
+  - M_MED_Gumshoe.smd (MESH)
+  - M_MED_Gumshoe_button.smd (MESH)
+  - M_MED_Gumshoe_Glasses.smd (MESH)
+  - M_MED_Gumshoe_Hat.smd (MESH)
+  - M_MED_Gumshoe_paper.smd (MESH)
+  - eyes (EMPTY)
+  - righteye (EMPTY)
+  - lefteye (EMPTY)
+  - foot_L (EMPTY)
+  - foot_R (EMPTY)
+  - back_upper (EMPTY)
+  - back_lower (EMPTY)
+  - hand_L (EMPTY)
+  - hand_R (EMPTY)
+  - __illumPosition (EMPTY)
+  - pvt_toe_L (EMPTY)
+  - pvt_outerFoot_L (EMPTY)
+  - pvt_innerFoot_L (EMPTY)
+  - pvt_heel_L (EMPTY)
+  - pvt_toe_R (EMPTY)
+  - pvt_outerFoot_R (EMPTY)
+  - pvt_innerFoot_R (EMPTY)
+  - pvt_heel_R (EMPTY)
+  - material (MESH)
+Collection: Collection.001 (Objects: 188)
+  - Base (MESH)
+  - BaseTop (MESH)
+  - Base_Red (MESH)
+  - Base_Yellow (MESH)
+  - Base_Green (MESH)
+  - RedOval0 (MESH)
+  - RedOval1 (MESH)
+  - RedOval2 (MESH)
+  - RedOval3 (MESH)
+  - RedOval4 (MESH)
+  - RedOval5 (MESH)
+  - RedOval6 (MESH)
+  - RedOval7 (MESH)
+  - RedOval8 (MESH)
+  - RedOval9 (MESH)
+  - RedOval10 (MESH)
+  - RedOval11 (MESH)
+  - YellowDot0 (MESH)
+  - YellowDot1 (MESH)
+  - YellowDot2 (MESH)
+  - YellowDot3 (MESH)
+  - YellowDot4 (MESH)
+  - YellowDot5 (MESH)
+  - YellowDot6 (MESH)
+  - YellowDot7 (MESH)
+  - YellowDot8 (MESH)
+  - YellowDot9 (MESH)
+  - YellowDot10 (MESH)
+  - YellowDot11 (MESH)
+  - YellowDot12 (MESH)
+  - YellowDot13 (MESH)
+  - YellowDot14 (MESH)
+  - YellowDot15 (MESH)
+  - YellowDot16 (MESH)
+  - YellowDot17 (MESH)
+  - YellowDot18 (MESH)
+  - YellowDot19 (MESH)
+  - YellowDot20 (MESH)
+  - YellowDot21 (MESH)
+  - YellowDot22 (MESH)
+  - YellowDot23 (MESH)
+  - Foot-1 (MESH)
+  - Leg-1 (MESH)
+  - Leg-1_j1 (MESH)
+  - Leg-1_j2 (MESH)
+  - Anklet-1 (MESH)
+  - Foot1 (MESH)
+  - Leg1 (MESH)
+  - Leg1_j1 (MESH)
+  - Leg1_j2 (MESH)
+  - Anklet1 (MESH)
+  - Skirt_Black (MESH)
+  - Skirt_Wood (MESH)
+  - Skirt_Y1 (MESH)
+  - Skirt_R1 (MESH)
+  - Skirt_Y2 (MESH)
+  - Skirt_Y3 (MESH)
+  - BellyDisc (MESH)
+  - BellyRing1 (MESH)
+  - BellyRing2 (MESH)
+  - Torso (MESH)
+  - BackYoke (MESH)
+  - Necklace0 (MESH)
+  - Bead0_0 (MESH)
+  - Bead0_1 (MESH)
+  - Bead0_2 (MESH)
+  - Bead0_3 (MESH)
+  - Bead0_4 (MESH)
+  - Bead0_5 (MESH)
+  - Bead0_6 (MESH)
+  - Bead0_7 (MESH)
+  - Bead0_8 (MESH)
+  - Bead0_9 (MESH)
+  - Bead0_10 (MESH)
+  - Bead0_11 (MESH)
+  - Bead0_12 (MESH)
+  - Necklace1 (MESH)
+  - Bead1_0 (MESH)
+  - Bead1_1 (MESH)
+  - Bead1_2 (MESH)
+  - Bead1_3 (MESH)
+  - Bead1_4 (MESH)
+  - Bead1_5 (MESH)
+  - Bead1_6 (MESH)
+  - Bead1_7 (MESH)
+  - Bead1_8 (MESH)
+  - Bead1_9 (MESH)
+  - Bead1_10 (MESH)
+  - Bead1_11 (MESH)
+  - Bead1_12 (MESH)
+  - Necklace2 (MESH)
+  - Bead2_0 (MESH)
+  - Bead2_1 (MESH)
+  - Bead2_2 (MESH)
+  - Bead2_3 (MESH)
+  - Bead2_4 (MESH)
+  - Bead2_5 (MESH)
+  - Bead2_6 (MESH)
+  - Bead2_7 (MESH)
+  - Bead2_8 (MESH)
+  - Bead2_9 (MESH)
+  - Bead2_10 (MESH)
+  - Bead2_11 (MESH)
+  - Bead2_12 (MESH)
+  - Necklace3 (MESH)
+  - Bead3_0 (MESH)
+  - Bead3_1 (MESH)
+  - Bead3_2 (MESH)
+  - Bead3_3 (MESH)
+  - Bead3_4 (MESH)
+  - Bead3_5 (MESH)
+  - Bead3_6 (MESH)
+  - Bead3_7 (MESH)
+  - Bead3_8 (MESH)
+  - Bead3_9 (MESH)
+  - Bead3_10 (MESH)
+  - Bead3_11 (MESH)
+  - Bead3_12 (MESH)
+  - Medallion (MESH)
+  - MedallionRing (MESH)
+  - Shoulder-1 (MESH)
+  - UpperArm-1 (MESH)
+  - UpperArm-1_j1 (MESH)
+  - UpperArm-1_j2 (MESH)
+  - ForeArm-1 (MESH)
+  - ForeArm-1_j1 (MESH)
+  - ForeArm-1_j2 (MESH)
+  - Hand-1 (MESH)
+  - ShoulderDisc-1 (MESH)
+  - ShoulderRing-1 (MESH)
+  - Bracelet-1_0 (MESH)
+  - Bracelet-1_1 (MESH)
+  - Bracelet-1_2 (MESH)
+  - Shoulder1 (MESH)
+  - UpperArm1 (MESH)
+  - UpperArm1_j1 (MESH)
+  - UpperArm1_j2 (MESH)
+  - ForeArm1 (MESH)
+  - ForeArm1_j1 (MESH)
+  - ForeArm1_j2 (MESH)
+  - Hand1 (MESH)
+  - ShoulderDisc1 (MESH)
+  - ShoulderRing1 (MESH)
+  - Bracelet1_0 (MESH)
+  - Bracelet1_1 (MESH)
+  - Bracelet1_2 (MESH)
+  - Head (MESH)
+  - FaceBorder (MESH)
+  - Face (MESH)
+  - Forehead_Red (CURVE)
+  - Forehead_Yellow (CURVE)
+  - TilakDisc (MESH)
+  - TilakRing (MESH)
+  - Eye-1 (MESH)
+  - Pupil-1 (MESH)
+  - EyeRim-1 (MESH)
+  - Brow-1 (MESH)
+  - Eye1 (MESH)
+  - Pupil1 (MESH)
+  - EyeRim1 (MESH)
+  - Brow1 (MESH)
+  - Nose (MESH)
+  - Smile (CURVE)
+  - Teeth (MESH)
+  - EarCurl-1 (MESH)
+  - EarSwirl-1 (MESH)
+  - EarPlate-1 (MESH)
+  - EarHorn-1 (MESH)
+  - EarHornTip-1 (MESH)
+  - EarCurl1 (MESH)
+  - EarSwirl1 (MESH)
+  - EarPlate1 (MESH)
+  - EarHorn1 (MESH)
+  - EarHornTip1 (MESH)
+  - Collar (MESH)
+  - Collar_Y1 (MESH)
+  - Collar_Y2 (MESH)
+  - CrownDome (MESH)
+  - CrownDot0 (MESH)
+  - CrownDot1 (MESH)
+  - CrownDot2 (MESH)
+  - Finial (MESH)
+  - Finial_Band (MESH)
+  - Jagannath (EMPTY)
+  - Area (LIGHT)
+  - Area.001 (LIGHT)
+  - Sun (LIGHT)
+  - Camera.001 (CAMERA)
+Collection: Collection.002 (Objects: 0)
+Collection: glTF_not_exported (Objects: 1)
+  - Icosphere (MESH)
+
+--- OBJECTS ---
+Object: __illumPosition | Type: EMPTY | Parent: None | Polys: 0 | Verts: 0 | Dim: <Vector (0.0000, 0.0000, 0.0000)>
+Object: Anklet-1 | Type: MESH | Parent: Jagannath | Polys: 896 | Verts: 896 | Dim: <Vector (0.2000, 0.2000, 0.0429)>
+  Materials: Orange
+Object: Anklet1 | Type: MESH | Parent: Jagannath | Polys: 896 | Verts: 896 | Dim: <Vector (0.2000, 0.2000, 0.0429)>
+  Materials: Orange
+Object: Area | Type: LIGHT | Parent: None | Polys: 0 | Verts: 0 | Dim: <Vector (0.0000, 0.0000, 0.0000)>
+Object: Area.001 | Type: LIGHT | Parent: None | Polys: 0 | Verts: 0 | Dim: <Vector (0.0000, 0.0000, 0.0000)>
+Object: AvatarBody | Type: MESH | Parent: AvatarRoot | Polys: 5558 | Verts: 2901 | Dim: <Vector (0.5299, 0.7335, 0.2510)>
+  Materials: AvatarBody
+Object: AvatarEyelashes | Type: MESH | Parent: AvatarRoot | Polys: 4900 | Verts: 6300 | Dim: <Vector (0.0875, 0.0164, 0.0355)>
+  Materials: AvatarEyelashes
+Object: AvatarHead | Type: MESH | Parent: AvatarRoot | Polys: 14404 | Verts: 7261 | Dim: <Vector (0.2269, 0.3378, 0.2144)>
+  Materials: AvatarHead
+Object: AvatarLeftCornea | Type: MESH | Parent: AvatarRoot | Polys: 830 | Verts: 417 | Dim: <Vector (0.0233, 0.0233, 0.0247)>
+  Materials: AvatarLeftCornea
+Object: AvatarLeftEyeball | Type: MESH | Parent: AvatarRoot | Polys: 791 | Verts: 414 | Dim: <Vector (0.0228, 0.0228, 0.0231)>
+  Materials: AvatarLeftEyeball
+Object: AvatarRightCornea | Type: MESH | Parent: AvatarRoot | Polys: 830 | Verts: 417 | Dim: <Vector (0.0233, 0.0233, 0.0247)>
+  Materials: AvatarRightCornea
+Object: AvatarRightEyeball | Type: MESH | Parent: AvatarRoot | Polys: 791 | Verts: 414 | Dim: <Vector (0.0228, 0.0228, 0.0231)>
+  Materials: AvatarRightEyeball
+Object: AvatarRoot | Type: ARMATURE | Parent: None | Polys: 0 | Verts: 0 | Dim: <Vector (0.5155, 1.7202, 0.3302)>
+Object: AvatarTeethLower | Type: MESH | Parent: AvatarRoot | Polys: 3464 | Verts: 1894 | Dim: <Vector (0.0643, 0.0306, 0.0858)>
+  Materials: AvatarTeethLower
+Object: AvatarTeethUpper | Type: MESH | Parent: AvatarRoot | Polys: 3654 | Verts: 2041 | Dim: <Vector (0.0665, 0.0267, 0.0894)>
+  Materials: AvatarTeethUpper
+Object: back_lower | Type: EMPTY | Parent: None | Polys: 0 | Verts: 0 | Dim: <Vector (0.0000, 0.0000, 0.0000)>
+Object: back_upper | Type: EMPTY | Parent: None | Polys: 0 | Verts: 0 | Dim: <Vector (0.0000, 0.0000, 0.0000)>
+Object: BackYoke | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.8000, 0.5000, 0.3600)>
+  Materials: DarkGrey
+Object: Base | Type: MESH | Parent: Jagannath | Polys: 640 | Verts: 578 | Dim: <Vector (1.0800, 1.0800, 0.7500)>
+  Materials: Black
+Object: Base_Green | Type: MESH | Parent: Jagannath | Polys: 896 | Verts: 896 | Dim: <Vector (1.0740, 1.0740, 0.0429)>
+  Materials: Green
+Object: Base_Red | Type: MESH | Parent: Jagannath | Polys: 896 | Verts: 896 | Dim: <Vector (1.1460, 1.1460, 0.0741)>
+  Materials: Red
+Object: Base_Yellow | Type: MESH | Parent: Jagannath | Polys: 896 | Verts: 896 | Dim: <Vector (1.1200, 1.1200, 0.0585)>
+  Materials: Yellow
+Object: BaseTop | Type: MESH | Parent: Jagannath | Polys: 66 | Verts: 128 | Dim: <Vector (0.7100, 0.7100, 0.0300)>
+  Materials: Wood
+Object: Bead0_0 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.0600, 0.0600, 0.0600)>
+  Materials: Gold
+Object: Bead0_1 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.0600, 0.0600, 0.0600)>
+  Materials: Gold
+Object: Bead0_10 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.0600, 0.0600, 0.0600)>
+  Materials: Gold
+Object: Bead0_11 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.0600, 0.0600, 0.0600)>
+  Materials: Gold
+Object: Bead0_12 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.0600, 0.0600, 0.0600)>
+  Materials: Gold
+Object: Bead0_2 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.0600, 0.0600, 0.0600)>
+  Materials: Gold
+Object: Bead0_3 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.0600, 0.0600, 0.0600)>
+  Materials: Gold
+Object: Bead0_4 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.0600, 0.0600, 0.0600)>
+  Materials: Gold
+Object: Bead0_5 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.0600, 0.0600, 0.0600)>
+  Materials: Gold
+Object: Bead0_6 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.0600, 0.0600, 0.0600)>
+  Materials: Gold
+Object: Bead0_7 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.0600, 0.0600, 0.0600)>
+  Materials: Gold
+Object: Bead0_8 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.0600, 0.0600, 0.0600)>
+  Materials: Gold
+Object: Bead0_9 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.0600, 0.0600, 0.0600)>
+  Materials: Gold
+Object: Bead1_0 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.0600, 0.0600, 0.0600)>
+  Materials: Gold
+Object: Bead1_1 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.0600, 0.0600, 0.0600)>
+  Materials: Gold
+Object: Bead1_10 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.0600, 0.0600, 0.0600)>
+  Materials: Gold
+Object: Bead1_11 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.0600, 0.0600, 0.0600)>
+  Materials: Gold
+Object: Bead1_12 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.0600, 0.0600, 0.0600)>
+  Materials: Gold
+Object: Bead1_2 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.0600, 0.0600, 0.0600)>
+  Materials: Gold
+Object: Bead1_3 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.0600, 0.0600, 0.0600)>
+  Materials: Gold
+Object: Bead1_4 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.0600, 0.0600, 0.0600)>
+  Materials: Gold
+Object: Bead1_5 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.0600, 0.0600, 0.0600)>
+  Materials: Gold
+Object: Bead1_6 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.0600, 0.0600, 0.0600)>
+  Materials: Gold
+Object: Bead1_7 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.0600, 0.0600, 0.0600)>
+  Materials: Gold
+Object: Bead1_8 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.0600, 0.0600, 0.0600)>
+  Materials: Gold
+Object: Bead1_9 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.0600, 0.0600, 0.0600)>
+  Materials: Gold
+Object: Bead2_0 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.0600, 0.0600, 0.0600)>
+  Materials: Gold
+Object: Bead2_1 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.0600, 0.0600, 0.0600)>
+  Materials: Gold
+Object: Bead2_10 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.0600, 0.0600, 0.0600)>
+  Materials: Gold
+Object: Bead2_11 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.0600, 0.0600, 0.0600)>
+  Materials: Gold
+Object: Bead2_12 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.0600, 0.0600, 0.0600)>
+  Materials: Gold
+Object: Bead2_2 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.0600, 0.0600, 0.0600)>
+  Materials: Gold
+Object: Bead2_3 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.0600, 0.0600, 0.0600)>
+  Materials: Gold
+Object: Bead2_4 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.0600, 0.0600, 0.0600)>
+  Materials: Gold
+Object: Bead2_5 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.0600, 0.0600, 0.0600)>
+  Materials: Gold
+Object: Bead2_6 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.0600, 0.0600, 0.0600)>
+  Materials: Gold
+Object: Bead2_7 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.0600, 0.0600, 0.0600)>
+  Materials: Gold
+Object: Bead2_8 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.0600, 0.0600, 0.0600)>
+  Materials: Gold
+Object: Bead2_9 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.0600, 0.0600, 0.0600)>
+  Materials: Gold
+Object: Bead3_0 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.0600, 0.0600, 0.0600)>
+  Materials: Gold
+Object: Bead3_1 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.0600, 0.0600, 0.0600)>
+  Materials: Gold
+Object: Bead3_10 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.0600, 0.0600, 0.0600)>
+  Materials: Gold
+Object: Bead3_11 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.0600, 0.0600, 0.0600)>
+  Materials: Gold
+Object: Bead3_12 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.0600, 0.0600, 0.0600)>
+  Materials: Gold
+Object: Bead3_2 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.0600, 0.0600, 0.0600)>
+  Materials: Gold
+Object: Bead3_3 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.0600, 0.0600, 0.0600)>
+  Materials: Gold
+Object: Bead3_4 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.0600, 0.0600, 0.0600)>
+  Materials: Gold
+Object: Bead3_5 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.0600, 0.0600, 0.0600)>
+  Materials: Gold
+Object: Bead3_6 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.0600, 0.0600, 0.0600)>
+  Materials: Gold
+Object: Bead3_7 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.0600, 0.0600, 0.0600)>
+  Materials: Gold
+Object: Bead3_8 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.0600, 0.0600, 0.0600)>
+  Materials: Gold
+Object: Bead3_9 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.0600, 0.0600, 0.0600)>
+  Materials: Gold
+Object: BellyDisc | Type: MESH | Parent: Jagannath | Polys: 66 | Verts: 128 | Dim: <Vector (0.2800, 0.2800, 0.0400)>
+  Materials: Gold
+Object: BellyRing1 | Type: MESH | Parent: Jagannath | Polys: 896 | Verts: 896 | Dim: <Vector (0.3360, 0.3360, 0.0351)>
+  Materials: Orange
+Object: BellyRing2 | Type: MESH | Parent: Jagannath | Polys: 896 | Verts: 896 | Dim: <Vector (0.2040, 0.2040, 0.0234)>
+  Materials: Wood
+Object: Bracelet-1_0 | Type: MESH | Parent: Jagannath | Polys: 896 | Verts: 896 | Dim: <Vector (0.2340, 0.2340, 0.0390)>
+  Materials: Red
+Object: Bracelet-1_1 | Type: MESH | Parent: Jagannath | Polys: 896 | Verts: 896 | Dim: <Vector (0.2340, 0.2340, 0.0390)>
+  Materials: Yellow
+Object: Bracelet-1_2 | Type: MESH | Parent: Jagannath | Polys: 896 | Verts: 896 | Dim: <Vector (0.2340, 0.2340, 0.0390)>
+  Materials: Red
+Object: Bracelet1_0 | Type: MESH | Parent: Jagannath | Polys: 896 | Verts: 896 | Dim: <Vector (0.2340, 0.2340, 0.0390)>
+  Materials: Red
+Object: Bracelet1_1 | Type: MESH | Parent: Jagannath | Polys: 896 | Verts: 896 | Dim: <Vector (0.2340, 0.2340, 0.0390)>
+  Materials: Yellow
+Object: Bracelet1_2 | Type: MESH | Parent: Jagannath | Polys: 896 | Verts: 896 | Dim: <Vector (0.2340, 0.2340, 0.0390)>
+  Materials: Red
+Object: Brow-1 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.2800, 0.0500, 0.0560)>
+  Materials: Orange
+Object: Brow1 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.2800, 0.0500, 0.0560)>
+  Materials: Orange
+Object: Camera | Type: CAMERA | Parent: None | Polys: 0 | Verts: 0 | Dim: <Vector (0.0000, 0.0000, 0.0000)>
+Object: Camera.001 | Type: CAMERA | Parent: None | Polys: 0 | Verts: 0 | Dim: <Vector (0.0000, 0.0000, 0.0000)>
+Object: Collar | Type: MESH | Parent: Jagannath | Polys: 66 | Verts: 128 | Dim: <Vector (0.6000, 0.6000, 0.1000)>
+  Materials: Red
+Object: Collar_Y1 | Type: MESH | Parent: Jagannath | Polys: 896 | Verts: 896 | Dim: <Vector (0.6260, 0.6260, 0.0253)>
+  Materials: Yellow
+Object: Collar_Y2 | Type: MESH | Parent: Jagannath | Polys: 896 | Verts: 896 | Dim: <Vector (0.5700, 0.5700, 0.0253)>
+  Materials: Yellow
+Object: CrownDome | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.4900, 0.4900, 0.4800)>
+  Materials: Black
+Object: CrownDot0 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1000, 0.0400, 0.0640)>
+  Materials: Yellow
+Object: CrownDot1 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1000, 0.0400, 0.0640)>
+  Materials: White
+Object: CrownDot2 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1000, 0.0400, 0.0640)>
+  Materials: Yellow
+Object: EarCurl-1 | Type: MESH | Parent: Jagannath | Polys: 896 | Verts: 896 | Dim: <Vector (0.3320, 0.3320, 0.0702)>
+  Materials: Wood
+Object: EarCurl1 | Type: MESH | Parent: Jagannath | Polys: 896 | Verts: 896 | Dim: <Vector (0.3320, 0.3320, 0.0702)>
+  Materials: Wood
+Object: EarHorn-1 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1000, 0.0800, 0.3200)>
+  Materials: Wood
+Object: EarHorn1 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1000, 0.0800, 0.3200)>
+  Materials: Wood
+Object: EarHornTip-1 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1000, 0.0800, 0.1000)>
+  Materials: Wood
+Object: EarHornTip1 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1000, 0.0800, 0.1000)>
+  Materials: Wood
+Object: EarPlate-1 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.2200, 0.0800, 0.3400)>
+  Materials: Wood
+Object: EarPlate1 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.2200, 0.0800, 0.3400)>
+  Materials: Wood
+Object: EarSwirl-1 | Type: MESH | Parent: Jagannath | Polys: 896 | Verts: 896 | Dim: <Vector (0.1480, 0.1480, 0.0273)>
+  Materials: Orange
+Object: EarSwirl1 | Type: MESH | Parent: Jagannath | Polys: 896 | Verts: 896 | Dim: <Vector (0.1480, 0.1480, 0.0273)>
+  Materials: Orange
+Object: Eye-1 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.2400, 0.1920, 0.2400)>
+  Materials: White
+Object: Eye1 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.2400, 0.1920, 0.2400)>
+  Materials: White
+Object: EyeRim-1 | Type: MESH | Parent: Jagannath | Polys: 896 | Verts: 896 | Dim: <Vector (0.2900, 0.2900, 0.0390)>
+  Materials: Black
+Object: EyeRim1 | Type: MESH | Parent: Jagannath | Polys: 896 | Verts: 896 | Dim: <Vector (0.2900, 0.2900, 0.0390)>
+  Materials: Black
+Object: eyes | Type: EMPTY | Parent: None | Polys: 0 | Verts: 0 | Dim: <Vector (0.0000, 0.0000, 0.0000)>
+Object: Face | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.6100, 0.3200, 0.8600)>
+  Materials: DarkGrey
+Object: FaceBorder | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.6700, 0.3000, 0.9100)>
+  Materials: Orange
+Object: Finial | Type: MESH | Parent: Jagannath | Polys: 576 | Verts: 514 | Dim: <Vector (0.2300, 0.2300, 0.3800)>
+  Materials: Wood
+Object: Finial_Band | Type: MESH | Parent: Jagannath | Polys: 896 | Verts: 896 | Dim: <Vector (0.2480, 0.2480, 0.0234)>
+  Materials: Red
+Object: Foot-1 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.2000, 0.3400, 0.0900)>
+  Materials: DarkGrey
+Object: Foot1 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.2000, 0.3400, 0.0900)>
+  Materials: DarkGrey
+Object: foot_L | Type: EMPTY | Parent: None | Polys: 0 | Verts: 0 | Dim: <Vector (0.0000, 0.0000, 0.0000)>
+Object: foot_R | Type: EMPTY | Parent: None | Polys: 0 | Verts: 0 | Dim: <Vector (0.0000, 0.0000, 0.0000)>
+Object: ForeArm-1 | Type: MESH | Parent: Jagannath | Polys: 34 | Verts: 64 | Dim: <Vector (0.1700, 0.1700, 0.4411)>
+  Materials: DarkGrey
+Object: ForeArm-1_j1 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1700, 0.1700, 0.1700)>
+  Materials: DarkGrey
+Object: ForeArm-1_j2 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1700, 0.1700, 0.1700)>
+  Materials: DarkGrey
+Object: ForeArm1 | Type: MESH | Parent: Jagannath | Polys: 34 | Verts: 64 | Dim: <Vector (0.1700, 0.1700, 0.4411)>
+  Materials: DarkGrey
+Object: ForeArm1_j1 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1700, 0.1700, 0.1700)>
+  Materials: DarkGrey
+Object: ForeArm1_j2 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1700, 0.1700, 0.1700)>
+  Materials: DarkGrey
+Object: Forehead_Red | Type: CURVE | Parent: Jagannath | Polys: 0 | Verts: 0 | Dim: <Vector (0.4209, 0.1176, 0.1218)>
+  Materials: Red
+Object: Forehead_Yellow | Type: CURVE | Parent: Jagannath | Polys: 0 | Verts: 0 | Dim: <Vector (0.4529, 0.1120, 0.1067)>
+  Materials: Yellow
+Object: haircut | Type: MESH | Parent: AvatarRoot | Polys: 45743 | Verts: 48813 | Dim: <Vector (0.2728, 0.3560, 0.2590)>
+  Materials: haircut
+Object: Hand-1 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.2000, 0.2000, 0.2300)>
+  Materials: DarkGrey
+Object: Hand1 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.2000, 0.2000, 0.2300)>
+  Materials: DarkGrey
+Object: hand_L | Type: EMPTY | Parent: None | Polys: 0 | Verts: 0 | Dim: <Vector (0.0000, 0.0000, 0.0000)>
+Object: hand_R | Type: EMPTY | Parent: None | Polys: 0 | Verts: 0 | Dim: <Vector (0.0000, 0.0000, 0.0000)>
+Object: Head | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.7200, 0.7000, 1.2000)>
+  Materials: Wood
+Object: Icosphere | Type: MESH | Parent: None | Polys: 80 | Verts: 42 | Dim: <Vector (1.9021, 2.0000, 2.0000)>
+Object: Jagannath | Type: EMPTY | Parent: None | Polys: 0 | Verts: 0 | Dim: <Vector (0.0000, 0.0000, 0.0000)>
+Object: lefteye | Type: EMPTY | Parent: None | Polys: 0 | Verts: 0 | Dim: <Vector (0.0000, 0.0000, 0.0000)>
+Object: Leg-1 | Type: MESH | Parent: Jagannath | Polys: 34 | Verts: 64 | Dim: <Vector (0.1400, 0.1400, 0.1500)>
+  Materials: Black
+Object: Leg-1_j1 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1400, 0.1400, 0.1400)>
+  Materials: Black
+Object: Leg-1_j2 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1400, 0.1400, 0.1400)>
+  Materials: Black
+Object: Leg1 | Type: MESH | Parent: Jagannath | Polys: 34 | Verts: 64 | Dim: <Vector (0.1400, 0.1400, 0.1500)>
+  Materials: Black
+Object: Leg1_j1 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1400, 0.1400, 0.1400)>
+  Materials: Black
+Object: Leg1_j2 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1400, 0.1400, 0.1400)>
+  Materials: Black
+Object: Light | Type: LIGHT | Parent: None | Polys: 0 | Verts: 0 | Dim: <Vector (0.0000, 0.0000, 0.0000)>
+Object: M_MED_CAU_Jonesy_Head_01.smd | Type: MESH | Parent: None | Polys: 7270 | Verts: 4168 | Dim: <Vector (0.1627, 0.1795, 0.2558)>
+  Materials: M_Med_Soldier_Head_eyebrows, M_Med_Soldier_Head, Jonesy_Eyeball_R, Jonesy_Eyeball_L, M_Med_Gumshoe_V1_Hair
+Object: M_MED_Gumshoe.smd | Type: MESH | Parent: None | Polys: 17223 | Verts: 10243 | Dim: <Vector (0.6183, 0.2938, 1.2371)>
+  Materials: M_MED_Gumshoe_Dark_Body
+Object: M_MED_Gumshoe_button.smd | Type: MESH | Parent: None | Polys: 613 | Verts: 399 | Dim: <Vector (0.0726, 0.0802, 0.1186)>
+  Materials: M_MED_Gumshoe_Dark_Body
+Object: M_MED_Gumshoe_Glasses.smd | Type: MESH | Parent: None | Polys: 940 | Verts: 758 | Dim: <Vector (0.0992, 0.0834, 0.0371)>
+  Materials: M_Med_Gumshoe_Glasses
+Object: M_MED_Gumshoe_Hat.smd | Type: MESH | Parent: None | Polys: 2180 | Verts: 1278 | Dim: <Vector (0.1621, 0.2002, 0.0962)>
+  Materials: M_Med_Gumshoe_V1_Hat
+Object: M_MED_Gumshoe_paper.smd | Type: MESH | Parent: None | Polys: 152 | Verts: 105 | Dim: <Vector (0.0628, 0.0842, 0.0972)>
+  Materials: M_MED_Gumshoe_Dark_Body
+Object: material | Type: MESH | Parent: None | Polys: 1500000 | Verts: 855205 | Dim: <Vector (1.9481, 2.0087, 1.2233)>
+  Materials: Material.001
+Object: Medallion | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1100, 0.0500, 0.1100)>
+  Materials: Gold
+Object: MedallionRing | Type: MESH | Parent: Jagannath | Polys: 896 | Verts: 896 | Dim: <Vector (0.1540, 0.1540, 0.0234)>
+  Materials: Orange
+Object: Necklace0 | Type: MESH | Parent: Jagannath | Polys: 896 | Verts: 896 | Dim: <Vector (0.5880, 0.4292, 0.0468)>
+  Materials: Gold
+Object: Necklace1 | Type: MESH | Parent: Jagannath | Polys: 896 | Verts: 896 | Dim: <Vector (0.7280, 0.5314, 0.0468)>
+  Materials: Gold
+Object: Necklace2 | Type: MESH | Parent: Jagannath | Polys: 896 | Verts: 896 | Dim: <Vector (0.8080, 0.5898, 0.0468)>
+  Materials: Gold
+Object: Necklace3 | Type: MESH | Parent: Jagannath | Polys: 896 | Verts: 896 | Dim: <Vector (0.8280, 0.6044, 0.0468)>
+  Materials: Gold
+Object: Nose | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1600, 0.1800, 0.2200)>
+  Materials: Orange
+Object: Object_01 | Type: MESH | Parent: None | Polys: 997826 | Verts: 619953 | Dim: <Vector (1.8192, 1.8314, 0.7989)>
+  Materials: Material_01
+Object: outfit | Type: MESH | Parent: AvatarRoot | Polys: 36630 | Verts: 18700 | Dim: <Vector (0.4719, 1.4962, 0.4457)>
+  Materials: outfit
+Object: Pupil-1 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1000, 0.0600, 0.1000)>
+  Materials: Black
+Object: Pupil1 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1000, 0.0600, 0.1000)>
+  Materials: Black
+Object: pvt_heel_L | Type: EMPTY | Parent: None | Polys: 0 | Verts: 0 | Dim: <Vector (0.0000, 0.0000, 0.0000)>
+Object: pvt_heel_R | Type: EMPTY | Parent: None | Polys: 0 | Verts: 0 | Dim: <Vector (0.0000, 0.0000, 0.0000)>
+Object: pvt_innerFoot_L | Type: EMPTY | Parent: None | Polys: 0 | Verts: 0 | Dim: <Vector (0.0000, 0.0000, 0.0000)>
+Object: pvt_innerFoot_R | Type: EMPTY | Parent: None | Polys: 0 | Verts: 0 | Dim: <Vector (0.0000, 0.0000, 0.0000)>
+Object: pvt_outerFoot_L | Type: EMPTY | Parent: None | Polys: 0 | Verts: 0 | Dim: <Vector (0.0000, 0.0000, 0.0000)>
+Object: pvt_outerFoot_R | Type: EMPTY | Parent: None | Polys: 0 | Verts: 0 | Dim: <Vector (0.0000, 0.0000, 0.0000)>
+Object: pvt_toe_L | Type: EMPTY | Parent: None | Polys: 0 | Verts: 0 | Dim: <Vector (0.0000, 0.0000, 0.0000)>
+Object: pvt_toe_R | Type: EMPTY | Parent: None | Polys: 0 | Verts: 0 | Dim: <Vector (0.0000, 0.0000, 0.0000)>
+Object: RedOval0 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1500, 0.0600, 0.2200)>
+  Materials: Red
+Object: RedOval1 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1500, 0.0600, 0.2200)>
+  Materials: Red
+Object: RedOval10 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1500, 0.0600, 0.2200)>
+  Materials: Red
+Object: RedOval11 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1500, 0.0600, 0.2200)>
+  Materials: Red
+Object: RedOval2 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1500, 0.0600, 0.2200)>
+  Materials: Red
+Object: RedOval3 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1500, 0.0600, 0.2200)>
+  Materials: Red
+Object: RedOval4 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1500, 0.0600, 0.2200)>
+  Materials: Red
+Object: RedOval5 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1500, 0.0600, 0.2200)>
+  Materials: Red
+Object: RedOval6 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1500, 0.0600, 0.2200)>
+  Materials: Red
+Object: RedOval7 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1500, 0.0600, 0.2200)>
+  Materials: Red
+Object: RedOval8 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1500, 0.0600, 0.2200)>
+  Materials: Red
+Object: RedOval9 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1500, 0.0600, 0.2200)>
+  Materials: Red
+Object: righteye | Type: EMPTY | Parent: None | Polys: 0 | Verts: 0 | Dim: <Vector (0.0000, 0.0000, 0.0000)>
+Object: Shoulder-1 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.3400, 0.3400, 0.3400)>
+  Materials: Wood
+Object: Shoulder1 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.3400, 0.3400, 0.3400)>
+  Materials: Wood
+Object: ShoulderDisc-1 | Type: MESH | Parent: Jagannath | Polys: 66 | Verts: 128 | Dim: <Vector (0.2600, 0.2600, 0.0400)>
+  Materials: Wood
+Object: ShoulderDisc1 | Type: MESH | Parent: Jagannath | Polys: 66 | Verts: 128 | Dim: <Vector (0.2600, 0.2600, 0.0400)>
+  Materials: Wood
+Object: ShoulderRing-1 | Type: MESH | Parent: Jagannath | Polys: 896 | Verts: 896 | Dim: <Vector (0.2660, 0.2660, 0.0351)>
+  Materials: Gold
+Object: ShoulderRing1 | Type: MESH | Parent: Jagannath | Polys: 896 | Verts: 896 | Dim: <Vector (0.2660, 0.2660, 0.0351)>
+  Materials: Gold
+Object: Skirt_Black | Type: MESH | Parent: Jagannath | Polys: 66 | Verts: 128 | Dim: <Vector (0.7400, 0.5550, 0.1400)>
+  Materials: Black
+Object: Skirt_R1 | Type: MESH | Parent: Jagannath | Polys: 896 | Verts: 896 | Dim: <Vector (0.7580, 0.5685, 0.0273)>
+  Materials: Red
+Object: Skirt_Wood | Type: MESH | Parent: Jagannath | Polys: 66 | Verts: 128 | Dim: <Vector (0.7000, 0.5250, 0.4200)>
+  Materials: Wood
+Object: Skirt_Y1 | Type: MESH | Parent: Jagannath | Polys: 896 | Verts: 896 | Dim: <Vector (0.7680, 0.5760, 0.0273)>
+  Materials: Yellow
+Object: Skirt_Y2 | Type: MESH | Parent: Jagannath | Polys: 896 | Verts: 896 | Dim: <Vector (0.7320, 0.5490, 0.0312)>
+  Materials: Yellow
+Object: Skirt_Y3 | Type: MESH | Parent: Jagannath | Polys: 896 | Verts: 896 | Dim: <Vector (0.6980, 0.5235, 0.0273)>
+  Materials: Yellow
+Object: Smile | Type: CURVE | Parent: Jagannath | Polys: 0 | Verts: 0 | Dim: <Vector (0.5029, 0.1014, 0.1587)>
+  Materials: Red
+Object: Sun | Type: LIGHT | Parent: None | Polys: 0 | Verts: 0 | Dim: <Vector (0.0000, 0.0000, 0.0000)>
+Object: Teeth | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.3000, 0.0400, 0.0640)>
+  Materials: White
+Object: TilakDisc | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1100, 0.0400, 0.1700)>
+  Materials: Orange
+Object: TilakRing | Type: MESH | Parent: Jagannath | Polys: 896 | Verts: 896 | Dim: <Vector (0.1440, 0.1440, 0.0292)>
+  Materials: Gold
+Object: Torso | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.7400, 0.5400, 0.7200)>
+  Materials: Wood
+Object: tripo_node_0f07ddad | Type: MESH | Parent: None | Polys: 1991181 | Verts: 995542 | Dim: <Vector (1.2809, 1.6802, 1.9611)>
+  Materials: tripo_mat_0f07ddad
+Object: tripo_node_ca66fc79 | Type: MESH | Parent: None | Polys: 1963878 | Verts: 981894 | Dim: <Vector (1.9557, 1.0509, 1.6351)>
+  Materials: tripo_mat_ca66fc79
+Object: UpperArm-1 | Type: MESH | Parent: Jagannath | Polys: 34 | Verts: 64 | Dim: <Vector (0.1900, 0.1900, 0.4283)>
+  Materials: DarkGrey
+Object: UpperArm-1_j1 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1900, 0.1900, 0.1900)>
+  Materials: DarkGrey
+Object: UpperArm-1_j2 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1900, 0.1900, 0.1900)>
+  Materials: DarkGrey
+Object: UpperArm1 | Type: MESH | Parent: Jagannath | Polys: 34 | Verts: 64 | Dim: <Vector (0.1900, 0.1900, 0.4283)>
+  Materials: DarkGrey
+Object: UpperArm1_j1 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1900, 0.1900, 0.1900)>
+  Materials: DarkGrey
+Object: UpperArm1_j2 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1900, 0.1900, 0.1900)>
+  Materials: DarkGrey
+Object: YellowDot0 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1000, 0.0500, 0.0600)>
+  Materials: Yellow
+Object: YellowDot1 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1000, 0.0500, 0.0600)>
+  Materials: Yellow
+Object: YellowDot10 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1000, 0.0500, 0.0600)>
+  Materials: Yellow
+Object: YellowDot11 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1000, 0.0500, 0.0600)>
+  Materials: Yellow
+Object: YellowDot12 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1000, 0.0500, 0.0600)>
+  Materials: Yellow
+Object: YellowDot13 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1000, 0.0500, 0.0600)>
+  Materials: Yellow
+Object: YellowDot14 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1000, 0.0500, 0.0600)>
+  Materials: Yellow
+Object: YellowDot15 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1000, 0.0500, 0.0600)>
+  Materials: Yellow
+Object: YellowDot16 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1000, 0.0500, 0.0600)>
+  Materials: Yellow
+Object: YellowDot17 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1000, 0.0500, 0.0600)>
+  Materials: Yellow
+Object: YellowDot18 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1000, 0.0500, 0.0600)>
+  Materials: Yellow
+Object: YellowDot19 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1000, 0.0500, 0.0600)>
+  Materials: Yellow
+Object: YellowDot2 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1000, 0.0500, 0.0600)>
+  Materials: Yellow
+Object: YellowDot20 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1000, 0.0500, 0.0600)>
+  Materials: Yellow
+Object: YellowDot21 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1000, 0.0500, 0.0600)>
+  Materials: Yellow
+Object: YellowDot22 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1000, 0.0500, 0.0600)>
+  Materials: Yellow
+Object: YellowDot23 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1000, 0.0500, 0.0600)>
+  Materials: Yellow
+Object: YellowDot3 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1000, 0.0500, 0.0600)>
+  Materials: Yellow
+Object: YellowDot4 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1000, 0.0500, 0.0600)>
+  Materials: Yellow
+Object: YellowDot5 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1000, 0.0500, 0.0600)>
+  Materials: Yellow
+Object: YellowDot6 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1000, 0.0500, 0.0600)>
+  Materials: Yellow
+Object: YellowDot7 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1000, 0.0500, 0.0600)>
+  Materials: Yellow
+Object: YellowDot8 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1000, 0.0500, 0.0600)>
+  Materials: Yellow
+Object: YellowDot9 | Type: MESH | Parent: Jagannath | Polys: 1152 | Verts: 1106 | Dim: <Vector (0.1000, 0.0500, 0.0600)>
+  Materials: Yellow
+
+--- ARMATURES ---
+Armature: AvatarRoot (Bones: 73)
+  Root bones: ['Hips']
+  Sample bones: ['Hips', 'Spine', 'Spine1', 'Spine2', 'Neck', 'Neck1', 'Neck2', 'Head', 'LeftEye', 'RightEye']
+
+--- ACTIONS (ANIMATIONS) ---
+Action: AvatarRoot|mixamo.com|Layer0 | Frame range: 1.0 - 241.0
+
+--- MATERIALS & TEXTURES ---
+Material: AvatarBody | Images: ['AvatarBodyFemale_Color_1K.jpg (//indian-woman-in-saree/source/../../../../home/app/mixamo-mini/tmp/skins_7aff18db-054c-402a-91d0-7f8ca81a3b58.fbm/AvatarBodyFemale_Color_1K.jpg)', 'AvatarBodyFemale_Normal1_1K.jpg (//indian-woman-in-saree/source/../../../../home/app/mixamo-mini/tmp/skins_7aff18db-054c-402a-91d0-7f8ca81a3b58.fbm/AvatarBodyFemale_Normal1_1K.jpg)']
+Material: AvatarEyelashes | Images: []
+Material: AvatarHead | Images: ['AvatarHeadFemale_Color_1K.jpg (//indian-woman-in-saree/source/../../../../home/app/mixamo-mini/tmp/skins_7aff18db-054c-402a-91d0-7f8ca81a3b58.fbm/AvatarHeadFemale_Color_1K.jpg)', 'AvatarHeadFemale_Normal1_1K.jpg (//indian-woman-in-saree/source/../../../../home/app/mixamo-mini/tmp/skins_7aff18db-054c-402a-91d0-7f8ca81a3b58.fbm/AvatarHeadFemale_Normal1_1K.jpg)']
+Material: AvatarLeftCornea | Images: ['AvatarLeftCornea_Color_512.jpg (//indian-woman-in-saree/source/../../../../home/app/mixamo-mini/tmp/skins_7aff18db-054c-402a-91d0-7f8ca81a3b58.fbm/AvatarLeftCornea_Color_512.jpg)']
+Material: AvatarLeftEyeball | Images: ['AvatarEyes_Color_512.jpg (//indian-woman-in-saree/source/../../../../home/app/mixamo-mini/tmp/skins_7aff18db-054c-402a-91d0-7f8ca81a3b58.fbm/AvatarEyes_Color_512.jpg)', 'AvatarEyes_Normal_512.jpg (//indian-woman-in-saree/source/../../../../home/app/mixamo-mini/tmp/skins_7aff18db-054c-402a-91d0-7f8ca81a3b58.fbm/AvatarEyes_Normal_512.jpg)']
+Material: AvatarRightCornea | Images: ['AvatarRightCornea_Color_512.jpg (//indian-woman-in-saree/source/../../../../home/app/mixamo-mini/tmp/skins_7aff18db-054c-402a-91d0-7f8ca81a3b58.fbm/AvatarRightCornea_Color_512.jpg)']
+Material: AvatarRightEyeball | Images: ['AvatarEyes_Color_512.jpg (//indian-woman-in-saree/source/../../../../home/app/mixamo-mini/tmp/skins_7aff18db-054c-402a-91d0-7f8ca81a3b58.fbm/AvatarEyes_Color_512.jpg)', 'AvatarEyes_Normal_512.jpg (//indian-woman-in-saree/source/../../../../home/app/mixamo-mini/tmp/skins_7aff18db-054c-402a-91d0-7f8ca81a3b58.fbm/AvatarEyes_Normal_512.jpg)']
+Material: AvatarTeethLower | Images: ['AvatarTeeth_Color_1K.jpg (//indian-woman-in-saree/source/../../../../home/app/mixamo-mini/tmp/skins_7aff18db-054c-402a-91d0-7f8ca81a3b58.fbm/AvatarTeeth_Color_1K.jpg)', 'AvatarTeeth_Normal1_1K.jpg (//indian-woman-in-saree/source/../../../../home/app/mixamo-mini/tmp/skins_7aff18db-054c-402a-91d0-7f8ca81a3b58.fbm/AvatarTeeth_Normal1_1K.jpg)']
+Material: AvatarTeethUpper | Images: ['AvatarTeeth_Color_1K.jpg (//indian-woman-in-saree/source/../../../../home/app/mixamo-mini/tmp/skins_7aff18db-054c-402a-91d0-7f8ca81a3b58.fbm/AvatarTeeth_Color_1K.jpg)', 'AvatarTeeth_Normal1_1K.jpg (//indian-woman-in-saree/source/../../../../home/app/mixamo-mini/tmp/skins_7aff18db-054c-402a-91d0-7f8ca81a3b58.fbm/AvatarTeeth_Normal1_1K.jpg)']
+Material: Black | Images: []
+Material: Black.001 | Images: []
+Material: DarkGrey | Images: []
+Material: DarkGrey.001 | Images: []
+Material: Gold | Images: []
+Material: Gold.001 | Images: []
+Material: Green | Images: []
+Material: Green.001 | Images: []
+Material: haircut | Images: ['HairCard0_Color_1K.png (//indian-woman-in-saree/source/../../../../home/app/mixamo-mini/tmp/skins_7aff18db-054c-402a-91d0-7f8ca81a3b58.fbm/HairCard0_Color_1K.png)', 'HairCard0_Normal_1K.jpg (//indian-woman-in-saree/source/../../../../home/app/mixamo-mini/tmp/skins_7aff18db-054c-402a-91d0-7f8ca81a3b58.fbm/HairCard0_Normal_1K.jpg)', 'HairCard0_Color_1K.png.001 (//indian-woman-in-saree/source/../../../../home/app/mixamo-mini/tmp/skins_7aff18db-054c-402a-91d0-7f8ca81a3b58.fbm/HairCard0_Color_1K.png)']
+Material: Jonesy_Eyeball_L | Images: ['fortnite_eye_blue ()']
+Material: Jonesy_Eyeball_R | Images: ['fortnite_eye_blue ()']
+Material: M_MED_Gumshoe_Dark_Body | Images: ['t_m_med_commando_gumshoe_body_d ()', 't_m_med_commando_gumshoe_body_m ()', 't_m_med_commando_gumshoe_body_n ()']
+Material: M_Med_Gumshoe_Glasses | Images: ['t_m_med_commando_gumshoe_glasses_m ()', 'exponent ()', 't_m_med_commando_gumshoe_glasses_n ()']
+Material: M_Med_Gumshoe_V1_Hair | Images: ['T_M_MED_Commando_Gumshoe_hair_D ()', 'T_M_MED_Commando_Gumshoe_hair_M ()', 'T_M_MED_Commando_Gumshoe_hair_N ()']
+Material: M_Med_Gumshoe_V1_Hat | Images: ['t_m_med_commando_gumshoe_hat_d ()', 't_m_med_commando_gumshoe_hat_m ()', 't_m_med_commando_gumshoe_hat_n ()']
+Material: M_Med_Soldier_Head | Images: ['T_M_MED_Commando_Gumshoe_head_D ()', 'M_Med_Soldier_Head_01_M ()', 'M_Med_Soldier_Head_01_N ()']
+Material: M_Med_Soldier_Head_eyebrows | Images: ['T_M_MED_Commando_Gumshoe_head_D ()', 'M_Med_Soldier_Head_01_M ()', 'M_Med_Soldier_Head_01_N ()']
+Material: Material | Images: []
+Material: Material.001 | Images: ['texture_pbr_20250901 ()', 'texture_pbr_20250901_metallic-texture_pbr_20250901_roughness ()', 'texture_pbr_20250901_normal ()']
+Material: Material_01 | Images: ['elderly-hindu-priest-3d-character-model-gocssfkoamc_Material_01 (//24568fb5-86ea-4016-a801-fba755733263_0/elderly-hindu-priest-3d-character-model-gocssfkoamc_Material_01_BaseColor.png)', 'elderly-hindu-priest-3d-character-model-gocssfkoamc_Material_0 (//24568fb5-86ea-4016-a801-fba755733263_0/elderly-hindu-priest-3d-character-model-gocssfkoamc_Material_01_Normal.png)', 'elderly-hindu-priest-3d-character-model-gocssfkoamc_Material_ (//24568fb5-86ea-4016-a801-fba755733263_0/elderly-hindu-priest-3d-character-model-gocssfkoamc_Material_01_Roughness.png)', 'elderly-hindu-priest-3d-character-model-gocssfkoamc_Material (//24568fb5-86ea-4016-a801-fba755733263_0/elderly-hindu-priest-3d-character-model-gocssfkoamc_Material_01_Metallic.png)']
+Material: Orange | Images: []
+Material: Orange.001 | Images: []
+Material: outfit | Images: ['saree_Aramazd_Color_1K.jpg (//indian-woman-in-saree/source/../../../../home/app/mixamo-mini/tmp/skins_7aff18db-054c-402a-91d0-7f8ca81a3b58.fbm/saree_Aramazd_Color_1K.jpg)', 'saree_Aramazd_Normal_Tiles.jpg (//indian-woman-in-saree/source/../../../../home/app/mixamo-mini/tmp/skins_7aff18db-054c-402a-91d0-7f8ca81a3b58.fbm/saree_Aramazd_Normal_Tiles.jpg)']
+Material: Red | Images: []
+Material: Red.001 | Images: []
+Material: tripo_mat_0f07ddad | Images: ['Zyklus2_Zeile3_basecolor (//corrupted-king-in-black-armor-with-bone-crown/source/Zyklus2_Zeile3/tripo_convert_0f07ddad-7f99-4132-bd7f-fc975bc2a67c.fbm/Zyklus2_Zeile3_basecolor.JPEG)', 'Zyklus2_Zeile3_normal (//corrupted-king-in-black-armor-with-bone-crown/source/Zyklus2_Zeile3/tripo_convert_0f07ddad-7f99-4132-bd7f-fc975bc2a67c.fbm/Zyklus2_Zeile3_normal.JPEG)', 'Zyklus2_Zeile3_roughness (//corrupted-king-in-black-armor-with-bone-crown/source/Zyklus2_Zeile3/tripo_convert_0f07ddad-7f99-4132-bd7f-fc975bc2a67c.fbm/Zyklus2_Zeile3_roughness.JPEG)', 'Zyklus2_Zeile3_metallic (//corrupted-king-in-black-armor-with-bone-crown/source/Zyklus2_Zeile3/tripo_convert_0f07ddad-7f99-4132-bd7f-fc975bc2a67c.fbm/Zyklus2_Zeile3_metallic.JPEG)']
+Material: tripo_mat_ca66fc79 | Images: ['Zyklus7_Zeile4_basecolor (//corrupted-archangel-six-wings-boss/source/Zyklus7_Zeile4/tripo_convert_ca66fc79-c220-4030-a1c3-59d08fabcfda.fbm/Zyklus7_Zeile4_basecolor.JPEG)', 'Zyklus7_Zeile4_normal (//corrupted-archangel-six-wings-boss/source/Zyklus7_Zeile4/tripo_convert_ca66fc79-c220-4030-a1c3-59d08fabcfda.fbm/Zyklus7_Zeile4_normal.JPEG)', 'Zyklus7_Zeile4_roughness (//corrupted-archangel-six-wings-boss/source/Zyklus7_Zeile4/tripo_convert_ca66fc79-c220-4030-a1c3-59d08fabcfda.fbm/Zyklus7_Zeile4_roughness.JPEG)', 'Zyklus7_Zeile4_metallic (//corrupted-archangel-six-wings-boss/source/Zyklus7_Zeile4/tripo_convert_ca66fc79-c220-4030-a1c3-59d08fabcfda.fbm/Zyklus7_Zeile4_metallic.JPEG)']
+Material: White | Images: []
+Material: White.001 | Images: []
+Material: Wood | Images: []
+Material: Wood.001 | Images: []
+Material: Yellow | Images: []
+Material: Yellow.001 | Images: []
+
+--- IMAGES ---
+Image: AvatarBodyFemale_Color_1K.jpg | Path: //indian-woman-in-saree/source/../../../../home/app/mixamo-mini/tmp/skins_7aff18db-054c-402a-91d0-7f8ca81a3b58.fbm/AvatarBodyFemale_Color_1K.jpg | Packed: True | Size: 1024x1024
+Image: AvatarBodyFemale_Normal1_1K.jpg | Path: //indian-woman-in-saree/source/../../../../home/app/mixamo-mini/tmp/skins_7aff18db-054c-402a-91d0-7f8ca81a3b58.fbm/AvatarBodyFemale_Normal1_1K.jpg | Packed: True | Size: 1024x1024
+Image: AvatarEyes_Color_512.jpg | Path: //indian-woman-in-saree/source/../../../../home/app/mixamo-mini/tmp/skins_7aff18db-054c-402a-91d0-7f8ca81a3b58.fbm/AvatarEyes_Color_512.jpg | Packed: True | Size: 512x512
+Image: AvatarEyes_Normal_512.jpg | Path: //indian-woman-in-saree/source/../../../../home/app/mixamo-mini/tmp/skins_7aff18db-054c-402a-91d0-7f8ca81a3b58.fbm/AvatarEyes_Normal_512.jpg | Packed: True | Size: 512x512
+Image: AvatarHeadFemale_Color_1K.jpg | Path: //indian-woman-in-saree/source/../../../../home/app/mixamo-mini/tmp/skins_7aff18db-054c-402a-91d0-7f8ca81a3b58.fbm/AvatarHeadFemale_Color_1K.jpg | Packed: True | Size: 1024x1024
+Image: AvatarHeadFemale_Normal1_1K.jpg | Path: //indian-woman-in-saree/source/../../../../home/app/mixamo-mini/tmp/skins_7aff18db-054c-402a-91d0-7f8ca81a3b58.fbm/AvatarHeadFemale_Normal1_1K.jpg | Packed: True | Size: 1024x1024
+Image: AvatarLeftCornea_Color_512.jpg | Path: //indian-woman-in-saree/source/../../../../home/app/mixamo-mini/tmp/skins_7aff18db-054c-402a-91d0-7f8ca81a3b58.fbm/AvatarLeftCornea_Color_512.jpg | Packed: True | Size: 512x512
+Image: AvatarRightCornea_Color_512.jpg | Path: //indian-woman-in-saree/source/../../../../home/app/mixamo-mini/tmp/skins_7aff18db-054c-402a-91d0-7f8ca81a3b58.fbm/AvatarRightCornea_Color_512.jpg | Packed: True | Size: 512x512
+Image: AvatarTeeth_Color_1K.jpg | Path: //indian-woman-in-saree/source/../../../../home/app/mixamo-mini/tmp/skins_7aff18db-054c-402a-91d0-7f8ca81a3b58.fbm/AvatarTeeth_Color_1K.jpg | Packed: True | Size: 1024x1024
+Image: AvatarTeeth_Normal1_1K.jpg | Path: //indian-woman-in-saree/source/../../../../home/app/mixamo-mini/tmp/skins_7aff18db-054c-402a-91d0-7f8ca81a3b58.fbm/AvatarTeeth_Normal1_1K.jpg | Packed: True | Size: 1024x1024
+Image: elderly-hindu-priest-3d-character-model-gocssfkoamc_Material | Path: //24568fb5-86ea-4016-a801-fba755733263_0/elderly-hindu-priest-3d-character-model-gocssfkoamc_Material_01_Metallic.png | Packed: False | Size: 4096x4096
+Image: elderly-hindu-priest-3d-character-model-gocssfkoamc_Material_ | Path: //24568fb5-86ea-4016-a801-fba755733263_0/elderly-hindu-priest-3d-character-model-gocssfkoamc_Material_01_Roughness.png | Packed: False | Size: 4096x4096
+Image: elderly-hindu-priest-3d-character-model-gocssfkoamc_Material_0 | Path: //24568fb5-86ea-4016-a801-fba755733263_0/elderly-hindu-priest-3d-character-model-gocssfkoamc_Material_01_Normal.png | Packed: False | Size: 4096x4096
+Image: elderly-hindu-priest-3d-character-model-gocssfkoamc_Material_01 | Path: //24568fb5-86ea-4016-a801-fba755733263_0/elderly-hindu-priest-3d-character-model-gocssfkoamc_Material_01_BaseColor.png | Packed: False | Size: 4096x4096
+Image: exponent | Path:  | Packed: True | Size: 4x4
+Image: fortnite_eye_blue | Path:  | Packed: True | Size: 512x512
+Image: HairCard0_Color_1K.png | Path: //indian-woman-in-saree/source/../../../../home/app/mixamo-mini/tmp/skins_7aff18db-054c-402a-91d0-7f8ca81a3b58.fbm/HairCard0_Color_1K.png | Packed: True | Size: 1024x1024
+Image: HairCard0_Color_1K.png.001 | Path: //indian-woman-in-saree/source/../../../../home/app/mixamo-mini/tmp/skins_7aff18db-054c-402a-91d0-7f8ca81a3b58.fbm/HairCard0_Color_1K.png | Packed: True | Size: 1024x1024
+Image: HairCard0_Normal_1K.jpg | Path: //indian-woman-in-saree/source/../../../../home/app/mixamo-mini/tmp/skins_7aff18db-054c-402a-91d0-7f8ca81a3b58.fbm/HairCard0_Normal_1K.jpg | Packed: True | Size: 1024x1024
+Image: M_Med_Soldier_Head_01_M | Path:  | Packed: True | Size: 2048x1024
+Image: M_Med_Soldier_Head_01_N | Path:  | Packed: True | Size: 2048x1024
+Image: Render Result | Path:  | Packed: False | Size: 0x0
+Image: saree_Aramazd_Color_1K.jpg | Path: //indian-woman-in-saree/source/../../../../home/app/mixamo-mini/tmp/skins_7aff18db-054c-402a-91d0-7f8ca81a3b58.fbm/saree_Aramazd_Color_1K.jpg | Packed: True | Size: 1024x1024
+Image: saree_Aramazd_Normal_Tiles.jpg | Path: //indian-woman-in-saree/source/../../../../home/app/mixamo-mini/tmp/skins_7aff18db-054c-402a-91d0-7f8ca81a3b58.fbm/saree_Aramazd_Normal_Tiles.jpg | Packed: True | Size: 256x256
+Image: t_m_med_commando_gumshoe_body_d | Path:  | Packed: True | Size: 2048x2048
+Image: t_m_med_commando_gumshoe_body_m | Path:  | Packed: True | Size: 2048x2048
+Image: t_m_med_commando_gumshoe_body_n | Path:  | Packed: True | Size: 2048x2048
+Image: t_m_med_commando_gumshoe_glasses_m | Path:  | Packed: True | Size: 256x256
+Image: t_m_med_commando_gumshoe_glasses_n | Path:  | Packed: True | Size: 256x256
+Image: T_M_MED_Commando_Gumshoe_hair_D | Path:  | Packed: True | Size: 2048x2048
+Image: T_M_MED_Commando_Gumshoe_hair_M | Path:  | Packed: True | Size: 2048x2048
+Image: T_M_MED_Commando_Gumshoe_hair_N | Path:  | Packed: True | Size: 2048x2048
+Image: t_m_med_commando_gumshoe_hat_d | Path:  | Packed: True | Size: 2048x2048
+Image: t_m_med_commando_gumshoe_hat_m | Path:  | Packed: True | Size: 2048x2048
+Image: t_m_med_commando_gumshoe_hat_n | Path:  | Packed: True | Size: 2048x2048
+Image: T_M_MED_Commando_Gumshoe_head_D | Path:  | Packed: True | Size: 2048x1024
+Image: texture_pbr_20250901 | Path:  | Packed: True | Size: 4096x4096
+Image: texture_pbr_20250901_metallic-texture_pbr_20250901_roughness | Path:  | Packed: True | Size: 4096x4096
+Image: texture_pbr_20250901_normal | Path:  | Packed: True | Size: 4096x4096
+Image: Viewer Node | Path:  | Packed: False | Size: 256x256
+Image: Zyklus2_Zeile3_basecolor | Path: //corrupted-king-in-black-armor-with-bone-crown/source/Zyklus2_Zeile3/tripo_convert_0f07ddad-7f99-4132-bd7f-fc975bc2a67c.fbm/Zyklus2_Zeile3_basecolor.JPEG | Packed: False | Size: 4096x4096
+Image: Zyklus2_Zeile3_metallic | Path: //corrupted-king-in-black-armor-with-bone-crown/source/Zyklus2_Zeile3/tripo_convert_0f07ddad-7f99-4132-bd7f-fc975bc2a67c.fbm/Zyklus2_Zeile3_metallic.JPEG | Packed: False | Size: 4096x4096
+Image: Zyklus2_Zeile3_normal | Path: //corrupted-king-in-black-armor-with-bone-crown/source/Zyklus2_Zeile3/tripo_convert_0f07ddad-7f99-4132-bd7f-fc975bc2a67c.fbm/Zyklus2_Zeile3_normal.JPEG | Packed: False | Size: 4096x4096
+Image: Zyklus2_Zeile3_roughness | Path: //corrupted-king-in-black-armor-with-bone-crown/source/Zyklus2_Zeile3/tripo_convert_0f07ddad-7f99-4132-bd7f-fc975bc2a67c.fbm/Zyklus2_Zeile3_roughness.JPEG | Packed: False | Size: 4096x4096
+Image: Zyklus7_Zeile4_basecolor | Path: //corrupted-archangel-six-wings-boss/source/Zyklus7_Zeile4/tripo_convert_ca66fc79-c220-4030-a1c3-59d08fabcfda.fbm/Zyklus7_Zeile4_basecolor.JPEG | Packed: False | Size: 4096x4096
+Image: Zyklus7_Zeile4_metallic | Path: //corrupted-archangel-six-wings-boss/source/Zyklus7_Zeile4/tripo_convert_ca66fc79-c220-4030-a1c3-59d08fabcfda.fbm/Zyklus7_Zeile4_metallic.JPEG | Packed: False | Size: 4096x4096
+Image: Zyklus7_Zeile4_normal | Path: //corrupted-archangel-six-wings-boss/source/Zyklus7_Zeile4/tripo_convert_ca66fc79-c220-4030-a1c3-59d08fabcfda.fbm/Zyklus7_Zeile4_normal.JPEG | Packed: False | Size: 4096x4096
+Image: Zyklus7_Zeile4_roughness | Path: //corrupted-archangel-six-wings-boss/source/Zyklus7_Zeile4/tripo_convert_ca66fc79-c220-4030-a1c3-59d08fabcfda.fbm/Zyklus7_Zeile4_roughness.JPEG | Packed: False | Size: 4096x4096
+================================================================================
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit

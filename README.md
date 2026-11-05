@@ -135,3 +135,15 @@ namespace LegacyOfTemples.Core
 2. Open **Unity Hub**.
 3. Click **Add** -> **Add project from disk** -> Select the cloned repository root folder.
 4. Ensure Unity Editor **6000.6.8f1** is selected and open the project.
+
+---
+
+## 🎨 Art & Asset Credits
+
+Special credit to the **Heritage Mystery Project** (`assets.blend`, `S20240010236JagannathTemple.blend`, and associated source assets) for the authentic 3D character models and temple artifacts:
+- **Investigator**: Gumshoe Noir Detective with trench coat, hat, and glasses (`noir-detective`).
+- **Villager (Meera)**: Indian woman dressed in an authentic red and green saree with gold borders (`indian-woman-in-saree`).
+- **Priest (Ananda)**: Elderly Hindu temple priest with silk angavastram and rudraksha beads (`elderly-hindu-priest`).
+- **Robber 1**: Corrupted King in black armor with bone crown (`corrupted-king-in-black-armor-with-bone-crown`).
+- **Robber 2**: Corrupted Archangel boss with six wings (`corrupted-archangel-six-wings-boss`).
+- **Temple Deities & Environment**: Sacred Lord Jagannath idol and Odisha-style stone temple mandapa structures.

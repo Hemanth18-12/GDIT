@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Robber1Config
   m_EditorClassIdentifier: LOT.Characters::LegacyOfTemples.Characters.CharacterConfig
   characterId: robber1
-  displayName: Chhaya (Robber 1)
+  displayName: Shadow Robber (Leader)
   isPlayer: 0
   prefab: {fileID: 6380760330841157336, guid: 8429c3e6d9a8b4979a461110d89860d6, type: 3}
-  moveSpeed: 5.2
+  moveSpeed: 4.5
   runSpeed: 7
   rotationSpeed: 12
   primaryColor: {r: 0.78, g: 0.68, b: 0.52, a: 1}
