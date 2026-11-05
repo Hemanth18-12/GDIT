@@ -2,8 +2,11 @@ using System;
 using System.IO;
 using UnityEngine;
 using UnityEditor;
+using UnityEditor.SceneManagement;
+using UnityEngine.SceneManagement;
 using LegacyOfTemples.Core;
 using LegacyOfTemples.Characters;
+using LegacyOfTemples.World;
 
 namespace LegacyOfTemples.Characters.Editor
 {
@@ -131,6 +134,9 @@ namespace LegacyOfTemples.Characters.Editor
             cc.slopeLimit = 45f;
             cc.minMoveDistance = 0.001f;
 
+            // Player Controller
+            PlayerController pc = root.AddComponent<PlayerController>();
+
             // Visual Model Root
             GameObject model = new GameObject("Model");
             model.transform.parent = root.transform;
@@ -205,6 +211,217 @@ namespace LegacyOfTemples.Characters.Editor
 
             Debug.Log($"[CharacterBuilder] Successfully created Investigator prefab at '{prefabPath}' and config at '{configPath}'.");
             return prefab;
+        }
+
+        [MenuItem("Tools/Legacy/Characters/Build CharacterTest Scene")]
+        public static void BuildCharacterTestScene()
+        {
+            // First ensure Investigator prefab exists
+            GameObject investigatorPrefab = BuildInvestigatorPrefab();
+
+            string scenesDevPath = "Assets/_Project/Scenes/Dev";
+            EnsureDirectoryExists(scenesDevPath);
+            string scenePath = $"{scenesDevPath}/CharacterTest.unity";
+
+            Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
+
+            // 1. Atmosphere & Lighting
+            GameObject lightRoot = new GameObject("--- LIGHTING & ATMOSPHERE ---");
+
+            GameObject sunObj = new GameObject("Directional_TestSun");
+            sunObj.transform.parent = lightRoot.transform;
+            sunObj.transform.rotation = Quaternion.Euler(45f, -30f, 0f);
+            Light sun = sunObj.AddComponent<Light>();
+            sun.type = LightType.Directional;
+            sun.color = new Color(1.0f, 0.88f, 0.68f);
+            sun.intensity = 1.3f;
+            sun.shadows = LightShadows.Soft;
+
+            RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Flat;
+            RenderSettings.ambientLight = new Color(0.35f, 0.35f, 0.40f);
+            RenderSettings.fog = true;
+            RenderSettings.fogColor = new Color(0.85f, 0.75f, 0.65f);
+            RenderSettings.fogDensity = 0.01f;
+
+            // 2. Arena Geometry
+            GameObject arenaRoot = new GameObject("--- TEST ARENA ---");
+            Material floorMat = GetCharacterMaterial("mat_Char_DhotiKhaki");
+            Material leatherMat = GetCharacterMaterial("mat_Char_LeatherBrown");
+            Material brassMat = GetCharacterMaterial("mat_Char_GoldBrass");
+
+            // Main Floor
+            GameObject floor = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            floor.name = "TestArena_Floor";
+            floor.transform.parent = arenaRoot.transform;
+            floor.transform.localPosition = new Vector3(0, -0.25f, 0);
+            floor.transform.localScale = new Vector3(32f, 0.5f, 32f);
+            floor.GetComponent<MeshRenderer>().sharedMaterial = floorMat;
+
+            // Boundary Walls
+            CreateArenaWall("Wall_North", arenaRoot.transform, new Vector3(0, 1.5f, -16f), new Vector3(32f, 3.0f, 1.0f), leatherMat);
+            CreateArenaWall("Wall_South", arenaRoot.transform, new Vector3(0, 1.5f, 16f), new Vector3(32f, 3.0f, 1.0f), leatherMat);
+            CreateArenaWall("Wall_East", arenaRoot.transform, new Vector3(16f, 1.5f, 0), new Vector3(1.0f, 3.0f, 32f), leatherMat);
+            CreateArenaWall("Wall_West", arenaRoot.transform, new Vector3(-16f, 1.5f, 0), new Vector3(1.0f, 3.0f, 32f), leatherMat);
+
+            // Stepped Platform to test step-up and jumping physics
+            for (int s = 0; s < 4; s++)
+            {
+                float y = (s + 1) * 0.3f;
+                float z = -4f - s * 1.0f;
+                GameObject step = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                step.name = $"TestStep_{s + 1}";
+                step.transform.parent = arenaRoot.transform;
+                step.transform.localPosition = new Vector3(0, y * 0.5f, z);
+                step.transform.localScale = new Vector3(6.0f, y, 1.0f);
+                step.GetComponent<MeshRenderer>().sharedMaterial = floorMat;
+            }
+
+            // Test Interactables
+            CreateTestInteractable(arenaRoot.transform, "interactable_test_altar", "Inspect ancient relic dais", new Vector3(-4f, 0.5f, 3f), 2.5f);
+            CreateTestInteractable(arenaRoot.transform, "interactable_test_lamp", "Light sacred brass lamp", new Vector3(4f, 0.5f, 3f), 2.2f);
+
+            // 3. System & Player
+            GameObject sysRoot = new GameObject("--- SYSTEM ---");
+
+            // CharacterManager & WorldDevTools
+            GameObject cmObj = new GameObject("CharacterManager");
+            cmObj.transform.parent = sysRoot.transform;
+            CharacterManager cm = cmObj.AddComponent<CharacterManager>();
+            cmObj.AddComponent<WorldDevTools>();
+
+            string configPath = $"{ConfigBasePath}/InvestigatorConfig.asset";
+            CharacterConfig invConfig = AssetDatabase.LoadAssetAtPath<CharacterConfig>(configPath);
+            if (invConfig != null) cm.RegisterConfig(invConfig);
+
+            // Spawn Player Instance directly in test scene
+            GameObject playerObj = (GameObject)PrefabUtility.InstantiatePrefab(investigatorPrefab);
+            playerObj.name = "Player_Investigator";
+            playerObj.transform.position = new Vector3(0, 0, 0);
+            playerObj.transform.rotation = Quaternion.identity;
+
+            // Main Camera with OrbitCamera
+            GameObject camObj = new GameObject("Main Camera");
+            camObj.transform.parent = sysRoot.transform;
+            camObj.tag = "MainCamera";
+            camObj.transform.position = new Vector3(0, 2.5f, -4.5f);
+            camObj.transform.rotation = Quaternion.Euler(15f, 0, 0);
+
+            Camera cam = camObj.AddComponent<Camera>();
+            cam.fieldOfView = 60f;
+            camObj.AddComponent<AudioListener>();
+
+            OrbitCamera orbit = camObj.AddComponent<OrbitCamera>();
+            orbit.SetTarget(playerObj.transform);
+
+            PlayerController pc = playerObj.GetComponent<PlayerController>();
+            if (pc != null)
+            {
+                pc.SetCameraTransform(cam.transform);
+            }
+
+            EditorSceneManager.SaveScene(scene, scenePath);
+            Debug.Log($"[CharacterBuilder] Successfully created CharacterTest scene at '{scenePath}'.");
+        }
+
+        private static void CreateArenaWall(string name, Transform parent, Vector3 pos, Vector3 size, Material mat)
+        {
+            GameObject wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            wall.name = name;
+            wall.transform.parent = parent;
+            wall.transform.localPosition = pos;
+            wall.transform.localScale = size;
+            if (mat != null) wall.GetComponent<MeshRenderer>().sharedMaterial = mat;
+        }
+
+        private static void CreateTestInteractable(Transform parent, string id, string prompt, Vector3 pos, float radius)
+        {
+            GameObject intObj = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+            intObj.name = $"Interactable_{id}";
+            intObj.transform.parent = parent;
+            intObj.transform.localPosition = pos;
+            intObj.transform.localScale = new Vector3(1.0f, 0.5f, 1.0f);
+
+            InteractableObject io = intObj.AddComponent<InteractableObject>();
+            io.Setup(id, prompt, radius);
+        }
+
+        [MenuItem("Tools/Legacy/Characters/Place Player In Courtyard")]
+        public static void PlacePlayerInCourtyard()
+        {
+            string scenePath = "Assets/_Project/Scenes/Environments/Courtyard.unity";
+            if (!File.Exists(scenePath))
+            {
+                Debug.LogWarning("[CharacterBuilder] Courtyard scene not found.");
+                return;
+            }
+
+            Scene scene = EditorSceneManager.OpenScene(scenePath, OpenSceneMode.Single);
+
+            // Ensure Investigator Prefab
+            GameObject investigatorPrefab = BuildInvestigatorPrefab();
+
+            // Find player_start spawn point
+            Transform spawnTrans = null;
+            SpawnPoint[] spawns = UnityEngine.Object.FindObjectsByType<SpawnPoint>(FindObjectsInactive.Exclude);
+            foreach (var sp in spawns)
+            {
+                if (sp.SpawnId == "player_start")
+                {
+                    spawnTrans = sp.transform;
+                    break;
+                }
+            }
+
+            Vector3 spawnPos = spawnTrans != null ? spawnTrans.position : new Vector3(0, 0, 16f);
+            Quaternion spawnRot = spawnTrans != null ? spawnTrans.rotation : Quaternion.Euler(0, 180f, 0);
+
+            // Remove existing player if any
+            GameObject existingPlayer = GameObject.FindWithTag("Player");
+            if (existingPlayer != null)
+            {
+                UnityEngine.Object.DestroyImmediate(existingPlayer);
+            }
+
+            // Instantiate Player
+            GameObject player = (GameObject)PrefabUtility.InstantiatePrefab(investigatorPrefab);
+            player.name = "Player_Investigator";
+            player.transform.position = spawnPos;
+            player.transform.rotation = spawnRot;
+
+            // Setup Camera
+            GameObject camObj = GameObject.FindWithTag("MainCamera");
+            if (camObj != null)
+            {
+                OrbitCamera orbit = camObj.GetComponent<OrbitCamera>();
+                if (orbit == null) orbit = camObj.AddComponent<OrbitCamera>();
+                orbit.SetTarget(player.transform);
+
+                PlayerController pc = player.GetComponent<PlayerController>();
+                if (pc != null) pc.SetCameraTransform(camObj.transform);
+            }
+
+            // Ensure CharacterManager is present in scene
+            CharacterManager cm = UnityEngine.Object.FindAnyObjectByType<CharacterManager>();
+            if (cm == null)
+            {
+                GameObject sysObj = GameObject.Find("--- SYSTEM ---");
+                GameObject cmObj = new GameObject("CharacterManager");
+                if (sysObj != null) cmObj.transform.parent = sysObj.transform;
+                cm = cmObj.AddComponent<CharacterManager>();
+            }
+
+            string configPath = $"{ConfigBasePath}/InvestigatorConfig.asset";
+            CharacterConfig invConfig = AssetDatabase.LoadAssetAtPath<CharacterConfig>(configPath);
+            if (invConfig != null) cm.RegisterConfig(invConfig);
+
+            EditorSceneManager.SaveScene(scene, scenePath);
+            Debug.Log($"[CharacterBuilder] Successfully placed Player at player_start {spawnPos} in Courtyard scene.");
+        }
+
+        public static void BuildCharacterTestSceneBatch()
+        {
+            BuildCharacterTestScene();
+            PlacePlayerInCourtyard();
         }
 
         [MenuItem("Tools/Legacy/Characters/Build All Character Prefabs")]

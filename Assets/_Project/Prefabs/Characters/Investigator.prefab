@@ -1685,6 +1685,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1832449514696219927}
   - component: {fileID: 2286382989923937628}
+  - component: {fileID: 1890056617714788320}
   m_Layer: 0
   m_Name: Investigator
   m_TagString: Player
@@ -1733,6 +1734,26 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.9, z: 0}
+--- !u!114 &1890056617714788320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7255409388216429021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60f4e9d1136442298108e81dffb52b20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: LOT.Characters::LegacyOfTemples.Characters.PlayerController
+  walkSpeed: 4.5
+  runSpeed: 7.5
+  rotationSpeed: 12
+  jumpHeight: 1.2
+  gravity: 18
+  interactionRadius: 2.8
+  interactKey: 101
+  cameraTransform: {fileID: 0}
 --- !u!1 &7906024961755445103
 GameObject:
   m_ObjectHideFlags: 0
