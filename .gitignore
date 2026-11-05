@@ -50,6 +50,7 @@ sysinfo.txt
 Thumbs.db
 .vs/
 .idea/
+.vscode/
 *.local
 
 # Temporary local project cache / raw blender assets
