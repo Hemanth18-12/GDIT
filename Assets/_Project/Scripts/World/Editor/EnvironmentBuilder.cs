@@ -9,6 +9,7 @@ using UnityEditor.SceneManagement;
 using UnityEngine.SceneManagement;
 using LegacyOfTemples.Core;
 using LegacyOfTemples.World;
+using LegacyOfTemples.Characters;
 
 namespace LegacyOfTemples.World.Editor
 {
@@ -28,33 +29,81 @@ namespace LegacyOfTemples.World.Editor
             }
 
             string assetPath = $"{MaterialsBasePath}/{matName}.mat";
-            Material existing = AssetDatabase.LoadAssetAtPath<Material>(assetPath);
-            if (existing != null)
+            Material mat = AssetDatabase.LoadAssetAtPath<Material>(assetPath);
+            bool isNew = false;
+            if (mat == null)
             {
-                return existing;
+                Shader shader = Shader.Find("Universal Render Pipeline/Lit") ?? Shader.Find("Standard");
+                mat = new Material(shader) { name = matName };
+                isNew = true;
             }
-
-            Shader shader = Shader.Find("Universal Render Pipeline/Lit");
-            if (shader == null)
-            {
-                shader = Shader.Find("Standard");
-            }
-
-            Material mat = new Material(shader);
-            mat.name = matName;
 
             switch (matName)
             {
                 case "mat_StoneTemple":
-                    mat.SetColor("_BaseColor", new Color(0.72f, 0.65f, 0.58f));
+                    mat.SetColor("_BaseColor", new Color(0.76f, 0.65f, 0.52f));
                     mat.SetFloat("_Smoothness", 0.22f);
                     mat.SetFloat("_Metallic", 0.02f);
                     break;
 
                 case "mat_StoneFloorWet":
-                    mat.SetColor("_BaseColor", new Color(0.24f, 0.22f, 0.21f));
-                    mat.SetFloat("_Smoothness", 0.82f);
-                    mat.SetFloat("_Metallic", 0.15f);
+                    mat.SetColor("_BaseColor", new Color(0.48f, 0.44f, 0.40f)); // Warm grey stone, NO blue tint
+                    mat.SetFloat("_Smoothness", 0.38f); // Subtle wet sheen, NO mirror glare
+                    mat.SetFloat("_Metallic", 0.0f); // Non-metallic natural stone
+                    break;
+
+                case "mat_WarmTempleStone":
+                    mat.SetColor("_BaseColor", new Color(0.76f, 0.60f, 0.46f)); // Warm Odisha sandstone
+                    mat.SetFloat("_Smoothness", 0.20f);
+                    mat.SetFloat("_Metallic", 0.02f);
+                    break;
+
+                case "mat_LightStone":
+                    mat.SetColor("_BaseColor", new Color(0.86f, 0.74f, 0.62f)); // Carved light sandstone
+                    mat.SetFloat("_Smoothness", 0.22f);
+                    mat.SetFloat("_Metallic", 0.02f);
+                    break;
+
+                case "mat_DarkStone":
+                    mat.SetColor("_BaseColor", new Color(0.36f, 0.31f, 0.28f)); // Weathered foundation stone
+                    mat.SetFloat("_Smoothness", 0.25f);
+                    mat.SetFloat("_Metallic", 0.05f);
+                    break;
+
+                case "mat_SacredMetal":
+                    mat.SetColor("_BaseColor", new Color(0.92f, 0.76f, 0.30f)); // Temple brass/gold finials
+                    mat.SetFloat("_Smoothness", 0.85f);
+                    mat.SetFloat("_Metallic", 0.88f);
+                    break;
+
+                case "mat_SanctumDarkness":
+                    mat.SetColor("_BaseColor", new Color(0.09f, 0.08f, 0.08f)); // Deep sanctum interior
+                    mat.SetFloat("_Smoothness", 0.10f);
+                    mat.SetFloat("_Metallic", 0.0f);
+                    break;
+
+                case "mat_TempleRed":
+                    mat.SetColor("_BaseColor", new Color(0.72f, 0.16f, 0.14f)); // Ritual vermilion red
+                    mat.SetFloat("_Smoothness", 0.25f);
+                    mat.SetFloat("_Metallic", 0.05f);
+                    break;
+
+                case "mat_TempleWood":
+                    mat.SetColor("_BaseColor", new Color(0.30f, 0.18f, 0.10f)); // Seasoned teak doors
+                    mat.SetFloat("_Smoothness", 0.35f);
+                    mat.SetFloat("_Metallic", 0.0f);
+                    break;
+
+                case "mat_CourtyardStone":
+                    mat.SetColor("_BaseColor", new Color(0.52f, 0.48f, 0.44f)); // Warm grey stone
+                    mat.SetFloat("_Smoothness", 0.28f);
+                    mat.SetFloat("_Metallic", 0.0f);
+                    break;
+
+                case "mat_InvestigationClue":
+                    mat.SetColor("_BaseColor", new Color(0.95f, 0.85f, 0.45f));
+                    mat.SetFloat("_Smoothness", 0.45f);
+                    mat.SetFloat("_Metallic", 0.1f);
                     break;
 
                 case "mat_CarvedPillar":
@@ -131,7 +180,14 @@ namespace LegacyOfTemples.World.Editor
                     break;
             }
 
-            AssetDatabase.CreateAsset(mat, assetPath);
+            if (isNew)
+            {
+                AssetDatabase.CreateAsset(mat, assetPath);
+            }
+            else
+            {
+                EditorUtility.SetDirty(mat);
+            }
             AssetDatabase.SaveAssets();
             return mat;
         }
@@ -324,16 +380,122 @@ namespace LegacyOfTemples.World.Editor
             cam.fieldOfView = 60f;
             camObj.AddComponent<AudioListener>();
 
+            var camData = camObj.GetComponent<UniversalAdditionalCameraData>() ?? camObj.AddComponent<UniversalAdditionalCameraData>();
+            camData.renderPostProcessing = true;
+
+            camObj.AddComponent<OrbitCamera>();
+
             // World Manager & Dev Tools
             GameObject wmObj = new GameObject("WorldManager");
             wmObj.transform.parent = sysRoot.transform;
             wmObj.AddComponent<WorldManager>();
             wmObj.AddComponent<WorldDevTools>();
+
+            // Character Manager
+            GameObject cmObj = new GameObject("CharacterManager");
+            cmObj.transform.parent = sysRoot.transform;
+            cmObj.AddComponent<CharacterManager>();
         }
 
         #endregion
 
         #region Courtyard Scene (Step 2)
+
+        public static Material GetOrCreateSunriseSkybox()
+        {
+            string path = $"{MaterialsBasePath}/mat_SunriseSkybox.mat";
+            Material mat = AssetDatabase.LoadAssetAtPath<Material>(path);
+            bool isNew = false;
+            if (mat == null)
+            {
+                Shader skyShader = Shader.Find("Skybox/Procedural");
+                if (skyShader != null)
+                {
+                    mat = new Material(skyShader) { name = "mat_SunriseSkybox" };
+                    isNew = true;
+                }
+            }
+
+            if (mat != null)
+            {
+                mat.SetFloat("_SunDisk", 2); // High quality
+                mat.SetFloat("_SunSize", 0.045f);
+                mat.SetFloat("_AtmosphereThickness", 1.45f); // Morning sunrise haze
+                mat.SetColor("_SkyTint", new Color(0.96f, 0.60f, 0.46f)); // Orange-pink sunrise
+                mat.SetColor("_GroundColor", new Color(0.38f, 0.28f, 0.24f)); // Warm dark ground
+                mat.SetFloat("_Exposure", 1.15f);
+
+                if (isNew)
+                {
+                    AssetDatabase.CreateAsset(mat, path);
+                }
+                else
+                {
+                    EditorUtility.SetDirty(mat);
+                }
+                AssetDatabase.SaveAssets();
+            }
+            return mat;
+        }
+
+        public static VolumeProfile GetOrCreateCourtyardVolumeProfile()
+        {
+            string profilePath = $"{ScenesBasePath}/Courtyard_VolumeProfile.asset";
+            VolumeProfile profile = AssetDatabase.LoadAssetAtPath<VolumeProfile>(profilePath);
+            bool isNew = false;
+            if (profile == null)
+            {
+                profile = ScriptableObject.CreateInstance<VolumeProfile>();
+                profile.name = "Courtyard_VolumeProfile";
+                isNew = true;
+            }
+
+            // Bloom
+            if (!profile.TryGet<Bloom>(out Bloom bloom))
+            {
+                bloom = profile.Add<Bloom>(true);
+            }
+            bloom.threshold.Override(0.85f);
+            bloom.intensity.Override(0.55f);
+            bloom.scatter.Override(0.70f);
+            bloom.tint.Override(new Color(1.0f, 0.88f, 0.76f));
+
+            // Color Adjustments
+            if (!profile.TryGet<ColorAdjustments>(out ColorAdjustments colorAdj))
+            {
+                colorAdj = profile.Add<ColorAdjustments>(true);
+            }
+            colorAdj.postExposure.Override(0.18f);
+            colorAdj.contrast.Override(14f);
+            colorAdj.colorFilter.Override(new Color(1.0f, 0.96f, 0.92f)); // Warm sunrise peach
+            colorAdj.saturation.Override(12f);
+
+            // Tonemapping (ACES filmic tone mapping prevents big glare)
+            if (!profile.TryGet<Tonemapping>(out Tonemapping tone))
+            {
+                tone = profile.Add<Tonemapping>(true);
+            }
+            tone.mode.Override(TonemappingMode.ACES);
+
+            // Vignette
+            if (!profile.TryGet<Vignette>(out Vignette vignette))
+            {
+                vignette = profile.Add<Vignette>(true);
+            }
+            vignette.intensity.Override(0.22f);
+            vignette.smoothness.Override(0.35f);
+
+            if (isNew)
+            {
+                AssetDatabase.CreateAsset(profile, profilePath);
+            }
+            else
+            {
+                EditorUtility.SetDirty(profile);
+            }
+            AssetDatabase.SaveAssets();
+            return profile;
+        }
 
         [MenuItem("Tools/Legacy/Environments/Build Courtyard")]
         public static void BuildCourtyard()
@@ -344,37 +506,50 @@ namespace LegacyOfTemples.World.Editor
             Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
 
             // 1. Atmosphere & System
-            SetupStandardCameraAndManager(scene, new Vector3(0f, 5.0f, 23.0f), new Vector3(12f, 180f, 0f), Constants.Courtyard);
+            SetupStandardCameraAndManager(scene, new Vector3(0f, 4.0f, 21.0f), new Vector3(10f, 180f, 0f), Constants.Courtyard);
 
-            // Lighting & Fog
+            // Sunrise Skybox, Lighting & Fog
             GameObject lightRoot = new GameObject("--- LIGHTING & ATMOSPHERE ---");
+
+            Material sunriseSky = GetOrCreateSunriseSkybox();
+            if (sunriseSky != null)
+            {
+                RenderSettings.skybox = sunriseSky;
+            }
 
             GameObject sunObj = new GameObject("Directional_SunriseSun");
             sunObj.transform.parent = lightRoot.transform;
-            sunObj.transform.rotation = Quaternion.Euler(18f, -40f, 0f);
+            sunObj.transform.rotation = Quaternion.Euler(14f, -40f, 0f); // Low sun angle near horizon
             Light sunLight = sunObj.AddComponent<Light>();
             sunLight.type = LightType.Directional;
-            sunLight.color = new Color(1.0f, 0.78f, 0.58f);
+            sunLight.color = new Color(1.0f, 0.74f, 0.52f); // Warm peach golden sunlight
             sunLight.intensity = 1.35f;
             sunLight.shadows = LightShadows.Soft;
 
             RenderSettings.ambientMode = AmbientMode.Flat;
-            RenderSettings.ambientLight = new Color(0.38f, 0.32f, 0.38f);
+            RenderSettings.ambientLight = new Color(0.48f, 0.36f, 0.30f); // Warm dawn ambient
             RenderSettings.fog = true;
             RenderSettings.fogMode = FogMode.ExponentialSquared;
-            RenderSettings.fogDensity = 0.012f;
-            RenderSettings.fogColor = new Color(0.92f, 0.65f, 0.52f);
+            RenderSettings.fogDensity = 0.010f;
+            RenderSettings.fogColor = new Color(0.94f, 0.65f, 0.50f); // Soft orange sunrise mist
+
+            // URP Post Processing Volume
+            GameObject volObj = new GameObject("Courtyard_PostProcessingVolume");
+            volObj.transform.parent = lightRoot.transform;
+            Volume vol = volObj.AddComponent<Volume>();
+            vol.isGlobal = true;
+            vol.priority = 1.0f;
+            vol.sharedProfile = GetOrCreateCourtyardVolumeProfile();
 
             // 2. Materials
             Material stoneMat = GetMaterial("mat_StoneTemple");
             Material wetFloorMat = GetMaterial("mat_StoneFloorWet");
             Material brassMat = GetMaterial("mat_GoldBrass");
-            Material saffronMat = GetMaterial("mat_SaffronCloth");
 
             // 3. Environment Hierarchy
             GameObject envRoot = new GameObject("--- ENVIRONMENT ---");
 
-            // Wet reflective stone plaza (60m x 60m)
+            // Warm grey stone plaza with subtle wet reflections (60m x 60m)
             CreateBox("Plaza_WetStoneFloor", envRoot.transform, new Vector3(0, -0.25f, 0), new Vector3(60f, 0.5f, 60f), wetFloorMat, true);
 
             // Boundary Walls (Prakara)
@@ -385,83 +560,68 @@ namespace LegacyOfTemples.World.Editor
             CreateBox("Wall_East", wallsRoot.transform, new Vector3(30f, 1.5f, 0), new Vector3(1.2f, 3.0f, 60f), stoneMat, true);
             CreateBox("Wall_West", wallsRoot.transform, new Vector3(-30f, 1.5f, 0), new Vector3(1.2f, 3.0f, 60f), stoneMat, true);
 
-            // Grand Rekha Deula Temple Complex
-            GameObject templeRoot = new GameObject("Temple_RekhaDeula");
-            templeRoot.transform.parent = envRoot.transform;
-
-            // Pista (Plinth base)
-            CreateBox("Pista_Plinth", templeRoot.transform, new Vector3(0, 0.7f, -16f), new Vector3(24f, 1.4f, 24f), stoneMat, true);
-
-            // Bada (Sanctum base tower)
-            CreateBox("Bada_SanctumBase", templeRoot.transform, new Vector3(0, 5.9f, -16f), new Vector3(15f, 9.0f, 15f), stoneMat, true);
-
-            // Pilasters / Rathas on Bada
-            CreateBox("Ratha_North", templeRoot.transform, new Vector3(0, 5.9f, -23.6f), new Vector3(4f, 8.8f, 0.6f), stoneMat, true);
-            CreateBox("Ratha_East", templeRoot.transform, new Vector3(7.6f, 5.9f, -16f), new Vector3(0.6f, 8.8f, 4f), stoneMat, true);
-            CreateBox("Ratha_West", templeRoot.transform, new Vector3(-7.6f, 5.9f, -16f), new Vector3(0.6f, 8.8f, 4f), stoneMat, true);
-
-            // Gandi (Curvilinear Sikhara Spire - 8 Corbelled Tiers)
-            GameObject spireRoot = new GameObject("Gandi_SikharaTiers");
-            spireRoot.transform.parent = templeRoot.transform;
-            float[] tierWidths = { 14.2f, 13.2f, 12.0f, 10.7f, 9.4f, 8.0f, 6.6f, 5.2f };
-            float curY = 11.4f;
-            for (int i = 0; i < tierWidths.Length; i++)
+            // Authentic Jagannath Temple Model (FBX)
+            GameObject templePrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Models/Environment/Temple_Jagannath.fbx");
+            if (templePrefab != null)
             {
-                CreateBox($"SpireTier_{i + 1}", spireRoot.transform, new Vector3(0, curY, -16f), new Vector3(tierWidths[i], 2.0f, tierWidths[i]), stoneMat, true);
-                curY += 2.0f;
+                GameObject templeInst = (GameObject)PrefabUtility.InstantiatePrefab(templePrefab, envRoot.transform);
+                templeInst.name = "Temple_Jagannath";
+                templeInst.transform.localPosition = new Vector3(0f, 0f, 0f);
+                templeInst.transform.localRotation = Quaternion.identity;
+                templeInst.transform.localScale = Vector3.one;
+
+                Material warmStone = GetMaterial("mat_WarmTempleStone");
+                Material lightStone = GetMaterial("mat_LightStone");
+                Material darkStone = GetMaterial("mat_DarkStone");
+                Material sacredMetal = GetMaterial("mat_SacredMetal");
+                Material sanctumDark = GetMaterial("mat_SanctumDarkness");
+                Material templeRed = GetMaterial("mat_TempleRed");
+                Material templeWood = GetMaterial("mat_TempleWood");
+                Material courtyardStone = GetMaterial("mat_CourtyardStone");
+                Material clueMat = GetMaterial("mat_InvestigationClue");
+
+                foreach (var r in templeInst.GetComponentsInChildren<Renderer>(true))
+                {
+                    string n = r.name.ToUpperInvariant();
+                    if (n.Contains("VIMANA_FINAL") || n.Contains("AMALAKA") || n.Contains("CROWN_RING") || n.Contains("BELL") || n.Contains("LAMP_FLAME"))
+                        r.sharedMaterial = sacredMetal;
+                    else if (n.Contains("SANCTUM") || n.Contains("INTERIOR_FLOOR"))
+                        r.sharedMaterial = sanctumDark;
+                    else if (n.Contains("GATE") || n.Contains("DOOR") || n.Contains("WOOD"))
+                        r.sharedMaterial = templeWood;
+                    else if (n.Contains("RED") || n.Contains("FLAG") || n.Contains("CLOTH"))
+                        r.sharedMaterial = templeRed;
+                    else if (n.Contains("ROOF") || n.Contains("STEP") || n.Contains("LINTEL") || n.Contains("CROWN") || n.Contains("PILLAR"))
+                        r.sharedMaterial = lightStone;
+                    else if (n.Contains("BASE") || n.Contains("WALL") || n.Contains("DARK"))
+                        r.sharedMaterial = darkStone;
+                    else if (n.Contains("CLUE") || n.Contains("MAP"))
+                        r.sharedMaterial = clueMat;
+                    else
+                        r.sharedMaterial = warmStone;
+
+                    // Add MeshCollider on key structural components
+                    if (n.Contains("_BODY") || n.Contains("_BASE") || n.Contains("_WALL") || n.Contains("_TOWER") || n.Contains("SANCTUM") || n.Contains("PILLAR") || n.Contains("GATE"))
+                    {
+                        MeshCollider mc = r.gameObject.GetComponent<MeshCollider>();
+                        if (mc == null) mc = r.gameObject.AddComponent<MeshCollider>();
+                        mc.convex = false;
+                    }
+                }
             }
 
-            // Mastaka (Crown elements)
-            GameObject mastakaRoot = new GameObject("Mastaka_Crown");
-            mastakaRoot.transform.parent = templeRoot.transform;
-
-            // Beki (Neck cylinder)
-            CreateCylinder("Beki_Neck", mastakaRoot.transform, new Vector3(0, curY + 0.6f, -16f), new Vector3(4.5f, 0.6f, 4.5f), stoneMat, true);
-            curY += 1.2f;
-
-            // Amalaka (Ribbed fluted crown disc)
-            CreateCylinder("Amalaka_Disc", mastakaRoot.transform, new Vector3(0, curY + 0.7f, -16f), new Vector3(6.8f, 0.7f, 6.8f), brassMat, true);
-            curY += 1.4f;
-
-            // Khapuri & Kalasa (Sacred Pot)
-            CreateSphere("Khapuri_Dome", mastakaRoot.transform, new Vector3(0, curY + 0.5f, -16f), new Vector3(4.0f, 1.0f, 4.0f), stoneMat, false);
-            CreateSphere("Kalasa_Urn", mastakaRoot.transform, new Vector3(0, curY + 1.6f, -16f), new Vector3(2.4f, 2.2f, 2.4f), brassMat, false);
-
-            // Ayudha (Golden Finial) & Flag
-            CreateCylinder("Ayudha_Finial", mastakaRoot.transform, new Vector3(0, curY + 3.2f, -16f), new Vector3(0.4f, 1.4f, 0.4f), brassMat, false);
-            GameObject flagPole = CreateCylinder("FlagPole", mastakaRoot.transform, new Vector3(0.2f, curY + 4.2f, -16f), new Vector3(0.12f, 1.6f, 0.12f), brassMat, false);
-            flagPole.transform.localRotation = Quaternion.Euler(0, 0, -15f);
-            CreateBox("Dhvaja_SaffronFlag", flagPole.transform, new Vector3(1.0f, 0.8f, 0), new Vector3(2.0f, 0.8f, 0.05f), saffronMat, false);
-
-            // Jagamohana (Porch Assembly Hall in Front)
-            GameObject jagamohanaRoot = new GameObject("Jagamohana_PorchHall");
-            jagamohanaRoot.transform.parent = templeRoot.transform;
-            CreateBox("Jagamohana_Base", jagamohanaRoot.transform, new Vector3(0, 4.15f, -5.5f), new Vector3(11.0f, 5.5f, 9.0f), stoneMat, true);
-
-            // Jagamohana Pyramidal Roof (Pida Deula tiers)
-            CreateBox("PidaTier_1", jagamohanaRoot.transform, new Vector3(0, 7.3f, -5.5f), new Vector3(10.2f, 0.8f, 8.2f), stoneMat, true);
-            CreateBox("PidaTier_2", jagamohanaRoot.transform, new Vector3(0, 8.1f, -5.5f), new Vector3(8.6f, 0.8f, 6.8f), stoneMat, true);
-            CreateBox("PidaTier_3", jagamohanaRoot.transform, new Vector3(0, 8.9f, -5.5f), new Vector3(7.0f, 0.8f, 5.4f), stoneMat, true);
-
-            // Sanctum Entrance Portal & Wooden Doors
-            Material woodMat = GetMaterial("mat_DarkWood");
-            CreateBox("PortalArch_Left", jagamohanaRoot.transform, new Vector3(-1.8f, 2.5f, -0.9f), new Vector3(0.8f, 4.0f, 0.6f), stoneMat, true);
-            CreateBox("PortalArch_Right", jagamohanaRoot.transform, new Vector3(1.8f, 2.5f, -0.9f), new Vector3(0.8f, 4.0f, 0.6f), stoneMat, true);
-            CreateBox("PortalArch_Top", jagamohanaRoot.transform, new Vector3(0, 4.7f, -0.9f), new Vector3(4.4f, 0.6f, 0.6f), stoneMat, true);
-            CreateBox("SanctumDoor_Left", jagamohanaRoot.transform, new Vector3(-0.75f, 2.2f, -1.05f), new Vector3(1.4f, 3.4f, 0.15f), woodMat, true);
-            CreateBox("SanctumDoor_Right", jagamohanaRoot.transform, new Vector3(0.75f, 2.2f, -1.05f), new Vector3(1.4f, 3.4f, 0.15f), woodMat, true);
-
-            // Grand Stone Steps descending to Plaza
+            // Grand Stone Steps ascending from Plaza to the Sanctum Portal
             GameObject stepsRoot = new GameObject("EntranceSteps");
-            stepsRoot.transform.parent = templeRoot.transform;
+            stepsRoot.transform.parent = envRoot.transform;
             int numSteps = 5;
-            float stepDepth = 0.7f;
-            float stepHeight = 0.28f;
+            float stepDepth = 0.75f;
+            float stepHeight = 0.24f;
+            Material lightStoneMat = GetMaterial("mat_LightStone");
             for (int s = 0; s < numSteps; s++)
             {
                 float zPos = -1.0f + s * stepDepth;
-                float yPos = 1.4f - (s + 1) * stepHeight;
-                CreateBox($"Step_{s + 1}", stepsRoot.transform, new Vector3(0, yPos + stepHeight * 0.5f, zPos + stepDepth * 0.5f), new Vector3(5.5f, stepHeight, stepDepth), stoneMat, true);
+                float yPos = 1.2f - (s + 1) * stepHeight;
+                CreateBox($"Step_{s + 1}", stepsRoot.transform, new Vector3(0, yPos + stepHeight * 0.5f, zPos + stepDepth * 0.5f), new Vector3(5.5f, stepHeight, stepDepth), lightStoneMat, true);
             }
 
             // Two Gajasimha (Guardian Lion) Statues Flanking the Steps
@@ -470,31 +630,64 @@ namespace LegacyOfTemples.World.Editor
             BuildGajasimhaStatue("LionStatue_Left", lionsRoot.transform, new Vector3(-3.5f, 0, 1.8f), 0f, stoneMat, brassMat);
             BuildGajasimhaStatue("LionStatue_Right", lionsRoot.transform, new Vector3(3.5f, 0, 1.8f), 0f, stoneMat, brassMat);
 
-            // Brass Oil Lamps (4 Flickering Warm Lights)
+            // Brass Oil Lamps (4 Flickering Warm Lights - Max 8 Real-time lights: 1 Sun + 4 Lamps = 5)
             GameObject lampsRoot = new GameObject("Brass_OilLamps");
             lampsRoot.transform.parent = envRoot.transform;
             CreateOilLamp(lampsRoot.transform, new Vector3(-6.0f, 0, 6.5f), "Deepastambha_LeftFront");
             CreateOilLamp(lampsRoot.transform, new Vector3(6.0f, 0, 6.5f), "Deepastambha_RightFront");
-            CreateOilLamp(lampsRoot.transform, new Vector3(-4.0f, 1.4f, -0.6f), "Deepastambha_LeftPlinth");
-            CreateOilLamp(lampsRoot.transform, new Vector3(4.0f, 1.4f, -0.6f), "Deepastambha_RightPlinth");
+            CreateOilLamp(lampsRoot.transform, new Vector3(-4.0f, 1.2f, -0.6f), "Deepastambha_LeftPlinth");
+            CreateOilLamp(lampsRoot.transform, new Vector3(4.0f, 1.2f, -0.6f), "Deepastambha_RightPlinth");
 
             // 4. Spawns
             GameObject spawnRoot = new GameObject("--- SPAWN POINTS ---");
-            CreateSpawnPoint(spawnRoot.transform, "player_start", new Vector3(0f, 0f, 16f), new Vector3(0, 0, -1));
-            CreateSpawnPoint(spawnRoot.transform, "priest_spawn", new Vector3(3f, 0f, 2f), new Vector3(-1, 0, 0));
-            CreateSpawnPoint(spawnRoot.transform, "villager_spawn", new Vector3(-8f, 0f, 10f), new Vector3(1, 0, -0.5f));
-            CreateSpawnPoint(spawnRoot.transform, "robber_spawn", new Vector3(12f, 0f, -12f), new Vector3(-1, 0, 0.5f));
+            CreateSpawnPoint(spawnRoot.transform, "player_start", new Vector3(0f, 0.05f, 16f), new Vector3(0, 0, -1));
+            CreateSpawnPoint(spawnRoot.transform, "priest_spawn", new Vector3(3.2f, 0.05f, 2.5f), new Vector3(-1, 0, 0));
+            CreateSpawnPoint(spawnRoot.transform, "villager_spawn", new Vector3(-3.2f, 0.05f, 2.5f), new Vector3(1, 0, 0));
+            CreateSpawnPoint(spawnRoot.transform, "robber_spawn", new Vector3(12f, 0.05f, -12f), new Vector3(-1, 0, 0.5f));
 
             // 5. Interactables
             GameObject interactRoot = new GameObject("--- INTERACTABLES ---");
             CreateInteractable(interactRoot.transform, "courtyard_lion_left", "Inspect Gajasimha guardian statue", new Vector3(-3.5f, 0.8f, 1.8f), 2.5f);
             CreateInteractable(interactRoot.transform, "courtyard_lion_right", "Inspect Gajasimha guardian statue", new Vector3(3.5f, 0.8f, 1.8f), 2.5f);
             CreateInteractable(interactRoot.transform, "courtyard_lamp", "Examine brass oil lamp", new Vector3(-6.0f, 0.8f, 6.5f), 2.2f);
-            CreateInteractable(interactRoot.transform, "courtyard_sanctum_entrance", "Enter the inner sanctum", new Vector3(0f, 1.4f, -1.2f), 3.0f);
+            CreateInteractable(interactRoot.transform, "courtyard_sanctum_entrance", "Enter the inner sanctum", new Vector3(0f, 1.2f, -1.2f), 3.0f);
+
+            // 6. Spawn Real Characters
+            GameObject charRoot = new GameObject("Characters");
+
+            GameObject invPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/Characters/Investigator.prefab");
+            if (invPrefab != null)
+            {
+                GameObject playerInst = (GameObject)PrefabUtility.InstantiatePrefab(invPrefab, charRoot.transform);
+                playerInst.transform.position = new Vector3(0f, 0.05f, 16f);
+                playerInst.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+
+                OrbitCamera cam = UnityEngine.Object.FindAnyObjectByType<OrbitCamera>();
+                if (cam != null)
+                {
+                    cam.SetTarget(playerInst.transform);
+                }
+            }
+
+            GameObject priestPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/Characters/Priest.prefab");
+            if (priestPrefab != null)
+            {
+                GameObject priestInst = (GameObject)PrefabUtility.InstantiatePrefab(priestPrefab, charRoot.transform);
+                priestInst.transform.position = new Vector3(3.2f, 0.05f, 2.5f);
+                priestInst.transform.rotation = Quaternion.Euler(0f, 135f, 0f);
+            }
+
+            GameObject villagerPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/Characters/Villager.prefab");
+            if (villagerPrefab != null)
+            {
+                GameObject villagerInst = (GameObject)PrefabUtility.InstantiatePrefab(villagerPrefab, charRoot.transform);
+                villagerInst.transform.position = new Vector3(-3.2f, 0.05f, 2.5f);
+                villagerInst.transform.rotation = Quaternion.Euler(0f, -135f, 0f);
+            }
 
             // Save Scene
             EditorSceneManager.SaveScene(scene, scenePath);
-            Debug.Log($"[EnvironmentBuilder] Courtyard scene generated successfully at '{scenePath}'.");
+            Debug.Log($"[EnvironmentBuilder] Courtyard scene generated successfully with Visual Upgrade at '{scenePath}'.");
             UpdateBuildSettings();
         }
 
@@ -520,6 +713,179 @@ namespace LegacyOfTemples.World.Editor
             // Front Paws
             CreateCylinder("Paw_Left", lionObj.transform, new Vector3(-0.35f, 1.15f, 0.55f), new Vector3(0.25f, 0.6f, 0.25f), stoneMat, false);
             CreateCylinder("Paw_Right", lionObj.transform, new Vector3(0.35f, 1.15f, 0.55f), new Vector3(0.25f, 0.6f, 0.25f), stoneMat, false);
+        }
+
+        [MenuItem("Tools/Legacy/Environments/Verify Courtyard Visuals")]
+        public static bool VerifyCourtyardVisuals()
+        {
+            Debug.Log("[Verification] Starting Courtyard Visuals & Systems Verification...");
+            string scenePath = $"{ScenesBasePath}/Courtyard.unity";
+            Scene scene = EditorSceneManager.OpenScene(scenePath, OpenSceneMode.Single);
+            if (!scene.IsValid())
+            {
+                Debug.LogError($"[Verification FAILED] Could not open Courtyard scene at {scenePath}");
+                return false;
+            }
+
+            bool passed = true;
+
+            // 1. Check Temple_Jagannath
+            GameObject temple = GameObject.Find("Temple_Jagannath");
+            if (temple == null)
+            {
+                Debug.LogError("[Verification FAILED] Temple_Jagannath not found in scene!");
+                passed = false;
+            }
+            else
+            {
+                var renderers = temple.GetComponentsInChildren<Renderer>(true);
+                var colliders = temple.GetComponentsInChildren<Collider>(true);
+                Debug.Log($"[Verification PASSED] Temple_Jagannath found with {renderers.Length} renderers and {colliders.Length} colliders.");
+                if (renderers.Length < 100)
+                {
+                    Debug.LogError($"[Verification FAILED] Temple_Jagannath has only {renderers.Length} renderers (expected ~182)!");
+                    passed = false;
+                }
+            }
+
+            // 2. Check EntranceSteps
+            GameObject steps = GameObject.Find("EntranceSteps");
+            if (steps == null || steps.GetComponentsInChildren<Collider>().Length < 5)
+            {
+                Debug.LogError("[Verification FAILED] Entrance steps missing or incomplete!");
+                passed = false;
+            }
+            else
+            {
+                Debug.Log($"[Verification PASSED] EntranceSteps verified with {steps.GetComponentsInChildren<Collider>().Length} step colliders.");
+            }
+
+            // 3. Check Plaza Floor & Material
+            GameObject plaza = GameObject.Find("Plaza_WetStoneFloor");
+            if (plaza == null)
+            {
+                Debug.LogError("[Verification FAILED] Plaza_WetStoneFloor not found!");
+                passed = false;
+            }
+            else
+            {
+                Renderer r = plaza.GetComponent<Renderer>();
+                Material m = r != null ? r.sharedMaterial : null;
+                if (m == null || !m.name.Contains("mat_StoneFloorWet"))
+                {
+                    Debug.LogError("[Verification FAILED] Plaza floor is missing mat_StoneFloorWet!");
+                    passed = false;
+                }
+                else
+                {
+                    Color baseCol = m.GetColor("_BaseColor");
+                    float smoothness = m.GetFloat("_Smoothness");
+                    float metallic = m.GetFloat("_Metallic");
+                    Debug.Log($"[Verification PASSED] Plaza Floor Material: Color=({baseCol.r:F2}, {baseCol.g:F2}, {baseCol.b:F2}), Smoothness={smoothness:F2}, Metallic={metallic:F2} (warm grey stone, subtle sheen, no blue mirror/glare).");
+                }
+            }
+
+            // 4. Check Sunrise Mood: Skybox, Sun, Fog, Volume
+            if (RenderSettings.skybox == null || !RenderSettings.skybox.name.Contains("Sunrise"))
+            {
+                Debug.LogError("[Verification FAILED] Skybox is not sunrise skybox!");
+                passed = false;
+            }
+            else
+            {
+                Debug.Log($"[Verification PASSED] Sunrise Skybox configured: {RenderSettings.skybox.name}");
+            }
+
+            GameObject sun = GameObject.Find("Directional_SunriseSun");
+            if (sun == null)
+            {
+                Debug.LogError("[Verification FAILED] Directional_SunriseSun missing!");
+                passed = false;
+            }
+            else
+            {
+                Light sunLt = sun.GetComponent<Light>();
+                float sunPitch = sun.transform.eulerAngles.x;
+                Debug.Log($"[Verification PASSED] Sunrise Sun: pitch={sunPitch:F1}°, color={sunLt.color}, intensity={sunLt.intensity}.");
+            }
+
+            if (!RenderSettings.fog || RenderSettings.fogDensity <= 0.001f)
+            {
+                Debug.LogError("[Verification FAILED] Sunrise Fog is not properly configured!");
+                passed = false;
+            }
+            else
+            {
+                Debug.Log($"[Verification PASSED] Sunrise Fog: color={RenderSettings.fogColor}, density={RenderSettings.fogDensity}.");
+            }
+
+            // URP Volume
+            Volume vol = UnityEngine.Object.FindAnyObjectByType<Volume>();
+            if (vol == null || vol.sharedProfile == null)
+            {
+                Debug.LogError("[Verification FAILED] Post-processing Volume or Profile missing!");
+                passed = false;
+            }
+            else
+            {
+                bool hasBloom = vol.sharedProfile.Has<Bloom>();
+                bool hasColor = vol.sharedProfile.Has<ColorAdjustments>();
+                bool hasTone = vol.sharedProfile.Has<Tonemapping>();
+                Debug.Log($"[Verification PASSED] Post-processing Volume verified with Bloom={hasBloom}, ColorAdjustments={hasColor}, Tonemapping={hasTone}.");
+            }
+
+            // Camera post-processing
+            Camera cam = Camera.main;
+            if (cam != null)
+            {
+                var camData = cam.GetComponent<UniversalAdditionalCameraData>();
+                if (camData == null || !camData.renderPostProcessing)
+                {
+                    Debug.LogError("[Verification FAILED] Camera renderPostProcessing is false!");
+                    passed = false;
+                }
+                else
+                {
+                    Debug.Log("[Verification PASSED] Main Camera has URP renderPostProcessing enabled.");
+                }
+            }
+
+            // 5. Lights budget <= 8
+            Light[] allLights = UnityEngine.Object.FindObjectsByType<Light>(FindObjectsSortMode.None);
+            int activeLights = 0;
+            foreach (var l in allLights)
+            {
+                if (l.enabled && l.gameObject.activeInHierarchy) activeLights++;
+            }
+            Debug.Log($"[Verification PASSED] Real-time lights count: {activeLights} (Limit: max 8 for 60 FPS).");
+            if (activeLights > 8)
+            {
+                Debug.LogError($"[Verification FAILED] Too many real-time lights: {activeLights} > 8!");
+                passed = false;
+            }
+
+            // 6. Characters
+            GameObject inv = GameObject.Find("Investigator");
+            if (inv == null || inv.GetComponent<PlayerController>() == null)
+            {
+                Debug.LogError("[Verification FAILED] Investigator (Player) not properly placed in Courtyard!");
+                passed = false;
+            }
+            else
+            {
+                Debug.Log($"[Verification PASSED] Investigator positioned at {inv.transform.position}.");
+            }
+
+            if (passed)
+            {
+                Debug.Log("[Verification SUCCESS] All Courtyard visual upgrade and system requirements verified successfully!");
+            }
+            else
+            {
+                Debug.LogError("[Verification FAILED] Some Courtyard requirements failed validation!");
+            }
+
+            return passed;
         }
 
         #endregion

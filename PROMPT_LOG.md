@@ -118,3 +118,34 @@
   - `README.md` (Added Art & Asset Credits section)
 - **Verification**: Executed Unity 6 batch mode importer and validator (`HeritageCharacterImporter.ValidateHeritageCharacters`). Confirmed 0 errors, 0 warnings, and clean exit code 0.
 - **Known Issues**: None.
+
+## P4 - Input System Migration & Courtyard Visual Upgrade
+- **Date**: 2026-11-05
+- **Engine**: Unity 6 (`6000.6.8f1`) URP
+- **Summary**:
+  1. **New Input System Migration**: Resolved `InvalidOperationException` by completely replacing all legacy `UnityEngine.Input` and `KeyCode` references across `Assets/_Project` with the new Input System (`UnityEngine.InputSystem`: `Keyboard.current`, `Mouse.current`, `Gamepad.current`). Migrated `PlayerController` (WASD/stick movement, LeftShift sprint, Space jump, C crouch, E/Gamepad buttonWest interaction), `OrbitCamera` (mouse delta look, right-click orbit, scroll wheel zoom, gamepad right stick), `NPCDialogueTrigger` (Space/Enter/E/South button dialogue advance), and `WorldDevTools` (keys 1-5 scene jump, Q quality cycle). Added `Unity.InputSystem` references to all project asmdefs and maintained `activeInputHandler: 1` ("Input System Package (New)").
+  2. **Courtyard Visual Upgrade**:
+     - Replaced procedural box-built `Temple_RekhaDeula` with authentic `Temple_Jagannath.fbx` (182 architectural meshes exported cleanly from Blender with ground pivot at Y=0 and scale 1:1, non-convex `MeshCollider` on all primary walls, towers, base, and sanctum structures).
+     - Built 5-step grand stone entrance stairs (`EntranceSteps`) leading into the sanctum portal.
+     - Plaza floor updated to natural warm grey stone (`_BaseColor`: 0.48, 0.44, 0.40, `_Smoothness`: 0.38, `_Metallic`: 0.0), completely eliminating blue mirror tint and high glare.
+     - Crafted rich sunrise mood: procedural sunrise skybox (`mat_SunriseSkybox`), low directional sun at 14° elevation with warm peach-gold illumination, soft orange atmospheric fog (`RenderSettings.fog`), and a global URP `Volume` profile with ACES filmic Tonemapping, subtle warm Bloom, ColorAdjustments, and Vignette. Camera post-processing enabled.
+     - Maintained strict 5 real-time lights budget (1 Directional Sun + 4 Brass Deepastambha Lamps <= 8 max limit) ensuring 60 FPS performance.
+- **Files Created / Modified**:
+  - `Assets/_Project/Scripts/Characters/PlayerController.cs` (Input System migration)
+  - `Assets/_Project/Scripts/Characters/OrbitCamera.cs` (Input System migration)
+  - `Assets/_Project/Scripts/Characters/NPCDialogueTrigger.cs` (Input System migration)
+  - `Assets/_Project/Scripts/World/WorldDevTools.cs` (Input System migration)
+  - `Assets/_Project/Scripts/World/LOT.World.asmdef`
+  - `Assets/_Project/Scripts/Characters/LOT.Characters.asmdef`
+  - `Assets/_Project/Scripts/Gameplay/LOT.Gameplay.asmdef`
+  - `Assets/_Project/Scripts/UI/LOT.UI.asmdef`
+  - `Assets/_Project/Scripts/World/Editor/LOT.World.Editor.asmdef`
+  - `Assets/_Project/Scripts/Characters/Editor/LOT.Characters.Editor.asmdef`
+  - `Assets/_Project/Models/Environment/Temple_Jagannath.fbx` (Clean 182-mesh export)
+  - `Assets/_Project/Models/Environment/Materials/` (`mat_StoneFloorWet`, `mat_SunriseSkybox`, `mat_WarmTempleStone`, `mat_LightStone`, `mat_DarkStone`, `mat_SacredMetal`, `mat_SanctumDarkness`, `mat_TempleRed`, `mat_TempleWood`, `mat_CourtyardStone`, `mat_InvestigationClue` + meta files)
+  - `Assets/_Project/Scenes/Environments/Courtyard_VolumeProfile.asset` (+ meta)
+  - `Assets/_Project/Scenes/Environments/Courtyard.unity` (Rebuilt with upgraded visuals, Temple, steps, sunrise lighting, volume profile, player & NPCs)
+  - `Assets/_Project/Scripts/World/Editor/EnvironmentBuilder.cs` (Upgraded `BuildCourtyard` and added `VerifyCourtyardVisuals`)
+  - `ProjectSettings/EditorBuildSettings.asset`
+- **Verification**: Batch mode compilation and verification executed via `EnvironmentBuilder.VerifyCourtyardVisuals` and `HeritageCharacterImporter.ValidateHeritageCharacters`. Confirmed 0 compile errors, 0 runtime exceptions, 182 temple meshes with colliders, 5 real-time lights, and exit code 0.
+- **Known Issues**: None.

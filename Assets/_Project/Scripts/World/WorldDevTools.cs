@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.InputSystem;
 using LegacyOfTemples.Core;
 
 namespace LegacyOfTemples.World
@@ -58,32 +59,36 @@ namespace LegacyOfTemples.World
 
         private void Update()
         {
-            // Dev Keys 1-5 to switch scenes
-            if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Keypad1))
+            var kb = Keyboard.current;
+            if (kb != null)
             {
-                SwitchScene(Constants.Courtyard);
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Keypad2))
-            {
-                SwitchScene(Constants.Sanctum);
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha3) || Input.GetKeyDown(KeyCode.Keypad3))
-            {
-                SwitchScene(Constants.PuzzleWall);
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha4) || Input.GetKeyDown(KeyCode.Keypad4))
-            {
-                SwitchScene(Constants.ShrineCrime);
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha5) || Input.GetKeyDown(KeyCode.Keypad5))
-            {
-                SwitchScene(Constants.JunglePath);
-            }
+                // Dev Keys 1-5 to switch scenes
+                if (kb.digit1Key.wasPressedThisFrame || kb.numpad1Key.wasPressedThisFrame)
+                {
+                    SwitchScene(Constants.Courtyard);
+                }
+                else if (kb.digit2Key.wasPressedThisFrame || kb.numpad2Key.wasPressedThisFrame)
+                {
+                    SwitchScene(Constants.Sanctum);
+                }
+                else if (kb.digit3Key.wasPressedThisFrame || kb.numpad3Key.wasPressedThisFrame)
+                {
+                    SwitchScene(Constants.PuzzleWall);
+                }
+                else if (kb.digit4Key.wasPressedThisFrame || kb.numpad4Key.wasPressedThisFrame)
+                {
+                    SwitchScene(Constants.ShrineCrime);
+                }
+                else if (kb.digit5Key.wasPressedThisFrame || kb.numpad5Key.wasPressedThisFrame)
+                {
+                    SwitchScene(Constants.JunglePath);
+                }
 
-            // Key Q to cycle graphics quality
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                CycleQuality();
+                // Key Q to cycle graphics quality
+                if (kb.qKey.wasPressedThisFrame)
+                {
+                    CycleQuality();
+                }
             }
 
             if (toastTimer > 0f)

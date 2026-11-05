@@ -2,7 +2,8 @@
     "name": "LOT.World",
     "rootNamespace": "LegacyOfTemples.World",
     "references": [
-        "LOT.Core"
+        "LOT.Core",
+        "Unity.InputSystem"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

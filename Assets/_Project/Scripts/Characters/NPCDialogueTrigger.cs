@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using LegacyOfTemples.Core;
 
 namespace LegacyOfTemples.Characters
@@ -65,8 +66,20 @@ namespace LegacyOfTemples.Characters
                     }
                 }
 
-                // Advance dialogue on space or return key
-                if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
+                // Advance dialogue on space, enter, or E key
+                bool advancePressed = false;
+                var kb = Keyboard.current;
+                if (kb != null && (kb.spaceKey.wasPressedThisFrame || kb.enterKey.wasPressedThisFrame || kb.eKey.wasPressedThisFrame))
+                {
+                    advancePressed = true;
+                }
+                var gp = Gamepad.current;
+                if (gp != null && gp.buttonSouth.wasPressedThisFrame)
+                {
+                    advancePressed = true;
+                }
+
+                if (advancePressed)
                 {
                     AdvanceDialogue();
                 }

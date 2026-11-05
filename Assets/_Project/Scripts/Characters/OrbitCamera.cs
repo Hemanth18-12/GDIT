@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace LegacyOfTemples.Characters
 {
@@ -15,8 +16,8 @@ namespace LegacyOfTemples.Characters
         [SerializeField] private float zoomSpeed = 2.5f;
 
         [Header("Orbit Controls")]
-        [SerializeField] private float xSpeed = 120.0f;
-        [SerializeField] private float ySpeed = 80.0f;
+        [SerializeField] private float xSpeed = 12.0f;
+        [SerializeField] private float ySpeed = 8.0f;
         [SerializeField] private float yMinLimit = -15.0f;
         [SerializeField] private float yMaxLimit = 70.0f;
         [SerializeField] private bool requireRightClickToOrbit = false;
@@ -82,16 +83,36 @@ namespace LegacyOfTemples.Characters
                 if (target == null) return;
             }
 
-            bool canOrbit = !requireRightClickToOrbit || Input.GetMouseButton(1);
-            if (canOrbit)
+            bool rightClick = Mouse.current != null && Mouse.current.rightButton.isPressed;
+            bool canOrbit = !requireRightClickToOrbit || rightClick;
+
+            Vector2 mouseDelta = Vector2.zero;
+            if (Mouse.current != null)
             {
-                currentX += Input.GetAxis("Mouse X") * xSpeed * Time.deltaTime;
-                currentY -= Input.GetAxis("Mouse Y") * ySpeed * Time.deltaTime;
+                mouseDelta = Mouse.current.delta.ReadValue();
+            }
+
+            Vector2 gamepadDelta = Vector2.zero;
+            if (Gamepad.current != null)
+            {
+                gamepadDelta = Gamepad.current.rightStick.ReadValue() * 10f;
+            }
+
+            Vector2 lookDelta = mouseDelta + gamepadDelta;
+
+            if (canOrbit && lookDelta.sqrMagnitude > 0.001f)
+            {
+                currentX += lookDelta.x * xSpeed * Time.deltaTime;
+                currentY -= lookDelta.y * ySpeed * Time.deltaTime;
                 currentY = ClampAngle(currentY, yMinLimit, yMaxLimit);
             }
 
             // Scroll zoom
-            float scroll = Input.GetAxis("Mouse ScrollWheel");
+            float scroll = 0f;
+            if (Mouse.current != null)
+            {
+                scroll = Mouse.current.scroll.ReadValue().y * 0.01f;
+            }
             if (Mathf.Abs(scroll) > 0.001f)
             {
                 desiredDistance = Mathf.Clamp(desiredDistance - scroll * zoomSpeed, minDistance, maxDistance);
@@ -126,4 +147,3 @@ namespace LegacyOfTemples.Characters
         }
     }
 }
-

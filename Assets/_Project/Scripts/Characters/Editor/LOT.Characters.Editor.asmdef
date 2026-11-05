@@ -5,6 +5,7 @@
         "LOT.Core",
         "LOT.World",
         "LOT.Characters",
+        "Unity.InputSystem",
         "Unity.RenderPipelines.Universal.Runtime",
         "Unity.RenderPipelines.Core.Runtime"
     ],

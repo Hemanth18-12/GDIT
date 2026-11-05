@@ -20,5 +20,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Project/Scenes/Environments/JunglePath.unity
     guid: aa7739f7b628f49cf83c3217ae5ff884
+  - enabled: 1
+    path: Assets/_Project/Scenes/Dev/CharacterTest.unity
+    guid: 715574019ad684495bf3401e14ce35b3
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

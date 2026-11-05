@@ -3,7 +3,8 @@
     "rootNamespace": "LegacyOfTemples.Characters",
     "references": [
         "LOT.Core",
-        "LOT.World"
+        "LOT.World",
+        "Unity.InputSystem"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

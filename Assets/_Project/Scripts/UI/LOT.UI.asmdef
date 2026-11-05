@@ -2,7 +2,8 @@
     "name": "LOT.UI",
     "rootNamespace": "LegacyOfTemples.UI",
     "references": [
-        "LOT.Core"
+        "LOT.Core",
+        "Unity.InputSystem"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

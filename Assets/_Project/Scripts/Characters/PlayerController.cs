@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using LegacyOfTemples.Core;
 
 namespace LegacyOfTemples.Characters
@@ -10,13 +11,13 @@ namespace LegacyOfTemples.Characters
         [Header("Locomotion")]
         [SerializeField] private float walkSpeed = 4.5f;
         [SerializeField] private float runSpeed = 7.5f;
+        [SerializeField] private float crouchSpeed = 2.5f;
         [SerializeField] private float rotationSpeed = 12.0f;
         [SerializeField] private float jumpHeight = 1.2f;
         [SerializeField] private float gravity = 18.0f;
 
         [Header("Interaction")]
         [SerializeField] private float interactionRadius = 2.8f;
-        [SerializeField] private KeyCode interactKey = KeyCode.E;
 
         [Header("Camera Reference")]
         [SerializeField] private Transform cameraTransform;
@@ -33,6 +34,7 @@ namespace LegacyOfTemples.Characters
 
         public bool IsMoving { get; private set; }
         public bool IsRunning { get; private set; }
+        public bool IsCrouching { get; private set; }
         public IInteractable CurrentInteractable => nearestInteractable;
 
         private void Awake()
@@ -61,7 +63,19 @@ namespace LegacyOfTemples.Characters
             HandleMovement();
             HandleInteractionScan();
 
-            if (Input.GetKeyDown(interactKey) || Input.GetKeyDown(KeyCode.Return))
+            bool interactPressed = false;
+            var kb = Keyboard.current;
+            if (kb != null && (kb.eKey.wasPressedThisFrame || kb.enterKey.wasPressedThisFrame))
+            {
+                interactPressed = true;
+            }
+            var gp = Gamepad.current;
+            if (gp != null && gp.buttonWest.wasPressedThisFrame)
+            {
+                interactPressed = true;
+            }
+
+            if (interactPressed)
             {
                 TryInteract();
             }
@@ -71,12 +85,56 @@ namespace LegacyOfTemples.Characters
         {
             if (characterController == null) return;
 
-            float horizontal = Input.GetAxisRaw("Horizontal");
-            float vertical = Input.GetAxisRaw("Vertical");
+            float horizontal = 0f;
+            float vertical = 0f;
+
+            var kb = Keyboard.current;
+            if (kb != null)
+            {
+                if (kb.wKey.isPressed || kb.upArrowKey.isPressed) vertical += 1f;
+                if (kb.sKey.isPressed || kb.downArrowKey.isPressed) vertical -= 1f;
+                if (kb.dKey.isPressed || kb.rightArrowKey.isPressed) horizontal += 1f;
+                if (kb.aKey.isPressed || kb.leftArrowKey.isPressed) horizontal -= 1f;
+            }
+
+            var gp = Gamepad.current;
+            if (gp != null)
+            {
+                Vector2 stick = gp.leftStick.ReadValue();
+                if (stick.sqrMagnitude > 0.01f)
+                {
+                    horizontal += stick.x;
+                    vertical += stick.y;
+                }
+            }
+
             Vector3 inputDir = new Vector3(horizontal, 0f, vertical).normalized;
 
-            IsRunning = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
-            float targetSpeed = IsRunning ? runSpeed : walkSpeed;
+            // Sprint (Shift)
+            IsRunning = false;
+            if (kb != null && (kb.leftShiftKey.isPressed || kb.rightShiftKey.isPressed))
+            {
+                IsRunning = true;
+            }
+            if (gp != null && (gp.leftStickButton.isPressed || gp.rightTrigger.isPressed))
+            {
+                IsRunning = true;
+            }
+
+            // Crouch (C)
+            IsCrouching = false;
+            if (kb != null && kb.cKey.isPressed)
+            {
+                IsCrouching = true;
+            }
+            if (gp != null && (gp.buttonEast.isPressed || gp.rightStickButton.isPressed))
+            {
+                IsCrouching = true;
+            }
+
+            float targetSpeed = walkSpeed;
+            if (IsCrouching) targetSpeed = crouchSpeed;
+            else if (IsRunning) targetSpeed = runSpeed;
 
             // Camera-relative direction
             Vector3 moveDir = Vector3.zero;
@@ -100,12 +158,15 @@ namespace LegacyOfTemples.Characters
 
             if (IsMoving)
             {
-                // Smooth rotation towards movement direction
                 Quaternion targetRot = Quaternion.LookRotation(moveDir, Vector3.up);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotationSpeed * Time.deltaTime);
             }
 
-            // Gravity & Jumping
+            // Gravity & Jumping (Space)
+            bool jumpPressed = false;
+            if (kb != null && kb.spaceKey.wasPressedThisFrame) jumpPressed = true;
+            if (gp != null && gp.buttonSouth.wasPressedThisFrame) jumpPressed = true;
+
             if (characterController.isGrounded)
             {
                 if (verticalVelocity < 0f)
@@ -113,7 +174,7 @@ namespace LegacyOfTemples.Characters
                     verticalVelocity = -2.0f; // Small downward force to stay grounded
                 }
 
-                if (Input.GetKeyDown(KeyCode.Space))
+                if (jumpPressed && !IsCrouching)
                 {
                     verticalVelocity = Mathf.Sqrt(2f * jumpHeight * gravity);
                 }
@@ -130,7 +191,8 @@ namespace LegacyOfTemples.Characters
             {
                 animator.SetBool("IsMoving", IsMoving);
                 animator.SetBool("IsRunning", IsRunning);
-                animator.SetFloat("Speed", IsMoving ? (IsRunning ? runSpeed : walkSpeed) : 0f);
+                animator.SetBool("IsCrouching", IsCrouching);
+                animator.SetFloat("Speed", IsMoving ? (IsCrouching ? crouchSpeed : (IsRunning ? runSpeed : walkSpeed)) : 0f);
             }
         }
 
@@ -216,4 +278,3 @@ namespace LegacyOfTemples.Characters
         }
     }
 }
-

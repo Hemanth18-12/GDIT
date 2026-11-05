@@ -2,7 +2,8 @@
     "name": "LOT.Gameplay",
     "rootNamespace": "LegacyOfTemples.Gameplay",
     "references": [
-        "LOT.Core"
+        "LOT.Core",
+        "Unity.InputSystem"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
