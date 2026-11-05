@@ -3,6 +3,7 @@
     "rootNamespace": "LegacyOfTemples.UI",
     "references": [
         "LOT.Core",
+        "LOT.World",
         "Unity.InputSystem"
     ],
     "includePlatforms": [],

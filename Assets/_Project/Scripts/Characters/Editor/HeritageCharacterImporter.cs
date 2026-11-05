@@ -306,12 +306,20 @@ namespace LegacyOfTemples.Characters.Editor
 
             rootStateMachine.defaultState = idleState;
 
-            // Extract Mixamo animation clip if available from Villager.fbx
-            AnimationClip idleClip = ExtractOrLoadClip($"{ModelsBasePath}/Villager.fbx", "AvatarRoot|mixamo.com|Layer0");
-            if (idleClip != null && idleState.motion == null)
-            {
-                idleState.motion = idleClip;
-            }
+            // Extract animation clips from Investigator.fbx (with Villager.fbx fallback)
+            AnimationClip invIdle = ExtractOrLoadClip($"{ModelsBasePath}/Investigator.fbx", "Investigator_Idle")
+                                 ?? ExtractOrLoadClip($"{ModelsBasePath}/Villager.fbx", "Layer0");
+            AnimationClip invWalk = ExtractOrLoadClip($"{ModelsBasePath}/Investigator.fbx", "Investigator_Walk");
+            AnimationClip invRun = ExtractOrLoadClip($"{ModelsBasePath}/Investigator.fbx", "Investigator_Run");
+            AnimationClip invCrouch = ExtractOrLoadClip($"{ModelsBasePath}/Investigator.fbx", "Investigator_Crouch");
+            AnimationClip invInteract = ExtractOrLoadClip($"{ModelsBasePath}/Investigator.fbx", "Investigator_Interact");
+
+            if (invIdle != null) idleState.motion = invIdle;
+            if (invWalk != null) walkState.motion = invWalk;
+            if (invRun != null) runState.motion = invRun;
+            if (invCrouch != null) crouchState.motion = invCrouch;
+            if (invInteract != null) interactState.motion = invInteract;
+            Debug.Log($"[HeritageCharacterImporter] Assigned motions to CharacterAnimator: Idle={idleState.motion != null}, Walk={walkState.motion != null}, Run={runState.motion != null}, Crouch={crouchState.motion != null}, Interact={interactState.motion != null}");
 
             // Clean transitions and rebuild cleanly
             idleState.transitions = new AnimatorStateTransition[0];
@@ -397,7 +405,7 @@ namespace LegacyOfTemples.Characters.Editor
             {
                 if (asset is AnimationClip clip && !clip.name.StartsWith("__preview__"))
                 {
-                    if (string.IsNullOrEmpty(clipNameSubstring) || clip.name.Contains(clipNameSubstring))
+                    if (string.IsNullOrEmpty(clipNameSubstring) || clip.name.IndexOf(clipNameSubstring, StringComparison.OrdinalIgnoreCase) >= 0)
                     {
                         return clip;
                     }
@@ -437,11 +445,17 @@ namespace LegacyOfTemples.Characters.Editor
             Material hatMat = AssetDatabase.LoadAssetAtPath<Material>($"{MaterialsBasePath}/mat_Investigator_Hat.mat");
             Material hairMat = AssetDatabase.LoadAssetAtPath<Material>($"{MaterialsBasePath}/mat_Investigator_Hair.mat");
             Material glassesMat = AssetDatabase.LoadAssetAtPath<Material>($"{MaterialsBasePath}/mat_Investigator_Glasses.mat");
+            Material eyesMat = AssetDatabase.LoadAssetAtPath<Material>($"{MaterialsBasePath}/mat_Investigator_Eyes.mat");
 
             foreach (var renderer in visual.GetComponentsInChildren<Renderer>(true))
             {
                 string rName = renderer.name.ToLowerInvariant();
-                if (rName.Contains("head")) renderer.sharedMaterial = headMat;
+                if (rName.Contains("head"))
+                {
+                    // Head mesh has 5 submesh slots: [eyebrows, head/face, right eye, left eye, hair]
+                    // Setting all 5 slots ensures high-res face, blue eyes, and hair texture are crystal clear!
+                    renderer.sharedMaterials = new Material[] { headMat, headMat, eyesMat, eyesMat, hairMat };
+                }
                 else if (rName.Contains("hat")) renderer.sharedMaterial = hatMat;
                 else if (rName.Contains("hair")) renderer.sharedMaterial = hairMat;
                 else if (rName.Contains("glasses")) renderer.sharedMaterial = glassesMat;

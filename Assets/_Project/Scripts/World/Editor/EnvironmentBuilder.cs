@@ -395,6 +395,11 @@ namespace LegacyOfTemples.World.Editor
             GameObject cmObj = new GameObject("CharacterManager");
             cmObj.transform.parent = sysRoot.transform;
             cmObj.AddComponent<CharacterManager>();
+
+            // UI Manager & Instructions Overlay
+            GameObject uiObj = new GameObject("UIManager");
+            uiObj.transform.parent = sysRoot.transform;
+            uiObj.AddComponent<LegacyOfTemples.UI.GameIntroOverlay>();
         }
 
         #endregion

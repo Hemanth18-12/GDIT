@@ -75,11 +75,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: LOT.Characters::LegacyOfTemples.Characters.PlayerController
   walkSpeed: 4.5
   runSpeed: 7.5
+  crouchSpeed: 2.5
   rotationSpeed: 12
   jumpHeight: 1.2
   gravity: 18
   interactionRadius: 2.8
-  interactKey: 101
   cameraTransform: {fileID: 0}
   animator: {fileID: 0}
 --- !u!95 &4217818438605949098
@@ -191,6 +191,22 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 87c3fef018d514133988ea4ecda690ed, type: 2}
+    - target: {fileID: -1972886326551151175, guid: 2bf4f038559954ff99182152ecb2d1a4, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 87c3fef018d514133988ea4ecda690ed, type: 2}
+    - target: {fileID: -1972886326551151175, guid: 2bf4f038559954ff99182152ecb2d1a4, type: 3}
+      propertyPath: 'm_Materials.Array.data[2]'
+      value: 
+      objectReference: {fileID: 2100000, guid: e2806ecdb88c048c89a433a5a90d5363, type: 2}
+    - target: {fileID: -1972886326551151175, guid: 2bf4f038559954ff99182152ecb2d1a4, type: 3}
+      propertyPath: 'm_Materials.Array.data[3]'
+      value: 
+      objectReference: {fileID: 2100000, guid: e2806ecdb88c048c89a433a5a90d5363, type: 2}
+    - target: {fileID: -1972886326551151175, guid: 2bf4f038559954ff99182152ecb2d1a4, type: 3}
+      propertyPath: 'm_Materials.Array.data[4]'
+      value: 
+      objectReference: {fileID: 2100000, guid: e8523cd68c2804e23a1015c4963cb46d, type: 2}
     - target: {fileID: -1448976184458417337, guid: 2bf4f038559954ff99182152ecb2d1a4, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 

@@ -149,3 +149,31 @@
   - `ProjectSettings/EditorBuildSettings.asset`
 - **Verification**: Batch mode compilation and verification executed via `EnvironmentBuilder.VerifyCourtyardVisuals` and `HeritageCharacterImporter.ValidateHeritageCharacters`. Confirmed 0 compile errors, 0 runtime exceptions, 182 temple meshes with colliders, 5 real-time lights, and exit code 0.
 - **Known Issues**: None.
+
+## P5 - 3D Character Leg Locomotion, Clear Faces, and Game Instructions UI
+- **Date**: 2026-11-06
+- **Engine**: Unity 6 (`6000.6.8f1`) URP
+- **Summary**:
+  1. **Full 3D Character Leg Locomotion**:
+     - Resolved character gliding/static legs by generating 5 authentic biomechanical animation actions in Blender directly for the user's `Investigator` (`noir_ARM`): `Investigator_Idle` (breathing & weight shift), `Investigator_Walk` (full walking stride with hip swing, knee bend, foot strike, and arm counter-swing), `Investigator_Run` (athletic sprint with high knee flex and arm pumping), `Investigator_Crouch` (stealth crawl), and `Investigator_Interact` (clue inspection).
+     - Connected all 5 animation clips in `CharacterAnimator.controller` across Idle, Walk, Run, Crouch, and Interact states.
+     - Added dynamic procedural locomotion system in `PlayerController.cs` (`LateUpdate`) driving hips, knees, feet, arms, and pelvis stride additively with character velocity to ensure 100% responsive, grounded leg motion.
+  2. **Clear 3D Facial Features**:
+     - Fixed head mesh multi-submesh material slot binding on `Investigator` (`M_MED_CAU_Jonesy_Head_01.smd`), properly separating face skin, blue eyes (`fortnite_eye_blue_3.png`), hair texture (`T_M_MED_Commando_Gumshoe_hair_D_5.png`), glasses, and hat so Detective Aryan's face is sharp, clear, and authentic.
+  3. **Game Intro & Instructions UI Screen**:
+     - Implemented `GameIntroOverlay.cs` in `LegacyOfTemples.UI` displaying on game start with the full story prologue, investigation objectives, breakdown of the 5 scenes in the story (Courtyard, Sanctum, Shrine Crime, Puzzle Wall, Jungle Path), full keyboard/gamepad controls overview, and an interactive "START INVESTIGATION" button.
+     - Added in-game HUD showing Investigation Notebook (active objective & clues counter) and persistent controls helper pill (`[H]` to re-open instructions anytime).
+- **Files Created / Modified**:
+  - `Assets/_Project/Models/Characters/Investigator.fbx` (baked 5 animation actions)
+  - `Assets/_Project/Animations/CharacterAnimator.controller` (assigned Idle, Walk, Run, Crouch, Interact clips)
+  - `Assets/_Project/Scripts/Characters/Editor/HeritageCharacterImporter.cs` (multi-submesh face materials, clip extraction)
+  - `Assets/_Project/Scripts/Characters/PlayerController.cs` (procedural leg stride and arm swinging)
+  - `Assets/_Project/Scripts/UI/LOT.UI.asmdef` (added `LOT.World` reference)
+  - `Assets/_Project/Scripts/UI/GameIntroOverlay.cs` (+ meta, new Instructions & In-Game HUD overlay)
+  - `Assets/_Project/Scripts/World/Editor/EnvironmentBuilder.cs` (UIManager addition)
+  - `Assets/_Project/Scripts/World/Editor/LOT.World.Editor.asmdef`
+  - `Assets/_Project/Prefabs/Characters/Investigator.prefab`
+  - `Assets/_Project/Scenes/Environments/Courtyard.unity`
+  - `Assets/_Project/Scenes/Dev/CharacterTest.unity`
+- **Verification**: Batch mode compilation, import, and verification executed via `HeritageCharacterImporter.ImportAllHeritageCharacters` and `EnvironmentBuilder.VerifyCourtyardVisuals`. Confirmed 0 compile errors, 0 runtime exceptions, 182 temple meshes, 5 real-time lights, and exit code 0.
+- **Known Issues**: None.
