@@ -953,11 +953,229 @@ namespace LegacyOfTemples.World.Editor
         {
             EnsureDirectoryExists(ScenesBasePath);
             string scenePath = $"{ScenesBasePath}/ShrineCrime.unity";
+
             Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
-            SetupStandardCameraAndManager(scene, new Vector3(0f, 2.5f, 9.0f), new Vector3(5f, 180f, 0f), Constants.ShrineCrime);
+
+            // 1. System & Atmosphere
+            SetupStandardCameraAndManager(scene, new Vector3(0f, 2.8f, 9.5f), new Vector3(6f, 180f, 0f), Constants.ShrineCrime);
+
+            GameObject lightRoot = new GameObject("--- LIGHTING & ATMOSPHERE ---");
+
+            // Cool moonlight streaming through the shattered wooden doorway
+            GameObject moonObj = new GameObject("Directional_MoonlightBrokenDoor");
+            moonObj.transform.parent = lightRoot.transform;
+            moonObj.transform.rotation = Quaternion.Euler(30f, 160f, 0f);
+            Light moonLight = moonObj.AddComponent<Light>();
+            moonLight.type = LightType.Directional;
+            moonLight.color = new Color(0.32f, 0.52f, 0.85f);
+            moonLight.intensity = 0.85f;
+            moonLight.shadows = LightShadows.Soft;
+
+            RenderSettings.ambientMode = AmbientMode.Flat;
+            RenderSettings.ambientLight = new Color(0.06f, 0.08f, 0.12f);
+            RenderSettings.fog = true;
+            RenderSettings.fogMode = FogMode.ExponentialSquared;
+            RenderSettings.fogDensity = 0.022f;
+            RenderSettings.fogColor = new Color(0.08f, 0.10f, 0.16f);
+
+            // 2. Materials
+            Material stoneMat = GetMaterial("mat_StoneTemple");
+            Material wetFloorMat = GetMaterial("mat_StoneFloorWet");
+            Material pillarMat = GetMaterial("mat_CarvedPillar");
+            Material brassMat = GetMaterial("mat_GoldBrass");
+            Material darkWoodMat = GetMaterial("mat_DarkWood");
+            Material redClothMat = GetMaterial("mat_DarkRedCloth");
+            Material flowerMat = GetMaterial("mat_MarigoldFlowers");
+            Material footprintMat = GetMaterial("mat_CrimeFootprint");
+
+            // 3. Environment Hierarchy
+            GameObject envRoot = new GameObject("--- ENVIRONMENT ---");
+
+            // Ransacked Shrine Floor (16m x 18m)
+            CreateBox("Shrine_Floor", envRoot.transform, new Vector3(0, -0.25f, 0), new Vector3(16f, 0.5f, 18f), wetFloorMat, true);
+
+            // Perimeter Stone Walls
+            GameObject wallsRoot = new GameObject("Shrine_Walls");
+            wallsRoot.transform.parent = envRoot.transform;
+            CreateBox("Wall_North", wallsRoot.transform, new Vector3(0, 3.25f, -9f), new Vector3(16f, 6.5f, 1.2f), stoneMat, true);
+            CreateBox("Wall_East", wallsRoot.transform, new Vector3(8f, 3.25f, 0), new Vector3(1.2f, 6.5f, 18f), stoneMat, true);
+            CreateBox("Wall_West", wallsRoot.transform, new Vector3(-8f, 3.25f, 0), new Vector3(1.2f, 6.5f, 18f), stoneMat, true);
+
+            // Broken South Wall with Smashed Wooden Doors
+            BuildShatteredDoor(wallsRoot.transform, new Vector3(0, 0, 9f), stoneMat, darkWoodMat);
+
+            // Ceiling with Moonlight Gap
+            CreateBox("Ceiling_Left", envRoot.transform, new Vector3(-4.5f, 6.75f, 0), new Vector3(7.5f, 0.5f, 18f), stoneMat, true);
+            CreateBox("Ceiling_Right", envRoot.transform, new Vector3(4.5f, 6.75f, 0), new Vector3(7.5f, 0.5f, 18f), stoneMat, true);
+
+            // Violated Deity Niche & Overturned Offering Table
+            GameObject shrineNiche = new GameObject("Violated_DeityNiche");
+            shrineNiche.transform.parent = envRoot.transform;
+            CreateBox("NicheArch_Left", shrineNiche.transform, new Vector3(-1.8f, 2.5f, -8.3f), new Vector3(0.6f, 4.0f, 0.6f), stoneMat, true);
+            CreateBox("NicheArch_Right", shrineNiche.transform, new Vector3(1.8f, 2.5f, -8.3f), new Vector3(0.6f, 4.0f, 0.6f), stoneMat, true);
+            CreateBox("NicheArch_Top", shrineNiche.transform, new Vector3(0, 4.6f, -8.3f), new Vector3(4.2f, 0.6f, 0.6f), stoneMat, true);
+
+            // Smashed offering pedestal
+            GameObject brokenPlinth = CreateBox("Smashed_Plinth", shrineNiche.transform, new Vector3(0.3f, 0.4f, -7.2f), new Vector3(2.2f, 0.7f, 1.4f), stoneMat, true);
+            brokenPlinth.transform.localRotation = Quaternion.Euler(0, 18f, 0);
+
+            // 4. Overturned Brass Lamp (broken_lamp) with Flickering Light
+            BuildOverturnedLamp(envRoot.transform, new Vector3(-2.2f, 0.15f, -2.5f), brassMat);
+
+            // Wall Torch for contrast (warm flicking light)
+            CreateTorch(envRoot.transform, new Vector3(7.3f, 2.8f, 2.0f), new Vector3(0, -90f, 0), "SmokingWallTorch");
+
+            // 5. Torn Red Robber Cloth (red_cloth)
+            BuildTornRedCloth(envRoot.transform, new Vector3(-7.3f, 1.8f, 1.2f), redClothMat, stoneMat);
+
+            // 6. Muddy Footprints Trail (footprints)
+            BuildFootprintsTrail(envRoot.transform, footprintMat);
+
+            // 7. Scattered Marigold Petals and Debris
+            GameObject debrisRoot = new GameObject("Scattered_DebrisAndPetals");
+            debrisRoot.transform.parent = envRoot.transform;
+            for (int i = 0; i < 12; i++)
+            {
+                float rx = UnityEngine.Random.Range(-3.0f, 3.0f);
+                float rz = UnityEngine.Random.Range(-6.0f, 6.0f);
+                float rRot = UnityEngine.Random.Range(0f, 360f);
+                GameObject petal = CreateSphere($"PetalCluster_{i}", debrisRoot.transform, new Vector3(rx, 0.03f, rz), new Vector3(0.35f, 0.04f, 0.35f), flowerMat, false);
+                petal.transform.localRotation = Quaternion.Euler(0, rRot, 0);
+            }
+
+            // 8. Spawns
+            GameObject spawnRoot = new GameObject("--- SPAWN POINTS ---");
+            CreateSpawnPoint(spawnRoot.transform, "player_start", new Vector3(0f, 0f, 8.0f), new Vector3(0, 0, -1));
+            CreateSpawnPoint(spawnRoot.transform, "villager_spawn", new Vector3(3.2f, 0f, 9.5f), new Vector3(-0.5f, 0, -1));
+            CreateSpawnPoint(spawnRoot.transform, "priest_spawn", new Vector3(3.0f, 0f, 0f), new Vector3(-1, 0, 0));
+            CreateSpawnPoint(spawnRoot.transform, "robber_spawn", new Vector3(-4.0f, 0f, -8.0f), new Vector3(0.5f, 0, 1));
+
+            // Save Scene
             EditorSceneManager.SaveScene(scene, scenePath);
-            Debug.Log($"[EnvironmentBuilder] ShrineCrime stub saved at '{scenePath}'.");
+            Debug.Log($"[EnvironmentBuilder] ShrineCrime scene generated successfully at '{scenePath}'.");
             UpdateBuildSettings();
+        }
+
+        private static void BuildShatteredDoor(Transform parent, Vector3 localPos, Material stoneMat, Material woodMat)
+        {
+            GameObject doorRoot = new GameObject("Shattered_WoodenDoorPortal");
+            doorRoot.transform.parent = parent;
+            doorRoot.transform.localPosition = localPos;
+
+            // Stone portal jambs
+            CreateBox("DoorJamb_Left", doorRoot.transform, new Vector3(-2.4f, 3.25f, 0), new Vector3(1.2f, 6.5f, 1.2f), stoneMat, true);
+            CreateBox("DoorJamb_Right", doorRoot.transform, new Vector3(2.4f, 3.25f, 0), new Vector3(1.2f, 6.5f, 1.2f), stoneMat, true);
+            CreateBox("DoorLintel_Top", doorRoot.transform, new Vector3(0, 5.75f, 0), new Vector3(3.6f, 1.5f, 1.2f), stoneMat, true);
+
+            // Left broken door leaf (hanging loose)
+            GameObject leftDoor = CreateBox("SmashedDoor_Left", doorRoot.transform, new Vector3(-1.4f, 2.2f, -0.4f), new Vector3(1.4f, 4.4f, 0.12f), woodMat, true);
+            leftDoor.transform.localRotation = Quaternion.Euler(0, 65f, 12f);
+
+            // Right door leaf (shattered outward)
+            GameObject rightDoor = CreateBox("SmashedDoor_Right", doorRoot.transform, new Vector3(1.6f, 2.0f, 0.6f), new Vector3(1.4f, 4.0f, 0.12f), woodMat, true);
+            rightDoor.transform.localRotation = Quaternion.Euler(-15f, -75f, 0);
+
+            // Broken splinter planks on the ground
+            GameObject plank1 = CreateBox("BrokenPlank_1", doorRoot.transform, new Vector3(0.4f, 0.05f, 0.8f), new Vector3(0.25f, 0.06f, 1.4f), woodMat, false);
+            plank1.transform.localRotation = Quaternion.Euler(0, 35f, 0);
+            GameObject plank2 = CreateBox("BrokenPlank_2", doorRoot.transform, new Vector3(-0.6f, 0.05f, 1.2f), new Vector3(0.2f, 0.06f, 1.1f), woodMat, false);
+            plank2.transform.localRotation = Quaternion.Euler(0, -45f, 0);
+        }
+
+        private static void BuildOverturnedLamp(Transform parent, Vector3 localPos, Material brassMat)
+        {
+            GameObject lampRoot = new GameObject("BrokenOverturned_Lamp");
+            lampRoot.transform.parent = parent;
+            lampRoot.transform.localPosition = localPos;
+            lampRoot.transform.localRotation = Quaternion.Euler(75f, 30f, 0);
+
+            // Overturned stand
+            CreateCylinder("LampStand", lampRoot.transform, Vector3.zero, new Vector3(0.16f, 0.8f, 0.16f), brassMat, true);
+            CreateCylinder("BasePedestal", lampRoot.transform, new Vector3(0, -0.7f, 0), new Vector3(0.55f, 0.12f, 0.55f), brassMat, true);
+            CreateCylinder("OilBowl", lampRoot.transform, new Vector3(0, 0.7f, 0), new Vector3(0.65f, 0.1f, 0.65f), brassMat, false);
+
+            // Dark spilled oil puddle on the floor
+            GameObject oilPuddle = CreateSphere("SpilledOilPuddle", parent, localPos + new Vector3(0.3f, 0.02f, 0), new Vector3(1.4f, 0.02f, 1.8f), GetMaterial("mat_StoneFloorWet"), false);
+
+            // Embers and flickering light
+            GameObject flame = CreateSphere("LampEmber", lampRoot.transform, new Vector3(0, 0.82f, 0), new Vector3(0.2f, 0.2f, 0.2f), GetMaterial("mat_Flame"), false);
+
+            GameObject lightObj = new GameObject("BrokenLampLight");
+            lightObj.transform.parent = flame.transform;
+            lightObj.transform.localPosition = Vector3.zero;
+
+            Light lt = lightObj.AddComponent<Light>();
+            lt.type = LightType.Point;
+            lt.color = new Color(1.0f, 0.52f, 0.14f);
+            lt.intensity = 1.8f;
+            lt.range = 7.0f;
+            lt.shadows = LightShadows.Soft;
+
+            LightFlicker flicker = lightObj.AddComponent<LightFlicker>();
+            flicker.Configure(1.1f, 2.0f, 16f);
+
+            // Interactable
+            InteractableObject io = lampRoot.AddComponent<InteractableObject>();
+            io.Setup("broken_lamp", "Inspect overturned brass lamp", 2.2f);
+
+            BoxCollider col = lampRoot.AddComponent<BoxCollider>();
+            col.isTrigger = true;
+            col.size = new Vector3(1.8f, 1.2f, 1.8f);
+        }
+
+        private static void BuildTornRedCloth(Transform parent, Vector3 localPos, Material redClothMat, Material stoneMat)
+        {
+            GameObject clothRoot = new GameObject("TornRobber_RedCloth");
+            clothRoot.transform.parent = parent;
+            clothRoot.transform.localPosition = localPos;
+
+            // Jagged stone sconce where cloth got snagged
+            CreateBox("StoneSconceHook", clothRoot.transform, Vector3.zero, new Vector3(0.25f, 0.35f, 0.45f), stoneMat, true);
+
+            // Torn cloth shred
+            GameObject clothMesh = CreateBox("ClothTorn_Shred", clothRoot.transform, new Vector3(0.15f, -0.4f, 0.2f), new Vector3(0.06f, 0.75f, 0.45f), redClothMat, false);
+            clothMesh.transform.localRotation = Quaternion.Euler(15f, 20f, -10f);
+
+            InteractableObject io = clothRoot.AddComponent<InteractableObject>();
+            io.Setup("red_cloth", "Examine torn red robber cloth", 2.2f);
+
+            BoxCollider col = clothRoot.AddComponent<BoxCollider>();
+            col.isTrigger = true;
+            col.size = new Vector3(1.6f, 1.6f, 1.6f);
+        }
+
+        private static void BuildFootprintsTrail(Transform parent, Material footprintMat)
+        {
+            GameObject trailRoot = new GameObject("Muddy_FootprintsTrail");
+            trailRoot.transform.parent = parent;
+
+            // Series of footprints leading toward the broken door
+            Vector3[] printPositions = {
+                new Vector3(0.2f, 0.02f, -5.5f),
+                new Vector3(-0.1f, 0.02f, -4.2f),
+                new Vector3(0.3f, 0.02f, -2.8f),
+                new Vector3(-0.05f, 0.02f, -1.2f),
+                new Vector3(0.4f, 0.02f, 0.5f),
+                new Vector3(0.1f, 0.02f, 2.2f),
+                new Vector3(0.5f, 0.02f, 4.0f),
+                new Vector3(0.2f, 0.02f, 5.8f),
+                new Vector3(0.7f, 0.02f, 7.5f)
+            };
+
+            for (int i = 0; i < printPositions.Length; i++)
+            {
+                GameObject fp = CreateBox($"Footprint_{i + 1}", trailRoot.transform, printPositions[i], new Vector3(0.22f, 0.02f, 0.45f), footprintMat, false);
+                fp.transform.localRotation = Quaternion.Euler(0, (i % 2 == 0 ? 12f : -8f), 0);
+            }
+
+            // Interactable trigger in the middle of the trail
+            InteractableObject io = trailRoot.AddComponent<InteractableObject>();
+            io.Setup("footprints", "Examine muddy footprints", 2.6f);
+
+            BoxCollider col = trailRoot.AddComponent<BoxCollider>();
+            col.isTrigger = true;
+            col.center = new Vector3(0.3f, 0.5f, 1.0f);
+            col.size = new Vector3(2.5f, 1.5f, 8.0f);
         }
 
         [MenuItem("Tools/Legacy/Environments/Build JunglePath")]
