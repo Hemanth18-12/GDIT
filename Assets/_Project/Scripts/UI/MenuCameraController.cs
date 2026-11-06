@@ -28,3 +28,4 @@ namespace LegacyOfTemples.UI
         }
     }
 }
+

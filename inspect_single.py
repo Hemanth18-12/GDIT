@@ -32,3 +32,4 @@ for obj in bpy.data.objects:
         print(f"Mesh: '{obj.name}' | Polys: {poly_count} | Verts: {vert_count} | Parent: {obj.parent.name if obj.parent else 'None'} | Mats: {mats}")
 
 print("====================================================")
+

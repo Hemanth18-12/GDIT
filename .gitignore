@@ -45,6 +45,9 @@ sysinfo.txt
 *.aab
 *.unitypackage
 *.app
+Builds/
+build/
+Build/
 
 # OS / Editor junk
 .DS_Store

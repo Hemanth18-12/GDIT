@@ -25,3 +25,4 @@ for obj in bpy.data.objects:
 print("\n--- MESH TOTALS ---")
 total_polys = sum(len(o.data.polygons) for o in bpy.data.objects if o.type == 'MESH')
 print(f"Total Meshes: {len([o for o in bpy.data.objects if o.type == 'MESH'])}, Total Polys: {total_polys}")
+

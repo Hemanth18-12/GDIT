@@ -5,6 +5,7 @@
         "LOT.Core",
         "LOT.World",
         "LOT.Characters",
+        "LOT.Gameplay",
         "Unity.InputSystem"
     ],
     "includePlatforms": [],

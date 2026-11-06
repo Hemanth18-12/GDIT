@@ -10,6 +10,7 @@ using UnityEngine.SceneManagement;
 using LegacyOfTemples.Core;
 using LegacyOfTemples.World;
 using LegacyOfTemples.Characters;
+using LegacyOfTemples.Gameplay;
 
 namespace LegacyOfTemples.World.Editor
 {
@@ -684,14 +685,18 @@ namespace LegacyOfTemples.World.Editor
             CreateSpawnPoint(spawnRoot.transform, "villager_spawn", new Vector3(-1.8f, 0.05f, 11.5f), new Vector3(0.3f, 0, 1.0f));
             CreateSpawnPoint(spawnRoot.transform, "robber_spawn", new Vector3(12f, 0.05f, -12f), new Vector3(-1, 0, 0.5f));
 
-            // 5. Interactables
+            // 5. Interactables & Portals
             GameObject interactRoot = new GameObject("--- INTERACTABLES ---");
             CreateInteractable(interactRoot.transform, "courtyard_lion_left", "Inspect Gajasimha guardian statue", new Vector3(-3.5f, 0.8f, 1.8f), 2.5f);
             CreateInteractable(interactRoot.transform, "courtyard_lion_right", "Inspect Gajasimha guardian statue", new Vector3(3.5f, 0.8f, 1.8f), 2.5f);
             CreateInteractable(interactRoot.transform, "deity_niche_narasimha", "Examine sacred Narasimha carved stone relief", new Vector3(-2.8f, 1.2f, 0.5f), 2.5f);
             CreateInteractable(interactRoot.transform, "deity_niche_varaha", "Examine sacred Varaha carved stone relief", new Vector3(2.8f, 1.2f, 0.5f), 2.5f);
             CreateInteractable(interactRoot.transform, "courtyard_lamp", "Examine brass oil lamp", new Vector3(-4.5f, 0.8f, 10.0f), 2.2f);
-            CreateInteractable(interactRoot.transform, "courtyard_sanctum_entrance", "Enter the inner sanctum", new Vector3(0f, 1.2f, -1.2f), 3.0f);
+
+            // Portal ascending the steps to the Inner Sanctum
+            GameObject sanctumPortal = CreateBox("Portal_To_Sanctum", interactRoot.transform, new Vector3(0f, 1.4f, -1.2f), new Vector3(3.5f, 2.8f, 1.0f), GetMaterial("mat_SanctumDarkness"), true);
+            SceneTransitionTrigger stSanctum = sanctumPortal.AddComponent<SceneTransitionTrigger>();
+            stSanctum.Setup("Sanctum", "Inner Sanctum Sanctorum", true);
 
             // 6. Spawn Real Characters (Visible immediately in front of Detective Aryan)
             GameObject charRoot = new GameObject("Characters");
@@ -729,6 +734,14 @@ namespace LegacyOfTemples.World.Editor
             // 7. Opening Cinematic Director
             GameObject cineObj = new GameObject("OpeningCinematicDirector");
             cineObj.AddComponent<LegacyOfTemples.Gameplay.OpeningCinematic>();
+
+            // 8. Persistent Gameplay Management Systems
+            GameObject sysRoot = new GameObject("--- GAMEPLAY SYSTEMS ---");
+            sysRoot.AddComponent<InvestigationJournal>();
+            sysRoot.AddComponent<TempleMapOverlay>();
+            sysRoot.AddComponent<TutorialPromptManager>();
+            sysRoot.AddComponent<HelpHintSystem>();
+            sysRoot.AddComponent<GameLevelManager>();
 
             // Save Scene
             EditorSceneManager.SaveScene(scene, scenePath);
@@ -896,7 +909,7 @@ namespace LegacyOfTemples.World.Editor
             }
 
             // 5. Lights budget <= 8
-            Light[] allLights = UnityEngine.Object.FindObjectsByType<Light>(FindObjectsSortMode.None);
+            Light[] allLights = UnityEngine.Object.FindObjectsByType<Light>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
             int activeLights = 0;
             foreach (var l in allLights)
             {
@@ -1040,7 +1053,7 @@ namespace LegacyOfTemples.World.Editor
             CreateBox("Garland_FallenPiece1", garlandsRoot.transform, new Vector3(1.1f, 0.05f, -5.8f), new Vector3(1.2f, 0.08f, 0.25f), flowerMat, false);
             CreateBox("Garland_FallenPiece2", garlandsRoot.transform, new Vector3(1.4f, 0.05f, -5.5f), new Vector3(0.6f, 0.08f, 0.45f), flowerMat, false);
 
-            // Central Altar Platform (Vedi) & EMPTY Idol Pedestal
+            // Central Altar Platform (Vedi) & Authentic Lord Jagannath Sacred Deity
             GameObject altarRoot = new GameObject("CentralAltar_Sanctum");
             altarRoot.transform.parent = envRoot.transform;
 
@@ -1048,17 +1061,78 @@ namespace LegacyOfTemples.World.Editor
             CreateBox("Altar_Plinth", altarRoot.transform, new Vector3(0, 0.35f, -7.5f), new Vector3(5.2f, 0.7f, 5.2f), stoneMat, true);
             CreateBox("Altar_Step", altarRoot.transform, new Vector3(0, 0.18f, -4.6f), new Vector3(3.2f, 0.35f, 0.6f), stoneMat, true);
 
-            // Empty Idol Pedestal (Violation Scene)
-            GameObject pedestal = new GameObject("Empty_IdolPedestal");
-            pedestal.transform.parent = altarRoot.transform;
-            pedestal.transform.localPosition = new Vector3(0, 0.7f, -7.5f);
+            // Sacred Lord Jagannath Deity on Altar (Non-interactable background shrine deity, pristine and respected)
+            GameObject idolPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Models/Environment/Idol_Jagannath.fbx");
+            if (idolPrefab != null)
+            {
+                GameObject idolInst = (GameObject)PrefabUtility.InstantiatePrefab(idolPrefab, altarRoot.transform);
+                idolInst.name = "LordJagannath_SacredDeityShrine";
+                idolInst.transform.localPosition = new Vector3(0f, 0.7f, -7.5f);
+                idolInst.transform.localRotation = Quaternion.Euler(0f, 180f, 0f);
+                idolInst.transform.localScale = Vector3.one * 1.35f;
 
-            CreateBox("PedestalBase", pedestal.transform, new Vector3(0, 0.25f, 0), new Vector3(1.8f, 0.5f, 1.5f), darkWoodMat, true);
-            CreateBox("PedestalTopRim", pedestal.transform, new Vector3(0, 0.55f, 0), new Vector3(1.6f, 0.1f, 1.3f), brassMat, true);
-            // Empty hollow depression where the idol was ripped off
-            CreateBox("StolenIdol_EmptySocket", pedestal.transform, new Vector3(0, 0.62f, 0), new Vector3(0.85f, 0.04f, 0.65f), wetFloorMat, false);
-            // Fallen sacred brass offering bowl
-            CreateSphere("OfferingBowl_Overturned", pedestal.transform, new Vector3(0.65f, 0.58f, 0.3f), new Vector3(0.28f, 0.12f, 0.28f), brassMat, false);
+                Material warmStone = GetMaterial("mat_WarmTempleStone");
+                Material lightStone = GetMaterial("mat_LightStone");
+                Material darkStone = GetMaterial("mat_DarkStone");
+                Material sacredMetal = GetMaterial("mat_SacredMetal");
+                Material sanctumDark = GetMaterial("mat_SanctumDarkness");
+                Material templeRed = GetMaterial("mat_TempleRed");
+
+                foreach (var r in idolInst.GetComponentsInChildren<Renderer>(true))
+                {
+                    string n = r.name.ToUpperInvariant();
+                    if (n.Contains("EYE") || n.Contains("WHITE") || n.Contains("SUDARSHANA"))
+                        r.sharedMaterial = lightStone;
+                    else if (n.Contains("RED") || n.Contains("LIP") || n.Contains("TIKA") || n.Contains("CLOTH"))
+                        r.sharedMaterial = templeRed;
+                    else if (n.Contains("CROWN") || n.Contains("JEWEL") || n.Contains("GOLD"))
+                        r.sharedMaterial = sacredMetal;
+                    else if (n.Contains("BODY") || n.Contains("FACE") || n.Contains("BLACK"))
+                        r.sharedMaterial = sanctumDark;
+                    else
+                        r.sharedMaterial = darkStone;
+                }
+            }
+
+            // Breached Relic Vault & Treasury Chamber (Side arcade at x = -5.5f, z = -2.5f)
+            GameObject vaultRoot = new GameObject("RelicVault_BreachScene");
+            vaultRoot.transform.parent = envRoot.transform;
+
+            // Breached Ancient Relic Chest
+            GameObject chestObj = CreateBox("Breached_RelicChest", vaultRoot.transform, new Vector3(-5.5f, 0.45f, -2.5f), new Vector3(2.0f, 0.85f, 1.2f), darkWoodMat, true);
+            ClueInspectable chestClue = chestObj.AddComponent<ClueInspectable>();
+            chestClue.Setup(
+                "clue_breached_case",
+                "Breached Sacred Relic Chest",
+                "Sanctum Vault Breach",
+                "An ancient cedar-wood chest lined with gold silk. The three custom velvet compartments are completely empty: The Sacred Pradip, The Sandstone Rosette, and The Tala Patra Manuscript have been stolen.",
+                "The sacred Jagannath deity on the high altar was untouched in divine sanctity. Only these three portable historic treasures were targeted.",
+                2.6f
+            );
+
+            // Broken Brass Lock on ground near chest
+            GameObject lockObj = CreateBox("Clue_BrokenBrassLock", vaultRoot.transform, new Vector3(-4.6f, 0.08f, -2.2f), new Vector3(0.35f, 0.12f, 0.25f), brassMat, true);
+            ClueInspectable lockClue = lockObj.AddComponent<ClueInspectable>();
+            lockClue.Setup(
+                "clue_broken_lock",
+                "Broken Brass Sanctum Lock",
+                "Sanctum Vault Breach",
+                "A heavy cast-brass sanctuary lock, cracked clean in two. The latch tongue shows sharp indentation marks from cold steel chisels, forced open with violent leverage.",
+                "The intruders came equipped with heavy iron masonry tools. This was not vandalism; it was an organized, targeted heist.",
+                2.2f
+            );
+
+            // Muddy bootprints trailing toward south corridor
+            GameObject bootprintsObj = CreateBox("Clue_MuddyBootprints", vaultRoot.transform, new Vector3(-3.8f, 0.02f, 1.2f), new Vector3(1.2f, 0.04f, 4.0f), GetMaterial("mat_StoneFloorWet"), true);
+            ClueInspectable bootClue = bootprintsObj.AddComponent<ClueInspectable>();
+            bootClue.Setup(
+                "clue_muddy_footprints",
+                "Red Clay Muddy Bootprints",
+                "Escape Trail",
+                "Fresh boot impressions coated in wet reddish laterite soil, leading directly from the relic vault toward the southern corridor.",
+                "The red laterite clay only occurs along the outer shrine and jungle paths. The thieves fled directly toward the outer ruins.",
+                2.4f
+            );
 
             // 4 Flickering Warm Oil Lamps (Max real-time lights <= 8)
             GameObject lampsRoot = new GameObject("Sanctum_OilLamps");
@@ -1071,15 +1145,24 @@ namespace LegacyOfTemples.World.Editor
             // 4. Spawns
             GameObject spawnRoot = new GameObject("--- SPAWN POINTS ---");
             CreateSpawnPoint(spawnRoot.transform, "player_start", new Vector3(0f, 0f, 11f), new Vector3(0, 0, -1));
-            CreateSpawnPoint(spawnRoot.transform, "priest_spawn", new Vector3(2.5f, 0f, -1.0f), new Vector3(-1, 0, 0));
+            CreateSpawnPoint(spawnRoot.transform, "priest_spawn", new Vector3(1.5f, 0f, -4.5f), new Vector3(-0.5f, 0, 1));
             CreateSpawnPoint(spawnRoot.transform, "robber_spawn", new Vector3(-4.0f, 0f, -6.0f), new Vector3(1, 0, 0.5f));
             CreateSpawnPoint(spawnRoot.transform, "villager_spawn", new Vector3(-3.0f, 0f, 8.0f), new Vector3(1, 0, -0.5f));
 
-            // 5. Interactables
+            // 5. Portals & Other Interactables
             GameObject interactRoot = new GameObject("--- INTERACTABLES ---");
-            CreateInteractable(interactRoot.transform, "sanctum_empty_altar", "Examine empty idol pedestal", new Vector3(0f, 1.0f, -7.5f), 2.5f);
             CreateInteractable(interactRoot.transform, "sanctum_hanging_bell", "Ring temple bell", new Vector3(0f, 3.2f, -2.5f), 2.2f);
             CreateInteractable(interactRoot.transform, "sanctum_fallen_garland", "Inspect discarded marigold garland", new Vector3(1.2f, 0.2f, -5.6f), 2.0f);
+
+            // Portal returning south to Courtyard
+            GameObject returnPortal = CreateBox("Portal_BackToCourtyard", interactRoot.transform, new Vector3(0f, 1.4f, 12.8f), new Vector3(4.0f, 2.8f, 1.0f), GetMaterial("mat_SanctumDarkness"), true);
+            SceneTransitionTrigger stCourtyard = returnPortal.AddComponent<SceneTransitionTrigger>();
+            stCourtyard.Setup("Courtyard", "Courtyard Plaza", true);
+
+            // Portal leading south to Outer Shrine (Level 2)
+            GameObject shrinePortal = CreateBox("Portal_To_ShrineCrime", interactRoot.transform, new Vector3(-7.5f, 1.4f, 6.0f), new Vector3(1.0f, 2.8f, 3.0f), GetMaterial("mat_SanctumDarkness"), true);
+            SceneTransitionTrigger stShrine = shrinePortal.AddComponent<SceneTransitionTrigger>();
+            stShrine.Setup("ShrineCrime", "Outer Shrine Ruins (Level 2)", true, "LevelUnlocked_2");
 
             // 6. Spawn Real Characters
             GameObject charRoot = new GameObject("Characters");
@@ -1244,7 +1327,7 @@ namespace LegacyOfTemples.World.Editor
             CreateBox("WallBanner_Right", pWallRoot.transform, new Vector3(6.2f, 3.8f, -1.65f), new Vector3(1.0f, 4.2f, 0.05f), saffronMat, false);
 
             // 4. Central Rotating Lotus / Chakra Wheel (wheel_center)
-            BuildPuzzleChakraWheel(pWallRoot.transform, new Vector3(0, 3.6f, -1.6f), brassMat, reliefMat);
+            BuildPuzzleChakraWheel(pWallRoot.transform, new Vector3(0, 3.6f, -1.6f), brassMat, reliefMat, stoneMat);
 
             // 5. Four Carved Relief Panels: Lotus, Conch, Wheel, Kalash
             BuildReliefPanel(pWallRoot.transform, "panel_lotus", "Inspect Lotus Relief Panel", new Vector3(-2.8f, 4.7f, -1.65f), "lotus", stoneMat, reliefMat);
@@ -1291,38 +1374,82 @@ namespace LegacyOfTemples.World.Editor
             UpdateBuildSettings();
         }
 
-        private static void BuildPuzzleChakraWheel(Transform parent, Vector3 localPos, Material brassMat, Material accentMat)
+        private static void BuildPuzzleChakraWheel(Transform parent, Vector3 localPos, Material brassMat, Material accentMat, Material stoneMat)
         {
-            GameObject wheelObj = new GameObject("ChakraWheel_Structure");
+            GameObject wheelObj = new GameObject("Carved_SuryaChakraWall_Mechanism");
             wheelObj.transform.parent = parent;
             wheelObj.transform.localPosition = localPos;
 
-            // Outer carved rim disc
-            GameObject rim = CreateCylinder("OuterRim", wheelObj.transform, Vector3.zero, new Vector3(2.5f, 0.15f, 2.5f), brassMat, true);
+            // 1. Outer Wheel Disc (12 solar spokes)
+            GameObject outerWheel = new GameObject("OuterWheelDisc");
+            outerWheel.transform.parent = wheelObj.transform;
+            outerWheel.transform.localPosition = Vector3.zero;
+
+            GameObject rim = CreateCylinder("OuterRim", outerWheel.transform, Vector3.zero, new Vector3(2.8f, 0.15f, 2.8f), brassMat, true);
             rim.transform.localRotation = Quaternion.Euler(90f, 0, 0);
 
-            // Inner center boss hub
-            GameObject hub = CreateCylinder("CenterHub", wheelObj.transform, new Vector3(0, 0, -0.05f), new Vector3(0.85f, 0.22f, 0.85f), accentMat, true);
-            hub.transform.localRotation = Quaternion.Euler(90f, 0, 0);
-
-            // 8 radiating lotus/chakra spokes
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < 12; i++)
             {
-                float angle = i * 45f;
-                GameObject spoke = CreateBox($"Spoke_{i + 1}", wheelObj.transform, Vector3.zero, new Vector3(0.14f, 2.2f, 0.12f), brassMat, false);
+                float angle = i * 30f;
+                GameObject spoke = CreateBox($"SolarSpoke_{i + 1}", outerWheel.transform, Vector3.zero, new Vector3(0.12f, 2.6f, 0.12f), brassMat, false);
                 spoke.transform.localRotation = Quaternion.Euler(0, 0, angle);
             }
 
-            // Central Sacred Gem / Boss
-            GameObject gem = CreateSphere("CenterGem", wheelObj.transform, new Vector3(0, 0, -0.15f), new Vector3(0.4f, 0.4f, 0.3f), GetMaterial("mat_Flame"), false);
+            // 2. Middle Wheel Disc (8 lunar quadrants)
+            GameObject middleWheel = new GameObject("MiddleWheelDisc");
+            middleWheel.transform.parent = wheelObj.transform;
+            middleWheel.transform.localPosition = new Vector3(0, 0, -0.04f);
 
-            // Interactable component for wheel_center
-            InteractableObject io = wheelObj.AddComponent<InteractableObject>();
-            io.Setup("wheel_center", "Turn Sacred Chakra Wheel", 2.5f);
+            GameObject midRim = CreateCylinder("MiddleRim", middleWheel.transform, Vector3.zero, new Vector3(1.8f, 0.18f, 1.8f), accentMat, true);
+            midRim.transform.localRotation = Quaternion.Euler(90f, 0, 0);
+
+            for (int i = 0; i < 8; i++)
+            {
+                float angle = i * 45f;
+                GameObject lunarNotch = CreateBox($"LunarNotch_{i + 1}", middleWheel.transform, Vector3.zero, new Vector3(0.16f, 1.6f, 0.14f), accentMat, false);
+                lunarNotch.transform.localRotation = Quaternion.Euler(0, 0, angle);
+            }
+
+            // 3. Inner Wheel Disc (Lotus Core)
+            GameObject innerWheel = new GameObject("InnerWheelDisc");
+            innerWheel.transform.parent = wheelObj.transform;
+            innerWheel.transform.localPosition = new Vector3(0, 0, -0.08f);
+
+            GameObject hub = CreateCylinder("CenterHub", innerWheel.transform, Vector3.zero, new Vector3(0.9f, 0.22f, 0.9f), brassMat, true);
+            hub.transform.localRotation = Quaternion.Euler(90f, 0, 0);
+
+            for (int p = 0; p < 6; p++)
+            {
+                float a = p * 60f;
+                GameObject petal = CreateSphere($"LotusPetal_{p}", innerWheel.transform, Vector3.zero, new Vector3(0.35f, 0.65f, 0.15f), accentMat, false);
+                petal.transform.localRotation = Quaternion.Euler(0, 0, a);
+            }
+
+            // Stone Gateway Door that slides open when solved
+            GameObject doorObj = CreateBox("StoneGateway_Door", parent, new Vector3(0, 2.5f, 0.5f), new Vector3(3.2f, 5.0f, 0.8f), stoneMat, true);
+
+            // Attach ChakraPuzzleController
+            ChakraPuzzleController controller = wheelObj.AddComponent<ChakraPuzzleController>();
+            var outerField = typeof(ChakraPuzzleController).GetField("outerWheel", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            if (outerField != null) outerField.SetValue(controller, outerWheel.transform);
+
+            var midField = typeof(ChakraPuzzleController).GetField("middleWheel", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            if (midField != null) midField.SetValue(controller, middleWheel.transform);
+
+            var innerField = typeof(ChakraPuzzleController).GetField("innerWheel", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            if (innerField != null) innerField.SetValue(controller, innerWheel.transform);
+
+            var doorField = typeof(ChakraPuzzleController).GetField("stoneGatewayDoor", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            if (doorField != null) doorField.SetValue(controller, doorObj.transform);
 
             BoxCollider col = wheelObj.AddComponent<BoxCollider>();
             col.isTrigger = true;
-            col.size = new Vector3(2.8f, 2.8f, 1.2f);
+            col.size = new Vector3(3.2f, 3.2f, 1.5f);
+
+            // Portal behind door leading to JunglePath
+            GameObject junglePortal = CreateBox("Portal_To_JunglePath", parent, new Vector3(0, 2.5f, 2.0f), new Vector3(3.0f, 4.5f, 1.0f), GetMaterial("mat_SanctumDarkness"), true);
+            SceneTransitionTrigger stJungle = junglePortal.AddComponent<SceneTransitionTrigger>();
+            stJungle.Setup("JunglePath", "Overgrown Jungle Path (Level 3)", true, "LevelUnlocked_3");
         }
 
         private static void BuildReliefPanel(Transform parent, string id, string prompt, Vector3 localPos, string motifType, Material baseMat, Material reliefMat)
@@ -1511,12 +1638,43 @@ namespace LegacyOfTemples.World.Editor
             CreateSpawnPoint(spawnRoot.transform, "priest_spawn", new Vector3(3.0f, 0f, 0f), new Vector3(-1, 0, 0));
             CreateSpawnPoint(spawnRoot.transform, "robber_spawn", new Vector3(-4.0f, 0f, -8.0f), new Vector3(0.5f, 0, 1));
 
-            // 9. Interactables
+            // 9. Clues, Interactables & Portals
             GameObject interactRoot = new GameObject("--- INTERACTABLES ---");
+
+            GameObject fabricObj = CreateBox("Clue_TornFabric", interactRoot.transform, new Vector3(-7.3f, 1.8f, 1.2f), new Vector3(0.4f, 0.5f, 0.1f), redClothMat, true);
+            ClueInspectable fabricClue = fabricObj.AddComponent<ClueInspectable>();
+            fabricClue.Setup(
+                "clue_fabric_fragment",
+                "Torn Dark Cloak Thread",
+                "Perpetrator Evidence",
+                "A shred of midnight-black woven wool caught on a sharp sandstone projection of the ruined plinth. Strong scent of burning torch pitch.",
+                "Matches the dark traveler cloaks worn by black-market antiquities smugglers. The thieves were running recklessly in the dark.",
+                2.5f
+            );
+
+            GameObject mapObj = CreateBox("Clue_SmugglerMap", interactRoot.transform, new Vector3(2.5f, 0.35f, -3.2f), new Vector3(0.6f, 0.1f, 0.45f), GetMaterial("mat_LimestoneRelief"), true);
+            ClueInspectable mapClue = mapObj.AddComponent<ClueInspectable>();
+            mapClue.Setup(
+                "clue_ancient_map",
+                "Smuggler's Route Map",
+                "Flight Path",
+                "A crumpled parchment dropped near the overturned stone urn. A hand-drawn sketch detailing an escape through the ancient Surya Chakra Wall into the jungle.",
+                "The thieves knew the ancient wall seals the secret trail through the jungle ravine. We must pursue them to the Chakra Wall!",
+                2.5f
+            );
+
             CreateInteractable(interactRoot.transform, "broken_lamp", "Examine shattered oil lamp and spilled oil", new Vector3(-2.2f, 0.4f, -2.5f), 2.5f);
-            CreateInteractable(interactRoot.transform, "red_cloth", "Inspect torn red robber cloth snagged on stone", new Vector3(-7.3f, 1.8f, 1.2f), 2.5f);
             CreateInteractable(interactRoot.transform, "footprints", "Examine muddy footprints fleeing out the door", new Vector3(0.5f, 0.2f, 5.0f), 2.5f);
-            CreateInteractable(interactRoot.transform, "shrine_smashed_pedestal", "Examine smashed offering pedestal", new Vector3(0.3f, 0.8f, -7.2f), 2.5f);
+
+            // Portal leading west to PuzzleWall
+            GameObject puzzlePortal = CreateBox("Portal_To_PuzzleWall", interactRoot.transform, new Vector3(-7.5f, 1.4f, -4.5f), new Vector3(1.0f, 2.8f, 3.0f), stoneMat, true);
+            SceneTransitionTrigger stPuzzle = puzzlePortal.AddComponent<SceneTransitionTrigger>();
+            stPuzzle.Setup("PuzzleWall", "Ancient Surya Chakra Wall", true);
+
+            // Portal returning to Courtyard
+            GameObject returnPortal = CreateBox("Portal_BackToCourtyard", interactRoot.transform, new Vector3(0f, 1.4f, 10.0f), new Vector3(3.5f, 2.8f, 1.0f), stoneMat, true);
+            SceneTransitionTrigger stCourtyard = returnPortal.AddComponent<SceneTransitionTrigger>();
+            stCourtyard.Setup("Courtyard", "Courtyard Plaza", true);
 
             // 10. Spawn Characters
             GameObject charRoot = new GameObject("Characters");
@@ -1769,14 +1927,51 @@ namespace LegacyOfTemples.World.Editor
             CreateSpawnPoint(spawnRoot.transform, "villager_spawn", new Vector3(-4.0f, 0f, 16.0f), new Vector3(0.5f, 0, -1));
             CreateSpawnPoint(spawnRoot.transform, "priest_spawn", new Vector3(3.5f, 0f, 15.0f), new Vector3(-0.5f, 0, -1));
 
-            // 5. Interactables
-            GameObject interactRoot = new GameObject("--- INTERACTABLES ---");
-            CreateInteractable(interactRoot.transform, "muddy_trail", "Follow robber trail deeper into the jungle", new Vector3(0f, 0.4f, 2.0f), 2.8f);
-            CreateInteractable(interactRoot.transform, "jungle_ruined_steps", "Examine moss-covered ancient temple steps", new Vector3(0f, 1.4f, -7.5f), 2.6f);
-            CreateInteractable(interactRoot.transform, "jungle_distant_temple", "Gaze at the distant glowing temple spire", new Vector3(0f, 1.5f, 13.0f), 3.2f);
-            CreateInteractable(interactRoot.transform, "stolen_jagannath_idol", "Recover the Sacred Lord Jagannath Idol!", new Vector3(0f, 2.8f, -14.0f), 3.0f);
+            // 5. Ruined Jungle Altar & The 3 Stolen Relics (Fictional & respectful story)
+            GameObject relicsRoot = new GameObject("RuinedAltar_StolenRelics");
+            relicsRoot.transform.parent = envRoot.transform;
 
-            // 6. Spawn Real Characters & Recoverable Idol
+            // Forest Altar Plinth
+            CreateBox("ForestAltar_Plinth", relicsRoot.transform, new Vector3(0f, 2.1f, -14.0f), new Vector3(4.5f, 0.8f, 2.5f), stoneMat, true);
+
+            // 1. Sacred Pradip Brass Vessel
+            GameObject pradipObj = CreateCylinder("Relic_SacredPradip", relicsRoot.transform, new Vector3(-1.1f, 2.65f, -14.0f), new Vector3(0.35f, 0.45f, 0.35f), brassMat, true);
+            ClueInspectable pradipClue = pradipObj.AddComponent<ClueInspectable>();
+            pradipClue.Setup(
+                "relic_pradip",
+                "Sacred Pradip Brass Vessel",
+                "Stolen Relic",
+                "An intricately engraved 16th-century ceremonial brass lamp with seven wick spouts and a peacock finial. Smelling of sandalwood and ghee.",
+                "One of the three sacred temple treasures recovered from Kala and Rudra's hideout!",
+                2.5f
+            );
+
+            // 2. Carved Sandstone Rosette
+            GameObject rosetteObj = CreateCylinder("Relic_SandstoneRosette", relicsRoot.transform, new Vector3(0f, 2.7f, -14.0f), new Vector3(0.55f, 0.12f, 0.55f), GetMaterial("mat_WarmTempleStone"), true);
+            rosetteObj.transform.localRotation = Quaternion.Euler(45f, 0, 0);
+            ClueInspectable rosetteClue = rosetteObj.AddComponent<ClueInspectable>();
+            rosetteClue.Setup(
+                "relic_rosette",
+                "Carved Sandstone Rosette",
+                "Stolen Relic",
+                "A rare red sandstone medallion carved with celestial Surya solar motifs. Pried from the high vimana frieze.",
+                "The second stolen treasure recovered before it could be smuggled across borders!",
+                2.5f
+            );
+
+            // 3. Ancient Tala Patra Palm-Leaf Manuscript
+            GameObject manuscriptObj = CreateBox("Relic_PalmLeafManuscript", relicsRoot.transform, new Vector3(1.1f, 2.6f, -14.0f), new Vector3(0.7f, 0.08f, 0.25f), GetMaterial("mat_DarkWood"), true);
+            ClueInspectable manuClue = manuscriptObj.AddComponent<ClueInspectable>();
+            manuClue.Setup(
+                "relic_manuscript",
+                "Ancient Tala Patra Palm-Leaf Manuscript",
+                "Stolen Relic",
+                "Narrow palm leaves bound between seasoned teak wood covers with crimson silk cord. Inscribed with sacred Odia astronomical and architectural slokas.",
+                "The third and final sacred treasure recovered! The heritage is fully restored!",
+                2.5f
+            );
+
+            // 6. Spawn Real Characters: Investigator, Robber 1 (Kala), Robber 2 (Rudra)
             GameObject charRoot = new GameObject("Characters");
 
             GameObject invPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/Characters/Investigator.prefab");
@@ -1809,20 +2004,9 @@ namespace LegacyOfTemples.World.Editor
                 r2Inst.transform.rotation = Quaternion.Euler(0f, -20f, 0f);
             }
 
-            // Authentic Stolen Lord Jagannath Idol on the jungle ruin altar
-            GameObject idolPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Models/Environment/Idol_Jagannath.fbx");
-            if (idolPrefab != null)
-            {
-                GameObject idolInst = (GameObject)PrefabUtility.InstantiatePrefab(idolPrefab, envRoot.transform);
-                idolInst.name = "StolenIdol_LordJagannath";
-                idolInst.transform.position = new Vector3(0f, 2.45f, -14.0f);
-                idolInst.transform.rotation = Quaternion.identity;
-                idolInst.transform.localScale = Vector3.one * 1.2f;
-            }
-
             // Save Scene
             EditorSceneManager.SaveScene(scene, scenePath);
-            Debug.Log($"[EnvironmentBuilder] JunglePath scene generated successfully at '{scenePath}'.");
+            Debug.Log($"[EnvironmentBuilder] JunglePath scene generated successfully with Stolen Relics at '{scenePath}'.");
             UpdateBuildSettings();
         }
 

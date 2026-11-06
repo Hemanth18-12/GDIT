@@ -488,3 +488,4 @@ namespace LegacyOfTemples.UI
         }
     }
 }
+

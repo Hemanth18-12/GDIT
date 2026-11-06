@@ -588,15 +588,44 @@ namespace LegacyOfTemples.Characters.Editor
             }
 
             EnsureParameter(controller, "IsTalking", AnimatorControllerParameterType.Bool);
+            EnsureParameter(controller, "Pray", AnimatorControllerParameterType.Trigger);
 
             var rootStateMachine = controller.layers[0].stateMachine;
             AnimatorState idleState = GetOrCreateState(rootStateMachine, "Idle", new Vector3(250, 0, 0));
+            AnimatorState talkState = GetOrCreateState(rootStateMachine, "Talk", new Vector3(250, 70, 0));
+            AnimatorState prayState = GetOrCreateState(rootStateMachine, "Pray", new Vector3(250, 140, 0));
 
             rootStateMachine.defaultState = idleState;
 
             AnimationClip idleClip = ExtractOrLoadClip($"{ModelsBasePath}/Villager.fbx", "Layer0")
                                   ?? ExtractOrLoadClip($"{ModelsBasePath}/Villager.fbx", "Idle");
+            AnimationClip talkClip = ExtractOrLoadClip($"{ModelsBasePath}/Priest.fbx", "Priest_Talk") ?? idleClip;
+            AnimationClip prayClip = ExtractOrLoadClip($"{ModelsBasePath}/Priest.fbx", "Priest_Point") ?? idleClip;
+
             if (idleClip != null) idleState.motion = idleClip;
+            if (talkClip != null) talkState.motion = talkClip;
+            if (prayClip != null) prayState.motion = prayClip;
+
+            idleState.transitions = new AnimatorStateTransition[0];
+            talkState.transitions = new AnimatorStateTransition[0];
+            prayState.transitions = new AnimatorStateTransition[0];
+
+            var tIdleTalk = idleState.AddTransition(talkState);
+            tIdleTalk.AddCondition(AnimatorConditionMode.If, 0, "IsTalking");
+            tIdleTalk.duration = 0.2f;
+
+            var tTalkIdle = talkState.AddTransition(idleState);
+            tTalkIdle.AddCondition(AnimatorConditionMode.IfNot, 0, "IsTalking");
+            tTalkIdle.duration = 0.2f;
+
+            var tPray = idleState.AddTransition(prayState);
+            tPray.AddCondition(AnimatorConditionMode.If, 0, "Pray");
+            tPray.duration = 0.2f;
+
+            var tPrayIdle = prayState.AddTransition(idleState);
+            tPrayIdle.hasExitTime = true;
+            tPrayIdle.exitTime = 0.9f;
+            tPrayIdle.duration = 0.2f;
 
             EditorUtility.SetDirty(controller);
             return controller;

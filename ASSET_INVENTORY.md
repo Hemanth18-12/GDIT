@@ -17,3 +17,4 @@ This inventory lists all source assets discovered in the user's workspace and `/
 ### Source Asset Report
 1. **"GDA" Folder Resolution**: The user referred to "GDAT's folder... like Jagad not temple". This corresponds to `/Users/hemanth/Desktop/GDIT/Heritage Mystery Project/S20240010236JagannathTemple.blend` (created by student ID S20240010236).
 2. **Read-Only Preservation**: All original files in `/Users/hemanth/Desktop/GDIT/Heritage Mystery Project/` remain strictly unmodified. Only copies within `Assets/_Project/` are processed and built into the game.
+

@@ -70,3 +70,4 @@ In accordance with cultural guidelines, the sacred Lord Jagannath 3D idol (`Idol
 
 ## 6. Manual User Actions (Optional Enhancements)
 - **Mixamo Downloads**: If the user desires additional custom motion clips from Mixamo, download them as **FBX ("Without Skin")** and place them in `Assets/_Project/Animations/Clips/`. The system automatically ingests, re-targets, and links them.
+
