@@ -32,12 +32,16 @@ namespace LegacyOfTemples.Characters.Editor
             ConfigureModelImporters();
             CreateOrUpdatePBRMaterials();
             AnimatorController animController = CreateOrUpdateAnimatorController();
+            AnimatorController priestController = CreateOrUpdatePriestController();
+            AnimatorController robber1Controller = CreateOrUpdateRobber1Controller();
+            AnimatorController robber2Controller = CreateOrUpdateRobber2Controller();
+            AnimatorController villagerController = CreateOrUpdateVillagerController();
 
             BuildInvestigatorPrefab(animController);
-            BuildVillagerPrefab(animController);
-            BuildPriestPrefab(animController);
-            BuildRobber1Prefab(animController);
-            BuildRobber2Prefab(animController);
+            BuildVillagerPrefab(villagerController);
+            BuildPriestPrefab(priestController);
+            BuildRobber1Prefab(robber1Controller);
+            BuildRobber2Prefab(robber2Controller);
 
             UpdateCharacterConfigs();
             CleanupOldPlaceholders();
@@ -161,6 +165,12 @@ namespace LegacyOfTemples.Characters.Editor
             if (!importer.isReadable)
             {
                 importer.isReadable = true;
+                changed = true;
+            }
+
+            if (!importer.importAnimation)
+            {
+                importer.importAnimation = true;
                 changed = true;
             }
 
@@ -419,6 +429,179 @@ namespace LegacyOfTemples.Characters.Editor
             return null;
         }
 
+        public static AnimatorController CreateOrUpdatePriestController()
+        {
+            string path = $"{AnimationBasePath}/PriestAnimator.controller";
+            AnimatorController controller = AssetDatabase.LoadAssetAtPath<AnimatorController>(path);
+            if (controller == null)
+            {
+                controller = AnimatorController.CreateAnimatorControllerAtPath(path);
+            }
+
+            EnsureParameter(controller, "IsTalking", AnimatorControllerParameterType.Bool);
+            EnsureParameter(controller, "Point", AnimatorControllerParameterType.Trigger);
+
+            var rootStateMachine = controller.layers[0].stateMachine;
+            AnimatorState idleState = GetOrCreateState(rootStateMachine, "Idle", new Vector3(250, 0, 0));
+            AnimatorState talkState = GetOrCreateState(rootStateMachine, "Talk", new Vector3(250, 70, 0));
+            AnimatorState pointState = GetOrCreateState(rootStateMachine, "Point", new Vector3(250, 140, 0));
+
+            rootStateMachine.defaultState = idleState;
+
+            AnimationClip idleClip = ExtractOrLoadClip($"{ModelsBasePath}/Priest.fbx", "Priest_Idle");
+            AnimationClip talkClip = ExtractOrLoadClip($"{ModelsBasePath}/Priest.fbx", "Priest_Talk");
+            AnimationClip pointClip = ExtractOrLoadClip($"{ModelsBasePath}/Priest.fbx", "Priest_Point");
+
+            if (idleClip != null) idleState.motion = idleClip;
+            if (talkClip != null) talkState.motion = talkClip;
+            if (pointClip != null) pointState.motion = pointClip;
+
+            idleState.transitions = new AnimatorStateTransition[0];
+            talkState.transitions = new AnimatorStateTransition[0];
+            pointState.transitions = new AnimatorStateTransition[0];
+
+            var tIdleTalk = idleState.AddTransition(talkState);
+            tIdleTalk.AddCondition(AnimatorConditionMode.If, 0, "IsTalking");
+            tIdleTalk.duration = 0.2f;
+
+            var tTalkIdle = talkState.AddTransition(idleState);
+            tTalkIdle.AddCondition(AnimatorConditionMode.IfNot, 0, "IsTalking");
+            tTalkIdle.duration = 0.2f;
+
+            var tPoint = idleState.AddTransition(pointState);
+            tPoint.AddCondition(AnimatorConditionMode.If, 0, "Point");
+            tPoint.duration = 0.2f;
+
+            var tPointIdle = pointState.AddTransition(idleState);
+            tPointIdle.hasExitTime = true;
+            tPointIdle.exitTime = 0.9f;
+            tPointIdle.duration = 0.2f;
+
+            EditorUtility.SetDirty(controller);
+            return controller;
+        }
+
+        public static AnimatorController CreateOrUpdateRobber1Controller()
+        {
+            string path = $"{AnimationBasePath}/Robber1Animator.controller";
+            AnimatorController controller = AssetDatabase.LoadAssetAtPath<AnimatorController>(path);
+            if (controller == null)
+            {
+                controller = AnimatorController.CreateAnimatorControllerAtPath(path);
+            }
+
+            EnsureParameter(controller, "IsMoving", AnimatorControllerParameterType.Bool);
+            EnsureParameter(controller, "Threaten", AnimatorControllerParameterType.Trigger);
+
+            var rootStateMachine = controller.layers[0].stateMachine;
+            AnimatorState idleState = GetOrCreateState(rootStateMachine, "Idle", new Vector3(250, 0, 0));
+            AnimatorState walkState = GetOrCreateState(rootStateMachine, "Walk", new Vector3(250, 70, 0));
+            AnimatorState threatState = GetOrCreateState(rootStateMachine, "Threaten", new Vector3(250, 140, 0));
+
+            rootStateMachine.defaultState = idleState;
+
+            AnimationClip idleClip = ExtractOrLoadClip($"{ModelsBasePath}/Robber1.fbx", "Robber1_Idle");
+            AnimationClip walkClip = ExtractOrLoadClip($"{ModelsBasePath}/Robber1.fbx", "Robber1_Walk");
+            AnimationClip threatClip = ExtractOrLoadClip($"{ModelsBasePath}/Robber1.fbx", "Robber1_Threaten");
+
+            if (idleClip != null) idleState.motion = idleClip;
+            if (walkClip != null) walkState.motion = walkClip;
+            if (threatClip != null) threatState.motion = threatClip;
+
+            idleState.transitions = new AnimatorStateTransition[0];
+            walkState.transitions = new AnimatorStateTransition[0];
+
+            var tIdleWalk = idleState.AddTransition(walkState);
+            tIdleWalk.AddCondition(AnimatorConditionMode.If, 0, "IsMoving");
+            tIdleWalk.duration = 0.2f;
+
+            var tWalkIdle = walkState.AddTransition(idleState);
+            tWalkIdle.AddCondition(AnimatorConditionMode.IfNot, 0, "IsMoving");
+            tWalkIdle.duration = 0.2f;
+
+            var tThreat = idleState.AddTransition(threatState);
+            tThreat.AddCondition(AnimatorConditionMode.If, 0, "Threaten");
+            tThreat.duration = 0.2f;
+
+            var tThreatIdle = threatState.AddTransition(idleState);
+            tThreatIdle.hasExitTime = true;
+            tThreatIdle.exitTime = 0.9f;
+            tThreatIdle.duration = 0.2f;
+
+            EditorUtility.SetDirty(controller);
+            return controller;
+        }
+
+        public static AnimatorController CreateOrUpdateRobber2Controller()
+        {
+            string path = $"{AnimationBasePath}/Robber2Animator.controller";
+            AnimatorController controller = AssetDatabase.LoadAssetAtPath<AnimatorController>(path);
+            if (controller == null)
+            {
+                controller = AnimatorController.CreateAnimatorControllerAtPath(path);
+            }
+
+            EnsureParameter(controller, "IsStealth", AnimatorControllerParameterType.Bool);
+            EnsureParameter(controller, "Cornered", AnimatorControllerParameterType.Trigger);
+
+            var rootStateMachine = controller.layers[0].stateMachine;
+            AnimatorState idleState = GetOrCreateState(rootStateMachine, "Idle", new Vector3(250, 0, 0));
+            AnimatorState stealthState = GetOrCreateState(rootStateMachine, "Stealth", new Vector3(250, 70, 0));
+            AnimatorState cornerState = GetOrCreateState(rootStateMachine, "Cornered", new Vector3(250, 140, 0));
+
+            rootStateMachine.defaultState = idleState;
+
+            AnimationClip idleClip = ExtractOrLoadClip($"{ModelsBasePath}/Robber2.fbx", "Robber2_Idle");
+            AnimationClip stealthClip = ExtractOrLoadClip($"{ModelsBasePath}/Robber2.fbx", "Robber2_Stealth");
+            AnimationClip cornerClip = ExtractOrLoadClip($"{ModelsBasePath}/Robber2.fbx", "Robber2_Cornered");
+
+            if (idleClip != null) idleState.motion = idleClip;
+            if (stealthClip != null) stealthState.motion = stealthClip;
+            if (cornerClip != null) cornerState.motion = cornerClip;
+
+            idleState.transitions = new AnimatorStateTransition[0];
+            stealthState.transitions = new AnimatorStateTransition[0];
+
+            var tIdleStealth = idleState.AddTransition(stealthState);
+            tIdleStealth.AddCondition(AnimatorConditionMode.If, 0, "IsStealth");
+            tIdleStealth.duration = 0.2f;
+
+            var tStealthIdle = stealthState.AddTransition(idleState);
+            tStealthIdle.AddCondition(AnimatorConditionMode.IfNot, 0, "IsStealth");
+            tStealthIdle.duration = 0.2f;
+
+            var tCorner = idleState.AddTransition(cornerState);
+            tCorner.AddCondition(AnimatorConditionMode.If, 0, "Cornered");
+            tCorner.duration = 0.2f;
+
+            EditorUtility.SetDirty(controller);
+            return controller;
+        }
+
+        public static AnimatorController CreateOrUpdateVillagerController()
+        {
+            string path = $"{AnimationBasePath}/VillagerAnimator.controller";
+            AnimatorController controller = AssetDatabase.LoadAssetAtPath<AnimatorController>(path);
+            if (controller == null)
+            {
+                controller = AnimatorController.CreateAnimatorControllerAtPath(path);
+            }
+
+            EnsureParameter(controller, "IsTalking", AnimatorControllerParameterType.Bool);
+
+            var rootStateMachine = controller.layers[0].stateMachine;
+            AnimatorState idleState = GetOrCreateState(rootStateMachine, "Idle", new Vector3(250, 0, 0));
+
+            rootStateMachine.defaultState = idleState;
+
+            AnimationClip idleClip = ExtractOrLoadClip($"{ModelsBasePath}/Villager.fbx", "Layer0")
+                                  ?? ExtractOrLoadClip($"{ModelsBasePath}/Villager.fbx", "Idle");
+            if (idleClip != null) idleState.motion = idleClip;
+
+            EditorUtility.SetDirty(controller);
+            return controller;
+        }
+
         #endregion
 
         #region Prefab Builders
@@ -553,8 +736,8 @@ namespace LegacyOfTemples.Characters.Editor
                 new string[]
                 {
                     "Namaste, Detective! I was bringing fresh marigold garlands to the temple when the alarm bells began ringing frantically.",
-                    "The sanctum was desecrated! I saw dark armored thieves escaping toward the jungle path with sacks shining with sacred gold!",
-                    "Elderly Priest Ananda is weeping inside the courtyard. Please speak with him immediately!"
+                    "The temple storehouse was breached! I saw two dark cloaked figures escaping toward the outer shrine with heavy sacks!",
+                    "Elderly Priest Ananda is praying at the courtyard steps. Please speak with him immediately!"
                 },
                 2.8f
             );
@@ -611,9 +794,9 @@ namespace LegacyOfTemples.Characters.Editor
                 "Priest Ananda",
                 new string[]
                 {
-                    "Har Har Mahadev... Oh investigator, what an unspeakable sacrilege has befallen our ancient sanctuary!",
-                    "The sacred Jagannath idol has been wrenched from the central altar by ruthless defilers!",
-                    "The thieves fled through the broken shrine toward the treacherous moonlit jungle. You must follow their trail and recover the Lord!"
+                    "Namaskaram, Detective Aryan... An unspeakable violation has befallen our ancient sanctuary!",
+                    "Three priceless heritage relics have been stolen from the locked storage chamber: the ancient ceremonial Pradip vessel, the carved stone rosette, and the sacred Tala Patra palm-leaf manuscript!",
+                    "The thieves shattered the brass lock and fled through the outer shrine into the moonlit jungle. You must track their trail and recover our heritage!"
                 },
                 2.8f
             );
@@ -669,7 +852,7 @@ namespace LegacyOfTemples.Characters.Editor
                 "Shadow Robber (Leader)",
                 new string[]
                 {
-                    "You are too late, detective! The power sealed within the sacred temple idols belongs to us now!",
+                    "You're too late, detective! The ancient palm-leaf manuscript and the sacred brass artifacts belong to us now!",
                     "No mortal investigator can stop what has already begun in the shadows of the jungle!"
                 },
                 2.8f
@@ -726,8 +909,8 @@ namespace LegacyOfTemples.Characters.Editor
                 "Shadow Robber (Accomplice)",
                 new string[]
                 {
-                    "Turn back, detective! The sanctum belongs to the void now.",
-                    "Cross this threshold, and you will never leave these ruins alive!"
+                    "Kala told me it was just an old brass vessel and some ancient scrolls... I didn't sign up for an imperial investigation!",
+                    "Back off, detective! We only took the antiquities from the storeroom!"
                 },
                 2.8f
             );

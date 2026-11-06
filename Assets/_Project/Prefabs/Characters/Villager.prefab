@@ -91,8 +91,8 @@ MonoBehaviour:
   interactionRadius: 2.8
   dialogueLines:
   - Namaste, Detective! I was bringing fresh marigold garlands to the temple when the alarm bells began ringing frantically.
-  - The sanctum was desecrated! I saw dark armored thieves escaping toward the jungle path with sacks shining with sacred gold!
-  - Elderly Priest Ananda is weeping inside the courtyard. Please speak with him immediately!
+  - The temple storehouse was breached! I saw two dark cloaked figures escaping toward the outer shrine with heavy sacks!
+  - Elderly Priest Ananda is praying at the courtyard steps. Please speak with him immediately!
 --- !u!114 &3561174394944121168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,7 +204,7 @@ PrefabInstance:
     - target: {fileID: 5866666021909216657, guid: 1df38695b4fc74e31bca9db4eb022b60, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 4b17546e9e8f849efb0d70550fcf44a1, type: 2}
+      objectReference: {fileID: 9100000, guid: 9046df73c88ca4fa09d76f5c2da23109, type: 2}
     - target: {fileID: 6937541551142690876, guid: 1df38695b4fc74e31bca9db4eb022b60, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
