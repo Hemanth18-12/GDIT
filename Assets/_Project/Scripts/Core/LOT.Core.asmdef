@@ -1,7 +1,9 @@
 {
     "name": "LOT.Core",
     "rootNamespace": "LegacyOfTemples.Core",
-    "references": [],
+    "references": [
+        "Unity.InputSystem"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
