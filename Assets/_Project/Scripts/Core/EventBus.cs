@@ -12,6 +12,10 @@ namespace LegacyOfTemples.Core
         public static event Action<string> OnDialogueEnd;
         public static event Action<string> OnIdolRecovered;
         public static event Action<GameState> OnGameState;
+        public static event Action<string, string[], string[], Action<int>, Action> OnRequestDialogue;
+        public static event Action<string, string> OnShowPrompt;
+        public static event Action OnHidePrompt;
+        public static event Action<string, string, string> OnUpdateObjective;
 
         public static void RaiseSceneChanged(string sceneName)
         {
@@ -53,6 +57,26 @@ namespace LegacyOfTemples.Core
             OnGameState?.Invoke(state);
         }
 
+        public static void RaiseRequestDialogue(string speaker, string[] lines, string[] choices = null, Action<int> onChoice = null, Action onComplete = null)
+        {
+            OnRequestDialogue?.Invoke(speaker, lines, choices, onChoice, onComplete);
+        }
+
+        public static void RaiseShowPrompt(string key, string promptText)
+        {
+            OnShowPrompt?.Invoke(key, promptText);
+        }
+
+        public static void RaiseHidePrompt()
+        {
+            OnHidePrompt?.Invoke();
+        }
+
+        public static void RaiseUpdateObjective(string title, string body, string counter = null)
+        {
+            OnUpdateObjective?.Invoke(title, body, counter);
+        }
+
         /// <summary>
         /// Clears all event subscribers. Useful when reloading domain or tearing down tests.
         /// </summary>
@@ -66,6 +90,10 @@ namespace LegacyOfTemples.Core
             OnDialogueEnd = null;
             OnIdolRecovered = null;
             OnGameState = null;
+            OnRequestDialogue = null;
+            OnShowPrompt = null;
+            OnHidePrompt = null;
+            OnUpdateObjective = null;
         }
     }
 }

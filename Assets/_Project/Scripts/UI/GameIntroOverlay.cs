@@ -111,7 +111,7 @@ namespace LegacyOfTemples.UI
                     currentObjective = "Examine temple grounds and speak with Priest Ananda and Villager Meera.";
                     break;
                 case Constants.Sanctum:
-                    currentObjective = "Inspect the empty Ratnavedi altar pedestal and discover where the sacred idol was taken.";
+                    currentObjective = "Inspect the breached relic cases and gather clues while revering the sacred sanctum deity.";
                     break;
                 case Constants.ShrineCrime:
                     currentObjective = "Examine the crime scene: footprints, overturned lamp, and torn silk cloth.";
@@ -277,8 +277,9 @@ namespace LegacyOfTemples.UI
             GUILayout.Label("THE MYSTERY & PROLOGUE", sectionHeaderStyle);
             GUILayout.Label(
                 "Dawn breaks over the sacred 12th-century Jagannath Temple in Puri, Odisha. " +
-                "The inner sanctum has been breached overnight, and the sacred wooden idol of Lord Jagannath has vanished from the Ratnavedi altar! " +
-                "As Detective Aryan, you must search the temple grounds, question eyewitness Meera and Priest Ananda, gather forensic clues, decode ancient stone chakra reliefs, and pursue the shadowy thieves through the moonlit jungle.",
+                "Three priceless ceremonial heritage treasures of the temple have vanished overnight: the Sacred Pradip Brass Vessel, the Carved Sandstone Rosette, and the Ancient Tala Patra Palm-Leaf Manuscript. " +
+                "The sacred Garbhagriha remains guarded and pristine, but the antiquities smugglers are fleeing toward the ancient jungle ruins. " +
+                "As Detective Aryan, you must search the temple grounds, question eyewitness Meera and Priest Ananda, gather forensic clues, decode ancient stone chakra reliefs, and pursue the thieves to recover all three heritage relics.",
                 bodyStyle
             );
             GUILayout.Space(8);
@@ -286,10 +287,10 @@ namespace LegacyOfTemples.UI
             // Story Level Progression (Answering the user's question directly!)
             GUILayout.Label("INVESTIGATION PROGRESSION (5 SCENES IN THE STORY)", sectionHeaderStyle);
             DrawSceneProgressRow("Scene 1 - Courtyard", "Arrive at dawn. Inspect Jagannath Temple exterior, lions, lamps & speak to witnesses.", true);
-            DrawSceneProgressRow("Scene 2 - Sanctum", "Enter Garbhagriha. Inspect the empty idol pedestal and ransacked ritual altar.", false);
+            DrawSceneProgressRow("Scene 2 - Sanctum", "Enter Garbhagriha. Inspect breached relic cases and the sacred deity altar.", false);
             DrawSceneProgressRow("Scene 3 - Shrine Crime", "Forensic crime scene. Examine muddy footprints, broken lamp & torn robber silk.", false);
             DrawSceneProgressRow("Scene 4 - Puzzle Wall", "Secret passage. Rotate the Chakra wheel and solve 4 relief panels to unlock vault.", false);
-            DrawSceneProgressRow("Scene 5 - Jungle Path", "Chase shadow thieves through moonlit jungle steps to confront them and recover the idol.", false);
+            DrawSceneProgressRow("Scene 5 - Jungle Path", "Chase shadow thieves through moonlit jungle steps to confront them and recover the three relics.", false);
             GUILayout.Space(8);
 
             // Controls

@@ -28,6 +28,7 @@ namespace LegacyOfTemples.Characters
         private CharacterController characterController;
         private Vector3 moveVelocity;
         private float verticalVelocity;
+        private float footstepTimer = 0f;
         private IInteractable nearestInteractable;
         private GUIStyle promptBoxStyle;
         private GUIStyle promptTextStyle;
@@ -187,12 +188,33 @@ namespace LegacyOfTemples.Characters
             Vector3 finalMove = (moveDir * targetSpeed) + Vector3.up * verticalVelocity;
             characterController.Move(finalMove * Time.deltaTime);
 
+            // Footsteps
+            if (characterController.isGrounded && IsMoving)
+            {
+                footstepTimer -= Time.deltaTime;
+                if (footstepTimer <= 0f)
+                {
+                    AudioManager.Instance.PlayFootstep();
+                    footstepTimer = IsCrouching ? 0.55f : (IsRunning ? 0.30f : 0.45f);
+                }
+            }
+            else
+            {
+                footstepTimer = 0.1f;
+            }
+
             if (animator != null)
             {
+                float animSpeed = IsMoving ? (IsCrouching ? crouchSpeed : (IsRunning ? runSpeed : walkSpeed)) : 0f;
+                animator.SetFloat("Speed", animSpeed);
+                animator.SetBool("Grounded", characterController.isGrounded);
+                animator.SetBool("Crouch", IsCrouching);
+                animator.SetBool("Jump", jumpPressed);
+                animator.SetFloat("MoveX", inputDir.x);
+                animator.SetFloat("MoveZ", inputDir.z);
                 animator.SetBool("IsMoving", IsMoving);
                 animator.SetBool("IsRunning", IsRunning);
                 animator.SetBool("IsCrouching", IsCrouching);
-                animator.SetFloat("Speed", IsMoving ? (IsCrouching ? crouchSpeed : (IsRunning ? runSpeed : walkSpeed)) : 0f);
             }
         }
 
@@ -214,6 +236,15 @@ namespace LegacyOfTemples.Characters
                         nearestInteractable = interactable;
                     }
                 }
+            }
+
+            if (nearestInteractable != null)
+            {
+                EventBus.RaiseShowPrompt("E", nearestInteractable.Prompt);
+            }
+            else
+            {
+                EventBus.RaiseHidePrompt();
             }
         }
 
@@ -237,19 +268,7 @@ namespace LegacyOfTemples.Characters
 
         private void OnGUI()
         {
-            if (nearestInteractable != null)
-            {
-                InitGUIStyles();
-
-                float boxWidth = 320f;
-                float boxHeight = 44f;
-                float boxX = (Screen.width - boxWidth) * 0.5f;
-                float boxY = Screen.height - 90f;
-
-                GUI.Box(new Rect(boxX, boxY, boxWidth, boxHeight), GUIContent.none, promptBoxStyle);
-                string text = $"<color=#f4c430>[E]</color>  {nearestInteractable.Prompt}";
-                GUI.Label(new Rect(boxX, boxY + 8f, boxWidth, 28f), text, promptTextStyle);
-            }
+            // Suppressed in favor of high-resolution TextMeshPro UIManager
         }
 
         private void InitGUIStyles()

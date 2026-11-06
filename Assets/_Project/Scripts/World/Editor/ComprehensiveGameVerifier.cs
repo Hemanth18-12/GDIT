@@ -131,7 +131,7 @@ namespace LegacyOfTemples.World.Editor
 
             // 12. Courtyard visual upgrade: Jagannath temple model, warm grey stone, sunrise mood, <= 8 lights
             Scene courtyardScene = EditorSceneManager.OpenScene("Assets/_Project/Scenes/Environments/Courtyard.unity", OpenSceneMode.Single);
-            int courtyardLights = UnityEngine.Object.FindObjectsByType<Light>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).Length;
+            int courtyardLights = UnityEngine.Object.FindObjectsByType<Light>(FindObjectsInactive.Exclude).Length;
             bool c12 = courtyardLights <= 8;
             LogResult(12, $"Courtyard visual upgrade (Real-time lights: {courtyardLights} <= 8 budget for 60 FPS)", c12, "Temple_Jagannath & sunrise mood verified");
             if (c12) passedCount++;
@@ -163,7 +163,7 @@ namespace LegacyOfTemples.World.Editor
 
             // 18. Sanctum crime scene has broken lock, muddy footprints, dropped fabric fragment, ancient map
             Scene sanctumScene = EditorSceneManager.OpenScene("Assets/_Project/Scenes/Environments/Sanctum.unity", OpenSceneMode.Single);
-            ClueInspectable[] sanctumClues = UnityEngine.Object.FindObjectsByType<ClueInspectable>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+            ClueInspectable[] sanctumClues = UnityEngine.Object.FindObjectsByType<ClueInspectable>(FindObjectsInactive.Exclude);
             bool c18 = sanctumClues.Length >= 2;
             LogResult(18, $"Sanctum crime scene contains forensic clues (found {sanctumClues.Length} inspectable clues)", c18, "Broken lock & muddy tracks verified");
             if (c18) passedCount++;
@@ -188,7 +188,7 @@ namespace LegacyOfTemples.World.Editor
             if (c21) passedCount++;
 
             // 22. All 3 sacred relics recovered (Pradip, Rosette, Palm-Leaf Manuscript), ending cinematic triggers
-            ClueInspectable[] jungleRelics = UnityEngine.Object.FindObjectsByType<ClueInspectable>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+            ClueInspectable[] jungleRelics = UnityEngine.Object.FindObjectsByType<ClueInspectable>(FindObjectsInactive.Exclude);
             bool c22 = jungleRelics.Length >= 3;
             LogResult(22, $"All 3 fictional sacred relics placed on altar ({jungleRelics.Length} relics verified) & ending triggers", c22, "Pradip, Rosette, Manuscript verified");
             if (c22) passedCount++;

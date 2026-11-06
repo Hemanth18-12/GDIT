@@ -80,12 +80,14 @@ namespace LegacyOfTemples.UI
             btnHoverTex.SetPixels(hoverColors);
             btnHoverTex.Apply();
 
+            float scale = Mathf.Max(1.0f, Screen.height / 1080f);
+
             panelStyle = new GUIStyle(GUI.skin.box);
             panelStyle.normal.background = panelTex;
 
             titleStyle = new GUIStyle(GUI.skin.label)
             {
-                fontSize = 32,
+                fontSize = Mathf.RoundToInt(56 * scale),
                 fontStyle = FontStyle.Bold,
                 alignment = TextAnchor.MiddleCenter
             };
@@ -93,7 +95,7 @@ namespace LegacyOfTemples.UI
 
             subtitleStyle = new GUIStyle(GUI.skin.label)
             {
-                fontSize = 14,
+                fontSize = Mathf.RoundToInt(28 * scale),
                 fontStyle = FontStyle.Italic,
                 alignment = TextAnchor.MiddleCenter
             };
@@ -101,7 +103,7 @@ namespace LegacyOfTemples.UI
 
             headerStyle = new GUIStyle(GUI.skin.label)
             {
-                fontSize = 20,
+                fontSize = Mathf.RoundToInt(38 * scale),
                 fontStyle = FontStyle.Bold,
                 alignment = TextAnchor.MiddleCenter
             };
@@ -109,7 +111,7 @@ namespace LegacyOfTemples.UI
 
             buttonStyle = new GUIStyle(GUI.skin.button)
             {
-                fontSize = 15,
+                fontSize = Mathf.RoundToInt(30 * scale),
                 fontStyle = FontStyle.Bold,
                 alignment = TextAnchor.MiddleCenter
             };
@@ -123,7 +125,7 @@ namespace LegacyOfTemples.UI
 
             labelStyle = new GUIStyle(GUI.skin.label)
             {
-                fontSize = 13,
+                fontSize = Mathf.RoundToInt(28 * scale),
                 alignment = TextAnchor.MiddleLeft
             };
             labelStyle.normal.textColor = new Color(0.90f, 0.85f, 0.75f);
@@ -160,68 +162,69 @@ namespace LegacyOfTemples.UI
 
         private void DrawMainMenu()
         {
-            float width = 360f;
-            float height = 520f;
-            float x = 60f;
+            float scale = Mathf.Max(1.0f, Screen.height / 1080f);
+            float width = 520f * scale;
+            float height = 720f * scale;
+            float x = 60f * scale;
             float y = (Screen.height - height) * 0.5f;
 
             GUI.Box(new Rect(x, y, width, height), GUIContent.none, panelStyle);
 
-            GUILayout.BeginArea(new Rect(x + 20f, y + 20f, width - 40f, height - 40f));
+            GUILayout.BeginArea(new Rect(x + 25f * scale, y + 25f * scale, width - 50f * scale, height - 50f * scale));
 
             GUILayout.Label("LEGACY OF THE TEMPLE", titleStyle);
             GUILayout.Label("A Cinematic Heritage Mystery", subtitleStyle);
-            GUILayout.Space(18f);
+            GUILayout.Space(22f * scale);
 
-            if (GUILayout.Button("NEW GAME", buttonStyle, GUILayout.Height(38f)))
+            if (GUILayout.Button("NEW GAME", buttonStyle, GUILayout.Height(52f * scale)))
             {
                 PlayerPrefs.SetInt("OpeningCinematicActive", 1);
                 PlayerPrefs.Save();
                 SceneManager.LoadScene(Constants.Courtyard);
             }
 
-            GUILayout.Space(8f);
+            GUILayout.Space(10f * scale);
 
             bool hasSavedGame = PlayerPrefs.HasKey("LastPlayedScene");
             GUI.enabled = hasSavedGame;
-            if (GUILayout.Button("CONTINUE", hasSavedGame ? buttonStyle : buttonDisabledStyle, GUILayout.Height(38f)))
+            if (GUILayout.Button("CONTINUE", hasSavedGame ? buttonStyle : buttonDisabledStyle, GUILayout.Height(52f * scale)))
             {
                 string lastScene = PlayerPrefs.GetString("LastPlayedScene", Constants.Courtyard);
                 SceneManager.LoadScene(lastScene);
             }
             GUI.enabled = true;
 
-            GUILayout.Space(8f);
+            GUILayout.Space(10f * scale);
 
-            if (GUILayout.Button("LEVEL SELECTION", buttonStyle, GUILayout.Height(38f)))
+            if (GUILayout.Button("LEVEL SELECTION", buttonStyle, GUILayout.Height(52f * scale)))
             {
                 currentState = MenuState.LevelSelect;
             }
 
-            GUILayout.Space(8f);
+            GUILayout.Space(10f * scale);
 
-            if (GUILayout.Button("SETTINGS", buttonStyle, GUILayout.Height(38f)))
+            if (GUILayout.Button("SETTINGS", buttonStyle, GUILayout.Height(52f * scale)))
             {
                 currentState = MenuState.Settings;
             }
 
-            GUILayout.Space(8f);
+            GUILayout.Space(10f * scale);
 
-            if (GUILayout.Button("CONTROLS", buttonStyle, GUILayout.Height(38f)))
+            if (GUILayout.Button("CONTROLS", buttonStyle, GUILayout.Height(52f * scale)))
             {
                 currentState = MenuState.Controls;
             }
 
-            GUILayout.Space(8f);
+            GUILayout.Space(10f * scale);
 
-            if (GUILayout.Button("HELP", buttonStyle, GUILayout.Height(38f)))
+            if (GUILayout.Button("HELP", buttonStyle, GUILayout.Height(52f * scale)))
             {
                 currentState = MenuState.Help;
             }
 
-            GUILayout.Space(8f);
+            GUILayout.Space(10f * scale);
 
-            if (GUILayout.Button("CREDITS", buttonStyle, GUILayout.Height(38f)))
+            if (GUILayout.Button("CREDITS", buttonStyle, GUILayout.Height(52f * scale)))
             {
                 currentState = MenuState.Credits;
             }

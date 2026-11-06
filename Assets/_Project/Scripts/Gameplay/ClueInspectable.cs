@@ -193,28 +193,28 @@ namespace LegacyOfTemples.Gameplay
             {
                 InitStyles();
 
-                float width = Mathf.Min(640f, Screen.width - 40f);
-                float height = 260f;
+                float width = Mathf.Min(980f, Screen.width - 60f);
+                float height = 380f;
                 float x = (Screen.width - width) * 0.5f;
                 float y = Screen.height - height - 40f;
 
                 GUI.Box(new Rect(x, y, width, height), GUIContent.none, panelStyle);
 
                 // Header
-                GUI.Label(new Rect(x + 24f, y + 16f, width - 48f, 20f), $"EVIDENCE RECORD: {clueCategory.ToUpperInvariant()}", categoryStyle);
-                GUI.Label(new Rect(x + 24f, y + 38f, width - 48f, 28f), clueTitle, titleStyle);
+                GUI.Label(new Rect(x + 30f, y + 20f, width - 60f, 32f), $"EVIDENCE RECORD: {clueCategory.ToUpperInvariant()}", categoryStyle);
+                GUI.Label(new Rect(x + 30f, y + 54f, width - 60f, 44f), clueTitle, titleStyle);
 
                 // Description
-                GUI.Label(new Rect(x + 24f, y + 74f, width - 48f, 75f), clueDescription, descStyle);
+                GUI.Label(new Rect(x + 30f, y + 105f, width - 60f, 110f), clueDescription, descStyle);
 
                 // Forensic note
-                GUI.Label(new Rect(x + 24f, y + 155f, width - 48f, 50f), $"<color=#f4c430>Detective's Deduction:</color> \"{detectiveNote}\"", noteStyle);
+                GUI.Label(new Rect(x + 30f, y + 225f, width - 60f, 85f), $"<color=#f4c430>Detective's Deduction:</color> \"{detectiveNote}\"", noteStyle);
 
                 // Controls hint
                 string hint = allow3DRotation
                     ? "Drag [Mouse] or [A]/[D] to rotate 3D object  •  Press [E] or [Esc] to close inspection"
                     : "Press [E] or [Esc] to close inspection  •  Logged to Investigation Journal [J]";
-                GUI.Label(new Rect(x + 24f, y + height - 26f, width - 48f, 20f), hint, hintStyle);
+                GUI.Label(new Rect(x + 30f, y + height - 38f, width - 60f, 30f), hint, hintStyle);
             }
         }
 
@@ -225,13 +225,15 @@ namespace LegacyOfTemples.Gameplay
                 panelStyle = new GUIStyle(GUI.skin.box);
             }
 
+            float scale = Mathf.Max(1.0f, Screen.height / 1080f);
+
             if (categoryStyle == null)
             {
                 categoryStyle = new GUIStyle(GUI.skin.label)
                 {
-                    fontSize = 11,
+                    fontSize = Mathf.RoundToInt(22 * scale),
                     fontStyle = FontStyle.Bold,
-                    normal = { textColor = new Color(0.85f, 0.65f, 0.2f) }
+                    normal = { textColor = new Color(0.95f, 0.77f, 0.2f) }
                 };
             }
 
@@ -239,7 +241,7 @@ namespace LegacyOfTemples.Gameplay
             {
                 titleStyle = new GUIStyle(GUI.skin.label)
                 {
-                    fontSize = 18,
+                    fontSize = Mathf.RoundToInt(34 * scale),
                     fontStyle = FontStyle.Bold,
                     normal = { textColor = Color.white }
                 };
@@ -249,9 +251,9 @@ namespace LegacyOfTemples.Gameplay
             {
                 descStyle = new GUIStyle(GUI.skin.label)
                 {
-                    fontSize = 13,
+                    fontSize = Mathf.RoundToInt(28 * scale),
                     wordWrap = true,
-                    normal = { textColor = new Color(0.88f, 0.88f, 0.88f) }
+                    normal = { textColor = new Color(0.92f, 0.90f, 0.86f) }
                 };
             }
 
@@ -259,11 +261,11 @@ namespace LegacyOfTemples.Gameplay
             {
                 noteStyle = new GUIStyle(GUI.skin.label)
                 {
-                    fontSize = 12,
+                    fontSize = Mathf.RoundToInt(26 * scale),
                     wordWrap = true,
                     fontStyle = FontStyle.Italic,
                     richText = true,
-                    normal = { textColor = new Color(0.95f, 0.95f, 0.75f) }
+                    normal = { textColor = new Color(0.98f, 0.95f, 0.75f) }
                 };
             }
 
@@ -271,9 +273,9 @@ namespace LegacyOfTemples.Gameplay
             {
                 hintStyle = new GUIStyle(GUI.skin.label)
                 {
-                    fontSize = 11,
+                    fontSize = Mathf.RoundToInt(22 * scale),
                     alignment = TextAnchor.MiddleCenter,
-                    normal = { textColor = new Color(0.65f, 0.65f, 0.65f) }
+                    normal = { textColor = new Color(0.75f, 0.75f, 0.70f) }
                 };
             }
         }

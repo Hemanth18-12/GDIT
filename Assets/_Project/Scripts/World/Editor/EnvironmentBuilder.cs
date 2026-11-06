@@ -42,35 +42,35 @@ namespace LegacyOfTemples.World.Editor
             switch (matName)
             {
                 case "mat_StoneTemple":
-                    mat.SetColor("_BaseColor", new Color(0.76f, 0.65f, 0.52f));
+                    mat.SetColor("_BaseColor", new Color(0.725f, 0.651f, 0.549f)); // Authentic #B9A68C weathered Odisha sandstone
                     mat.SetFloat("_Smoothness", 0.22f);
                     mat.SetFloat("_Metallic", 0.02f);
                     AssignTexture(mat, "tex_WarmSandstoneCarved.png", "tex_WarmSandstone_Normal.png", new Vector2(4f, 4f));
                     break;
 
                 case "mat_StoneFloorWet":
-                    mat.SetColor("_BaseColor", new Color(0.55f, 0.52f, 0.48f)); // Warm grey stone, NO blue tint
-                    mat.SetFloat("_Smoothness", 0.42f); // Subtle wet sheen, NO mirror glare
+                    mat.SetColor("_BaseColor", new Color(0.58f, 0.55f, 0.50f)); // Warm sandy-grey stone plaza, NO blue tint
+                    mat.SetFloat("_Smoothness", 0.32f); // Subtle wet sheen, NO mirror glare
                     mat.SetFloat("_Metallic", 0.0f); // Non-metallic natural stone
                     AssignTexture(mat, "tex_WetPlazaPaving.png", "tex_WetPlaza_Normal.png", new Vector2(10f, 10f));
                     break;
 
                 case "mat_WarmTempleStone":
-                    mat.SetColor("_BaseColor", new Color(0.85f, 0.70f, 0.55f)); // Warm Odisha sandstone
+                    mat.SetColor("_BaseColor", new Color(0.76f, 0.68f, 0.58f)); // Warm golden Odisha sandstone
                     mat.SetFloat("_Smoothness", 0.22f);
                     mat.SetFloat("_Metallic", 0.02f);
                     AssignTexture(mat, "tex_WarmSandstoneCarved.png", "tex_WarmSandstone_Normal.png", new Vector2(4f, 4f));
                     break;
 
                 case "mat_LightStone":
-                    mat.SetColor("_BaseColor", new Color(0.90f, 0.80f, 0.70f)); // Carved light sandstone with deity reliefs
+                    mat.SetColor("_BaseColor", new Color(0.86f, 0.79f, 0.70f)); // Carved light sandstone with deity reliefs
                     mat.SetFloat("_Smoothness", 0.25f);
                     mat.SetFloat("_Metallic", 0.02f);
                     AssignTexture(mat, "tex_CarvedDeityRelief.png", "tex_CarvedDeity_Normal.png", new Vector2(2f, 2f));
                     break;
 
                 case "mat_DarkStone":
-                    mat.SetColor("_BaseColor", new Color(0.36f, 0.31f, 0.28f)); // Weathered foundation stone
+                    mat.SetColor("_BaseColor", new Color(0.55f, 0.49f, 0.42f)); // Weathered foundation stone (~40% lighter warm stone, not black)
                     mat.SetFloat("_Smoothness", 0.25f);
                     mat.SetFloat("_Metallic", 0.05f);
                     break;
@@ -556,16 +556,16 @@ namespace LegacyOfTemples.World.Editor
             sunObj.transform.rotation = Quaternion.Euler(14f, -40f, 0f); // Low sun angle near horizon
             Light sunLight = sunObj.AddComponent<Light>();
             sunLight.type = LightType.Directional;
-            sunLight.color = new Color(1.0f, 0.74f, 0.52f); // Warm peach golden sunlight
-            sunLight.intensity = 1.35f;
+            sunLight.color = new Color(1.0f, 0.85f, 0.63f); // Warm golden sunrise (#FFD9A0)
+            sunLight.intensity = 2.4f; // Intensity 2-3 as requested
             sunLight.shadows = LightShadows.Soft;
 
             RenderSettings.ambientMode = AmbientMode.Flat;
-            RenderSettings.ambientLight = new Color(0.48f, 0.36f, 0.30f); // Warm dawn ambient
+            RenderSettings.ambientLight = new Color(0.54f, 0.44f, 0.36f); // Warm dawn ambient fill
             RenderSettings.fog = true;
             RenderSettings.fogMode = FogMode.ExponentialSquared;
-            RenderSettings.fogDensity = 0.010f;
-            RenderSettings.fogColor = new Color(0.94f, 0.65f, 0.50f); // Soft orange sunrise mist
+            RenderSettings.fogDensity = 0.008f;
+            RenderSettings.fogColor = new Color(0.96f, 0.78f, 0.62f); // Soft orange sunrise mist
 
             // URP Post Processing Volume
             GameObject volObj = new GameObject("Courtyard_PostProcessingVolume");
@@ -634,14 +634,23 @@ namespace LegacyOfTemples.World.Editor
                     else
                         r.sharedMaterial = warmStone;
 
-                    // Add MeshCollider on key structural components
-                    if (n.Contains("_BODY") || n.Contains("_BASE") || n.Contains("_WALL") || n.Contains("_TOWER") || n.Contains("SANCTUM") || n.Contains("PILLAR") || n.Contains("GATE"))
+                    // Add MeshCollider on structural walls and pillars, KEEP ENTRANCE PORTAL WIDE OPEN
+                    if (n.Contains("_BODY") || n.Contains("_BASE") || n.Contains("_WALL") || n.Contains("_TOWER") || n.Contains("PILLAR"))
                     {
-                        MeshCollider mc = r.gameObject.GetComponent<MeshCollider>();
-                        if (mc == null) mc = r.gameObject.AddComponent<MeshCollider>();
-                        mc.convex = false;
+                        if (!n.Contains("MAIN_GATE") && !n.Contains("MAIN_ENTRANCE"))
+                        {
+                            MeshCollider mc = r.gameObject.GetComponent<MeshCollider>();
+                            if (mc == null) mc = r.gameObject.AddComponent<MeshCollider>();
+                            mc.convex = false;
+                        }
                     }
                 }
+
+                // Rotate temple entrance gates wide open for unimpeded walking access
+                Transform gateL = templeInst.transform.Find("MAIN_GATE_LEFT");
+                if (gateL != null) gateL.localRotation = Quaternion.Euler(0f, -75f, 0f);
+                Transform gateR = templeInst.transform.Find("MAIN_GATE_RIGHT");
+                if (gateR != null) gateR.localRotation = Quaternion.Euler(0f, 75f, 0f);
             }
 
             // Grand Stone Steps ascending from Plaza to the Sanctum Portal
@@ -657,6 +666,12 @@ namespace LegacyOfTemples.World.Editor
                 float yPos = 1.2f - (s + 1) * stepHeight;
                 CreateBox($"Step_{s + 1}", stepsRoot.transform, new Vector3(0, yPos + stepHeight * 0.5f, zPos + stepDepth * 0.5f), new Vector3(5.5f, stepHeight, stepDepth), lightStoneMat, true);
             }
+
+            // Smooth ramp collider over steps for seamless character locomotion without sticking
+            GameObject stairRamp = CreateBox("StairRamp_Smooth", stepsRoot.transform, new Vector3(0, 0.62f, 0.85f), new Vector3(5.6f, 0.2f, 4.2f), null, true);
+            stairRamp.transform.localRotation = Quaternion.Euler(-18.5f, 0f, 0f);
+            var rampMr = stairRamp.GetComponent<MeshRenderer>();
+            if (rampMr != null) rampMr.enabled = false;
 
             // Two Gajasimha (Guardian Lion) Statues Flanking the Steps
             GameObject lionsRoot = new GameObject("Gajasimha_GuardianLions");
@@ -678,6 +693,9 @@ namespace LegacyOfTemples.World.Editor
             CreateOilLamp(lampsRoot.transform, new Vector3(-3.2f, 1.2f, -0.6f), "Deepastambha_LeftPlinth");
             CreateOilLamp(lampsRoot.transform, new Vector3(3.2f, 1.2f, -0.6f), "Deepastambha_RightPlinth");
 
+            // Dress the Courtyard with secondary shrines, banners, stalls, rangoli, and palm trees
+            DressCourtyardSurroundings(envRoot, stoneMat, lightStoneMat, brassMat);
+
             // 4. Spawns
             GameObject spawnRoot = new GameObject("--- SPAWN POINTS ---");
             CreateSpawnPoint(spawnRoot.transform, "player_start", new Vector3(0f, 0.05f, 15f), new Vector3(0, 0, -1));
@@ -693,10 +711,12 @@ namespace LegacyOfTemples.World.Editor
             CreateInteractable(interactRoot.transform, "deity_niche_varaha", "Examine sacred Varaha carved stone relief", new Vector3(2.8f, 1.2f, 0.5f), 2.5f);
             CreateInteractable(interactRoot.transform, "courtyard_lamp", "Examine brass oil lamp", new Vector3(-4.5f, 0.8f, 10.0f), 2.2f);
 
-            // Portal ascending the steps to the Inner Sanctum
+            // Portal ascending the steps to the Inner Sanctum (walk-in trigger)
             GameObject sanctumPortal = CreateBox("Portal_To_Sanctum", interactRoot.transform, new Vector3(0f, 1.4f, -1.2f), new Vector3(3.5f, 2.8f, 1.0f), GetMaterial("mat_SanctumDarkness"), true);
+            BoxCollider pcol = sanctumPortal.GetComponent<BoxCollider>();
+            if (pcol != null) pcol.isTrigger = true;
             SceneTransitionTrigger stSanctum = sanctumPortal.AddComponent<SceneTransitionTrigger>();
-            stSanctum.Setup("Sanctum", "Inner Sanctum Sanctorum", true);
+            stSanctum.Setup("Sanctum", "Inner Sanctum Sanctorum", false);
 
             // 6. Spawn Real Characters (Visible immediately in front of Detective Aryan)
             GameObject charRoot = new GameObject("Characters");
@@ -771,6 +791,88 @@ namespace LegacyOfTemples.World.Editor
             // Front Paws
             CreateCylinder("Paw_Left", lionObj.transform, new Vector3(-0.35f, 1.15f, 0.55f), new Vector3(0.25f, 0.6f, 0.25f), stoneMat, false);
             CreateCylinder("Paw_Right", lionObj.transform, new Vector3(0.35f, 1.15f, 0.55f), new Vector3(0.25f, 0.6f, 0.25f), stoneMat, false);
+        }
+
+        private static void DressCourtyardSurroundings(GameObject envRoot, Material stoneMat, Material lightStoneMat, Material brassMat)
+        {
+            GameObject dressRoot = new GameObject("Courtyard_Decorations_And_Props");
+            dressRoot.transform.parent = envRoot.transform;
+
+            Material woodMat = GetMaterial("mat_TempleWood");
+            Material saffronMat = GetMaterial("mat_SaffronCloth");
+            Material flowerMat = GetMaterial("mat_MarigoldFlowers");
+            Material barkMat = GetMaterial("mat_JungleBark");
+            Material foliageMat = GetMaterial("mat_JungleMoss");
+
+            // 1. Four Corner Shrines (Miniature Deula Shrines at courtyard corners)
+            Vector3[] cornerPositions = new Vector3[]
+            {
+                new Vector3(-20f, 0f, -20f),
+                new Vector3(20f, 0f, -20f),
+                new Vector3(-20f, 0f, 20f),
+                new Vector3(20f, 0f, 20f)
+            };
+
+            for (int i = 0; i < cornerPositions.Length; i++)
+            {
+                GameObject shrine = new GameObject($"SecondaryShrine_{i + 1}");
+                shrine.transform.parent = dressRoot.transform;
+                shrine.transform.localPosition = cornerPositions[i];
+
+                CreateBox("Plinth", shrine.transform, new Vector3(0, 0.4f, 0), new Vector3(4.5f, 0.8f, 4.5f), stoneMat, true);
+                CreateBox("Sanctuary", shrine.transform, new Vector3(0, 2.2f, 0), new Vector3(3.4f, 2.8f, 3.4f), lightStoneMat, true);
+                CreateBox("Roof_Tier1", shrine.transform, new Vector3(0, 3.9f, 0), new Vector3(3.0f, 0.6f, 3.0f), stoneMat, false);
+                CreateBox("Roof_Tier2", shrine.transform, new Vector3(0, 4.5f, 0), new Vector3(2.4f, 0.6f, 2.4f), lightStoneMat, false);
+                CreateBox("Roof_Tier3", shrine.transform, new Vector3(0, 5.1f, 0), new Vector3(1.7f, 0.6f, 1.7f), stoneMat, false);
+                CreateCylinder("Amalaka", shrine.transform, new Vector3(0, 5.6f, 0), new Vector3(1.2f, 0.35f, 1.2f), brassMat, false);
+                CreateSphere("Kalasha", shrine.transform, new Vector3(0, 6.0f, 0), new Vector3(0.6f, 0.7f, 0.6f), brassMat, false);
+
+                GameObject pole = CreateCylinder("Flagpole", shrine.transform, new Vector3(0, 7.2f, 0), new Vector3(0.08f, 1.6f, 0.08f), woodMat, false);
+                CreateBox("FlagBanner", pole.transform, new Vector3(0.4f, 0.5f, 0), new Vector3(0.8f, 0.5f, 0.02f), saffronMat, false);
+            }
+
+            // 2. Flower & Offering Stalls
+            Vector3[] stallPositions = new Vector3[] { new Vector3(-8.5f, 0f, 14.0f), new Vector3(8.5f, 0f, 14.0f) };
+            for (int s = 0; s < stallPositions.Length; s++)
+            {
+                GameObject stall = new GameObject($"OfferingStall_{s + 1}");
+                stall.transform.parent = dressRoot.transform;
+                stall.transform.localPosition = stallPositions[s];
+
+                CreateBox("Table", stall.transform, new Vector3(0, 0.45f, 0), new Vector3(3.2f, 0.9f, 1.4f), woodMat, true);
+                CreateCylinder("MarigoldBasket_1", stall.transform, new Vector3(-0.9f, 0.98f, 0), new Vector3(0.65f, 0.16f, 0.65f), flowerMat, false);
+                CreateCylinder("MarigoldBasket_2", stall.transform, new Vector3(0f, 0.98f, 0), new Vector3(0.65f, 0.16f, 0.65f), flowerMat, false);
+                CreateCylinder("IncenseBowl", stall.transform, new Vector3(0.9f, 0.98f, 0), new Vector3(0.45f, 0.22f, 0.45f), brassMat, false);
+                CreateBox("AwningCloth", stall.transform, new Vector3(0, 2.2f, 0), new Vector3(3.4f, 0.08f, 1.6f), saffronMat, false);
+            }
+
+            // 3. Central Plaza Rangoli Mandala
+            CreateCylinder("Plaza_Rangoli_Mandala", dressRoot.transform, new Vector3(0f, 0.02f, 8.5f), new Vector3(6.5f, 0.02f, 6.5f), lightStoneMat, false);
+
+            // 4. Perimeter Palm Trees
+            Vector3[] treePositions = new Vector3[]
+            {
+                new Vector3(-27f, 0f, -15f),
+                new Vector3(-27f, 0f, 0f),
+                new Vector3(-27f, 0f, 15f),
+                new Vector3(27f, 0f, -15f),
+                new Vector3(27f, 0f, 0f),
+                new Vector3(27f, 0f, 15f),
+                new Vector3(-15f, 0f, 27f),
+                new Vector3(15f, 0f, 27f),
+                new Vector3(-15f, 0f, -27f),
+                new Vector3(15f, 0f, -27f)
+            };
+
+            for (int t = 0; t < treePositions.Length; t++)
+            {
+                GameObject tree = new GameObject($"PerimeterPalm_{t + 1}");
+                tree.transform.parent = dressRoot.transform;
+                tree.transform.localPosition = treePositions[t];
+
+                CreateCylinder("Trunk", tree.transform, new Vector3(0, 3.8f, 0), new Vector3(0.45f, 7.6f, 0.45f), barkMat, true);
+                CreateSphere("Canopy", tree.transform, new Vector3(0, 7.8f, 0), new Vector3(3.8f, 1.2f, 3.8f), foliageMat, false);
+            }
         }
 
         [MenuItem("Tools/Legacy/Environments/Verify Courtyard Visuals")]
@@ -909,7 +1011,7 @@ namespace LegacyOfTemples.World.Editor
             }
 
             // 5. Lights budget <= 8
-            Light[] allLights = UnityEngine.Object.FindObjectsByType<Light>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+            Light[] allLights = UnityEngine.Object.FindObjectsByType<Light>(FindObjectsInactive.Exclude);
             int activeLights = 0;
             foreach (var l in allLights)
             {
@@ -1154,13 +1256,17 @@ namespace LegacyOfTemples.World.Editor
             CreateInteractable(interactRoot.transform, "sanctum_hanging_bell", "Ring temple bell", new Vector3(0f, 3.2f, -2.5f), 2.2f);
             CreateInteractable(interactRoot.transform, "sanctum_fallen_garland", "Inspect discarded marigold garland", new Vector3(1.2f, 0.2f, -5.6f), 2.0f);
 
-            // Portal returning south to Courtyard
+            // Portal returning south to Courtyard (smooth walk-through trigger)
             GameObject returnPortal = CreateBox("Portal_BackToCourtyard", interactRoot.transform, new Vector3(0f, 1.4f, 12.8f), new Vector3(4.0f, 2.8f, 1.0f), GetMaterial("mat_SanctumDarkness"), true);
+            BoxCollider rcol = returnPortal.GetComponent<BoxCollider>();
+            if (rcol != null) rcol.isTrigger = true;
             SceneTransitionTrigger stCourtyard = returnPortal.AddComponent<SceneTransitionTrigger>();
-            stCourtyard.Setup("Courtyard", "Courtyard Plaza", true);
+            stCourtyard.Setup("Courtyard", "Courtyard Plaza", false);
 
             // Portal leading south to Outer Shrine (Level 2)
             GameObject shrinePortal = CreateBox("Portal_To_ShrineCrime", interactRoot.transform, new Vector3(-7.5f, 1.4f, 6.0f), new Vector3(1.0f, 2.8f, 3.0f), GetMaterial("mat_SanctumDarkness"), true);
+            BoxCollider scol = shrinePortal.GetComponent<BoxCollider>();
+            if (scol != null) scol.isTrigger = true;
             SceneTransitionTrigger stShrine = shrinePortal.AddComponent<SceneTransitionTrigger>();
             stShrine.Setup("ShrineCrime", "Outer Shrine Ruins (Level 2)", true, "LevelUnlocked_2");
 
@@ -2254,6 +2360,10 @@ namespace LegacyOfTemples.World.Editor
             lampsRoot.transform.parent = envRoot.transform;
             CreateOilLamp(lampsRoot.transform, new Vector3(-5.0f, 0, 8.0f), "Deepastambha_Left");
             CreateOilLamp(lampsRoot.transform, new Vector3(5.0f, 0, 8.0f), "Deepastambha_Right");
+
+            // Automated QA Verification Bot
+            GameObject qaBotObj = new GameObject("GameQATestBot");
+            qaBotObj.AddComponent<LegacyOfTemples.UI.GameQATestBot>();
 
             // Save Scene
             EditorSceneManager.SaveScene(scene, scenePath);

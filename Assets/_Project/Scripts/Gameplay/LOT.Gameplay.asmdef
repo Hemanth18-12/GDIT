@@ -5,7 +5,8 @@
         "LOT.Core",
         "LOT.World",
         "LOT.Characters",
-        "Unity.InputSystem"
+        "Unity.InputSystem",
+        "Unity.TextMeshPro"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

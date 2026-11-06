@@ -153,7 +153,7 @@ namespace LegacyOfTemples.Gameplay
             {
                 id = "obj_confront_thieves",
                 title = "Corner the Smugglers & Recover Relics",
-                description = "Confront Kala and Rudra at the jungle ruins and recover all 3 sacred heritage treasures.",
+                description = "Confront Vikram and Dev at the jungle ruins and recover all 3 sacred heritage treasures.",
                 isCompleted = false
             });
 
@@ -178,17 +178,17 @@ namespace LegacyOfTemples.Gameplay
             suspects.Add(new SuspectEntry
             {
                 id = "sus_robber1",
-                name = "Kala (The Corrupted King)",
-                role = "Lead Smuggler / Antiquities Thief",
-                description = "Ruthless black-market operative seeking ancient sacred artifacts for illegal offshore collectors. Known to carry heavy chisels.",
+                name = "Vikram (Antiquities Smuggler)",
+                role = "Lead Smuggler / Black-Market Operative",
+                description = "Ruthless antiquities smuggler seeking sacred Odishan artifacts for illicit private collectors. Fled south toward the jungle.",
                 status = "Prime Suspect (Fled South)"
             });
             suspects.Add(new SuspectEntry
             {
                 id = "sus_robber2",
-                name = "Rudra (The Winged Accomplice)",
+                name = "Dev (Accomplice)",
                 role = "Accomplice / Scout",
-                description = "Agile thief who bypassed the high perimeter wall and unlatched the inner iron bolts from above.",
+                description = "Agile infiltrator who bypassed the high perimeter wall and helped carry the stolen relics.",
                 status = "Prime Suspect (Fled South)"
             });
 
@@ -345,24 +345,25 @@ namespace LegacyOfTemples.Gameplay
 
             InitStyles();
 
-            float winWidth = Mathf.Min(820f, Screen.width - 40f);
-            float winHeight = Mathf.Min(560f, Screen.height - 40f);
+            float scale = Mathf.Max(1.0f, Screen.height / 1080f);
+            float winWidth = Mathf.Min(1280f * scale, Screen.width - 40f);
+            float winHeight = Mathf.Min(820f * scale, Screen.height - 40f);
             float winX = (Screen.width - winWidth) * 0.5f;
             float winY = (Screen.height - winHeight) * 0.5f;
 
             GUI.Box(new Rect(winX, winY, winWidth, winHeight), GUIContent.none, windowStyle);
 
-            // Title Header
-            GUI.Label(new Rect(winX + 24f, winY + 16f, winWidth - 48f, 28f), "CASE DOSSIER: THE MISSING TEMPLE RELICS", headerStyle);
+            // Title Header (>= 56 px or 42 px at scale)
+            GUI.Label(new Rect(winX + 30f, winY + 20f, winWidth - 360f, 48f), "CASE DOSSIER: THE MISSING TEMPLE RELICS", headerStyle);
             float progress = CalculateProgressPercentage();
-            GUI.Label(new Rect(winX + winWidth - 220f, winY + 20f, 196f, 20f), $"Investigation Progress: {progress:F0}%", statusStyle);
+            GUI.Label(new Rect(winX + winWidth - 320f, winY + 24f, 290f, 36f), $"Investigation Progress: {progress:F0}%", statusStyle);
 
             // Tabs
             string[] tabs = { "[1] Objectives", "[2] Clues & Evidence", "[3] Suspects & Witnesses", "[4] Sacred Relics" };
-            float tabWidth = (winWidth - 48f) / tabs.Length;
+            float tabWidth = (winWidth - 60f) / tabs.Length;
             for (int i = 0; i < tabs.Length; i++)
             {
-                Rect tabRect = new Rect(winX + 24f + i * tabWidth, winY + 52f, tabWidth - 4f, 32f);
+                Rect tabRect = new Rect(winX + 30f + i * tabWidth, winY + 76f, tabWidth - 6f, 44f);
                 GUIStyle style = (i == currentTab) ? tabActiveStyle : tabInactiveStyle;
                 if (GUI.Button(tabRect, tabs[i], style))
                 {
@@ -371,7 +372,7 @@ namespace LegacyOfTemples.Gameplay
             }
 
             // Scrollable Content Area
-            Rect viewRect = new Rect(winX + 24f, winY + 92f, winWidth - 48f, winHeight - 140f);
+            Rect viewRect = new Rect(winX + 30f, winY + 130f, winWidth - 60f, winHeight - 190f);
             GUILayout.BeginArea(viewRect);
             scrollPos = GUILayout.BeginScrollView(scrollPos);
 
@@ -470,6 +471,8 @@ namespace LegacyOfTemples.Gameplay
 
         private void InitStyles()
         {
+            float scale = Mathf.Max(1.0f, Screen.height / 1080f);
+
             if (windowStyle == null)
             {
                 windowStyle = new GUIStyle(GUI.skin.box);
@@ -479,9 +482,9 @@ namespace LegacyOfTemples.Gameplay
             {
                 headerStyle = new GUIStyle(GUI.skin.label)
                 {
-                    fontSize = 18,
+                    fontSize = Mathf.RoundToInt(38 * scale),
                     fontStyle = FontStyle.Bold,
-                    normal = { textColor = new Color(0.96f, 0.82f, 0.28f) }
+                    normal = { textColor = new Color(0.98f, 0.84f, 0.3f) }
                 };
             }
 
@@ -489,9 +492,9 @@ namespace LegacyOfTemples.Gameplay
             {
                 tabActiveStyle = new GUIStyle(GUI.skin.button)
                 {
-                    fontSize = 12,
+                    fontSize = Mathf.RoundToInt(24 * scale),
                     fontStyle = FontStyle.Bold,
-                    normal = { textColor = Color.yellow }
+                    normal = { textColor = new Color(1.0f, 0.88f, 0.35f) }
                 };
             }
 
@@ -499,7 +502,7 @@ namespace LegacyOfTemples.Gameplay
             {
                 tabInactiveStyle = new GUIStyle(GUI.skin.button)
                 {
-                    fontSize = 12,
+                    fontSize = Mathf.RoundToInt(24 * scale),
                     normal = { textColor = Color.white }
                 };
             }
@@ -508,9 +511,9 @@ namespace LegacyOfTemples.Gameplay
             {
                 sectionHeaderStyle = new GUIStyle(GUI.skin.label)
                 {
-                    fontSize = 14,
+                    fontSize = Mathf.RoundToInt(30 * scale),
                     fontStyle = FontStyle.Bold,
-                    normal = { textColor = new Color(0.85f, 0.7f, 0.3f) }
+                    normal = { textColor = new Color(0.96f, 0.77f, 0.2f) }
                 };
             }
 
@@ -518,7 +521,8 @@ namespace LegacyOfTemples.Gameplay
             {
                 itemTitleStyle = new GUIStyle(GUI.skin.label)
                 {
-                    fontSize = 13,
+                    fontSize = Mathf.RoundToInt(28 * scale),
+                    fontStyle = FontStyle.Bold,
                     richText = true,
                     normal = { textColor = Color.white }
                 };
@@ -528,10 +532,10 @@ namespace LegacyOfTemples.Gameplay
             {
                 itemBodyStyle = new GUIStyle(GUI.skin.label)
                 {
-                    fontSize = 12,
+                    fontSize = Mathf.RoundToInt(26 * scale),
                     wordWrap = true,
                     richText = true,
-                    normal = { textColor = new Color(0.88f, 0.88f, 0.88f) }
+                    normal = { textColor = new Color(0.92f, 0.90f, 0.86f) }
                 };
             }
 
@@ -539,7 +543,7 @@ namespace LegacyOfTemples.Gameplay
             {
                 statusStyle = new GUIStyle(GUI.skin.label)
                 {
-                    fontSize = 12,
+                    fontSize = Mathf.RoundToInt(26 * scale),
                     fontStyle = FontStyle.Bold,
                     alignment = TextAnchor.MiddleRight,
                     normal = { textColor = new Color(0.4f, 0.9f, 0.4f) }
@@ -550,9 +554,9 @@ namespace LegacyOfTemples.Gameplay
             {
                 footerStyle = new GUIStyle(GUI.skin.label)
                 {
-                    fontSize = 11,
+                    fontSize = Mathf.RoundToInt(22 * scale),
                     alignment = TextAnchor.MiddleCenter,
-                    normal = { textColor = new Color(0.6f, 0.6f, 0.6f) }
+                    normal = { textColor = new Color(0.75f, 0.72f, 0.65f) }
                 };
             }
         }

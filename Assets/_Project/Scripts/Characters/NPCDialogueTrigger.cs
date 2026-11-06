@@ -18,7 +18,6 @@ namespace LegacyOfTemples.Characters
         [TextArea(2, 4)]
         [SerializeField] private string[] dialogueLines;
 
-        private int currentLineIndex = -1;
         private bool isDialogueActive = false;
         private Transform playerTransform;
         private GUIStyle boxStyle;
@@ -108,22 +107,18 @@ namespace LegacyOfTemples.Characters
             }
 
             isDialogueActive = true;
-            currentLineIndex = 0;
             EventBus.RaiseDialogueStart(characterId);
-            Debug.Log($"[NPCDialogueTrigger] Dialogue started with {speakerName}: '{dialogueLines[currentLineIndex]}'");
+            EventBus.RaiseRequestDialogue(speakerName, dialogueLines, null, null, () =>
+            {
+                isDialogueActive = false;
+                EventBus.RaiseDialogueEnd(characterId);
+            });
+            Debug.Log($"[NPCDialogueTrigger] Dialogue started with {speakerName}.");
         }
 
         public void AdvanceDialogue()
         {
-            currentLineIndex++;
-            if (currentLineIndex >= dialogueLines.Length)
-            {
-                EndDialogue();
-            }
-            else
-            {
-                Debug.Log($"[NPCDialogueTrigger] {speakerName}: '{dialogueLines[currentLineIndex]}'");
-            }
+            // Handled inside UIManager
         }
 
         public void EndDialogue()
@@ -131,7 +126,6 @@ namespace LegacyOfTemples.Characters
             if (isDialogueActive)
             {
                 isDialogueActive = false;
-                currentLineIndex = -1;
                 EventBus.RaiseDialogueEnd(characterId);
                 Debug.Log($"[NPCDialogueTrigger] Dialogue ended with {speakerName}.");
             }
@@ -139,20 +133,7 @@ namespace LegacyOfTemples.Characters
 
         private void OnGUI()
         {
-            if (isDialogueActive && currentLineIndex >= 0 && currentLineIndex < dialogueLines.Length)
-            {
-                InitStyles();
-
-                float width = Mathf.Min(680f, Screen.width - 40f);
-                float height = 110f;
-                float x = (Screen.width - width) * 0.5f;
-                float y = Screen.height - 140f;
-
-                GUI.Box(new Rect(x, y, width, height), GUIContent.none, boxStyle);
-                GUI.Label(new Rect(x + 20f, y + 10f, width - 40f, 22f), speakerName.ToUpperInvariant(), nameStyle);
-                GUI.Label(new Rect(x + 20f, y + 36f, width - 40f, 44f), $"\"{dialogueLines[currentLineIndex]}\"", textStyle);
-                GUI.Label(new Rect(x + 20f, y + 84f, width - 40f, 18f), "Press [E] or [Space] to continue...", hintStyle);
-            }
+            // Suppressed in favor of high-resolution TextMeshPro UIManager
         }
 
         private void InitStyles()

@@ -303,3 +303,18 @@
   - `Assets/_Project/Animations/VillagerAnimator.controller`
 - **Verification**: Batch-mode execution of `HeritageCharacterImporter.ImportAllHeritageCharactersBatch`, `EnvironmentBuilder.BuildAllEnvironmentsBatch`, and `ComprehensiveGameVerifier.RunChecklistBatch`. Exit code 0, 0 compile errors, 0 warnings.
 - **Known Issues**: None.
+
+## P9-Unity - Standalone Build Polish & Full Verification of Complaints A-I
+- **Date**: 2026-11-06
+- **Engine**: Unity 6 (`6000.6.8f1`) URP, macOS (Metal)
+- **Summary**: Comprehensive resolution and live standalone evidence verification for user complaints A through I:
+  1. **UI Scaling & Readability (A)**: Converted all UI panels to TextMeshPro with reference Canvas Scaler (1920x1080, match 0.5), enforcing minimum font sizes (body >= 28px, prompts >= 32px, dialogue >= 34px, titles >= 56px). Integrated real-time Text Size Scaling (Small 85%, Med 100%, Large 115%, XL 130%). Stripped dev tools from release builds (`#if UNITY_EDITOR`) and moved dev HUD to bottom-left to prevent overlap.
+  2. **12-Step Guided Tutorial (B)**: Implemented sequential onboarding with keycap indicators, step progress counters, pause replay/skip, and "How to Play" mission card.
+  3. **Locomotion BlendTree & Rigging (C)**: Mapped `Investigator.fbx` to Humanoid Avatar. Built `HumanoidClipGenerator.cs` generating 6 calibrated Humanoid `.anim` clips (`Investigator_Idle`, `Investigator_Walk`, `Investigator_Run`, `Investigator_Sprint`, `Investigator_Jump`, `Investigator_Crouch`). Configured `CharacterAnimator.controller` with 1D Locomotion BlendTree driven by `Speed` and clean transitions for Jump and Crouch.
+  4. **Temple Accessibility & Courtyard Dressing (D)**: Rotated entrance doors open by 75°, placed smooth ramp stair collider over steps, and wired seamless transition portals between Courtyard and Sanctum. Dressed surroundings with 4 corner shrines, saffron flags, flower offering stalls, rangoli mandala, and palm trees.
+  5. **Weathered Sandstone & Sunrise Lighting (E)**: Formulated authentic weathered Odisha sandstone materials (#B9A68C base), low smoothness wet stone plaza (no blue glare), warm golden sunrise directional sun (#FFD9A0, intensity 2.4), and ACES tonemapping within <= 8 light budget (5 real-time lights).
+  6. **Royalty-Free Audio System (F)**: Generated 14 16-bit 44.1kHz stereo audio tracks (BGM, ambience, stone footsteps, UI SFX, puzzle chimes). Created `AudioManager.cs` with 4 volume sliders and dialogue music ducking. Documented in `ATTRIBUTION.md` (CC0).
+  7. **Dialogue System (G)**: High-resolution dialogue panel with character portrait box, 36px speaker banner, 34px typewriter streaming text, and interactive choice buttons.
+  8. **Story & Cultural Compliance (H)**: Stolen items strictly designated as the 3 fictional relics (Sacred Pradip Brass Vessel, Carved Sandstone Rosette, Tala Patra Palm-Leaf Manuscript). Lord Jagannath Idol strictly untargetable non-interactable background Garbhagriha deity. Smugglers named Vikram and Dev.
+  9. **Standalone Execution & Evidence**: Built standalone macOS app to `Builds/LegacyOfTheTemple.app` (232 MB). Executed on host Metal display, capturing 10 live screenshots in `Docs/QA/` and validating clean runtime execution with 0 fatal errors in `Player.log`. Authored `Docs/QA/QA_REPORT.md`.
+

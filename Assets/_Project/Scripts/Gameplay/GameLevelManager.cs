@@ -17,13 +17,10 @@ namespace LegacyOfTemples.Gameplay
         [Header("Ending State")]
         private bool isEndingCinematicActive = false;
         private float endingTimer = 0f;
-        private int endingDialogueStep = 0;
 
         private GUIStyle bannerStyle;
         private GUIStyle dialogBoxStyle;
-        private GUIStyle nameStyle;
         private GUIStyle bodyStyle;
-        private GUIStyle promptStyle;
 
         public bool Level1Completed => level1Completed;
         public bool Level2Completed => level2Completed;
@@ -163,7 +160,6 @@ namespace LegacyOfTemples.Gameplay
         {
             isEndingCinematicActive = true;
             endingTimer = 0f;
-            endingDialogueStep = 0;
             EventBus.RaiseGameState(GameState.Ending);
             Debug.Log("[GameLevelManager] ENDING CINEMATIC STARTED: The sacred relics are restored!");
         }
@@ -193,7 +189,7 @@ namespace LegacyOfTemples.Gameplay
                 "• <b>The Sacred Pradip Brass Vessel</b> — Returned to the temple sanctum altar.\n" +
                 "• <b>The Carved Sandstone Rosette</b> — Re-anchored to the vimana relief.\n" +
                 "• <b>The Ancient Tala Patra Palm-Leaf Manuscript</b> — Safely preserved in the temple archives.\n\n" +
-                "Kala and Rudra have fled empty-handed into the night, their smuggling ring dismantled.\n" +
+                "Vikram and Dev have fled empty-handed into the night, their antiquities ring dismantled.\n" +
                 "Head Priest Ananda and the pilgrims of Puri offer deep blessings as the evening bells echo across the sanctuary.";
 
             GUI.Label(new Rect(boxX + 30f, boxY + 65f, boxW - 60f, 190f), endingStory, bodyStyle);

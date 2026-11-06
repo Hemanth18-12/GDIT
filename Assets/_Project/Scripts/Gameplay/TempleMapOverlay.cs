@@ -74,21 +74,22 @@ namespace LegacyOfTemples.Gameplay
 
             InitStyles();
 
-            float mapWidth = Mathf.Min(780f, Screen.width - 40f);
-            float mapHeight = Mathf.Min(560f, Screen.height - 40f);
+            float scale = Mathf.Max(1.0f, Screen.height / 1080f);
+            float mapWidth = Mathf.Min(1200f * scale, Screen.width - 40f);
+            float mapHeight = Mathf.Min(780f * scale, Screen.height - 40f);
             float mapX = (Screen.width - mapWidth) * 0.5f;
             float mapY = (Screen.height - mapHeight) * 0.5f;
 
             // Background Map Parchment Box
             GUI.Box(new Rect(mapX, mapY, mapWidth, mapHeight), GUIContent.none, panelStyle);
 
-            // Title
-            GUI.Label(new Rect(mapX + 20f, mapY + 16f, mapWidth - 40f, 26f), "SURYA JAGANNATH TEMPLE ARCHITECTURAL SCHEMATIC", mapTitleStyle);
+            // Title (>= 36 px)
+            GUI.Label(new Rect(mapX + 24f, mapY + 20f, mapWidth - 48f, 42f), "SURYA JAGANNATH TEMPLE ARCHITECTURAL SCHEMATIC", mapTitleStyle);
             string currentScene = SceneManager.GetActiveScene().name;
-            GUI.Label(new Rect(mapX + 20f, mapY + 44f, mapWidth - 40f, 20f), $"Active Sector: <color=#f4c430>{currentScene.ToUpperInvariant()}</color>  |  Orientation: True North Facing", legendStyle);
+            GUI.Label(new Rect(mapX + 24f, mapY + 62f, mapWidth - 48f, 28f), $"Active Sector: <color=#f4c430>{currentScene.ToUpperInvariant()}</color>  |  Orientation: True North Facing", legendStyle);
 
             // Inner Canvas for Map Layout
-            Rect canvas = new Rect(mapX + 30f, mapY + 70f, mapWidth - 60f, mapHeight - 120f);
+            Rect canvas = new Rect(mapX + 30f, mapY + 95f, mapWidth - 60f, mapHeight - 145f);
             GUI.Box(canvas, GUIContent.none, GUI.skin.box);
 
             // Zone 1: Courtyard (Bottom center)
@@ -192,6 +193,8 @@ namespace LegacyOfTemples.Gameplay
 
         private void InitStyles()
         {
+            float scale = Mathf.Max(1.0f, Screen.height / 1080f);
+
             if (panelStyle == null)
             {
                 panelStyle = new GUIStyle(GUI.skin.box);
@@ -201,10 +204,10 @@ namespace LegacyOfTemples.Gameplay
             {
                 mapTitleStyle = new GUIStyle(GUI.skin.label)
                 {
-                    fontSize = 16,
+                    fontSize = Mathf.RoundToInt(34 * scale),
                     fontStyle = FontStyle.Bold,
                     alignment = TextAnchor.MiddleCenter,
-                    normal = { textColor = new Color(0.96f, 0.82f, 0.28f) }
+                    normal = { textColor = new Color(0.98f, 0.84f, 0.3f) }
                 };
             }
 
@@ -212,9 +215,9 @@ namespace LegacyOfTemples.Gameplay
             {
                 zoneLabelStyle = new GUIStyle(GUI.skin.label)
                 {
-                    fontSize = 11,
+                    fontSize = Mathf.RoundToInt(22 * scale),
                     alignment = TextAnchor.MiddleCenter,
-                    normal = { textColor = new Color(0.75f, 0.75f, 0.75f) }
+                    normal = { textColor = new Color(0.85f, 0.85f, 0.85f) }
                 };
             }
 
@@ -222,11 +225,11 @@ namespace LegacyOfTemples.Gameplay
             {
                 activeZoneStyle = new GUIStyle(GUI.skin.label)
                 {
-                    fontSize = 12,
+                    fontSize = Mathf.RoundToInt(26 * scale),
                     fontStyle = FontStyle.Bold,
                     alignment = TextAnchor.MiddleCenter,
                     richText = true,
-                    normal = { textColor = new Color(1f, 0.85f, 0.25f) }
+                    normal = { textColor = new Color(1f, 0.88f, 0.3f) }
                 };
             }
 
@@ -234,7 +237,7 @@ namespace LegacyOfTemples.Gameplay
             {
                 poiStyle = new GUIStyle(GUI.skin.label)
                 {
-                    fontSize = 11,
+                    fontSize = Mathf.RoundToInt(22 * scale),
                     richText = true,
                     normal = { textColor = Color.white }
                 };
@@ -244,10 +247,10 @@ namespace LegacyOfTemples.Gameplay
             {
                 legendStyle = new GUIStyle(GUI.skin.label)
                 {
-                    fontSize = 11,
+                    fontSize = Mathf.RoundToInt(24 * scale),
                     alignment = TextAnchor.MiddleCenter,
                     richText = true,
-                    normal = { textColor = new Color(0.7f, 0.7f, 0.7f) }
+                    normal = { textColor = new Color(0.85f, 0.82f, 0.75f) }
                 };
             }
         }

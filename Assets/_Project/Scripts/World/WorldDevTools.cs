@@ -142,18 +142,20 @@ namespace LegacyOfTemples.World
                 GUI.color = oldColor;
             }
 
-            // Dev HUD
+            // Dev HUD (Editor only - stripped from release builds)
+#if UNITY_EDITOR
             if (showHUD)
             {
                 string activeScene = WorldManager.Instance != null ? WorldManager.Instance.CurrentSceneName : "None";
                 int qLevel = QualitySettings.GetQualityLevel();
                 string qName = qLevel < QualitySettings.names.Length ? QualitySettings.names[qLevel] : "Default";
 
-                GUI.Box(new Rect(16, 16, 260, 96), GUIContent.none);
-                GUI.Label(new Rect(26, 22, 240, 20), "<b>LEGACY OF TEMPLES - DEV TOOLS</b>", hudStyle);
-                GUI.Label(new Rect(26, 42, 240, 20), $"Scene [1-5]: <color=#f4c430>{activeScene}</color>", hudStyle);
-                GUI.Label(new Rect(26, 62, 240, 20), $"Quality [Q]: <color=#89c4f4>{qName}</color>", hudStyle);
-                GUI.Label(new Rect(26, 82, 240, 20), $"FPS: {1.0f / Mathf.Max(Time.smoothDeltaTime, 0.0001f):F0} (Target 60)", hudStyle);
+                float hudY = Screen.height - 116;
+                GUI.Box(new Rect(16, hudY, 260, 96), GUIContent.none);
+                GUI.Label(new Rect(26, hudY + 6, 240, 20), "<b>LEGACY OF TEMPLES - DEV TOOLS</b>", hudStyle);
+                GUI.Label(new Rect(26, hudY + 26, 240, 20), $"Scene [1-5]: <color=#f4c430>{activeScene}</color>", hudStyle);
+                GUI.Label(new Rect(26, hudY + 46, 240, 20), $"Quality [Q]: <color=#89c4f4>{qName}</color>", hudStyle);
+                GUI.Label(new Rect(26, hudY + 66, 240, 20), $"FPS: {1.0f / Mathf.Max(Time.smoothDeltaTime, 0.0001f):F0} (Target 60)", hudStyle);
 
                 // Toast
                 if (toastTimer > 0f)
@@ -163,6 +165,7 @@ namespace LegacyOfTemples.World
                     GUI.color = Color.white;
                 }
             }
+#endif
         }
 
         private void InitStyles()

@@ -71,43 +71,44 @@ namespace LegacyOfTemples.Gameplay
 
             InitStyles();
 
-            float width = Mathf.Min(620f, Screen.width - 40f);
-            float height = 320f;
+            float scale = Mathf.Max(1.0f, Screen.height / 1080f);
+            float width = Mathf.Min(980f * scale, Screen.width - 40f);
+            float height = Mathf.Min(560f * scale, Screen.height - 40f);
             float x = (Screen.width - width) * 0.5f;
             float y = (Screen.height - height) * 0.5f;
 
             GUI.Box(new Rect(x, y, width, height), GUIContent.none, boxStyle);
 
             string scene = SceneManager.GetActiveScene().name;
-            GUI.Label(new Rect(x + 20f, y + 16f, width - 40f, 24f), "DETECTIVE'S FIELD NOTEBOOK: PROGRESSIVE HINTS", titleStyle);
-            GUI.Label(new Rect(x + 20f, y + 42f, width - 40f, 20f), $"Current Investigation Zone: <color=#f4c430>{scene}</color>  (Tier {currentHintTier} of 3)", hintHeaderStyle);
+            GUI.Label(new Rect(x + 30f, y + 20f, width - 60f, 44f), "DETECTIVE'S FIELD NOTEBOOK: PROGRESSIVE HINTS", titleStyle);
+            GUI.Label(new Rect(x + 30f, y + 68f, width - 60f, 32f), $"Current Investigation Zone: <color=#f4c430>{scene}</color>  (Tier {currentHintTier} of 3)", hintHeaderStyle);
 
             string[] hints = GetHintsForScene(scene);
 
-            float curY = y + 74f;
+            float curY = y + 110f;
             for (int i = 0; i < currentHintTier; i++)
             {
                 string tierTitle = i == 0 ? "Tier 1 — General Observation:" : (i == 1 ? "Tier 2 — Specific Location:" : "Tier 3 — Direct Deduction:");
-                GUI.Label(new Rect(x + 24f, curY, width - 48f, 18f), $"<color=#f5cd79><b>{tierTitle}</b></color>", hintHeaderStyle);
-                curY += 20f;
-                GUI.Label(new Rect(x + 24f, curY, width - 48f, 42f), hints[i], hintBodyStyle);
-                curY += 46f;
+                GUI.Label(new Rect(x + 30f, curY, width - 60f, 30f), $"<color=#f5cd79><b>{tierTitle}</b></color>", hintHeaderStyle);
+                curY += 32f;
+                GUI.Label(new Rect(x + 30f, curY, width - 60f, 65f), hints[i], hintBodyStyle);
+                curY += 70f;
             }
 
             // Button to reveal next hint tier
             if (currentHintTier < 3)
             {
-                if (GUI.Button(new Rect(x + width * 0.5f - 110f, y + height - 60f, 220f, 28f), $"Reveal Next Hint ({currentHintTier + 1}/3)", buttonStyle))
+                if (GUI.Button(new Rect(x + width * 0.5f - 160f, y + height - 85f, 320f, 44f), $"Reveal Next Hint ({currentHintTier + 1}/3)", buttonStyle))
                 {
                     currentHintTier++;
                 }
             }
             else
             {
-                GUI.Label(new Rect(x + 20f, y + height - 58f, width - 40f, 22f), "<color=#4cd137>All field guidance for this sector revealed.</color>", footerStyle);
+                GUI.Label(new Rect(x + 30f, y + height - 82f, width - 60f, 32f), "<color=#4cd137>All field guidance for this sector revealed.</color>", footerStyle);
             }
 
-            GUI.Label(new Rect(x + 20f, y + height - 26f, width - 40f, 20f), "Press [H] or [Esc] to Close  •  [J] Investigation Dossier", footerStyle);
+            GUI.Label(new Rect(x + 30f, y + height - 38f, width - 60f, 28f), "Press [H] or [Esc] to Close  •  [J] Investigation Dossier", footerStyle);
         }
 
         private string[] GetHintsForScene(string scene)
@@ -135,7 +136,7 @@ namespace LegacyOfTemples.Gameplay
                     {
                         "The thieves dropped hasty items while fleeing through the ruined outer courtyard. Search around the fallen pillar bases.",
                         "Find the torn dark cloak wool fragment caught on the carved plinth, and retrieve the Smuggler's Egress Route sketch from the old stone urn.",
-                        "Follow the glowing red lantern trail west toward the Ancient Surya Chakra Wall to pursue Kala and Rudra into the jungle."
+                        "Follow the glowing red lantern trail west toward the Ancient Surya Chakra Wall to pursue Vikram and Dev into the jungle."
                     };
 
                 case "PuzzleWall":
@@ -150,7 +151,7 @@ namespace LegacyOfTemples.Gameplay
                     return new string[]
                     {
                         "Follow the torchlit jungle path past the banyan roots to the ruined forest pavilion.",
-                        "Kala and Rudra are holed up ahead with the stolen relics. Approach and confront them directly.",
+                        "Vikram and Dev are holed up ahead with the stolen relics. Approach and confront them directly.",
                         "Present the broken lock evidence and smuggler route map in dialogue to break their resolve, recover all 3 sacred relics, and solve the Heritage Mystery!"
                     };
 
@@ -166,16 +167,18 @@ namespace LegacyOfTemples.Gameplay
 
         private void InitStyles()
         {
+            float scale = Mathf.Max(1.0f, Screen.height / 1080f);
+
             if (boxStyle == null) boxStyle = new GUIStyle(GUI.skin.box);
 
             if (titleStyle == null)
             {
                 titleStyle = new GUIStyle(GUI.skin.label)
                 {
-                    fontSize = 15,
+                    fontSize = Mathf.RoundToInt(34 * scale),
                     fontStyle = FontStyle.Bold,
                     alignment = TextAnchor.MiddleCenter,
-                    normal = { textColor = new Color(0.96f, 0.82f, 0.28f) }
+                    normal = { textColor = new Color(0.98f, 0.84f, 0.3f) }
                 };
             }
 
@@ -183,7 +186,8 @@ namespace LegacyOfTemples.Gameplay
             {
                 hintHeaderStyle = new GUIStyle(GUI.skin.label)
                 {
-                    fontSize = 12,
+                    fontSize = Mathf.RoundToInt(28 * scale),
+                    fontStyle = FontStyle.Bold,
                     richText = true,
                     normal = { textColor = Color.white }
                 };
@@ -193,9 +197,9 @@ namespace LegacyOfTemples.Gameplay
             {
                 hintBodyStyle = new GUIStyle(GUI.skin.label)
                 {
-                    fontSize = 12,
+                    fontSize = Mathf.RoundToInt(26 * scale),
                     wordWrap = true,
-                    normal = { textColor = new Color(0.85f, 0.85f, 0.85f) }
+                    normal = { textColor = new Color(0.92f, 0.90f, 0.86f) }
                 };
             }
 
@@ -203,7 +207,7 @@ namespace LegacyOfTemples.Gameplay
             {
                 buttonStyle = new GUIStyle(GUI.skin.button)
                 {
-                    fontSize = 12,
+                    fontSize = Mathf.RoundToInt(26 * scale),
                     fontStyle = FontStyle.Bold,
                     normal = { textColor = Color.yellow }
                 };
@@ -213,10 +217,10 @@ namespace LegacyOfTemples.Gameplay
             {
                 footerStyle = new GUIStyle(GUI.skin.label)
                 {
-                    fontSize = 11,
+                    fontSize = Mathf.RoundToInt(22 * scale),
                     alignment = TextAnchor.MiddleCenter,
                     richText = true,
-                    normal = { textColor = new Color(0.6f, 0.6f, 0.6f) }
+                    normal = { textColor = new Color(0.75f, 0.72f, 0.65f) }
                 };
             }
         }

@@ -130,7 +130,7 @@ namespace LegacyOfTemples.Characters.Editor
             ConfigureModel($"{ModelsBasePath}/Villager.fbx", ModelImporterAnimationType.Human);
 
             // Investigator (Fortnite Gumshoe skeleton)
-            ConfigureModel($"{ModelsBasePath}/Investigator.fbx", ModelImporterAnimationType.Generic);
+            ConfigureModel($"{ModelsBasePath}/Investigator.fbx", ModelImporterAnimationType.Human);
 
             // Priest, Robber 1, Robber 2 (Generic / Static Mesh)
             ConfigureModel($"{ModelsBasePath}/Priest.fbx", ModelImporterAnimationType.Generic);
@@ -307,92 +307,139 @@ namespace LegacyOfTemples.Characters.Editor
             EnsureParameter(controller, "IsMoving", AnimatorControllerParameterType.Bool);
             EnsureParameter(controller, "IsRunning", AnimatorControllerParameterType.Bool);
             EnsureParameter(controller, "IsCrouching", AnimatorControllerParameterType.Bool);
+            EnsureParameter(controller, "Grounded", AnimatorControllerParameterType.Bool);
+            EnsureParameter(controller, "Crouch", AnimatorControllerParameterType.Bool);
+            EnsureParameter(controller, "Jump", AnimatorControllerParameterType.Bool);
             EnsureParameter(controller, "Interact", AnimatorControllerParameterType.Trigger);
             EnsureParameter(controller, "Speed", AnimatorControllerParameterType.Float);
+            EnsureParameter(controller, "MoveX", AnimatorControllerParameterType.Float);
+            EnsureParameter(controller, "MoveZ", AnimatorControllerParameterType.Float);
 
             var rootStateMachine = controller.layers[0].stateMachine;
 
-            // Find or create states: Idle, Walk, Run, Crouch, Interact
-            AnimatorState idleState = GetOrCreateState(rootStateMachine, "Idle", new Vector3(250, 0, 0));
-            AnimatorState walkState = GetOrCreateState(rootStateMachine, "Walk", new Vector3(250, 70, 0));
-            AnimatorState runState = GetOrCreateState(rootStateMachine, "Run", new Vector3(250, 140, 0));
-            AnimatorState crouchState = GetOrCreateState(rootStateMachine, "Crouch", new Vector3(20, 70, 0));
-            AnimatorState interactState = GetOrCreateState(rootStateMachine, "Interact", new Vector3(480, 70, 0));
+            // Clear old states
+            rootStateMachine.states = new ChildAnimatorState[0];
+            rootStateMachine.anyStateTransitions = new AnimatorStateTransition[0];
 
-            rootStateMachine.defaultState = idleState;
+            AnimationClip idleClip = LoadBestInvestigatorClip("idle");
+            AnimationClip walkClip = LoadBestInvestigatorClip("walk");
+            AnimationClip runClip = LoadBestInvestigatorClip("run");
+            AnimationClip sprintClip = LoadBestInvestigatorClip("sprint");
+            AnimationClip crouchClip = LoadBestInvestigatorClip("crouch");
+            AnimationClip jumpClip = LoadBestInvestigatorClip("jump");
+            AnimationClip interactClip = LoadBestInvestigatorClip("interact");
 
-            // Extract animation clips from Investigator.fbx (with Villager.fbx fallback)
-            AnimationClip invIdle = ExtractOrLoadClip($"{ModelsBasePath}/Investigator.fbx", "Investigator_Idle")
-                                 ?? ExtractOrLoadClip($"{ModelsBasePath}/Villager.fbx", "Layer0");
-            AnimationClip invWalk = ExtractOrLoadClip($"{ModelsBasePath}/Investigator.fbx", "Investigator_Walk");
-            AnimationClip invRun = ExtractOrLoadClip($"{ModelsBasePath}/Investigator.fbx", "Investigator_Run");
-            AnimationClip invCrouch = ExtractOrLoadClip($"{ModelsBasePath}/Investigator.fbx", "Investigator_Crouch");
-            AnimationClip invInteract = ExtractOrLoadClip($"{ModelsBasePath}/Investigator.fbx", "Investigator_Interact");
+            // 1. Locomotion BlendTree
+            BlendTree blendTree;
+            AnimatorState locomotionState = controller.CreateBlendTreeInController("Locomotion", out blendTree);
+            blendTree.blendType = BlendTreeType.Simple1D;
+            blendTree.blendParameter = "Speed";
+            if (idleClip != null) blendTree.AddChild(idleClip, 0f);
+            if (walkClip != null) blendTree.AddChild(walkClip, 2.8f);
+            if (runClip != null) blendTree.AddChild(runClip, 6.0f);
+            if (sprintClip != null) blendTree.AddChild(sprintClip, 8.5f);
 
-            if (invIdle != null) idleState.motion = invIdle;
-            if (invWalk != null) walkState.motion = invWalk;
-            if (invRun != null) runState.motion = invRun;
-            if (invCrouch != null) crouchState.motion = invCrouch;
-            if (invInteract != null) interactState.motion = invInteract;
-            Debug.Log($"[HeritageCharacterImporter] Assigned motions to CharacterAnimator: Idle={idleState.motion != null}, Walk={walkState.motion != null}, Run={runState.motion != null}, Crouch={crouchState.motion != null}, Interact={interactState.motion != null}");
+            rootStateMachine.defaultState = locomotionState;
 
-            // Clean transitions and rebuild cleanly
-            idleState.transitions = new AnimatorStateTransition[0];
-            walkState.transitions = new AnimatorStateTransition[0];
-            runState.transitions = new AnimatorStateTransition[0];
-            crouchState.transitions = new AnimatorStateTransition[0];
-            interactState.transitions = new AnimatorStateTransition[0];
+            // 2. Jump State
+            AnimatorState jumpState = rootStateMachine.AddState("Jump", new Vector3(250, -80, 0));
+            if (jumpClip != null) jumpState.motion = jumpClip;
 
-            // Idle -> Walk
-            var tIdleWalk = idleState.AddTransition(walkState);
-            tIdleWalk.AddCondition(AnimatorConditionMode.If, 0, "IsMoving");
-            tIdleWalk.hasExitTime = false;
-            tIdleWalk.duration = 0.15f;
+            var tLocoJump = locomotionState.AddTransition(jumpState);
+            tLocoJump.AddCondition(AnimatorConditionMode.IfNot, 0, "Grounded");
+            tLocoJump.hasExitTime = false;
+            tLocoJump.duration = 0.1f;
 
-            // Walk -> Idle
-            var tWalkIdle = walkState.AddTransition(idleState);
-            tWalkIdle.AddCondition(AnimatorConditionMode.IfNot, 0, "IsMoving");
-            tWalkIdle.hasExitTime = false;
-            tWalkIdle.duration = 0.15f;
+            var tJumpLoco = jumpState.AddTransition(locomotionState);
+            tJumpLoco.AddCondition(AnimatorConditionMode.If, 0, "Grounded");
+            tJumpLoco.hasExitTime = false;
+            tJumpLoco.duration = 0.15f;
 
-            // Walk -> Run
-            var tWalkRun = walkState.AddTransition(runState);
-            tWalkRun.AddCondition(AnimatorConditionMode.If, 0, "IsRunning");
-            tWalkRun.hasExitTime = false;
-            tWalkRun.duration = 0.15f;
+            // 3. Crouch State
+            AnimatorState crouchState = rootStateMachine.AddState("Crouch", new Vector3(20, 70, 0));
+            if (crouchClip != null) crouchState.motion = crouchClip;
 
-            // Run -> Walk
-            var tRunWalk = runState.AddTransition(walkState);
-            tRunWalk.AddCondition(AnimatorConditionMode.IfNot, 0, "IsRunning");
-            tRunWalk.hasExitTime = false;
-            tRunWalk.duration = 0.15f;
+            var tLocoCrouch = locomotionState.AddTransition(crouchState);
+            tLocoCrouch.AddCondition(AnimatorConditionMode.If, 0, "IsCrouching");
+            tLocoCrouch.hasExitTime = false;
+            tLocoCrouch.duration = 0.15f;
 
-            // Idle -> Crouch
-            var tIdleCrouch = idleState.AddTransition(crouchState);
-            tIdleCrouch.AddCondition(AnimatorConditionMode.If, 0, "IsCrouching");
-            tIdleCrouch.hasExitTime = false;
-            tIdleCrouch.duration = 0.15f;
+            var tCrouchLoco = crouchState.AddTransition(locomotionState);
+            tCrouchLoco.AddCondition(AnimatorConditionMode.IfNot, 0, "IsCrouching");
+            tCrouchLoco.hasExitTime = false;
+            tCrouchLoco.duration = 0.15f;
 
-            // Crouch -> Idle
-            var tCrouchIdle = crouchState.AddTransition(idleState);
-            tCrouchIdle.AddCondition(AnimatorConditionMode.IfNot, 0, "IsCrouching");
-            tCrouchIdle.hasExitTime = false;
-            tCrouchIdle.duration = 0.15f;
+            // 4. Interact State
+            AnimatorState interactState = rootStateMachine.AddState("Interact", new Vector3(480, 70, 0));
+            if (interactClip != null) interactState.motion = interactClip;
 
-            // AnyState -> Interact
             var tAnyInteract = rootStateMachine.AddAnyStateTransition(interactState);
             tAnyInteract.AddCondition(AnimatorConditionMode.If, 0, "Interact");
             tAnyInteract.hasExitTime = false;
             tAnyInteract.duration = 0.1f;
 
-            // Interact -> Idle
-            var tInteractIdle = interactState.AddTransition(idleState);
-            tInteractIdle.hasExitTime = true;
-            tInteractIdle.exitTime = 0.9f;
-            tInteractIdle.duration = 0.2f;
+            var tInteractLoco = interactState.AddTransition(locomotionState);
+            tInteractLoco.hasExitTime = true;
+            tInteractLoco.exitTime = 0.9f;
+            tInteractLoco.duration = 0.2f;
 
             EditorUtility.SetDirty(controller);
+            Debug.Log($"[HeritageCharacterImporter] Built Locomotion BlendTree & Animator with Idle={idleClip != null}, Walk={walkClip != null}, Run={runClip != null}, Sprint={sprintClip != null}, Jump={jumpClip != null}, Crouch={crouchClip != null}");
             return controller;
+        }
+
+        private static AnimationClip LoadBestInvestigatorClip(string clipType)
+        {
+            string clipsDir = $"{AnimationBasePath}/Clips";
+            string[] searchFiles = null;
+            switch (clipType.ToLowerInvariant())
+            {
+                case "idle":
+                    searchFiles = new[] { "Idle.fbx", "Breathing Idle.fbx", "Investigator_Idle.anim" };
+                    break;
+                case "walk":
+                    searchFiles = new[] { "Walking.fbx", "Walk.fbx", "Investigator_Walk.anim" };
+                    break;
+                case "run":
+                    searchFiles = new[] { "Running.fbx", "Run.fbx", "Investigator_Run.anim" };
+                    break;
+                case "sprint":
+                    searchFiles = new[] { "Sprint.fbx", "Sprinting.fbx", "Investigator_Sprint.anim" };
+                    break;
+                case "crouch":
+                    searchFiles = new[] { "Crouch_Idle.fbx", "Crouch.fbx", "Investigator_Crouch.anim" };
+                    break;
+                case "jump":
+                    searchFiles = new[] { "Jump.fbx", "Jumping.fbx", "Investigator_Jump.anim" };
+                    break;
+                case "interact":
+                    searchFiles = new[] { "Interact.fbx", "Investigator_Interact.anim" };
+                    break;
+            }
+
+            if (searchFiles != null)
+            {
+                foreach (var fileName in searchFiles)
+                {
+                    string p = $"{clipsDir}/{fileName}";
+                    if (File.Exists(p))
+                    {
+                        if (p.EndsWith(".anim"))
+                        {
+                            AnimationClip c = AssetDatabase.LoadAssetAtPath<AnimationClip>(p);
+                            if (c != null) return c;
+                        }
+                        else
+                        {
+                            AnimationClip c = ExtractOrLoadClip(p, "");
+                            if (c != null) return c;
+                        }
+                    }
+                }
+            }
+
+            return ExtractOrLoadClip($"{ModelsBasePath}/Investigator.fbx", $"Investigator_{clipType}")
+                ?? ExtractOrLoadClip($"{ModelsBasePath}/Villager.fbx", "Layer0");
         }
 
         private static void EnsureParameter(AnimatorController controller, string paramName, AnimatorControllerParameterType type)
