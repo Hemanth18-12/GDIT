@@ -34,6 +34,54 @@ namespace LegacyOfTemples.Characters
         private float desiredDistance;
         private Vector3 currentVelocity;
 
+        [Header("Cinematic & Special Modes")]
+        private bool isDialogueMode = false;
+        private Transform dialogueSpeaker;
+        private Transform dialogueListener;
+        private bool isInspectionMode = false;
+        private Transform inspectionTarget;
+        private bool isCutsceneOverride = false;
+        private Vector3 cutscenePos;
+        private Quaternion cutsceneRot;
+
+        public void SetCutsceneOverride(Vector3 pos, Quaternion rot)
+        {
+            isCutsceneOverride = true;
+            cutscenePos = pos;
+            cutsceneRot = rot;
+        }
+
+        public void ClearCutsceneOverride()
+        {
+            isCutsceneOverride = false;
+        }
+
+        public void SetDialogueMode(Transform speaker, Transform listener)
+        {
+            isDialogueMode = true;
+            dialogueSpeaker = speaker;
+            dialogueListener = listener;
+        }
+
+        public void ClearDialogueMode()
+        {
+            isDialogueMode = false;
+            dialogueSpeaker = null;
+            dialogueListener = null;
+        }
+
+        public void SetInspectionMode(Transform targetClue)
+        {
+            isInspectionMode = true;
+            inspectionTarget = targetClue;
+        }
+
+        public void ClearInspectionMode()
+        {
+            isInspectionMode = false;
+            inspectionTarget = null;
+        }
+
         private void Start()
         {
             currentDistance = defaultDistance;
@@ -77,6 +125,36 @@ namespace LegacyOfTemples.Characters
 
         private void LateUpdate()
         {
+            if (isCutsceneOverride)
+            {
+                transform.position = Vector3.Lerp(transform.position, cutscenePos, Time.deltaTime * 6f);
+                transform.rotation = Quaternion.Slerp(transform.rotation, cutsceneRot, Time.deltaTime * 6f);
+                return;
+            }
+
+            if (isDialogueMode && dialogueSpeaker != null)
+            {
+                Vector3 midPoint = (dialogueSpeaker.position + (dialogueListener != null ? dialogueListener.position : dialogueSpeaker.position)) * 0.5f;
+                Vector3 toSpeaker = (dialogueSpeaker.position - (dialogueListener != null ? dialogueListener.position : dialogueSpeaker.position)).normalized;
+                Vector3 sideOffset = Vector3.Cross(toSpeaker, Vector3.up) * 1.5f;
+                Vector3 diagCamPos = midPoint + sideOffset + Vector3.up * 1.5f + (-toSpeaker * 2.2f);
+                Quaternion diagCamRot = Quaternion.LookRotation(dialogueSpeaker.position + Vector3.up * 1.4f - diagCamPos);
+
+                transform.position = Vector3.Lerp(transform.position, diagCamPos, Time.deltaTime * 4f);
+                transform.rotation = Quaternion.Slerp(transform.rotation, diagCamRot, Time.deltaTime * 4f);
+                return;
+            }
+
+            if (isInspectionMode && inspectionTarget != null)
+            {
+                Vector3 inspectPos = inspectionTarget.position + inspectionTarget.forward * 1.2f + Vector3.up * 0.6f;
+                Quaternion inspectRot = Quaternion.LookRotation((inspectionTarget.position + Vector3.up * 0.2f) - inspectPos);
+
+                transform.position = Vector3.Lerp(transform.position, inspectPos, Time.deltaTime * 5f);
+                transform.rotation = Quaternion.Slerp(transform.rotation, inspectRot, Time.deltaTime * 5f);
+                return;
+            }
+
             if (target == null)
             {
                 FindPlayerTarget();

@@ -726,6 +726,10 @@ namespace LegacyOfTemples.World.Editor
                 villagerInst.transform.rotation = Quaternion.Euler(0f, 165f, 0f);
             }
 
+            // 7. Opening Cinematic Director
+            GameObject cineObj = new GameObject("OpeningCinematicDirector");
+            cineObj.AddComponent<LegacyOfTemples.Gameplay.OpeningCinematic>();
+
             // Save Scene
             EditorSceneManager.SaveScene(scene, scenePath);
             Debug.Log($"[EnvironmentBuilder] Courtyard scene generated successfully with Visual Upgrade at '{scenePath}'.");
@@ -1969,21 +1973,131 @@ namespace LegacyOfTemples.World.Editor
             }
         }
 
+        [MenuItem("Tools/Legacy/Environments/Build Main Menu")]
+        public static void BuildMainMenu()
+        {
+            EnsureDirectoryExists("Assets/_Project/Scenes/Dev");
+            string scenePath = "Assets/_Project/Scenes/Dev/MainMenu.unity";
+
+            Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
+
+            // 1. Atmosphere & System
+            GameObject sysRoot = new GameObject("--- SYSTEM ---");
+            GameObject camObj = new GameObject("Main Camera");
+            camObj.transform.parent = sysRoot.transform;
+            camObj.tag = "MainCamera";
+            Camera cam = camObj.AddComponent<Camera>();
+            cam.clearFlags = CameraClearFlags.Skybox;
+            cam.fieldOfView = 55f;
+            var camData = camObj.AddComponent<UniversalAdditionalCameraData>();
+            camData.renderPostProcessing = true;
+            camObj.AddComponent<AudioListener>();
+            camObj.AddComponent<LegacyOfTemples.UI.MenuCameraController>();
+
+            // UIManager
+            GameObject uiObj = new GameObject("UIManager");
+            uiObj.transform.parent = sysRoot.transform;
+            uiObj.AddComponent<LegacyOfTemples.UI.MainMenuController>();
+
+            // InputManager
+            GameObject inputObj = new GameObject("InputManager");
+            inputObj.transform.parent = sysRoot.transform;
+            inputObj.AddComponent<LegacyOfTemples.Core.InputManager>();
+
+            // Lighting & Atmosphere
+            GameObject lightRoot = new GameObject("--- LIGHTING & ATMOSPHERE ---");
+            Material sunriseSky = GetOrCreateSunriseSkybox();
+            if (sunriseSky != null) RenderSettings.skybox = sunriseSky;
+
+            GameObject sunObj = new GameObject("Directional_TwilightSun");
+            sunObj.transform.parent = lightRoot.transform;
+            sunObj.transform.rotation = Quaternion.Euler(18f, -40f, 0f);
+            Light sunLight = sunObj.AddComponent<Light>();
+            sunLight.type = LightType.Directional;
+            sunLight.color = new Color(1.0f, 0.70f, 0.45f);
+            sunLight.intensity = 1.1f;
+            sunLight.shadows = LightShadows.Soft;
+
+            RenderSettings.ambientMode = AmbientMode.Flat;
+            RenderSettings.ambientLight = new Color(0.35f, 0.28f, 0.25f);
+            RenderSettings.fog = true;
+            RenderSettings.fogMode = FogMode.ExponentialSquared;
+            RenderSettings.fogDensity = 0.012f;
+            RenderSettings.fogColor = new Color(0.90f, 0.60f, 0.45f);
+
+            // URP Post Processing Volume
+            GameObject volObj = new GameObject("MainMenu_PostProcessingVolume");
+            volObj.transform.parent = lightRoot.transform;
+            Volume vol = volObj.AddComponent<Volume>();
+            vol.isGlobal = true;
+            vol.sharedProfile = GetOrCreateCourtyardVolumeProfile();
+
+            // Environment
+            GameObject envRoot = new GameObject("--- ENVIRONMENT ---");
+            Material wetFloorMat = GetMaterial("mat_StoneFloorWet");
+            Material stoneMat = GetMaterial("mat_StoneTemple");
+            CreateBox("Plaza_Floor", envRoot.transform, new Vector3(0, -0.25f, 0), new Vector3(60f, 0.5f, 60f), wetFloorMat, true);
+
+            // Temple Model
+            GameObject templePrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Models/Environment/Temple_Jagannath.fbx");
+            if (templePrefab != null)
+            {
+                GameObject templeInst = (GameObject)PrefabUtility.InstantiatePrefab(templePrefab, envRoot.transform);
+                templeInst.name = "Temple_Jagannath";
+                templeInst.transform.position = Vector3.zero;
+
+                Material warmStone = GetMaterial("mat_WarmTempleStone");
+                Material lightStone = GetMaterial("mat_LightStone");
+                Material darkStone = GetMaterial("mat_DarkStone");
+                Material sacredMetal = GetMaterial("mat_SacredMetal");
+
+                foreach (var r in templeInst.GetComponentsInChildren<Renderer>(true))
+                {
+                    string n = r.name.ToUpperInvariant();
+                    if (n.Contains("VIMANA_FINAL") || n.Contains("AMALAKA") || n.Contains("BELL"))
+                        r.sharedMaterial = sacredMetal;
+                    else if (n.Contains("ROOF") || n.Contains("STEP") || n.Contains("LINTEL"))
+                        r.sharedMaterial = lightStone;
+                    else if (n.Contains("BASE") || n.Contains("WALL"))
+                        r.sharedMaterial = darkStone;
+                    else
+                        r.sharedMaterial = warmStone;
+                }
+            }
+
+            // Flickering Oil Lamps
+            GameObject lampsRoot = new GameObject("Brass_OilLamps");
+            lampsRoot.transform.parent = envRoot.transform;
+            CreateOilLamp(lampsRoot.transform, new Vector3(-5.0f, 0, 8.0f), "Deepastambha_Left");
+            CreateOilLamp(lampsRoot.transform, new Vector3(5.0f, 0, 8.0f), "Deepastambha_Right");
+
+            // Save Scene
+            EditorSceneManager.SaveScene(scene, scenePath);
+            Debug.Log($"[EnvironmentBuilder] MainMenu scene generated successfully at '{scenePath}'.");
+            UpdateBuildSettings();
+        }
+
         [MenuItem("Tools/Legacy/Build All Environments")]
         public static void BuildAllEnvironments()
         {
+            BuildMainMenu();
             BuildCourtyard();
             BuildSanctum();
             BuildPuzzleWall();
             BuildShrineCrime();
             BuildJunglePath();
             UpdateBuildSettings();
-            Debug.Log("[EnvironmentBuilder] All 5 environments built and registered successfully!");
+            Debug.Log("[EnvironmentBuilder] Main menu and all 5 environments built and registered successfully!");
         }
 
         #endregion
 
         #region Batch Mode Entry Points
+
+        public static void BuildMainMenuBatch()
+        {
+            BuildMainMenu();
+        }
 
         public static void BuildCourtyardBatch()
         {
@@ -2022,6 +2136,7 @@ namespace LegacyOfTemples.World.Editor
         public static void UpdateBuildSettings()
         {
             string[] sceneFiles = {
+                "Assets/_Project/Scenes/Dev/MainMenu.unity",
                 $"{ScenesBasePath}/Courtyard.unity",
                 $"{ScenesBasePath}/Sanctum.unity",
                 $"{ScenesBasePath}/PuzzleWall.unity",

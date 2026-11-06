@@ -4,6 +4,7 @@
     "references": [
         "LOT.Core",
         "LOT.World",
+        "LOT.Characters",
         "Unity.InputSystem"
     ],
     "includePlatforms": [],
