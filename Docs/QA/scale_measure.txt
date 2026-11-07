@@ -1,0 +1,50 @@
+# Character scale measure
+PREFAB Aryan (Investigator) target 1.78: height=1.789 feetOffsetFromPivot=0.013 topY=1.802
+   scale Investigator = 1,1,1
+   scale Investigator/VisualModel/__illumPosition = 100,100,100
+   scale Investigator/VisualModel/back_lower = 100,100,100
+   scale Investigator/VisualModel/back_upper = 100,100,100
+   scale Investigator/VisualModel/eyes = 100,100,100
+   scale Investigator/VisualModel/foot_L = 100,100,100
+   scale Investigator/VisualModel/foot_R = 100,100,100
+   scale Investigator/VisualModel/hand_L = 100,100,100
+   scale Investigator/VisualModel/hand_R = 100,100,100
+   scale Investigator/VisualModel/lefteye = 100,100,100
+   scale Investigator/VisualModel/M_MED_CAU_Jonesy_Head_01.smd = 100,100,100
+   scale Investigator/VisualModel/M_MED_Gumshoe.smd = 100,100,100
+   scale Investigator/VisualModel/M_MED_Gumshoe_button.smd = 100,100,100
+   scale Investigator/VisualModel/M_MED_Gumshoe_Glasses.smd = 100,100,100
+   scale Investigator/VisualModel/M_MED_Gumshoe_Hat.smd = 100,100,100
+   scale Investigator/VisualModel/M_MED_Gumshoe_paper.smd = 100,100,100
+   scale Investigator/VisualModel/noir_ARM = 100,100,100
+   scale Investigator/VisualModel/noir_ARM/root/bip_pelvis/bip_hip_L = 1,1,1
+   scale Investigator/VisualModel/noir_ARM/root/bip_pelvis/bip_hip_L/hlp_quadricep_L/dyn_frontLeg_l_01 = 1,1,1
+   scale Investigator/VisualModel/noir_ARM/root/bip_pelvis/bip_hip_R = 1,1,1
+   scale Investigator/VisualModel/pvt_heel_L = 100,100,100
+   scale Investigator/VisualModel/pvt_heel_R = 100,100,100
+   scale Investigator/VisualModel/pvt_innerFoot_L = 100,100,100
+   scale Investigator/VisualModel/pvt_innerFoot_R = 100,100,100
+   scale Investigator/VisualModel/pvt_outerFoot_L = 100,100,100
+   scale Investigator/VisualModel/pvt_outerFoot_R = 100,100,100
+   scale Investigator/VisualModel/pvt_toe_L = 100,100,100
+   scale Investigator/VisualModel/pvt_toe_R = 100,100,100
+   scale Investigator/VisualModel/righteye = 100,100,100
+   CC h=1.79 c=(0.00, 0.93, 0.00) r=0.31 skin=0.02 step=0.20 slope=45
+   Animator rootMotion=False avatar=InvestigatorAvatar on 'VisualModel'
+PREFAB Pujari Ananda target 1.65: height=1.720 feetOffsetFromPivot=0.000 topY=1.720
+   scale Priest = 1,1,1
+   scale Priest/VisualModel/Object_01 = 100,100,100
+   scale Priest/VisualModel/Priest_Rig = 100,100,100
+   Animator rootMotion=False avatar=none on 'Priest'
+PREFAB Meera target 1.6: height=1.769 feetOffsetFromPivot=-0.022 topY=1.747
+   scale Villager = 1,1,1
+   Animator rootMotion=True avatar=VillagerAvatar on 'VisualModel'
+PREFAB Bhaskar (Robber 1) target 1.75: height=1.875 feetOffsetFromPivot=-0.027 topY=1.848
+   scale Robber1 = 1,1,1
+   Animator rootMotion=False avatar=none on 'Robber1'
+PREFAB Kishore (Robber 2) target 1.7: height=1.936 feetOffsetFromPivot=-0.086 topY=1.850
+   scale Robber2 = 1,1,1
+   Animator rootMotion=False avatar=none on 'Robber2'
+SCENE Courtyard 'Investigator' scale=(1.00, 1.00, 1.00) lossy=(1.00, 1.00, 1.00) height=1.789 feet=0.01
+SCENE Courtyard 'Characters' scale=(1.00, 1.00, 1.00) lossy=(1.00, 1.00, 1.00) height=1.824 feet=0.03
+SCENE Courtyard 'Villager' scale=(1.00, 1.00, 1.00) lossy=(1.00, 1.00, 1.00) height=1.769 feet=-0.02

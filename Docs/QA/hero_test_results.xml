@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Passed" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-07 14:08:07Z" end-time="2026-11-07 14:08:44Z" duration="37.4133328">
+  <test-suite type="TestSuite" id="1023" name="My project" fullname="My project" runstate="Runnable" testcasecount="13" result="Passed" start-time="2026-11-07 14:08:07Z" end-time="2026-11-07 14:08:44Z" duration="37.413333" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1040" name="LOT.Grounding.PlayModeTests.dll" fullname="/Users/hemanth/Desktop/GDIT/My project/Library/ScriptAssemblies/LOT.Grounding.PlayModeTests.dll" runstate="Runnable" testcasecount="13" result="Passed" start-time="2026-11-07 14:08:07Z" end-time="2026-11-07 14:08:44Z" duration="37.409895" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="20610" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1041" name="LegacyOfTemples" fullname="LegacyOfTemples" runstate="Runnable" testcasecount="13" result="Passed" start-time="2026-11-07 14:08:07Z" end-time="2026-11-07 14:08:44Z" duration="37.409219" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1042" name="Tests" fullname="LegacyOfTemples.Tests" runstate="Runnable" testcasecount="13" result="Passed" start-time="2026-11-07 14:08:07Z" end-time="2026-11-07 14:08:44Z" duration="37.408726" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1038" name="HeroScaleGroundTest" fullname="LegacyOfTemples.Tests.HeroScaleGroundTest" classname="LegacyOfTemples.Tests.HeroScaleGroundTest" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-11-07 14:08:07Z" end-time="2026-11-07 14:08:44Z" duration="37.407915" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1039" name="HeroStandsHopsAndWalksOnFloor" fullname="LegacyOfTemples.Tests.HeroScaleGroundTest.HeroStandsHopsAndWalksOnFloor" methodname="HeroStandsHopsAndWalksOnFloor" classname="LegacyOfTemples.Tests.HeroScaleGroundTest" runstate="Runnable" seed="859421464" result="Passed" start-time="2026-11-07 14:08:07Z" end-time="2026-11-07 14:08:44Z" duration="37.402312" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[CharacterManager] Player placed in Courtyard: spawn=Spawn_player_start (0.00, 0.05, 15.00) -> player (0.00, 0.00, 15.00)
+[CharacterManager] Player placed in Courtyard: spawn=Spawn_player_start (0.00, 0.05, 15.00) -> player (0.00, 0.00, 15.00)
+[HeroTest] feet-floor gap 0.005 m
+[HeroTest] player enabled=True, timeScale=1
+[HeroTest] Keyboard.current is test device: True
+[HeroTest] hop peak 0.733 m, after landing 0.000 m
+[HeroTest] walk start (0.00, 0.00, 15.00)
+[HeroTest]  t=0.0 pos=(0.00, 0.00, 14.97) groundedCC=False
+The character used for Ellipsis is not available in font asset [NotoSans SDF (runtime)] or any potential fallbacks. Switching Text Overflow mode to Truncate.
+[HeroTest]  t=1.0 pos=(0.00, 0.00, 13.37) groundedCC=False
+[HeroTest]  t=2.0 pos=(0.00, 0.00, 11.77) groundedCC=False
+[HeroTest]  t=3.0 pos=(0.00, 0.00, 10.17) groundedCC=False
+[HeroTest]  t=4.0 pos=(0.00, 0.00, 8.57) groundedCC=False
+[HeroTest]  t=5.0 pos=(0.00, 0.00, 6.97) groundedCC=False
+[HeroTest]  t=6.0 pos=(0.00, 0.00, 5.37) groundedCC=False
+[HeroTest]  t=7.0 pos=(0.00, 0.00, 3.77) groundedCC=False
+[HeroTest]  t=8.0 pos=(0.00, 0.42, 2.17) groundedCC=True
+[HeroTest]  t=9.0 pos=(0.00, 0.95, 0.55) groundedCC=True
+[HeroTest] walk 10 s toward temple: max rise 0.967 m, moved to (0.00, 0.97, 0.04)
+Saving results to: /Users/hemanth/Library/Application Support/DefaultCompany/My project/TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

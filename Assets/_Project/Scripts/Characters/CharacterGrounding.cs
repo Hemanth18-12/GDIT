@@ -16,6 +16,7 @@ namespace LegacyOfTemples.Characters
         public bool HasSupport { get; private set; }
 
         private void Awake() => Calibrate();
+        public void ClearSupport() => HasSupport = false;
 
         public void Calibrate()
         {
@@ -29,12 +30,13 @@ namespace LegacyOfTemples.Characters
                 return;
             }
             FootOffset = bounds.min.y;
-            controller.skinWidth = 0.02f;
+            controller.skinWidth = 0.03f;
             controller.minMoveDistance = 0f;
             controller.height = bounds.size.y;
-            controller.radius = Mathf.Clamp(bounds.size.x * 0.35f, 0.2f, bounds.size.y * 0.2f);
+            controller.radius = 0.3f;
+            controller.slopeLimit = 40f;
             controller.center = new Vector3(0f, bounds.center.y + controller.skinWidth + footClearance, 0f);
-            controller.stepOffset = Mathf.Min(0.2f, controller.height * 0.12f);
+            controller.stepOffset = 0.3f; // < CC height + 2*radius rule; climb guard in PlayerController blocks tier-climbing
             calibrated = true;
         }
 

@@ -387,3 +387,8 @@
 
 ## 2026-11-07 one-pass (FIX 1-6)
 The prompt was the one-pass brief: float/jump, UI zones, small guide marker, voices, gameplay variety, lighting. Result: built with 0 errors and 0 warnings; the story completes end to end in the build; evidence is in Docs/QA/onepass3.
+
+## 2026-11-07 hero size & ground fix
+Prompt: fix only hero size/height/ground contact (measure 5 prefabs, normalize model child, CC values, one PlayMode test, lineup screenshot).
+Root cause of floating: stale grounding.HasSupport after a jump cancelled gravity; fixed in PlayerController/CharacterGrounding.
+Heights normalized to 1.78/1.65/1.60/1.75/1.70 m; HeroScaleGroundTest passes; Docs/QA/scale_check.png.

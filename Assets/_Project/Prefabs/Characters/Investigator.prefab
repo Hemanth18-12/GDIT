@@ -54,13 +54,13 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 1.7888775
-  m_Radius: 0.30928466
-  m_SlopeLimit: 45
-  m_StepOffset: 0.2
-  m_SkinWidth: 0.02
+  m_Height: 1.78
+  m_Radius: 0.3
+  m_SlopeLimit: 40
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.03
   m_MinMoveDistance: 0
-  m_Center: {x: 0, y: 0.9323551, z: 0}
+  m_Center: {x: 0, y: 0.91999996, z: 0}
 --- !u!114 &1890056617714788320
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -83,6 +83,7 @@ MonoBehaviour:
   cameraTransform: {fileID: 0}
   animator: {fileID: 0}
   useValidatedAnimation: 1
+  maxClimbAboveStart: 1
 --- !u!114 &352010689712971543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -140,12 +141,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 1832449514696219927}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 2bf4f038559954ff99182152ecb2d1a4, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.9950374
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2bf4f038559954ff99182152ecb2d1a4, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.9950374
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2bf4f038559954ff99182152ecb2d1a4, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.9950374
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2bf4f038559954ff99182152ecb2d1a4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2bf4f038559954ff99182152ecb2d1a4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.0128522515
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2bf4f038559954ff99182152ecb2d1a4, type: 3}
       propertyPath: m_LocalPosition.z

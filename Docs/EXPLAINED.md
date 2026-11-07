@@ -91,3 +91,10 @@ Built the standalone macOS application (`Builds/LegacyOfTheTemple.app`) with **0
 - Jump: Space works again. It now uses the same "on the floor" check as walking; snapping to the floor was hiding Unity's own grounded flag.
 - UI: the Guide closes while someone is talking, the map closes when a conversation starts, and big centre panels hide the small side panels and the [E] prompt. Tall panels shrink to fit the screen.
 - Still open: the bot's ground test reports a 1.00 m peak and 0 landings. The jump screenshot shows a low hop, but the measurement or the climb guard still needs checking in the Editor.
+
+## Hero size and floating fix (2026-11-07)
+- **Why the hero floated:** after pressing Space, the game still believed the floor was under his feet, so gravity was switched off. He kept rising until the 1 m safety cap stopped him, then hung in the air. Now floor support only counts while he is not moving upward, and it is cleared the moment he jumps. Result: a 0.73 m hop that lands back on the floor.
+- **Sizes:** every character's model child (VisualModel) was rescaled to a real height, with the feet placed exactly at the pivot: Aryan 1.78, Pujari 1.65, Meera 1.60, Bhaskar 1.75, Kishore 1.70 m. The root that carries the CharacterController is never scaled.
+- **Capsule:** radius 0.3, skin 0.03, step 0.3, slope 40, height equal to the mesh height. Root motion is off.
+- **Files:** Scripts/Characters/PlayerController.cs, CharacterGrounding.cs, Scripts/World/Editor/CharacterScaleTools.cs (measure / fix / lineup), Tests/PlayMode/HeroScaleGroundTest.cs, and the five prefabs.
+- **See it:** Docs/QA/scale_check.png, Docs/QA/scale_fix.txt. In Unity: Window > General > Test Runner > PlayMode > HeroScaleGroundTest.

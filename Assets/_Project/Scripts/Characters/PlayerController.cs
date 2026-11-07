@@ -180,7 +180,8 @@ namespace LegacyOfTemples.Characters
             if (kb != null && kb.spaceKey.wasPressedThisFrame) jumpPressed = true;
             if (gp != null && gp.buttonSouth.wasPressedThisFrame) jumpPressed = true;
 
-            bool isGrounded = characterController.isGrounded || (grounding != null && grounding.HasSupport);
+            // Support only counts while not moving upward: a stale 'HasSupport' after a jump used to cancel gravity (hero floated up).
+            bool isGrounded = characterController.isGrounded || (grounding != null && grounding.HasSupport && verticalVelocity <= 0f);
 
             if (isGrounded)
             {
@@ -192,6 +193,7 @@ namespace LegacyOfTemples.Characters
                 if (jumpPressed && !IsCrouching) // isGrounded already includes real floor support (snap resets CC.isGrounded)
                 {
                     verticalVelocity = Mathf.Sqrt(2f * jumpHeight * gravity);
+                    grounding?.ClearSupport();
                 }
             }
             else

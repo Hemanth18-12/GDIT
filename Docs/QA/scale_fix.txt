@@ -1,0 +1,6 @@
+# Character scale fix (before -> after)
+Aryan (Investigator): 1.78 m -> 1.78 m (target 1.78), model 'VisualModel' x1.000, feet 0.00 -> 0.00
+Pujari Ananda: 1.72 m -> 1.65 m (target 1.65), model 'VisualModel' x0.959, feet 0.00 -> 0.00
+Meera: 1.77 m -> 1.60 m (target 1.6), model 'VisualModel' x0.904, feet -0.02 -> 0.00
+Bhaskar (Robber 1): 1.87 m -> 1.75 m (target 1.75), model 'VisualModel' x0.933, feet -0.03 -> 0.00
+Kishore (Robber 2): 1.94 m -> 1.70 m (target 1.7), model 'VisualModel' x0.878, feet -0.09 -> 0.00
