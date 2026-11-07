@@ -23,10 +23,6 @@ namespace LegacyOfTemples.Gameplay
         private Vector3 lastPlayerPos;
         private Transform playerTransform;
 
-        private GUIStyle promptBoxStyle;
-        private GUIStyle promptTextStyle;
-        private GUIStyle promptKeyStyle;
-
         private void Awake()
         {
             if (Instance != null && Instance != this)
@@ -132,52 +128,10 @@ namespace LegacyOfTemples.Gameplay
             if (playerTransform != null) lastPlayerPos = playerTransform.position;
         }
 
-        private void OnGUI()
-        {
-            // Obsolete IMGUI banner suppressed. All tutorial prompts are rendered in high-resolution TextMeshPro via UIManager Canvas.
-        }
 
-        private void DrawHUDQuickKeys()
-        {
-            float w = 290f;
-            float h = 26f;
-            float x = Screen.width - w - 16f;
-            float y = 14f;
 
-            GUI.Box(new Rect(x, y, w, h), GUIContent.none, promptBoxStyle);
-            string quickText = "<color=#f4c430>[J]</color> Dossier   <color=#f4c430>[M]</color> Map   <color=#f4c430>[H]</color> Hints   <color=#f4c430>[1-5]</color> Dev";
-            GUI.Label(new Rect(x, y + 3f, w, 20f), quickText, promptKeyStyle);
-        }
 
-        private void InitStyles()
-        {
-            if (promptBoxStyle == null)
-            {
-                promptBoxStyle = new GUIStyle(GUI.skin.box);
-            }
 
-            if (promptTextStyle == null)
-            {
-                promptTextStyle = new GUIStyle(GUI.skin.label)
-                {
-                    fontSize = 13,
-                    alignment = TextAnchor.MiddleCenter,
-                    richText = true,
-                    normal = { textColor = Color.white }
-                };
-            }
-
-            if (promptKeyStyle == null)
-            {
-                promptKeyStyle = new GUIStyle(GUI.skin.label)
-                {
-                    fontSize = 11,
-                    alignment = TextAnchor.MiddleCenter,
-                    richText = true,
-                    normal = { textColor = new Color(0.9f, 0.9f, 0.9f) }
-                };
-            }
-        }
     }
 }
 

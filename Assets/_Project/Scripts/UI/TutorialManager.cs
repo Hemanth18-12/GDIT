@@ -365,11 +365,7 @@ namespace LegacyOfTemples.UI
 
         private void OnHowToPlayDismissed()
         {
-            UIManager.Instance.SetObjective(
-                "Speak with Head Priest Ananda",
-                "Head Priest Ananda stands at the courtyard temple steps. Question him regarding the midnight break-in.",
-                "Stolen Relics: 0/3  |  Clues: 0/5"
-            );
+            LegacyOfTemples.Gameplay.StoryDialogueSystem.Instance?.Publish();
         }
     }
 }

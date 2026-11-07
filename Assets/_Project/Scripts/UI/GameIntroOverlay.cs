@@ -61,6 +61,7 @@ namespace LegacyOfTemples.UI
 
         private void Update()
         {
+            if (enabled) return; // duplicate of UIManager How-to-Play; disabled
             var kb = Keyboard.current;
             var gp = Gamepad.current;
 
@@ -233,8 +234,9 @@ namespace LegacyOfTemples.UI
             stylesInitialized = true;
         }
 
-        private void OnGUI()
+        private void LegacyOnGUI()
         {
+            if (enabled) return; // replaced by TextMeshPro GuideSystem / ScreenTextRenderer
             // Suppressed in favor of high-resolution TextMeshPro UIManager
         }
 

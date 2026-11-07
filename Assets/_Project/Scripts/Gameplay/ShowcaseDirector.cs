@@ -33,11 +33,6 @@ namespace LegacyOfTemples.Gameplay
         private List<ShowcaseShot> activeShots = new List<ShowcaseShot>();
 
         // Letterbox & Text Styles
-        private GUIStyle titleStyle;
-        private GUIStyle subtitleStyle;
-        private GUIStyle hintStyle;
-        private Texture2D barTex;
-        private bool stylesInit = false;
 
         public bool IsTourActive => isTourActive;
 
@@ -323,61 +318,12 @@ namespace LegacyOfTemples.Gameplay
             }
         }
 
-        private void InitStyles()
-        {
-            if (stylesInit) return;
-
-            barTex = new Texture2D(2, 2);
-            Color[] pix = new Color[4];
-            for (int i = 0; i < 4; i++) pix[i] = new Color(0.04f, 0.04f, 0.05f, 0.95f);
-            barTex.SetPixels(pix);
-            barTex.Apply();
-
-            titleStyle = new GUIStyle(GUI.skin.label)
-            {
-                fontSize = 32,
-                fontStyle = FontStyle.Bold,
-                alignment = TextAnchor.MiddleCenter
-            };
-            titleStyle.normal.textColor = new Color(1.0f, 0.784f, 0.341f); // #FFC857 Antique Gold
-
-            subtitleStyle = new GUIStyle(GUI.skin.label)
-            {
-                fontSize = 20,
-                fontStyle = FontStyle.Italic,
-                alignment = TextAnchor.MiddleCenter
-            };
-            subtitleStyle.normal.textColor = new Color(1.0f, 0.957f, 0.839f); // #FFF4D6 Warm Ivory
-
-            hintStyle = new GUIStyle(GUI.skin.label)
-            {
-                fontSize = 18,
-                alignment = TextAnchor.MiddleRight
-            };
-            hintStyle.normal.textColor = new Color(0.75f, 0.70f, 0.60f);
-
-            stylesInit = true;
-        }
-
-        private void OnGUI()
+        private void LateUpdate()
         {
             if (!isTourActive || activeShots.Count == 0 || currentShotIndex >= activeShots.Count) return;
-
-            InitStyles();
-
-            float barH = 100f;
-
-            // Top Letterbox Bar
-            GUI.DrawTexture(new Rect(0, 0, Screen.width, barH), barTex);
-            GUI.Label(new Rect(0, 18f, Screen.width, 35f), "LEGACY OF THE TEMPLE — CINEMATIC SHOWCASE", titleStyle);
-            GUI.Label(new Rect(Screen.width - 260f, 25f, 240f, 30f), "[ESC] Exit Showcase", hintStyle);
-
-            // Bottom Letterbox Bar
-            GUI.DrawTexture(new Rect(0, Screen.height - barH, Screen.width, barH), barTex);
-
             ShowcaseShot s = activeShots[currentShotIndex];
-            GUI.Label(new Rect(0, Screen.height - barH + 16f, Screen.width, 32f), s.title, titleStyle);
-            GUI.Label(new Rect(0, Screen.height - barH + 54f, Screen.width, 30f), s.subtitle, subtitleStyle);
+            ScreenText.Panel("showcase_caption", s.title, s.subtitle, PanelAnchor.BottomCenter, 1400f, null, false, 10);
+            ScreenText.Panel("showcase_exit", null, ScreenText.Key("Esc") + " Exit showcase", PanelAnchor.TopRight, 420f, null, false, 10);
         }
     }
 }

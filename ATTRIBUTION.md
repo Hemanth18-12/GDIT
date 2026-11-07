@@ -1,6 +1,6 @@
 # Asset attribution and source audit
 
-Updated 6 November 2026. No external asset pack or animation was downloaded during this session. Proposed downloads and inspected licenses are in ASSET_SHOPPING_LIST.md; proposals are not imported assets.
+Updated 7 November 2026. Two OFL fonts (Cinzel, Noto Sans) were downloaded on 7 Nov 2026; earlier sessions downloaded no external asset packs. Proposed downloads and inspected licenses are in ASSET_SHOPPING_LIST.md; proposals are not imported assets.
 
 | Title | Author | URL / source | License / status |
 |---|---|---|---|
@@ -13,6 +13,10 @@ Updated 6 November 2026. No external asset pack or animation was downloaded duri
 | Existing armoured king and winged-boss exports used as robbers | Original creators not established | Heritage Mystery Project/corrupted-king-in-black-armor-with-bone-crown/ and corrupted-archangel-six-wings-boss/ | Requested cast mismatch. License evidence missing. No new substitutions or exports made |
 | Existing procedural stone textures | Not established from checked local provenance | Assets/_Project/Models/Environment/Textures/ | Existing files retained; do not label them photographs or verified CC0 |
 | Existing audio | See existing project audio ledger | Assets/_Project/Audio/ATTRIBUTION.md | Existing ledger retained; no new audio created in this session |
+| Cinzel (title font) | Natanael Gama, The Cinzel Project Authors | https://fonts.google.com/specimen/Cinzel ; file https://github.com/google/fonts/tree/main/ofl/cinzel | SIL Open Font License 1.1 (licence text: Assets/_Project/Resources/Fonts/OFL-Cinzel.txt). Downloaded 7 Nov 2026, unmodified; TMP SDF asset generated at runtime |
+| Noto Sans (body font) | The Noto Project Authors (Google) | https://fonts.google.com/noto/specimen/Noto+Sans ; file https://github.com/google/fonts/tree/main/ofl/notosans | SIL Open Font License 1.1 (licence text: Assets/_Project/Resources/Fonts/OFL-NotoSans.txt). Downloaded 7 Nov 2026, unmodified; TMP SDF asset generated at runtime |
+| Mixamo animations (Idle, Walking, Running, Crouch, Jump; staging folder) | Adobe Mixamo | https://www.mixamo.com | Mixamo terms: free for personal and commercial use in projects, no redistribution of the raw files as a standalone library |
+| Character voices (41 dialogue lines) | Synthesized with macOS `say` (voices Aman, Rishi, Tara, Rocko, Reed, Grandpa) on 7 Nov 2026 | Assets/_Project/Resources/Voice/ | PLACEHOLDER synthetic speech for development only. Replace with real recorded voice-over (with performer consent and license) before any public release. |
 | Liberation Sans (existing TMP font dependency) | Ascender / Liberation contributors; see bundled license | Assets/TextMesh Pro/Fonts/LiberationSans - OFL.txt | Bundled SIL Open Font License; existing dependency, no font downloaded |
 
 Unity, URP and the built-in procedural sky shader are existing engine/package dependencies, not new third-party art imports. The lighting profiles are project configuration. The old generated investigator `.anim` clips are disabled, and their generator no longer creates substitute animation; they are not credited as motion capture.

@@ -11,7 +11,7 @@ namespace LegacyOfTemples.Characters
     {
         [Header("Character Identity")]
         [SerializeField] private string characterId = Constants.Priest;
-        [SerializeField] private string speakerName = "Priest Madhav";
+        [SerializeField] private string speakerName = "Pujari Ananda";
         [SerializeField] private float interactionRadius = 2.8f;
 
         [Header("Dialogue Content")]
@@ -30,6 +30,14 @@ namespace LegacyOfTemples.Characters
         public Transform Anchor => transform;
         public float Radius => interactionRadius;
         public bool IsDialogueActive => isDialogueActive;
+        public string CharacterId => characterId;
+        public string SpeakerName => speakerName;
+
+        /// <summary>Set by the Gameplay story director: returns true if it took over this conversation.
+        /// The director must call EndDialogue() when the conversation is finished.</summary>
+        public static System.Func<NPCDialogueTrigger, bool> StoryHandler;
+        /// <summary>Set by the story director: cancel the running conversation (player walked away).</summary>
+        public static System.Action<NPCDialogueTrigger> StoryCancel;
 
         public void Setup(string id, string name, string[] lines, float radius = 2.8f)
         {
@@ -61,6 +69,8 @@ namespace LegacyOfTemples.Characters
                     float dist = Vector3.Distance(transform.position, playerTransform.position);
                     if (dist > interactionRadius * 1.6f)
                     {
+                        // Story conversations are closed by the story director so UI and state stay in sync.
+                        if (StoryHandler != null && StoryCancel != null) { StoryCancel(this); return; }
                         EndDialogue();
                     }
                 }
@@ -101,9 +111,16 @@ namespace LegacyOfTemples.Characters
 
         public void StartDialogue()
         {
+            if (isDialogueActive) return;
+            if (StoryHandler != null)
+            {
+                isDialogueActive = true;
+                if (StoryHandler(this)) return;
+                isDialogueActive = false;
+            }
             if (dialogueLines == null || dialogueLines.Length == 0)
             {
-                dialogueLines = new string[] { $"Blessings, traveler. The sacred deities watch over our temple." };
+                dialogueLines = new string[] { $"{speakerName}: Namaste. Stay safe, and look after the temple." };
             }
 
             isDialogueActive = true;
@@ -161,7 +178,7 @@ namespace LegacyOfTemples.Characters
             }
         }
 
-        private void OnGUI()
+        private void LegacyOnGUI()
         {
             // Suppressed in favor of high-resolution TextMeshPro UIManager
         }

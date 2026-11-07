@@ -70,3 +70,24 @@ Built the standalone macOS application (`Builds/LegacyOfTheTemple.app`) with **0
 - `standalone-char-investigator.png`, `standalone-char-priest.png`, `standalone-char-meera.png`, `standalone-char-robber1.png`, `standalone-char-robber2.png` (Character close-ups)
 - `standalone-showcase.png` (Cinematic showcase mode with lower-third title)
 - `standalone-photomode.png` (Clean cinematic view with UI hidden)
+
+## 2026-11-07 — Phase 0 status audit (read-only check of the real game)
+**What I did:** I added a test robot (`Assets/_Project/Scripts/UI/AuditBot.cs`) that only switches on when the game is started with `-auditBot <folder>`. In normal play it does nothing. It opens the built game, presses keys like a player would, records which animation each character is playing, measures whether feet touch the ground, and measures every on-screen text (size, contrast, overlap). I also added a simple build button: **Tools > Legacy > QA > Build App (no scene changes)**.
+**One fix was required:** your uncommitted `WorldManager.cs` had a typo (`isValid` instead of `IsValid()`), so the project did not compile. I corrected that single line.
+**Result:** `Docs/STATUS_AUDIT.md` (summary), with evidence in `Docs/QA/audit-before/` (screenshots + `audit.md`). Main problems: the hero's walk and run make the body slide 3 m away from where the game thinks he is; jump does nothing; NPCs use home-made Blender clips; the start camera faces a dark curtain; pressing 1 for a dialogue choice also switches scene; the goal panel text overlaps; most menus still use old tiny-font IMGUI text.
+**How to see it yourself:** open `Docs/QA/audit-before/Courtyard-player-walk.png` and `Docs/STATUS_AUDIT.md`.
+
+## 2026-11-07 — One-pass fixes (ground, UI, guidance, voice, gameplay, graphics)
+**Root cause of the floating hero:** the temple tower is built from stacked 0.3 m blocks and the hero's step height was 0.3 m, so he could "walk up" the tower like stairs; the ground check then treated any ledge as floor and the old climb guard left him hanging on it. Fix: step height 0.2 m, ground snap only from feet+0.5 m and at most 1.5 m down, a 1 m "no climbing above this map's floor" limit, and a normal 0.7 m / 0.7 s hop that only works when standing on the ground.
+**UI:** smaller text (body 26, objectives 28, dialogue 30, hints 24, titles 56), fixed zones (goal top-left at 28% width, one-line key bar bottom-centre, small ? GUIDE bottom-right), and only one big panel at a time (goal panel, key bar and name labels hide while tutorial, dialogue, journal, map or guide is open). Name labels are small and fade with distance.
+**Guidance:** the yellow beam is gone; H / ? GUIDE now shows a small diamond above the target with the distance ("12 m"), or a small arrow at the screen edge.
+**Voice:** every scripted line has a synthesized voice clip (macOS `say`, different voice and speed per character) in `Assets/_Project/Resources/Voice`; music ducks while talking; Voice volume is in Settings and Pause. These are placeholders – replace with real voice actors before release.
+**Gameplay:** Storage Hall is dark – press G for the flashlight before you can inspect clues. Outer Shrine has a forensic kit (K) quiz with feedback and retry. Jungle Path has a follow-without-being-seen section (crouch with C when they look back).
+**Graphics:** a runtime look pass (`Scripts/World/LookTuner.cs`) adds ACES tonemapping, brighter exposure, bloom, vignette, sky fill light, a rim light on Aryan, fog, lighter sandstone, and trees/lamps/stalls/flags around the Courtyard.
+**How to see it:** play from New Game; screenshots are in `Docs/QA/onepass/`.
+
+## One-pass fixes, final rounds (2026-11-07)
+- Stealth (Jungle): the "you lost them" distance now starts from how far away the robbers are at the beginning, so the section no longer resets in a loop. Verified: stealth complete with 1 reset (Docs/QA/onepass3/player.log).
+- Jump: Space works again. It now uses the same "on the floor" check as walking; snapping to the floor was hiding Unity's own grounded flag.
+- UI: the Guide closes while someone is talking, the map closes when a conversation starts, and big centre panels hide the small side panels and the [E] prompt. Tall panels shrink to fit the screen.
+- Still open: the bot's ground test reports a 1.00 m peak and 0 landings. The jump screenshot shows a low hop, but the measurement or the climb guard still needs checking in the Editor.

@@ -57,7 +57,7 @@ CharacterController:
   m_Height: 1.7888775
   m_Radius: 0.30928466
   m_SlopeLimit: 45
-  m_StepOffset: 0.3
+  m_StepOffset: 0.2
   m_SkinWidth: 0.02
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0.9323551, z: 0}
@@ -73,16 +73,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60f4e9d1136442298108e81dffb52b20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: LOT.Characters::LegacyOfTemples.Characters.PlayerController
-  walkSpeed: 4.5
-  runSpeed: 7.5
-  crouchSpeed: 2.5
+  walkSpeed: 1.6
+  runSpeed: 4.2
+  crouchSpeed: 1.1
   rotationSpeed: 12
-  jumpHeight: 1.2
-  gravity: 18
+  jumpHeight: 0.7
+  gravity: 11.4
   interactionRadius: 2.8
   cameraTransform: {fileID: 0}
   animator: {fileID: 0}
-  useValidatedAnimation: 0
+  useValidatedAnimation: 1
 --- !u!114 &352010689712971543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -219,10 +219,6 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 8994da85e5b8e4364a8975d5011bdc2f, type: 2}
-    - target: {fileID: 5866666021909216657, guid: 2bf4f038559954ff99182152ecb2d1a4, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 2bf4f038559954ff99182152ecb2d1a4, type: 3}
       propertyPath: m_Controller
       value: 

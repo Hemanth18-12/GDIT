@@ -384,3 +384,6 @@
 - **Verification**: Standalone player build succeeded with code 0 (errors=0, warnings=0). Automated live QA run generated 15 high-resolution PNG screenshots. Inspected each screenshot to verify grounding, UI scaling, lighting, character framing, and cinematic letterboxing.
 
 
+
+## 2026-11-07 one-pass (FIX 1-6)
+The prompt was the one-pass brief: float/jump, UI zones, small guide marker, voices, gameplay variety, lighting. Result: built with 0 errors and 0 warnings; the story completes end to end in the build; evidence is in Docs/QA/onepass3.

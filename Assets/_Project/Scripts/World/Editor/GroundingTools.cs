@@ -27,7 +27,7 @@ namespace LegacyOfTemples.World.Editor
             var grounding = root.GetComponent<CharacterGrounding>();
             if (grounding == null) grounding = root.AddComponent<CharacterGrounding>();
             grounding.Calibrate();
-            root.GetComponentInChildren<Animator>().enabled = false;
+            root.GetComponentInChildren<Animator>().enabled = true;
             PrefabUtility.SaveAsPrefabAsset(root, path);
             PrefabUtility.UnloadPrefabContents(root);
             var scene = EditorSceneManager.OpenScene("Assets/_Project/Scenes/Environments/Courtyard.unity");

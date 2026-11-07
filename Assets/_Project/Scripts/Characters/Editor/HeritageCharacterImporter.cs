@@ -21,6 +21,24 @@ namespace LegacyOfTemples.Characters.Editor
         private const string ConfigBasePath = "Assets/_Project/Models/Characters";
         private const string AnimationBasePath = "Assets/_Project/Animations";
 
+        public static void CheckInvestigatorAvatar()
+        {
+            string fbxPath = $"{ModelsBasePath}/Investigator.fbx";
+            ModelImporter importer = AssetImporter.GetAtPath(fbxPath) as ModelImporter;
+            if (importer == null) return;
+
+            GameObject go = AssetDatabase.LoadAssetAtPath<GameObject>(fbxPath);
+            var asm = typeof(UnityEditor.ModelImporter).Assembly;
+            var t = asm.GetType("UnityEditor.AvatarSetupTool");
+            var isPoseValidM = t?.GetMethod("IsPoseValidOnInstance", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+            SerializedObject so = new SerializedObject(importer);
+            if (isPoseValidM != null && go != null)
+            {
+                bool valid = (bool)isPoseValidM.Invoke(null, new object[] { go, so });
+                Debug.Log($"[CheckInvestigatorAvatar] IsPoseValidOnInstance: {valid}");
+            }
+        }
+
         [MenuItem("Tools/Legacy/Import Heritage Characters")]
         [MenuItem("Tools/Legacy/Build Characters")]
         public static void ImportAllHeritageCharacters()
@@ -137,7 +155,66 @@ namespace LegacyOfTemples.Characters.Editor
             ConfigureModel($"{ModelsBasePath}/Robber1.fbx", ModelImporterAnimationType.Generic);
             ConfigureModel($"{ModelsBasePath}/Robber2.fbx", ModelImporterAnimationType.Generic);
 
+            // Hero Animation Clips (Mixamo Humanoid)
+            ConfigureHeroClip($"{AnimationBasePath}/Clips/Hero/Idle.fbx", true);
+            ConfigureHeroClip($"{AnimationBasePath}/Clips/Hero/Walking.fbx", true);
+            ConfigureHeroClip($"{AnimationBasePath}/Clips/Hero/Running.fbx", true);
+            ConfigureHeroClip($"{AnimationBasePath}/Clips/Hero/Jump.fbx", false);
+            ConfigureHeroClip($"{AnimationBasePath}/Clips/Hero/Crouch.fbx", true);
+
             AssetDatabase.Refresh();
+        }
+
+        private static void ConfigureHeroClip(string fbxPath, bool isLooping)
+        {
+            ModelImporter importer = AssetImporter.GetAtPath(fbxPath) as ModelImporter;
+            if (importer == null) return;
+
+            bool changed = false;
+            if (importer.animationType != ModelImporterAnimationType.Human)
+            {
+                importer.animationType = ModelImporterAnimationType.Human;
+                changed = true;
+            }
+            if (importer.avatarSetup != ModelImporterAvatarSetup.CreateFromThisModel)
+            {
+                importer.avatarSetup = ModelImporterAvatarSetup.CreateFromThisModel;
+                changed = true;
+            }
+            if (!importer.importAnimation)
+            {
+                importer.importAnimation = true;
+                changed = true;
+            }
+            if (importer.materialImportMode != ModelImporterMaterialImportMode.None)
+            {
+                importer.materialImportMode = ModelImporterMaterialImportMode.None;
+                changed = true;
+            }
+
+            var clips = importer.defaultClipAnimations;
+            if (clips == null || clips.Length == 0) clips = importer.clipAnimations;
+            if (clips != null && clips.Length > 0)
+            {
+                for (int i = 0; i < clips.Length; i++)
+                {
+                    clips[i].loopTime = isLooping;
+                    clips[i].lockRootRotation = true;
+                    clips[i].lockRootHeightY = true;
+                    clips[i].lockRootPositionXZ = true;
+                    clips[i].keepOriginalOrientation = true;
+                    clips[i].keepOriginalPositionY = true;
+                    clips[i].keepOriginalPositionXZ = true;
+                }
+                importer.clipAnimations = clips;
+                changed = true;
+            }
+
+            if (changed)
+            {
+                importer.SaveAndReimport();
+                Debug.Log($"[HeritageCharacterImporter] Configured Humanoid clip {Path.GetFileName(fbxPath)} (Loop={isLooping}).");
+            }
         }
 
         private static void ConfigureModel(string fbxPath, ModelImporterAnimationType animType)
@@ -346,7 +423,7 @@ namespace LegacyOfTemples.Characters.Editor
             if (jumpClip != null) jumpState.motion = jumpClip;
 
             var tLocoJump = locomotionState.AddTransition(jumpState);
-            tLocoJump.AddCondition(AnimatorConditionMode.IfNot, 0, "Grounded");
+            tLocoJump.AddCondition(AnimatorConditionMode.If, 0, "Jump");
             tLocoJump.hasExitTime = false;
             tLocoJump.duration = 0.1f;
 
@@ -390,12 +467,18 @@ namespace LegacyOfTemples.Characters.Editor
 
         private static AnimationClip LoadBestInvestigatorClip(string clipType)
         {
-            string clipsDir = $"{AnimationBasePath}/Clips/Real";
+            string[] searchDirs = new[]
+            {
+                $"{AnimationBasePath}/Clips/Hero",
+                $"{AnimationBasePath}/Clips/Real",
+                $"{AnimationBasePath}/Clips"
+            };
+
             string[] searchFiles = null;
             switch (clipType.ToLowerInvariant())
             {
                 case "idle":
-                    searchFiles = new[] { "Idle.fbx", "Breathing Idle.fbx" };
+                    searchFiles = new[] { "Idle.fbx", "X Bot@Idle.fbx", "Breathing Idle.fbx" };
                     break;
                 case "walk":
                     searchFiles = new[] { "Walking.fbx", "Walk.fbx" };
@@ -404,13 +487,13 @@ namespace LegacyOfTemples.Characters.Editor
                     searchFiles = new[] { "Running.fbx", "Run.fbx" };
                     break;
                 case "sprint":
-                    searchFiles = new[] { "Sprint.fbx", "Sprinting.fbx" };
+                    searchFiles = new[] { "Running.fbx", "Sprint.fbx", "Sprinting.fbx" };
                     break;
                 case "crouch":
-                    searchFiles = new[] { "Crouch_Idle.fbx", "Crouch.fbx" };
+                    searchFiles = new[] { "Crouch.fbx", "Crouch Idle.fbx", "Crouch_Idle.fbx" };
                     break;
                 case "jump":
-                    searchFiles = new[] { "Jump.fbx", "Jumping.fbx" };
+                    searchFiles = new[] { "Jump.fbx", "X Bot@Jumping Up.fbx", "Jumping.fbx", "Jumping Up.fbx" };
                     break;
                 case "interact":
                     searchFiles = new[] { "Interact.fbx" };
@@ -419,20 +502,24 @@ namespace LegacyOfTemples.Characters.Editor
 
             if (searchFiles != null)
             {
-                foreach (var fileName in searchFiles)
+                foreach (var dir in searchDirs)
                 {
-                    string p = $"{clipsDir}/{fileName}";
-                    if (File.Exists(p))
+                    if (!Directory.Exists(dir)) continue;
+                    foreach (var fileName in searchFiles)
                     {
-                        if (p.EndsWith(".anim"))
+                        string p = $"{dir}/{fileName}";
+                        if (File.Exists(p))
                         {
-                            AnimationClip c = AssetDatabase.LoadAssetAtPath<AnimationClip>(p);
-                            if (c != null) return c;
-                        }
-                        else
-                        {
-                            AnimationClip c = ExtractOrLoadClip(p, "");
-                            if (c != null) return c;
+                            if (p.EndsWith(".anim"))
+                            {
+                                AnimationClip c = AssetDatabase.LoadAssetAtPath<AnimationClip>(p);
+                                if (c != null) return c;
+                            }
+                            else
+                            {
+                                AnimationClip c = ExtractOrLoadClip(p, "");
+                                if (c != null) return c;
+                            }
                         }
                     }
                 }
@@ -746,7 +833,7 @@ namespace LegacyOfTemples.Characters.Editor
             if (avatar != null) anim.avatar = avatar;
 
             anim.applyRootMotion = false;
-            anim.enabled = false; // Confirmed hero and real locomotion clips are pending.
+            anim.enabled = true; // Real Mixamo locomotion clips configured.
             root.AddComponent<CharacterGrounding>().Calibrate();
 
             // Camera Target

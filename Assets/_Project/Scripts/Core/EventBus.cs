@@ -10,6 +10,13 @@ namespace LegacyOfTemples.Core
         public static event Action<string> OnPuzzleSolved;
         public static event Action<string> OnDialogueStart;
         public static event Action<string> OnDialogueEnd;
+        public static event Action<string> OnDialogueLine;
+        /// <summary>Frame on which an overlay consumed the Escape key (so Pause does not also open).</summary>
+        public static int EscapeConsumedFrame = -1;
+        /// <summary>Asks the dialogue UI to close without running completion callbacks.</summary>
+        public static event Action OnRequestDialogueEnd;
+        public static void RaiseRequestDialogueEnd() { OnRequestDialogueEnd?.Invoke(); }
+        public static void RaiseDialogueLine(string speakerName) { OnDialogueLine?.Invoke(speakerName); }
         public static event Action<string> OnIdolRecovered;
         public static event Action<GameState> OnGameState;
         public static event Action<string, string[], string[], Action<int>, Action> OnRequestDialogue;

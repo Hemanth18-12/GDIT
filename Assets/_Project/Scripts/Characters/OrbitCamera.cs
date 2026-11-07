@@ -44,11 +44,16 @@ namespace LegacyOfTemples.Characters
         private Vector3 cutscenePos;
         private Quaternion cutsceneRot;
 
-        public void SetCutsceneOverride(Vector3 pos, Quaternion rot)
+        public void SetCutsceneOverride(Vector3 pos, Quaternion rot, bool snapImmediate = true)
         {
             isCutsceneOverride = true;
             cutscenePos = pos;
             cutsceneRot = rot;
+            if (snapImmediate)
+            {
+                transform.position = pos;
+                transform.rotation = rot;
+            }
         }
 
         public void ClearCutsceneOverride()
@@ -204,10 +209,18 @@ namespace LegacyOfTemples.Characters
             if (collisionAvoidance)
             {
                 Vector3 rayDir = rotation * -Vector3.forward;
-                if (Physics.SphereCast(targetPivot, collisionRadius, rayDir, out RaycastHit hit, desiredDistance, collisionLayers, QueryTriggerInteraction.Ignore))
+                RaycastHit[] hits = Physics.SphereCastAll(targetPivot, collisionRadius, rayDir, desiredDistance, collisionLayers, QueryTriggerInteraction.Ignore);
+                float closestDist = desiredDistance;
+                for (int i = 0; i < hits.Length; i++)
                 {
-                    targetDist = Mathf.Clamp(hit.distance - 0.1f, minDistance, desiredDistance);
+                    var h = hits[i];
+                    if (target != null && (h.collider.transform.IsChildOf(target) || target.IsChildOf(h.collider.transform))) continue;
+                    if (h.distance < closestDist)
+                    {
+                        closestDist = h.distance;
+                    }
                 }
+                targetDist = Mathf.Clamp(closestDist - 0.1f, minDistance, desiredDistance);
             }
 
             currentDistance = Mathf.SmoothDamp(currentDistance, targetDist, ref currentVelocity.z, smoothTime);

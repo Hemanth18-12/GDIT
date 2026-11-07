@@ -86,12 +86,24 @@ namespace LegacyOfTemples.World
             isTransitioning = true;
 
             // Fade to black
-            yield return StartCoroutine(FadeRoutine(0f, 1f, 0.35f));
+            yield return StartCoroutine(FadeRoutine(0f, 1f, 0.25f));
 
-            // Managers in these authored scenes are children of the scene system
-            // root. Unloading that scene halfway through an additive coroutine used
-            // to destroy the coroutine before the destination could load.
+            // Load destination scene
             yield return SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
+
+            // Re-bind runtime scene references
+            Scene loadedScene = SceneManager.GetSceneByName(sceneName);
+            if (loadedScene.IsValid())
+            {
+                currentSceneName = sceneName;
+                SceneManager.SetActiveScene(loadedScene);
+                CacheSceneSpawns(loadedScene);
+                EventBus.RaiseSceneChanged(currentSceneName);
+            }
+
+            // Fade back in to reveal game
+            yield return StartCoroutine(FadeRoutine(1f, 0f, 0.35f));
+            isTransitioning = false;
         }
 
 
@@ -138,6 +150,12 @@ namespace LegacyOfTemples.World
             {
                 spawnName = "player_start";
             }
+
+            // Re-cache if the cache is from another (unloaded) scene, e.g. after a direct SceneManager.LoadScene.
+            Scene active = SceneManager.GetActiveScene();
+            bool stale = activeSpawns.Count == 0;
+            foreach (var t in activeSpawns.Values) { if (t == null || t.gameObject.scene != active) { stale = true; break; } }
+            if (stale) CacheSceneSpawns(active);
 
             if (activeSpawns.TryGetValue(spawnName, out Transform found))
             {

@@ -34,7 +34,7 @@ namespace LegacyOfTemples.Characters
             controller.height = bounds.size.y;
             controller.radius = Mathf.Clamp(bounds.size.x * 0.35f, 0.2f, bounds.size.y * 0.2f);
             controller.center = new Vector3(0f, bounds.center.y + controller.skinWidth + footClearance, 0f);
-            controller.stepOffset = Mathf.Min(0.3f, controller.height * 0.2f);
+            controller.stepOffset = Mathf.Min(0.2f, controller.height * 0.12f);
             calibrated = true;
         }
 
@@ -59,8 +59,8 @@ namespace LegacyOfTemples.Characters
         public bool SnapToGround(bool spawning = false)
         {
             if (!calibrated || !controller.enabled) return false;
-            HasSupport = TryFindGround(spawning ? 1.5f : 0.1f,
-                spawning ? 3f : snapDistance, out var support);
+            HasSupport = TryFindGround(spawning ? 0.5f : 0.1f,
+                spawning ? 1.5f : snapDistance, out var support);
             if (!HasSupport) return false;
             float delta = support.point.y + footClearance - FeetY;
             if (spawning)

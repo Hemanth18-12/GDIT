@@ -20,7 +20,7 @@ namespace LegacyOfTemples.Gameplay
         public string Id => $"portal_to_{targetSceneName}";
         public string Prompt => $"Enter {portalLabel}";
         public Transform Anchor => transform;
-        public float Radius => interactionRadius;
+        public float Radius => Mathf.Max(interactionRadius, 4f);
 
         private void Awake()
         {

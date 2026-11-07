@@ -1,505 +1,216 @@
 using System;
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using LegacyOfTemples.Core;
+using LegacyOfTemples.Gameplay;
 
 namespace LegacyOfTemples.UI
 {
+    /// <summary>
+    /// Main menu built with TextMeshPro + uGUI buttons (mouse, keyboard arrows/Enter, gamepad).
+    /// Screens: Main, Settings (text size, high contrast, volumes, subtitles, quality), Controls, Credits.
+    /// </summary>
     public class MainMenuController : MonoBehaviour
     {
-        private enum MenuState
-        {
-            Main,
-            LevelSelect,
-            Settings,
-            Controls,
-            Help,
-            Credits
-        }
+        private enum Screen { Main, Settings, Controls, Credits }
 
-        private MenuState currentState = MenuState.Main;
+        private Canvas canvas;
+        private RectTransform column;
+        private TextMeshProUGUI infoText;
+        private RectTransform infoPanel;
+        private readonly List<GameObject> built = new List<GameObject>();
+        private Screen current = Screen.Main;
 
-        // Settings variables
-        private float masterVolume = 1.0f;
-        private float musicVolume = 0.8f;
-        private float sfxVolume = 0.9f;
-        private float mouseSensitivity = 1.0f;
-        private bool subtitlesEnabled = true;
-        private int qualityLevel = 2; // Medium
-
-        // GUI Styles
-        private GUIStyle titleStyle;
-        private GUIStyle subtitleStyle;
-        private GUIStyle buttonStyle;
-        private GUIStyle buttonDisabledStyle;
-        private GUIStyle panelStyle;
-        private GUIStyle labelStyle;
-        private GUIStyle headerStyle;
-        private Texture2D panelTex;
-        private Texture2D btnTex;
-        private Texture2D btnHoverTex;
-        private bool stylesInitialized = false;
+        private static readonly string[] TextSizes = { "Small", "Medium", "Large", "Extra Large" };
 
         private void Start()
         {
             GroundingEvidenceCapture.Bootstrap();
-            // Load saved settings
-            masterVolume = PlayerPrefs.GetFloat("Settings_MasterVol", 1.0f);
-            musicVolume = PlayerPrefs.GetFloat("Settings_MusicVol", 0.8f);
-            sfxVolume = PlayerPrefs.GetFloat("Settings_SfxVol", 0.9f);
-            mouseSensitivity = PlayerPrefs.GetFloat("Settings_MouseSens", 1.0f);
-            subtitlesEnabled = PlayerPrefs.GetInt("Settings_Subtitles", 1) == 1;
-            qualityLevel = QualitySettings.GetQualityLevel();
+            if (!PlayerPrefs.HasKey("LevelUnlocked_1")) { PlayerPrefs.SetInt("LevelUnlocked_1", 1); PlayerPrefs.Save(); }
+            Cursor.lockState = CursorLockMode.None; Cursor.visible = true;
+            BuildCanvas();
+            Show(Screen.Main);
+        }
 
-            // Unlock Level 1 by default
-            if (!PlayerPrefs.HasKey("LevelUnlocked_1"))
+        private void BuildCanvas()
+        {
+            var go = new GameObject("MainMenuCanvas");
+            canvas = go.AddComponent<Canvas>();
+            canvas.renderMode = RenderMode.ScreenSpaceOverlay; canvas.sortingOrder = 120;
+            var scaler = go.AddComponent<CanvasScaler>();
+            scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+            scaler.referenceResolution = new Vector2(1920, 1080); scaler.matchWidthOrHeight = 0.5f;
+            go.AddComponent<GraphicRaycaster>();
+            if (FindAnyObjectByType<EventSystem>() == null)
             {
-                PlayerPrefs.SetInt("LevelUnlocked_1", 1);
-                PlayerPrefs.Save();
+                var es = new GameObject("EventSystem");
+                es.AddComponent<EventSystem>();
+                es.AddComponent<UnityEngine.InputSystem.UI.InputSystemUIInputModule>();
             }
+
+            // Left column panel
+            ScreenTextRenderer.MakePanel(go.transform, "MenuPanel", out column);
+            column.anchorMin = new Vector2(0, 0.5f); column.anchorMax = new Vector2(0, 0.5f); column.pivot = new Vector2(0, 0.5f);
+            column.anchoredPosition = new Vector2(80, 0); column.sizeDelta = new Vector2(640, 0);
+            var vlg = column.gameObject.AddComponent<VerticalLayoutGroup>();
+            vlg.padding = new RectOffset(40, 40, 28, 28); vlg.spacing = 10;
+            vlg.childControlHeight = true; vlg.childControlWidth = true; vlg.childForceExpandHeight = false;
+            column.gameObject.AddComponent<ContentSizeFitter>().verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+
+            // Right info panel (controls / credits)
+            ScreenTextRenderer.MakePanel(go.transform, "InfoPanel", out infoPanel);
+            infoPanel.anchorMin = infoPanel.anchorMax = new Vector2(1, 0.5f); infoPanel.pivot = new Vector2(1, 0.5f);
+            infoPanel.anchoredPosition = new Vector2(-80, 0); infoPanel.sizeDelta = new Vector2(1020, 0);
+            var ivlg = infoPanel.gameObject.AddComponent<VerticalLayoutGroup>();
+            ivlg.padding = new RectOffset(40, 40, 36, 36); ivlg.childControlHeight = true; ivlg.childControlWidth = true; ivlg.childForceExpandHeight = false;
+            infoPanel.gameObject.AddComponent<ContentSizeFitter>().verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+            infoText = ScreenTextRenderer.MakeText(infoPanel, "InfoBody", 30, ScreenTextRenderer.Ivory, false);
         }
 
-        private void InitStyles()
+        private void Clear()
         {
-            if (stylesInitialized) return;
-
-            panelTex = new Texture2D(2, 2);
-            Color[] panelColors = new Color[4];
-            for (int i = 0; i < 4; i++) panelColors[i] = new Color(0.08f, 0.07f, 0.06f, 0.92f);
-            panelTex.SetPixels(panelColors);
-            panelTex.Apply();
-
-            btnTex = new Texture2D(2, 2);
-            Color[] btnColors = new Color[4];
-            for (int i = 0; i < 4; i++) btnColors[i] = new Color(0.22f, 0.18f, 0.14f, 0.95f);
-            btnTex.SetPixels(btnColors);
-            btnTex.Apply();
-
-            btnHoverTex = new Texture2D(2, 2);
-            Color[] hoverColors = new Color[4];
-            for (int i = 0; i < 4; i++) hoverColors[i] = new Color(0.45f, 0.35f, 0.20f, 0.98f);
-            btnHoverTex.SetPixels(hoverColors);
-            btnHoverTex.Apply();
-
-            float scale = Mathf.Max(1.0f, Screen.height / 1080f);
-
-            panelStyle = new GUIStyle(GUI.skin.box);
-            panelStyle.normal.background = panelTex;
-
-            titleStyle = new GUIStyle(GUI.skin.label)
-            {
-                fontSize = Mathf.RoundToInt(56 * scale),
-                fontStyle = FontStyle.Bold,
-                alignment = TextAnchor.MiddleCenter
-            };
-            titleStyle.normal.textColor = new Color(1.0f, 0.84f, 0.38f); // Antique Gold
-
-            subtitleStyle = new GUIStyle(GUI.skin.label)
-            {
-                fontSize = Mathf.RoundToInt(28 * scale),
-                fontStyle = FontStyle.Italic,
-                alignment = TextAnchor.MiddleCenter
-            };
-            subtitleStyle.normal.textColor = new Color(0.85f, 0.78f, 0.68f);
-
-            headerStyle = new GUIStyle(GUI.skin.label)
-            {
-                fontSize = Mathf.RoundToInt(38 * scale),
-                fontStyle = FontStyle.Bold,
-                alignment = TextAnchor.MiddleCenter
-            };
-            headerStyle.normal.textColor = new Color(1.0f, 0.84f, 0.38f);
-
-            buttonStyle = new GUIStyle(GUI.skin.button)
-            {
-                fontSize = Mathf.RoundToInt(30 * scale),
-                fontStyle = FontStyle.Bold,
-                alignment = TextAnchor.MiddleCenter
-            };
-            buttonStyle.normal.background = btnTex;
-            buttonStyle.hover.background = btnHoverTex;
-            buttonStyle.normal.textColor = new Color(0.95f, 0.90f, 0.80f);
-            buttonStyle.hover.textColor = new Color(1.0f, 0.92f, 0.50f);
-
-            buttonDisabledStyle = new GUIStyle(buttonStyle);
-            buttonDisabledStyle.normal.textColor = new Color(0.45f, 0.42f, 0.38f);
-
-            labelStyle = new GUIStyle(GUI.skin.label)
-            {
-                fontSize = Mathf.RoundToInt(28 * scale),
-                alignment = TextAnchor.MiddleLeft
-            };
-            labelStyle.normal.textColor = new Color(0.90f, 0.85f, 0.75f);
-
-            stylesInitialized = true;
+            foreach (var g in built) Destroy(g);
+            built.Clear();
         }
 
-        private void OnGUI()
+        private TextMeshProUGUI AddText(string name, string text, float size, Color c, bool title, TextAlignmentOptions align = TextAlignmentOptions.TopLeft)
         {
-            InitStyles();
+            var t = ScreenTextRenderer.MakeText(column, name, size * ScreenTextRenderer.Scale, c, title, align);
+            t.text = text; built.Add(t.gameObject);
+            return t;
+        }
 
-            switch (currentState)
+        private Button AddButton(string label, Action onClick, bool interactable = true)
+        {
+            var go = new GameObject("Btn_" + label, typeof(RectTransform));
+            go.transform.SetParent(column, false);
+            var img = go.AddComponent<Image>(); img.color = new Color(0.12f, 0.09f, 0.05f, 1f);
+            var le = go.AddComponent<LayoutElement>(); le.minHeight = 64 * ScreenTextRenderer.Scale;
+            var b = go.AddComponent<Button>();
+            var cb = b.colors; cb.normalColor = Color.white; cb.highlightedColor = new Color(1f, 0.85f, 0.5f); cb.selectedColor = new Color(1f, 0.85f, 0.5f); cb.pressedColor = new Color(1f, 0.7f, 0.3f); cb.disabledColor = new Color(0.5f, 0.5f, 0.5f);
+            b.colors = cb; b.interactable = interactable;
+            ScreenTextRenderer.AddBorder((RectTransform)go.transform, new Color(1f, 0.78f, 0.34f, 0.8f), 2f);
+            var t = ScreenTextRenderer.MakeText(go.transform, "BtnKeyHint", 34 * ScreenTextRenderer.Scale, interactable ? ScreenTextRenderer.Ivory : new Color(0.85f, 0.82f, 0.75f), false, TextAlignmentOptions.Center);
+            var rt = t.rectTransform; rt.anchorMin = Vector2.zero; rt.anchorMax = Vector2.one; rt.offsetMin = new Vector2(12, 4); rt.offsetMax = new Vector2(-12, -4);
+            t.text = label;
+            b.onClick.AddListener(() => { AudioManager.Instance?.PlaySFX("sfx_ui_select"); onClick(); });
+            built.Add(go);
+            return b;
+        }
+
+        private void Show(Screen s)
+        {
+            current = s;
+            Clear();
+            infoPanel.gameObject.SetActive(false);
+            Button first = null;
+            switch (s)
             {
-                case MenuState.Main:
-                    DrawMainMenu();
+                case Screen.Main:
+                    AddText("MenuTitle", "LEGACY OF THE TEMPLE", 64, ScreenTextRenderer.Gold, true, TextAlignmentOptions.Center);
+                    AddText("MenuSubtitle", "A heritage mystery", 32, ScreenTextRenderer.Ivory, false, TextAlignmentOptions.Center);
+                    bool hasSave = PlayerPrefs.HasKey("LastPlayedScene") && PlayerPrefs.GetInt("Story_Objective", 0) > 0;
+                    first = hasSave ? AddButton("CONTINUE", Continue) : null;
+                    var ng = AddButton("NEW GAME", NewGame);
+                    if (first == null) first = ng;
+                    AddButton("SHOWCASE TOUR", () => { PlayerPrefs.SetInt("ShowcaseTourActive", 1); PlayerPrefs.Save(); SceneManager.LoadScene(Constants.Courtyard); });
+                    AddButton("SETTINGS", () => Show(Screen.Settings));
+                    AddButton("CONTROLS", () => Show(Screen.Controls));
+                    AddButton("CREDITS", () => Show(Screen.Credits));
+                    AddButton("QUIT", Application.Quit);
                     break;
-                case MenuState.LevelSelect:
-                    DrawLevelSelect();
+                case Screen.Settings:
+                    AddText("MenuTitle", "SETTINGS", 64, ScreenTextRenderer.Gold, true, TextAlignmentOptions.Center);
+                    int ts = PlayerPrefs.GetInt("Settings_TextScaleIndex", 1);
+                    first = AddButton("Text size: " + TextSizes[Mathf.Clamp(ts, 0, 3)], () => { PlayerPrefs.SetInt("Settings_TextScaleIndex", (ts + 1) % 4); PlayerPrefs.Save(); Show(Screen.Settings); });
+                    bool hc = ScreenTextRenderer.HighContrast;
+                    AddButton("High contrast: " + (hc ? "ON" : "OFF"), () => { PlayerPrefs.SetInt("Settings_HighContrast", hc ? 0 : 1); PlayerPrefs.Save(); Show(Screen.Settings); });
+                    AddVolume("Master volume", "Settings_MasterVol", 1f, v => AudioManager.Instance?.SetMasterVolume(v));
+                    AddVolume("Music volume", "Settings_MusicVol", 0.8f, v => AudioManager.Instance?.SetMusicVolume(v));
+                    AddVolume("Effects volume", "Settings_SfxVol", 0.9f, v => AudioManager.Instance?.SetSFXVolume(v));
+                    AddVolume("Voice volume", "Settings_VoiceVol", 1f, v => { });
+                    bool sub = PlayerPrefs.GetInt("Settings_Subtitles", 1) == 1;
+                    AddButton("Subtitles: " + (sub ? "ON" : "OFF"), () => { PlayerPrefs.SetInt("Settings_Subtitles", sub ? 0 : 1); PlayerPrefs.Save(); Show(Screen.Settings); });
+                    int q = QualitySettings.GetQualityLevel();
+                    AddButton("Graphics: " + QualitySettings.names[q], () => { QualitySettings.SetQualityLevel((q + 1) % QualitySettings.names.Length, true); Show(Screen.Settings); });
+                    AddButton("BACK", () => Show(Screen.Main));
                     break;
-                case MenuState.Settings:
-                    DrawSettings();
+                case Screen.Controls:
+                    AddText("MenuTitle", "CONTROLS", 64, ScreenTextRenderer.Gold, true, TextAlignmentOptions.Center);
+                    first = AddButton("BACK", () => Show(Screen.Main));
+                    infoPanel.gameObject.SetActive(true);
+                    infoText.fontSize = 32 * ScreenTextRenderer.Scale;
+                    infoText.text =
+                        $"{K("W A S D")} Walk      {K("Shift")} Run      {K("C")} Crouch      {K("Space")} Jump\n" +
+                        $"{K("Mouse")} Look around\n" +
+                        $"{K("E")} Talk / use      {K("F")} Inspect a clue\n" +
+                        $"{K("1")} {K("2")} {K("3")} Choose an answer in conversations\n" +
+                        $"{K("H")} or {K("Tab")} or the {K("? GUIDE")} button: current goal, hints, Show me the way\n" +
+                        $"{K("J")} Case journal      {K("M")} Map      {K("P")} Photo mode      {K("Esc")} Pause\n\n" +
+                        $"<color={ScreenText.Gold}>Gamepad</color>\nLeft stick walk, A talk/confirm, X inspect, B crouch/back,\nD-pad left Guide, D-pad down Map, View button Journal, Start Pause";
                     break;
-                case MenuState.Controls:
-                    DrawControls();
+                case Screen.Credits:
+                    AddText("MenuTitle", "CREDITS", 64, ScreenTextRenderer.Gold, true, TextAlignmentOptions.Center);
+                    first = AddButton("BACK", () => Show(Screen.Main));
+                    infoPanel.gameObject.SetActive(true);
+                    infoText.fontSize = 30 * ScreenTextRenderer.Scale;
+                    infoText.text =
+                        "<b>Legacy of the Temple</b>\nDirection, environments and characters: Hemanth\n" +
+                        "Characters: Investigator Aryan, Pujari Ananda, Meera, Bhaskar and Kishore\n" +
+                        "Animation: Mixamo (Adobe)    Fonts: Cinzel and Noto Sans (SIL Open Font License)\n" +
+                        "Audio and other assets: see ATTRIBUTION.md\n\n" +
+                        $"<color={ScreenText.Gold}>A note on the story</color>\nThe story and the three missing pieces (a brass ceremonial vessel, a carved sandstone rosette and a palm-leaf manuscript) are fictional. " +
+                        "The temple shrine in the background is shown with respect and is never touched or taken in the game.";
                     break;
-                case MenuState.Help:
-                    DrawHelp();
-                    break;
-                case MenuState.Credits:
-                    DrawCredits();
-                    break;
+            }
+            if (first != null) EventSystem.current?.SetSelectedGameObject(first.gameObject);
+        }
+
+        private void AddVolume(string label, string key, float def, Action<float> apply)
+        {
+            float v = PlayerPrefs.GetFloat(key, def);
+            AddButton($"{label}: {Mathf.RoundToInt(v * 100)}%  (click to change)", () =>
+            {
+                float nv = v >= 0.99f ? 0f : Mathf.Min(1f, v + 0.25f);
+                PlayerPrefs.SetFloat(key, nv); PlayerPrefs.Save(); apply(nv); Show(Screen.Settings);
+            });
+        }
+
+        private static string K(string k) => ScreenText.Key(k);
+
+        private void Update()
+        {
+            var kb = Keyboard.current; var gp = Gamepad.current;
+            bool back = (kb != null && kb.escapeKey.wasPressedThisFrame) || (gp != null && gp.buttonEast.wasPressedThisFrame);
+            if (back && current != Screen.Main) Show(Screen.Main);
+            if (EventSystem.current != null && EventSystem.current.currentSelectedGameObject == null && built.Count > 0)
+            {
+                bool nav = (kb != null && (kb.downArrowKey.wasPressedThisFrame || kb.upArrowKey.wasPressedThisFrame || kb.tabKey.wasPressedThisFrame)) || (gp != null && gp.leftStick.ReadValue().sqrMagnitude > 0.3f);
+                if (nav) foreach (var g in built) if (g.GetComponent<Button>() != null) { EventSystem.current.SetSelectedGameObject(g); break; }
             }
         }
 
-        private void DrawMainMenu()
+        private static void NewGame()
         {
-            float scale = Mathf.Max(1.0f, Screen.height / 1080f);
-            float width = 520f * scale;
-            float height = 780f * scale;
-            float x = 60f * scale;
-            float y = (Screen.height - height) * 0.5f;
-
-            GUI.Box(new Rect(x, y, width, height), GUIContent.none, panelStyle);
-
-            GUILayout.BeginArea(new Rect(x + 25f * scale, y + 25f * scale, width - 50f * scale, height - 50f * scale));
-
-            GUILayout.Label("LEGACY OF THE TEMPLE", titleStyle);
-            GUILayout.Label("A Cinematic Heritage Mystery", subtitleStyle);
-            GUILayout.Space(18f * scale);
-
-            if (GUILayout.Button("NEW GAME", buttonStyle, GUILayout.Height(50f * scale)))
-            {
-                PlayerPrefs.SetInt("OpeningCinematicActive", 1);
-                PlayerPrefs.SetInt("ShowcaseTourActive", 0);
-                PlayerPrefs.Save();
-                SceneManager.LoadScene(Constants.Courtyard);
-            }
-
-            GUILayout.Space(8f * scale);
-
-            if (GUILayout.Button("SHOWCASE TOUR", buttonStyle, GUILayout.Height(50f * scale)))
-            {
-                PlayerPrefs.SetInt("ShowcaseTourActive", 1);
-                PlayerPrefs.Save();
-                SceneManager.LoadScene(Constants.Courtyard);
-            }
-
-            GUILayout.Space(8f * scale);
-
-            bool hasSavedGame = PlayerPrefs.HasKey("LastPlayedScene");
-            GUI.enabled = hasSavedGame;
-            if (GUILayout.Button("CONTINUE", hasSavedGame ? buttonStyle : buttonDisabledStyle, GUILayout.Height(50f * scale)))
-            {
-                string lastScene = PlayerPrefs.GetString("LastPlayedScene", Constants.Courtyard);
-                SceneManager.LoadScene(lastScene);
-            }
-            GUI.enabled = true;
-
-            GUILayout.Space(8f * scale);
-
-            if (GUILayout.Button("LEVEL SELECTION", buttonStyle, GUILayout.Height(50f * scale)))
-            {
-                currentState = MenuState.LevelSelect;
-            }
-
-            GUILayout.Space(8f * scale);
-
-            if (GUILayout.Button("SETTINGS", buttonStyle, GUILayout.Height(50f * scale)))
-            {
-                currentState = MenuState.Settings;
-            }
-
-            GUILayout.Space(8f * scale);
-
-            if (GUILayout.Button("CONTROLS", buttonStyle, GUILayout.Height(50f * scale)))
-            {
-                currentState = MenuState.Controls;
-            }
-
-            GUILayout.Space(8f * scale);
-
-            if (GUILayout.Button("HELP", buttonStyle, GUILayout.Height(50f * scale)))
-            {
-                currentState = MenuState.Help;
-            }
-
-            GUILayout.Space(8f * scale);
-
-            if (GUILayout.Button("CREDITS", buttonStyle, GUILayout.Height(50f * scale)))
-            {
-                currentState = MenuState.Credits;
-            }
-
-            GUILayout.Space(8f * scale);
-
-            if (GUILayout.Button("EXIT GAME", buttonStyle, GUILayout.Height(38f * scale)))
-            {
-                Application.Quit();
-#if UNITY_EDITOR
-                UnityEditor.EditorApplication.isPlaying = false;
-#endif
-            }
-
-            GUILayout.EndArea();
+            StoryDialogueSystem.ResetForNewGame();
+            PlayerPrefs.SetInt("OpeningCinematicActive", 1);
+            PlayerPrefs.SetInt("ShowcaseTourActive", 0);
+            PlayerPrefs.SetInt("Force_Tutorial_On_Start", 1);
+            PlayerPrefs.Save();
+            SceneManager.LoadScene(Constants.Courtyard);
         }
 
-        private void DrawLevelSelect()
+        private static void Continue()
         {
-            float width = 520f;
-            float height = 440f;
-            float x = (Screen.width - width) * 0.5f;
-            float y = (Screen.height - height) * 0.5f;
-
-            GUI.Box(new Rect(x, y, width, height), GUIContent.none, panelStyle);
-            GUILayout.BeginArea(new Rect(x + 25f, y + 20f, width - 50f, height - 40f));
-
-            GUILayout.Label("LEVEL SELECTION", headerStyle);
-            GUILayout.Space(15f);
-
-            // Level 1
-            bool lvl1Unlocked = PlayerPrefs.GetInt("LevelUnlocked_1", 1) == 1;
-            DrawLevelCard("LEVEL 1: THE MISSING HERITAGE", "Arrival at the dawn-lit temple courtyard & sanctum investigation.", lvl1Unlocked, Constants.Courtyard);
-
-            GUILayout.Space(12f);
-
-            // Level 2
-            bool lvl2Unlocked = PlayerPrefs.GetInt("LevelUnlocked_2", 0) == 1;
-            DrawLevelCard("LEVEL 2: THE TRAIL OF THE ROBBERS", "Outer shrine crime scene, muddy tracks & the ancient puzzle wall.", lvl2Unlocked, Constants.ShrineCrime);
-
-            GUILayout.Space(12f);
-
-            // Level 3
-            bool lvl3Unlocked = PlayerPrefs.GetInt("LevelUnlocked_3", 0) == 1;
-            DrawLevelCard("LEVEL 3: THE FINAL TRUTH", "Misty forest ravine ruins, confronting the thieves & relic recovery.", lvl3Unlocked, Constants.JunglePath);
-
-            GUILayout.FlexibleSpace();
-
-            if (GUILayout.Button("BACK TO MAIN MENU", buttonStyle, GUILayout.Height(36f)))
-            {
-                currentState = MenuState.Main;
-            }
-
-            GUILayout.EndArea();
-        }
-
-        private void DrawLevelCard(string title, string desc, bool isUnlocked, string sceneName)
-        {
-            GUILayout.BeginVertical(GUI.skin.box);
-            GUILayout.BeginHorizontal();
-            GUILayout.Label(title, isUnlocked ? headerStyle : subtitleStyle);
-            GUILayout.FlexibleSpace();
-            if (isUnlocked)
-            {
-                if (GUILayout.Button("PLAY", buttonStyle, GUILayout.Width(80f), GUILayout.Height(28f)))
-                {
-                    SceneManager.LoadScene(sceneName);
-                }
-            }
-            else
-            {
-                GUILayout.Label("🔒 LOCKED", subtitleStyle);
-            }
-            GUILayout.EndHorizontal();
-            GUILayout.Label(desc, labelStyle);
-            GUILayout.EndVertical();
-        }
-
-        private void DrawSettings()
-        {
-            float width = 480f;
-            float height = 480f;
-            float x = (Screen.width - width) * 0.5f;
-            float y = (Screen.height - height) * 0.5f;
-
-            GUI.Box(new Rect(x, y, width, height), GUIContent.none, panelStyle);
-            GUILayout.BeginArea(new Rect(x + 30f, y + 20f, width - 60f, height - 40f));
-
-            GUILayout.Label("SETTINGS", headerStyle);
-            GUILayout.Space(15f);
-
-            // Master Volume
-            GUILayout.Label($"Master Volume: {(int)(masterVolume * 100)}%", labelStyle);
-            masterVolume = GUILayout.HorizontalSlider(masterVolume, 0f, 1f);
-            AudioListener.volume = masterVolume;
-
-            GUILayout.Space(10f);
-
-            // Music Volume
-            GUILayout.Label($"Music Volume: {(int)(musicVolume * 100)}%", labelStyle);
-            musicVolume = GUILayout.HorizontalSlider(musicVolume, 0f, 1f);
-
-            GUILayout.Space(10f);
-
-            // SFX Volume
-            GUILayout.Label($"SFX Volume: {(int)(sfxVolume * 100)}%", labelStyle);
-            sfxVolume = GUILayout.HorizontalSlider(sfxVolume, 0f, 1f);
-
-            GUILayout.Space(10f);
-
-            // Mouse Look Sensitivity
-            GUILayout.Label($"Mouse Look Sensitivity: {mouseSensitivity:F1}x", labelStyle);
-            mouseSensitivity = GUILayout.HorizontalSlider(mouseSensitivity, 0.2f, 3.0f);
-
-            GUILayout.Space(10f);
-
-            // Subtitles Toggle
-            subtitlesEnabled = GUILayout.Toggle(subtitlesEnabled, " Enable Dialogue Subtitles", labelStyle);
-
-            GUILayout.Space(10f);
-
-            // Graphics Quality
-            GUILayout.Label($"Graphics Quality: {QualitySettings.names[QualitySettings.GetQualityLevel()]}", labelStyle);
-            GUILayout.BeginHorizontal();
-            if (GUILayout.Button("Low", buttonStyle)) QualitySettings.SetQualityLevel(0);
-            if (GUILayout.Button("Medium", buttonStyle)) QualitySettings.SetQualityLevel(1);
-            if (GUILayout.Button("High", buttonStyle)) QualitySettings.SetQualityLevel(2);
-            GUILayout.EndHorizontal();
-
-            GUILayout.FlexibleSpace();
-
-            if (GUILayout.Button("SAVE & RETURN", buttonStyle, GUILayout.Height(36f)))
-            {
-                PlayerPrefs.SetFloat("Settings_MasterVol", masterVolume);
-                PlayerPrefs.SetFloat("Settings_MusicVol", musicVolume);
-                PlayerPrefs.SetFloat("Settings_SfxVol", sfxVolume);
-                PlayerPrefs.SetFloat("Settings_MouseSens", mouseSensitivity);
-                PlayerPrefs.SetInt("Settings_Subtitles", subtitlesEnabled ? 1 : 0);
-                PlayerPrefs.Save();
-                currentState = MenuState.Main;
-            }
-
-            GUILayout.EndArea();
-        }
-
-        private void DrawControls()
-        {
-            float width = 560f;
-            float height = 500f;
-            float x = (Screen.width - width) * 0.5f;
-            float y = (Screen.height - height) * 0.5f;
-
-            GUI.Box(new Rect(x, y, width, height), GUIContent.none, panelStyle);
-            GUILayout.BeginArea(new Rect(x + 30f, y + 20f, width - 60f, height - 40f));
-
-            GUILayout.Label("CONTROLS & SHORTCUTS", headerStyle);
-            GUILayout.Space(12f);
-
-            DrawControlRow("W / A / S / D", "Move Investigator", "Left Stick");
-            DrawControlRow("Mouse Move", "Orbit Camera / Look Around", "Right Stick");
-            DrawControlRow("Left Shift", "Sprint / Run", "Right Trigger / L3");
-            DrawControlRow("Space", "Jump", "Button South (A)");
-            DrawControlRow("Left Ctrl / C", "Crouch / Sneak Stance", "Button East (B)");
-            DrawControlRow("E", "Interact / Talk to NPCs", "Button West (X)");
-            DrawControlRow("F", "Investigate Clue (Inspect Mode)", "Left Shoulder (L1)");
-            DrawControlRow("G", "Toggle Brass Lantern / Flashlight", "D-Pad Up");
-            DrawControlRow("I", "Open Relic Inventory", "Select Button");
-            DrawControlRow("J", "Open Investigation Journal", "D-Pad Right");
-            DrawControlRow("M", "Open Temple Area Map", "D-Pad Down");
-            DrawControlRow("H", "Help / Progressive Objective Hints", "D-Pad Left");
-            DrawControlRow("Escape", "Pause Menu & Settings", "Start Button");
-            DrawControlRow("1 - 5", "Dev Quick-Warp (Courtyard/Sanctum/...)", "N/A");
-
-            GUILayout.FlexibleSpace();
-
-            if (GUILayout.Button("BACK TO MAIN MENU", buttonStyle, GUILayout.Height(36f)))
-            {
-                currentState = MenuState.Main;
-            }
-
-            GUILayout.EndArea();
-        }
-
-        private void DrawControlRow(string key, string action, string gamepad)
-        {
-            GUILayout.BeginHorizontal();
-            GUILayout.Label($"<b>{key}</b>", labelStyle, GUILayout.Width(130f));
-            GUILayout.Label(action, labelStyle, GUILayout.Width(220f));
-            GUILayout.Label($"<i>{gamepad}</i>", subtitleStyle);
-            GUILayout.EndHorizontal();
-        }
-
-        private void DrawHelp()
-        {
-            float width = 540f;
-            float height = 460f;
-            float x = (Screen.width - width) * 0.5f;
-            float y = (Screen.height - height) * 0.5f;
-
-            GUI.Box(new Rect(x, y, width, height), GUIContent.none, panelStyle);
-            GUILayout.BeginArea(new Rect(x + 30f, y + 20f, width - 60f, height - 40f));
-
-            GUILayout.Label("HOW TO PLAY & INVESTIGATE", headerStyle);
-            GUILayout.Space(15f);
-
-            GUILayout.Label("✦ <b>Investigation Mechanics</b>", labelStyle);
-            GUILayout.Label("  • Approach suspects, witnesses, and objects to see interactive overhead prompts.", labelStyle);
-            GUILayout.Label("  • Press <b>[E]</b> to speak with Priest Ananda and villagers to gather incident testimony.", labelStyle);
-            GUILayout.Label("  • Press <b>[F]</b> to inspect crime clues in close-up detail (broken lock, footprints, torn cloth).", labelStyle);
-            GUILayout.Space(10f);
-
-            GUILayout.Label("✦ <b>The Journal & Map</b>", labelStyle);
-            GUILayout.Label("  • Press <b>[J]</b> to check your active objectives, suspect deductions, and evidence notes.", labelStyle);
-            GUILayout.Label("  • Press <b>[M]</b> to view the temple layout and locate unexplored areas.", labelStyle);
-            GUILayout.Label("  • Press <b>[H]</b> if you ever feel stuck for a 3-tier progressive hint.", labelStyle);
-            GUILayout.Space(10f);
-
-            GUILayout.Label("✦ <b>Cultural Reverence</b>", labelStyle);
-            GUILayout.Label("  • The temple sanctum is a sacred space. Walk respectfully and protect our living history.", labelStyle);
-
-            GUILayout.FlexibleSpace();
-
-            if (GUILayout.Button("BACK TO MAIN MENU", buttonStyle, GUILayout.Height(36f)))
-            {
-                currentState = MenuState.Main;
-            }
-
-            GUILayout.EndArea();
-        }
-
-        private void DrawCredits()
-        {
-            float width = 560f;
-            float height = 460f;
-            float x = (Screen.width - width) * 0.5f;
-            float y = (Screen.height - height) * 0.5f;
-
-            GUI.Box(new Rect(x, y, width, height), GUIContent.none, panelStyle);
-            GUILayout.BeginArea(new Rect(x + 30f, y + 20f, width - 60f, height - 40f));
-
-            GUILayout.Label("CREDITS", headerStyle);
-            GUILayout.Space(15f);
-
-            GUILayout.Label("<b>LEGACY OF THE TEMPLE</b>", labelStyle);
-            GUILayout.Label("Developed with Google Antigravity & Unity 6 URP", subtitleStyle);
-            GUILayout.Space(12f);
-
-            GUILayout.Label("• <b>Director, Architecture & Visual Art</b>: Hemanth (S20240010236)", labelStyle);
-            GUILayout.Label("• <b>Temple Model</b>: Authentic Jagannath Temple architecture from assets.blend", labelStyle);
-            GUILayout.Label("• <b>Characters</b>: Investigator Aryan, Pujari Ananda, Meera the Villager, Bhaskar & Kishore", labelStyle);
-            GUILayout.Space(12f);
-
-            GUILayout.Label("<b>Fiction & Heritage Note:</b>", headerStyle);
-            GUILayout.Label("The story, mystery, and the three stolen relics (Pradip Vessel, Carved Rosette, Palm-Leaf Manuscript) are respectful works of fiction. The sacred Lord Jagannath temple architecture is celebrated with deep cultural reverence and historical integrity.", labelStyle);
-
-            GUILayout.FlexibleSpace();
-
-            if (GUILayout.Button("BACK TO MAIN MENU", buttonStyle, GUILayout.Height(36f)))
-            {
-                currentState = MenuState.Main;
-            }
-
-            GUILayout.EndArea();
+            PlayerPrefs.SetInt("OpeningCinematicActive", 0);
+            PlayerPrefs.SetInt("ShowcaseTourActive", 0);
+            PlayerPrefs.Save();
+            SceneManager.LoadScene(PlayerPrefs.GetString("LastPlayedScene", Constants.Courtyard));
         }
     }
 }
-

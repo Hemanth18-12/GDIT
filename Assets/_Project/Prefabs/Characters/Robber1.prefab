@@ -88,7 +88,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: LOT.Characters::LegacyOfTemples.Characters.NPCDialogueTrigger
   characterId: robber1
-  speakerName: Bhaskar (Robber 1)
+  speakerName: Bhaskar
   interactionRadius: 3
   dialogueLines:
   - Keep moving. The investigator is close.
@@ -108,7 +108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd7d9dfc76e074bd5966b593463bcd49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: LOT.Characters::LegacyOfTemples.Characters.NPCHeadIndicator
-  characterName: Bhaskar (Robber 1)
+  characterName: Bhaskar
   tagColor: {r: 0.95, g: 0.35, b: 0.35, a: 1}
   heightOffset: 1.95
   maxVisibleDistance: 25

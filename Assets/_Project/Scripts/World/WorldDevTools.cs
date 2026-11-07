@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using LegacyOfTemples.Core;
 
 namespace LegacyOfTemples.World
@@ -9,7 +10,7 @@ namespace LegacyOfTemples.World
     public class WorldDevTools : MonoBehaviour
     {
         [Header("Settings")]
-        [SerializeField] private bool showHUD = true;
+        private bool showHUD = false; // toggle with Ctrl+F12 (dev builds only)
 
         private float fadeAlpha = 0f;
         private Texture2D fadeTexture;
@@ -30,6 +31,7 @@ namespace LegacyOfTemples.World
 
         private void OnEnable()
         {
+            SceneManager.sceneLoaded += HandleSceneLoaded;
             if (WorldManager.Instance != null)
             {
                 WorldManager.Instance.OnFadeProgress += HandleFade;
@@ -38,10 +40,16 @@ namespace LegacyOfTemples.World
 
         private void OnDisable()
         {
+            SceneManager.sceneLoaded -= HandleSceneLoaded;
             if (WorldManager.Instance != null)
             {
                 WorldManager.Instance.OnFadeProgress -= HandleFade;
             }
+        }
+
+        private void HandleSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            fadeAlpha = 0f;
         }
 
         private void Start()
@@ -62,30 +70,21 @@ namespace LegacyOfTemples.World
             var kb = Keyboard.current;
             if (kb != null)
             {
-                // Dev Keys 1-5 to switch scenes
-                if (kb.digit1Key.wasPressedThisFrame || kb.numpad1Key.wasPressedThisFrame)
+                // Dev scene keys: Ctrl+F1..F5 (Editor/Development builds only) so they never collide with dialogue choices 1-3.
+                bool dev = Application.isEditor || Debug.isDebugBuild;
+                bool ctrl = kb.leftCtrlKey.isPressed || kb.rightCtrlKey.isPressed;
+                if (dev && ctrl)
                 {
-                    SwitchScene(Constants.Courtyard);
-                }
-                else if (kb.digit2Key.wasPressedThisFrame || kb.numpad2Key.wasPressedThisFrame)
-                {
-                    SwitchScene(Constants.Sanctum);
-                }
-                else if (kb.digit3Key.wasPressedThisFrame || kb.numpad3Key.wasPressedThisFrame)
-                {
-                    SwitchScene(Constants.PuzzleWall);
-                }
-                else if (kb.digit4Key.wasPressedThisFrame || kb.numpad4Key.wasPressedThisFrame)
-                {
-                    SwitchScene(Constants.ShrineCrime);
-                }
-                else if (kb.digit5Key.wasPressedThisFrame || kb.numpad5Key.wasPressedThisFrame)
-                {
-                    SwitchScene(Constants.JunglePath);
+                    if (kb.f1Key.wasPressedThisFrame) SwitchScene(Constants.Courtyard);
+                    else if (kb.f2Key.wasPressedThisFrame) SwitchScene(Constants.Sanctum);
+                    else if (kb.f3Key.wasPressedThisFrame) SwitchScene(Constants.ShrineCrime);
+                    else if (kb.f4Key.wasPressedThisFrame) SwitchScene(Constants.PuzzleWall);
+                    else if (kb.f5Key.wasPressedThisFrame) SwitchScene(Constants.JunglePath);
                 }
 
                 // Key Q to cycle graphics quality
-                if (kb.qKey.wasPressedThisFrame)
+                if (dev && ctrl && kb.f12Key.wasPressedThisFrame) showHUD = !showHUD;
+                if (dev && ctrl && kb.qKey.wasPressedThisFrame)
                 {
                     CycleQuality();
                 }
@@ -135,8 +134,6 @@ namespace LegacyOfTemples.World
                 {
                     GUI.color = new Color(0.96f, 0.8f, 0.3f, (fadeAlpha - 0.5f) * 2f);
                     string targetScene = WorldManager.Instance != null ? WorldManager.Instance.CurrentSceneName : "Temple Sanctum";
-                    GUI.Label(new Rect(0, Screen.height * 0.45f, Screen.width, 50), "LEGACY OF TEMPLES", titleStyle);
-                    GUI.Label(new Rect(0, Screen.height * 0.52f, Screen.width, 30), $"Entering {targetScene}...", hudStyle);
                 }
 
                 GUI.color = oldColor;
@@ -155,8 +152,8 @@ namespace LegacyOfTemples.World
                 float hudY = 16;
                 GUI.Box(new Rect(hudX, hudY, 260, 96), GUIContent.none);
                 GUI.Label(new Rect(hudX + 10, hudY + 6, 240, 20), "<b>LEGACY OF TEMPLES - DEV TOOLS</b>", hudStyle);
-                GUI.Label(new Rect(hudX + 10, hudY + 26, 240, 20), $"Scene [1-5]: <color=#f4c430>{activeScene}</color>", hudStyle);
-                GUI.Label(new Rect(hudX + 10, hudY + 46, 240, 20), $"Quality [Q]: <color=#89c4f4>{qName}</color>", hudStyle);
+                GUI.Label(new Rect(hudX + 10, hudY + 26, 240, 20), $"Scene [Ctrl+F1-F5]: <color=#f4c430>{activeScene}</color>", hudStyle);
+                GUI.Label(new Rect(hudX + 10, hudY + 46, 240, 20), $"Quality [Ctrl+Q]: <color=#89c4f4>{qName}</color>", hudStyle);
                 GUI.Label(new Rect(hudX + 10, hudY + 66, 240, 20), $"FPS: {1.0f / Mathf.Max(Time.smoothDeltaTime, 0.0001f):F0} (Target 60)", hudStyle);
 
                 // Toast

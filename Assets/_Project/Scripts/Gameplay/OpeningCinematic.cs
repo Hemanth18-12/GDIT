@@ -33,10 +33,6 @@ namespace LegacyOfTemples.Gameplay
         private float shotTimer = 0f;
 
         // Subtitles GUI
-        private GUIStyle subtitleStyle;
-        private GUIStyle skipStyle;
-        private Texture2D barTex;
-        private bool stylesInit = false;
         private string currentSubtitle = "";
 
         private void Start()
@@ -72,7 +68,7 @@ namespace LegacyOfTemples.Gameplay
                     cameraStartEuler = new Vector3(18f, 180f, 0f),
                     cameraEndEuler = new Vector3(14f, 180f, 0f),
                     duration = 5.5f,
-                    subtitle = "Dawn breaks over the sacred Jagannath Temple. A sanctuary of centuries-old devotion and living heritage."
+                    subtitle = "Dawn at the old temple. The festival is only days away."
                 },
                 new Shot
                 {
@@ -82,7 +78,7 @@ namespace LegacyOfTemples.Gameplay
                     cameraStartEuler = new Vector3(12f, 195f, 0f),
                     cameraEndEuler = new Vector3(8f, 185f, 0f),
                     duration = 5.0f,
-                    subtitle = "Carved stone vimanas and towering mandapas stand silent, having watched over generations."
+                    subtitle = "Its carved stone towers have watched over the village for generations."
                 },
                 new Shot
                 {
@@ -92,7 +88,7 @@ namespace LegacyOfTemples.Gameplay
                     cameraStartEuler = new Vector3(5f, -60f, 0f),
                     cameraEndEuler = new Vector3(4f, -45f, 0f),
                     duration = 4.5f,
-                    subtitle = "Priest Ananda begins his morning prayers, unaware of the sacrilege that unfolded in the dead of night."
+                    subtitle = "Pujari Ananda begins the morning rituals, unaware of what happened in the night."
                 },
                 new Shot
                 {
@@ -102,7 +98,7 @@ namespace LegacyOfTemples.Gameplay
                     cameraStartEuler = new Vector3(10f, 75f, 0f),
                     cameraEndEuler = new Vector3(8f, 60f, 0f),
                     duration = 5.0f,
-                    subtitle = "Hours earlier... two shadows breached the restricted storage chamber, stealing three ancient relics."
+                    subtitle = "Hours earlier, two figures slipped into the storage hall and took three treasured pieces."
                 },
                 new Shot
                 {
@@ -112,7 +108,7 @@ namespace LegacyOfTemples.Gameplay
                     cameraStartEuler = new Vector3(6f, 180f, 0f),
                     cameraEndEuler = new Vector3(5f, 180f, 0f),
                     duration = 5.0f,
-                    subtitle = "Detective Aryan arrives on the scene. The investigation begins now."
+                    subtitle = "Investigator Aryan arrives. The search begins."
                 }
             };
         }
@@ -185,55 +181,13 @@ namespace LegacyOfTemples.Gameplay
             }
         }
 
-        private void InitStyles()
-        {
-            if (stylesInit) return;
-
-            barTex = new Texture2D(2, 2);
-            Color[] pix = new Color[4];
-            for (int i = 0; i < 4; i++) pix[i] = new Color(0.04f, 0.04f, 0.04f, 0.88f);
-            barTex.SetPixels(pix);
-            barTex.Apply();
-
-            subtitleStyle = new GUIStyle(GUI.skin.label)
-            {
-                fontSize = 17,
-                fontStyle = FontStyle.Normal,
-                alignment = TextAnchor.MiddleCenter,
-                wordWrap = true
-            };
-            subtitleStyle.normal.textColor = new Color(1.0f, 0.94f, 0.82f);
-
-            skipStyle = new GUIStyle(GUI.skin.label)
-            {
-                fontSize = 12,
-                fontStyle = FontStyle.Italic,
-                alignment = TextAnchor.MiddleRight
-            };
-            skipStyle.normal.textColor = new Color(0.75f, 0.70f, 0.60f);
-
-            stylesInit = true;
-        }
-
-        private void OnGUI()
+        private void LateUpdate()
         {
             if (!isPlaying || LegacyOfTemples.Core.EventBus.IsShowcaseActive) return;
-
-            InitStyles();
-
             bool subtitlesEnabled = PlayerPrefs.GetInt("Settings_Subtitles", 1) == 1;
-
-            float barHeight = 85f;
-            Rect bottomBar = new Rect(0, Screen.height - barHeight, Screen.width, barHeight);
-            GUI.DrawTexture(bottomBar, barTex);
-
             if (subtitlesEnabled && !string.IsNullOrEmpty(currentSubtitle))
-            {
-                GUI.Label(new Rect(80f, Screen.height - barHeight + 10f, Screen.width - 160f, barHeight - 20f), currentSubtitle, subtitleStyle);
-            }
-
-            // Skip Hint
-            GUI.Label(new Rect(Screen.width - 250f, 20f, 230f, 24f), "[Space / Enter] Skip Prologue", skipStyle);
+                ScreenText.Panel("cinematic_sub", null, currentSubtitle, PanelAnchor.BottomCenter, 1500f, null, false, 10);
+            ScreenText.Panel("cinematic_skip", null, ScreenText.Key("Space") + " / " + ScreenText.Key("Enter") + " Skip", PanelAnchor.TopRight, 420f, null, false, 10);
         }
     }
 }

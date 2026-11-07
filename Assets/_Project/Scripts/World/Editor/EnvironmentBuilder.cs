@@ -422,7 +422,7 @@ namespace LegacyOfTemples.World.Editor
             cam.fieldOfView = 60f;
             camObj.AddComponent<AudioListener>();
 
-            var camData = camObj.GetComponent<UniversalAdditionalCameraData>() ?? camObj.AddComponent<UniversalAdditionalCameraData>();
+            var camData = (camObj.TryGetComponent<UniversalAdditionalCameraData>(out var __c) ? __c : camObj.AddComponent<UniversalAdditionalCameraData>());
             camData.renderPostProcessing = true;
 
             camObj.AddComponent<OrbitCamera>();

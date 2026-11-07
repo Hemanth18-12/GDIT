@@ -9,12 +9,12 @@ namespace LegacyOfTemples.Characters
     public class PlayerController : MonoBehaviour
     {
         [Header("Locomotion")]
-        [SerializeField] private float walkSpeed = 4.5f;
-        [SerializeField] private float runSpeed = 7.5f;
-        [SerializeField] private float crouchSpeed = 2.5f;
+        [SerializeField] private float walkSpeed = 1.6f;
+        [SerializeField] private float runSpeed = 4.2f;
+        [SerializeField] private float crouchSpeed = 1.1f;
         [SerializeField] private float rotationSpeed = 12.0f;
-        [SerializeField] private float jumpHeight = 1.2f;
-        [SerializeField] private float gravity = 18.0f;
+        [SerializeField] private float jumpHeight = 0.7f; // ~0.7 s hop with gravity 11.4
+        [SerializeField] private float gravity = 11.4f;
 
         [Header("Interaction")]
         [SerializeField] private float interactionRadius = 2.8f;
@@ -25,7 +25,7 @@ namespace LegacyOfTemples.Characters
         [Header("Animation")]
         [SerializeField] private Animator animator;
         [Tooltip("Enable only after the confirmed character has real, validated motion clips. The old generated clips collapse its hips below the floor.")]
-        [SerializeField] private bool useValidatedAnimation = false;
+        [SerializeField] private bool useValidatedAnimation = true;
         public bool HasValidatedAnimation => useValidatedAnimation && animator != null && animator.enabled;
 
         private CharacterController characterController;
@@ -37,6 +37,10 @@ namespace LegacyOfTemples.Characters
         private GUIStyle promptBoxStyle;
         private GUIStyle promptTextStyle;
 
+        /// <summary>Current objective target (set by the story director); interaction prefers it.</summary>
+        public static Transform ObjectiveFocus;
+        [SerializeField] private float maxClimbAboveStart = 1.0f; // temple tiers are a landmark, not a climb // stops walking up temple towers / walls
+        private float startHeight = float.NaN;
         public bool IsMoving { get; private set; }
         public bool IsRunning { get; private set; }
         public bool IsCrouching { get; private set; }
@@ -176,14 +180,16 @@ namespace LegacyOfTemples.Characters
             if (kb != null && kb.spaceKey.wasPressedThisFrame) jumpPressed = true;
             if (gp != null && gp.buttonSouth.wasPressedThisFrame) jumpPressed = true;
 
-            if (characterController.isGrounded)
+            bool isGrounded = characterController.isGrounded || (grounding != null && grounding.HasSupport);
+
+            if (isGrounded)
             {
                 if (verticalVelocity < 0f)
                 {
                     verticalVelocity = -2.0f; // Small downward force to stay grounded
                 }
 
-                if (jumpPressed && !IsCrouching)
+                if (jumpPressed && !IsCrouching) // isGrounded already includes real floor support (snap resets CC.isGrounded)
                 {
                     verticalVelocity = Mathf.Sqrt(2f * jumpHeight * gravity);
                 }
@@ -194,11 +200,24 @@ namespace LegacyOfTemples.Characters
             }
 
             Vector3 finalMove = (moveDir * targetSpeed) + Vector3.up * verticalVelocity;
+            Vector3 beforeMove = transform.position;
             characterController.Move(finalMove * Time.deltaTime);
-            if (verticalVelocity <= 0f && grounding.SnapToGround()) verticalVelocity = -2f;
+            if (float.IsNaN(startHeight)) startHeight = beforeMove.y;
+            if (transform.position.y > startHeight + maxClimbAboveStart && transform.position.y > beforeMove.y)
+            {
+                // Too high above the level's walkable floor: undo the horizontal climb (invisible boundary).
+                characterController.enabled = false;
+                transform.position = new Vector3(beforeMove.x, Mathf.Min(beforeMove.y, transform.position.y), beforeMove.z);
+                characterController.enabled = true;
+            }
+            if (verticalVelocity <= 0f && grounding.SnapToGround())
+            {
+                verticalVelocity = -2f;
+                isGrounded = true;
+            }
 
             // Footsteps
-            if (characterController.isGrounded && IsMoving)
+            if (isGrounded && IsMoving)
             {
                 footstepTimer -= Time.deltaTime;
                 if (footstepTimer <= 0f)
@@ -216,7 +235,17 @@ namespace LegacyOfTemples.Characters
             {
                 float animSpeed = IsMoving ? (IsCrouching ? crouchSpeed : (IsRunning ? runSpeed : walkSpeed)) : 0f;
                 animator.SetFloat("Speed", animSpeed);
-                animator.SetBool("Grounded", characterController.isGrounded);
+                // Match clip playback to real ground speed using the clip's own average root speed (less foot sliding).
+                float playRate = 1f;
+                if (IsMoving && isGrounded)
+                {
+                    float best = 0f; AnimationClip clip = null;
+                    foreach (var ci in animator.GetCurrentAnimatorClipInfo(0)) if (ci.weight > best) { best = ci.weight; clip = ci.clip; }
+                    float clipSpeed = clip != null ? new Vector2(clip.averageSpeed.x, clip.averageSpeed.z).magnitude : 0f;
+                    if (clipSpeed > 0.3f) playRate = Mathf.Clamp(targetSpeed / clipSpeed, 0.6f, 1.8f);
+                }
+                animator.speed = Mathf.MoveTowards(animator.speed, playRate, Time.deltaTime * 4f);
+                animator.SetBool("Grounded", isGrounded);
                 animator.SetBool("Crouch", IsCrouching);
                 animator.SetBool("Jump", jumpPressed);
                 animator.SetFloat("MoveX", inputDir.x);
@@ -232,16 +261,32 @@ namespace LegacyOfTemples.Characters
             nearestInteractable = null;
             float closestDist = float.MaxValue;
 
-            Collider[] hits = Physics.OverlapSphere(transform.position + Vector3.up * 0.8f, interactionRadius);
+            Collider[] hits = Physics.OverlapSphere(transform.position + Vector3.up * 0.8f, Mathf.Max(interactionRadius, 4f));
             foreach (Collider hit in hits)
             {
                 IInteractable interactable = hit.GetComponent<IInteractable>() ?? hit.GetComponentInParent<IInteractable>();
                 if (interactable != null)
                 {
-                    float dist = Vector3.Distance(transform.position, interactable.Anchor.position);
-                    if (dist < closestDist && dist <= interactable.Radius)
+                    Vector3 to = interactable.Anchor.position - transform.position;
+                    float dist = to.magnitude;
+                    if (dist > interactable.Radius) continue;
+                    // Score = distance weighted by facing (what you look at wins) and by "already examined".
+                    Vector3 face = transform.forward;
+                    face.y = 0f; to.y = 0f;
+                    float dot = (face.sqrMagnitude > 0.001f && to.sqrMagnitude > 0.001f) ? Vector3.Dot(face.normalized, to.normalized) : 1f;
+                    float score = dist * (2f - dot);
+                    if (interactable is MonoBehaviour mb && mb != null)
                     {
-                        closestDist = dist;
+                        var f = mb.GetType().GetProperty("IsExamined");
+                        if (f != null && f.PropertyType == typeof(bool) && (bool)f.GetValue(mb)) score *= 1.6f;
+                    }
+                    Transform anchor = interactable.Anchor;
+                    if (ObjectiveFocus != null && anchor != null && (anchor == ObjectiveFocus || anchor.IsChildOf(ObjectiveFocus) || ObjectiveFocus.IsChildOf(anchor))) score *= 0.35f; // current goal first
+                    else if (interactable is NPCDialogueTrigger) score *= 0.75f;                 // then people
+                    else if (interactable.GetType().Name == "InteractableObject") score *= 1.5f; // decorations last
+                    if (score < closestDist)
+                    {
+                        closestDist = score;
                         nearestInteractable = interactable;
                     }
                 }
@@ -283,12 +328,9 @@ namespace LegacyOfTemples.Characters
             characterController.enabled = true;
             Physics.SyncTransforms();
             grounding.SnapToGround(true);
+            startHeight = transform.position.y;
         }
 
-        private void OnGUI()
-        {
-            // Suppressed in favor of high-resolution TextMeshPro UIManager
-        }
 
         private void InitGUIStyles()
         {

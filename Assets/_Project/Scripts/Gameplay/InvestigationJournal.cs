@@ -55,6 +55,7 @@ namespace LegacyOfTemples.Gameplay
 
         private AudioSource audioSource;
         private bool isOpen = false;
+        public bool IsOpen => isOpen;
         private int currentTab = 0; // 0: Objectives, 1: Clues, 2: Suspects, 3: Relics
 
         private readonly List<ClueEntry> discoveredClues = new List<ClueEntry>();
@@ -62,18 +63,7 @@ namespace LegacyOfTemples.Gameplay
         private readonly List<SuspectEntry> suspects = new List<SuspectEntry>();
         private readonly List<RelicEntry> relics = new List<RelicEntry>();
 
-        private Vector2 scrollPos;
-        private GUIStyle windowStyle;
-        private GUIStyle headerStyle;
-        private GUIStyle tabActiveStyle;
-        private GUIStyle tabInactiveStyle;
-        private GUIStyle sectionHeaderStyle;
-        private GUIStyle itemTitleStyle;
-        private GUIStyle itemBodyStyle;
-        private GUIStyle statusStyle;
-        private GUIStyle footerStyle;
 
-        public bool IsOpen => isOpen;
         public int ClueCount => discoveredClues.Count;
 
         private void Awake()
@@ -237,7 +227,7 @@ namespace LegacyOfTemples.Gameplay
                 if (kb.digit2Key.wasPressedThisFrame) SwitchTab(1);
                 if (kb.digit3Key.wasPressedThisFrame) SwitchTab(2);
                 if (kb.digit4Key.wasPressedThisFrame) SwitchTab(3);
-                if (kb.escapeKey.wasPressedThisFrame) ToggleJournal();
+                if (kb.escapeKey.wasPressedThisFrame) { EventBus.EscapeConsumedFrame = Time.frameCount; ToggleJournal(); }
             }
         }
 
@@ -256,7 +246,6 @@ namespace LegacyOfTemples.Gameplay
             if (currentTab != tabIndex)
             {
                 currentTab = tabIndex;
-                scrollPos = Vector2.zero;
                 if (flipTabSound != null && audioSource != null)
                 {
                     audioSource.PlayOneShot(flipTabSound);
@@ -340,227 +329,47 @@ namespace LegacyOfTemples.Gameplay
             return Mathf.Clamp01((float)completedCount / totalItems) * 100f;
         }
 
-        private void OnGUI()
+        private void LateUpdate()
         {
             if (!isOpen) return;
-
-            InitStyles();
-
-            float scale = Mathf.Max(1.0f, Screen.height / 1080f);
-            float winWidth = Mathf.Min(1280f * scale, Screen.width - 40f);
-            float winHeight = Mathf.Min(820f * scale, Screen.height - 40f);
-            float winX = (Screen.width - winWidth) * 0.5f;
-            float winY = (Screen.height - winHeight) * 0.5f;
-
-            GUI.Box(new Rect(winX, winY, winWidth, winHeight), GUIContent.none, windowStyle);
-
-            // Title Header (>= 56 px or 42 px at scale)
-            GUI.Label(new Rect(winX + 30f, winY + 20f, winWidth - 360f, 48f), "CASE DOSSIER: THE MISSING TEMPLE RELICS", headerStyle);
-            float progress = CalculateProgressPercentage();
-            GUI.Label(new Rect(winX + winWidth - 320f, winY + 24f, 290f, 36f), $"Investigation Progress: {progress:F0}%", statusStyle);
-
-            // Tabs
-            string[] tabs = { "[1] Objectives", "[2] Clues & Evidence", "[3] Suspects & Witnesses", "[4] Sacred Relics" };
-            float tabWidth = (winWidth - 60f) / tabs.Length;
+            string[] tabs = { "Goals", "Clues", "People", "Pieces" };
+            var head = new System.Text.StringBuilder();
             for (int i = 0; i < tabs.Length; i++)
-            {
-                Rect tabRect = new Rect(winX + 30f + i * tabWidth, winY + 76f, tabWidth - 6f, 44f);
-                GUIStyle style = (i == currentTab) ? tabActiveStyle : tabInactiveStyle;
-                if (GUI.Button(tabRect, tabs[i], style))
-                {
-                    SwitchTab(i);
-                }
-            }
-
-            // Scrollable Content Area
-            Rect viewRect = new Rect(winX + 30f, winY + 130f, winWidth - 60f, winHeight - 190f);
-            GUILayout.BeginArea(viewRect);
-            scrollPos = GUILayout.BeginScrollView(scrollPos);
-
+                head.Append(i == currentTab ? $"<color={ScreenText.Gold}><b><u>[{i + 1}] {tabs[i]}</u></b></color>   " : $"[{i + 1}] {tabs[i]}   ");
+            head.Append("\n\n");
+            var sb = new System.Text.StringBuilder(head.ToString());
             switch (currentTab)
             {
                 case 0:
-                    DrawObjectivesTab();
+                    var story = StoryDialogueSystem.Instance;
+                    var objs = StoryData.Objectives;
+                    for (int i = 0; i < objs.Length; i++)
+                    {
+                        if (story != null && i > story.ObjectiveIndex) break;
+                        bool done = story != null && i < story.ObjectiveIndex;
+                        sb.Append(done ? $"<color={ScreenText.Green}>Done</color>  " : $"<color={ScreenText.Gold}>Now</color>  ")
+                          .Append("<b>").Append(objs[i].title).Append("</b>\n");
+                        if (!done) sb.Append(objs[i].instruction).Append('\n');
+                    }
                     break;
                 case 1:
-                    DrawCluesTab();
+                    if (discoveredClues.Count == 0) sb.Append("No clues yet. Look for glowing objects and press [F].\n");
+                    foreach (var c in discoveredClues)
+                        sb.Append($"<color={ScreenText.Cyan}><b>{c.title}</b></color>\n{c.description}\n<color={ScreenText.Gold}>Note:</color> {c.detectiveNote}\n\n");
                     break;
                 case 2:
-                    DrawSuspectsTab();
+                    foreach (var p in suspects)
+                        sb.Append($"<b>{p.name}</b>, {p.role}\n{p.description}\n\n");
                     break;
                 case 3:
-                    DrawRelicsTab();
+                    foreach (var r in relics)
+                        sb.Append($"<b>{r.name}</b>  {(r.isRecovered ? $"<color={ScreenText.Green}>Recovered</color>" : $"<color={ScreenText.Coral}>Missing</color>")}\n{r.description}\n\n");
                     break;
             }
-
-            GUILayout.EndScrollView();
-            GUILayout.EndArea();
-
-            // Footer
-            GUI.Label(new Rect(winX + 24f, winY + winHeight - 34f, winWidth - 48f, 22f), "Press [J] or [Esc] to Close Dossier  •  Keys [1]-[4] to switch tabs", footerStyle);
+            ScreenText.Panel("journal", "CASE JOURNAL", sb.ToString(), PanelAnchor.Center, 1300f,
+                ScreenText.Key("1-4") + " Tabs    " + ScreenText.Key("J") + " / " + ScreenText.Key("Esc") + " Close", true, 60);
         }
 
-        private void DrawObjectivesTab()
-        {
-            GUILayout.Label("CASE OBJECTIVES", sectionHeaderStyle);
-            GUILayout.Space(8f);
-
-            foreach (var obj in objectives)
-            {
-                GUILayout.BeginVertical(GUI.skin.box);
-                string mark = obj.isCompleted ? "<color=#4cd137>✓ COMPLETED</color>" : "<color=#fbc531>○ ACTIVE</color>";
-                GUILayout.Label($"{mark}  <b>{obj.title}</b>", itemTitleStyle);
-                GUILayout.Label(obj.description, itemBodyStyle);
-                GUILayout.EndVertical();
-                GUILayout.Space(6f);
-            }
-        }
-
-        private void DrawCluesTab()
-        {
-            GUILayout.Label($"FORENSIC EVIDENCE ({discoveredClues.Count} Discovered)", sectionHeaderStyle);
-            GUILayout.Space(8f);
-
-            if (discoveredClues.Count == 0)
-            {
-                GUILayout.Label("No physical clues inspected yet. Search the Courtyard and Sanctum rooms carefully.", itemBodyStyle);
-                return;
-            }
-
-            foreach (var clue in discoveredClues)
-            {
-                GUILayout.BeginVertical(GUI.skin.box);
-                GUILayout.Label($"<b>{clue.title}</b> <color=#e1b12c>[{clue.category}]</color>", itemTitleStyle);
-                GUILayout.Label(clue.description, itemBodyStyle);
-                GUILayout.Label($"<color=#f5cd79>Deduction:</color> <i>\"{clue.detectiveNote}\"</i>", itemBodyStyle);
-                GUILayout.Label($"<color=#718093>Logged at: {clue.discoveredTime}</color>", footerStyle);
-                GUILayout.EndVertical();
-                GUILayout.Space(6f);
-            }
-        }
-
-        private void DrawSuspectsTab()
-        {
-            GUILayout.Label("PERSONS OF INTEREST", sectionHeaderStyle);
-            GUILayout.Space(8f);
-
-            foreach (var s in suspects)
-            {
-                GUILayout.BeginVertical(GUI.skin.box);
-                GUILayout.Label($"<b>{s.name}</b> — <color=#00a8ff>{s.role}</color>  [<color=#e84118>{s.status}</color>]", itemTitleStyle);
-                GUILayout.Label(s.description, itemBodyStyle);
-                GUILayout.EndVertical();
-                GUILayout.Space(6f);
-            }
-        }
-
-        private void DrawRelicsTab()
-        {
-            GUILayout.Label("STOLEN HERITAGE ARTIFACTS", sectionHeaderStyle);
-            GUILayout.Space(8f);
-
-            foreach (var r in relics)
-            {
-                GUILayout.BeginVertical(GUI.skin.box);
-                string status = r.isRecovered ? "<color=#4cd137>★ RECOVERED SECURED</color>" : "<color=#e84118>⚠ STOLEN / IN POSSESSION OF SMUGGLERS</color>";
-                GUILayout.Label($"<b>{r.name}</b>  {status}", itemTitleStyle);
-                GUILayout.Label(r.description, itemBodyStyle);
-                GUILayout.EndVertical();
-                GUILayout.Space(6f);
-            }
-        }
-
-        private void InitStyles()
-        {
-            float scale = Mathf.Max(1.0f, Screen.height / 1080f);
-
-            if (windowStyle == null)
-            {
-                windowStyle = new GUIStyle(GUI.skin.box);
-            }
-
-            if (headerStyle == null)
-            {
-                headerStyle = new GUIStyle(GUI.skin.label)
-                {
-                    fontSize = Mathf.RoundToInt(38 * scale),
-                    fontStyle = FontStyle.Bold,
-                    normal = { textColor = new Color(0.98f, 0.84f, 0.3f) }
-                };
-            }
-
-            if (tabActiveStyle == null)
-            {
-                tabActiveStyle = new GUIStyle(GUI.skin.button)
-                {
-                    fontSize = Mathf.RoundToInt(24 * scale),
-                    fontStyle = FontStyle.Bold,
-                    normal = { textColor = new Color(1.0f, 0.88f, 0.35f) }
-                };
-            }
-
-            if (tabInactiveStyle == null)
-            {
-                tabInactiveStyle = new GUIStyle(GUI.skin.button)
-                {
-                    fontSize = Mathf.RoundToInt(24 * scale),
-                    normal = { textColor = Color.white }
-                };
-            }
-
-            if (sectionHeaderStyle == null)
-            {
-                sectionHeaderStyle = new GUIStyle(GUI.skin.label)
-                {
-                    fontSize = Mathf.RoundToInt(34 * scale),
-                    fontStyle = FontStyle.Bold,
-                    normal = { textColor = new Color(1.0f, 0.784f, 0.341f) } // #FFC857
-                };
-            }
-
-            if (itemTitleStyle == null)
-            {
-                itemTitleStyle = new GUIStyle(GUI.skin.label)
-                {
-                    fontSize = Mathf.RoundToInt(34 * scale),
-                    fontStyle = FontStyle.Bold,
-                    richText = true,
-                    normal = { textColor = new Color(1.0f, 0.784f, 0.341f) } // #FFC857
-                };
-            }
-
-            if (itemBodyStyle == null)
-            {
-                itemBodyStyle = new GUIStyle(GUI.skin.label)
-                {
-                    fontSize = Mathf.RoundToInt(30 * scale),
-                    wordWrap = true,
-                    richText = true,
-                    normal = { textColor = new Color(1.0f, 0.957f, 0.839f) } // #FFF4D6
-                };
-            }
-
-            if (statusStyle == null)
-            {
-                statusStyle = new GUIStyle(GUI.skin.label)
-                {
-                    fontSize = Mathf.RoundToInt(30 * scale),
-                    fontStyle = FontStyle.Bold,
-                    alignment = TextAnchor.MiddleRight,
-                    normal = { textColor = new Color(0.361f, 0.882f, 0.902f) } // #5CE1E6
-                };
-            }
-
-            if (footerStyle == null)
-            {
-                footerStyle = new GUIStyle(GUI.skin.label)
-                {
-                    fontSize = Mathf.RoundToInt(26 * scale),
-                    alignment = TextAnchor.MiddleCenter,
-                    normal = { textColor = new Color(1.0f, 0.784f, 0.341f) }
-                };
-            }
-        }
     }
 }
 

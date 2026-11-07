@@ -88,7 +88,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: LOT.Characters::LegacyOfTemples.Characters.NPCDialogueTrigger
   characterId: robber2
-  speakerName: Kishore (Robber 2)
+  speakerName: Kishore
   interactionRadius: 3
   dialogueLines:
   - I told you the lamp would leave marks!
@@ -106,7 +106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd7d9dfc76e074bd5966b593463bcd49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: LOT.Characters::LegacyOfTemples.Characters.NPCHeadIndicator
-  characterName: Kishore (Robber 2)
+  characterName: Kishore
   tagColor: {r: 0.95, g: 0.45, b: 0.35, a: 1}
   heightOffset: 1.95
   maxVisibleDistance: 25

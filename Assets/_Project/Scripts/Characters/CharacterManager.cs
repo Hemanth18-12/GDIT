@@ -112,7 +112,10 @@ namespace LegacyOfTemples.Characters
             {
                 if (playerInstance != null && playerInstance != scenePlayer.gameObject) Destroy(playerInstance);
                 playerInstance = scenePlayer.gameObject;
-                scenePlayer.Teleport(scenePlayer.transform.position, scenePlayer.transform.rotation);
+                Transform start = WorldManager.Instance != null ? WorldManager.Instance.GetSpawn("player_start") : null;
+                if (start != null) scenePlayer.Teleport(start.position, start.rotation);
+                else scenePlayer.Teleport(scenePlayer.transform.position, scenePlayer.transform.rotation);
+                Debug.Log($"[CharacterManager] Player placed in {sceneName}: spawn={(start != null ? start.name + " " + start.position : "none")} -> player {scenePlayer.transform.position}");
                 return;
             }
             // 1. Position or Spawn Player at "player_start"
@@ -172,6 +175,23 @@ namespace LegacyOfTemples.Characters
 
         public GameObject SpawnNpc(string characterId, Vector3 position, Quaternion rotation)
         {
+            // If an NPC for this character already exists in the scene hierarchy, adopt it rather than duplicating
+            GameObject existing = GameObject.Find(characterId);
+            if (existing == null && characterId.Equals(Constants.Priest, StringComparison.OrdinalIgnoreCase))
+            {
+                existing = GameObject.Find("Priest") ?? GameObject.Find("Priest(Clone)");
+            }
+            else if (existing == null && characterId.Equals(Constants.Villager, StringComparison.OrdinalIgnoreCase))
+            {
+                existing = GameObject.Find("Villager") ?? GameObject.Find("Villager(Clone)");
+            }
+
+            if (existing != null)
+            {
+                activeNpcs[characterId] = existing;
+                return existing;
+            }
+
             GameObject prefab = GetPrefab(characterId);
             GameObject npcObj;
 

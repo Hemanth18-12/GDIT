@@ -106,7 +106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd7d9dfc76e074bd5966b593463bcd49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: LOT.Characters::LegacyOfTemples.Characters.NPCHeadIndicator
-  characterName: Priest Ananda
+  characterName: Pujari Ananda
   tagColor: {r: 1, g: 0.78, b: 0.25, a: 1}
   heightOffset: 1.95
   maxVisibleDistance: 25

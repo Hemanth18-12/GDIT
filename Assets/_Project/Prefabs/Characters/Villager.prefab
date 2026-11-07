@@ -87,7 +87,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: LOT.Characters::LegacyOfTemples.Characters.NPCDialogueTrigger
   characterId: villager
-  speakerName: Meera (Villager)
+  speakerName: Meera
   interactionRadius: 2.8
   dialogueLines:
   - Before sunrise I saw two men near the storage door. One wore a red scarf, the other a black hood.
@@ -105,7 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd7d9dfc76e074bd5966b593463bcd49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: LOT.Characters::LegacyOfTemples.Characters.NPCHeadIndicator
-  characterName: Meera (Villager)
+  characterName: Meera
   tagColor: {r: 0.4, g: 0.95, b: 0.5, a: 1}
   heightOffset: 1.95
   maxVisibleDistance: 25

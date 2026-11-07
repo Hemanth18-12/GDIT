@@ -1,0 +1,644 @@
+{
+  "speakers": [
+    {
+      "id": "aryan",
+      "name": "Aryan",
+      "role": "Investigator",
+      "color": "#FFC857",
+      "npc": "investigator"
+    },
+    {
+      "id": "pujari",
+      "name": "Pujari Ananda",
+      "role": "Temple Priest",
+      "color": "#FFC857",
+      "npc": "priest"
+    },
+    {
+      "id": "meera",
+      "name": "Meera",
+      "role": "Village Girl",
+      "color": "#7FE0A0",
+      "npc": "villager"
+    },
+    {
+      "id": "bhaskar",
+      "name": "Bhaskar",
+      "role": "Red Scarf",
+      "color": "#FFB4A8",
+      "npc": "robber1"
+    },
+    {
+      "id": "kishore",
+      "name": "Kishore",
+      "role": "Black Hood",
+      "color": "#FFB4A8",
+      "npc": "robber2"
+    },
+    {
+      "id": "scroll",
+      "name": "Old Scroll",
+      "role": "Temple Record",
+      "color": "#5CE1E6",
+      "npc": ""
+    }
+  ],
+  "conversations": [
+    {
+      "id": "conv_courtyard_pujari",
+      "scene": "Courtyard",
+      "npc": "priest",
+      "lines": [
+        {
+          "s": "pujari",
+          "t": "Namaste. Three pieces are gone from our storage hall."
+        },
+        {
+          "s": "pujari",
+          "t": "A brass ceremonial vessel, a carved sandstone rosette, and a palm-leaf manuscript."
+        },
+        {
+          "s": "pujari",
+          "t": "Please find them before the festival."
+        },
+        {
+          "s": "aryan",
+          "t": "Stay calm and touch nothing. Every small detail matters."
+        },
+        {
+          "s": "aryan",
+          "t": "Did anyone see something?"
+        },
+        {
+          "s": "pujari",
+          "t": "Meera was up before sunrise. Ask her."
+        }
+      ],
+      "choices": [
+        {
+          "text": "Why do these pieces matter so much?",
+          "lines": [
+            {
+              "s": "pujari",
+              "t": "They carry the community's memory. Families have cared for them for generations."
+            },
+            {
+              "s": "pujari",
+              "t": "(These objects are fictional, made for this story.)"
+            }
+          ]
+        },
+        {
+          "text": "Who can open the storage hall?",
+          "lines": [
+            {
+              "s": "pujari",
+              "t": "Only temple staff know where the key is kept. That is what worries me."
+            }
+          ]
+        },
+        {
+          "text": "I'll start right away.",
+          "lines": [
+            {
+              "s": "aryan",
+              "t": "I'll speak to Meera, then see the hall."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "conv_courtyard_meera",
+      "scene": "Courtyard",
+      "npc": "villager",
+      "lines": [
+        {
+          "s": "meera",
+          "t": "Before sunrise I saw two men near the storage door."
+        },
+        {
+          "s": "meera",
+          "t": "One wore a red scarf. The other wore a black hood."
+        },
+        {
+          "s": "aryan",
+          "t": "Thank you, Meera. That helps a lot."
+        }
+      ],
+      "choices": [
+        {
+          "text": "Which way did they run?",
+          "lines": [
+            {
+              "s": "meera",
+              "t": "Past the outer shrine, toward the old jungle path."
+            }
+          ]
+        },
+        {
+          "text": "Did they carry anything?",
+          "lines": [
+            {
+              "s": "meera",
+              "t": "Cloth bundles. They held them carefully, like they knew their worth."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "conv_sanctum",
+      "scene": "Sanctum",
+      "npc": "priest",
+      "lines": [
+        {
+          "s": "aryan",
+          "t": "Three empty cloth-lined stands. Whoever came knew the hall."
+        },
+        {
+          "s": "pujari",
+          "t": "Only temple staff know where the key is kept."
+        },
+        {
+          "s": "aryan",
+          "t": "The lock was forced anyway. They wanted it to look like strangers."
+        },
+        {
+          "s": "pujari",
+          "t": "The outer shrine is through that passage. Go carefully."
+        }
+      ]
+    },
+    {
+      "id": "conv_shrine",
+      "scene": "ShrineCrime",
+      "npc": "priest",
+      "lines": [
+        {
+          "s": "aryan",
+          "t": "Muddy bootprints, two different sizes, and red silk caught on the door."
+        },
+        {
+          "s": "pujari",
+          "t": "That cloth is not ours."
+        },
+        {
+          "s": "aryan",
+          "t": "And a broken lamp. Someone knocked it over in a hurry."
+        },
+        {
+          "s": "aryan",
+          "t": "Two suspects: the red scarf and the black hood. Just as Meera said."
+        }
+      ],
+      "choices": [
+        {
+          "text": "Where does this trail lead?",
+          "lines": [
+            {
+              "s": "pujari",
+              "t": "Toward the old wall. Few people know it is a door."
+            }
+          ]
+        },
+        {
+          "text": "Could it be temple staff?",
+          "lines": [
+            {
+              "s": "aryan",
+              "t": "Someone told them about the key. But these boots are not from here."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "conv_wall",
+      "scene": "PuzzleWall",
+      "npc": "priest",
+      "lines": [
+        {
+          "s": "pujari",
+          "t": "My grandfather spoke of a wall that opens when four symbols face the rising sun."
+        },
+        {
+          "s": "scroll",
+          "t": "Lotus, conch, wheel, kalash. Then turn the centre wheel."
+        },
+        {
+          "s": "aryan",
+          "t": "Four symbols in order, then the centre. Let's try."
+        }
+      ]
+    },
+    {
+      "id": "conv_wall_open",
+      "scene": "PuzzleWall",
+      "npc": "",
+      "lines": [
+        {
+          "s": "aryan",
+          "t": "The passage is open. They went this way."
+        }
+      ]
+    },
+    {
+      "id": "conv_jungle",
+      "scene": "JunglePath",
+      "npc": "robber1",
+      "lines": [
+        {
+          "s": "bhaskar",
+          "t": "Keep moving. The investigator is close."
+        },
+        {
+          "s": "kishore",
+          "t": "I told you the lamp would leave marks."
+        },
+        {
+          "s": "aryan",
+          "t": "It's over. Return what belongs to the community."
+        },
+        {
+          "s": "aryan",
+          "t": "Two boot sizes, your red silk on the door, and the lamp you broke."
+        },
+        {
+          "s": "bhaskar",
+          "t": "Do you know what these fetch?"
+        },
+        {
+          "s": "aryan",
+          "t": "Their value isn't money. It's memory."
+        }
+      ],
+      "choices": [
+        {
+          "text": "Put them down gently. No one needs to get hurt.",
+          "lines": [
+            {
+              "s": "kishore",
+              "t": "...He's right, Bhaskar. Put them down."
+            },
+            {
+              "s": "bhaskar",
+              "t": "Fine. Take them."
+            }
+          ]
+        },
+        {
+          "text": "The village already knows your faces.",
+          "lines": [
+            {
+              "s": "bhaskar",
+              "t": "...Then running is pointless. Here."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "conv_return",
+      "scene": "Courtyard",
+      "npc": "priest",
+      "lines": [
+        {
+          "s": "aryan",
+          "t": "The vessel, the rosette, and the manuscript. All three, unharmed."
+        },
+        {
+          "s": "pujari",
+          "t": "You have returned more than objects. You returned our memory."
+        },
+        {
+          "s": "meera",
+          "t": "The festival can begin at sunrise!"
+        }
+      ]
+    }
+  ],
+  "objectives": [
+    {
+      "id": "obj_talk_pujari",
+      "scene": "Courtyard",
+      "title": "Speak with Pujari Ananda",
+      "instruction": "Walk to the priest at the temple steps and talk to him.",
+      "keys": "WASD to walk, E to talk",
+      "target": "npc:priest",
+      "area": "Temple steps",
+      "complete": {
+        "type": "dialogue",
+        "id": "conv_courtyard_pujari"
+      },
+      "hints": [
+        "Someone at the temple needs your help.",
+        "The priest in white stands near the temple steps ahead.",
+        "Walk to Pujari Ananda and press E when the prompt appears."
+      ]
+    },
+    {
+      "id": "obj_talk_meera",
+      "scene": "Courtyard",
+      "title": "Ask Meera what she saw",
+      "instruction": "Find Meera in the courtyard and talk to her.",
+      "keys": "E to talk, 1-3 to choose",
+      "target": "npc:villager",
+      "area": "Courtyard, beside the priest",
+      "complete": {
+        "type": "dialogue",
+        "id": "conv_courtyard_meera"
+      },
+      "hints": [
+        "A witness was awake before sunrise.",
+        "Meera wears a red and green saree, near the priest.",
+        "Walk to Meera and press E."
+      ]
+    },
+    {
+      "id": "obj_enter_hall",
+      "scene": "Courtyard",
+      "title": "Enter the storage hall",
+      "instruction": "Go through the temple doorway into the storage hall.",
+      "keys": "WASD to walk, E at the doorway",
+      "target": "exit:Sanctum",
+      "area": "Temple doorway",
+      "complete": {
+        "type": "scene",
+        "id": "Sanctum"
+      },
+      "hints": [
+        "The theft happened inside the temple.",
+        "The doorway is at the top of the temple steps.",
+        "Walk into the glowing doorway and press E."
+      ]
+    },
+    {
+      "id": "obj_hall_clues",
+      "scene": "Sanctum",
+      "title": "Search the storage hall",
+      "instruction": "The hall is dark. Turn on your flashlight, then inspect 3 clues.",
+      "keys": "G flashlight, F inspect, Esc close",
+      "target": "clues",
+      "area": "Storage hall",
+      "complete": {
+        "type": "clues",
+        "ids": [
+          "clue_broken_lock",
+          "clue_breached_case",
+          "clue_muddy_footprints"
+        ]
+      },
+      "hints": [
+        "It is too dark to see details. Use your flashlight.",
+        "Press G, then look at the stands, the lock and the floor.",
+        "Press G, walk to each glowing item and press F."
+      ]
+    },
+    {
+      "id": "obj_hall_pujari",
+      "scene": "Sanctum",
+      "title": "Tell the Pujari what you found",
+      "instruction": "Talk to Pujari Ananda about the clues.",
+      "keys": "E to talk",
+      "target": "npc:priest",
+      "area": "Storage hall",
+      "complete": {
+        "type": "dialogue",
+        "id": "conv_sanctum"
+      },
+      "hints": [
+        "The priest knows the hall best.",
+        "Pujari Ananda is in the hall with you.",
+        "Walk to the priest and press E."
+      ]
+    },
+    {
+      "id": "obj_go_shrine",
+      "scene": "Sanctum",
+      "title": "Go to the outer shrine",
+      "instruction": "Follow the passage to the outer shrine.",
+      "keys": "WASD to walk, E at the exit",
+      "target": "exit:ShrineCrime",
+      "area": "Back passage",
+      "complete": {
+        "type": "scene",
+        "id": "ShrineCrime"
+      },
+      "hints": [
+        "The thieves left another way.",
+        "A passage leads to the outer shrine.",
+        "Walk to the passage marked Outer Shrine and press E."
+      ]
+    },
+    {
+      "id": "obj_shrine_clues",
+      "scene": "ShrineCrime",
+      "title": "Examine the shrine",
+      "instruction": "Inspect the red silk and the escape sketch.",
+      "keys": "F to inspect",
+      "target": "clues",
+      "area": "Outer shrine",
+      "complete": {
+        "type": "clues",
+        "ids": [
+          "clue_fabric_fragment",
+          "clue_ancient_map"
+        ]
+      },
+      "hints": [
+        "Something was torn on the way out.",
+        "Check the doorframe and the ground near the lamp.",
+        "Walk to each glowing item and press F."
+      ]
+    },
+    {
+      "id": "obj_forensics",
+      "scene": "ShrineCrime",
+      "title": "Compare the evidence",
+      "instruction": "Open the forensic kit and match the bootprints and the red silk.",
+      "keys": "K forensic kit, 1-3 answer",
+      "target": "",
+      "area": "Outer shrine",
+      "complete": {
+        "type": "minigame",
+        "id": "forensics"
+      },
+      "hints": [
+        "Think about what two boot sizes mean.",
+        "Two sizes means two people. The silk is red.",
+        "Press K, answer 2 (two people), then 2 (Bhaskar's red scarf)."
+      ]
+    },
+    {
+      "id": "obj_shrine_pujari",
+      "scene": "ShrineCrime",
+      "title": "Work out who did it",
+      "instruction": "Talk to the Pujari and put the clues together.",
+      "keys": "E to talk",
+      "target": "npc:priest",
+      "area": "Outer shrine",
+      "complete": {
+        "type": "dialogue",
+        "id": "conv_shrine"
+      },
+      "hints": [
+        "You have enough clues now.",
+        "Discuss them with Pujari Ananda.",
+        "Walk to the priest and press E."
+      ]
+    },
+    {
+      "id": "obj_go_wall",
+      "scene": "ShrineCrime",
+      "title": "Follow the trail to the old wall",
+      "instruction": "Take the exit toward the ancient wall.",
+      "keys": "WASD to walk, E at the exit",
+      "target": "exit:PuzzleWall",
+      "area": "Shrine exit",
+      "complete": {
+        "type": "scene",
+        "id": "PuzzleWall"
+      },
+      "hints": [
+        "The trail continues.",
+        "The exit to the ancient wall is past the shrine.",
+        "Walk to the exit marked Surya Chakra Wall and press E."
+      ]
+    },
+    {
+      "id": "obj_wall_pujari",
+      "scene": "PuzzleWall",
+      "title": "Hear the legend of the wall",
+      "instruction": "Talk to Pujari Ananda about the wall.",
+      "keys": "E to talk",
+      "target": "npc:priest",
+      "area": "Wall chamber",
+      "complete": {
+        "type": "dialogue",
+        "id": "conv_wall"
+      },
+      "hints": [
+        "The priest remembers an old story.",
+        "Pujari Ananda stands near the wall.",
+        "Walk to the priest and press E."
+      ]
+    },
+    {
+      "id": "obj_solve_wall",
+      "scene": "PuzzleWall",
+      "title": "Open the sun wall",
+      "instruction": "Turn the symbols: lotus, conch, wheel, kalash. Then the centre wheel.",
+      "keys": "E to use, 1-3 pick ring, W/S turn",
+      "target": "puzzle",
+      "area": "Centre of the wall",
+      "complete": {
+        "type": "puzzle",
+        "id": "chakra_wall"
+      },
+      "hints": [
+        "The scroll gave an order.",
+        "Lotus, conch, wheel, kalash must face the sun at the top.",
+        "Use the wall (E), set each ring with 1-3 and W/S in that order, then turn the centre."
+      ]
+    },
+    {
+      "id": "obj_go_jungle",
+      "scene": "PuzzleWall",
+      "title": "Go through the open passage",
+      "instruction": "Walk through the passage into the jungle.",
+      "keys": "WASD to walk, E at the passage",
+      "target": "exit:JunglePath",
+      "area": "Open passage",
+      "complete": {
+        "type": "scene",
+        "id": "JunglePath"
+      },
+      "hints": [
+        "The wall has opened.",
+        "The passage is in the wall.",
+        "Walk into the passage and press E."
+      ]
+    },
+    {
+      "id": "obj_follow",
+      "scene": "JunglePath",
+      "title": "Follow the two men unseen",
+      "instruction": "Stay behind them. When they look back, crouch or hide behind rocks.",
+      "keys": "WASD follow, C crouch",
+      "target": "npc:robber1",
+      "area": "Jungle trail",
+      "complete": {
+        "type": "minigame",
+        "id": "stealth"
+      },
+      "hints": [
+        "Keep your distance and watch them.",
+        "When they stop and turn around, crouch or stand behind a rock.",
+        "Stay about 8 m behind, hold C when the panel says they are looking back."
+      ]
+    },
+    {
+      "id": "obj_confront",
+      "scene": "JunglePath",
+      "title": "Confront the two men",
+      "instruction": "Approach Bhaskar and Kishore and talk calmly.",
+      "keys": "E to talk, 1-2 to choose",
+      "target": "npc:robber1",
+      "area": "Jungle clearing",
+      "complete": {
+        "type": "dialogue",
+        "id": "conv_jungle"
+      },
+      "hints": [
+        "The thieves are ahead.",
+        "Two men argue in the clearing near the torches.",
+        "Walk to Bhaskar (red scarf) and press E."
+      ]
+    },
+    {
+      "id": "obj_recover",
+      "scene": "JunglePath",
+      "title": "Recover the three pieces",
+      "instruction": "Pick up the vessel, the rosette and the manuscript.",
+      "keys": "F to pick up",
+      "target": "clues",
+      "area": "Jungle clearing",
+      "complete": {
+        "type": "clues",
+        "ids": [
+          "relic_pradip",
+          "relic_rosette",
+          "relic_manuscript"
+        ]
+      },
+      "hints": [
+        "They set the pieces down.",
+        "The three pieces lie on the ground near the men.",
+        "Walk to each glowing piece and press F."
+      ]
+    },
+    {
+      "id": "obj_return",
+      "scene": "Courtyard",
+      "title": "Return the pieces to the Pujari",
+      "instruction": "Give the three pieces back to Pujari Ananda at sunrise.",
+      "keys": "E to talk",
+      "target": "npc:priest",
+      "area": "Temple steps",
+      "complete": {
+        "type": "dialogue",
+        "id": "conv_return"
+      },
+      "hints": [
+        "The temple is waiting.",
+        "Pujari Ananda is at the temple steps.",
+        "Walk to the priest and press E."
+      ]
+    }
+  ],
+  "ending": {
+    "text": "Every temple holds a story. Every artifact carries a memory. Protecting heritage means protecting our history.",
+    "title": "MISSION COMPLETED"
+  }
+}

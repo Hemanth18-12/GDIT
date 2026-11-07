@@ -35,6 +35,7 @@ namespace LegacyOfTemples.Gameplay
 
         private void Update()
         {
+            if (enabled) return; // H / Tab now open the GuideSystem panel
             var kb = Keyboard.current;
             if (kb != null && kb.hKey.wasPressedThisFrame)
             {
@@ -67,8 +68,9 @@ namespace LegacyOfTemples.Gameplay
             }
         }
 
-        private void OnGUI()
+        private void LegacyOnGUI()
         {
+            if (enabled) return; // replaced by TextMeshPro GuideSystem / ScreenTextRenderer
             if (!isOpen) return;
 
             InitStyles();

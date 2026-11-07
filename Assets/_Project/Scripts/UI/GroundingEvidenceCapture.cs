@@ -62,16 +62,37 @@ namespace LegacyOfTemples.UI
                 TutorialManager.Instance.StartTutorial();
                 yield return new WaitForSecondsRealtime(1f);
                 yield return Capture("standalone-tutorial.png");
-                if (UIManager.Instance != null) UIManager.Instance.HideTutorial();
+                TutorialManager.Instance.SkipTutorial();
+                if (UIManager.Instance != null)
+                {
+                    UIManager.Instance.HideTutorial();
+                    UIManager.Instance.DismissHowToPlay();
+                }
                 yield return new WaitForSecondsRealtime(0.5f);
             }
 
             // 5. Courtyard Gameplay with HUD & Bottom Hint Bar
+            var orbit = Camera.main != null ? Camera.main.GetComponent<OrbitCamera>() : null;
+            var player = FindAnyObjectByType<PlayerController>();
+            if (orbit != null && player != null)
+            {
+                orbit.SetCutsceneOverride(player.transform.position - player.transform.forward * 4.2f + Vector3.up * 2.0f, Quaternion.Euler(12f, player.transform.eulerAngles.y, 0f));
+            }
+            yield return new WaitForSecondsRealtime(0.5f);
             yield return Capture("standalone-courtyard-gameplay.png");
+            if (orbit != null) orbit.ClearCutsceneOverride();
 
             // 6. Dialogue with Pujari Ananda & Choices
             if (UIManager.Instance != null)
             {
+                GameObject pObj = GameObject.Find("Priest") ?? GameObject.Find("Priest(Clone)");
+                if (orbit != null && pObj != null)
+                {
+                    Vector3 head = pObj.transform.position + Vector3.up * 1.45f;
+                    Vector3 camPos = head + pObj.transform.forward * 2.2f + Vector3.up * 0.1f + pObj.transform.right * 0.5f;
+                    orbit.SetCutsceneOverride(camPos, Quaternion.LookRotation(head - camPos));
+                }
+
                 string[] lines = new string[]
                 {
                     "Namaste. Three pieces from our storage hall are gone: a brass ceremonial vessel, a carved sandstone rosette, and a palm-leaf manuscript. Please find them before the festival.",
@@ -87,6 +108,7 @@ namespace LegacyOfTemples.UI
                 yield return new WaitForSecondsRealtime(1.5f);
                 yield return Capture("standalone-dialogue.png");
                 UIManager.Instance.EndDialogue();
+                if (orbit != null) orbit.ClearCutsceneOverride();
                 yield return new WaitForSecondsRealtime(0.5f);
             }
 
@@ -131,14 +153,14 @@ namespace LegacyOfTemples.UI
             }
 
             // 11. Character Close-Ups in Courtyard
-            var orbit = Camera.main != null ? Camera.main.GetComponent<OrbitCamera>() : null;
-            var player = FindAnyObjectByType<PlayerController>();
+            orbit = Camera.main != null ? Camera.main.GetComponent<OrbitCamera>() : null;
+            player = FindAnyObjectByType<PlayerController>();
 
             // Investigator Aryan
             if (orbit != null && player != null)
             {
-                Vector3 head = player.transform.position + Vector3.up * 1.5f;
-                Vector3 camPos = head + player.transform.forward * 1.8f + Vector3.up * 0.1f;
+                Vector3 head = player.transform.position + Vector3.up * 1.35f;
+                Vector3 camPos = head + player.transform.forward * 2.2f + Vector3.up * 0.1f + player.transform.right * 0.45f;
                 orbit.SetCutsceneOverride(camPos, Quaternion.LookRotation(head - camPos));
                 yield return new WaitForSecondsRealtime(1f);
                 yield return Capture("standalone-char-investigator.png");

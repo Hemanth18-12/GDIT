@@ -32,9 +32,9 @@ namespace LegacyOfTemples.UI
         public static readonly Color ColorTextWarmIvory = new Color(1.0f, 0.957f, 0.839f, 1.0f);     // #FFF4D6
         public static readonly Color ColorHeaderAntiqueGold = new Color(1.0f, 0.784f, 0.341f, 1.0f); // #FFC857
         public static readonly Color ColorClueCyan = new Color(0.361f, 0.882f, 0.902f, 1.0f);          // #5CE1E6
-        public static readonly Color ColorWarningCoral = new Color(1.0f, 0.420f, 0.357f, 1.0f);        // #FF6B5B
+        public static readonly Color ColorWarningCoral = new Color(1.0f, 0.706f, 0.659f, 1.0f);        // #FFB4A8 (lightened coral, 7:1)
 
-        public static readonly Color ColorPanelBgNormal = new Color(0.0f, 0.0f, 0.0f, 0.70f);        // #000000 @ 70%
+        public static readonly Color ColorPanelBgNormal = new Color(0.0f, 0.0f, 0.0f, 0.85f);        // #000000 @ 85% (>= 7:1 for every text colour)
         public static readonly Color ColorPanelBgHighContrast = new Color(0.0f, 0.0f, 0.0f, 0.98f);  // #000000 @ 98%
         public static readonly Color ColorBorderGold = new Color(1.0f, 0.784f, 0.341f, 0.85f);       // Thin Gold Border
         #endregion
@@ -54,6 +54,7 @@ namespace LegacyOfTemples.UI
         private TextMeshProUGUI objectiveCounterText;
 
         private GameObject promptPanel;
+        private TextMeshProUGUI bottomHintText;
         private Image promptPanelBg;
         private TextMeshProUGUI promptKeyText;
         private TextMeshProUGUI promptActionText;
@@ -113,7 +114,7 @@ namespace LegacyOfTemples.UI
         private bool isPhotoMode = false;
         private float currentFontMultiplier = 1.0f;
         private int textScaleIndex = 1; // 0: Small (0.85), 1: Med (1.0), 2: Large (1.15), 3: XL (1.30)
-        private readonly float[] fontMultipliers = new float[] { 0.85f, 1.0f, 1.15f, 1.30f };
+        private readonly float[] fontMultipliers = new float[] { 0.9f, 1.0f, 1.12f, 1.25f };
         private readonly string[] fontScaleNames = new string[] { "Small (85%)", "Medium (100%)", "Large (115%)", "Extra Large (130%)" };
 
         private readonly List<Image> allPanelBackgrounds = new List<Image>();
@@ -152,7 +153,7 @@ namespace LegacyOfTemples.UI
 
         private void LoadFont()
         {
-            defaultFont = Resources.Load<TMP_FontAsset>("Fonts & Materials/LiberationSans SDF");
+            defaultFont = HeritageFonts.Body;
             if (defaultFont == null)
             {
                 defaultFont = TMP_Settings.defaultFontAsset;
@@ -168,6 +169,7 @@ namespace LegacyOfTemples.UI
             EventBus.OnShowPrompt += ShowInteractionPrompt;
             EventBus.OnHidePrompt += HideInteractionPrompt;
             EventBus.OnUpdateObjective += SetObjective;
+            EventBus.OnRequestDialogueEnd += CancelDialogue;
             EventBus.OnShowcaseTourToggled += HideAllUIForShowcase;
             EventBus.OnOverlayMenuToggled += HandleOverlayMenuToggled;
         }
@@ -181,6 +183,7 @@ namespace LegacyOfTemples.UI
             EventBus.OnShowPrompt -= ShowInteractionPrompt;
             EventBus.OnHidePrompt -= HideInteractionPrompt;
             EventBus.OnUpdateObjective -= SetObjective;
+            EventBus.OnRequestDialogueEnd -= CancelDialogue;
             EventBus.OnShowcaseTourToggled -= HideAllUIForShowcase;
             EventBus.OnOverlayMenuToggled -= HandleOverlayMenuToggled;
         }
@@ -189,6 +192,19 @@ namespace LegacyOfTemples.UI
         {
             SetHudActive(!isOpen);
             if (bottomHintBar != null) bottomHintBar.SetActive(!isOpen && !isPhotoMode);
+        }
+
+        private void LateUpdate() { ThemeAndLayout(); }
+
+        /// <summary>True when another panel is open (or closed on this frame) so Esc must not also open Pause.</summary>
+        private static bool OverlayOwnsEscape()
+        {
+            if (EventBus.EscapeConsumedFrame >= Time.frameCount - 1) return true;
+            if (InvestigationJournal.Instance != null && InvestigationJournal.Instance.IsOpen) return true;
+            if (TempleMapOverlay.Instance != null && TempleMapOverlay.Instance.IsOpen) return true;
+            if (ChakraPuzzleController.Active != null && ChakraPuzzleController.Active.IsInteracting) return true;
+            foreach (var c in FindObjectsByType<ClueInspectable>()) if (c.IsInspecting) return true;
+            return false;
         }
 
         private void Update()
@@ -214,21 +230,9 @@ namespace LegacyOfTemples.UI
                 return;
             }
 
-            // Help Toggle [H]
-            if (kb != null && kb.hKey.wasPressedThisFrame)
-            {
-                if (howToPlayPanel != null && howToPlayPanel.activeSelf)
-                {
-                    DismissHowToPlay();
-                }
-                else
-                {
-                    ShowHowToPlay(null);
-                }
-            }
 
             // Pause Toggle (Esc)
-            if (kb != null && kb.escapeKey.wasPressedThisFrame)
+            if (kb != null && kb.escapeKey.wasPressedThisFrame && !OverlayOwnsEscape())
             {
                 if (howToPlayPanel != null && howToPlayPanel.activeSelf)
                 {
@@ -424,7 +428,7 @@ namespace LegacyOfTemples.UI
             titleObj.transform.SetParent(hudPanel.transform, false);
             objectiveTitleText = titleObj.AddComponent<TextMeshProUGUI>();
             objectiveTitleText.font = defaultFont;
-            objectiveTitleText.fontSize = 32f * currentFontMultiplier;
+            objectiveTitleText.fontSize = 40f * currentFontMultiplier;
             objectiveTitleText.fontStyle = FontStyles.Bold;
             objectiveTitleText.color = ColorHeaderAntiqueGold;
             objectiveTitleText.text = "CURRENT OBJECTIVE";
@@ -441,7 +445,7 @@ namespace LegacyOfTemples.UI
             bodyObj.transform.SetParent(hudPanel.transform, false);
             objectiveBodyText = bodyObj.AddComponent<TextMeshProUGUI>();
             objectiveBodyText.font = defaultFont;
-            objectiveBodyText.fontSize = 28f * currentFontMultiplier;
+            objectiveBodyText.fontSize = 34f * currentFontMultiplier;
             objectiveBodyText.color = ColorTextWarmIvory;
             objectiveBodyText.text = "Speak with Head Priest Ananda at the courtyard steps.";
             objectiveBodyText.textWrappingMode = TextWrappingModes.Normal;
@@ -458,7 +462,7 @@ namespace LegacyOfTemples.UI
             counterObj.transform.SetParent(hudPanel.transform, false);
             objectiveCounterText = counterObj.AddComponent<TextMeshProUGUI>();
             objectiveCounterText.font = defaultFont;
-            objectiveCounterText.fontSize = 22f * currentFontMultiplier;
+            objectiveCounterText.fontSize = 34f * currentFontMultiplier;
             objectiveCounterText.fontStyle = FontStyles.Italic;
             objectiveCounterText.color = ColorClueCyan;
             objectiveCounterText.text = "Stolen Relics Recovered: 0/3  |  Clues Found: 0/5";
@@ -505,7 +509,7 @@ namespace LegacyOfTemples.UI
             keyTextObj.transform.SetParent(keyObj.transform, false);
             promptKeyText = keyTextObj.AddComponent<TextMeshProUGUI>();
             promptKeyText.font = defaultFont;
-            promptKeyText.fontSize = 32f * currentFontMultiplier;
+            promptKeyText.fontSize = 34f * currentFontMultiplier;
             promptKeyText.fontStyle = FontStyles.Bold;
             promptKeyText.alignment = TextAlignmentOptions.Center;
             promptKeyText.color = ColorHeaderAntiqueGold;
@@ -521,7 +525,7 @@ namespace LegacyOfTemples.UI
             actionObj.transform.SetParent(promptPanel.transform, false);
             promptActionText = actionObj.AddComponent<TextMeshProUGUI>();
             promptActionText.font = defaultFont;
-            promptActionText.fontSize = 28f * currentFontMultiplier;
+            promptActionText.fontSize = 34f * currentFontMultiplier;
             promptActionText.fontStyle = FontStyles.Bold;
             promptActionText.alignment = TextAlignmentOptions.MidlineLeft;
             promptActionText.color = ColorTextWarmIvory;
@@ -572,7 +576,7 @@ namespace LegacyOfTemples.UI
             stepObj.transform.SetParent(header.transform, false);
             tutorialStepText = stepObj.AddComponent<TextMeshProUGUI>();
             tutorialStepText.font = defaultFont;
-            tutorialStepText.fontSize = 30f * currentFontMultiplier;
+            tutorialStepText.fontSize = 32f * currentFontMultiplier;
             tutorialStepText.fontStyle = FontStyles.Bold;
             tutorialStepText.color = ColorHeaderAntiqueGold;
             tutorialStepText.text = "TUTORIAL · STEP 1 OF 12";
@@ -625,7 +629,7 @@ namespace LegacyOfTemples.UI
             bodyObj.transform.SetParent(tutorialPanel.transform, false);
             tutorialBodyText = bodyObj.AddComponent<TextMeshProUGUI>();
             tutorialBodyText.font = defaultFont;
-            tutorialBodyText.fontSize = 30f * currentFontMultiplier;
+            tutorialBodyText.fontSize = 32f * currentFontMultiplier;
             tutorialBodyText.alignment = TextAlignmentOptions.Center;
             tutorialBodyText.color = ColorTextWarmIvory;
             tutorialBodyText.textWrappingMode = TextWrappingModes.Normal;
@@ -643,7 +647,7 @@ namespace LegacyOfTemples.UI
             promptObj.transform.SetParent(tutorialPanel.transform, false);
             tutorialActionPromptText = promptObj.AddComponent<TextMeshProUGUI>();
             tutorialActionPromptText.font = defaultFont;
-            tutorialActionPromptText.fontSize = 30f * currentFontMultiplier;
+            tutorialActionPromptText.fontSize = 34f * currentFontMultiplier;
             tutorialActionPromptText.fontStyle = FontStyles.Bold;
             tutorialActionPromptText.alignment = TextAlignmentOptions.Center;
             tutorialActionPromptText.color = ColorWarningCoral;
@@ -681,7 +685,7 @@ namespace LegacyOfTemples.UI
             titleObj.transform.SetParent(howToPlayPanel.transform, false);
             TextMeshProUGUI title = titleObj.AddComponent<TextMeshProUGUI>();
             title.font = defaultFont;
-            title.fontSize = 38f * currentFontMultiplier;
+            title.fontSize = 64f * currentFontMultiplier;
             title.fontStyle = FontStyles.Bold;
             title.alignment = TextAlignmentOptions.Center;
             title.color = ColorHeaderAntiqueGold;
@@ -699,7 +703,7 @@ namespace LegacyOfTemples.UI
             bodyObj.transform.SetParent(howToPlayPanel.transform, false);
             TextMeshProUGUI body = bodyObj.AddComponent<TextMeshProUGUI>();
             body.font = defaultFont;
-            body.fontSize = 24f * currentFontMultiplier;
+            body.fontSize = 30f * currentFontMultiplier;
             body.alignment = TextAlignmentOptions.TopLeft;
             body.color = ColorTextWarmIvory;
             body.textWrappingMode = TextWrappingModes.Normal;
@@ -728,7 +732,7 @@ namespace LegacyOfTemples.UI
             contObj.transform.SetParent(howToPlayPanel.transform, false);
             TextMeshProUGUI contText = contObj.AddComponent<TextMeshProUGUI>();
             contText.font = defaultFont;
-            contText.fontSize = 28f * currentFontMultiplier;
+            contText.fontSize = 34f * currentFontMultiplier;
             contText.fontStyle = FontStyles.Bold;
             contText.alignment = TextAlignmentOptions.Center;
             contText.color = ColorClueCyan;
@@ -793,7 +797,7 @@ namespace LegacyOfTemples.UI
             nameObj.transform.SetParent(dialoguePanel.transform, false);
             dialogueSpeakerText = nameObj.AddComponent<TextMeshProUGUI>();
             dialogueSpeakerText.font = defaultFont;
-            dialogueSpeakerText.fontSize = 36f * currentFontMultiplier;
+            dialogueSpeakerText.fontSize = 40f * currentFontMultiplier;
             dialogueSpeakerText.fontStyle = FontStyles.Bold;
             dialogueSpeakerText.color = ColorHeaderAntiqueGold;
             dialogueSpeakerText.text = "Pujari Ananda";
@@ -810,7 +814,7 @@ namespace LegacyOfTemples.UI
             bodyObj.transform.SetParent(dialoguePanel.transform, false);
             dialogueBodyText = bodyObj.AddComponent<TextMeshProUGUI>();
             dialogueBodyText.font = defaultFont;
-            dialogueBodyText.fontSize = 32f * currentFontMultiplier;
+            dialogueBodyText.fontSize = 36f * currentFontMultiplier;
             dialogueBodyText.color = ColorTextWarmIvory;
             dialogueBodyText.textWrappingMode = TextWrappingModes.Normal;
             dialogueBodyText.text = "Namaste, Investigator Aryan...";
@@ -826,7 +830,7 @@ namespace LegacyOfTemples.UI
             promptObj.transform.SetParent(dialoguePanel.transform, false);
             dialoguePromptText = promptObj.AddComponent<TextMeshProUGUI>();
             dialoguePromptText.font = defaultFont;
-            dialoguePromptText.fontSize = 26f * currentFontMultiplier;
+            dialoguePromptText.fontSize = 34f * currentFontMultiplier;
             dialoguePromptText.fontStyle = FontStyles.Italic;
             dialoguePromptText.color = ColorClueCyan;
             dialoguePromptText.alignment = TextAlignmentOptions.MidlineRight;
@@ -875,7 +879,7 @@ namespace LegacyOfTemples.UI
                 txtObj.transform.SetParent(btnObj.transform, false);
                 TextMeshProUGUI txt = txtObj.AddComponent<TextMeshProUGUI>();
                 txt.font = defaultFont;
-                txt.fontSize = 30f * currentFontMultiplier;
+                txt.fontSize = 34f * currentFontMultiplier;
                 txt.color = ColorHeaderAntiqueGold;
                 txt.alignment = TextAlignmentOptions.MidlineLeft;
                 txt.text = $"[{i + 1}] Choice option";
@@ -970,7 +974,7 @@ namespace LegacyOfTemples.UI
             tsLabel.transform.SetParent(settingsBox.transform, false);
             textSizeLabel = tsLabel.AddComponent<TextMeshProUGUI>();
             textSizeLabel.font = defaultFont;
-            textSizeLabel.fontSize = 28f * currentFontMultiplier;
+            textSizeLabel.fontSize = 30f * currentFontMultiplier;
             textSizeLabel.color = ColorTextWarmIvory;
             textSizeLabel.text = $"Text Size: <color=#FFC857>{fontScaleNames[textScaleIndex]}</color>";
             RectTransform tsrt = tsLabel.GetComponent<RectTransform>();
@@ -997,7 +1001,7 @@ namespace LegacyOfTemples.UI
             cbTxt.transform.SetParent(cycleBtn.transform, false);
             TextMeshProUGUI cbt = cbTxt.AddComponent<TextMeshProUGUI>();
             cbt.font = defaultFont;
-            cbt.fontSize = 24f * currentFontMultiplier;
+            cbt.fontSize = 30f * currentFontMultiplier;
             cbt.alignment = TextAlignmentOptions.Center;
             cbt.color = Color.white;
             cbt.text = "Change Size";
@@ -1012,7 +1016,7 @@ namespace LegacyOfTemples.UI
             hcLabel.transform.SetParent(settingsBox.transform, false);
             highContrastLabel = hcLabel.AddComponent<TextMeshProUGUI>();
             highContrastLabel.font = defaultFont;
-            highContrastLabel.fontSize = 28f * currentFontMultiplier;
+            highContrastLabel.fontSize = 30f * currentFontMultiplier;
             highContrastLabel.color = ColorTextWarmIvory;
             highContrastLabel.text = $"High Contrast: <color=#FFC857>{(isHighContrast ? "ON" : "OFF")}</color>";
             RectTransform hcrt = hcLabel.GetComponent<RectTransform>();
@@ -1039,7 +1043,7 @@ namespace LegacyOfTemples.UI
             hcbtTxt.transform.SetParent(hcBtn.transform, false);
             TextMeshProUGUI hcbt = hcbtTxt.AddComponent<TextMeshProUGUI>();
             hcbt.font = defaultFont;
-            hcbt.fontSize = 24f * currentFontMultiplier;
+            hcbt.fontSize = 30f * currentFontMultiplier;
             hcbt.alignment = TextAlignmentOptions.Center;
             hcbt.color = Color.white;
             hcbt.text = "Toggle Mode";
@@ -1078,12 +1082,12 @@ namespace LegacyOfTemples.UI
             textObj.transform.SetParent(bottomHintBar.transform, false);
             TextMeshProUGUI hintText = textObj.AddComponent<TextMeshProUGUI>();
             hintText.font = defaultFont;
-            hintText.fontSize = 19f * currentFontMultiplier;
-            hintText.textWrappingMode = TextWrappingModes.NoWrap;
+            hintText.fontSize = 32f * currentFontMultiplier;
+            hintText.textWrappingMode = TextWrappingModes.Normal;
             hintText.alignment = TextAlignmentOptions.Center;
+            bottomHintText = hintText;
             hintText.color = ColorTextWarmIvory;
-            hintText.text =
-                "<color=#FFC857>[W A S D]</color> Move  •  <color=#FFC857>[Shift]</color> Sprint  •  <color=#FFC857>[Space]</color> Jump  •  <color=#FFC857>[C]</color> Crouch  •  <color=#FFC857>[E]</color> Interact  •  <color=#FFC857>[J]</color> Journal  •  <color=#FFC857>[M]</color> Map  •  <color=#FFC857>[H]</color> Help  •  <color=#FFC857>[P]</color> Photo Mode  •  <color=#FFC857>[Esc]</color> Pause";
+            hintText.text = "<color=#FFC857>[WASD]</color> Move  •  <color=#FFC857>[Shift]</color> Run  •  <color=#FFC857>[E]</color> Talk / Use  •  <color=#FFC857>[F]</color> Inspect  •  <color=#FFC857>[J]</color> Journal  •  <color=#FFC857>[M]</color> Map  •  <color=#FFC857>[H]</color> Guide  •  <color=#FFC857>[Esc]</color> Pause";
 
             RectTransform trt = textObj.GetComponent<RectTransform>();
             trt.anchorMin = Vector2.zero;
@@ -1111,7 +1115,7 @@ namespace LegacyOfTemples.UI
             txtObj.transform.SetParent(photoModeToast.transform, false);
             photoModeToastText = txtObj.AddComponent<TextMeshProUGUI>();
             photoModeToastText.font = defaultFont;
-            photoModeToastText.fontSize = 26f;
+            photoModeToastText.fontSize = 30f;
             photoModeToastText.alignment = TextAlignmentOptions.Center;
             photoModeToastText.color = ColorHeaderAntiqueGold;
             photoModeToastText.text = "PHOTO MODE: UI Hidden. Press [P] to restore.";
@@ -1153,7 +1157,7 @@ namespace LegacyOfTemples.UI
             txtObj.transform.SetParent(btnObj.transform, false);
             TextMeshProUGUI txt = txtObj.AddComponent<TextMeshProUGUI>();
             txt.font = defaultFont;
-            txt.fontSize = 28f * currentFontMultiplier;
+            txt.fontSize = 30f * currentFontMultiplier;
             txt.alignment = TextAlignmentOptions.Center;
             txt.color = ColorTextWarmIvory;
             txt.text = label;
@@ -1182,7 +1186,7 @@ namespace LegacyOfTemples.UI
             labelObj.transform.SetParent(row.transform, false);
             TextMeshProUGUI lbl = labelObj.AddComponent<TextMeshProUGUI>();
             lbl.font = defaultFont;
-            lbl.fontSize = 26f * currentFontMultiplier;
+            lbl.fontSize = 30f * currentFontMultiplier;
             lbl.color = ColorTextWarmIvory;
             lbl.text = label;
             RectTransform lrt = labelObj.GetComponent<RectTransform>();
@@ -1282,11 +1286,15 @@ namespace LegacyOfTemples.UI
             onHowToPlayDismiss = null;
         }
 
+        /// <summary>Voice-ready hook: (speaker, text) for each displayed line (subtitles are the dialogue box).</summary>
+        public static event Action<string, string> OnSubtitleLine;
+
         public void StartDialogue(string speaker, string[] lines, string[] choices = null, Action<int> onChoice = null, Action onComplete = null)
         {
             if (isPhotoMode) TogglePhotoMode();
 
             isDialogueActive = true;
+            if (TempleMapOverlay.Instance != null && TempleMapOverlay.Instance.IsOpen) TempleMapOverlay.Instance.ToggleMap(); // map never covers a conversation
             activeDialogueLines = lines;
             activeDialogueChoices = choices;
             currentDialogueLine = 0;
@@ -1316,6 +1324,17 @@ namespace LegacyOfTemples.UI
             }
 
             activeFullLine = activeDialogueLines[index];
+            int colon = activeFullLine.IndexOf(": ");
+            if (colon > 0 && colon < 32)
+            {
+                string who = activeFullLine.Substring(0, colon);
+                activeFullLine = activeFullLine.Substring(colon + 2);
+                dialogueSpeakerText.text = who;
+                if (dialoguePortraitInitial != null) dialoguePortraitInitial.text = who.Substring(0, 1).ToUpperInvariant();
+                EventBus.RaiseDialogueLine(who);
+                OnSubtitleLine?.Invoke(who, activeFullLine);
+            }
+            else EventBus.RaiseDialogueLine(dialogueSpeakerText.text);
             dialogueChoicesContainer.SetActive(false);
 
             if (typewriterCoroutine != null) StopCoroutine(typewriterCoroutine);
@@ -1368,6 +1387,15 @@ namespace LegacyOfTemples.UI
             {
                 EndDialogue();
             }
+        }
+
+        /// <summary>Close the dialogue box without invoking completion callbacks (conversation cancelled).</summary>
+        public void CancelDialogue()
+        {
+            onDialogueCompletedCallback = null; onChoiceCallback = null;
+            if (typewriterCoroutine != null) StopCoroutine(typewriterCoroutine);
+            isTypewriting = false;
+            EndDialogue();
         }
 
         public void EndDialogue()
@@ -1443,7 +1471,7 @@ namespace LegacyOfTemples.UI
 
             foreach (var img in allPanelBackgrounds)
             {
-                if (img != null) img.color = panelBg;
+                if (img != null) { img.sprite = null; img.color = panelBg; } // one source of alpha (sprite x color was 72%)
             }
 
             if (objectiveTitleText != null) objectiveTitleText.color = headerColor;
@@ -1492,16 +1520,182 @@ namespace LegacyOfTemples.UI
             }
         }
 
+        private bool themeApplied;
+        private readonly Dictionary<TMP_Text, float> baseFontSizes = new Dictionary<TMP_Text, float>();
+
         private void ApplyFontScaleToAll()
         {
-            if (objectiveTitleText != null) objectiveTitleText.fontSize = 34f * currentFontMultiplier;
-            if (objectiveBodyText != null) objectiveBodyText.fontSize = 30f * currentFontMultiplier;
-            if (promptKeyText != null) promptKeyText.fontSize = 32f * currentFontMultiplier;
-            if (promptActionText != null) promptActionText.fontSize = 34f * currentFontMultiplier;
-            if (tutorialTitleText != null) tutorialTitleText.fontSize = 64f * currentFontMultiplier;
-            if (tutorialBodyText != null) tutorialBodyText.fontSize = 30f * currentFontMultiplier;
-            if (dialogueSpeakerText != null) dialogueSpeakerText.fontSize = 36f * currentFontMultiplier;
-            if (dialogueBodyText != null) dialogueBodyText.fontSize = 36f * currentFontMultiplier;
+            if (mainCanvas == null) return;
+            foreach (var t in mainCanvas.GetComponentsInChildren<TMP_Text>(true))
+            {
+                if (!baseFontSizes.TryGetValue(t, out float b)) continue;
+                t.fontSize = b * currentFontMultiplier;
+            }
+        }
+
+        /// <summary>Theme + layout pass: fonts, outline, base sizes, and stacking so text never overlaps.</summary>
+        private void ThemeAndLayout()
+        {
+            if (mainCanvas == null) return;
+            if (!themeApplied) { themeApplied = true; ApplyHighContrastTheme(); }
+            foreach (var t in mainCanvas.GetComponentsInChildren<TMP_Text>(true))
+            {
+                if (baseFontSizes.ContainsKey(t)) continue;
+                string n = t.name;
+                baseFontSizes[t] = BaseSizeFor(n, t.fontSize / Mathf.Max(0.01f, currentFontMultiplier));
+                t.fontSize = baseFontSizes[t] * currentFontMultiplier;
+                bool title = n.Contains("Title") || n == "SpeakerName" || n == "PortraitInitial";
+                HeritageFonts.Apply(t, title);
+            }
+            float canvasW = ((RectTransform)mainCanvas.transform).rect.width, canvasH = ((RectTransform)mainCanvas.transform).rect.height;
+            if (hudPanel != null) { var hp = (RectTransform)hudPanel.transform; hp.sizeDelta = new Vector2(Mathf.Max(420f, canvasW * 0.28f), hp.sizeDelta.y); }
+            StackPanel(hudPanel, 14f, 14f, 24f, 18f, 4f, 0f, objectiveTitleText, objectiveBodyText, objectiveCounterText);
+            if (isDialogueActive)
+            {
+                if (promptPanel != null) promptPanel.SetActive(false);
+                if (bottomHintBar != null) bottomHintBar.SetActive(false);
+            }
+            bool modal = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "MainMenu" || (GuideSystem.Instance != null && GuideSystem.Instance.IsOpen)
+                || isDialogueActive || (tutorialPanel != null && tutorialPanel.activeSelf) || (howToPlayPanel != null && howToPlayPanel.activeSelf)
+                || (InvestigationJournal.Instance != null && InvestigationJournal.Instance.IsOpen) || (TempleMapOverlay.Instance != null && TempleMapOverlay.Instance.IsOpen)
+                || IsPauseOpen;
+            foreach (var spec in ScreenText.Panels.Values) if (spec.dimBackground && ScreenText.IsLive(spec.lastFrame)) modal = true;
+            SetVisible(hudPanel, !modal);
+            SetVisible(bottomHintBar, !modal);
+            SetVisible(dialoguePanel, !modal || isDialogueActive);
+            ScreenText.HideLabels = modal;
+            // Reserved zones for world labels (reference units, origin bottom-left).
+            ScreenText.Reserved.Clear();
+            if (hudPanel != null && !modal) { var hp = ((RectTransform)hudPanel.transform).rect; ScreenText.Reserved.Add(new Rect(24f, canvasH - 24f - hp.height - 8f, hp.width + 16f, hp.height + 16f)); }
+            ScreenText.Reserved.Add(new Rect(0f, 0f, canvasW, 120f));            // controls bar + guide button strip
+            MirrorPanel(howToPlayPanel, "howtoplay", PanelAnchor.Center, 1500f, true, 70);
+            MirrorPanel(tutorialPanel, "tutorial", PanelAnchor.Center, 1300f, false, 65);
+            if (!modal) MirrorPanel(promptPanel, "prompt", PanelAnchor.BottomCenter, 900f, false, 5);
+            Hide(pausePanel); // drawn by HeritagePauseMenu (uGUI buttons + auto layout)
+            if (dialoguePromptText != null)
+            {
+                var drt = dialoguePromptText.rectTransform;
+                drt.anchorMin = new Vector2(1f, 0f); drt.anchorMax = new Vector2(1f, 0f); drt.pivot = new Vector2(1f, 0f);
+                drt.anchoredPosition = new Vector2(-30f, 10f);
+                drt.sizeDelta = new Vector2(Mathf.Ceil(dialoguePromptText.GetPreferredValues(dialoguePromptText.text, 2000f, 0f).x) + 8f, Mathf.Ceil(dialoguePromptText.fontSize * 1.4f));
+            }
+            if (bottomHintBar != null && bottomHintText != null)
+            {
+                // Single line, centred, auto-shrinks, never under the guide button (bottom-right).
+                var hrt = (RectTransform)bottomHintBar.transform;
+                float w = Mathf.Min(1300f, canvasW - 2f * 300f);
+                hrt.sizeDelta = new Vector2(w, 46f);
+                hrt.anchoredPosition = new Vector2(0f, 16f);
+                bottomHintText.textWrappingMode = TextWrappingModes.NoWrap;
+                bottomHintText.enableAutoSizing = true;
+                bottomHintText.fontSizeMax = 24f * currentFontMultiplier; bottomHintText.fontSizeMin = 14f;
+                var trt = bottomHintText.rectTransform; trt.anchorMin = Vector2.zero; trt.anchorMax = Vector2.one; trt.offsetMin = new Vector2(16f, 4f); trt.offsetMax = new Vector2(-16f, -4f);
+            }
+            if (promptPanel != null && isDialogueActive && promptPanel.activeSelf) promptPanel.SetActive(false);
+            if (dialoguePanel != null && dialoguePanel.activeSelf)
+            {
+                float choices = 0f;
+                if (dialogueChoicesContainer != null && dialogueChoicesContainer.activeSelf && choiceButtons != null)
+                {
+                    int shown = 0;
+                    foreach (var b in choiceButtons) if (b != null && b.gameObject.activeSelf) shown++;
+                    choices = shown * 74f + 10f;
+                }
+                StackPanel(dialoguePanel, 16f, 64f + choices, 210f, 30f, 6f, 220f, dialogueSpeakerText, dialogueBodyText);
+                if (dialogueChoicesContainer != null && choices > 0f)
+                {
+                    var crt = (RectTransform)dialogueChoicesContainer.transform;
+                    crt.anchorMin = new Vector2(0f, 0f); crt.anchorMax = new Vector2(1f, 0f); crt.pivot = new Vector2(0f, 0f);
+                    crt.offsetMin = new Vector2(210f, 74f); crt.offsetMax = new Vector2(-30f, 74f + choices);
+                    for (int i = 0; i < choiceButtons.Length; i++)
+                    {
+                        if (choiceButtons[i] == null) continue;
+                        var brt = (RectTransform)choiceButtons[i].transform;
+                        brt.anchorMin = new Vector2(0f, 1f); brt.anchorMax = new Vector2(1f, 1f); brt.pivot = new Vector2(0f, 1f);
+                        brt.anchoredPosition = new Vector2(0f, -i * 74f); brt.sizeDelta = new Vector2(0f, 64f);
+                    }
+                }
+            }
+        }
+
+        public bool IsPauseOpen => pausePanel != null && pausePanel.activeSelf;
+
+        private static float BaseSizeFor(string n, float current)
+        {
+            switch (n)
+            {
+                case "ObjectiveTitle": return 28f;
+                case "ObjectiveBody": return 26f;
+                case "ObjectiveCounter": return 24f;
+                case "PromptAction": return 28f;
+                case "KeyText": return 24f;
+                case "SpeakerName": return 30f;
+                case "DialogueBody": return 30f;
+                case "DialoguePrompt": return 24f;
+                case "PortraitInitial": return 56f;
+                case "HintText": return 24f;
+                case "ToastText": return 26f;
+                case "BtnText": return 26f;
+            }
+            if (n.Contains("Title")) return 56f;
+            if (n.Contains("Keycap")) return 32f;
+            return Mathf.Min(current, 26f);
+        }
+
+        private static void SetVisible(GameObject panel, bool visible)
+        {
+            if (panel == null) return;
+            var cg = (panel.TryGetComponent<CanvasGroup>(out var __c) ? __c : panel.AddComponent<CanvasGroup>());
+            cg.alpha = visible ? 1f : 0f; cg.blocksRaycasts = visible;
+        }
+
+        private static void Hide(GameObject panel)
+        {
+            if (panel == null) return;
+            var cg = (panel.TryGetComponent<CanvasGroup>(out var __c) ? __c : panel.AddComponent<CanvasGroup>());
+            cg.alpha = 0f; cg.blocksRaycasts = false; cg.interactable = false;
+        }
+
+        /// <summary>Hides a fixed-layout legacy panel and redraws its texts with the auto-layout renderer.</summary>
+        private static void MirrorPanel(GameObject panel, string id, PanelAnchor anchor, float width, bool dim, int order)
+        {
+            if (panel == null) return;
+            Hide(panel);
+            if (!panel.activeInHierarchy) return;
+            string title = null; var body = new System.Text.StringBuilder(); string footer = null;
+            foreach (var t in panel.GetComponentsInChildren<TMP_Text>(false))
+            {
+                if (string.IsNullOrWhiteSpace(t.text)) continue;
+                string n = t.name;
+                if (title == null && n.Contains("Title")) title = t.text;
+                else if (n.Contains("Prompt") && n != "PromptAction") footer = t.text;
+                else if (n == "KeyText") body.Append(ScreenText.Key(t.text)).Append(' ');
+                else body.Append(t.text).Append(n == "TutorialStepText" || n == "TutorialKeycap" ? "\n" : "\n\n");
+            }
+            ScreenText.Panel(id, title, body.ToString().TrimEnd(), anchor, width, footer, dim, order);
+        }
+
+        /// <summary>Places texts top-to-bottom by their real preferred height and resizes the panel to fit.</summary>
+        private static void StackPanel(GameObject panel, float padTop, float padBottom, float left, float right, float spacing, float minHeight, params TMP_Text[] items)
+        {
+            if (panel == null) return;
+            var prt = (RectTransform)panel.transform;
+            float width = prt.rect.width - left - right;
+            if (width <= 10f) return;
+            float y = padTop;
+            foreach (var t in items)
+            {
+                if (t == null || !t.gameObject.activeSelf || string.IsNullOrEmpty(t.text)) continue;
+                t.textWrappingMode = TextWrappingModes.Normal;
+                t.overflowMode = TextOverflowModes.Overflow;
+                float h = Mathf.Ceil(t.GetPreferredValues(t.text, width, 0f).y) + 4f;
+                var rt = t.rectTransform;
+                rt.anchorMin = new Vector2(0f, 1f); rt.anchorMax = new Vector2(1f, 1f); rt.pivot = new Vector2(0f, 1f);
+                rt.offsetMin = new Vector2(left, -(y + h)); rt.offsetMax = new Vector2(-right, -y);
+                y += h + spacing;
+            }
+            float total = Mathf.Max(minHeight, y - spacing + padBottom);
+            prt.sizeDelta = new Vector2(prt.sizeDelta.x, total);
         }
 
         #endregion
@@ -1513,15 +1707,12 @@ namespace LegacyOfTemples.UI
             int currentClues = PlayerPrefs.GetInt("Clues_Found_Count", 0) + 1;
             PlayerPrefs.SetInt("Clues_Found_Count", currentClues);
             int relics = PlayerPrefs.GetInt("Relics_Recovered_Count", 0);
-            if (objectiveCounterText != null)
-            {
-                objectiveCounterText.text = $"Stolen Relics Recovered: {relics}/3  |  Clues Found: {currentClues}/5";
-            }
+            StoryDialogueSystem.Instance?.Publish();
         }
 
         private void HandlePuzzleSolved(string puzzleId)
         {
-            SetObjective("The Passage Unsealed", "Enter the revealed passage and confront the smugglers.", null);
+            StoryDialogueSystem.Instance?.Publish();
         }
 
         private void HandleDialogueEvent(string charId)

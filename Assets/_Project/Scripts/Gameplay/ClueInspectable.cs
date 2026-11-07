@@ -34,13 +34,6 @@ namespace LegacyOfTemples.Gameplay
         private OrbitCamera mainOrbitCam;
         private AudioSource audioSource;
 
-        private GUIStyle panelStyle;
-        private GUIStyle titleStyle;
-        private GUIStyle categoryStyle;
-        private GUIStyle descStyle;
-        private GUIStyle noteStyle;
-        private GUIStyle hintStyle;
-
         public string Id => clueId;
         public string Prompt => isExamined ? $"Examine {clueTitle} again" : $"Inspect {clueTitle}";
         public Transform Anchor => inspectTransform != null ? inspectTransform : transform;
@@ -123,6 +116,7 @@ namespace LegacyOfTemples.Gameplay
 
                 if (closePressed)
                 {
+                    EventBus.EscapeConsumedFrame = Time.frameCount;
                     CloseInspection();
                 }
             }
@@ -130,6 +124,11 @@ namespace LegacyOfTemples.Gameplay
 
         public void Interact()
         {
+            if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == Constants.Sanctum && !Flashlight.On)
+            {
+                Flashlight.NeedLightUntil = Time.unscaledTime + 2.5f;
+                return;
+            }
             EventBus.RaisePlayerInteract(this);
             if (!isInspecting)
             {
@@ -187,97 +186,15 @@ namespace LegacyOfTemples.Gameplay
             }
         }
 
-        private void OnGUI()
+        private void LateUpdate()
         {
-            if (isInspecting)
-            {
-                InitStyles();
-
-                float width = Mathf.Min(980f, Screen.width - 60f);
-                float height = 380f;
-                float x = (Screen.width - width) * 0.5f;
-                float y = Screen.height - height - 40f;
-
-                GUI.Box(new Rect(x, y, width, height), GUIContent.none, panelStyle);
-
-                // Header
-                GUI.Label(new Rect(x + 30f, y + 20f, width - 60f, 32f), $"EVIDENCE RECORD: {clueCategory.ToUpperInvariant()}", categoryStyle);
-                GUI.Label(new Rect(x + 30f, y + 54f, width - 60f, 44f), clueTitle, titleStyle);
-
-                // Description
-                GUI.Label(new Rect(x + 30f, y + 105f, width - 60f, 110f), clueDescription, descStyle);
-
-                // Forensic note
-                GUI.Label(new Rect(x + 30f, y + 225f, width - 60f, 85f), $"<color=#f4c430>Detective's Deduction:</color> \"{detectiveNote}\"", noteStyle);
-
-                // Controls hint
-                string hint = allow3DRotation
-                    ? "Drag [Mouse] or [A]/[D] to rotate 3D object  •  Press [E] or [Esc] to close inspection"
-                    : "Press [E] or [Esc] to close inspection  •  Logged to Investigation Journal [J]";
-                GUI.Label(new Rect(x + 30f, y + height - 38f, width - 60f, 30f), hint, hintStyle);
-            }
-        }
-
-        private void InitStyles()
-        {
-            if (panelStyle == null)
-            {
-                panelStyle = new GUIStyle(GUI.skin.box);
-            }
-
-            float scale = Mathf.Max(1.0f, Screen.height / 1080f);
-
-            if (categoryStyle == null)
-            {
-                categoryStyle = new GUIStyle(GUI.skin.label)
-                {
-                    fontSize = Mathf.RoundToInt(22 * scale),
-                    fontStyle = FontStyle.Bold,
-                    normal = { textColor = new Color(0.95f, 0.77f, 0.2f) }
-                };
-            }
-
-            if (titleStyle == null)
-            {
-                titleStyle = new GUIStyle(GUI.skin.label)
-                {
-                    fontSize = Mathf.RoundToInt(34 * scale),
-                    fontStyle = FontStyle.Bold,
-                    normal = { textColor = Color.white }
-                };
-            }
-
-            if (descStyle == null)
-            {
-                descStyle = new GUIStyle(GUI.skin.label)
-                {
-                    fontSize = Mathf.RoundToInt(28 * scale),
-                    wordWrap = true,
-                    normal = { textColor = new Color(0.92f, 0.90f, 0.86f) }
-                };
-            }
-
-            if (noteStyle == null)
-            {
-                noteStyle = new GUIStyle(GUI.skin.label)
-                {
-                    fontSize = Mathf.RoundToInt(26 * scale),
-                    wordWrap = true,
-                    fontStyle = FontStyle.Italic,
-                    richText = true,
-                    normal = { textColor = new Color(0.98f, 0.95f, 0.75f) }
-                };
-            }
-
-            if (hintStyle == null)
-            {
-                hintStyle = new GUIStyle(GUI.skin.label)
-                {
-                    fontSize = Mathf.RoundToInt(22 * scale),
-                    alignment = TextAnchor.MiddleCenter,
-                    normal = { textColor = new Color(0.75f, 0.75f, 0.70f) }
-                };
-            }
+            if (!isInspecting) return;
+            string hint = allow3DRotation
+                ? ScreenText.Key("Mouse") + " / " + ScreenText.Key("A") + ScreenText.Key("D") + " Rotate    " + ScreenText.Key("E") + " / " + ScreenText.Key("Esc") + " Close"
+                : ScreenText.Key("E") + " / " + ScreenText.Key("Esc") + " Close    Saved to Journal " + ScreenText.Key("J");
+            ScreenText.Panel("clue", clueTitle,
+                $"<color={ScreenText.Cyan}>EVIDENCE: {clueCategory.ToUpperInvariant()}</color>\n{clueDescription}\n\n<color={ScreenText.Gold}>Aryan's note:</color> {detectiveNote}",
+                PanelAnchor.BottomCenter, 1100f, hint, false, 30);
         }
 
         private void OnDrawGizmosSelected()

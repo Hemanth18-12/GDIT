@@ -61,7 +61,7 @@ namespace LegacyOfTemples.Gameplay
             if (isEndingCinematicActive)
             {
                 endingTimer += Time.deltaTime;
-                if (endingTimer > 35f)
+                if (endingTimer > 600f)
                 {
                     // Return to Main Menu
                     isEndingCinematicActive = false;
@@ -95,10 +95,7 @@ namespace LegacyOfTemples.Gameplay
             }
 
             // If confronting Bhaskar in JunglePath, trigger ending sequence
-            if (speakerId == Constants.Robber1 && SceneManager.GetActiveScene().name == "JunglePath")
-            {
-                CompleteLevel3();
-            }
+            // The ending is now triggered by the story director after the pieces are returned at the Courtyard.
         }
 
         public void CompleteLevel1()
@@ -164,8 +161,9 @@ namespace LegacyOfTemples.Gameplay
             Debug.Log("[GameLevelManager] ENDING CINEMATIC STARTED: The sacred relics are restored!");
         }
 
-        private void OnGUI()
+        private void LegacyOnGUI()
         {
+            if (enabled) return; // replaced by TextMeshPro GuideSystem / ScreenTextRenderer
             if (!isEndingCinematicActive) return;
 
             InitStyles();
