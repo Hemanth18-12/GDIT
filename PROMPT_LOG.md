@@ -392,3 +392,8 @@ The prompt was the one-pass brief: float/jump, UI zones, small guide marker, voi
 Prompt: fix only hero size/height/ground contact (measure 5 prefabs, normalize model child, CC values, one PlayMode test, lineup screenshot).
 Root cause of floating: stale grounding.HasSupport after a jump cancelled gravity; fixed in PlayerController/CharacterGrounding.
 Heights normalized to 1.78/1.65/1.60/1.75/1.70 m; HeroScaleGroundTest passes; Docs/QA/scale_check.png.
+
+## 2026-11-07 Space/jump fix
+Prompt: fix only Space (jump floats/repeats; Space also jumps during dialogue/tutorial). Play-bot SpaceJumpPlayBot logs per-frame y/vy/grounded/anim/snap.
+Causes: (b) stale ground support cancelled gravity after a jump; (g) gameplay read Space while UI open (gate captured a destroyed UIManager duplicate). Fixed with InputGate + coyote time; single 0.67 m hop lands in 0.57 s.
+Rebuilt app (build 2026-11-07 19:50, stamp in pause menu); built-app ground test PASS (max 0.67 m, 20/20 landings).

@@ -20,6 +20,9 @@ namespace LegacyOfTemples.World.Editor
             string root = Path.GetFullPath(Path.Combine(Application.dataPath, "../.."));
             string repo = Directory.Exists(Path.Combine(root, "Docs")) ? root : Path.GetFullPath(Path.Combine(Application.dataPath, ".."));
             string app = Path.Combine(repo, "Builds/LegacyOfTheTemple.app");
+            // Build stamp shown in the pause menu, so the player can tell a fresh build from an old one.
+            File.WriteAllText(Path.Combine(Application.dataPath, "_Project/Resources/build_stamp.txt"), "build " + System.DateTime.Now.ToString("yyyy-MM-dd HH:mm"));
+            AssetDatabase.Refresh();
             bool diag = UnityEditor.EngineDiagnostics.EngineDiagnosticsSettings.enabled;
             BuildReport report;
             try

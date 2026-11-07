@@ -127,6 +127,20 @@ namespace LegacyOfTemples.UI
 
         private void Awake()
         {
+            LegacyOfTemples.Core.InputGate.UiOpen = () =>
+            {
+                var u = Instance; // the lambda must read the live singleton, not a destroyed duplicate
+                if (u == null) return false;
+                var tm = TutorialManager.Instance;
+                bool tutorialCard = tm != null && tm.IsActive && tm.CurrentStep == TutorialManager.TutorialStep.Welcome;
+                bool dim = false;
+                foreach (var spec in ScreenText.Panels.Values) if (spec.dimBackground && ScreenText.IsLive(spec.lastFrame)) { dim = true; break; }
+                return u.isDialogueActive || tutorialCard || dim || u.IsPauseOpen || GameIntroOverlay.AnyOpen
+                    || (u.howToPlayPanel != null && u.howToPlayPanel.activeSelf)
+                    || (GuideSystem.Instance != null && GuideSystem.Instance.IsOpen)
+                    || (InvestigationJournal.Instance != null && InvestigationJournal.Instance.IsOpen)
+                    || (TempleMapOverlay.Instance != null && TempleMapOverlay.Instance.IsOpen);
+            };
             if (instance != null && instance != this)
             {
                 Destroy(gameObject);

@@ -98,3 +98,11 @@ Built the standalone macOS application (`Builds/LegacyOfTheTemple.app`) with **0
 - **Capsule:** radius 0.3, skin 0.03, step 0.3, slope 40, height equal to the mesh height. Root motion is off.
 - **Files:** Scripts/Characters/PlayerController.cs, CharacterGrounding.cs, Scripts/World/Editor/CharacterScaleTools.cs (measure / fix / lineup), Tests/PlayMode/HeroScaleGroundTest.cs, and the five prefabs.
 - **See it:** Docs/QA/scale_check.png, Docs/QA/scale_fix.txt. In Unity: Window > General > Test Runner > PlayMode > HeroScaleGroundTest.
+
+## Space / jump fix (2026-11-07)
+- **What was wrong:** (1) After a jump, the hero still thought the floor was under him, so gravity stayed off and he floated up. (2) Space was read by the hero even while a dialogue, tutorial card or menu was open, so pressing Space to continue also made him jump.
+- **What changed:**
+  - A new Core/InputGate.cs lets the UI own Space, Enter and movement keys while any card, dialogue or menu is open, plus 3 frames after it closes.
+  - The jump fires once per press, only on the ground, with a 0.1 s coyote time.
+  - The pause menu shows "build <date time>", so you can tell whether a build is new.
+- **Test:** Tests/PlayMode/SpaceJumpPlayBot.cs. The results are in Docs/QA/space_jump_results.txt and the per-frame log is in Docs/QA/space_jump_log.txt.

@@ -1,0 +1,6 @@
+# Space play-bot results
+single press: peak 0.672 m, back on floor at 0.57 s, end 0.005 m, jumps 1
+hold 3 s: peak 0.672 m, end 0.005 m, jumps 1
+20 presses (every 0.35 s, many in mid-air): peak 0.672 m, end 0.005 m, jumps 10
+Space x3 during dialogue (last press closes it): peak 0.005 m, jumps 0, dialogue advanced/closed=True
+Space on tutorial card (card shown=True): jumps 0, step now LookAround

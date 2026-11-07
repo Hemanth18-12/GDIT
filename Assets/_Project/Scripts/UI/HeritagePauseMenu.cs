@@ -76,6 +76,9 @@ namespace LegacyOfTemples.UI
                 PlayerPrefs.Save(); Time.timeScale = 1f; UIManager.Instance.TogglePause();
                 SceneManager.LoadScene("MainMenu");
             });
+            var stamp = Resources.Load<TextAsset>("build_stamp");
+            var bs = ScreenTextRenderer.MakeText(panel, "BuildStamp", 20 * ScreenTextRenderer.Scale, ScreenTextRenderer.Ivory, false, TextAlignmentOptions.Center);
+            bs.text = stamp != null ? stamp.text : "build (editor)"; items.Add(bs.gameObject);
             EventSystem.current?.SetSelectedGameObject(first);
         }
 

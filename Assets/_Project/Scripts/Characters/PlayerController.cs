@@ -94,6 +94,11 @@ namespace LegacyOfTemples.Characters
             }
         }
 
+        private const float CoyoteTime = 0.1f;
+        private float lastGroundedTime = -1f;
+        public int JumpCount { get; private set; }
+        public float VerticalVelocity => verticalVelocity;
+
         private void HandleMovement()
         {
             if (characterController == null) return;
@@ -121,6 +126,7 @@ namespace LegacyOfTemples.Characters
                 }
             }
 
+            if (LegacyOfTemples.Core.InputGate.GameplayBlocked) { horizontal = 0f; vertical = 0f; } // UI owns the keys
             Vector3 inputDir = new Vector3(horizontal, 0f, vertical).normalized;
 
             // Sprint (Shift)
@@ -177,12 +183,23 @@ namespace LegacyOfTemples.Characters
 
             // Gravity & Jumping (Space)
             bool jumpPressed = false;
-            if (kb != null && kb.spaceKey.wasPressedThisFrame) jumpPressed = true;
-            if (gp != null && gp.buttonSouth.wasPressedThisFrame) jumpPressed = true;
+            bool uiOwnsInput = LegacyOfTemples.Core.InputGate.GameplayBlocked; // Space advances cards/dialogue there, never jumps
+            if (!uiOwnsInput && kb != null && kb.spaceKey.wasPressedThisFrame) jumpPressed = true;
+            if (!uiOwnsInput && gp != null && gp.buttonSouth.wasPressedThisFrame) jumpPressed = true;
 
             // Support only counts while not moving upward: a stale 'HasSupport' after a jump used to cancel gravity (hero floated up).
             bool isGrounded = characterController.isGrounded || (grounding != null && grounding.HasSupport && verticalVelocity <= 0f);
 
+            if (isGrounded) lastGroundedTime = Time.time;
+            bool canJump = isGrounded || (verticalVelocity <= 0f && Time.time - lastGroundedTime < CoyoteTime); // short coyote time vs. flicker
+            if (jumpPressed && canJump && !IsCrouching)
+            {
+                verticalVelocity = Mathf.Sqrt(2f * jumpHeight * gravity); // once per press, never in the air
+                grounding?.ClearSupport();
+                lastGroundedTime = -1f;
+                isGrounded = false;
+                JumpCount++;
+            }
             if (isGrounded)
             {
                 if (verticalVelocity < 0f)
@@ -190,11 +207,6 @@ namespace LegacyOfTemples.Characters
                     verticalVelocity = -2.0f; // Small downward force to stay grounded
                 }
 
-                if (jumpPressed && !IsCrouching) // isGrounded already includes real floor support (snap resets CC.isGrounded)
-                {
-                    verticalVelocity = Mathf.Sqrt(2f * jumpHeight * gravity);
-                    grounding?.ClearSupport();
-                }
             }
             else
             {

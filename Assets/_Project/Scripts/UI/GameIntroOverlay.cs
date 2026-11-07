@@ -8,7 +8,9 @@ namespace LegacyOfTemples.UI
 {
     public class GameIntroOverlay : MonoBehaviour
     {
+        private void LateUpdate() { AnyOpen = isInstructionsOpen && isActiveAndEnabled; }
         private bool isInstructionsOpen = false;
+        public static bool AnyOpen;
         private string currentSceneName = Constants.Courtyard;
         private string currentObjective = "Speak with Priest Ananda and Villager Meera in the temple courtyard.";
         private int cluesFound = 0;
@@ -48,6 +50,7 @@ namespace LegacyOfTemples.UI
         {
             EventBus.OnSceneChanged -= HandleSceneChanged;
             EventBus.OnClueFound -= HandleClueFound;
+            AnyOpen = false;
         }
 
         private void Start()
