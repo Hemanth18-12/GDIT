@@ -217,7 +217,7 @@ namespace LegacyOfTemples.Gameplay
 
         private void OnGUI()
         {
-            if (!isPlaying) return;
+            if (!isPlaying || LegacyOfTemples.Core.EventBus.IsShowcaseActive) return;
 
             InitStyles();
 

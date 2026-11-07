@@ -94,7 +94,7 @@ namespace LegacyOfTemples.Gameplay
                 }
             }
 
-            // If confronting Kala in JunglePath, trigger ending sequence
+            // If confronting Bhaskar in JunglePath, trigger ending sequence
             if (speakerId == Constants.Robber1 && SceneManager.GetActiveScene().name == "JunglePath")
             {
                 CompleteLevel3();
@@ -182,17 +182,19 @@ namespace LegacyOfTemples.Gameplay
 
             GUI.Box(new Rect(boxX, boxY, boxW, boxH), GUIContent.none, dialogBoxStyle);
 
-            GUI.Label(new Rect(boxX + 20f, boxY + 20f, boxW - 40f, 32f), "★ CASE RESOLVED: LEGACY OF THE TEMPLE RESTORED ★", bannerStyle);
+            GUI.Label(new Rect(boxX + 20f, boxY + 16f, boxW - 40f, 32f), "★ MISSION COMPLETED: SACRED PIECES RESTORED ★", bannerStyle);
 
             string endingStory =
-                "Through keen observation and relentless pursuit, Detective Aryan has recovered all three sacred heritage treasures:\n\n" +
-                "• <b>The Sacred Pradip Brass Vessel</b> — Returned to the temple sanctum altar.\n" +
-                "• <b>The Carved Sandstone Rosette</b> — Re-anchored to the vimana relief.\n" +
-                "• <b>The Ancient Tala Patra Palm-Leaf Manuscript</b> — Safely preserved in the temple archives.\n\n" +
-                "Vikram and Dev have fled empty-handed into the night, their antiquities ring dismantled.\n" +
-                "Head Priest Ananda and the pilgrims of Puri offer deep blessings as the evening bells echo across the sanctuary.";
+                "\"Their value isn't money. It's memory.\"\n\n" +
+                "Bhaskar and Kishore surrendered the three pieces peacefully:\n" +
+                "• <b>The Brass Ceremonial Vessel</b> — returned to the storage hall.\n" +
+                "• <b>The Carved Sandstone Rosette</b> — re-anchored to the sanctuary.\n" +
+                "• <b>The Palm-Leaf Manuscript</b> — safely preserved before the festival.\n\n" +
+                "Aryan returned them to Pujari Ananda at the Courtyard at sunrise.\n\n" +
+                "<i>\"Every temple holds a story. Every artifact carries a memory. Protecting heritage means protecting our history.\"</i>\n\n" +
+                "<b>MISSION COMPLETED</b>  •  Evidence: 3/3 Recovered  •  Status: Solved";
 
-            GUI.Label(new Rect(boxX + 30f, boxY + 65f, boxW - 60f, 190f), endingStory, bodyStyle);
+            GUI.Label(new Rect(boxX + 30f, boxY + 55f, boxW - 60f, 220f), endingStory, bodyStyle);
 
             if (GUI.Button(new Rect(boxX + (boxW - 220f) * 0.5f, boxY + boxH - 55f, 220f, 36f), "Return to Main Menu"))
             {

@@ -16,6 +16,11 @@ namespace LegacyOfTemples.Core
         public static event Action<string, string> OnShowPrompt;
         public static event Action OnHidePrompt;
         public static event Action<string, string, string> OnUpdateObjective;
+        public static event Action<bool> OnShowcaseTourToggled;
+        public static event Action<bool> OnOverlayMenuToggled;
+
+        public static bool IsPhotoModeActive { get; set; }
+        public static bool IsShowcaseActive { get; set; }
 
         public static void RaiseSceneChanged(string sceneName)
         {
@@ -77,6 +82,16 @@ namespace LegacyOfTemples.Core
             OnUpdateObjective?.Invoke(title, body, counter);
         }
 
+        public static void RaiseShowcaseTourToggled(bool active)
+        {
+            OnShowcaseTourToggled?.Invoke(active);
+        }
+
+        public static void RaiseOverlayMenuToggled(bool active)
+        {
+            OnOverlayMenuToggled?.Invoke(active);
+        }
+
         /// <summary>
         /// Clears all event subscribers. Useful when reloading domain or tearing down tests.
         /// </summary>
@@ -94,6 +109,10 @@ namespace LegacyOfTemples.Core
             OnShowPrompt = null;
             OnHidePrompt = null;
             OnUpdateObjective = null;
+            OnShowcaseTourToggled = null;
+            OnOverlayMenuToggled = null;
+            IsPhotoModeActive = false;
+            IsShowcaseActive = false;
         }
     }
 }

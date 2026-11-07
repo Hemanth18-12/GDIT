@@ -45,6 +45,12 @@ namespace LegacyOfTemples.World
         {
             if (loadInitialOnStart && !string.IsNullOrEmpty(initialScene))
             {
+                // Each environment owns its authored camera/player. The old default
+                // loaded Courtyard additively over Sanctum/PuzzleWall/etc.
+                string ownScene = gameObject.scene.name;
+                if (ownScene == Constants.Courtyard || ownScene == Constants.Sanctum ||
+                    ownScene == Constants.PuzzleWall || ownScene == Constants.ShrineCrime || ownScene == Constants.JunglePath)
+                    initialScene = ownScene;
                 // Check if already active or needs additive load
                 Scene existing = SceneManager.GetSceneByName(initialScene);
                 if (existing.isLoaded)
@@ -62,7 +68,7 @@ namespace LegacyOfTemples.World
         }
 
         /// <summary>
-        /// Asynchronously loads an environment scene additively and unloads the previous one.
+        /// Fades out, then loads the destination with its own camera and managers.
         /// </summary>
         public void LoadScene(string sceneName)
         {
@@ -82,55 +88,13 @@ namespace LegacyOfTemples.World
             // Fade to black
             yield return StartCoroutine(FadeRoutine(0f, 1f, 0.35f));
 
-            // Unload old scene if loaded
-            if (!string.IsNullOrEmpty(currentSceneName) && currentSceneName != sceneName)
-            {
-                Scene oldScene = SceneManager.GetSceneByName(currentSceneName);
-                if (oldScene.isLoaded)
-                {
-                    AsyncOperation unloadOp = SceneManager.UnloadSceneAsync(oldScene);
-                    while (unloadOp != null && !unloadOp.isDone)
-                    {
-                        yield return null;
-                    }
-                }
-            }
-
-            activeSpawns.Clear();
-
-            // Load new scene additively
-            AsyncOperation loadOp = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
-            if (loadOp != null)
-            {
-                while (!loadOp.isDone)
-                {
-                    yield return null;
-                }
-            }
-
-            Scene newScene = SceneManager.GetSceneByName(sceneName);
-            if (newScene.IsValid() && newScene.isLoaded)
-            {
-                SceneManager.SetActiveScene(newScene);
-                currentSceneName = sceneName;
-                CacheSceneSpawns(newScene);
-
-                Debug.Log($"[WorldManager] Loaded scene '{sceneName}'. Found {activeSpawns.Count} named spawn points.");
-                EventBus.RaiseSceneChanged(sceneName);
-            }
-            else
-            {
-                Debug.LogError($"[WorldManager] Failed to load scene '{sceneName}'.");
-            }
-
-            // Small settle delay for physics/camera
-            yield return new WaitForSeconds(0.1f);
-
-            // Fade back in
-            yield return StartCoroutine(FadeRoutine(1f, 0f, 0.35f));
-
-            isTransitioning = false;
+            // Managers in these authored scenes are children of the scene system
+            // root. Unloading that scene halfway through an additive coroutine used
+            // to destroy the coroutine before the destination could load.
+            yield return SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
         }
+
+
 
         private IEnumerator FadeRoutine(float from, float to, float duration)
         {

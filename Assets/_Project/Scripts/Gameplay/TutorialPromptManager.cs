@@ -134,54 +134,7 @@ namespace LegacyOfTemples.Gameplay
 
         private void OnGUI()
         {
-            // Always show compact quick keys pill in top right corner
-            InitStyles();
-            DrawHUDQuickKeys();
-
-            if (currentStep == TutorialStep.Completed) return;
-
-            string message = "";
-            string keyLabel = "";
-
-            switch (currentStep)
-            {
-                case TutorialStep.Movement:
-                    keyLabel = "[W] [A] [S] [D]";
-                    message = "to walk Detective Aryan through the Courtyard";
-                    break;
-
-                case TutorialStep.CameraLook:
-                    keyLabel = "[Mouse] or [Right Stick]";
-                    message = "to orbit and survey the temple grounds";
-                    break;
-
-                case TutorialStep.SprintCrouch:
-                    keyLabel = "[Shift] to Sprint  •  [C] to Crouch";
-                    message = "for tactical movement across the complex";
-                    break;
-
-                case TutorialStep.Interaction:
-                    keyLabel = "[E] to Interact";
-                    message = "Examine broken locks, footprints, or speak with witnesses";
-                    break;
-
-                case TutorialStep.JournalAndMap:
-                    keyLabel = "[J] Dossier  •  [M] Map  •  [H] Hints";
-                    message = "Review case clues, architectural layout, and next leads";
-                    break;
-            }
-
-            if (!string.IsNullOrEmpty(keyLabel))
-            {
-                float bannerWidth = 520f;
-                float bannerHeight = 44f;
-                float bannerX = (Screen.width - bannerWidth) * 0.5f;
-                float bannerY = 24f;
-
-                GUI.Box(new Rect(bannerX, bannerY, bannerWidth, bannerHeight), GUIContent.none, promptBoxStyle);
-                string fullText = $"<color=#f4c430><b>{keyLabel}</b></color>  —  {message}";
-                GUI.Label(new Rect(bannerX + 10f, bannerY + 10f, bannerWidth - 20f, 24f), fullText, promptTextStyle);
-            }
+            // Obsolete IMGUI banner suppressed. All tutorial prompts are rendered in high-resolution TextMeshPro via UIManager Canvas.
         }
 
         private void DrawHUDQuickKeys()

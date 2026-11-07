@@ -107,11 +107,28 @@ namespace LegacyOfTemples.Characters
             }
 
             isDialogueActive = true;
+
+            // Frame speaker with camera
+            OrbitCamera cam = UnityEngine.Object.FindAnyObjectByType<OrbitCamera>();
+            if (cam != null)
+            {
+                Vector3 head = transform.position + Vector3.up * 1.5f;
+                Vector3 camPos = head + transform.forward * 2.2f + Vector3.up * 0.2f;
+                Quaternion camRot = Quaternion.LookRotation(head - camPos);
+                cam.SetCutsceneOverride(camPos, camRot);
+            }
+
+            // Animate talking NPC
+            Animator anim = GetComponentInChildren<Animator>();
+            if (anim != null)
+            {
+                anim.SetBool("IsTalking", true);
+            }
+
             EventBus.RaiseDialogueStart(characterId);
             EventBus.RaiseRequestDialogue(speakerName, dialogueLines, null, null, () =>
             {
-                isDialogueActive = false;
-                EventBus.RaiseDialogueEnd(characterId);
+                EndDialogue();
             });
             Debug.Log($"[NPCDialogueTrigger] Dialogue started with {speakerName}.");
         }
@@ -126,6 +143,19 @@ namespace LegacyOfTemples.Characters
             if (isDialogueActive)
             {
                 isDialogueActive = false;
+
+                OrbitCamera cam = UnityEngine.Object.FindAnyObjectByType<OrbitCamera>();
+                if (cam != null)
+                {
+                    cam.ClearCutsceneOverride();
+                }
+
+                Animator anim = GetComponentInChildren<Animator>();
+                if (anim != null)
+                {
+                    anim.SetBool("IsTalking", false);
+                }
+
                 EventBus.RaiseDialogueEnd(characterId);
                 Debug.Log($"[NPCDialogueTrigger] Dialogue ended with {speakerName}.");
             }

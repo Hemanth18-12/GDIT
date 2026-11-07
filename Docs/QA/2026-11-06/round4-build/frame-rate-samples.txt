@@ -1,0 +1,1 @@
+Courtyard: 59.3 mean FPS over 2.01s; 1920x1080, static QA close-up, Apple M5. Not a full gameplay/performance pass.

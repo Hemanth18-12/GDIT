@@ -1,0 +1,9 @@
+Lighting changes — configuration report; visual and FPS validation required.
+MainMenu: 4 lights, at most 2 point-light shadow maps, ACES, bloom 0.16 / threshold 1.2, exposure -0.35, components persisted as subassets=4
+Courtyard: 6 lights, at most 2 point-light shadow maps, ACES, bloom 0.16 / threshold 1.2, exposure -0.35, components persisted as subassets=4
+Background shrine before: Center: (-7.69, 3.74, -9.63), Extents: (0.92, 2.48, 1.18)
+Background shrine instance fitted to 3m height and centred on its existing altar; no interaction or pickup added.
+Sanctum: 7 lights, at most 2 point-light shadow maps, ACES, bloom 0.16 / threshold 1.2, exposure -0.15, components persisted as subassets=4
+PuzzleWall: 5 lights, at most 2 point-light shadow maps, ACES, bloom 0.16 / threshold 1.2, exposure -0.15, components persisted as subassets=4
+ShrineCrime: 4 lights, at most 2 point-light shadow maps, ACES, bloom 0.16 / threshold 1.2, exposure -0.15, components persisted as subassets=4
+JunglePath: 6 lights, at most 2 point-light shadow maps, ACES, bloom 0.16 / threshold 1.2, exposure -0.15, components persisted as subassets=4

@@ -1,0 +1,310 @@
+00:00.446  blend            | Read blend: "/Users/hemanth/Desktop/GDIT/Heritage Mystery Project/assets.blend"
+=== BLENDER ASSET INSPECTION SCRIPT ===
+File: /Users/hemanth/Desktop/GDIT/Heritage Mystery Project/assets.blend
+
+--- COLLECTIONS ---
+Collection: Collection (objects: 42)
+Collection: Collection.001 (objects: 188)
+Collection: Collection.002 (objects: 0)
+Collection: glTF_not_exported (objects: 1)
+
+--- ARMATURES & BONES ---
+Armature: AvatarRoot, Bone Count: 73
+   Sample bones: ['Hips', 'Spine', 'Spine1', 'Spine2', 'Neck', 'Neck1', 'Neck2', 'Head', 'LeftEye', 'RightEye']
+
+--- ACTIONS (ANIMATIONS) ---
+Action: AvatarRoot|mixamo.com|Layer0, Frame Range: <Vector (1.0000, 241.0000)>, Curves: 0
+
+--- MESH OBJECTS & POLY COUNTS ---
+Mesh: Anklet-1 | Polys: 896 | Verts: 896 | Parent: Jagannath | Mats: ['Orange']
+Mesh: Anklet1 | Polys: 896 | Verts: 896 | Parent: Jagannath | Mats: ['Orange']
+Mesh: AvatarBody | Polys: 5558 | Verts: 2901 | Parent: AvatarRoot | Mats: ['AvatarBody']
+Mesh: AvatarEyelashes | Polys: 4900 | Verts: 6300 | Parent: AvatarRoot | Mats: ['AvatarEyelashes']
+Mesh: AvatarHead | Polys: 14404 | Verts: 7261 | Parent: AvatarRoot | Mats: ['AvatarHead']
+Mesh: AvatarLeftCornea | Polys: 830 | Verts: 417 | Parent: AvatarRoot | Mats: ['AvatarLeftCornea']
+Mesh: AvatarLeftEyeball | Polys: 791 | Verts: 414 | Parent: AvatarRoot | Mats: ['AvatarLeftEyeball']
+Mesh: AvatarRightCornea | Polys: 830 | Verts: 417 | Parent: AvatarRoot | Mats: ['AvatarRightCornea']
+Mesh: AvatarRightEyeball | Polys: 791 | Verts: 414 | Parent: AvatarRoot | Mats: ['AvatarRightEyeball']
+Armature Object: AvatarRoot | Parent: None
+Mesh: AvatarTeethLower | Polys: 3464 | Verts: 1894 | Parent: AvatarRoot | Mats: ['AvatarTeethLower']
+Mesh: AvatarTeethUpper | Polys: 3654 | Verts: 2041 | Parent: AvatarRoot | Mats: ['AvatarTeethUpper']
+Mesh: BackYoke | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['DarkGrey']
+Mesh: Base | Polys: 640 | Verts: 578 | Parent: Jagannath | Mats: ['Black']
+Mesh: Base_Green | Polys: 896 | Verts: 896 | Parent: Jagannath | Mats: ['Green']
+Mesh: Base_Red | Polys: 896 | Verts: 896 | Parent: Jagannath | Mats: ['Red']
+Mesh: Base_Yellow | Polys: 896 | Verts: 896 | Parent: Jagannath | Mats: ['Yellow']
+Mesh: BaseTop | Polys: 66 | Verts: 128 | Parent: Jagannath | Mats: ['Wood']
+Mesh: Bead0_0 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Gold']
+Mesh: Bead0_1 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Gold']
+Mesh: Bead0_10 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Gold']
+Mesh: Bead0_11 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Gold']
+Mesh: Bead0_12 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Gold']
+Mesh: Bead0_2 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Gold']
+Mesh: Bead0_3 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Gold']
+Mesh: Bead0_4 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Gold']
+Mesh: Bead0_5 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Gold']
+Mesh: Bead0_6 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Gold']
+Mesh: Bead0_7 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Gold']
+Mesh: Bead0_8 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Gold']
+Mesh: Bead0_9 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Gold']
+Mesh: Bead1_0 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Gold']
+Mesh: Bead1_1 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Gold']
+Mesh: Bead1_10 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Gold']
+Mesh: Bead1_11 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Gold']
+Mesh: Bead1_12 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Gold']
+Mesh: Bead1_2 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Gold']
+Mesh: Bead1_3 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Gold']
+Mesh: Bead1_4 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Gold']
+Mesh: Bead1_5 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Gold']
+Mesh: Bead1_6 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Gold']
+Mesh: Bead1_7 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Gold']
+Mesh: Bead1_8 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Gold']
+Mesh: Bead1_9 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Gold']
+Mesh: Bead2_0 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Gold']
+Mesh: Bead2_1 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Gold']
+Mesh: Bead2_10 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Gold']
+Mesh: Bead2_11 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Gold']
+Mesh: Bead2_12 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Gold']
+Mesh: Bead2_2 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Gold']
+Mesh: Bead2_3 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Gold']
+Mesh: Bead2_4 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Gold']
+Mesh: Bead2_5 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Gold']
+Mesh: Bead2_6 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Gold']
+Mesh: Bead2_7 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Gold']
+Mesh: Bead2_8 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Gold']
+Mesh: Bead2_9 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Gold']
+Mesh: Bead3_0 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Gold']
+Mesh: Bead3_1 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Gold']
+Mesh: Bead3_10 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Gold']
+Mesh: Bead3_11 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Gold']
+Mesh: Bead3_12 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Gold']
+Mesh: Bead3_2 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Gold']
+Mesh: Bead3_3 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Gold']
+Mesh: Bead3_4 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Gold']
+Mesh: Bead3_5 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Gold']
+Mesh: Bead3_6 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Gold']
+Mesh: Bead3_7 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Gold']
+Mesh: Bead3_8 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Gold']
+Mesh: Bead3_9 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Gold']
+Mesh: BellyDisc | Polys: 66 | Verts: 128 | Parent: Jagannath | Mats: ['Gold']
+Mesh: BellyRing1 | Polys: 896 | Verts: 896 | Parent: Jagannath | Mats: ['Orange']
+Mesh: BellyRing2 | Polys: 896 | Verts: 896 | Parent: Jagannath | Mats: ['Wood']
+Mesh: Bracelet-1_0 | Polys: 896 | Verts: 896 | Parent: Jagannath | Mats: ['Red']
+Mesh: Bracelet-1_1 | Polys: 896 | Verts: 896 | Parent: Jagannath | Mats: ['Yellow']
+Mesh: Bracelet-1_2 | Polys: 896 | Verts: 896 | Parent: Jagannath | Mats: ['Red']
+Mesh: Bracelet1_0 | Polys: 896 | Verts: 896 | Parent: Jagannath | Mats: ['Red']
+Mesh: Bracelet1_1 | Polys: 896 | Verts: 896 | Parent: Jagannath | Mats: ['Yellow']
+Mesh: Bracelet1_2 | Polys: 896 | Verts: 896 | Parent: Jagannath | Mats: ['Red']
+Mesh: Brow-1 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Orange']
+Mesh: Brow1 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Orange']
+Mesh: Collar | Polys: 66 | Verts: 128 | Parent: Jagannath | Mats: ['Red']
+Mesh: Collar_Y1 | Polys: 896 | Verts: 896 | Parent: Jagannath | Mats: ['Yellow']
+Mesh: Collar_Y2 | Polys: 896 | Verts: 896 | Parent: Jagannath | Mats: ['Yellow']
+Mesh: CrownDome | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Black']
+Mesh: CrownDot0 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Yellow']
+Mesh: CrownDot1 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['White']
+Mesh: CrownDot2 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Yellow']
+Mesh: EarCurl-1 | Polys: 896 | Verts: 896 | Parent: Jagannath | Mats: ['Wood']
+Mesh: EarCurl1 | Polys: 896 | Verts: 896 | Parent: Jagannath | Mats: ['Wood']
+Mesh: EarHorn-1 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Wood']
+Mesh: EarHorn1 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Wood']
+Mesh: EarHornTip-1 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Wood']
+Mesh: EarHornTip1 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Wood']
+Mesh: EarPlate-1 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Wood']
+Mesh: EarPlate1 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Wood']
+Mesh: EarSwirl-1 | Polys: 896 | Verts: 896 | Parent: Jagannath | Mats: ['Orange']
+Mesh: EarSwirl1 | Polys: 896 | Verts: 896 | Parent: Jagannath | Mats: ['Orange']
+Mesh: Eye-1 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['White']
+Mesh: Eye1 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['White']
+Mesh: EyeRim-1 | Polys: 896 | Verts: 896 | Parent: Jagannath | Mats: ['Black']
+Mesh: EyeRim1 | Polys: 896 | Verts: 896 | Parent: Jagannath | Mats: ['Black']
+Mesh: Face | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['DarkGrey']
+Mesh: FaceBorder | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Orange']
+Mesh: Finial | Polys: 576 | Verts: 514 | Parent: Jagannath | Mats: ['Wood']
+Mesh: Finial_Band | Polys: 896 | Verts: 896 | Parent: Jagannath | Mats: ['Red']
+Mesh: Foot-1 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['DarkGrey']
+Mesh: Foot1 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['DarkGrey']
+Mesh: ForeArm-1 | Polys: 34 | Verts: 64 | Parent: Jagannath | Mats: ['DarkGrey']
+Mesh: ForeArm-1_j1 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['DarkGrey']
+Mesh: ForeArm-1_j2 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['DarkGrey']
+Mesh: ForeArm1 | Polys: 34 | Verts: 64 | Parent: Jagannath | Mats: ['DarkGrey']
+Mesh: ForeArm1_j1 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['DarkGrey']
+Mesh: ForeArm1_j2 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['DarkGrey']
+Mesh: haircut | Polys: 45743 | Verts: 48813 | Parent: AvatarRoot | Mats: ['haircut']
+Mesh: Hand-1 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['DarkGrey']
+Mesh: Hand1 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['DarkGrey']
+Mesh: Head | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Wood']
+Mesh: Icosphere | Polys: 80 | Verts: 42 | Parent: None | Mats: []
+Mesh: Leg-1 | Polys: 34 | Verts: 64 | Parent: Jagannath | Mats: ['Black']
+Mesh: Leg-1_j1 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Black']
+Mesh: Leg-1_j2 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Black']
+Mesh: Leg1 | Polys: 34 | Verts: 64 | Parent: Jagannath | Mats: ['Black']
+Mesh: Leg1_j1 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Black']
+Mesh: Leg1_j2 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Black']
+Mesh: M_MED_CAU_Jonesy_Head_01.smd | Polys: 7270 | Verts: 4168 | Parent: None | Mats: ['M_Med_Soldier_Head_eyebrows', 'M_Med_Soldier_Head', 'Jonesy_Eyeball_R', 'Jonesy_Eyeball_L', 'M_Med_Gumshoe_V1_Hair']
+Mesh: M_MED_Gumshoe.smd | Polys: 17223 | Verts: 10243 | Parent: None | Mats: ['M_MED_Gumshoe_Dark_Body']
+Mesh: M_MED_Gumshoe_button.smd | Polys: 613 | Verts: 399 | Parent: None | Mats: ['M_MED_Gumshoe_Dark_Body']
+Mesh: M_MED_Gumshoe_Glasses.smd | Polys: 940 | Verts: 758 | Parent: None | Mats: ['M_Med_Gumshoe_Glasses']
+Mesh: M_MED_Gumshoe_Hat.smd | Polys: 2180 | Verts: 1278 | Parent: None | Mats: ['M_Med_Gumshoe_V1_Hat']
+Mesh: M_MED_Gumshoe_paper.smd | Polys: 152 | Verts: 105 | Parent: None | Mats: ['M_MED_Gumshoe_Dark_Body']
+Mesh: material | Polys: 1500000 | Verts: 855205 | Parent: None | Mats: ['Material.001']
+Mesh: Medallion | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Gold']
+Mesh: MedallionRing | Polys: 896 | Verts: 896 | Parent: Jagannath | Mats: ['Orange']
+Mesh: Necklace0 | Polys: 896 | Verts: 896 | Parent: Jagannath | Mats: ['Gold']
+Mesh: Necklace1 | Polys: 896 | Verts: 896 | Parent: Jagannath | Mats: ['Gold']
+Mesh: Necklace2 | Polys: 896 | Verts: 896 | Parent: Jagannath | Mats: ['Gold']
+Mesh: Necklace3 | Polys: 896 | Verts: 896 | Parent: Jagannath | Mats: ['Gold']
+Mesh: Nose | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Orange']
+Mesh: Object_01 | Polys: 997826 | Verts: 619953 | Parent: None | Mats: ['Material_01']
+Mesh: outfit | Polys: 36630 | Verts: 18700 | Parent: AvatarRoot | Mats: ['outfit']
+Mesh: Pupil-1 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Black']
+Mesh: Pupil1 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Black']
+Mesh: RedOval0 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Red']
+Mesh: RedOval1 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Red']
+Mesh: RedOval10 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Red']
+Mesh: RedOval11 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Red']
+Mesh: RedOval2 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Red']
+Mesh: RedOval3 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Red']
+Mesh: RedOval4 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Red']
+Mesh: RedOval5 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Red']
+Mesh: RedOval6 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Red']
+Mesh: RedOval7 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Red']
+Mesh: RedOval8 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Red']
+Mesh: RedOval9 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Red']
+Mesh: Shoulder-1 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Wood']
+Mesh: Shoulder1 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Wood']
+Mesh: ShoulderDisc-1 | Polys: 66 | Verts: 128 | Parent: Jagannath | Mats: ['Wood']
+Mesh: ShoulderDisc1 | Polys: 66 | Verts: 128 | Parent: Jagannath | Mats: ['Wood']
+Mesh: ShoulderRing-1 | Polys: 896 | Verts: 896 | Parent: Jagannath | Mats: ['Gold']
+Mesh: ShoulderRing1 | Polys: 896 | Verts: 896 | Parent: Jagannath | Mats: ['Gold']
+Mesh: Skirt_Black | Polys: 66 | Verts: 128 | Parent: Jagannath | Mats: ['Black']
+Mesh: Skirt_R1 | Polys: 896 | Verts: 896 | Parent: Jagannath | Mats: ['Red']
+Mesh: Skirt_Wood | Polys: 66 | Verts: 128 | Parent: Jagannath | Mats: ['Wood']
+Mesh: Skirt_Y1 | Polys: 896 | Verts: 896 | Parent: Jagannath | Mats: ['Yellow']
+Mesh: Skirt_Y2 | Polys: 896 | Verts: 896 | Parent: Jagannath | Mats: ['Yellow']
+Mesh: Skirt_Y3 | Polys: 896 | Verts: 896 | Parent: Jagannath | Mats: ['Yellow']
+Mesh: Teeth | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['White']
+Mesh: TilakDisc | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Orange']
+Mesh: TilakRing | Polys: 896 | Verts: 896 | Parent: Jagannath | Mats: ['Gold']
+Mesh: Torso | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Wood']
+Mesh: tripo_node_0f07ddad | Polys: 1991181 | Verts: 995542 | Parent: None | Mats: ['tripo_mat_0f07ddad']
+Mesh: tripo_node_ca66fc79 | Polys: 1963878 | Verts: 981894 | Parent: None | Mats: ['tripo_mat_ca66fc79']
+Mesh: UpperArm-1 | Polys: 34 | Verts: 64 | Parent: Jagannath | Mats: ['DarkGrey']
+Mesh: UpperArm-1_j1 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['DarkGrey']
+Mesh: UpperArm-1_j2 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['DarkGrey']
+Mesh: UpperArm1 | Polys: 34 | Verts: 64 | Parent: Jagannath | Mats: ['DarkGrey']
+Mesh: UpperArm1_j1 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['DarkGrey']
+Mesh: UpperArm1_j2 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['DarkGrey']
+Mesh: YellowDot0 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Yellow']
+Mesh: YellowDot1 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Yellow']
+Mesh: YellowDot10 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Yellow']
+Mesh: YellowDot11 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Yellow']
+Mesh: YellowDot12 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Yellow']
+Mesh: YellowDot13 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Yellow']
+Mesh: YellowDot14 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Yellow']
+Mesh: YellowDot15 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Yellow']
+Mesh: YellowDot16 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Yellow']
+Mesh: YellowDot17 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Yellow']
+Mesh: YellowDot18 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Yellow']
+Mesh: YellowDot19 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Yellow']
+Mesh: YellowDot2 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Yellow']
+Mesh: YellowDot20 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Yellow']
+Mesh: YellowDot21 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Yellow']
+Mesh: YellowDot22 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Yellow']
+Mesh: YellowDot23 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Yellow']
+Mesh: YellowDot3 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Yellow']
+Mesh: YellowDot4 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Yellow']
+Mesh: YellowDot5 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Yellow']
+Mesh: YellowDot6 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Yellow']
+Mesh: YellowDot7 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Yellow']
+Mesh: YellowDot8 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Yellow']
+Mesh: YellowDot9 | Polys: 1152 | Verts: 1106 | Parent: Jagannath | Mats: ['Yellow']
+
+--- MATERIALS ---
+Material: AvatarBody | Textures: ['AvatarBodyFemale_Color_1K.jpg', 'AvatarBodyFemale_Normal1_1K.jpg']
+Material: AvatarEyelashes | Textures: []
+Material: AvatarHead | Textures: ['AvatarHeadFemale_Color_1K.jpg', 'AvatarHeadFemale_Normal1_1K.jpg']
+Material: AvatarLeftCornea | Textures: ['AvatarLeftCornea_Color_512.jpg']
+Material: AvatarLeftEyeball | Textures: ['AvatarEyes_Color_512.jpg', 'AvatarEyes_Normal_512.jpg']
+Material: AvatarRightCornea | Textures: ['AvatarRightCornea_Color_512.jpg']
+Material: AvatarRightEyeball | Textures: ['AvatarEyes_Color_512.jpg', 'AvatarEyes_Normal_512.jpg']
+Material: AvatarTeethLower | Textures: ['AvatarTeeth_Color_1K.jpg', 'AvatarTeeth_Normal1_1K.jpg']
+Material: AvatarTeethUpper | Textures: ['AvatarTeeth_Color_1K.jpg', 'AvatarTeeth_Normal1_1K.jpg']
+Material: Black | Textures: []
+Material: DarkGrey | Textures: []
+Material: Gold | Textures: []
+Material: Green | Textures: []
+Material: haircut | Textures: ['HairCard0_Color_1K.png', 'HairCard0_Normal_1K.jpg', 'HairCard0_Color_1K.png.001']
+Material: Jonesy_Eyeball_L | Textures: ['fortnite_eye_blue']
+Material: Jonesy_Eyeball_R | Textures: ['fortnite_eye_blue']
+Material: M_MED_Gumshoe_Dark_Body | Textures: ['t_m_med_commando_gumshoe_body_d', 't_m_med_commando_gumshoe_body_m', 't_m_med_commando_gumshoe_body_n']
+Material: M_Med_Gumshoe_Glasses | Textures: ['t_m_med_commando_gumshoe_glasses_m', 'exponent', 't_m_med_commando_gumshoe_glasses_n']
+Material: M_Med_Gumshoe_V1_Hair | Textures: ['T_M_MED_Commando_Gumshoe_hair_D', 'T_M_MED_Commando_Gumshoe_hair_M', 'T_M_MED_Commando_Gumshoe_hair_N']
+Material: M_Med_Gumshoe_V1_Hat | Textures: ['t_m_med_commando_gumshoe_hat_d', 't_m_med_commando_gumshoe_hat_m', 't_m_med_commando_gumshoe_hat_n']
+Material: M_Med_Soldier_Head | Textures: ['T_M_MED_Commando_Gumshoe_head_D', 'M_Med_Soldier_Head_01_M', 'M_Med_Soldier_Head_01_N']
+Material: M_Med_Soldier_Head_eyebrows | Textures: ['T_M_MED_Commando_Gumshoe_head_D', 'M_Med_Soldier_Head_01_M', 'M_Med_Soldier_Head_01_N']
+Material: Material.001 | Textures: ['texture_pbr_20250901', 'texture_pbr_20250901_metallic-texture_pbr_20250901_roughness', 'texture_pbr_20250901_normal']
+Material: Material_01 | Textures: ['elderly-hindu-priest-3d-character-model-gocssfkoamc_Material_01', 'elderly-hindu-priest-3d-character-model-gocssfkoamc_Material_0', 'elderly-hindu-priest-3d-character-model-gocssfkoamc_Material_', 'elderly-hindu-priest-3d-character-model-gocssfkoamc_Material']
+Material: Orange | Textures: []
+Material: outfit | Textures: ['saree_Aramazd_Color_1K.jpg', 'saree_Aramazd_Normal_Tiles.jpg']
+Material: Red | Textures: []
+Material: tripo_mat_0f07ddad | Textures: ['Zyklus2_Zeile3_basecolor', 'Zyklus2_Zeile3_normal', 'Zyklus2_Zeile3_roughness', 'Zyklus2_Zeile3_metallic']
+Material: tripo_mat_ca66fc79 | Textures: ['Zyklus7_Zeile4_basecolor', 'Zyklus7_Zeile4_normal', 'Zyklus7_Zeile4_roughness', 'Zyklus7_Zeile4_metallic']
+Material: White | Textures: []
+Material: Wood | Textures: []
+Material: Yellow | Textures: []
+
+--- IMAGES ---
+Image: AvatarBodyFemale_Color_1K.jpg | Size: 1024x1024 | Filepath: //indian-woman-in-saree/source/../../../../home/app/mixamo-mini/tmp/skins_7aff18db-054c-402a-91d0-7f8ca81a3b58.fbm/AvatarBodyFemale_Color_1K.jpg
+Image: AvatarBodyFemale_Normal1_1K.jpg | Size: 1024x1024 | Filepath: //indian-woman-in-saree/source/../../../../home/app/mixamo-mini/tmp/skins_7aff18db-054c-402a-91d0-7f8ca81a3b58.fbm/AvatarBodyFemale_Normal1_1K.jpg
+Image: AvatarEyes_Color_512.jpg | Size: 512x512 | Filepath: //indian-woman-in-saree/source/../../../../home/app/mixamo-mini/tmp/skins_7aff18db-054c-402a-91d0-7f8ca81a3b58.fbm/AvatarEyes_Color_512.jpg
+Image: AvatarEyes_Normal_512.jpg | Size: 512x512 | Filepath: //indian-woman-in-saree/source/../../../../home/app/mixamo-mini/tmp/skins_7aff18db-054c-402a-91d0-7f8ca81a3b58.fbm/AvatarEyes_Normal_512.jpg
+Image: AvatarHeadFemale_Color_1K.jpg | Size: 1024x1024 | Filepath: //indian-woman-in-saree/source/../../../../home/app/mixamo-mini/tmp/skins_7aff18db-054c-402a-91d0-7f8ca81a3b58.fbm/AvatarHeadFemale_Color_1K.jpg
+Image: AvatarHeadFemale_Normal1_1K.jpg | Size: 1024x1024 | Filepath: //indian-woman-in-saree/source/../../../../home/app/mixamo-mini/tmp/skins_7aff18db-054c-402a-91d0-7f8ca81a3b58.fbm/AvatarHeadFemale_Normal1_1K.jpg
+Image: AvatarLeftCornea_Color_512.jpg | Size: 512x512 | Filepath: //indian-woman-in-saree/source/../../../../home/app/mixamo-mini/tmp/skins_7aff18db-054c-402a-91d0-7f8ca81a3b58.fbm/AvatarLeftCornea_Color_512.jpg
+Image: AvatarRightCornea_Color_512.jpg | Size: 512x512 | Filepath: //indian-woman-in-saree/source/../../../../home/app/mixamo-mini/tmp/skins_7aff18db-054c-402a-91d0-7f8ca81a3b58.fbm/AvatarRightCornea_Color_512.jpg
+Image: AvatarTeeth_Color_1K.jpg | Size: 1024x1024 | Filepath: //indian-woman-in-saree/source/../../../../home/app/mixamo-mini/tmp/skins_7aff18db-054c-402a-91d0-7f8ca81a3b58.fbm/AvatarTeeth_Color_1K.jpg
+Image: AvatarTeeth_Normal1_1K.jpg | Size: 1024x1024 | Filepath: //indian-woman-in-saree/source/../../../../home/app/mixamo-mini/tmp/skins_7aff18db-054c-402a-91d0-7f8ca81a3b58.fbm/AvatarTeeth_Normal1_1K.jpg
+Image: elderly-hindu-priest-3d-character-model-gocssfkoamc_Material | Size: 4096x4096 | Filepath: //24568fb5-86ea-4016-a801-fba755733263_0/elderly-hindu-priest-3d-character-model-gocssfkoamc_Material_01_Metallic.png
+Image: elderly-hindu-priest-3d-character-model-gocssfkoamc_Material_ | Size: 4096x4096 | Filepath: //24568fb5-86ea-4016-a801-fba755733263_0/elderly-hindu-priest-3d-character-model-gocssfkoamc_Material_01_Roughness.png
+Image: elderly-hindu-priest-3d-character-model-gocssfkoamc_Material_0 | Size: 4096x4096 | Filepath: //24568fb5-86ea-4016-a801-fba755733263_0/elderly-hindu-priest-3d-character-model-gocssfkoamc_Material_01_Normal.png
+Image: elderly-hindu-priest-3d-character-model-gocssfkoamc_Material_01 | Size: 4096x4096 | Filepath: //24568fb5-86ea-4016-a801-fba755733263_0/elderly-hindu-priest-3d-character-model-gocssfkoamc_Material_01_BaseColor.png
+Image: exponent | Size: 4x4 | Filepath: 
+Image: fortnite_eye_blue | Size: 512x512 | Filepath: 
+Image: HairCard0_Color_1K.png | Size: 1024x1024 | Filepath: //indian-woman-in-saree/source/../../../../home/app/mixamo-mini/tmp/skins_7aff18db-054c-402a-91d0-7f8ca81a3b58.fbm/HairCard0_Color_1K.png
+Image: HairCard0_Color_1K.png.001 | Size: 1024x1024 | Filepath: //indian-woman-in-saree/source/../../../../home/app/mixamo-mini/tmp/skins_7aff18db-054c-402a-91d0-7f8ca81a3b58.fbm/HairCard0_Color_1K.png
+Image: HairCard0_Normal_1K.jpg | Size: 1024x1024 | Filepath: //indian-woman-in-saree/source/../../../../home/app/mixamo-mini/tmp/skins_7aff18db-054c-402a-91d0-7f8ca81a3b58.fbm/HairCard0_Normal_1K.jpg
+Image: M_Med_Soldier_Head_01_M | Size: 2048x1024 | Filepath: 
+Image: M_Med_Soldier_Head_01_N | Size: 2048x1024 | Filepath: 
+Image: Render Result | Size: 0x0 | Filepath: 
+Image: saree_Aramazd_Color_1K.jpg | Size: 1024x1024 | Filepath: //indian-woman-in-saree/source/../../../../home/app/mixamo-mini/tmp/skins_7aff18db-054c-402a-91d0-7f8ca81a3b58.fbm/saree_Aramazd_Color_1K.jpg
+Image: saree_Aramazd_Normal_Tiles.jpg | Size: 256x256 | Filepath: //indian-woman-in-saree/source/../../../../home/app/mixamo-mini/tmp/skins_7aff18db-054c-402a-91d0-7f8ca81a3b58.fbm/saree_Aramazd_Normal_Tiles.jpg
+Image: t_m_med_commando_gumshoe_body_d | Size: 2048x2048 | Filepath: 
+Image: t_m_med_commando_gumshoe_body_m | Size: 2048x2048 | Filepath: 
+Image: t_m_med_commando_gumshoe_body_n | Size: 2048x2048 | Filepath: 
+Image: t_m_med_commando_gumshoe_glasses_m | Size: 256x256 | Filepath: 
+Image: t_m_med_commando_gumshoe_glasses_n | Size: 256x256 | Filepath: 
+Image: T_M_MED_Commando_Gumshoe_hair_D | Size: 2048x2048 | Filepath: 
+Image: T_M_MED_Commando_Gumshoe_hair_M | Size: 2048x2048 | Filepath: 
+Image: T_M_MED_Commando_Gumshoe_hair_N | Size: 2048x2048 | Filepath: 
+Image: t_m_med_commando_gumshoe_hat_d | Size: 2048x2048 | Filepath: 
+Image: t_m_med_commando_gumshoe_hat_m | Size: 2048x2048 | Filepath: 
+Image: t_m_med_commando_gumshoe_hat_n | Size: 2048x2048 | Filepath: 
+Image: T_M_MED_Commando_Gumshoe_head_D | Size: 2048x1024 | Filepath: 
+Image: texture_pbr_20250901 | Size: 4096x4096 | Filepath: 
+Image: texture_pbr_20250901_metallic-texture_pbr_20250901_roughness | Size: 4096x4096 | Filepath: 
+Image: texture_pbr_20250901_normal | Size: 4096x4096 | Filepath: 
+Image: Viewer Node | Size: 256x256 | Filepath: 
+Image: Zyklus2_Zeile3_basecolor | Size: 4096x4096 | Filepath: //corrupted-king-in-black-armor-with-bone-crown/source/Zyklus2_Zeile3/tripo_convert_0f07ddad-7f99-4132-bd7f-fc975bc2a67c.fbm/Zyklus2_Zeile3_basecolor.JPEG
+Image: Zyklus2_Zeile3_metallic | Size: 4096x4096 | Filepath: //corrupted-king-in-black-armor-with-bone-crown/source/Zyklus2_Zeile3/tripo_convert_0f07ddad-7f99-4132-bd7f-fc975bc2a67c.fbm/Zyklus2_Zeile3_metallic.JPEG
+Image: Zyklus2_Zeile3_normal | Size: 4096x4096 | Filepath: //corrupted-king-in-black-armor-with-bone-crown/source/Zyklus2_Zeile3/tripo_convert_0f07ddad-7f99-4132-bd7f-fc975bc2a67c.fbm/Zyklus2_Zeile3_normal.JPEG
+Image: Zyklus2_Zeile3_roughness | Size: 4096x4096 | Filepath: //corrupted-king-in-black-armor-with-bone-crown/source/Zyklus2_Zeile3/tripo_convert_0f07ddad-7f99-4132-bd7f-fc975bc2a67c.fbm/Zyklus2_Zeile3_roughness.JPEG
+Image: Zyklus7_Zeile4_basecolor | Size: 4096x4096 | Filepath: //corrupted-archangel-six-wings-boss/source/Zyklus7_Zeile4/tripo_convert_ca66fc79-c220-4030-a1c3-59d08fabcfda.fbm/Zyklus7_Zeile4_basecolor.JPEG
+Image: Zyklus7_Zeile4_metallic | Size: 4096x4096 | Filepath: //corrupted-archangel-six-wings-boss/source/Zyklus7_Zeile4/tripo_convert_ca66fc79-c220-4030-a1c3-59d08fabcfda.fbm/Zyklus7_Zeile4_metallic.JPEG
+Image: Zyklus7_Zeile4_normal | Size: 4096x4096 | Filepath: //corrupted-archangel-six-wings-boss/source/Zyklus7_Zeile4/tripo_convert_ca66fc79-c220-4030-a1c3-59d08fabcfda.fbm/Zyklus7_Zeile4_normal.JPEG
+Image: Zyklus7_Zeile4_roughness | Size: 4096x4096 | Filepath: //corrupted-archangel-six-wings-boss/source/Zyklus7_Zeile4/tripo_convert_ca66fc79-c220-4030-a1c3-59d08fabcfda.fbm/Zyklus7_Zeile4_roughness.JPEG
+
+=== END OF INSPECTION ===
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit

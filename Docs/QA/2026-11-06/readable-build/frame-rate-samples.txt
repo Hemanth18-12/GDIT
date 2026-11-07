@@ -1,0 +1,5 @@
+Courtyard: 60.0 mean FPS over 2.00s; 1920x1080, static QA close-up, Apple M5. Not a full gameplay/performance pass.
+Sanctum: 59.8 mean FPS over 2.01s; 1920x1080, static QA close-up, Apple M5. Not a full gameplay/performance pass.
+PuzzleWall: 59.5 mean FPS over 2.02s; 1920x1080, static QA close-up, Apple M5. Not a full gameplay/performance pass.
+ShrineCrime: 59.3 mean FPS over 2.01s; 1920x1080, static QA close-up, Apple M5. Not a full gameplay/performance pass.
+JunglePath: 59.9 mean FPS over 2.00s; 1920x1080, static QA close-up, Apple M5. Not a full gameplay/performance pass.

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="7" result="Passed" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-06 19:06:06Z" end-time="2026-11-06 19:08:43Z" duration="157.3633823">
+  <test-suite type="TestSuite" id="1015" name="My project" fullname="My project" runstate="Runnable" testcasecount="7" result="Passed" start-time="2026-11-06 19:06:06Z" end-time="2026-11-06 19:08:43Z" duration="157.363382" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1024" name="LOT.Grounding.PlayModeTests.dll" fullname="/Users/hemanth/Desktop/GDIT/My project/Library/ScriptAssemblies/LOT.Grounding.PlayModeTests.dll" runstate="Runnable" testcasecount="7" result="Passed" start-time="2026-11-06 19:06:06Z" end-time="2026-11-06 19:08:43Z" duration="157.360455" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="11252" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1025" name="LegacyOfTemples" fullname="LegacyOfTemples" runstate="Runnable" testcasecount="7" result="Passed" start-time="2026-11-06 19:06:06Z" end-time="2026-11-06 19:08:43Z" duration="157.360027" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1026" name="Tests" fullname="LegacyOfTemples.Tests" runstate="Runnable" testcasecount="7" result="Passed" start-time="2026-11-06 19:06:06Z" end-time="2026-11-06 19:08:43Z" duration="157.359789" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1016" name="GroundingPlayModeTests" fullname="LegacyOfTemples.Tests.GroundingPlayModeTests" classname="LegacyOfTemples.Tests.GroundingPlayModeTests" runstate="Runnable" testcasecount="7" result="Passed" start-time="2026-11-06 19:06:06Z" end-time="2026-11-06 19:08:43Z" duration="157.359090" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1022" name="CourtyardStairsAndJump" fullname="LegacyOfTemples.Tests.GroundingPlayModeTests.CourtyardStairsAndJump" methodname="CourtyardStairsAndJump" classname="LegacyOfTemples.Tests.GroundingPlayModeTests" runstate="Runnable" seed="1386122337" result="Passed" start-time="2026-11-06 19:06:06Z" end-time="2026-11-06 19:06:10Z" duration="4.508259" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1017" name="CourtyardThirtySeconds" fullname="LegacyOfTemples.Tests.GroundingPlayModeTests.CourtyardThirtySeconds" methodname="CourtyardThirtySeconds" classname="LegacyOfTemples.Tests.GroundingPlayModeTests" runstate="Runnable" seed="2072963534" result="Passed" start-time="2026-11-06 19:06:10Z" end-time="2026-11-06 19:06:41Z" duration="30.331486" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Courtyard: seconds=30.00, distance=135.00m, samples=201, maxActualFootError=0.00500m, missingGround=0, lowestRootY=-0.00792, validatedAnimation=False, skin=0.020
+
+]]></output>
+            </test-case>
+            <test-case id="1021" name="JunglePathThirtySeconds" fullname="LegacyOfTemples.Tests.GroundingPlayModeTests.JunglePathThirtySeconds" methodname="JunglePathThirtySeconds" classname="LegacyOfTemples.Tests.GroundingPlayModeTests" runstate="Runnable" seed="283678440" result="Passed" start-time="2026-11-06 19:06:41Z" end-time="2026-11-06 19:07:11Z" duration="30.349637" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[JunglePath: seconds=30.00, distance=135.00m, samples=201, maxActualFootError=0.00500m, missingGround=0, lowestRootY=-0.00792, validatedAnimation=False, skin=0.020
+
+]]></output>
+            </test-case>
+            <test-case id="1019" name="PuzzleWallThirtySeconds" fullname="LegacyOfTemples.Tests.GroundingPlayModeTests.PuzzleWallThirtySeconds" methodname="PuzzleWallThirtySeconds" classname="LegacyOfTemples.Tests.GroundingPlayModeTests" runstate="Runnable" seed="523971643" result="Passed" start-time="2026-11-06 19:07:11Z" end-time="2026-11-06 19:07:41Z" duration="30.333158" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[PuzzleWall: seconds=30.00, distance=135.00m, samples=201, maxActualFootError=0.00500m, missingGround=0, lowestRootY=-0.00792, validatedAnimation=False, skin=0.020
+
+]]></output>
+            </test-case>
+            <test-case id="1023" name="RenderedPoseProbe" fullname="LegacyOfTemples.Tests.GroundingPlayModeTests.RenderedPoseProbe" methodname="RenderedPoseProbe" classname="LegacyOfTemples.Tests.GroundingPlayModeTests" runstate="Runnable" seed="645220604" result="Passed" start-time="2026-11-06 19:07:41Z" end-time="2026-11-06 19:07:42Z" duration="1.116634" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[root=(0.00000, -0.00792, 18.00000), visual=(0.00000, 0.00000, 0.00000), baked=Center: (0.02, 0.91, 0.26), Extents: (0.44, 0.89, 0.31), size=(0.88367, 1.78888, 0.61807), groundingFootOffset=0.01292
+Hips: (0.00000, 0.99029, 17.78778)
+LeftFoot: (0.16328, 0.11235, 17.69530)
+RightFoot: (-0.16328, 0.11235, 17.69530)
+Head: (0.00000, 1.61505, 17.91140)
+M_MED_CAU_Jonesy_Head_01.smd: Center: (0.00, 1.61, 17.89), Extents: (0.11, 0.20, 0.12)
+M_MED_Gumshoe.smd: Center: (-0.02, 0.84, 17.76), Extents: (0.47, 0.85, 0.34)
+M_MED_Gumshoe_button.smd: Center: (-0.20, 1.06, 17.75), Extents: (0.06, 0.09, 0.08)
+M_MED_Gumshoe_Glasses.smd: Center: (0.00, 1.67, 17.86), Extents: (0.07, 0.04, 0.06)
+M_MED_Gumshoe_Hat.smd: Center: (0.00, 1.73, 17.91), Extents: (0.11, 0.09, 0.15)
+M_MED_Gumshoe_paper.smd: Center: (0.17, 1.01, 17.73), Extents: (0.06, 0.09, 0.08)
+
+]]></output>
+            </test-case>
+            <test-case id="1018" name="SanctumThirtySeconds" fullname="LegacyOfTemples.Tests.GroundingPlayModeTests.SanctumThirtySeconds" methodname="SanctumThirtySeconds" classname="LegacyOfTemples.Tests.GroundingPlayModeTests" runstate="Runnable" seed="1358125880" result="Passed" start-time="2026-11-06 19:07:42Z" end-time="2026-11-06 19:08:13Z" duration="30.378425" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[The GameObject 'Area' is an area light type, but the mode is not set to baked. URP only supports baked area lights, not realtime or mixed ones.
+The GameObject 'Area.001' is an area light type, but the mode is not set to baked. URP only supports baked area lights, not realtime or mixed ones.
+Sanctum: seconds=30.00, distance=135.00m, samples=201, maxActualFootError=0.00500m, missingGround=0, lowestRootY=-0.00792, validatedAnimation=False, skin=0.020
+
+]]></output>
+            </test-case>
+            <test-case id="1020" name="ShrineCrimeThirtySeconds" fullname="LegacyOfTemples.Tests.GroundingPlayModeTests.ShrineCrimeThirtySeconds" methodname="ShrineCrimeThirtySeconds" classname="LegacyOfTemples.Tests.GroundingPlayModeTests" runstate="Runnable" seed="2098686637" result="Passed" start-time="2026-11-06 19:08:13Z" end-time="2026-11-06 19:08:43Z" duration="30.333120" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[ShrineCrime: seconds=30.00, distance=135.00m, samples=201, maxActualFootError=0.00500m, missingGround=0, lowestRootY=-0.00792, validatedAnimation=False, skin=0.020
+
+Saving results to: /Users/hemanth/Library/Application Support/DefaultCompany/My project/TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

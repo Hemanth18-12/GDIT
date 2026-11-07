@@ -390,30 +390,30 @@ namespace LegacyOfTemples.Characters.Editor
 
         private static AnimationClip LoadBestInvestigatorClip(string clipType)
         {
-            string clipsDir = $"{AnimationBasePath}/Clips";
+            string clipsDir = $"{AnimationBasePath}/Clips/Real";
             string[] searchFiles = null;
             switch (clipType.ToLowerInvariant())
             {
                 case "idle":
-                    searchFiles = new[] { "Idle.fbx", "Breathing Idle.fbx", "Investigator_Idle.anim" };
+                    searchFiles = new[] { "Idle.fbx", "Breathing Idle.fbx" };
                     break;
                 case "walk":
-                    searchFiles = new[] { "Walking.fbx", "Walk.fbx", "Investigator_Walk.anim" };
+                    searchFiles = new[] { "Walking.fbx", "Walk.fbx" };
                     break;
                 case "run":
-                    searchFiles = new[] { "Running.fbx", "Run.fbx", "Investigator_Run.anim" };
+                    searchFiles = new[] { "Running.fbx", "Run.fbx" };
                     break;
                 case "sprint":
-                    searchFiles = new[] { "Sprint.fbx", "Sprinting.fbx", "Investigator_Sprint.anim" };
+                    searchFiles = new[] { "Sprint.fbx", "Sprinting.fbx" };
                     break;
                 case "crouch":
-                    searchFiles = new[] { "Crouch_Idle.fbx", "Crouch.fbx", "Investigator_Crouch.anim" };
+                    searchFiles = new[] { "Crouch_Idle.fbx", "Crouch.fbx" };
                     break;
                 case "jump":
-                    searchFiles = new[] { "Jump.fbx", "Jumping.fbx", "Investigator_Jump.anim" };
+                    searchFiles = new[] { "Jump.fbx", "Jumping.fbx" };
                     break;
                 case "interact":
-                    searchFiles = new[] { "Interact.fbx", "Investigator_Interact.anim" };
+                    searchFiles = new[] { "Interact.fbx" };
                     break;
             }
 
@@ -438,8 +438,7 @@ namespace LegacyOfTemples.Characters.Editor
                 }
             }
 
-            return ExtractOrLoadClip($"{ModelsBasePath}/Investigator.fbx", $"Investigator_{clipType}")
-                ?? ExtractOrLoadClip($"{ModelsBasePath}/Villager.fbx", "Layer0");
+            return null; // Never substitute generated motion or an unrelated NPC idle.
         }
 
         private static void EnsureParameter(AnimatorController controller, string paramName, AnimatorControllerParameterType type)
@@ -746,6 +745,10 @@ namespace LegacyOfTemples.Characters.Editor
             Avatar avatar = LoadAvatar($"{ModelsBasePath}/Investigator.fbx");
             if (avatar != null) anim.avatar = avatar;
 
+            anim.applyRootMotion = false;
+            anim.enabled = false; // Confirmed hero and real locomotion clips are pending.
+            root.AddComponent<CharacterGrounding>().Calibrate();
+
             // Camera Target
             GameObject camTarget = new GameObject("CameraTarget");
             camTarget.transform.SetParent(root.transform, false);
@@ -811,9 +814,9 @@ namespace LegacyOfTemples.Characters.Editor
                 "Meera (Villager)",
                 new string[]
                 {
-                    "Namaste, Detective! I was bringing fresh marigold garlands to the temple when the alarm bells began ringing frantically.",
-                    "The temple storehouse was breached! I saw two dark cloaked figures escaping toward the outer shrine with heavy sacks!",
-                    "Elderly Priest Ananda is praying at the courtyard steps. Please speak with him immediately!"
+                    "Before sunrise I saw two men near the storage door. One wore a red scarf, the other a black hood.",
+                    "Aryan: Did you see which way they ran?",
+                    "Meera: They fled past the outer shrine gates heading southward toward the dense jungle path!"
                 },
                 2.8f
             );
@@ -867,12 +870,12 @@ namespace LegacyOfTemples.Characters.Editor
             NPCDialogueTrigger dt = root.AddComponent<NPCDialogueTrigger>();
             dt.Setup(
                 Constants.Priest,
-                "Priest Ananda",
+                "Pujari Ananda",
                 new string[]
                 {
-                    "Namaskaram, Detective Aryan... An unspeakable violation has befallen our ancient sanctuary!",
-                    "Three priceless heritage relics have been stolen from the locked storage chamber: the ancient ceremonial Pradip vessel, the carved stone rosette, and the sacred Tala Patra palm-leaf manuscript!",
-                    "The thieves shattered the brass lock and fled through the outer shrine into the moonlit jungle. You must track their trail and recover our heritage!"
+                    "Namaste. Three pieces from our storage hall are gone: a brass ceremonial vessel, a carved sandstone rosette, and a palm-leaf manuscript. Please find them before the festival.",
+                    "Aryan: Stay calm and touch nothing. Every small detail matters. Did anyone see something?",
+                    "Meera: Before sunrise I saw two men near the storage door. One wore a red scarf, the other a black hood."
                 },
                 2.8f
             );
@@ -925,17 +928,20 @@ namespace LegacyOfTemples.Characters.Editor
             NPCDialogueTrigger dt = root.AddComponent<NPCDialogueTrigger>();
             dt.Setup(
                 Constants.Robber1,
-                "Shadow Robber (Leader)",
+                "Bhaskar (Robber 1)",
                 new string[]
                 {
-                    "You're too late, detective! The ancient palm-leaf manuscript and the sacred brass artifacts belong to us now!",
-                    "No mortal investigator can stop what has already begun in the shadows of the jungle!"
+                    "Keep moving. The investigator is close.",
+                    "Kishore: I told you the lamp would leave marks.",
+                    "Aryan: It's over. Return what belongs to the community.",
+                    "Bhaskar: Do you know what these fetch?",
+                    "Aryan: Their value isn't money. It's memory."
                 },
-                2.8f
+                3.0f
             );
 
             NPCHeadIndicator ind = root.AddComponent<NPCHeadIndicator>();
-            ind.Setup("Kala (Thief Leader)", new Color(0.95f, 0.35f, 0.35f), 1.95f);
+            ind.Setup("Bhaskar (Robber 1)", new Color(0.95f, 0.35f, 0.35f), 1.95f);
 
             Animator anim = root.GetComponentInChildren<Animator>();
             if (anim == null) anim = root.AddComponent<Animator>();
@@ -982,17 +988,18 @@ namespace LegacyOfTemples.Characters.Editor
             NPCDialogueTrigger dt = root.AddComponent<NPCDialogueTrigger>();
             dt.Setup(
                 Constants.Robber2,
-                "Shadow Robber (Accomplice)",
+                "Kishore (Robber 2)",
                 new string[]
                 {
-                    "Kala told me it was just an old brass vessel and some ancient scrolls... I didn't sign up for an imperial investigation!",
-                    "Back off, detective! We only took the antiquities from the storeroom!"
+                    "I told you the lamp would leave marks!",
+                    "Bhaskar: Keep moving. The investigator is close.",
+                    "Aryan: It's over. Return what belongs to the community."
                 },
-                2.8f
+                3.0f
             );
 
             NPCHeadIndicator ind = root.AddComponent<NPCHeadIndicator>();
-            ind.Setup("Rudra (Accomplice)", new Color(0.95f, 0.45f, 0.35f), 1.95f);
+            ind.Setup("Kishore (Robber 2)", new Color(0.95f, 0.45f, 0.35f), 1.95f);
 
             Animator anim = root.GetComponentInChildren<Animator>();
             if (anim == null) anim = root.AddComponent<Animator>();
@@ -1023,11 +1030,11 @@ namespace LegacyOfTemples.Characters.Editor
         {
             Debug.Log("[HeritageCharacterImporter] Updating CharacterConfig ScriptableObjects...");
 
-            UpdateConfig("InvestigatorConfig", Constants.Investigator, "Investigator (Detective)", true, $"{PrefabBasePath}/Investigator.prefab");
-            UpdateConfig("VillagerConfig", Constants.Villager, "Meera (Villager)", false, $"{PrefabBasePath}/Villager.prefab");
-            UpdateConfig("PriestConfig", Constants.Priest, "Priest Ananda", false, $"{PrefabBasePath}/Priest.prefab");
-            UpdateConfig("Robber1Config", Constants.Robber1, "Shadow Robber (Leader)", false, $"{PrefabBasePath}/Robber1.prefab");
-            UpdateConfig("Robber2Config", Constants.Robber2, "Shadow Robber (Accomplice)", false, $"{PrefabBasePath}/Robber2.prefab");
+            UpdateConfig("InvestigatorConfig", Constants.Investigator, "Investigator Aryan", true, $"{PrefabBasePath}/Investigator.prefab");
+            UpdateConfig("VillagerConfig", Constants.Villager, "Meera", false, $"{PrefabBasePath}/Villager.prefab");
+            UpdateConfig("PriestConfig", Constants.Priest, "Pujari Ananda", false, $"{PrefabBasePath}/Priest.prefab");
+            UpdateConfig("Robber1Config", Constants.Robber1, "Bhaskar (Robber 1)", false, $"{PrefabBasePath}/Robber1.prefab");
+            UpdateConfig("Robber2Config", Constants.Robber2, "Kishore (Robber 2)", false, $"{PrefabBasePath}/Robber2.prefab");
 
             AssetDatabase.SaveAssets();
         }

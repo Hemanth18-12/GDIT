@@ -1,0 +1,5 @@
+Read-only source audit after background inspection. No save/export operations were run against these originals. Hashes are a baseline for subsequent sessions, not an invented before/after comparison.
+
+Heritage Mystery Project/assets.blend: size=293270217, modified_UTC=2026-11-05T10:35:27.678733+00:00, sha256=bfe947be7488f9b8a6334183bb6b43e740e81ed031ab3638a0cd4cc284153287
+Heritage Mystery Project/S20240010236JagannathTemple.blend: size=438816, modified_UTC=2026-10-07T09:43:39+00:00, sha256=407514cb9414dc9cceacd7c6a33ece63e264646c3892804d22b4d309c2dc3704
+Heritage Mystery Project/S20240010236God.blend: size=1614946, modified_UTC=2026-10-07T09:43:36+00:00, sha256=928f67585f866edbca55cfb065c527bda3ed031a9edd512149a8eb70762954ac

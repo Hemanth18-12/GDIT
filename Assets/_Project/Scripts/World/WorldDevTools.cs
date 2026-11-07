@@ -143,29 +143,30 @@ namespace LegacyOfTemples.World
             }
 
             // Dev HUD (Editor only - stripped from release builds)
-#if UNITY_EDITOR
-            if (showHUD)
+            if (showHUD && (Application.isEditor || Debug.isDebugBuild) &&
+                !LegacyOfTemples.Core.EventBus.IsPhotoModeActive &&
+                !LegacyOfTemples.Core.EventBus.IsShowcaseActive)
             {
                 string activeScene = WorldManager.Instance != null ? WorldManager.Instance.CurrentSceneName : "None";
                 int qLevel = QualitySettings.GetQualityLevel();
                 string qName = qLevel < QualitySettings.names.Length ? QualitySettings.names[qLevel] : "Default";
 
-                float hudY = Screen.height - 116;
-                GUI.Box(new Rect(16, hudY, 260, 96), GUIContent.none);
-                GUI.Label(new Rect(26, hudY + 6, 240, 20), "<b>LEGACY OF TEMPLES - DEV TOOLS</b>", hudStyle);
-                GUI.Label(new Rect(26, hudY + 26, 240, 20), $"Scene [1-5]: <color=#f4c430>{activeScene}</color>", hudStyle);
-                GUI.Label(new Rect(26, hudY + 46, 240, 20), $"Quality [Q]: <color=#89c4f4>{qName}</color>", hudStyle);
-                GUI.Label(new Rect(26, hudY + 66, 240, 20), $"FPS: {1.0f / Mathf.Max(Time.smoothDeltaTime, 0.0001f):F0} (Target 60)", hudStyle);
+                float hudX = Screen.width - 276;
+                float hudY = 16;
+                GUI.Box(new Rect(hudX, hudY, 260, 96), GUIContent.none);
+                GUI.Label(new Rect(hudX + 10, hudY + 6, 240, 20), "<b>LEGACY OF TEMPLES - DEV TOOLS</b>", hudStyle);
+                GUI.Label(new Rect(hudX + 10, hudY + 26, 240, 20), $"Scene [1-5]: <color=#f4c430>{activeScene}</color>", hudStyle);
+                GUI.Label(new Rect(hudX + 10, hudY + 46, 240, 20), $"Quality [Q]: <color=#89c4f4>{qName}</color>", hudStyle);
+                GUI.Label(new Rect(hudX + 10, hudY + 66, 240, 20), $"FPS: {1.0f / Mathf.Max(Time.smoothDeltaTime, 0.0001f):F0} (Target 60)", hudStyle);
 
                 // Toast
                 if (toastTimer > 0f)
                 {
                     GUI.color = new Color(1f, 0.85f, 0.2f, Mathf.Clamp01(toastTimer));
-                    GUI.Label(new Rect(Screen.width - 260, 20, 240, 30), qualityToast, hudStyle);
+                    GUI.Label(new Rect(hudX, hudY + 100, 240, 30), qualityToast, hudStyle);
                     GUI.color = Color.white;
                 }
             }
-#endif
         }
 
         private void InitStyles()

@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using LegacyOfTemples.Core;
 
 namespace LegacyOfTemples.Gameplay
 {
@@ -59,6 +60,7 @@ namespace LegacyOfTemples.Gameplay
         public void ToggleHints()
         {
             isOpen = !isOpen;
+            EventBus.RaiseOverlayMenuToggled(isOpen);
             if (isOpen)
             {
                 // Reset to tier 1 when opening in a new scene
@@ -136,7 +138,7 @@ namespace LegacyOfTemples.Gameplay
                     {
                         "The thieves dropped hasty items while fleeing through the ruined outer courtyard. Search around the fallen pillar bases.",
                         "Find the torn dark cloak wool fragment caught on the carved plinth, and retrieve the Smuggler's Egress Route sketch from the old stone urn.",
-                        "Follow the glowing red lantern trail west toward the Ancient Surya Chakra Wall to pursue Vikram and Dev into the jungle."
+                        "Follow the glowing red lantern trail west toward the Ancient Surya Chakra Wall to pursue Bhaskar and Kishore into the jungle."
                     };
 
                 case "PuzzleWall":
@@ -151,8 +153,8 @@ namespace LegacyOfTemples.Gameplay
                     return new string[]
                     {
                         "Follow the torchlit jungle path past the banyan roots to the ruined forest pavilion.",
-                        "Vikram and Dev are holed up ahead with the stolen relics. Approach and confront them directly.",
-                        "Present the broken lock evidence and smuggler route map in dialogue to break their resolve, recover all 3 sacred relics, and solve the Heritage Mystery!"
+                        "Bhaskar and Kishore are cornered ahead with the stolen relics. Approach and confront them directly.",
+                        "Present the broken lock evidence and stolen cloth in dialogue to secure their non-violent surrender, recover all 3 sacred relics, and solve the Heritage Mystery!"
                     };
 
                 default:
@@ -175,10 +177,10 @@ namespace LegacyOfTemples.Gameplay
             {
                 titleStyle = new GUIStyle(GUI.skin.label)
                 {
-                    fontSize = Mathf.RoundToInt(34 * scale),
+                    fontSize = Mathf.RoundToInt(38 * scale),
                     fontStyle = FontStyle.Bold,
                     alignment = TextAnchor.MiddleCenter,
-                    normal = { textColor = new Color(0.98f, 0.84f, 0.3f) }
+                    normal = { textColor = new Color(1.0f, 0.784f, 0.341f) } // #FFC857
                 };
             }
 
@@ -186,10 +188,10 @@ namespace LegacyOfTemples.Gameplay
             {
                 hintHeaderStyle = new GUIStyle(GUI.skin.label)
                 {
-                    fontSize = Mathf.RoundToInt(28 * scale),
+                    fontSize = Mathf.RoundToInt(34 * scale),
                     fontStyle = FontStyle.Bold,
                     richText = true,
-                    normal = { textColor = Color.white }
+                    normal = { textColor = new Color(1.0f, 0.784f, 0.341f) } // #FFC857
                 };
             }
 
@@ -197,9 +199,9 @@ namespace LegacyOfTemples.Gameplay
             {
                 hintBodyStyle = new GUIStyle(GUI.skin.label)
                 {
-                    fontSize = Mathf.RoundToInt(26 * scale),
+                    fontSize = Mathf.RoundToInt(30 * scale),
                     wordWrap = true,
-                    normal = { textColor = new Color(0.92f, 0.90f, 0.86f) }
+                    normal = { textColor = new Color(1.0f, 0.957f, 0.839f) } // #FFF4D6
                 };
             }
 
@@ -207,9 +209,9 @@ namespace LegacyOfTemples.Gameplay
             {
                 buttonStyle = new GUIStyle(GUI.skin.button)
                 {
-                    fontSize = Mathf.RoundToInt(26 * scale),
+                    fontSize = Mathf.RoundToInt(30 * scale),
                     fontStyle = FontStyle.Bold,
-                    normal = { textColor = Color.yellow }
+                    normal = { textColor = new Color(1.0f, 0.784f, 0.341f) }
                 };
             }
 
@@ -217,10 +219,10 @@ namespace LegacyOfTemples.Gameplay
             {
                 footerStyle = new GUIStyle(GUI.skin.label)
                 {
-                    fontSize = Mathf.RoundToInt(22 * scale),
+                    fontSize = Mathf.RoundToInt(26 * scale),
                     alignment = TextAnchor.MiddleCenter,
                     richText = true,
-                    normal = { textColor = new Color(0.75f, 0.72f, 0.65f) }
+                    normal = { textColor = new Color(1.0f, 0.784f, 0.341f) }
                 };
             }
         }

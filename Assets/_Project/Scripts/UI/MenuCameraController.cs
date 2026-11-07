@@ -11,7 +11,7 @@ namespace LegacyOfTemples.UI
         [SerializeField] private float verticalBobSpeed = 0.5f;
         [SerializeField] private float verticalBobAmount = 0.8f;
 
-        private float currentAngle = 180.0f;
+        private float currentAngle = 25.0f;
 
         private void Update()
         {

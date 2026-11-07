@@ -42,6 +42,7 @@ namespace LegacyOfTemples.UI
 
         private void Start()
         {
+            GroundingEvidenceCapture.Bootstrap();
             // Load saved settings
             masterVolume = PlayerPrefs.GetFloat("Settings_MasterVol", 1.0f);
             musicVolume = PlayerPrefs.GetFloat("Settings_MusicVol", 0.8f);
@@ -164,7 +165,7 @@ namespace LegacyOfTemples.UI
         {
             float scale = Mathf.Max(1.0f, Screen.height / 1080f);
             float width = 520f * scale;
-            float height = 720f * scale;
+            float height = 780f * scale;
             float x = 60f * scale;
             float y = (Screen.height - height) * 0.5f;
 
@@ -174,64 +175,74 @@ namespace LegacyOfTemples.UI
 
             GUILayout.Label("LEGACY OF THE TEMPLE", titleStyle);
             GUILayout.Label("A Cinematic Heritage Mystery", subtitleStyle);
-            GUILayout.Space(22f * scale);
+            GUILayout.Space(18f * scale);
 
-            if (GUILayout.Button("NEW GAME", buttonStyle, GUILayout.Height(52f * scale)))
+            if (GUILayout.Button("NEW GAME", buttonStyle, GUILayout.Height(50f * scale)))
             {
                 PlayerPrefs.SetInt("OpeningCinematicActive", 1);
+                PlayerPrefs.SetInt("ShowcaseTourActive", 0);
                 PlayerPrefs.Save();
                 SceneManager.LoadScene(Constants.Courtyard);
             }
 
-            GUILayout.Space(10f * scale);
+            GUILayout.Space(8f * scale);
+
+            if (GUILayout.Button("SHOWCASE TOUR", buttonStyle, GUILayout.Height(50f * scale)))
+            {
+                PlayerPrefs.SetInt("ShowcaseTourActive", 1);
+                PlayerPrefs.Save();
+                SceneManager.LoadScene(Constants.Courtyard);
+            }
+
+            GUILayout.Space(8f * scale);
 
             bool hasSavedGame = PlayerPrefs.HasKey("LastPlayedScene");
             GUI.enabled = hasSavedGame;
-            if (GUILayout.Button("CONTINUE", hasSavedGame ? buttonStyle : buttonDisabledStyle, GUILayout.Height(52f * scale)))
+            if (GUILayout.Button("CONTINUE", hasSavedGame ? buttonStyle : buttonDisabledStyle, GUILayout.Height(50f * scale)))
             {
                 string lastScene = PlayerPrefs.GetString("LastPlayedScene", Constants.Courtyard);
                 SceneManager.LoadScene(lastScene);
             }
             GUI.enabled = true;
 
-            GUILayout.Space(10f * scale);
+            GUILayout.Space(8f * scale);
 
-            if (GUILayout.Button("LEVEL SELECTION", buttonStyle, GUILayout.Height(52f * scale)))
+            if (GUILayout.Button("LEVEL SELECTION", buttonStyle, GUILayout.Height(50f * scale)))
             {
                 currentState = MenuState.LevelSelect;
             }
 
-            GUILayout.Space(10f * scale);
+            GUILayout.Space(8f * scale);
 
-            if (GUILayout.Button("SETTINGS", buttonStyle, GUILayout.Height(52f * scale)))
+            if (GUILayout.Button("SETTINGS", buttonStyle, GUILayout.Height(50f * scale)))
             {
                 currentState = MenuState.Settings;
             }
 
-            GUILayout.Space(10f * scale);
+            GUILayout.Space(8f * scale);
 
-            if (GUILayout.Button("CONTROLS", buttonStyle, GUILayout.Height(52f * scale)))
+            if (GUILayout.Button("CONTROLS", buttonStyle, GUILayout.Height(50f * scale)))
             {
                 currentState = MenuState.Controls;
             }
 
-            GUILayout.Space(10f * scale);
+            GUILayout.Space(8f * scale);
 
-            if (GUILayout.Button("HELP", buttonStyle, GUILayout.Height(52f * scale)))
+            if (GUILayout.Button("HELP", buttonStyle, GUILayout.Height(50f * scale)))
             {
                 currentState = MenuState.Help;
             }
 
-            GUILayout.Space(10f * scale);
+            GUILayout.Space(8f * scale);
 
-            if (GUILayout.Button("CREDITS", buttonStyle, GUILayout.Height(52f * scale)))
+            if (GUILayout.Button("CREDITS", buttonStyle, GUILayout.Height(50f * scale)))
             {
                 currentState = MenuState.Credits;
             }
 
-            GUILayout.Space(8f);
+            GUILayout.Space(8f * scale);
 
-            if (GUILayout.Button("EXIT GAME", buttonStyle, GUILayout.Height(38f)))
+            if (GUILayout.Button("EXIT GAME", buttonStyle, GUILayout.Height(38f * scale)))
             {
                 Application.Quit();
 #if UNITY_EDITOR
@@ -474,7 +485,7 @@ namespace LegacyOfTemples.UI
 
             GUILayout.Label("• <b>Director, Architecture & Visual Art</b>: Hemanth (S20240010236)", labelStyle);
             GUILayout.Label("• <b>Temple Model</b>: Authentic Jagannath Temple architecture from assets.blend", labelStyle);
-            GUILayout.Label("• <b>Characters</b>: Detective Aryan, Priest Ananda, Meera the Villager, Kala & Rudra", labelStyle);
+            GUILayout.Label("• <b>Characters</b>: Investigator Aryan, Pujari Ananda, Meera the Villager, Bhaskar & Kishore", labelStyle);
             GUILayout.Space(12f);
 
             GUILayout.Label("<b>Fiction & Heritage Note:</b>", headerStyle);

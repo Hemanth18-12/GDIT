@@ -88,11 +88,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: LOT.Characters::LegacyOfTemples.Characters.NPCDialogueTrigger
   characterId: robber1
-  speakerName: Shadow Robber (Leader)
-  interactionRadius: 2.8
+  speakerName: Bhaskar (Robber 1)
+  interactionRadius: 3
   dialogueLines:
-  - You're too late, detective! The ancient palm-leaf manuscript and the sacred brass artifacts belong to us now!
-  - No mortal investigator can stop what has already begun in the shadows of the jungle!
+  - Keep moving. The investigator is close.
+  - 'Kishore: I told you the lamp would leave marks.'
+  - 'Aryan: It''s over. Return what belongs to the community.'
+  - 'Bhaskar: Do you know what these fetch?'
+  - 'Aryan: Their value isn''t money. It''s memory.'
 --- !u!114 &1234732518649780189
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -105,7 +108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd7d9dfc76e074bd5966b593463bcd49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: LOT.Characters::LegacyOfTemples.Characters.NPCHeadIndicator
-  characterName: Kala (Thief Leader)
+  characterName: Bhaskar (Robber 1)
   tagColor: {r: 0.95, g: 0.35, b: 0.35, a: 1}
   heightOffset: 1.95
   maxVisibleDistance: 25

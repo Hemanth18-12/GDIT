@@ -88,11 +88,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: LOT.Characters::LegacyOfTemples.Characters.NPCDialogueTrigger
   characterId: robber2
-  speakerName: Shadow Robber (Accomplice)
-  interactionRadius: 2.8
+  speakerName: Kishore (Robber 2)
+  interactionRadius: 3
   dialogueLines:
-  - Kala told me it was just an old brass vessel and some ancient scrolls... I didn't sign up for an imperial investigation!
-  - Back off, detective! We only took the antiquities from the storeroom!
+  - I told you the lamp would leave marks!
+  - 'Bhaskar: Keep moving. The investigator is close.'
+  - 'Aryan: It''s over. Return what belongs to the community.'
 --- !u!114 &892735608621850521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -105,7 +106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd7d9dfc76e074bd5966b593463bcd49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: LOT.Characters::LegacyOfTemples.Characters.NPCHeadIndicator
-  characterName: Rudra (Accomplice)
+  characterName: Kishore (Robber 2)
   tagColor: {r: 0.95, g: 0.45, b: 0.35, a: 1}
   heightOffset: 1.95
   maxVisibleDistance: 25

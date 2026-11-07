@@ -175,6 +175,26 @@ All screenshots below were captured from the standalone application (`LegacyOfTh
 | `Docs/QA/09_JunglePath_Live.png` | 2940 x 1846 | Jungle ravine trail, torch braziers, and smuggler hideout |
 | `Docs/QA/10_Courtyard_FullView_Live.png` | 2940 x 1846 | Panorama of Courtyard with corner shrines, flags, rangoli mandala, and palm trees |
 
+### Fresh Standalone Grounding & Cinematic Showcase Capture Matrix (`Docs/QA/2026-11-06/`)
+
+| Screenshot File | Resolution | Verification Focus |
+|---|---|---|
+| `Docs/QA/2026-11-06/standalone-menu.png` | 2880 x 1800 | Main Menu with SHOWCASE TOUR button |
+| `Docs/QA/2026-11-06/standalone-howtoplay.png` | 2880 x 1800 | Start-of-Game Mission Brief card (3 goals, 2-column controls) |
+| `Docs/QA/2026-11-06/standalone-courtyard-gameplay.png` | 2880 x 1800 | Courtyard HUD, non-wrapping single-line hint bar, temple deula |
+| `Docs/QA/2026-11-06/standalone-dialogue.png` | 2880 x 1800 | Pujari Ananda conversation with typewriter subtitles & choices |
+| `Docs/QA/2026-11-06/standalone-sanctum-gameplay.png` | 2880 x 1800 | Sanctum colonnade with Lord Jagannath Garbhagriha shrine |
+| `Docs/QA/2026-11-06/standalone-puzzlewall-gameplay.png` | 2880 x 1800 | Surya Chakra puzzle chamber & interaction prompts |
+| `Docs/QA/2026-11-06/standalone-shrinecrime-gameplay.png` | 2880 x 1800 | Crime scene with footprints and broken lamp |
+| `Docs/QA/2026-11-06/standalone-junglepath-gameplay.png` | 2880 x 1800 | Jungle clearing and robber hideout altar |
+| `Docs/QA/2026-11-06/standalone-char-investigator.png` | 2880 x 1800 | Detective Aryan character framing |
+| `Docs/QA/2026-11-06/standalone-char-priest.png` | 2880 x 1800 | Pujari Ananda character framing |
+| `Docs/QA/2026-11-06/standalone-char-meera.png` | 2880 x 1800 | Meera (Villager in red & green saree) |
+| `Docs/QA/2026-11-06/standalone-char-robber1.png` | 2880 x 1800 | Bhaskar (Robber 1) |
+| `Docs/QA/2026-11-06/standalone-char-robber2.png` | 2880 x 1800 | Kishore (Robber 2) |
+| `Docs/QA/2026-11-06/standalone-showcase.png` | 2880 x 1800 | Cinematic showcase mode with lower-third title |
+| `Docs/QA/2026-11-06/standalone-photomode.png` | 2880 x 1800 | Clean cinematic view with UI hidden |
+
 ---
 
 ## 4. Instructions for Downloading Mixamo Humanoid Animation Clips
@@ -201,3 +221,4 @@ The game is currently equipped with 6 functional humanoid locomotion clips. If y
 | **"Crouch Walking"** | `Crouch_Walking.fbx` | **CHECKED** |
 
 The importer will automatically detect and integrate any downloaded clips on the next build.
+

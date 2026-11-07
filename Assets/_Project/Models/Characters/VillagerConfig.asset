@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: VillagerConfig
   m_EditorClassIdentifier: LOT.Characters::LegacyOfTemples.Characters.CharacterConfig
   characterId: villager
-  displayName: Meera (Villager)
+  displayName: Meera
   isPlayer: 0
   prefab: {fileID: 63695347839237498, guid: 56228619dad3340a9a25a1d40d10ed19, type: 3}
   moveSpeed: 4.5

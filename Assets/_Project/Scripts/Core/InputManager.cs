@@ -55,6 +55,7 @@ namespace LegacyOfTemples.Core
                 return;
             }
             Instance = this;
+            transform.SetParent(null, true);
             DontDestroyOnLoad(gameObject);
             LoadBindings();
         }

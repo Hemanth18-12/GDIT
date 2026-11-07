@@ -88,12 +88,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: LOT.Characters::LegacyOfTemples.Characters.NPCDialogueTrigger
   characterId: priest
-  speakerName: Priest Ananda
+  speakerName: Pujari Ananda
   interactionRadius: 2.8
   dialogueLines:
-  - Namaskaram, Detective Aryan... An unspeakable violation has befallen our ancient sanctuary!
-  - 'Three priceless heritage relics have been stolen from the locked storage chamber: the ancient ceremonial Pradip vessel, the carved stone rosette, and the sacred Tala Patra palm-leaf manuscript!'
-  - The thieves shattered the brass lock and fled through the outer shrine into the moonlit jungle. You must track their trail and recover our heritage!
+  - 'Namaste. Three pieces from our storage hall are gone: a brass ceremonial vessel, a carved sandstone rosette, and a palm-leaf manuscript. Please find them before the festival.'
+  - 'Aryan: Stay calm and touch nothing. Every small detail matters. Did anyone see something?'
+  - 'Meera: Before sunrise I saw two men near the storage door. One wore a red scarf, the other a black hood.'
 --- !u!114 &188583761044422004
 MonoBehaviour:
   m_ObjectHideFlags: 0

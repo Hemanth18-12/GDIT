@@ -31,3 +31,4 @@ All audio assets included in `Assets/_Project/Audio/` are 100% royalty-free, ori
 - Format: PCM Wave 16-bit
 - Channels: Mono (Spatialized 3D in Unity for SFX, 2D stereo output for BGM & Ambience)
 - Sampling Rate: 44,100 Hz
+

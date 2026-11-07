@@ -324,6 +324,19 @@ namespace LegacyOfTemples.World.Editor
             return intObj;
         }
 
+        public static GameObject CreatePortalTrigger(Transform parent, string name, Vector3 localPos, Vector3 size)
+        {
+            GameObject portal = new GameObject(name);
+            portal.transform.parent = parent;
+            portal.transform.localPosition = localPos;
+            portal.transform.localRotation = Quaternion.identity;
+            BoxCollider col = portal.AddComponent<BoxCollider>();
+            col.isTrigger = true;
+            col.size = size;
+            col.center = Vector3.zero;
+            return portal;
+        }
+
         public static GameObject CreateOilLamp(Transform parent, Vector3 localPos, string lampName = "OilLamp", bool addLight = true)
         {
             GameObject root = new GameObject(lampName);
@@ -417,7 +430,10 @@ namespace LegacyOfTemples.World.Editor
             // World Manager & Dev Tools
             GameObject wmObj = new GameObject("WorldManager");
             wmObj.transform.parent = sysRoot.transform;
-            wmObj.AddComponent<WorldManager>();
+            var worldManager = wmObj.AddComponent<WorldManager>();
+            var worldSettings = new SerializedObject(worldManager);
+            worldSettings.FindProperty("initialScene").stringValue = initialSceneName;
+            worldSettings.ApplyModifiedPropertiesWithoutUndo();
             wmObj.AddComponent<WorldDevTools>();
 
             // Character Manager
@@ -425,10 +441,10 @@ namespace LegacyOfTemples.World.Editor
             cmObj.transform.parent = sysRoot.transform;
             cmObj.AddComponent<CharacterManager>();
 
-            // UI Manager & Instructions Overlay
+            // UI Manager
             GameObject uiObj = new GameObject("UIManager");
             uiObj.transform.parent = sysRoot.transform;
-            uiObj.AddComponent<LegacyOfTemples.UI.GameIntroOverlay>();
+            uiObj.AddComponent<LegacyOfTemples.UI.UIManager>();
         }
 
         #endregion
@@ -484,13 +500,15 @@ namespace LegacyOfTemples.World.Editor
                 isNew = true;
             }
 
+            profile.components.RemoveAll(component => component == null);
+
             // Bloom
             if (!profile.TryGet<Bloom>(out Bloom bloom))
             {
                 bloom = profile.Add<Bloom>(true);
             }
-            bloom.threshold.Override(0.85f);
-            bloom.intensity.Override(0.55f);
+            bloom.threshold.Override(1.2f);
+            bloom.intensity.Override(0.16f);
             bloom.scatter.Override(0.70f);
             bloom.tint.Override(new Color(1.0f, 0.88f, 0.76f));
 
@@ -499,7 +517,7 @@ namespace LegacyOfTemples.World.Editor
             {
                 colorAdj = profile.Add<ColorAdjustments>(true);
             }
-            colorAdj.postExposure.Override(0.18f);
+            colorAdj.postExposure.Override(-0.35f);
             colorAdj.contrast.Override(14f);
             colorAdj.colorFilter.Override(new Color(1.0f, 0.96f, 0.92f)); // Warm sunrise peach
             colorAdj.saturation.Override(12f);
@@ -526,6 +544,11 @@ namespace LegacyOfTemples.World.Editor
             else
             {
                 EditorUtility.SetDirty(profile);
+            }
+            foreach (var component in profile.components)
+            {
+                if (!AssetDatabase.Contains(component)) AssetDatabase.AddObjectToAsset(component, profile);
+                EditorUtility.SetDirty(component);
             }
             AssetDatabase.SaveAssets();
             return profile;
@@ -600,7 +623,7 @@ namespace LegacyOfTemples.World.Editor
             {
                 GameObject templeInst = (GameObject)PrefabUtility.InstantiatePrefab(templePrefab, envRoot.transform);
                 templeInst.name = "Temple_Jagannath";
-                templeInst.transform.localPosition = new Vector3(0f, 0f, 0f);
+                templeInst.transform.localPosition = new Vector3(0f, 0f, -20f);
                 templeInst.transform.localRotation = Quaternion.identity;
                 templeInst.transform.localScale = Vector3.one;
 
@@ -635,7 +658,7 @@ namespace LegacyOfTemples.World.Editor
                         r.sharedMaterial = warmStone;
 
                     // Add MeshCollider on structural walls and pillars, KEEP ENTRANCE PORTAL WIDE OPEN
-                    if (n.Contains("_BODY") || n.Contains("_BASE") || n.Contains("_WALL") || n.Contains("_TOWER") || n.Contains("PILLAR"))
+                    if (n.Contains("_BODY") || n.Contains("_BASE") || n.Contains("_WALL") || n.Contains("_TOWER") || n.Contains("PILLAR") || n.Contains("FLOOR"))
                     {
                         if (!n.Contains("MAIN_GATE") && !n.Contains("MAIN_ENTRANCE"))
                         {
@@ -672,6 +695,9 @@ namespace LegacyOfTemples.World.Editor
             stairRamp.transform.localRotation = Quaternion.Euler(-18.5f, 0f, 0f);
             var rampMr = stairRamp.GetComponent<MeshRenderer>();
             if (rampMr != null) rampMr.enabled = false;
+            // The old invisible ramp rose in the opposite direction to the visible
+            // stairs. Use the actual 24 cm treads with the player's 30 cm step offset.
+            stairRamp.GetComponent<Collider>().enabled = false;
 
             // Two Gajasimha (Guardian Lion) Statues Flanking the Steps
             GameObject lionsRoot = new GameObject("Gajasimha_GuardianLions");
@@ -762,6 +788,8 @@ namespace LegacyOfTemples.World.Editor
             sysRoot.AddComponent<TutorialPromptManager>();
             sysRoot.AddComponent<HelpHintSystem>();
             sysRoot.AddComponent<GameLevelManager>();
+            sysRoot.AddComponent<ShowcaseDirector>();
+            sysRoot.AddComponent<StoryDialogueSystem>();
 
             // Save Scene
             EditorSceneManager.SaveScene(scene, scenePath);
@@ -1061,7 +1089,7 @@ namespace LegacyOfTemples.World.Editor
             Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
 
             // 1. System & Atmosphere
-            SetupStandardCameraAndManager(scene, new Vector3(0f, 3.2f, 13.5f), new Vector3(7f, 180f, 0f), Constants.Sanctum);
+            SetupStandardCameraAndManager(scene, new Vector3(0f, 2.8f, 9.5f), new Vector3(8f, 180f, 0f), Constants.Sanctum);
 
             GameObject lightRoot = new GameObject("--- LIGHTING & ATMOSPHERE ---");
 
@@ -1071,16 +1099,16 @@ namespace LegacyOfTemples.World.Editor
             moonObj.transform.rotation = Quaternion.Euler(50f, 25f, 0f);
             Light moonLight = moonObj.AddComponent<Light>();
             moonLight.type = LightType.Directional;
-            moonLight.color = new Color(0.28f, 0.42f, 0.65f);
-            moonLight.intensity = 0.35f;
+            moonLight.color = new Color(0.45f, 0.58f, 0.82f);
+            moonLight.intensity = 1.0f;
             moonLight.shadows = LightShadows.Soft;
 
             RenderSettings.ambientMode = AmbientMode.Flat;
-            RenderSettings.ambientLight = new Color(0.06f, 0.05f, 0.08f);
+            RenderSettings.ambientLight = new Color(0.24f, 0.22f, 0.28f);
             RenderSettings.fog = true;
             RenderSettings.fogMode = FogMode.ExponentialSquared;
-            RenderSettings.fogDensity = 0.024f;
-            RenderSettings.fogColor = new Color(0.12f, 0.09f, 0.10f);
+            RenderSettings.fogDensity = 0.010f;
+            RenderSettings.fogColor = new Color(0.16f, 0.14f, 0.20f);
 
             // Light shaft volume towards the central altar
             GameObject shaft = CreateCylinder("Moonlight_ShaftVolume", lightRoot.transform, new Vector3(0, 4.8f, -7.0f), new Vector3(2.6f, 4.5f, 2.6f), GetMaterial("mat_LimestoneRelief"), false);
@@ -1173,6 +1201,11 @@ namespace LegacyOfTemples.World.Editor
                 idolInst.transform.localRotation = Quaternion.Euler(0f, 180f, 0f);
                 idolInst.transform.localScale = Vector3.one * 1.35f;
 
+                foreach (var light in idolInst.GetComponentsInChildren<Light>(true))
+                {
+                    UnityEngine.Object.DestroyImmediate(light);
+                }
+
                 Material warmStone = GetMaterial("mat_WarmTempleStone");
                 Material lightStone = GetMaterial("mat_LightStone");
                 Material darkStone = GetMaterial("mat_DarkStone");
@@ -1246,10 +1279,10 @@ namespace LegacyOfTemples.World.Editor
 
             // 4. Spawns
             GameObject spawnRoot = new GameObject("--- SPAWN POINTS ---");
-            CreateSpawnPoint(spawnRoot.transform, "player_start", new Vector3(0f, 0f, 11f), new Vector3(0, 0, -1));
-            CreateSpawnPoint(spawnRoot.transform, "priest_spawn", new Vector3(1.5f, 0f, -4.5f), new Vector3(-0.5f, 0, 1));
-            CreateSpawnPoint(spawnRoot.transform, "robber_spawn", new Vector3(-4.0f, 0f, -6.0f), new Vector3(1, 0, 0.5f));
-            CreateSpawnPoint(spawnRoot.transform, "villager_spawn", new Vector3(-3.0f, 0f, 8.0f), new Vector3(1, 0, -0.5f));
+            CreateSpawnPoint(spawnRoot.transform, "player_start", new Vector3(0f, 0.05f, 5.0f), new Vector3(0, 0, -1));
+            CreateSpawnPoint(spawnRoot.transform, "priest_spawn", new Vector3(1.5f, 0.05f, -4.5f), new Vector3(-0.5f, 0, 1));
+            CreateSpawnPoint(spawnRoot.transform, "robber_spawn", new Vector3(-4.0f, 0.05f, -6.0f), new Vector3(1, 0, 0.5f));
+            CreateSpawnPoint(spawnRoot.transform, "villager_spawn", new Vector3(-3.0f, 0.05f, 8.0f), new Vector3(1, 0, -0.5f));
 
             // 5. Portals & Other Interactables
             GameObject interactRoot = new GameObject("--- INTERACTABLES ---");
@@ -1257,16 +1290,12 @@ namespace LegacyOfTemples.World.Editor
             CreateInteractable(interactRoot.transform, "sanctum_fallen_garland", "Inspect discarded marigold garland", new Vector3(1.2f, 0.2f, -5.6f), 2.0f);
 
             // Portal returning south to Courtyard (smooth walk-through trigger)
-            GameObject returnPortal = CreateBox("Portal_BackToCourtyard", interactRoot.transform, new Vector3(0f, 1.4f, 12.8f), new Vector3(4.0f, 2.8f, 1.0f), GetMaterial("mat_SanctumDarkness"), true);
-            BoxCollider rcol = returnPortal.GetComponent<BoxCollider>();
-            if (rcol != null) rcol.isTrigger = true;
+            GameObject returnPortal = CreatePortalTrigger(interactRoot.transform, "Portal_BackToCourtyard", new Vector3(0f, 1.4f, 13.0f), new Vector3(4.0f, 2.8f, 1.0f));
             SceneTransitionTrigger stCourtyard = returnPortal.AddComponent<SceneTransitionTrigger>();
             stCourtyard.Setup("Courtyard", "Courtyard Plaza", false);
 
             // Portal leading south to Outer Shrine (Level 2)
-            GameObject shrinePortal = CreateBox("Portal_To_ShrineCrime", interactRoot.transform, new Vector3(-7.5f, 1.4f, 6.0f), new Vector3(1.0f, 2.8f, 3.0f), GetMaterial("mat_SanctumDarkness"), true);
-            BoxCollider scol = shrinePortal.GetComponent<BoxCollider>();
-            if (scol != null) scol.isTrigger = true;
+            GameObject shrinePortal = CreatePortalTrigger(interactRoot.transform, "Portal_To_ShrineCrime", new Vector3(-7.5f, 1.4f, 6.0f), new Vector3(1.0f, 2.8f, 3.0f));
             SceneTransitionTrigger stShrine = shrinePortal.AddComponent<SceneTransitionTrigger>();
             stShrine.Setup("ShrineCrime", "Outer Shrine Ruins (Level 2)", true, "LevelUnlocked_2");
 
@@ -1457,7 +1486,7 @@ namespace LegacyOfTemples.World.Editor
             CreateSpawnPoint(spawnRoot.transform, "robber_spawn", new Vector3(3.5f, 0f, 2.0f), new Vector3(-0.5f, 0, -1));
             CreateSpawnPoint(spawnRoot.transform, "villager_spawn", new Vector3(0f, 0f, 8.0f), new Vector3(0, 0, -1));
 
-            // 9. Spawn Player in PuzzleWall
+            // 9. Spawn Characters in PuzzleWall (Investigator & Pujari Ananda)
             GameObject charRoot = new GameObject("Characters");
 
             GameObject invPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/Characters/Investigator.prefab");
@@ -1471,6 +1500,30 @@ namespace LegacyOfTemples.World.Editor
                 if (cam != null)
                 {
                     cam.SetTarget(playerInst.transform);
+                }
+            }
+
+            GameObject priestPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/Characters/Priest.prefab");
+            if (priestPrefab != null)
+            {
+                GameObject priestInst = (GameObject)PrefabUtility.InstantiatePrefab(priestPrefab, charRoot.transform);
+                priestInst.transform.position = new Vector3(2.5f, 0.05f, 3.8f);
+                priestInst.transform.rotation = Quaternion.Euler(0f, -40f, 0f);
+
+                NPCDialogueTrigger dt = priestInst.GetComponent<NPCDialogueTrigger>();
+                if (dt != null)
+                {
+                    dt.Setup(
+                        Constants.Priest,
+                        "Pujari Ananda",
+                        new string[]
+                        {
+                            "My grandfather spoke of a wall that opens when four symbols face the rising sun.",
+                            "Scroll shows order: lotus, conch, wheel, kalash, then turn the centre wheel.",
+                            "Aryan: The passage is open. They went this way."
+                        },
+                        2.8f
+                    );
                 }
             }
 
@@ -1553,7 +1606,7 @@ namespace LegacyOfTemples.World.Editor
             col.size = new Vector3(3.2f, 3.2f, 1.5f);
 
             // Portal behind door leading to JunglePath
-            GameObject junglePortal = CreateBox("Portal_To_JunglePath", parent, new Vector3(0, 2.5f, 2.0f), new Vector3(3.0f, 4.5f, 1.0f), GetMaterial("mat_SanctumDarkness"), true);
+            GameObject junglePortal = CreatePortalTrigger(parent, "Portal_To_JunglePath", new Vector3(0, 2.5f, 2.0f), new Vector3(3.0f, 4.5f, 1.0f));
             SceneTransitionTrigger stJungle = junglePortal.AddComponent<SceneTransitionTrigger>();
             stJungle.Setup("JunglePath", "Overgrown Jungle Path (Level 3)", true, "LevelUnlocked_3");
         }
@@ -1651,7 +1704,7 @@ namespace LegacyOfTemples.World.Editor
             Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
 
             // 1. System & Atmosphere
-            SetupStandardCameraAndManager(scene, new Vector3(0f, 2.8f, 9.5f), new Vector3(6f, 180f, 0f), Constants.ShrineCrime);
+            SetupStandardCameraAndManager(scene, new Vector3(0f, 2.6f, 6.5f), new Vector3(6f, 180f, 0f), Constants.ShrineCrime);
 
             GameObject lightRoot = new GameObject("--- LIGHTING & ATMOSPHERE ---");
 
@@ -1661,16 +1714,16 @@ namespace LegacyOfTemples.World.Editor
             moonObj.transform.rotation = Quaternion.Euler(30f, 160f, 0f);
             Light moonLight = moonObj.AddComponent<Light>();
             moonLight.type = LightType.Directional;
-            moonLight.color = new Color(0.32f, 0.52f, 0.85f);
-            moonLight.intensity = 0.85f;
+            moonLight.color = new Color(0.42f, 0.62f, 0.90f);
+            moonLight.intensity = 1.1f;
             moonLight.shadows = LightShadows.Soft;
 
             RenderSettings.ambientMode = AmbientMode.Flat;
-            RenderSettings.ambientLight = new Color(0.06f, 0.08f, 0.12f);
+            RenderSettings.ambientLight = new Color(0.20f, 0.22f, 0.28f);
             RenderSettings.fog = true;
             RenderSettings.fogMode = FogMode.ExponentialSquared;
-            RenderSettings.fogDensity = 0.022f;
-            RenderSettings.fogColor = new Color(0.08f, 0.10f, 0.16f);
+            RenderSettings.fogDensity = 0.012f;
+            RenderSettings.fogColor = new Color(0.12f, 0.14f, 0.20f);
 
             // 2. Materials
             Material stoneMat = GetMaterial("mat_StoneTemple");
@@ -1739,10 +1792,10 @@ namespace LegacyOfTemples.World.Editor
 
             // 8. Spawns
             GameObject spawnRoot = new GameObject("--- SPAWN POINTS ---");
-            CreateSpawnPoint(spawnRoot.transform, "player_start", new Vector3(0f, 0f, 8.0f), new Vector3(0, 0, -1));
-            CreateSpawnPoint(spawnRoot.transform, "villager_spawn", new Vector3(3.2f, 0f, 9.5f), new Vector3(-0.5f, 0, -1));
-            CreateSpawnPoint(spawnRoot.transform, "priest_spawn", new Vector3(3.0f, 0f, 0f), new Vector3(-1, 0, 0));
-            CreateSpawnPoint(spawnRoot.transform, "robber_spawn", new Vector3(-4.0f, 0f, -8.0f), new Vector3(0.5f, 0, 1));
+            CreateSpawnPoint(spawnRoot.transform, "player_start", new Vector3(0f, 0.05f, 2.5f), new Vector3(0, 0, -1));
+            CreateSpawnPoint(spawnRoot.transform, "villager_spawn", new Vector3(3.2f, 0.05f, 5.5f), new Vector3(-0.5f, 0, -1));
+            CreateSpawnPoint(spawnRoot.transform, "priest_spawn", new Vector3(3.0f, 0.05f, 0f), new Vector3(-1, 0, 0));
+            CreateSpawnPoint(spawnRoot.transform, "robber_spawn", new Vector3(-4.0f, 0.05f, -8.0f), new Vector3(0.5f, 0, 1));
 
             // 9. Clues, Interactables & Portals
             GameObject interactRoot = new GameObject("--- INTERACTABLES ---");
@@ -1773,12 +1826,12 @@ namespace LegacyOfTemples.World.Editor
             CreateInteractable(interactRoot.transform, "footprints", "Examine muddy footprints fleeing out the door", new Vector3(0.5f, 0.2f, 5.0f), 2.5f);
 
             // Portal leading west to PuzzleWall
-            GameObject puzzlePortal = CreateBox("Portal_To_PuzzleWall", interactRoot.transform, new Vector3(-7.5f, 1.4f, -4.5f), new Vector3(1.0f, 2.8f, 3.0f), stoneMat, true);
+            GameObject puzzlePortal = CreatePortalTrigger(interactRoot.transform, "Portal_To_PuzzleWall", new Vector3(-7.5f, 1.4f, -4.5f), new Vector3(1.0f, 2.8f, 3.0f));
             SceneTransitionTrigger stPuzzle = puzzlePortal.AddComponent<SceneTransitionTrigger>();
             stPuzzle.Setup("PuzzleWall", "Ancient Surya Chakra Wall", true);
 
             // Portal returning to Courtyard
-            GameObject returnPortal = CreateBox("Portal_BackToCourtyard", interactRoot.transform, new Vector3(0f, 1.4f, 10.0f), new Vector3(3.5f, 2.8f, 1.0f), stoneMat, true);
+            GameObject returnPortal = CreatePortalTrigger(interactRoot.transform, "Portal_BackToCourtyard", new Vector3(0f, 1.4f, 10.0f), new Vector3(3.5f, 2.8f, 1.0f));
             SceneTransitionTrigger stCourtyard = returnPortal.AddComponent<SceneTransitionTrigger>();
             stCourtyard.Setup("Courtyard", "Courtyard Plaza", true);
 
@@ -1952,7 +2005,7 @@ namespace LegacyOfTemples.World.Editor
             Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
 
             // 1. System & Atmosphere
-            SetupStandardCameraAndManager(scene, new Vector3(0f, 4.0f, 22.0f), new Vector3(9f, 180f, 0f), Constants.JunglePath);
+            SetupStandardCameraAndManager(scene, new Vector3(0f, 3.5f, 16.0f), new Vector3(8f, 180f, 0f), Constants.JunglePath);
 
             GameObject lightRoot = new GameObject("--- LIGHTING & ATMOSPHERE ---");
 
@@ -1962,16 +2015,16 @@ namespace LegacyOfTemples.World.Editor
             moonObj.transform.rotation = Quaternion.Euler(35f, 130f, 0f);
             Light moonLight = moonObj.AddComponent<Light>();
             moonLight.type = LightType.Directional;
-            moonLight.color = new Color(0.38f, 0.58f, 0.88f);
-            moonLight.intensity = 0.85f;
+            moonLight.color = new Color(0.48f, 0.68f, 0.95f);
+            moonLight.intensity = 1.2f;
             moonLight.shadows = LightShadows.Soft;
 
             RenderSettings.ambientMode = AmbientMode.Flat;
-            RenderSettings.ambientLight = new Color(0.04f, 0.08f, 0.12f);
+            RenderSettings.ambientLight = new Color(0.22f, 0.26f, 0.32f);
             RenderSettings.fog = true;
             RenderSettings.fogMode = FogMode.ExponentialSquared;
-            RenderSettings.fogDensity = 0.018f;
-            RenderSettings.fogColor = new Color(0.05f, 0.12f, 0.16f);
+            RenderSettings.fogDensity = 0.012f;
+            RenderSettings.fogColor = new Color(0.10f, 0.16f, 0.22f);
 
             // 2. Materials
             Material mudMat = GetMaterial("mat_MudPath");
@@ -2048,7 +2101,7 @@ namespace LegacyOfTemples.World.Editor
                 "Sacred Pradip Brass Vessel",
                 "Stolen Relic",
                 "An intricately engraved 16th-century ceremonial brass lamp with seven wick spouts and a peacock finial. Smelling of sandalwood and ghee.",
-                "One of the three sacred temple treasures recovered from Kala and Rudra's hideout!",
+                "One of the three sacred temple treasures recovered from Bhaskar and Kishore's hideout!",
                 2.5f
             );
 
@@ -2077,7 +2130,7 @@ namespace LegacyOfTemples.World.Editor
                 2.5f
             );
 
-            // 6. Spawn Real Characters: Investigator, Robber 1 (Kala), Robber 2 (Rudra)
+            // 6. Spawn Real Characters: Investigator, Robber 1 (Bhaskar), Robber 2 (Kishore)
             GameObject charRoot = new GameObject("Characters");
 
             GameObject invPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/Characters/Investigator.prefab");

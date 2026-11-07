@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Robber1Config
   m_EditorClassIdentifier: LOT.Characters::LegacyOfTemples.Characters.CharacterConfig
   characterId: robber1
-  displayName: Shadow Robber (Leader)
+  displayName: Bhaskar (Robber 1)
   isPlayer: 0
   prefab: {fileID: 6380760330841157336, guid: 8429c3e6d9a8b4979a461110d89860d6, type: 3}
   moveSpeed: 4.5

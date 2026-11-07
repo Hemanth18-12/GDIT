@@ -105,6 +105,16 @@ namespace LegacyOfTemples.Characters
         /// </summary>
         public void SpawnCharactersForScene(string sceneName)
         {
+            // Environment scenes already contain authored character instances. Adopt
+            // them instead of placing an unconfigured fallback capsule on the hero.
+            var scenePlayer = UnityEngine.Object.FindAnyObjectByType<PlayerController>();
+            if (scenePlayer != null)
+            {
+                if (playerInstance != null && playerInstance != scenePlayer.gameObject) Destroy(playerInstance);
+                playerInstance = scenePlayer.gameObject;
+                scenePlayer.Teleport(scenePlayer.transform.position, scenePlayer.transform.rotation);
+                return;
+            }
             // 1. Position or Spawn Player at "player_start"
             Vector3 targetPos = Vector3.zero;
             Quaternion targetRot = Quaternion.identity;
@@ -125,11 +135,7 @@ namespace LegacyOfTemples.Characters
             }
             else
             {
-                CharacterController cc = playerInstance.GetComponent<CharacterController>();
-                if (cc != null) cc.enabled = false;
-                playerInstance.transform.position = targetPos;
-                playerInstance.transform.rotation = targetRot;
-                if (cc != null) cc.enabled = true;
+                if (playerInstance.TryGetComponent<PlayerController>(out var player)) player.Teleport(targetPos, targetRot);
             }
 
             // 2. Clear previous NPCs

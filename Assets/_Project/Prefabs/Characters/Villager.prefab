@@ -90,9 +90,9 @@ MonoBehaviour:
   speakerName: Meera (Villager)
   interactionRadius: 2.8
   dialogueLines:
-  - Namaste, Detective! I was bringing fresh marigold garlands to the temple when the alarm bells began ringing frantically.
-  - The temple storehouse was breached! I saw two dark cloaked figures escaping toward the outer shrine with heavy sacks!
-  - Elderly Priest Ananda is praying at the courtyard steps. Please speak with him immediately!
+  - Before sunrise I saw two men near the storage door. One wore a red scarf, the other a black hood.
+  - 'Aryan: Did you see which way they ran?'
+  - 'Meera: They fled past the outer shrine gates heading southward toward the dense jungle path!'
 --- !u!114 &3561174394944121168
 MonoBehaviour:
   m_ObjectHideFlags: 0

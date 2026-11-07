@@ -318,3 +318,69 @@
   8. **Story & Cultural Compliance (H)**: Stolen items strictly designated as the 3 fictional relics (Sacred Pradip Brass Vessel, Carved Sandstone Rosette, Tala Patra Palm-Leaf Manuscript). Lord Jagannath Idol strictly untargetable non-interactable background Garbhagriha deity. Smugglers named Vikram and Dev.
   9. **Standalone Execution & Evidence**: Built standalone macOS app to `Builds/LegacyOfTheTemple.app` (232 MB). Executed on host Metal display, capturing 10 live screenshots in `Docs/QA/` and validating clean runtime execution with 0 fatal errors in `Player.log`. Authored `Docs/QA/QA_REPORT.md`.
 
+## P10-Unity — Grounding, Visual Foundations, Cinematic Showcase, Dialogue Scripting, and Clean UI Polish
+- **Date**: 2026-11-07
+- **Engine**: Unity 6 (`6000.6.8f1`) URP, macOS (Metal)
+- **Summary**: Comprehensive implementation and live standalone macOS validation for Tasks 0 through 8:
+  1. **Persistent Project Instructions (Task 0)**: Created `AGENTS.md` containing strict rules (no self-grading by checking file existence, real gameplay evidence in `Docs/QA/`, backup tag `backup-visual-1`, original Blender files read-only, strict 5-character cast: Aryan, Ananda, Meera, Bhaskar, Kishore; cultural respect for Lord Jagannath as strictly non-interactable Garbhagriha shrine, 3 fictional stolen relics, zero compile errors/warnings, plain-English explanations in `Docs/EXPLAINED.md`).
+  2. **Physical Grounding & Step Climbing (Task 1)**: Formulated mesh-bounds-aware `CharacterGrounding.cs` and `CharacterMeshBounds.cs` accounting for FBX cm scaling and downward raycast floor snap. 7 PlayMode tests passing with maximum sole error <= 0.005 m. Disabled old procedural bobbing in `HumanoidClipGenerator.cs`.
+  3. **Atmospheric Lighting & Sandstone Materials (Task 2)**: Formulated Odisha sandstone PBR materials, custom per-scene URP Volume profiles (`Assets/_Project/Settings/Cinematic/`) with ACES tonemapping and restrained bloom. Replaced solid dark portal blockers with invisible trigger volumes and aligned scene cameras to eliminate pitch-black interior views.
+  4. **Asset Research & Locomotion Manifests (Tasks 3 & 4)**: Documented verified CC0 texture packages from Poly Haven & ambientCG in `ASSET_SHOPPING_LIST.md` (awaiting user approval before downloading). Inspected `assets.blend` read-only and documented required Mixamo locomotion FBX clips in `Docs/ANIMATION_REQUIRED.md`.
+  5. **High-Resolution Readable UI & Layout Perfection (Tasks 5 & 6)**:
+     - Scaled Canvas UI to 1920x1080 (match 0.5) using TextMeshPro (headers 32-64px, body 28-30px, hints 19-32px).
+     - Start-of-Game Mission Brief card (`HowToPlay_MissionCard`) with 3 clear goals, 2-column key shortcuts, and Enter/Space start prompt.
+     - Persistent bottom controls hint bar formatted with bullet separators (`•`) on a single line within 1740px width. Automatically hides during active dialogue.
+     - Relocated Dev HUD to top-right; eliminated obsolete low-res 13px IMGUI tutorial banner.
+     - Expanded Objective panel to 720x200 with no-wrap counter line, ensuring all text sits completely inside the gold border.
+  6. **Cinematic Showcase Mode & Recording Guide (Task 7)**: Built `ShowcaseDirector.cs` with Main Menu "SHOWCASE TOUR" button and editor menu `Tools/Legacy/Showcase`, sweeping smooth camera rails across all 5 scenes with gold letterboxed lower-third architectural captions. Authored `Docs/QA/RECORDING_GUIDE.md`.
+  7. **Data-Driven 5-Scene Dialogue (Task 8)**: Implemented `StoryDialogueSystem.cs` and `UIManager.cs` dialogue flow with Pujari Ananda and Meera at courtyard steps, branching witness choices, speaker portraits, typewriter text, and music ducking.
+  8. **Standalone macOS Build & Visual Evidence**:
+     - Standalone player built with **0 errors and 0 warnings** (`Builds/LegacyOfTheTemple.app`).
+     - Executed automated QA grounding and showcase tour on live Metal display, capturing 15 fresh screenshots in `Docs/QA/2026-11-06/`. Verified visual fidelity against all user complaints.
+     - Appended plain-English explanations to `Docs/EXPLAINED.md`.
+- **Files Created / Modified**:
+  - `AGENTS.md`
+  - `ASSET_SHOPPING_LIST.md`
+  - `ATTRIBUTION.md`
+  - `Docs/ANIMATION_REQUIRED.md`
+  - `Docs/EXPLAINED.md`
+  - `Docs/QA/RECORDING_GUIDE.md`
+  - `Docs/QA/QA_REPORT.md`
+  - `PROMPT_LOG.md`
+  - `Assets/_Project/Scripts/Characters/CharacterGrounding.cs` (+ meta)
+  - `Assets/_Project/Scripts/Characters/CharacterMeshBounds.cs` (+ meta)
+  - `Assets/_Project/Scripts/Characters/PlayerController.cs`
+  - `Assets/_Project/Scripts/Characters/CharacterManager.cs`
+  - `Assets/_Project/Scripts/Characters/Editor/HeritageCharacterImporter.cs`
+  - `Assets/_Project/Scripts/Characters/Editor/HumanoidClipGenerator.cs`
+  - `Assets/_Project/Scripts/Gameplay/ShowcaseDirector.cs` (+ meta)
+  - `Assets/_Project/Scripts/Gameplay/StoryDialogueSystem.cs` (+ meta)
+  - `Assets/_Project/Scripts/Gameplay/OpeningCinematic.cs`
+  - `Assets/_Project/Scripts/Gameplay/TutorialPromptManager.cs`
+  - `Assets/_Project/Scripts/Gameplay/GameLevelManager.cs`
+  - `Assets/_Project/Scripts/Gameplay/HelpHintSystem.cs`
+  - `Assets/_Project/Scripts/Gameplay/InvestigationJournal.cs`
+  - `Assets/_Project/Scripts/Gameplay/TempleMapOverlay.cs`
+  - `Assets/_Project/Scripts/Gameplay/ChakraPuzzleController.cs`
+  - `Assets/_Project/Scripts/UI/UIManager.cs`
+  - `Assets/_Project/Scripts/UI/GroundingEvidenceCapture.cs` (+ meta)
+  - `Assets/_Project/Scripts/UI/MainMenuController.cs`
+  - `Assets/_Project/Scripts/UI/GameIntroOverlay.cs`
+  - `Assets/_Project/Scripts/UI/GameQATestBot.cs`
+  - `Assets/_Project/Scripts/UI/MenuCameraController.cs`
+  - `Assets/_Project/Scripts/World/Editor/CinematicLookTools.cs` (+ meta)
+  - `Assets/_Project/Scripts/World/Editor/GroundingTools.cs` (+ meta)
+  - `Assets/_Project/Scripts/World/Editor/ShowcaseEditorTools.cs` (+ meta)
+  - `Assets/_Project/Scripts/World/Editor/EnvironmentBuilder.cs`
+  - `Assets/_Project/Scripts/World/Editor/ComprehensiveGameVerifier.cs`
+  - `Assets/_Project/Scripts/World/WorldManager.cs`
+  - `Assets/_Project/Scripts/World/WorldDevTools.cs`
+  - `Assets/_Project/Scripts/Core/EventBus.cs`
+  - `Assets/_Project/Scripts/Core/InputManager.cs`
+  - `Assets/_Project/Scripts/Core/AudioManager.cs`
+  - `Assets/_Project/Tests/` (+ meta)
+  - `Assets/_Project/Settings/` (+ meta)
+  - `Docs/QA/2026-11-06/`
+- **Verification**: Standalone player build succeeded with code 0 (errors=0, warnings=0). Automated live QA run generated 15 high-resolution PNG screenshots. Inspected each screenshot to verify grounding, UI scaling, lighting, character framing, and cinematic letterboxing.
+
+

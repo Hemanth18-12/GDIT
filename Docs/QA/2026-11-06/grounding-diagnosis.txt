@@ -1,0 +1,90 @@
+Controller: center=(0.00000, 0.93236, 0.00000), height=1.78888, radius=0.30928, skin=0.02000, step=0.30000
+Animator VisualModel: rootMotion=False, human=True, scale=(1.00000, 1.00000, 1.00000)
+Mesh M_MED_CAU_Jonesy_Head_01.smd: actual vertex Y=[1.45861,1.79489], renderer bounds=[1.41335,1.81315], scale=(100.00000, 99.99998, 99.99998)
+Mesh M_MED_Gumshoe.smd: actual vertex Y=[0.01292,1.64012], renderer bounds=[-0.00493,1.70413], scale=(100.00000, 99.99998, 99.99998)
+Mesh M_MED_Gumshoe_button.smd: actual vertex Y=[0.98124,1.14766], renderer bounds=[0.97590,1.15752], scale=(100.00000, 99.99998, 99.99998)
+Mesh M_MED_Gumshoe_Glasses.smd: actual vertex Y=[1.65721,1.70803], renderer bounds=[1.63842,1.70922], scale=(100.00000, 99.99998, 99.99998)
+Mesh M_MED_Gumshoe_Hat.smd: actual vertex Y=[1.66610,1.80179], renderer bounds=[1.64631,1.82690], scale=(100.00000, 99.99998, 99.99998)
+Mesh M_MED_Gumshoe_paper.smd: actual vertex Y=[0.94526,1.08598], renderer bounds=[0.92997,1.10597], scale=(100.00000, 99.99998, 99.99998)
+
+Courtyard
+Floor Plaza_WetStoneFloor: type=BoxCollider, top=0.00000, enabled=True, trigger=False, scale=(60.00, 0.50, 60.00)
+Floor StairRamp_Smooth: type=BoxCollider, top=0.62000, enabled=False, trigger=False, scale=(5.60, 0.20, 4.20)
+Player spawn: (0.00000, 0.05000, 15.00000)
+Architecture BHOGA_INTERIOR_FLOOR: bounds=Center: (0.00, 0.50, -8.00), Extents: (6.20, 0.45, 3.20), collider=False
+Architecture BHOGA_ROOF_STEP_1: bounds=Center: (0.00, 6.20, -8.00), Extents: (6.70, 0.35, 3.70), collider=False
+Architecture BHOGA_ROOF_STEP_2: bounds=Center: (0.00, 6.90, -8.00), Extents: (5.83, 0.35, 3.22), collider=False
+Architecture BHOGA_ROOF_STEP_3: bounds=Center: (0.00, 7.60, -8.00), Extents: (4.96, 0.35, 2.74), collider=False
+Architecture BHOGA_ROOF_STEP_4: bounds=Center: (0.00, 8.30, -8.00), Extents: (4.09, 0.35, 2.26), collider=False
+Architecture BHOGA_ROOF_STEP_5: bounds=Center: (0.00, 9.00, -8.00), Extents: (3.22, 0.35, 1.78), collider=False
+Architecture BHOGA_ROOF_STEP_6: bounds=Center: (0.00, 9.70, -8.00), Extents: (2.35, 0.35, 1.30), collider=False
+Architecture BHOGA_ROOF_STEP_7: bounds=Center: (0.00, 10.40, -8.00), Extents: (1.47, 0.35, 0.81), collider=False
+Architecture ENTRANCE_TOWER_ROOF_STEP_1: bounds=Center: (4.50, 8.10, 19.00), Extents: (2.10, 0.33, 1.00), collider=True
+Architecture ENTRANCE_TOWER_ROOF_STEP_1.001: bounds=Center: (-4.50, 8.10, 19.00), Extents: (2.10, 0.33, 1.00), collider=True
+Architecture ENTRANCE_TOWER_ROOF_STEP_2: bounds=Center: (4.50, 8.75, 19.00), Extents: (1.83, 0.33, 0.87), collider=True
+Architecture ENTRANCE_TOWER_ROOF_STEP_2.001: bounds=Center: (-4.50, 8.75, 19.00), Extents: (1.83, 0.33, 0.87), collider=True
+Architecture ENTRANCE_TOWER_ROOF_STEP_3: bounds=Center: (4.50, 9.40, 19.00), Extents: (1.55, 0.33, 0.74), collider=True
+Architecture ENTRANCE_TOWER_ROOF_STEP_3.001: bounds=Center: (-4.50, 9.40, 19.00), Extents: (1.55, 0.33, 0.74), collider=True
+Architecture ENTRANCE_TOWER_ROOF_STEP_4: bounds=Center: (4.50, 10.05, 19.00), Extents: (1.28, 0.33, 0.61), collider=True
+Architecture ENTRANCE_TOWER_ROOF_STEP_4.001: bounds=Center: (-4.50, 10.05, 19.00), Extents: (1.28, 0.33, 0.61), collider=True
+Architecture ENTRANCE_TOWER_ROOF_STEP_5: bounds=Center: (4.50, 10.70, 19.00), Extents: (1.01, 0.33, 0.48), collider=True
+Architecture ENTRANCE_TOWER_ROOF_STEP_5.001: bounds=Center: (-4.50, 10.70, 19.00), Extents: (1.01, 0.33, 0.48), collider=True
+Architecture IDOL_PEDESTAL_BASE: bounds=Center: (0.00, 1.20, 12.50), Extents: (2.00, 0.55, 1.30), collider=True
+Architecture JAGAMOHANA_INTERIOR_FLOOR: bounds=Center: (0.00, 0.50, 5.00), Extents: (4.90, 0.45, 2.70), collider=False
+Architecture JAGAMOHANA_ROOF_STEP_1: bounds=Center: (0.00, 7.80, 5.00), Extents: (5.40, 0.36, 3.20), collider=False
+Architecture JAGAMOHANA_ROOF_STEP_2: bounds=Center: (0.00, 8.52, 5.00), Extents: (4.70, 0.36, 2.78), collider=False
+Architecture JAGAMOHANA_ROOF_STEP_3: bounds=Center: (0.00, 9.24, 5.00), Extents: (4.00, 0.36, 2.37), collider=False
+Architecture JAGAMOHANA_ROOF_STEP_4: bounds=Center: (0.00, 9.96, 5.00), Extents: (3.29, 0.36, 1.95), collider=False
+Architecture JAGAMOHANA_ROOF_STEP_5: bounds=Center: (0.00, 10.68, 5.00), Extents: (2.59, 0.36, 1.54), collider=False
+Architecture JAGAMOHANA_ROOF_STEP_6: bounds=Center: (0.00, 11.40, 5.00), Extents: (1.89, 0.36, 1.12), collider=False
+Architecture JAGAMOHANA_ROOF_STEP_7: bounds=Center: (0.00, 12.12, 5.00), Extents: (1.19, 0.36, 0.70), collider=False
+Architecture JAGAMOHANA_ROOF_STEP_8: bounds=Center: (0.00, 12.84, 5.00), Extents: (0.49, 0.36, 0.29), collider=False
+Architecture JAGAMOHANA_ROOF_STEP_9: bounds=Center: (0.00, 13.56, 5.00), Extents: (0.22, 0.36, 0.13), collider=False
+Architecture JAGAMOHANA_ROOF_STEP_10: bounds=Center: (0.00, 14.28, 5.00), Extents: (0.92, 0.36, 0.54), collider=False
+Architecture NATA_INTERIOR_FLOOR: bounds=Center: (0.00, 0.50, -1.50), Extents: (5.50, 0.45, 2.70), collider=False
+Architecture NATA_ROOF_STEP_1: bounds=Center: (0.00, 6.20, -1.50), Extents: (6.00, 0.35, 3.30), collider=False
+Architecture NATA_ROOF_STEP_2: bounds=Center: (0.00, 6.90, -1.50), Extents: (5.22, 0.35, 2.87), collider=False
+Architecture NATA_ROOF_STEP_3: bounds=Center: (0.00, 7.60, -1.50), Extents: (4.44, 0.35, 2.44), collider=False
+Architecture NATA_ROOF_STEP_4: bounds=Center: (0.00, 8.30, -1.50), Extents: (3.66, 0.35, 2.01), collider=False
+Architecture NATA_ROOF_STEP_5: bounds=Center: (0.00, 9.00, -1.50), Extents: (2.88, 0.35, 1.58), collider=False
+Architecture NATA_ROOF_STEP_6: bounds=Center: (0.00, 9.70, -1.50), Extents: (2.10, 0.35, 1.16), collider=False
+Architecture NATA_ROOF_STEP_7: bounds=Center: (0.00, 10.40, -1.50), Extents: (1.32, 0.35, 0.73), collider=False
+Architecture NATA_ROOF_STEP_8: bounds=Center: (0.00, 11.10, -1.50), Extents: (0.54, 0.35, 0.30), collider=False
+Architecture SANCTUM_FLOOR: bounds=Center: (0.00, 0.50, 12.00), Extents: (3.50, 0.35, 2.00), collider=False
+Architecture SIDE_SHRINE_1_ROOF_STEP_1: bounds=Center: (9.00, 5.10, 6.00), Extents: (1.90, 0.33, 1.90), collider=False
+Architecture SIDE_SHRINE_1_ROOF_STEP_2: bounds=Center: (9.00, 5.75, 6.00), Extents: (1.65, 0.33, 1.65), collider=False
+Architecture SIDE_SHRINE_1_ROOF_STEP_3: bounds=Center: (9.00, 6.40, 6.00), Extents: (1.41, 0.33, 1.41), collider=False
+Architecture SIDE_SHRINE_1_ROOF_STEP_4: bounds=Center: (9.00, 7.05, 6.00), Extents: (1.16, 0.33, 1.16), collider=False
+Architecture SIDE_SHRINE_1_ROOF_STEP_5: bounds=Center: (9.00, 7.70, 6.00), Extents: (0.91, 0.33, 0.91), collider=False
+Architecture SIDE_SHRINE_2_ROOF_STEP_1: bounds=Center: (-9.00, 5.10, 6.00), Extents: (1.90, 0.33, 1.90), collider=False
+Architecture SIDE_SHRINE_2_ROOF_STEP_2: bounds=Center: (-9.00, 5.75, 6.00), Extents: (1.65, 0.33, 1.65), collider=False
+Architecture SIDE_SHRINE_2_ROOF_STEP_3: bounds=Center: (-9.00, 6.40, 6.00), Extents: (1.41, 0.33, 1.41), collider=False
+Architecture SIDE_SHRINE_2_ROOF_STEP_4: bounds=Center: (-9.00, 7.05, 6.00), Extents: (1.16, 0.33, 1.16), collider=False
+Architecture SIDE_SHRINE_2_ROOF_STEP_5: bounds=Center: (-9.00, 7.70, 6.00), Extents: (0.91, 0.33, 0.91), collider=False
+Architecture SIDE_SHRINE_3_ROOF_STEP_1: bounds=Center: (9.00, 5.10, -4.00), Extents: (1.90, 0.33, 1.90), collider=False
+Architecture SIDE_SHRINE_3_ROOF_STEP_2: bounds=Center: (9.00, 5.75, -4.00), Extents: (1.65, 0.33, 1.65), collider=False
+Architecture SIDE_SHRINE_3_ROOF_STEP_3: bounds=Center: (9.00, 6.40, -4.00), Extents: (1.41, 0.33, 1.41), collider=False
+Architecture SIDE_SHRINE_3_ROOF_STEP_4: bounds=Center: (9.00, 7.05, -4.00), Extents: (1.16, 0.33, 1.16), collider=False
+Architecture SIDE_SHRINE_3_ROOF_STEP_5: bounds=Center: (9.00, 7.70, -4.00), Extents: (0.91, 0.33, 0.91), collider=False
+Architecture SIDE_SHRINE_4_ROOF_STEP_1: bounds=Center: (-9.00, 5.10, -4.00), Extents: (1.90, 0.33, 1.90), collider=False
+Architecture SIDE_SHRINE_4_ROOF_STEP_2: bounds=Center: (-9.00, 5.75, -4.00), Extents: (1.65, 0.33, 1.65), collider=False
+Architecture SIDE_SHRINE_4_ROOF_STEP_3: bounds=Center: (-9.00, 6.40, -4.00), Extents: (1.41, 0.33, 1.41), collider=False
+Architecture SIDE_SHRINE_4_ROOF_STEP_4: bounds=Center: (-9.00, 7.05, -4.00), Extents: (1.16, 0.33, 1.16), collider=False
+Architecture SIDE_SHRINE_4_ROOF_STEP_5: bounds=Center: (-9.00, 7.70, -4.00), Extents: (0.91, 0.33, 0.91), collider=False
+Architecture VIMANA_BASE: bounds=Center: (0.00, 4.50, 11.00), Extents: (5.00, 4.50, 3.80), collider=True
+
+Sanctum
+Floor Sanctum_Floor: type=BoxCollider, top=0.00000, enabled=True, trigger=False, scale=(18.00, 0.50, 26.00)
+Player spawn: (0.00000, 0.05000, 10.50000)
+
+PuzzleWall
+Floor PuzzleChamber_Floor: type=BoxCollider, top=0.00000, enabled=True, trigger=False, scale=(16.00, 0.50, 12.00)
+Player spawn: (0.00000, 0.05000, 5.00000)
+
+ShrineCrime
+Floor Shrine_Floor: type=BoxCollider, top=0.00000, enabled=True, trigger=False, scale=(16.00, 0.50, 18.00)
+Player spawn: (0.00000, 0.05000, 7.50000)
+
+JunglePath
+Floor Jungle_GroundTerrain: type=BoxCollider, top=0.00000, enabled=True, trigger=False, scale=(40.00, 0.50, 60.00)
+Player spawn: (0.00000, 0.05000, 18.00000)

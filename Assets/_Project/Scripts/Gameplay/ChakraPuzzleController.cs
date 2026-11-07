@@ -267,7 +267,7 @@ namespace LegacyOfTemples.Gameplay
 
                 GUI.Box(new Rect(bx, by, bw, bh), GUIContent.none, panelStyle);
                 GUI.Label(new Rect(bx + 10f, by + 10f, bw - 20f, 24f), "<color=#4cd137>★ SURYA CHAKRA ALIGNED — GATEWAY UNSEALED ★</color>", titleStyle);
-                GUI.Label(new Rect(bx + 10f, by + 36f, bw - 20f, 24f), "The stone door has opened. Walk through to track Kala and Rudra into the Jungle!", hintStyle);
+                GUI.Label(new Rect(bx + 10f, by + 36f, bw - 20f, 24f), "The stone door has opened. Walk through to track Bhaskar and Kishore into the Jungle!", hintStyle);
             }
         }
 

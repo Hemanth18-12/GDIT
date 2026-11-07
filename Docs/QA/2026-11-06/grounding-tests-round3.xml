@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="6" result="Passed" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-06 18:19:37Z" end-time="2026-11-06 18:22:10Z" duration="153.0050676">
+  <test-suite type="TestSuite" id="1014" name="My project" fullname="My project" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-11-06 18:19:37Z" end-time="2026-11-06 18:22:10Z" duration="153.005068" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1022" name="LOT.Grounding.PlayModeTests.dll" fullname="/Users/hemanth/Desktop/GDIT/My project/Library/ScriptAssemblies/LOT.Grounding.PlayModeTests.dll" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-11-06 18:19:37Z" end-time="2026-11-06 18:22:10Z" duration="153.002118" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="8446" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1023" name="LegacyOfTemples" fullname="LegacyOfTemples" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-11-06 18:19:37Z" end-time="2026-11-06 18:22:10Z" duration="153.001781" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1024" name="Tests" fullname="LegacyOfTemples.Tests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-11-06 18:19:37Z" end-time="2026-11-06 18:22:10Z" duration="153.001573" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1015" name="GroundingPlayModeTests" fullname="LegacyOfTemples.Tests.GroundingPlayModeTests" classname="LegacyOfTemples.Tests.GroundingPlayModeTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-11-06 18:19:37Z" end-time="2026-11-06 18:22:10Z" duration="153.000907" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1016" name="CourtyardThirtySeconds" fullname="LegacyOfTemples.Tests.GroundingPlayModeTests.CourtyardThirtySeconds" methodname="CourtyardThirtySeconds" classname="LegacyOfTemples.Tests.GroundingPlayModeTests" runstate="Runnable" seed="1131923066" result="Passed" start-time="2026-11-06 18:19:37Z" end-time="2026-11-06 18:20:08Z" duration="30.441928" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Courtyard: seconds=30.00, distance=135.00m, samples=201, maxActualFootError=0.00500m, missingGround=0, lowestRootY=-0.00792, validatedAnimation=False, skin=0.020
+
+]]></output>
+            </test-case>
+            <test-case id="1020" name="JunglePathThirtySeconds" fullname="LegacyOfTemples.Tests.GroundingPlayModeTests.JunglePathThirtySeconds" methodname="JunglePathThirtySeconds" classname="LegacyOfTemples.Tests.GroundingPlayModeTests" runstate="Runnable" seed="486999727" result="Passed" start-time="2026-11-06 18:20:08Z" end-time="2026-11-06 18:20:38Z" duration="30.348958" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[JunglePath: seconds=30.00, distance=135.00m, samples=201, maxActualFootError=0.00500m, missingGround=0, lowestRootY=-0.00792, validatedAnimation=False, skin=0.020
+
+]]></output>
+            </test-case>
+            <test-case id="1018" name="PuzzleWallThirtySeconds" fullname="LegacyOfTemples.Tests.GroundingPlayModeTests.PuzzleWallThirtySeconds" methodname="PuzzleWallThirtySeconds" classname="LegacyOfTemples.Tests.GroundingPlayModeTests" runstate="Runnable" seed="632120929" result="Passed" start-time="2026-11-06 18:20:38Z" end-time="2026-11-06 18:21:09Z" duration="30.349812" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[PuzzleWall: seconds=30.02, distance=135.08m, samples=201, maxActualFootError=0.00500m, missingGround=0, lowestRootY=-0.00792, validatedAnimation=False, skin=0.020
+
+]]></output>
+            </test-case>
+            <test-case id="1021" name="RenderedPoseProbe" fullname="LegacyOfTemples.Tests.GroundingPlayModeTests.RenderedPoseProbe" methodname="RenderedPoseProbe" classname="LegacyOfTemples.Tests.GroundingPlayModeTests" runstate="Runnable" seed="355295119" result="Passed" start-time="2026-11-06 18:21:09Z" end-time="2026-11-06 18:21:10Z" duration="1.116691" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[root=(0.00000, -0.00792, 18.00000), visual=(0.00000, 0.00000, 0.00000), baked=Center: (0.02, 0.91, 0.26), Extents: (0.44, 0.89, 0.31), size=(0.88367, 1.78888, 0.61807), groundingFootOffset=0.01292
+Hips: (0.00000, 0.99029, 17.78778)
+LeftFoot: (0.16328, 0.11235, 17.69530)
+RightFoot: (-0.16328, 0.11235, 17.69530)
+Head: (0.00000, 1.61505, 17.91140)
+M_MED_CAU_Jonesy_Head_01.smd: Center: (0.00, 1.61, 17.89), Extents: (0.11, 0.20, 0.12)
+M_MED_Gumshoe.smd: Center: (-0.02, 0.84, 17.76), Extents: (0.47, 0.85, 0.34)
+M_MED_Gumshoe_button.smd: Center: (-0.20, 1.06, 17.75), Extents: (0.06, 0.09, 0.08)
+M_MED_Gumshoe_Glasses.smd: Center: (0.00, 1.67, 17.86), Extents: (0.07, 0.04, 0.06)
+M_MED_Gumshoe_Hat.smd: Center: (0.00, 1.73, 17.91), Extents: (0.11, 0.09, 0.15)
+M_MED_Gumshoe_paper.smd: Center: (0.17, 1.01, 17.73), Extents: (0.06, 0.09, 0.08)
+
+]]></output>
+            </test-case>
+            <test-case id="1017" name="SanctumThirtySeconds" fullname="LegacyOfTemples.Tests.GroundingPlayModeTests.SanctumThirtySeconds" methodname="SanctumThirtySeconds" classname="LegacyOfTemples.Tests.GroundingPlayModeTests" runstate="Runnable" seed="351612886" result="Passed" start-time="2026-11-06 18:21:10Z" end-time="2026-11-06 18:21:40Z" duration="30.403863" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Sanctum: seconds=30.00, distance=135.00m, samples=201, maxActualFootError=0.00500m, missingGround=0, lowestRootY=-0.00792, validatedAnimation=False, skin=0.020
+
+]]></output>
+            </test-case>
+            <test-case id="1019" name="ShrineCrimeThirtySeconds" fullname="LegacyOfTemples.Tests.GroundingPlayModeTests.ShrineCrimeThirtySeconds" methodname="ShrineCrimeThirtySeconds" classname="LegacyOfTemples.Tests.GroundingPlayModeTests" runstate="Runnable" seed="1613530905" result="Passed" start-time="2026-11-06 18:21:40Z" end-time="2026-11-06 18:22:10Z" duration="30.333214" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[ShrineCrime: seconds=30.00, distance=135.00m, samples=201, maxActualFootError=0.00500m, missingGround=0, lowestRootY=-0.00792, validatedAnimation=False, skin=0.020
+
+Saving results to: /Users/hemanth/Library/Application Support/DefaultCompany/My project/TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

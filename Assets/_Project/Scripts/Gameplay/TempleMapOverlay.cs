@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using LegacyOfTemples.Core;
 
 namespace LegacyOfTemples.Gameplay
 {
@@ -61,6 +62,7 @@ namespace LegacyOfTemples.Gameplay
         public void ToggleMap()
         {
             isOpen = !isOpen;
+            EventBus.RaiseOverlayMenuToggled(isOpen);
             if (isOpen)
             {
                 GameObject player = GameObject.FindWithTag("Player");
@@ -204,10 +206,10 @@ namespace LegacyOfTemples.Gameplay
             {
                 mapTitleStyle = new GUIStyle(GUI.skin.label)
                 {
-                    fontSize = Mathf.RoundToInt(34 * scale),
+                    fontSize = Mathf.RoundToInt(38 * scale),
                     fontStyle = FontStyle.Bold,
                     alignment = TextAnchor.MiddleCenter,
-                    normal = { textColor = new Color(0.98f, 0.84f, 0.3f) }
+                    normal = { textColor = new Color(1.0f, 0.784f, 0.341f) } // #FFC857
                 };
             }
 
@@ -215,9 +217,9 @@ namespace LegacyOfTemples.Gameplay
             {
                 zoneLabelStyle = new GUIStyle(GUI.skin.label)
                 {
-                    fontSize = Mathf.RoundToInt(22 * scale),
+                    fontSize = Mathf.RoundToInt(30 * scale),
                     alignment = TextAnchor.MiddleCenter,
-                    normal = { textColor = new Color(0.85f, 0.85f, 0.85f) }
+                    normal = { textColor = new Color(1.0f, 0.957f, 0.839f) } // #FFF4D6
                 };
             }
 
@@ -225,11 +227,11 @@ namespace LegacyOfTemples.Gameplay
             {
                 activeZoneStyle = new GUIStyle(GUI.skin.label)
                 {
-                    fontSize = Mathf.RoundToInt(26 * scale),
+                    fontSize = Mathf.RoundToInt(32 * scale),
                     fontStyle = FontStyle.Bold,
                     alignment = TextAnchor.MiddleCenter,
                     richText = true,
-                    normal = { textColor = new Color(1f, 0.88f, 0.3f) }
+                    normal = { textColor = new Color(1.0f, 0.784f, 0.341f) } // #FFC857
                 };
             }
 
@@ -237,9 +239,9 @@ namespace LegacyOfTemples.Gameplay
             {
                 poiStyle = new GUIStyle(GUI.skin.label)
                 {
-                    fontSize = Mathf.RoundToInt(22 * scale),
+                    fontSize = Mathf.RoundToInt(26 * scale),
                     richText = true,
-                    normal = { textColor = Color.white }
+                    normal = { textColor = new Color(1.0f, 0.957f, 0.839f) } // #FFF4D6
                 };
             }
 
@@ -247,10 +249,10 @@ namespace LegacyOfTemples.Gameplay
             {
                 legendStyle = new GUIStyle(GUI.skin.label)
                 {
-                    fontSize = Mathf.RoundToInt(24 * scale),
+                    fontSize = Mathf.RoundToInt(28 * scale),
                     alignment = TextAnchor.MiddleCenter,
                     richText = true,
-                    normal = { textColor = new Color(0.85f, 0.82f, 0.75f) }
+                    normal = { textColor = new Color(1.0f, 0.784f, 0.341f) } // #FFC857
                 };
             }
         }

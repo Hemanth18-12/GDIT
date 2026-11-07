@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: InvestigatorConfig
   m_EditorClassIdentifier: LOT.Characters::LegacyOfTemples.Characters.CharacterConfig
   characterId: investigator
-  displayName: Investigator (Detective)
+  displayName: Investigator Aryan
   isPlayer: 1
   prefab: {fileID: 7255409388216429021, guid: 4e5e77e9b525f4389b13ce4fad40b89e, type: 3}
   moveSpeed: 4.5

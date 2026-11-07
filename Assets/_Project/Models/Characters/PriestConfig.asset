@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PriestConfig
   m_EditorClassIdentifier: LOT.Characters::LegacyOfTemples.Characters.CharacterConfig
   characterId: priest
-  displayName: Priest Ananda
+  displayName: Pujari Ananda
   isPlayer: 0
   prefab: {fileID: 190522129507732977, guid: 137eaedab0e624880a615ded1463b815, type: 3}
   moveSpeed: 4.5

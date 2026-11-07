@@ -8,10 +8,7 @@ namespace LegacyOfTemples.UI
 {
     public class GameIntroOverlay : MonoBehaviour
     {
-        [Header("State")]
-        [SerializeField] private bool showInstructionsOnStart = true;
-
-        private bool isInstructionsOpen = true;
+        private bool isInstructionsOpen = false;
         private string currentSceneName = Constants.Courtyard;
         private string currentObjective = "Speak with Priest Ananda and Villager Meera in the temple courtyard.";
         private int cluesFound = 0;
@@ -37,7 +34,7 @@ namespace LegacyOfTemples.UI
 
         private void Awake()
         {
-            isInstructionsOpen = showInstructionsOnStart;
+            isInstructionsOpen = false;
             CreateSolidTextures();
         }
 
@@ -238,16 +235,7 @@ namespace LegacyOfTemples.UI
 
         private void OnGUI()
         {
-            InitStyles();
-
-            if (isInstructionsOpen)
-            {
-                DrawInstructionsModal();
-            }
-            else
-            {
-                DrawInGameHUD();
-            }
+            // Suppressed in favor of high-resolution TextMeshPro UIManager
         }
 
         private void DrawInstructionsModal()

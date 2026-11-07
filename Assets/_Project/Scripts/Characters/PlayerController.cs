@@ -24,8 +24,12 @@ namespace LegacyOfTemples.Characters
 
         [Header("Animation")]
         [SerializeField] private Animator animator;
+        [Tooltip("Enable only after the confirmed character has real, validated motion clips. The old generated clips collapse its hips below the floor.")]
+        [SerializeField] private bool useValidatedAnimation = false;
+        public bool HasValidatedAnimation => useValidatedAnimation && animator != null && animator.enabled;
 
         private CharacterController characterController;
+        private CharacterGrounding grounding;
         private Vector3 moveVelocity;
         private float verticalVelocity;
         private float footstepTimer = 0f;
@@ -41,10 +45,13 @@ namespace LegacyOfTemples.Characters
         private void Awake()
         {
             characterController = GetComponent<CharacterController>();
+            grounding = GetComponent<CharacterGrounding>();
+            if (grounding == null) grounding = gameObject.AddComponent<CharacterGrounding>();
             if (animator == null)
             {
                 animator = GetComponentInChildren<Animator>();
             }
+            if (animator != null && !useValidatedAnimation) animator.enabled = false;
             if (cameraTransform == null && Camera.main != null)
             {
                 cameraTransform = Camera.main.transform;
@@ -53,6 +60,7 @@ namespace LegacyOfTemples.Characters
 
         private void Start()
         {
+            grounding.SnapToGround(true);
             if (cameraTransform == null && Camera.main != null)
             {
                 cameraTransform = Camera.main.transform;
@@ -124,7 +132,7 @@ namespace LegacyOfTemples.Characters
 
             // Crouch (C)
             IsCrouching = false;
-            if (kb != null && kb.cKey.isPressed)
+            if (kb != null && (kb.cKey.isPressed || kb.leftCtrlKey.isPressed || kb.rightCtrlKey.isPressed))
             {
                 IsCrouching = true;
             }
@@ -187,6 +195,7 @@ namespace LegacyOfTemples.Characters
 
             Vector3 finalMove = (moveDir * targetSpeed) + Vector3.up * verticalVelocity;
             characterController.Move(finalMove * Time.deltaTime);
+            if (verticalVelocity <= 0f && grounding.SnapToGround()) verticalVelocity = -2f;
 
             // Footsteps
             if (characterController.isGrounded && IsMoving)
@@ -264,6 +273,16 @@ namespace LegacyOfTemples.Characters
         public void SetCameraTransform(Transform cam)
         {
             cameraTransform = cam;
+        }
+
+        public void Teleport(Vector3 position, Quaternion rotation)
+        {
+            characterController.enabled = false;
+            transform.SetPositionAndRotation(position, rotation);
+            verticalVelocity = 0f;
+            characterController.enabled = true;
+            Physics.SyncTransforms();
+            grounding.SnapToGround(true);
         }
 
         private void OnGUI()

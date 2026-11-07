@@ -1,0 +1,41 @@
+diff --git a/Assets/_Project/Audio/ATTRIBUTION.md b/Assets/_Project/Audio/ATTRIBUTION.md
+index 7583bda..0ec2e26 100644
+--- a/Assets/_Project/Audio/ATTRIBUTION.md
++++ b/Assets/_Project/Audio/ATTRIBUTION.md
+@@ -31,3 +31,4 @@ All audio assets included in `Assets/_Project/Audio/` are 100% royalty-free, ori
+ - Format: PCM Wave 16-bit
+ - Channels: Mono (Spatialized 3D in Unity for SFX, 2D stereo output for BGM & Ambience)
+ - Sampling Rate: 44,100 Hz
++
+diff --git a/Assets/_Project/Models/Environment/Materials/mat_Flame.mat b/Assets/_Project/Models/Environment/Materials/mat_Flame.mat
+index 1ee9c8e..430938d 100644
+--- a/Assets/_Project/Models/Environment/Materials/mat_Flame.mat
++++ b/Assets/_Project/Models/Environment/Materials/mat_Flame.mat
+@@ -24,8 +24,7 @@ Material:
+   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+   m_Parent: {fileID: 0}
+   m_ModifiedSerializedProperties: 0
+-  m_ValidKeywords:
+-  - _EMISSION
++  m_ValidKeywords: []
+   m_InvalidKeywords: []
+   m_LightmapFlags: 4
+   m_EnableInstancingVariants: 0
+diff --git a/Assets/_Project/Scripts/Core/AudioManager.cs b/Assets/_Project/Scripts/Core/AudioManager.cs
+index 8eb792f..39851e1 100644
+--- a/Assets/_Project/Scripts/Core/AudioManager.cs
++++ b/Assets/_Project/Scripts/Core/AudioManager.cs
+@@ -296,3 +296,4 @@ private void HandlePuzzleSolved(string puzzleId)
+         }
+     }
+ }
++
+diff --git a/Docs/QA/QA_REPORT.md b/Docs/QA/QA_REPORT.md
+index eabbec0..c44239e 100644
+--- a/Docs/QA/QA_REPORT.md
++++ b/Docs/QA/QA_REPORT.md
+@@ -201,3 +201,4 @@ The game is currently equipped with 6 functional humanoid locomotion clips. If y
+ | **"Crouch Walking"** | `Crouch_Walking.fbx` | **CHECKED** |
+ 
+ The importer will automatically detect and integrate any downloaded clips on the next build.
++

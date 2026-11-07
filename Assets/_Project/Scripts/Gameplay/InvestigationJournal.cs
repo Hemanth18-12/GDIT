@@ -152,8 +152,8 @@ namespace LegacyOfTemples.Gameplay
             objectives.Add(new ObjectiveEntry
             {
                 id = "obj_confront_thieves",
-                title = "Corner the Smugglers & Recover Relics",
-                description = "Confront Vikram and Dev at the jungle ruins and recover all 3 sacred heritage treasures.",
+                title = "Corner the Robbers & Recover Relics",
+                description = "Confront Bhaskar and Kishore at the jungle ruins and recover all 3 sacred heritage treasures.",
                 isCompleted = false
             });
 
@@ -162,33 +162,33 @@ namespace LegacyOfTemples.Gameplay
             suspects.Add(new SuspectEntry
             {
                 id = "sus_priest",
-                name = "Priest Ananda",
-                role = "Head Pujari / Temple Custodian",
-                description = "Eldest priest of the Jagannath sanctuary. Deeply devout and heartbroken by the sacrilege. First to discover the broken storage doors at dawn.",
+                name = "Pujari Ananda",
+                role = "Head Priest / Temple Custodian",
+                description = "Eldest priest of the temple sanctuary. Deeply devout and heartbroken by the theft. Asks Aryan to find the three missing storage hall pieces before the festival.",
                 status = "Witness / Ally"
             });
             suspects.Add(new SuspectEntry
             {
                 id = "sus_villager",
-                name = "Meera Devi",
-                role = "Devoted Village Pilgrim",
-                description = "Carries temple flowers every morning. Heard heavy hurried steps and saw two masked silhouettes fleeing south into the mist before sunrise.",
+                name = "Meera",
+                role = "Village Girl in Red and Green Saree",
+                description = "Saw two men near the storage door before sunrise: one wearing a red scarf, the other in a black hood fleeing toward the jungle.",
                 status = "Eyewitness"
             });
             suspects.Add(new SuspectEntry
             {
                 id = "sus_robber1",
-                name = "Vikram (Antiquities Smuggler)",
-                role = "Lead Smuggler / Black-Market Operative",
-                description = "Ruthless antiquities smuggler seeking sacred Odishan artifacts for illicit private collectors. Fled south toward the jungle.",
+                name = "Bhaskar (Robber 1)",
+                role = "Lead Robber (Red Scarf, Dark Vest)",
+                description = "Ruthless thief seeking to sell temple pieces. Fled south into the jungle path carrying the ceremonial vessel and rosette.",
                 status = "Prime Suspect (Fled South)"
             });
             suspects.Add(new SuspectEntry
             {
                 id = "sus_robber2",
-                name = "Dev (Accomplice)",
-                role = "Accomplice / Scout",
-                description = "Agile infiltrator who bypassed the high perimeter wall and helped carry the stolen relics.",
+                name = "Kishore (Robber 2)",
+                role = "Accomplice (Black Hood, Cross-Strap)",
+                description = "Nervous accomplice who dropped the oil lamp leaving marks at the crime scene. Fled with Bhaskar.",
                 status = "Prime Suspect (Fled South)"
             });
 
@@ -244,6 +244,7 @@ namespace LegacyOfTemples.Gameplay
         public void ToggleJournal()
         {
             isOpen = !isOpen;
+            EventBus.RaiseOverlayMenuToggled(isOpen);
             if (openJournalSound != null && audioSource != null)
             {
                 audioSource.PlayOneShot(openJournalSound);
@@ -511,9 +512,9 @@ namespace LegacyOfTemples.Gameplay
             {
                 sectionHeaderStyle = new GUIStyle(GUI.skin.label)
                 {
-                    fontSize = Mathf.RoundToInt(30 * scale),
+                    fontSize = Mathf.RoundToInt(34 * scale),
                     fontStyle = FontStyle.Bold,
-                    normal = { textColor = new Color(0.96f, 0.77f, 0.2f) }
+                    normal = { textColor = new Color(1.0f, 0.784f, 0.341f) } // #FFC857
                 };
             }
 
@@ -521,10 +522,10 @@ namespace LegacyOfTemples.Gameplay
             {
                 itemTitleStyle = new GUIStyle(GUI.skin.label)
                 {
-                    fontSize = Mathf.RoundToInt(28 * scale),
+                    fontSize = Mathf.RoundToInt(34 * scale),
                     fontStyle = FontStyle.Bold,
                     richText = true,
-                    normal = { textColor = Color.white }
+                    normal = { textColor = new Color(1.0f, 0.784f, 0.341f) } // #FFC857
                 };
             }
 
@@ -532,10 +533,10 @@ namespace LegacyOfTemples.Gameplay
             {
                 itemBodyStyle = new GUIStyle(GUI.skin.label)
                 {
-                    fontSize = Mathf.RoundToInt(26 * scale),
+                    fontSize = Mathf.RoundToInt(30 * scale),
                     wordWrap = true,
                     richText = true,
-                    normal = { textColor = new Color(0.92f, 0.90f, 0.86f) }
+                    normal = { textColor = new Color(1.0f, 0.957f, 0.839f) } // #FFF4D6
                 };
             }
 
@@ -543,10 +544,10 @@ namespace LegacyOfTemples.Gameplay
             {
                 statusStyle = new GUIStyle(GUI.skin.label)
                 {
-                    fontSize = Mathf.RoundToInt(26 * scale),
+                    fontSize = Mathf.RoundToInt(30 * scale),
                     fontStyle = FontStyle.Bold,
                     alignment = TextAnchor.MiddleRight,
-                    normal = { textColor = new Color(0.4f, 0.9f, 0.4f) }
+                    normal = { textColor = new Color(0.361f, 0.882f, 0.902f) } // #5CE1E6
                 };
             }
 
@@ -554,9 +555,9 @@ namespace LegacyOfTemples.Gameplay
             {
                 footerStyle = new GUIStyle(GUI.skin.label)
                 {
-                    fontSize = Mathf.RoundToInt(22 * scale),
+                    fontSize = Mathf.RoundToInt(26 * scale),
                     alignment = TextAnchor.MiddleCenter,
-                    normal = { textColor = new Color(0.75f, 0.72f, 0.65f) }
+                    normal = { textColor = new Color(1.0f, 0.784f, 0.341f) }
                 };
             }
         }
