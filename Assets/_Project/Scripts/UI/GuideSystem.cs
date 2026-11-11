@@ -116,7 +116,7 @@ namespace LegacyOfTemples.UI
             if (!gameplay || story == null) { arrowRt.gameObject.SetActive(false); return; }
 
             var kb = Keyboard.current; var gp = Gamepad.current;
-            if ((kb != null && (kb.hKey.wasPressedThisFrame || kb.tabKey.wasPressedThisFrame)) || (gp != null && gp.dpad.left.wasPressedThisFrame)) Toggle();
+            if ((kb != null && (kb.hKey.wasPressedThisFrame || kb.tabKey.wasPressedThisFrame)) || (gp != null && gp.dpad.left.wasPressedThisFrame) || VirtualInput.Down("guide")) Toggle();
             if (IsOpen && kb != null)
             {
                 if (kb.digit1Key.wasPressedThisFrame) RevealHint(1);

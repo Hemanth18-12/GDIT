@@ -156,13 +156,14 @@ namespace LegacyOfTemples.UI
                     infoPanel.gameObject.SetActive(true);
                     infoText.fontSize = 32 * ScreenTextRenderer.Scale;
                     infoText.text =
-                        $"{K("W A S D")} Walk      {K("Shift")} Run      {K("C")} Crouch      {K("Space")} Jump\n" +
-                        $"{K("Mouse")} Look around\n" +
-                        $"{K("E")} Talk / use      {K("F")} Inspect a clue\n" +
-                        $"{K("1")} {K("2")} {K("3")} Choose an answer in conversations\n" +
-                        $"{K("H")} or {K("Tab")} or the {K("? GUIDE")} button: current goal, hints, Show me the way\n" +
-                        $"{K("J")} Case journal      {K("M")} Map      {K("P")} Photo mode      {K("Esc")} Pause\n\n" +
-                        $"<color={ScreenText.Gold}>Gamepad</color>\nLeft stick walk, A talk/confirm, X inspect, B crouch/back,\nD-pad left Guide, D-pad down Map, View button Journal, Start Pause";
+                        $"{K("W A S D")} Walk      {K("Shift")} Run      {K("C")} / {K("Ctrl")} Crouch      {K("Space")} Hop      {K("Mouse")} Look\n" +
+                        $"{K("E")} Talk / use      {K("F")} Inspect      {K("G")} Flashlight      {K("K")} Forensic kit      {K("T")} Throw pebble\n" +
+                        $"{K("1")} {K("2")} {K("3")} Choose an answer      {K("B")} Codex / deduction board\n" +
+                        $"<color={ScreenText.Gold}>Fight</color>  {K("Left click")} Attack      hold or {K("R")} Heavy      {K("Right click")} Block (tap just before a hit to counter)\n" +
+                        $"{K("V")} Dodge      {K("G")} Flashlight flash      {K("E")} Brazier, rope, finisher\n" +
+                        $"{K("H")} / {K("Tab")} Guide      {K("J")} Journal      {K("M")} Map      {K("P")} Photo mode      {K("Esc")} Pause\n\n" +
+                        $"<color={ScreenText.Gold}>On-screen controls</color>  Drag the left half to move (push to the ring to sprint), drag the right half to look.\nGold buttons: ATTACK, HEAVY, BLOCK, DODGE, JUMP, FLASH, USE.   Settings: Off / In fights / Always.\n\n" +
+                        $"<color={ScreenText.Gold}>Gamepad</color>  Left stick move, A talk / hop, X attack, Y heavy, LB block, B dodge, RB flash, Start pause";
                     break;
                 case Screen.Credits:
                     AddText("MenuTitle", "CREDITS", 64, ScreenTextRenderer.Gold, true, TextAlignmentOptions.Center);

@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 5e7b2e56f2362481690d59c05ecdf9a4, type: 3}
   m_Name: LoadingImages
-  m_EditorClassIdentifier: LOT.UI:LegacyOfTemples.UI:LoadingImageSet
+  m_EditorClassIdentifier: LOT.UI::LegacyOfTemples.UI.LoadingImageSet
   slots:
   - map: Courtyard (start and final return)
     imageName: loading_01_dawn_courtyard

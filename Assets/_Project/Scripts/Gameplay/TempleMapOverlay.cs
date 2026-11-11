@@ -29,7 +29,7 @@ namespace LegacyOfTemples.Gameplay
         private void Update()
         {
             var kb = Keyboard.current;
-            if (kb != null && kb.mKey.wasPressedThisFrame)
+            if ((kb != null && kb.mKey.wasPressedThisFrame) || VirtualInput.Down("map"))
             {
                 ToggleMap();
             }

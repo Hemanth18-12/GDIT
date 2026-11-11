@@ -57,7 +57,7 @@ namespace LegacyOfTemples.Core
     public static class VirtualInput
     {
         public static Vector2 Move, Look;
-        public static bool Sprint, Block, CrouchHeld;
+        public static bool Sprint, Block, CrouchHeld, TouchVisible;
         private static readonly System.Collections.Generic.Dictionary<string, int> pressed = new System.Collections.Generic.Dictionary<string, int>();
         /// <summary>Called by a button or a bot: the action reads as "pressed" for the whole of the next frame.</summary>
         public static void Press(string action) { pressed[action] = Time.frameCount + 1; }

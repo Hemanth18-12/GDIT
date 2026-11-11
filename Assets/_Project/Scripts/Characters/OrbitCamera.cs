@@ -172,7 +172,7 @@ namespace LegacyOfTemples.Characters
             Vector2 mouseDelta = Vector2.zero;
             if (Mouse.current != null)
             {
-                mouseDelta = Mouse.current.delta.ReadValue();
+                mouseDelta = LegacyOfTemples.Core.VirtualInput.TouchVisible ? Vector2.zero : Mouse.current.delta.ReadValue(); // with on-screen controls the camera turns by dragging the right half
             }
 
             Vector2 gamepadDelta = Vector2.zero;
@@ -181,7 +181,8 @@ namespace LegacyOfTemples.Characters
                 gamepadDelta = Gamepad.current.rightStick.ReadValue() * 10f;
             }
 
-            Vector2 lookDelta = mouseDelta + gamepadDelta;
+            Vector2 lookDelta = mouseDelta + gamepadDelta + LegacyOfTemples.Core.VirtualInput.Look; // + drag on the right half (on-screen controls)
+            LegacyOfTemples.Core.VirtualInput.Look = Vector2.zero;
 
             if (canOrbit && lookDelta.sqrMagnitude > 0.001f)
             {

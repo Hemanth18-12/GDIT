@@ -246,7 +246,7 @@ namespace LegacyOfTemples.UI
 
 
             // Pause Toggle (Esc)
-            if (kb != null && kb.escapeKey.wasPressedThisFrame && !OverlayOwnsEscape())
+            if (((kb != null && kb.escapeKey.wasPressedThisFrame) || VirtualInput.Down("pause")) && !OverlayOwnsEscape())
             {
                 if (howToPlayPanel != null && howToPlayPanel.activeSelf)
                 {
@@ -722,17 +722,13 @@ namespace LegacyOfTemples.UI
             body.color = ColorTextWarmIvory;
             body.textWrappingMode = TextWrappingModes.Normal;
             body.text =
-                "<b>INVESTIGATION MISSION GOAL:</b>\n" +
-                "• <b>Goal 1:</b> Three sacred fictional heritage relics were stolen overnight from the temple storage hall.\n" +
-                "• <b>Goal 2:</b> Investigate forensic clues, interview witnesses, and decipher the ancient Surya Chakra puzzle wall.\n" +
-                "• <b>Goal 3:</b> Track the thieves to their hideout and peacefully recover the sacred pieces before the festival.\n\n" +
-                "<b>CONTROLS & SHORTCUTS:</b>\n" +
-                "  <color=#FFC857>[W] [A] [S] [D]</color> Move Investigator           <color=#FFC857>[MOUSE]</color> Look & Survey Architecture\n" +
-                "  <color=#FFC857>[LEFT SHIFT]</color> Sprint Across Plaza          <color=#FFC857>[SPACE]</color> Jump Steps & Obstacles\n" +
-                "  <color=#FFC857>[C / CTRL]</color> Crouch Forensic View            <color=#FFC857>[E / F]</color> Question Witnesses / Inspect Clues\n" +
-                "  <color=#FFC857>[J]</color> Investigation Case Journal         <color=#FFC857>[M]</color> Temple Architectural Map Overlay\n" +
-                "  <color=#FFC857>[H]</color> Toggle Help & Controls Guide       <color=#FFC857>[P]</color> Photo Mode (Clean Cinematic View)\n" +
-                "  <color=#FFC857>[ESC]</color> Pause Game & Settings";
+                "<b>3:10 AM.</b> Three fictional heritage pieces are gone from the temple hall. The dawn rite is at 5:45.\n" +
+                "Watch the <b>Dawn Clock</b>: mistakes cost minutes. Recover all three before first light.\n\n" +
+                "<b>MOVE</b>  <color=#FFC857>[W A S D]</color> walk   <color=#FFC857>[Shift]</color> run   <color=#FFC857>[C]</color> crouch   <color=#FFC857>[Space]</color> hop   <color=#FFC857>[Mouse]</color> look\n" +
+                "<b>INVESTIGATE</b>  <color=#FFC857>[E]</color> talk / use   <color=#FFC857>[F]</color> inspect   <color=#FFC857>[G]</color> flashlight   <color=#FFC857>[K]</color> forensic kit   <color=#FFC857>[T]</color> pebble\n" +
+                "<b>FIGHT</b>  <color=#FFC857>[Left click]</color> attack   hold or <color=#FFC857>[R]</color> heavy   <color=#FFC857>[Right click]</color> block   <color=#FFC857>[V]</color> dodge   <color=#FFC857>[G]</color> flash\n" +
+                "<b>BOOKS</b>  <color=#FFC857>[H]</color> guide   <color=#FFC857>[J]</color> journal   <color=#FFC857>[M]</color> map   <color=#FFC857>[B]</color> codex   <color=#FFC857>[Esc]</color> pause\n" +
+                "On-screen buttons appear in fights (Settings: On-screen controls).";
 
             RectTransform brt = bodyObj.GetComponent<RectTransform>();
             brt.anchorMin = new Vector2(0f, 0f);
@@ -1580,8 +1576,9 @@ namespace LegacyOfTemples.UI
                 || (InvestigationJournal.Instance != null && InvestigationJournal.Instance.IsOpen) || (TempleMapOverlay.Instance != null && TempleMapOverlay.Instance.IsOpen)
                 || IsPauseOpen;
             foreach (var spec in ScreenText.Panels.Values) if (spec.dimBackground && ScreenText.IsLive(spec.lastFrame)) modal = true;
-            SetVisible(hudPanel, !modal);
-            SetVisible(bottomHintBar, !modal);
+            bool fight = CombatState.InCombat; // the fight HUD replaces the goal card and key bar
+            SetVisible(hudPanel, !modal && !fight);
+            SetVisible(bottomHintBar, !modal && !fight);
             SetVisible(dialoguePanel, !modal || isDialogueActive);
             ScreenText.HideLabels = modal;
             // Reserved zones for world labels (reference units, origin bottom-left).

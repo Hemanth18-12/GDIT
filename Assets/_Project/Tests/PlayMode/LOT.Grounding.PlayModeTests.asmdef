@@ -1,5 +1,15 @@
 {
   "name": "LOT.Grounding.PlayModeTests",
-  "references": ["LOT.Characters", "LOT.Core", "LOT.Gameplay", "LOT.UI", "Unity.InputSystem", "Unity.InputSystem.TestFramework"],
-  "optionalUnityReferences": ["TestAssemblies"]
+  "references": [
+    "LOT.Characters",
+    "LOT.Core",
+    "LOT.Gameplay",
+    "LOT.UI",
+    "Unity.InputSystem",
+    "Unity.InputSystem.TestFramework",
+    "LOT.World"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ]
 }

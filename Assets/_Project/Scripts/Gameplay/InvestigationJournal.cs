@@ -210,7 +210,7 @@ namespace LegacyOfTemples.Gameplay
         private void Update()
         {
             var kb = Keyboard.current;
-            if (kb != null && kb.jKey.wasPressedThisFrame)
+            if ((kb != null && kb.jKey.wasPressedThisFrame) || VirtualInput.Down("journal"))
             {
                 ToggleJournal();
             }

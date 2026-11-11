@@ -101,6 +101,20 @@ namespace LegacyOfTemples.Characters
         public int JumpCount { get; private set; }
         public float VerticalVelocity => verticalVelocity;
 
+        // ---- hooks used by combat, chases and the on-screen controls ----
+        /// <summary>Movement speed multiplier (blocking, attacking, grappling).</summary>
+        public float SpeedScale { get; set; } = 1f;
+        public Vector3 MoveDirection { get; private set; }
+        private Vector3 pushVelocity; private float pushUntil, stumbleUntil;
+        /// <summary>Short forced movement (dodge dash, attack step, knock-back).</summary>
+        public void Push(Vector3 velocity, float seconds) { pushVelocity = velocity; pushUntil = Time.time + seconds; }
+        public void Stumble(float seconds) { stumbleUntil = Time.time + seconds; }
+        public void FaceTowards(Vector3 worldPoint)
+        {
+            Vector3 d = worldPoint - transform.position; d.y = 0f;
+            if (d.sqrMagnitude > 0.001f) transform.rotation = Quaternion.LookRotation(d.normalized);
+        }
+
         private void HandleMovement()
         {
             if (characterController == null) return;
@@ -128,6 +142,7 @@ namespace LegacyOfTemples.Characters
                 }
             }
 
+            horizontal += LegacyOfTemples.Core.VirtualInput.Move.x; vertical += LegacyOfTemples.Core.VirtualInput.Move.y; // on-screen joystick
             if (LegacyOfTemples.Core.InputGate.GameplayBlocked) { horizontal = 0f; vertical = 0f; } // UI owns the keys
             Vector3 inputDir = new Vector3(horizontal, 0f, vertical).normalized;
 
@@ -142,8 +157,10 @@ namespace LegacyOfTemples.Characters
                 IsRunning = true;
             }
 
+            if (LegacyOfTemples.Core.VirtualInput.Sprint) IsRunning = true;
+
             // Crouch (C)
-            IsCrouching = false;
+            IsCrouching = LegacyOfTemples.Core.VirtualInput.CrouchHeld;
             if (kb != null && (kb.cKey.isPressed || kb.leftCtrlKey.isPressed || kb.rightCtrlKey.isPressed))
             {
                 IsCrouching = true;
@@ -156,6 +173,7 @@ namespace LegacyOfTemples.Characters
             float targetSpeed = walkSpeed;
             if (IsCrouching) targetSpeed = crouchSpeed;
             else if (IsRunning) targetSpeed = runSpeed;
+            targetSpeed *= SpeedScale * (Time.time < stumbleUntil ? 0.3f : 1f);
 
             // Camera-relative direction
             Vector3 moveDir = Vector3.zero;
@@ -175,7 +193,8 @@ namespace LegacyOfTemples.Characters
                 moveDir = inputDir;
             }
 
-            IsMoving = moveDir.sqrMagnitude > 0.01f;
+            IsMoving = moveDir.sqrMagnitude > 0.01f && targetSpeed > 0.05f;
+            MoveDirection = moveDir;
 
             if (IsMoving)
             {
@@ -188,6 +207,7 @@ namespace LegacyOfTemples.Characters
             bool uiOwnsInput = LegacyOfTemples.Core.InputGate.GameplayBlocked; // Space advances cards/dialogue there, never jumps
             if (!uiOwnsInput && kb != null && kb.spaceKey.wasPressedThisFrame) jumpPressed = true;
             if (!uiOwnsInput && gp != null && gp.buttonSouth.wasPressedThisFrame) jumpPressed = true;
+            if (!uiOwnsInput && LegacyOfTemples.Core.VirtualInput.Down("jump")) jumpPressed = true;
 
             // Support only counts while not moving upward: a stale 'HasSupport' after a jump used to cancel gravity (hero floated up).
             bool isGrounded = characterController.isGrounded || (grounding != null && grounding.HasSupport && verticalVelocity <= 0f);
@@ -216,6 +236,7 @@ namespace LegacyOfTemples.Characters
             }
 
             Vector3 finalMove = (moveDir * targetSpeed) + Vector3.up * verticalVelocity;
+            if (Time.time < pushUntil) finalMove += new Vector3(pushVelocity.x, 0f, pushVelocity.z);
             Vector3 beforeMove = transform.position;
             characterController.Move(finalMove * Time.deltaTime);
             if (float.IsNaN(startHeight)) startHeight = beforeMove.y;
