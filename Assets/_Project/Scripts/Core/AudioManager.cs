@@ -198,6 +198,10 @@ namespace LegacyOfTemples.Core
             ambienceSource.Play();
         }
 
+        /// <summary>Send an AudioSource through a mixer group ("Music", "Ambience", "SFX", "Voice", "UI"...). Set by the audio director.</summary>
+        public static System.Action<AudioSource, string> Router;
+        public static void Route(AudioSource a, string group) { if (a != null) Router?.Invoke(a, group); }
+
         public void PlaySFX(string sfxName, float volumeScale = 1.0f, float pitch = 1.0f)
         {
             AudioClip clip = GetClip(sfxName);

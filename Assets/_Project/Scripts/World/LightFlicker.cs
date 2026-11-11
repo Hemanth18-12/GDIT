@@ -35,7 +35,7 @@ namespace LegacyOfTemples.World
 
             float time = Time.time * speed + noiseOffset;
             float noise = Mathf.PerlinNoise(time, time * 0.35f);
-            targetLight.intensity = Mathf.Lerp(minIntensity, maxIntensity, noise);
+            targetLight.intensity = Mathf.Lerp(minIntensity, maxIntensity, noise) * (WeatherManager.Instance != null ? WeatherManager.Instance.FlameFactor : 1f); // rain makes flames gutter
 
             if (subtlePositionShift > 0f)
             {
