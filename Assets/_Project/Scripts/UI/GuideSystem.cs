@@ -329,11 +329,18 @@ namespace LegacyOfTemples.UI
         {
             var pz = ChakraPuzzleController.Active;
             if (pz == null || !pz.IsInteracting) return;
-            var sb = new StringBuilder("Scroll order: Lotus, Conch, Wheel, Kalash, then the centre wheel.\n\n");
-            for (int i = 0; i < 4; i++)
-                sb.Append(ScreenText.Key((i + 1).ToString())).Append(' ').Append(ChakraPuzzleController.Symbols[i])
-                  .Append(pz.IsTurned(i) ? $"  <color={ScreenText.Green}>faces the sun</color>" : "").Append('\n');
-            sb.Append(ScreenText.Key("Enter")).Append(" Turn the centre wheel\n");
+            var sb = new StringBuilder("Scroll order: Lotus, Conch, Wheel, Kalash, then the centre wheel.\n");
+            if (pz.ResetLeft > 0f) sb.Append($"<color={(pz.ResetLeft < 20f ? ScreenText.Coral : ScreenText.Gold)}><b>The wall resets in {pz.ResetLeft:0} s</b></color>\n");
+            sb.Append('\n');
+            if (pz.Cranking)
+                sb.Append("<b>HAND-WHEEL</b>  ").Append(Fx.Bar(pz.Crank)).Append($"\nAlternate {ScreenText.Key("A")} and {ScreenText.Key("D")}. If you stop, it rolls back.\n");
+            else
+            {
+                for (int i = 0; i < 4; i++)
+                    sb.Append(ScreenText.Key((i + 1).ToString())).Append(' ').Append(ChakraPuzzleController.Symbols[i])
+                      .Append(pz.IsTurned(i) ? $"  <color={ScreenText.Green}>faces the sun</color>" : "").Append('\n');
+                sb.Append(ScreenText.Key("Enter")).Append(" Free the hand-wheel at the centre\n");
+            }
             if (!string.IsNullOrEmpty(pz.Message)) sb.Append($"\n<color={ScreenText.Cyan}>{pz.Message}</color>");
             ScreenText.Panel("puzzle", "THE SUN WALL", sb.ToString(), PanelAnchor.BottomCenter, 1100, ScreenText.Key("Esc") + " Step away", false, 40);
         }

@@ -59,10 +59,9 @@ namespace LegacyOfTemples.Core
         public static Vector2 Move, Look;
         public static bool Sprint, Block, CrouchHeld;
         private static readonly System.Collections.Generic.Dictionary<string, int> pressed = new System.Collections.Generic.Dictionary<string, int>();
-        /// <summary>Called by a button: the action counts as "pressed this frame" on the next frame.</summary>
+        /// <summary>Called by a button or a bot: the action reads as "pressed" for the whole of the next frame.</summary>
         public static void Press(string action) { pressed[action] = Time.frameCount + 1; }
-        public static bool Down(string action) => pressed.TryGetValue(action, out int f) && (f == Time.frameCount || f == Time.frameCount + 1) && Consume(action, f);
-        private static bool Consume(string a, int f) { if (f == Time.frameCount) return true; return false; }
+        public static bool Down(string action) => pressed.TryGetValue(action, out int f) && f == Time.frameCount;
         public static void Clear() { Move = Look = Vector2.zero; Sprint = Block = CrouchHeld = false; pressed.Clear(); }
     }
 }

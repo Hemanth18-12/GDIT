@@ -126,7 +126,7 @@ namespace LegacyOfTemples.Gameplay
 
         public void Interact()
         {
-            if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == Constants.Sanctum && !Flashlight.On)
+            if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == Constants.Sanctum && !Flashlight.Usable)
             {
                 Flashlight.NeedLightUntil = Time.unscaledTime + 2.5f;
                 return;

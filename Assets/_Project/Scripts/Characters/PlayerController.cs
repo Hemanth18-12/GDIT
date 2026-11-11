@@ -88,6 +88,8 @@ namespace LegacyOfTemples.Characters
                 interactPressed = true;
             }
 
+            if (LegacyOfTemples.Core.VirtualInput.Down("interact")) interactPressed = true;
+            if (LegacyOfTemples.Core.InputGate.GameplayBlocked) interactPressed = false; // cards, kits and dialogue own E and Enter
             if (interactPressed)
             {
                 TryInteract();
