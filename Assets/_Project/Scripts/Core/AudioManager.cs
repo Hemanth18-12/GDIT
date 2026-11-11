@@ -202,19 +202,39 @@ namespace LegacyOfTemples.Core
         public static System.Action<AudioSource, string> Router;
         public static void Route(AudioSource a, string group) { if (a != null) Router?.Invoke(a, group); }
 
+        private AudioSource uiSource;
+        private static readonly System.Collections.Generic.Dictionary<string, int> SurfaceVariants = new System.Collections.Generic.Dictionary<string, int>
+            { { "stone", 3 }, { "wet", 3 }, { "wood", 2 }, { "gravel", 2 }, { "grass", 2 }, { "mud", 2 } };
+        /// <summary>Ground under the player: stone, wet, wood, gravel, grass or mud (set by the audio director).</summary>
+        public static string Surface = "stone";
+        public int SfxPlayed { get; private set; }
+        public string LastSfx { get; private set; } = "";
+
+        /// <summary>Called once the mixer is loaded: every source goes through its mixer group.</summary>
+        public void RouteOwnSources()
+        {
+            if (uiSource == null) { uiSource = gameObject.AddComponent<AudioSource>(); uiSource.playOnAwake = false; uiSource.spatialBlend = 0f; }
+            Route(bgmSource, "Music"); Route(ambienceSource, "Ambience"); Route(sfxSource, "SFX"); Route(footstepSource, "SFX"); Route(dialogueSource, "VoiceNPC"); Route(uiSource, "UI");
+        }
+
+        public void StopBGM() { if (bgmFadeCoroutine != null) StopCoroutine(bgmFadeCoroutine); if (bgmSource != null) bgmSource.Stop(); }
+
         public void PlaySFX(string sfxName, float volumeScale = 1.0f, float pitch = 1.0f)
         {
             AudioClip clip = GetClip(sfxName);
             if (clip == null) return;
-
-            sfxSource.pitch = pitch;
-            sfxSource.PlayOneShot(clip, masterVolume * sfxVolume * volumeScale);
+            SfxPlayed++; LastSfx = sfxName;
+            bool ui = sfxName.StartsWith("sfx_ui") || sfxName == "sfx_codex" || sfxName == "sfx_objective" || sfxName == "sfx_choice" || sfxName == "sfx_penalty" || sfxName == "sfx_checkpoint";
+            var src = ui && uiSource != null ? uiSource : sfxSource; // UI sounds stay dry (no hall reverb)
+            src.pitch = pitch;
+            src.PlayOneShot(clip, masterVolume * sfxVolume * volumeScale);
         }
 
         public void PlayFootstep()
         {
-            int idx = UnityEngine.Random.Range(1, 5);
-            AudioClip clip = GetClip($"sfx_footstep_stone{idx}");
+            AudioClip clip = null;
+            if (SurfaceVariants.TryGetValue(Surface, out int n)) clip = GetClip($"fs_{Surface}_{UnityEngine.Random.Range(1, n + 1)}");
+            if (clip == null) clip = GetClip($"sfx_footstep_stone{UnityEngine.Random.Range(1, 5)}");
             if (clip != null)
             {
                 footstepSource.pitch = UnityEngine.Random.Range(0.92f, 1.08f);
