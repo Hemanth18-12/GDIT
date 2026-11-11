@@ -37,7 +37,7 @@ namespace LegacyOfTemples.UI
             panel.anchorMin = panel.anchorMax = panel.pivot = new Vector2(0.5f, 0.5f);
             panel.sizeDelta = new Vector2(760, 0);
             var v = panel.gameObject.AddComponent<VerticalLayoutGroup>();
-            v.padding = new RectOffset(40, 40, 32, 32); v.spacing = 12; v.childControlHeight = true; v.childControlWidth = true; v.childForceExpandHeight = false;
+            v.padding = new RectOffset(40, 40, 32, 32); v.spacing = 8; v.childControlHeight = true; v.childControlWidth = true; v.childForceExpandHeight = false;
             panel.gameObject.AddComponent<ContentSizeFitter>().verticalFit = ContentSizeFitter.FitMode.PreferredSize;
             panel.gameObject.SetActive(false);
         }
@@ -70,6 +70,9 @@ namespace LegacyOfTemples.UI
             });
             float vv = VoicePlayer.Volume;
             Button($"Voice: {Mathf.RoundToInt(vv * 100)}%", () => { VoicePlayer.Volume = vv >= 0.99f ? 0f : Mathf.Min(1f, vv + 0.25f); Rebuild(); });
+            Button("Difficulty: " + GameOptions.DifficultyNames[GameOptions.Difficulty], () => { GameOptions.Difficulty = (GameOptions.Difficulty + 1) % 3; Rebuild(); });
+            Button("Weather effects: " + GameOptions.WeatherNames[GameOptions.WeatherQuality], () => { GameOptions.WeatherQuality = (GameOptions.WeatherQuality + 1) % 3; Rebuild(); });
+            Button("On-screen controls: " + GameOptions.TouchNames[GameOptions.TouchMode], () => { GameOptions.TouchMode = (GameOptions.TouchMode + 1) % 3; Rebuild(); });
             Button("SAVE AND QUIT TO MENU", () =>
             {
                 StoryDialogueSystem.Instance?.Publish();
@@ -89,11 +92,11 @@ namespace LegacyOfTemples.UI
             var go = new GameObject("Btn_" + label, typeof(RectTransform));
             go.transform.SetParent(panel, false);
             var img = go.AddComponent<Image>(); img.color = new Color(0.12f, 0.09f, 0.05f, 1f);
-            go.AddComponent<LayoutElement>().minHeight = 68 * ScreenTextRenderer.Scale;
+            go.AddComponent<LayoutElement>().minHeight = 58 * ScreenTextRenderer.Scale;
             var b = go.AddComponent<Button>();
             var cb = b.colors; cb.highlightedColor = new Color(1f, 0.85f, 0.5f); cb.selectedColor = new Color(1f, 0.85f, 0.5f); b.colors = cb;
             ScreenTextRenderer.AddBorder((RectTransform)go.transform, new Color(1f, 0.78f, 0.34f, 0.8f), 2f);
-            var t = ScreenTextRenderer.MakeText(go.transform, "BtnKeyHint", 34 * ScreenTextRenderer.Scale, ScreenTextRenderer.Ivory, false, TextAlignmentOptions.Center);
+            var t = ScreenTextRenderer.MakeText(go.transform, "BtnKeyHint", 30 * ScreenTextRenderer.Scale, ScreenTextRenderer.Ivory, false, TextAlignmentOptions.Center);
             var rt = t.rectTransform; rt.anchorMin = Vector2.zero; rt.anchorMax = Vector2.one; rt.offsetMin = new Vector2(12, 4); rt.offsetMax = new Vector2(-12, -4);
             t.text = label;
             b.onClick.AddListener(() => onClick());

@@ -17,7 +17,7 @@ namespace LegacyOfTemples.UI
     /// </summary>
     public class MainMenuController : MonoBehaviour
     {
-        private enum Screen { Main, Settings, Controls, Credits }
+        private enum Screen { Main, Settings, Controls, Credits, Gameplay }
 
         private Canvas canvas;
         private RectTransform column;
@@ -138,7 +138,17 @@ namespace LegacyOfTemples.UI
                     AddButton("Subtitles: " + (sub ? "ON" : "OFF"), () => { PlayerPrefs.SetInt("Settings_Subtitles", sub ? 0 : 1); PlayerPrefs.Save(); Show(Screen.Settings); });
                     int q = QualitySettings.GetQualityLevel();
                     AddButton("Graphics: " + QualitySettings.names[q], () => { QualitySettings.SetQualityLevel((q + 1) % QualitySettings.names.Length, true); Show(Screen.Settings); });
+                    AddButton("GAMEPLAY AND CONTROLS OPTIONS", () => Show(Screen.Gameplay));
                     AddButton("BACK", () => Show(Screen.Main));
+                    break;
+                case Screen.Gameplay:
+                    AddText("MenuTitle", "GAMEPLAY", 64, ScreenTextRenderer.Gold, true, TextAlignmentOptions.Center);
+                    first = AddButton("Difficulty: " + GameOptions.DifficultyNames[GameOptions.Difficulty], () => { GameOptions.Difficulty = (GameOptions.Difficulty + 1) % 3; Show(Screen.Gameplay); });
+                    AddButton("Weather effects: " + GameOptions.WeatherNames[GameOptions.WeatherQuality], () => { GameOptions.WeatherQuality = (GameOptions.WeatherQuality + 1) % 3; Show(Screen.Gameplay); });
+                    AddButton("On-screen controls: " + GameOptions.TouchNames[GameOptions.TouchMode], () => { GameOptions.TouchMode = (GameOptions.TouchMode + 1) % 3; Show(Screen.Gameplay); });
+                    AddButton("Button size: " + GameOptions.SizeNames[GameOptions.TouchSize], () => { GameOptions.TouchSize = (GameOptions.TouchSize + 1) % 3; Show(Screen.Gameplay); });
+                    AddButton("Button opacity: " + GameOptions.OpacityNames[GameOptions.TouchOpacityIndex], () => { GameOptions.TouchOpacityIndex = (GameOptions.TouchOpacityIndex + 1) % 3; Show(Screen.Gameplay); });
+                    AddButton("BACK", () => Show(Screen.Settings));
                     break;
                 case Screen.Controls:
                     AddText("MenuTitle", "CONTROLS", 64, ScreenTextRenderer.Gold, true, TextAlignmentOptions.Center);

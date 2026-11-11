@@ -341,17 +341,17 @@ namespace LegacyOfTemples.UI
         private void DrawEnding(StoryDialogueSystem story)
         {
             var file = StoryData.File;
+            var end = StoryData.Ending(DawnClock.EndingId());
             var sb = new StringBuilder();
+            sb.Append($"<color={ScreenText.Gold}><b>ENDING: {end.title}</b></color>\n{end.text}\n\n");
             sb.Append($"<i>\"{file.ending?.text}\"</i>\n\n");
             sb.Append($"<color={ScreenText.Gold}><b>EVIDENCE</b></color>\n");
-            var titles = new Dictionary<string, string> {
-                { "clue_broken_lock", "Broken lock" }, { "clue_breached_case", "Empty cloth-lined stands" }, { "clue_muddy_footprints", "Two sizes of bootprints" },
-                { "clue_fabric_fragment", "Red silk on the doorframe" }, { "clue_ancient_map", "Escape route sketch" },
-                { "relic_pradip", "Brass ceremonial vessel (returned)" }, { "relic_rosette", "Carved sandstone rosette (returned)" }, { "relic_manuscript", "Palm-leaf manuscript (returned)" } };
-            foreach (var kv in titles) sb.Append(story.HasClue(kv.Key) ? $"<color={ScreenText.Cyan}>• {kv.Value}</color>\n" : $"• {kv.Value}: not found\n");
+            foreach (var c in file.clues ?? new StoryClue[0]) sb.Append(story.HasClue(c.id) ? $"<color={ScreenText.Cyan}>• {c.title}</color>\n" : $"• {c.title}: not found\n");
             int t = Mathf.RoundToInt(story.Elapsed);
-            sb.Append($"\n<color={ScreenText.Gold}><b>SCORE</b></color>  {story.Score}     <color={ScreenText.Gold}><b>TIME</b></color>  {t / 60:00}:{t % 60:00}     <color={ScreenText.Gold}><b>HINTS USED</b></color>  {story.HintsUsed}");
-            ScreenText.Panel("ending", file.ending?.title ?? "MISSION COMPLETED", sb.ToString(), PanelAnchor.Center, 1300, ScreenText.Key("Enter") + " Return to main menu", true, 100);
+            float clock = DawnClock.Instance != null ? DawnClock.Instance.Minutes : 0f;
+            sb.Append($"\n<color={ScreenText.Gold}><b>CLOCK</b></color>  {DawnClock.ClockText(clock)} (dawn 05:45)     <color={ScreenText.Gold}><b>PLAY TIME</b></color>  {t / 60:00}:{t % 60:00}     <color={ScreenText.Gold}><b>DIFFICULTY</b></color>  {GameOptions.DifficultyNames[GameOptions.Difficulty]}\n");
+            sb.Append($"<color={ScreenText.Gold}><b>SCORE</b></color>  {story.Score}     <color={ScreenText.Gold}><b>HINTS USED</b></color>  {story.HintsUsed}     <color={ScreenText.Gold}><b>MEERA'S TRUST</b></color>  {StoryFlags.Get("trust_meera")}     <color={ScreenText.Gold}><b>RETRIES</b></color>  {(DawnClock.Instance != null ? DawnClock.Instance.Retries : 0)}");
+            ScreenText.Panel("ending", file.ending?.title ?? "MISSION COMPLETED", sb.ToString(), PanelAnchor.Center, 1400, ScreenText.Key("Enter") + " Return to main menu", true, 100);
             var kb = Keyboard.current; var gp = Gamepad.current;
             if (Time.unscaledTime - endingTime > 2f && ((kb != null && kb.enterKey.wasPressedThisFrame) || (gp != null && gp.buttonSouth.wasPressedThisFrame)))
             {
