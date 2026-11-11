@@ -59,7 +59,7 @@ namespace LegacyOfTemples.Gameplay
 
             EventBus.RaiseSceneChanged(targetSceneName);
             Debug.Log($"[SceneTransitionTrigger] Transitioning to scene '{targetSceneName}'...");
-            SceneManager.LoadScene(targetSceneName);
+            SceneLoader.Load(targetSceneName);
         }
 
         private void OnDrawGizmosSelected()

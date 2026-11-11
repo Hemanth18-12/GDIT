@@ -23,6 +23,7 @@ namespace LegacyOfTemples.World.Editor
             // Build stamp shown in the pause menu, so the player can tell a fresh build from an old one.
             File.WriteAllText(Path.Combine(Application.dataPath, "_Project/Resources/build_stamp.txt"), "build " + System.DateTime.Now.ToString("yyyy-MM-dd HH:mm"));
             AssetDatabase.Refresh();
+            LoadingImageTools.Sync();
             bool diag = UnityEditor.EngineDiagnostics.EngineDiagnosticsSettings.enabled;
             BuildReport report;
             try

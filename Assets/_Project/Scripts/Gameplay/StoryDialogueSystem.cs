@@ -252,7 +252,7 @@ namespace LegacyOfTemples.Gameplay
             yield return new WaitForSecondsRealtime(4f);
             while (activeTrigger != null) yield return null;
             PlayerPrefs.SetInt("OpeningCinematicActive", 0);
-            SceneManager.LoadScene(Constants.Courtyard);
+            SceneLoader.Load(Constants.Courtyard);
             returning = false;
         }
 

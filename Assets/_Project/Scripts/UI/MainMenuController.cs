@@ -212,7 +212,7 @@ namespace LegacyOfTemples.UI
             PlayerPrefs.SetInt("ShowcaseTourActive", 0);
             PlayerPrefs.SetInt("Force_Tutorial_On_Start", 1);
             PlayerPrefs.Save();
-            SceneManager.LoadScene(Constants.Courtyard);
+            SceneLoader.Load(Constants.Courtyard);
         }
 
         private static void Continue()
@@ -220,7 +220,7 @@ namespace LegacyOfTemples.UI
             PlayerPrefs.SetInt("OpeningCinematicActive", 0);
             PlayerPrefs.SetInt("ShowcaseTourActive", 0);
             PlayerPrefs.Save();
-            SceneManager.LoadScene(PlayerPrefs.GetString("LastPlayedScene", Constants.Courtyard));
+            SceneLoader.Load(PlayerPrefs.GetString("LastPlayedScene", Constants.Courtyard));
         }
     }
 }

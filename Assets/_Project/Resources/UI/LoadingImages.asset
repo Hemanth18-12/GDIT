@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: LoadingImages
+  m_EditorClassIdentifier: LOT.UI:LegacyOfTemples.UI:LoadingImageSet
+  slots:
+  - map: Courtyard (start and final return)
+    imageName: loading_01_dawn_courtyard
+    image: {fileID: 2800000, guid: f2a42138a651e4f5ba2f9e002f8284ae, type: 3}
+  - map: ShrineCrime and PuzzleWall
+    imageName: loading_02_gate_night
+    image: {fileID: 2800000, guid: 0ab646dfea64f4762975c47e1f09cca9, type: 3}
+  - map: JunglePath
+    imageName: loading_03_jungle_path
+    image: {fileID: 2800000, guid: 0104a348a1881418bb6f820ead8864fe, type: 3}
+  - map: Sanctum
+    imageName: loading_04_shrine
+    image: {fileID: 2800000, guid: 977c64298af174f0a812db6484123bc2, type: 3}
