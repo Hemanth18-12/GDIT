@@ -73,11 +73,12 @@ namespace LegacyOfTemples.Gameplay
             DontDestroyOnLoad(go);
             Instance = go.AddComponent<ForensicKit>();
         }
+        private void Start() { StoryDialogueSystem.Instance?.RegisterMinigame("forensics"); }
 
         private static bool Active()
         {
             var s = StoryDialogueSystem.Instance;
-            return s != null && s.Current != null && s.Current.id == "obj_forensics" && SceneManager.GetActiveScene().name == Constants.ShrineCrime;
+            return s != null && s.Current != null && s.Current.complete.id == "forensics" && SceneManager.GetActiveScene().name == Constants.ShrineCrime;
         }
 
         public void Answer(int i)
@@ -147,11 +148,12 @@ namespace LegacyOfTemples.Gameplay
             Instance = go.AddComponent<JungleStealth>();
             SceneManager.sceneLoaded += (s, m) => { if (Instance != null) Instance.running = false; };
         }
+        private void Start() { StoryDialogueSystem.Instance?.RegisterMinigame("stealth"); }
 
         private static bool Active()
         {
             var s = StoryDialogueSystem.Instance;
-            return s != null && s.Current != null && s.Current.id == "obj_follow" && SceneManager.GetActiveScene().name == Constants.JunglePath;
+            return s != null && s.Current != null && s.Current.complete.id == "stealth" && SceneManager.GetActiveScene().name == Constants.JunglePath;
         }
 
         private void Begin(PlayerController player)

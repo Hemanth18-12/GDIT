@@ -24,6 +24,11 @@ namespace LegacyOfTemples.Gameplay
         private float elapsed;
         private int hintsUsed;
         private int choicesMade;
+        private readonly HashSet<string> codexUnlocked = new HashSet<string>();
+        private readonly HashSet<string> minigames = new HashSet<string>();
+        private readonly Queue<StoryLine> barkQueue = new Queue<StoryLine>();
+        private StoryLine barkNow; private float barkUntil;
+        private bool codexOpen; private float codexToast; private string codexToastTitle;
 
         // ---- runtime ----
         private OrbitCamera orbitCam;
@@ -46,6 +51,15 @@ namespace LegacyOfTemples.Gameplay
 
         public static event Action<StoryObjective> OnObjectiveChanged;
         public static event Action OnStoryCompleted;
+        public static event Action OnNewGame;
+        /// <summary>A one-off spoken line outside a conversation (subtitle + voice).</summary>
+        public static event Action<StoryLine> OnBark;
+        public StoryChapter Chapter => StoryData.Chapter(Current != null ? Current.chapter : "ch6");
+        public bool IsCodexOpen => codexOpen;
+        public bool IsCodexUnlocked(string id) => codexUnlocked.Contains(id);
+        public bool ConversationDone(string id) => conversationsDone.Contains(id);
+        /// <summary>A gameplay section announces that it can complete this minigame objective (otherwise a skip prompt is shown, so the story can never dead-end).</summary>
+        public void RegisterMinigame(string id) { minigames.Add(id); }
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void Bootstrap()
@@ -90,7 +104,10 @@ namespace LegacyOfTemples.Gameplay
         private void Update()
         {
             string scene = SceneManager.GetActiveScene().name;
+            UpdateBarks();
+            UpdateCodex(IsGameplayScene(scene));
             if (!IsGameplayScene(scene) || IsComplete) return;
+            MinigameFallback(scene);
             if (Time.timeScale > 0f) { elapsed += Time.unscaledDeltaTime; idleTime += Time.unscaledDeltaTime; }
             focusTimer -= Time.unscaledDeltaTime;
             if (focusTimer <= 0f)
@@ -104,11 +121,13 @@ namespace LegacyOfTemples.Gameplay
         // ------------------------------------------------------------ save / load
         public static void ResetForNewGame()
         {
-            foreach (string k in new[] { "Story_Objective", "Story_Clues", "Story_Convs", "Story_Time", "Story_Hints", "Story_Choices",
+            foreach (string k in new[] { "Story_Objective", "Story_Clues", "Story_Convs", "Story_Time", "Story_Hints", "Story_Choices", "Story_Flags", "Story_Codex",
                 "LevelUnlocked_2", "LevelUnlocked_3", "Case_Completed", "ChakraPuzzle_Solved", "LastPlayedScene" })
                 PlayerPrefs.DeleteKey(k);
             PlayerPrefs.Save();
+            StoryFlags.Clear();
             if (Instance != null) Instance.Load();
+            OnNewGame?.Invoke();
         }
 
         private void Load()
@@ -120,6 +139,10 @@ namespace LegacyOfTemples.Gameplay
             elapsed = PlayerPrefs.GetFloat("Story_Time", 0f);
             hintsUsed = PlayerPrefs.GetInt("Story_Hints", 0);
             choicesMade = PlayerPrefs.GetInt("Story_Choices", 0);
+            StoryFlags.Deserialize(PlayerPrefs.GetString("Story_Flags", ""));
+            codexUnlocked.Clear();
+            foreach (var c in PlayerPrefs.GetString("Story_Codex", "").Split(',')) if (c.Length > 0) codexUnlocked.Add(c);
+            barkQueue.Clear(); barkNow = null;
             returning = false;
         }
 
@@ -131,6 +154,8 @@ namespace LegacyOfTemples.Gameplay
             PlayerPrefs.SetFloat("Story_Time", elapsed);
             PlayerPrefs.SetInt("Story_Hints", hintsUsed);
             PlayerPrefs.SetInt("Story_Choices", choicesMade);
+            PlayerPrefs.SetString("Story_Flags", StoryFlags.Serialize());
+            PlayerPrefs.SetString("Story_Codex", string.Join(",", codexUnlocked));
             string scene = SceneManager.GetActiveScene().name;
             if (IsGameplayScene(scene)) PlayerPrefs.SetString("LastPlayedScene", scene);
             PlayerPrefs.Save();
@@ -170,12 +195,12 @@ namespace LegacyOfTemples.Gameplay
             Publish();
         }
 
-        private void OnClue(string id) { clues.Add(id); CheckAutoComplete(); Publish(); Save(); }
+        private void OnClue(string id) { bool isNew = clues.Add(id); if (isNew) Say("clue:" + id); CheckAutoComplete(); Publish(); Save(); }
         private void OnPuzzle(string id)
         {
             var cur = Current;
             if (cur != null && cur.complete != null && cur.complete.type == "puzzle" && cur.complete.id == id) Advance(true);
-            PlayConversation(StoryData.Conversation("conv_wall_open"), null);
+            PlayConversation(StoryData.Conversation("conv_c4_open"), null);
         }
 
         private void CheckAutoComplete()
@@ -200,10 +225,15 @@ namespace LegacyOfTemples.Gameplay
 
         private void Advance(bool publish)
         {
+            var prev = Current;
             objectiveIndex++;
+            while (Current != null && !StoryFlags.Eval(Current.when)) objectiveIndex++; // skip objectives whose condition is false
             idleTime = 0f;
             Save();
             var cur = Current;
+            if (prev != null) Say("done:" + prev.id);
+            if (cur != null) Say("start:" + cur.id);
+            if (prev != null && (cur == null || cur.chapter != prev.chapter)) OnChapterChanged?.Invoke(prev.chapter, cur != null ? cur.chapter : "end");
             if (cur?.complete != null && cur.complete.type == "scene")
             {
                 if (cur.complete.id == Constants.ShrineCrime) PlayerPrefs.SetInt("LevelUnlocked_2", 1);
@@ -224,6 +254,94 @@ namespace LegacyOfTemples.Gameplay
             PlayerPrefs.SetInt("OpeningCinematicActive", 0);
             SceneManager.LoadScene(Constants.Courtyard);
             returning = false;
+        }
+
+        /// <summary>(finished chapter id, next chapter id or "end")</summary>
+        public static event Action<string, string> OnChapterChanged;
+
+        /// <summary>Test / bot helper: complete the current objective without playing it.</summary>
+        public void DebugCompleteCurrent()
+        {
+            var cur = Current; if (cur == null) return;
+            if (cur.complete.type == "clues" && cur.complete.ids != null) foreach (var id in cur.complete.ids) clues.Add(id);
+            if (cur.complete.type == "dialogue") conversationsDone.Add(cur.complete.id);
+            if (cur.complete.type == "minigame") conversationsDone.Add("mg:" + cur.complete.id);
+            if (cur.complete.type == "puzzle") { PlayerPrefs.SetInt("ChakraPuzzle_Solved", 1); }
+            if (cur.complete.type == "scene") { Advance(true); return; }
+            CheckAutoComplete(); Publish(); Save();
+        }
+
+        /// <summary>Restore progress to a checkpoint snapshot (see CheckpointSystem).</summary>
+        public string Snapshot() => objectiveIndex + "|" + string.Join(",", clues) + "|" + string.Join(",", conversationsDone) + "|" + StoryFlags.Serialize();
+        public void Restore(string snap)
+        {
+            var p = snap.Split('|'); if (p.Length < 4) return;
+            objectiveIndex = int.Parse(p[0]);
+            clues.Clear(); foreach (var c in p[1].Split(',')) if (c.Length > 0) clues.Add(c);
+            conversationsDone.Clear(); foreach (var c in p[2].Split(',')) if (c.Length > 0) conversationsDone.Add(c);
+            StoryFlags.Deserialize(p[3]);
+            Save(); Publish();
+        }
+
+        // ------------------------------------------------------------ barks (one-off lines)
+        public void Say(string trigger)
+        {
+            var l = StoryData.Bark(trigger);
+            if (l == null || !StoryFlags.Eval(l.when)) return;
+            if (barkQueue.Count < 4) barkQueue.Enqueue(l);
+        }
+
+        private void UpdateBarks()
+        {
+            bool talking = activeConversation != null;
+            if (barkNow == null && barkQueue.Count > 0 && !talking)
+            {
+                barkNow = barkQueue.Dequeue();
+                barkUntil = Time.unscaledTime + Mathf.Clamp(barkNow.t.Length * 0.065f, 1.8f, 6f);
+                OnBark?.Invoke(barkNow);
+            }
+            if (barkNow == null) return;
+            if (Time.unscaledTime > barkUntil || talking) { barkNow = null; return; }
+            var sp = StoryData.Speaker(barkNow.s);
+            ScreenText.Panel("bark", null, $"<color={(sp != null ? sp.color : ScreenText.Gold)}><b>{(sp != null ? sp.name : barkNow.s)}</b></color>  {barkNow.t}", PanelAnchor.BottomCenter, 1100f, null, false, 3);
+        }
+
+        // ------------------------------------------------------------ codex (B)
+        private void UnlockCodex(string trigger)
+        {
+            foreach (var c in StoryData.File.codex ?? new StoryCodex[0])
+                if (c.unlock == trigger && codexUnlocked.Add(c.id)) { codexToast = Time.unscaledTime + 5f; codexToastTitle = c.title; }
+        }
+
+        private void UpdateCodex(bool gameplay)
+        {
+            if (!gameplay) { codexOpen = false; return; }
+            var kb = UnityEngine.InputSystem.Keyboard.current;
+            bool busy = activeConversation != null;
+            if (kb != null && kb.bKey.wasPressedThisFrame && !busy && !(Current != null && Current.complete.id == "deduction" && Current.scene == SceneManager.GetActiveScene().name)) codexOpen = !codexOpen;
+            if (codexOpen && kb != null && kb.escapeKey.wasPressedThisFrame) { EventBus.EscapeConsumedFrame = Time.frameCount; codexOpen = false; }
+            if (busy) codexOpen = false;
+            if (codexOpen)
+            {
+                var sb = new System.Text.StringBuilder();
+                foreach (var c in StoryData.File.codex ?? new StoryCodex[0])
+                    sb.Append(codexUnlocked.Contains(c.id) ? $"<color={ScreenText.Gold}><b>{c.title}</b></color>\n{c.text}\n\n" : $"<color={ScreenText.Grey}>??? (not yet discovered)</color>\n\n");
+                sb.Append($"<color={ScreenText.Cyan}>Trust (Meera): {StoryFlags.Get("trust_meera")}</color>");
+                ScreenText.Panel("codex", "CODEX", sb.ToString(), PanelAnchor.Center, 1300f, ScreenText.Key("B") + " / " + ScreenText.Key("Esc") + " Close", true, 55);
+            }
+            else if (Time.unscaledTime < codexToast && !busy)
+                ScreenText.Panel("codex_toast", null, $"<color={ScreenText.Gold}>Codex updated:</color> {codexToastTitle}   {ScreenText.Key("B")}", PanelAnchor.TopRight, 620f, null, false, 6);
+        }
+
+        // ------------------------------------------------------------ minigame safety net
+        private void MinigameFallback(string scene)
+        {
+            var cur = Current;
+            if (cur == null || cur.complete.type != "minigame" || cur.scene != scene || minigames.Contains(cur.complete.id) || activeConversation != null) return;
+            if (Time.timeSinceLevelLoad < 3f) return;
+            ScreenText.Panel("mg_fallback", null, $"This section ({cur.title}) is not available in this build. Press {ScreenText.Key("Enter")} to continue the story.", PanelAnchor.TopRight, 640f, null, false, 4);
+            var kb = UnityEngine.InputSystem.Keyboard.current;
+            if (kb != null && kb.enterKey.wasPressedThisFrame) CompleteMinigame(cur.complete.id);
         }
 
         public void Publish()
@@ -282,8 +400,15 @@ namespace LegacyOfTemples.Gameplay
                 return best;
             }
             else if (t == "puzzle" && ChakraPuzzleController.Active != null) return ChakraPuzzleController.Active.transform;
+            else if (t.StartsWith("obj:"))
+            {
+                if (markerCache == null || markerCache.name != t.Substring(4)) markerCache = GameObject.Find(t.Substring(4));
+                return markerCache != null ? markerCache.transform : null;
+            }
             return null;
         }
+
+        private GameObject markerCache;
 
         // ------------------------------------------------------------ conversations
         private bool HandleTrigger(NPCDialogueTrigger trigger)
@@ -296,7 +421,7 @@ namespace LegacyOfTemples.Gameplay
             StoryConversation conv = null;
             if (cur != null && cur.complete != null && cur.complete.type == "dialogue")
             {
-                var c = StoryData.Conversation(cur.complete.id);
+                var c = StoryData.Conversation(string.IsNullOrEmpty(cur.start) ? cur.complete.id : cur.start);
                 if (c != null && c.scene == scene && c.npc == npc) conv = c;
             }
             if (conv == null)
@@ -333,46 +458,58 @@ namespace LegacyOfTemples.Gameplay
             if (conv == null) return;
             activeTrigger = trigger;
             activeConversation = conv.id;
+            UnlockCodex(conv.id);
             Debug.Log($"[Story] Conversation start: '{conv.id}' with {(trigger != null ? trigger.CharacterId : "none")}");
-            string[] lines = FormatLines(conv.lines);
+            var lineList = new List<string>(FormatLines(conv.lines));
+            var choices = new List<StoryChoice>();
+            foreach (var c in conv.choices ?? new StoryChoice[0]) if (StoryFlags.Eval(c.when)) choices.Add(c);
             string[] choiceTexts = null;
-            if (conv.choices != null && conv.choices.Length > 0)
+            if (choices.Count > 0)
             {
-                choiceTexts = new string[conv.choices.Length];
-                for (int i = 0; i < choiceTexts.Length; i++) choiceTexts[i] = conv.choices[i].text;
+                if (!string.IsNullOrEmpty(conv.prompt)) lineList.Add("Aryan: (" + conv.prompt + ")");
+                choiceTexts = new string[choices.Count];
+                for (int i = 0; i < choiceTexts.Length; i++) choiceTexts[i] = choices[i].text;
             }
+            string[] lines = lineList.ToArray();
             EventBus.RaiseDialogueStart(trigger != null ? trigger.CharacterId : "story");
             string firstSpeaker = conv.lines.Length > 0 ? (StoryData.Speaker(conv.lines[0].s)?.name ?? "") : "";
             EventBus.RaiseRequestDialogue(firstSpeaker, lines, choiceTexts, choiceTexts == null ? null : (Action<int>)(i =>
             {
                 choicesMade++;
-                var follow = conv.choices[i].lines;
+                var ch = choices[i];
+                StoryFlags.Apply(ch.effects);
+                LastChoiceId = ch.id;
+                Debug.Log($"[Story] Choice {ch.id} -> trust_meera={StoryFlags.Get("trust_meera")}");
+                var follow = ch.lines;
                 if (follow != null && follow.Length > 0)
-                    EventBus.RaiseRequestDialogue(StoryData.Speaker(follow[0].s)?.name ?? "", FormatLines(follow), null, null, () => FinishConversation(conv));
-                else FinishConversation(conv);
-            }), () => FinishConversation(conv));
+                    EventBus.RaiseRequestDialogue(StoryData.Speaker(follow[0].s)?.name ?? "", FormatLines(follow), null, null, () => FinishConversation(conv, ch.next));
+                else FinishConversation(conv, ch.next);
+            }), () => { if (choiceTexts == null) FinishConversation(conv, null); });
         }
+
+        public string LastChoiceId { get; private set; } = "";
 
         private static string[] FormatLines(StoryLine[] src)
         {
-            var arr = new string[src.Length];
-            for (int i = 0; i < src.Length; i++) arr[i] = StoryData.Format(src[i]);
-            return arr;
+            var list = new List<string>();
+            foreach (var l in src ?? new StoryLine[0]) if (StoryFlags.Eval(l.when)) list.Add(StoryData.Format(l));
+            return list.ToArray();
         }
 
-        private void FinishConversation(StoryConversation conv)
+        private void FinishConversation(StoryConversation conv, string next)
         {
-            // Choices: the first callback (onComplete) can fire before the choice callback; only finish once.
-            if (activeConversation != conv.id && conv.id != "") return;
-            activeConversation = null;
+            if (activeConversation != conv.id && conv.id != "") return; // only finish once
             Debug.Log($"[Story] Conversation finished: '{conv.id}'");
+            if (!string.IsNullOrEmpty(conv.id)) conversationsDone.Add(conv.id);
+            var nextConv = StoryData.Conversation(next);
+            if (nextConv != null) { Save(); PlayConversation(nextConv, activeTrigger); return; } // chained: keep camera and trigger state
+            activeConversation = null;
             if (orbitCam != null) orbitCam.ClearCutsceneOverride();
             SetTalking(null);
             var trig = activeTrigger; activeTrigger = null;
             if (trig != null) trig.EndDialogue(); else EventBus.RaiseDialogueEnd("story");
             if (!string.IsNullOrEmpty(conv.id))
             {
-                conversationsDone.Add(conv.id);
                 var cur = Current;
                 if (cur != null && cur.complete != null && cur.complete.type == "dialogue" && cur.complete.id == conv.id) Advance(true);
                 Save();

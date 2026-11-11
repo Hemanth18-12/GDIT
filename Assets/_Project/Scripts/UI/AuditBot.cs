@@ -212,8 +212,16 @@ namespace LegacyOfTemples.UI
                 }
                 Transform target = story.ResolveTarget(player.transform.position);
                 Line($"- [{story.ObjectiveIndex + 1}/{story.ObjectiveCount}] {o.id} \"{o.title}\" in {scene}: target={(target ? target.name : "NONE")}");
-                if (target == null && o.id != "obj_forensics") { fails++; yield return new WaitForSecondsRealtime(1f); continue; }
-                if (target == null) target = player.transform;
+                if (o.complete.type == "minigame")
+                {
+                    yield return new WaitForSecondsRealtime(1.5f);
+                    yield return Shot("pt-minigame-" + o.complete.id + ".png");
+                    Line("  minigame '" + o.complete.id + "': auto-completed by the bot (the mechanic itself is covered by PlayMode tests)");
+                    story.DebugCompleteCurrent();
+                    yield return new WaitForSecondsRealtime(1f);
+                    fails = 0; continue;
+                }
+                if (target == null) { fails++; yield return new WaitForSecondsRealtime(1f); continue; }
 
                 Vector3 fwd = target.forward; fwd.y = 0; if (fwd.sqrMagnitude < 0.01f) fwd = Vector3.forward;
                 if ((o.target ?? "") == "clues") { fwd = player.transform.position - target.position; fwd.y = 0; if (fwd.sqrMagnitude < 0.01f) fwd = Vector3.back; }
@@ -223,41 +231,7 @@ namespace LegacyOfTemples.UI
                 yield return new WaitForSecondsRealtime(0.8f);
                 int before = story.ObjectiveIndex;
                 string t = o.target ?? "";
-                if (o.id == "obj_hall_clues" && !Flashlight.On) { yield return Tap(Key.G); yield return new WaitForSecondsRealtime(0.5f); yield return Shot("pt-flashlight-Sanctum.png"); }
-                if (o.id == "obj_forensics")
-                {
-                    yield return Tap(Key.K); yield return new WaitForSecondsRealtime(0.5f);
-                    yield return Tap(Key.Digit1); yield return new WaitForSecondsRealtime(0.5f);
-                    yield return Shot("pt-forensics-feedback.png");
-                    yield return UiAudit("Forensic kit", Screen.width, Screen.height);
-                    yield return Tap(Key.Digit2); yield return new WaitForSecondsRealtime(0.5f);
-                    yield return Tap(Key.Digit2); yield return new WaitForSecondsRealtime(0.8f);
-                    Line($"  forensics: complete={story.ObjectiveIndex != before}");
-                    if (story.ObjectiveIndex == before) fails++; else fails = 0;
-                    continue;
-                }
-                if (o.id == "obj_follow")
-                {
-                    float until = Time.unscaledTime + 60f; bool shot = false;
-                    Hold(Key.C);
-                    while (story.Current != null && story.Current.id == "obj_follow" && Time.unscaledTime < until)
-                    {
-                        var st = JungleStealth.Instance;
-                        var rob = story.ResolveTarget(player.transform.position);
-                        if (st != null && rob != null)
-                        {
-                            Vector3 bp = rob.position - st.Direction * 8f; // beyond crouch sight (5.5 m), inside follow range
-                            if (Physics.Raycast(bp + Vector3.up * 2f, Vector3.down, out RaycastHit bh, 5f, ~0, QueryTriggerInteraction.Ignore)) bp.y = bh.point.y + 0.05f;
-                            player.Teleport(bp, Quaternion.LookRotation(st.Direction));
-                        }
-                        if (!shot && st != null && st.LookingBack) { shot = true; yield return Shot("pt-stealth-lookback.png"); }
-                        yield return new WaitForSecondsRealtime(0.25f);
-                    }
-                    Release();
-                    Line($"  stealth: complete={story.ObjectiveIndex != before}, resets={(JungleStealth.Instance != null ? JungleStealth.Instance.Resets : -1)}");
-                    if (story.ObjectiveIndex == before) fails++; else fails = 0;
-                    continue;
-                }
+                if (o.id == "obj_c2_search" && !Flashlight.On) { yield return Tap(Key.G); yield return new WaitForSecondsRealtime(0.5f); yield return Shot("pt-flashlight-Sanctum.png"); }
                 if (t == "puzzle")
                 {
                     yield return Tap(Key.E); yield return new WaitForSecondsRealtime(0.6f);
@@ -290,7 +264,7 @@ namespace LegacyOfTemples.UI
                     yield return Tap(Key.E); yield return new WaitForSecondsRealtime(1.2f);
                     if (DialogueActive())
                     {
-                        if (o.id == "obj_talk_pujari") yield return UiAuditAllResolutions("Dialogue");
+                        if (o.id == "obj_c1_pujari") yield return UiAuditAllResolutions("Dialogue");
                         yield return new WaitForSecondsRealtime(0.4f);
                         Line($"  voice playing: {(VoicePlayer.Instance != null ? VoicePlayer.Instance.LastPlayed : "none")}");
                         yield return FinishDialogue($"pt-dialogue-{o.id}.png");

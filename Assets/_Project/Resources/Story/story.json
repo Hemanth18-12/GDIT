@@ -1,644 +1,1556 @@
 {
-  "speakers": [
-    {
-      "id": "aryan",
-      "name": "Aryan",
-      "role": "Investigator",
-      "color": "#FFC857",
-      "npc": "investigator"
-    },
-    {
-      "id": "pujari",
-      "name": "Pujari Ananda",
-      "role": "Temple Priest",
-      "color": "#FFC857",
-      "npc": "priest"
-    },
-    {
-      "id": "meera",
-      "name": "Meera",
-      "role": "Village Girl",
-      "color": "#7FE0A0",
-      "npc": "villager"
-    },
-    {
-      "id": "bhaskar",
-      "name": "Bhaskar",
-      "role": "Red Scarf",
-      "color": "#FFB4A8",
-      "npc": "robber1"
-    },
-    {
-      "id": "kishore",
-      "name": "Kishore",
-      "role": "Black Hood",
-      "color": "#FFB4A8",
-      "npc": "robber2"
-    },
-    {
-      "id": "scroll",
-      "name": "Old Scroll",
-      "role": "Temple Record",
-      "color": "#5CE1E6",
-      "npc": ""
-    }
-  ],
-  "conversations": [
-    {
-      "id": "conv_courtyard_pujari",
-      "scene": "Courtyard",
-      "npc": "priest",
-      "lines": [
-        {
-          "s": "pujari",
-          "t": "Namaste. Three pieces are gone from our storage hall."
-        },
-        {
-          "s": "pujari",
-          "t": "A brass ceremonial vessel, a carved sandstone rosette, and a palm-leaf manuscript."
-        },
-        {
-          "s": "pujari",
-          "t": "Please find them before the festival."
-        },
-        {
-          "s": "aryan",
-          "t": "Stay calm and touch nothing. Every small detail matters."
-        },
-        {
-          "s": "aryan",
-          "t": "Did anyone see something?"
-        },
-        {
-          "s": "pujari",
-          "t": "Meera was up before sunrise. Ask her."
-        }
-      ],
-      "choices": [
-        {
-          "text": "Why do these pieces matter so much?",
-          "lines": [
-            {
-              "s": "pujari",
-              "t": "They carry the community's memory. Families have cared for them for generations."
-            },
-            {
-              "s": "pujari",
-              "t": "(These objects are fictional, made for this story.)"
-            }
-          ]
-        },
-        {
-          "text": "Who can open the storage hall?",
-          "lines": [
-            {
-              "s": "pujari",
-              "t": "Only temple staff know where the key is kept. That is what worries me."
-            }
-          ]
-        },
-        {
-          "text": "I'll start right away.",
-          "lines": [
-            {
-              "s": "aryan",
-              "t": "I'll speak to Meera, then see the hall."
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "conv_courtyard_meera",
-      "scene": "Courtyard",
-      "npc": "villager",
-      "lines": [
-        {
-          "s": "meera",
-          "t": "Before sunrise I saw two men near the storage door."
-        },
-        {
-          "s": "meera",
-          "t": "One wore a red scarf. The other wore a black hood."
-        },
-        {
-          "s": "aryan",
-          "t": "Thank you, Meera. That helps a lot."
-        }
-      ],
-      "choices": [
-        {
-          "text": "Which way did they run?",
-          "lines": [
-            {
-              "s": "meera",
-              "t": "Past the outer shrine, toward the old jungle path."
-            }
-          ]
-        },
-        {
-          "text": "Did they carry anything?",
-          "lines": [
-            {
-              "s": "meera",
-              "t": "Cloth bundles. They held them carefully, like they knew their worth."
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "conv_sanctum",
-      "scene": "Sanctum",
-      "npc": "priest",
-      "lines": [
-        {
-          "s": "aryan",
-          "t": "Three empty cloth-lined stands. Whoever came knew the hall."
-        },
-        {
-          "s": "pujari",
-          "t": "Only temple staff know where the key is kept."
-        },
-        {
-          "s": "aryan",
-          "t": "The lock was forced anyway. They wanted it to look like strangers."
-        },
-        {
-          "s": "pujari",
-          "t": "The outer shrine is through that passage. Go carefully."
-        }
-      ]
-    },
-    {
-      "id": "conv_shrine",
-      "scene": "ShrineCrime",
-      "npc": "priest",
-      "lines": [
-        {
-          "s": "aryan",
-          "t": "Muddy bootprints, two different sizes, and red silk caught on the door."
-        },
-        {
-          "s": "pujari",
-          "t": "That cloth is not ours."
-        },
-        {
-          "s": "aryan",
-          "t": "And a broken lamp. Someone knocked it over in a hurry."
-        },
-        {
-          "s": "aryan",
-          "t": "Two suspects: the red scarf and the black hood. Just as Meera said."
-        }
-      ],
-      "choices": [
-        {
-          "text": "Where does this trail lead?",
-          "lines": [
-            {
-              "s": "pujari",
-              "t": "Toward the old wall. Few people know it is a door."
-            }
-          ]
-        },
-        {
-          "text": "Could it be temple staff?",
-          "lines": [
-            {
-              "s": "aryan",
-              "t": "Someone told them about the key. But these boots are not from here."
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "conv_wall",
-      "scene": "PuzzleWall",
-      "npc": "priest",
-      "lines": [
-        {
-          "s": "pujari",
-          "t": "My grandfather spoke of a wall that opens when four symbols face the rising sun."
-        },
-        {
-          "s": "scroll",
-          "t": "Lotus, conch, wheel, kalash. Then turn the centre wheel."
-        },
-        {
-          "s": "aryan",
-          "t": "Four symbols in order, then the centre. Let's try."
-        }
-      ]
-    },
-    {
-      "id": "conv_wall_open",
-      "scene": "PuzzleWall",
-      "npc": "",
-      "lines": [
-        {
-          "s": "aryan",
-          "t": "The passage is open. They went this way."
-        }
-      ]
-    },
-    {
-      "id": "conv_jungle",
-      "scene": "JunglePath",
-      "npc": "robber1",
-      "lines": [
-        {
-          "s": "bhaskar",
-          "t": "Keep moving. The investigator is close."
-        },
-        {
-          "s": "kishore",
-          "t": "I told you the lamp would leave marks."
-        },
-        {
-          "s": "aryan",
-          "t": "It's over. Return what belongs to the community."
-        },
-        {
-          "s": "aryan",
-          "t": "Two boot sizes, your red silk on the door, and the lamp you broke."
-        },
-        {
-          "s": "bhaskar",
-          "t": "Do you know what these fetch?"
-        },
-        {
-          "s": "aryan",
-          "t": "Their value isn't money. It's memory."
-        }
-      ],
-      "choices": [
-        {
-          "text": "Put them down gently. No one needs to get hurt.",
-          "lines": [
-            {
-              "s": "kishore",
-              "t": "...He's right, Bhaskar. Put them down."
-            },
-            {
-              "s": "bhaskar",
-              "t": "Fine. Take them."
-            }
-          ]
-        },
-        {
-          "text": "The village already knows your faces.",
-          "lines": [
-            {
-              "s": "bhaskar",
-              "t": "...Then running is pointless. Here."
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "conv_return",
-      "scene": "Courtyard",
-      "npc": "priest",
-      "lines": [
-        {
-          "s": "aryan",
-          "t": "The vessel, the rosette, and the manuscript. All three, unharmed."
-        },
-        {
-          "s": "pujari",
-          "t": "You have returned more than objects. You returned our memory."
-        },
-        {
-          "s": "meera",
-          "t": "The festival can begin at sunrise!"
-        }
-      ]
-    }
-  ],
-  "objectives": [
-    {
-      "id": "obj_talk_pujari",
-      "scene": "Courtyard",
-      "title": "Speak with Pujari Ananda",
-      "instruction": "Walk to the priest at the temple steps and talk to him.",
-      "keys": "WASD to walk, E to talk",
-      "target": "npc:priest",
-      "area": "Temple steps",
-      "complete": {
-        "type": "dialogue",
-        "id": "conv_courtyard_pujari"
-      },
-      "hints": [
-        "Someone at the temple needs your help.",
-        "The priest in white stands near the temple steps ahead.",
-        "Walk to Pujari Ananda and press E when the prompt appears."
-      ]
-    },
-    {
-      "id": "obj_talk_meera",
-      "scene": "Courtyard",
-      "title": "Ask Meera what she saw",
-      "instruction": "Find Meera in the courtyard and talk to her.",
-      "keys": "E to talk, 1-3 to choose",
-      "target": "npc:villager",
-      "area": "Courtyard, beside the priest",
-      "complete": {
-        "type": "dialogue",
-        "id": "conv_courtyard_meera"
-      },
-      "hints": [
-        "A witness was awake before sunrise.",
-        "Meera wears a red and green saree, near the priest.",
-        "Walk to Meera and press E."
-      ]
-    },
-    {
-      "id": "obj_enter_hall",
-      "scene": "Courtyard",
-      "title": "Enter the storage hall",
-      "instruction": "Go through the temple doorway into the storage hall.",
-      "keys": "WASD to walk, E at the doorway",
-      "target": "exit:Sanctum",
-      "area": "Temple doorway",
-      "complete": {
-        "type": "scene",
-        "id": "Sanctum"
-      },
-      "hints": [
-        "The theft happened inside the temple.",
-        "The doorway is at the top of the temple steps.",
-        "Walk into the glowing doorway and press E."
-      ]
-    },
-    {
-      "id": "obj_hall_clues",
-      "scene": "Sanctum",
-      "title": "Search the storage hall",
-      "instruction": "The hall is dark. Turn on your flashlight, then inspect 3 clues.",
-      "keys": "G flashlight, F inspect, Esc close",
-      "target": "clues",
-      "area": "Storage hall",
-      "complete": {
-        "type": "clues",
-        "ids": [
-          "clue_broken_lock",
-          "clue_breached_case",
-          "clue_muddy_footprints"
-        ]
-      },
-      "hints": [
-        "It is too dark to see details. Use your flashlight.",
-        "Press G, then look at the stands, the lock and the floor.",
-        "Press G, walk to each glowing item and press F."
-      ]
-    },
-    {
-      "id": "obj_hall_pujari",
-      "scene": "Sanctum",
-      "title": "Tell the Pujari what you found",
-      "instruction": "Talk to Pujari Ananda about the clues.",
-      "keys": "E to talk",
-      "target": "npc:priest",
-      "area": "Storage hall",
-      "complete": {
-        "type": "dialogue",
-        "id": "conv_sanctum"
-      },
-      "hints": [
-        "The priest knows the hall best.",
-        "Pujari Ananda is in the hall with you.",
-        "Walk to the priest and press E."
-      ]
-    },
-    {
-      "id": "obj_go_shrine",
-      "scene": "Sanctum",
-      "title": "Go to the outer shrine",
-      "instruction": "Follow the passage to the outer shrine.",
-      "keys": "WASD to walk, E at the exit",
-      "target": "exit:ShrineCrime",
-      "area": "Back passage",
-      "complete": {
-        "type": "scene",
-        "id": "ShrineCrime"
-      },
-      "hints": [
-        "The thieves left another way.",
-        "A passage leads to the outer shrine.",
-        "Walk to the passage marked Outer Shrine and press E."
-      ]
-    },
-    {
-      "id": "obj_shrine_clues",
-      "scene": "ShrineCrime",
-      "title": "Examine the shrine",
-      "instruction": "Inspect the red silk and the escape sketch.",
-      "keys": "F to inspect",
-      "target": "clues",
-      "area": "Outer shrine",
-      "complete": {
-        "type": "clues",
-        "ids": [
-          "clue_fabric_fragment",
-          "clue_ancient_map"
-        ]
-      },
-      "hints": [
-        "Something was torn on the way out.",
-        "Check the doorframe and the ground near the lamp.",
-        "Walk to each glowing item and press F."
-      ]
-    },
-    {
-      "id": "obj_forensics",
-      "scene": "ShrineCrime",
-      "title": "Compare the evidence",
-      "instruction": "Open the forensic kit and match the bootprints and the red silk.",
-      "keys": "K forensic kit, 1-3 answer",
-      "target": "",
-      "area": "Outer shrine",
-      "complete": {
-        "type": "minigame",
-        "id": "forensics"
-      },
-      "hints": [
-        "Think about what two boot sizes mean.",
-        "Two sizes means two people. The silk is red.",
-        "Press K, answer 2 (two people), then 2 (Bhaskar's red scarf)."
-      ]
-    },
-    {
-      "id": "obj_shrine_pujari",
-      "scene": "ShrineCrime",
-      "title": "Work out who did it",
-      "instruction": "Talk to the Pujari and put the clues together.",
-      "keys": "E to talk",
-      "target": "npc:priest",
-      "area": "Outer shrine",
-      "complete": {
-        "type": "dialogue",
-        "id": "conv_shrine"
-      },
-      "hints": [
-        "You have enough clues now.",
-        "Discuss them with Pujari Ananda.",
-        "Walk to the priest and press E."
-      ]
-    },
-    {
-      "id": "obj_go_wall",
-      "scene": "ShrineCrime",
-      "title": "Follow the trail to the old wall",
-      "instruction": "Take the exit toward the ancient wall.",
-      "keys": "WASD to walk, E at the exit",
-      "target": "exit:PuzzleWall",
-      "area": "Shrine exit",
-      "complete": {
-        "type": "scene",
-        "id": "PuzzleWall"
-      },
-      "hints": [
-        "The trail continues.",
-        "The exit to the ancient wall is past the shrine.",
-        "Walk to the exit marked Surya Chakra Wall and press E."
-      ]
-    },
-    {
-      "id": "obj_wall_pujari",
-      "scene": "PuzzleWall",
-      "title": "Hear the legend of the wall",
-      "instruction": "Talk to Pujari Ananda about the wall.",
-      "keys": "E to talk",
-      "target": "npc:priest",
-      "area": "Wall chamber",
-      "complete": {
-        "type": "dialogue",
-        "id": "conv_wall"
-      },
-      "hints": [
-        "The priest remembers an old story.",
-        "Pujari Ananda stands near the wall.",
-        "Walk to the priest and press E."
-      ]
-    },
-    {
-      "id": "obj_solve_wall",
-      "scene": "PuzzleWall",
-      "title": "Open the sun wall",
-      "instruction": "Turn the symbols: lotus, conch, wheel, kalash. Then the centre wheel.",
-      "keys": "E to use, 1-3 pick ring, W/S turn",
-      "target": "puzzle",
-      "area": "Centre of the wall",
-      "complete": {
-        "type": "puzzle",
-        "id": "chakra_wall"
-      },
-      "hints": [
-        "The scroll gave an order.",
-        "Lotus, conch, wheel, kalash must face the sun at the top.",
-        "Use the wall (E), set each ring with 1-3 and W/S in that order, then turn the centre."
-      ]
-    },
-    {
-      "id": "obj_go_jungle",
-      "scene": "PuzzleWall",
-      "title": "Go through the open passage",
-      "instruction": "Walk through the passage into the jungle.",
-      "keys": "WASD to walk, E at the passage",
-      "target": "exit:JunglePath",
-      "area": "Open passage",
-      "complete": {
-        "type": "scene",
-        "id": "JunglePath"
-      },
-      "hints": [
-        "The wall has opened.",
-        "The passage is in the wall.",
-        "Walk into the passage and press E."
-      ]
-    },
-    {
-      "id": "obj_follow",
-      "scene": "JunglePath",
-      "title": "Follow the two men unseen",
-      "instruction": "Stay behind them. When they look back, crouch or hide behind rocks.",
-      "keys": "WASD follow, C crouch",
-      "target": "npc:robber1",
-      "area": "Jungle trail",
-      "complete": {
-        "type": "minigame",
-        "id": "stealth"
-      },
-      "hints": [
-        "Keep your distance and watch them.",
-        "When they stop and turn around, crouch or stand behind a rock.",
-        "Stay about 8 m behind, hold C when the panel says they are looking back."
-      ]
-    },
-    {
-      "id": "obj_confront",
-      "scene": "JunglePath",
-      "title": "Confront the two men",
-      "instruction": "Approach Bhaskar and Kishore and talk calmly.",
-      "keys": "E to talk, 1-2 to choose",
-      "target": "npc:robber1",
-      "area": "Jungle clearing",
-      "complete": {
-        "type": "dialogue",
-        "id": "conv_jungle"
-      },
-      "hints": [
-        "The thieves are ahead.",
-        "Two men argue in the clearing near the torches.",
-        "Walk to Bhaskar (red scarf) and press E."
-      ]
-    },
-    {
-      "id": "obj_recover",
-      "scene": "JunglePath",
-      "title": "Recover the three pieces",
-      "instruction": "Pick up the vessel, the rosette and the manuscript.",
-      "keys": "F to pick up",
-      "target": "clues",
-      "area": "Jungle clearing",
-      "complete": {
-        "type": "clues",
-        "ids": [
-          "relic_pradip",
-          "relic_rosette",
-          "relic_manuscript"
-        ]
-      },
-      "hints": [
-        "They set the pieces down.",
-        "The three pieces lie on the ground near the men.",
-        "Walk to each glowing piece and press F."
-      ]
-    },
-    {
-      "id": "obj_return",
-      "scene": "Courtyard",
-      "title": "Return the pieces to the Pujari",
-      "instruction": "Give the three pieces back to Pujari Ananda at sunrise.",
-      "keys": "E to talk",
-      "target": "npc:priest",
-      "area": "Temple steps",
-      "complete": {
-        "type": "dialogue",
-        "id": "conv_return"
-      },
-      "hints": [
-        "The temple is waiting.",
-        "Pujari Ananda is at the temple steps.",
-        "Walk to the priest and press E."
-      ]
-    }
-  ],
-  "ending": {
-    "text": "Every temple holds a story. Every artifact carries a memory. Protecting heritage means protecting our history.",
-    "title": "MISSION COMPLETED"
+ "version": 2,
+ "speakers": [
+  {
+   "id": "aryan",
+   "name": "Aryan",
+   "role": "Investigator",
+   "color": "#FFC857",
+   "npc": "investigator"
+  },
+  {
+   "id": "pujari",
+   "name": "Pujari Ananda",
+   "role": "Temple Priest",
+   "color": "#FFC857",
+   "npc": "priest"
+  },
+  {
+   "id": "meera",
+   "name": "Meera",
+   "role": "Village Girl",
+   "color": "#7FE0A0",
+   "npc": "villager"
+  },
+  {
+   "id": "bhaskar",
+   "name": "Bhaskar",
+   "role": "Red Scarf",
+   "color": "#FFB4A8",
+   "npc": "robber1"
+  },
+  {
+   "id": "kishore",
+   "name": "Kishore",
+   "role": "Porter No. 17",
+   "color": "#FFB4A8",
+   "npc": "robber2"
+  },
+  {
+   "id": "scroll",
+   "name": "Old Scroll",
+   "role": "Temple Record",
+   "color": "#5CE1E6",
+   "npc": ""
   }
+ ],
+ "chapters": [
+  {
+   "id": "ch1",
+   "n": 1,
+   "title": "3:10 AM",
+   "scene": "Courtyard",
+   "budget": 25,
+   "image": "loading_01_dawn_courtyard",
+   "weather": 0.25
+  },
+  {
+   "id": "ch2",
+   "n": 2,
+   "title": "THE EMPTY STANDS",
+   "scene": "Sanctum",
+   "budget": 30,
+   "image": "loading_04_shrine",
+   "weather": 0.4
+  },
+  {
+   "id": "ch3",
+   "n": 3,
+   "title": "TRACKS IN THE DARK",
+   "scene": "ShrineCrime",
+   "budget": 25,
+   "image": "loading_02_gate_night",
+   "weather": 0.8
+  },
+  {
+   "id": "ch4",
+   "n": 4,
+   "title": "THE WALL THAT REMEMBERS",
+   "scene": "PuzzleWall",
+   "budget": 35,
+   "image": "loading_02_gate_night",
+   "weather": 0.3
+  },
+  {
+   "id": "ch5",
+   "n": 5,
+   "title": "BEFORE FIRST LIGHT",
+   "scene": "JunglePath",
+   "budget": 40,
+   "image": "loading_03_jungle_path",
+   "weather": 1.0
+  },
+  {
+   "id": "ch6",
+   "n": 6,
+   "title": "FIRST LIGHT",
+   "scene": "Courtyard",
+   "budget": 0,
+   "image": "loading_01_dawn_courtyard",
+   "weather": 0.0
+  }
+ ],
+ "conversations": [
+  {
+   "id": "conv_c0",
+   "scene": "",
+   "npc": "",
+   "lines": [
+    {
+     "id": "c0_kis_01",
+     "s": "kishore",
+     "tier": "calm",
+     "t": "We take only what we were told, Bhaskar. Nothing more."
+    },
+    {
+     "id": "c0_bha_01",
+     "s": "bhaskar",
+     "tier": "calm",
+     "t": "Quiet. The wall opens at first light, and we will not be late."
+    },
+    {
+     "id": "c0_kis_02",
+     "s": "kishore",
+     "tier": "calm",
+     "t": "These stands have never been empty. Not once in my life."
+    },
+    {
+     "id": "c0_bha_02",
+     "s": "bhaskar",
+     "tier": "firm",
+     "t": "Then tonight you learn something new. Move."
+    }
+   ]
+  },
+  {
+   "id": "conv_c1_pujari",
+   "scene": "Courtyard",
+   "npc": "priest",
+   "lines": [
+    {
+     "id": "c1_puj_01",
+     "s": "pujari",
+     "tier": "calm",
+     "t": "Aryan-ji, they came before the lamps burned low. Three pieces are gone."
+    },
+    {
+     "id": "c1_puj_02",
+     "s": "pujari",
+     "tier": "calm",
+     "t": "The Surya Pradeepa, the Padma Shila, and the Tala Patra. All three."
+    },
+    {
+     "id": "c1_ary_01",
+     "s": "aryan",
+     "tier": "calm",
+     "t": "Tell me what only you would notice."
+    },
+    {
+     "id": "c1_puj_03",
+     "s": "pujari",
+     "tier": "calm",
+     "t": "The key was in its place. The lock was not forced from outside."
+    },
+    {
+     "id": "c1_ary_02",
+     "s": "aryan",
+     "tier": "calm",
+     "t": "Then someone gave them the way in."
+    },
+    {
+     "id": "c1_puj_04",
+     "s": "pujari",
+     "tier": "firm",
+     "t": "The dawn rite is at 5:45. Without them, I have nothing to light and nothing to read."
+    },
+    {
+     "id": "c1_ary_03",
+     "s": "aryan",
+     "tier": "calm",
+     "t": "Then we have until sunrise. Who was awake?"
+    },
+    {
+     "id": "c1_puj_05",
+     "s": "pujari",
+     "tier": "calm",
+     "t": "Meera. She draws water before anyone else is up."
+    }
+   ]
+  },
+  {
+   "id": "conv_c1_meera",
+   "scene": "Courtyard",
+   "npc": "villager",
+   "lines": [
+    {
+     "id": "c1_mee_01",
+     "s": "meera",
+     "tier": "firm",
+     "t": "I saw two men. A red scarf and a black hood."
+    },
+    {
+     "id": "c1_ary_04",
+     "s": "aryan",
+     "tier": "calm",
+     "t": "You looked longer at one of them."
+    },
+    {
+     "id": "c1_mee_02",
+     "s": "meera",
+     "tier": "firm",
+     "t": "It was dark."
+    }
+   ],
+   "prompt": "PRESS THE POINT: which of her answers does not fit?",
+   "choices": [
+    {
+     "id": "C1-T-1",
+     "text": "\"I saw two men.\"",
+     "effects": "clock-1",
+     "lines": [
+      {
+       "id": "c1_mee_06",
+       "s": "meera",
+       "tier": "firm",
+       "t": "I saw what I saw. Ask the Pujari if you doubt me."
+      }
+     ],
+     "next": "conv_c1_meera_b"
+    },
+    {
+     "id": "C1-T-2",
+     "text": "\"A red scarf and a black hood.\"",
+     "effects": "clock-1",
+     "lines": [
+      {
+       "id": "c1_mee_07",
+       "s": "meera",
+       "tier": "firm",
+       "t": "You asked what I saw. That is what I saw."
+      }
+     ],
+     "next": "conv_c1_meera_b"
+    },
+    {
+     "id": "C1-T-3",
+     "text": "\"It was dark.\"",
+     "effects": "tell_found=1",
+     "lines": [
+      {
+       "id": "c1_ary_12",
+       "s": "aryan",
+       "tier": "calm",
+       "t": "Dark. Yet you counted a scarf and a hood."
+      }
+     ],
+     "next": "conv_c1_meera_b"
+    }
+   ]
+  },
+  {
+   "id": "conv_c1_meera_b",
+   "scene": "Courtyard",
+   "npc": "villager",
+   "lines": [
+    {
+     "id": "c1_ary_13",
+     "s": "aryan",
+     "tier": "calm",
+     "t": "Meera. One of those men, you knew."
+    }
+   ],
+   "prompt": "HOW DO YOU HANDLE HER?",
+   "choices": [
+    {
+     "id": "C1-A-1",
+     "text": "Gentle: \"You are safe telling me.\"",
+     "effects": "trust_meera+1;chase_hint=1",
+     "lines": [
+      {
+       "id": "c1_ary_05",
+       "s": "aryan",
+       "tier": "calm",
+       "t": "Whatever you saw, you are safe telling me. When you are ready."
+      },
+      {
+       "id": "c1_mee_03",
+       "s": "meera",
+       "tier": "calm",
+       "t": "...They went toward the east wall. That is all."
+      }
+     ]
+    },
+    {
+     "id": "C1-A-2",
+     "text": "Hard: \"I do not have time for a lie.\"",
+     "effects": "trust_meera-1",
+     "lines": [
+      {
+       "id": "c1_ary_06",
+       "s": "aryan",
+       "tier": "firm",
+       "t": "Dark enough to hide a lie. I do not have time for one."
+      },
+      {
+       "id": "c1_mee_04",
+       "s": "meera",
+       "tier": "firm",
+       "t": "Then stop wasting it on me."
+      }
+     ]
+    },
+    {
+     "id": "C1-A-3",
+     "text": "Say nothing. Write it down.",
+     "effects": "chase_hint=1",
+     "lines": [
+      {
+       "id": "c1_ary_07",
+       "s": "aryan",
+       "tier": "calm",
+       "t": "Mm."
+      },
+      {
+       "id": "c1_mee_05",
+       "s": "meera",
+       "tier": "calm",
+       "t": "What did you write?"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "conv_c2_token",
+   "scene": "Sanctum",
+   "npc": "priest",
+   "lines": [
+    {
+     "id": "c2_puj_02",
+     "s": "pujari",
+     "tier": "firm",
+     "t": "Number seventeen. Kishore. Our porter until last monsoon."
+    },
+    {
+     "id": "c2_puj_03",
+     "s": "pujari",
+     "tier": "calm",
+     "t": "I dismissed him myself. I thought it was the kinder thing."
+    },
+    {
+     "id": "c2_mee_01",
+     "s": "meera",
+     "tier": "firm",
+     "t": "Don't hurt him. He is my brother."
+    },
+    {
+     "id": "c2_ary_06",
+     "s": "aryan",
+     "tier": "calm",
+     "t": "You knew his voice in the dark."
+    },
+    {
+     "id": "c2_mee_02",
+     "s": "meera",
+     "tier": "calm",
+     "t": "I knew it before I saw the scarf. I have been paying his debt since the rains."
+    }
+   ],
+   "prompt": "MEERA LIED TO YOU. WHAT NOW?",
+   "choices": [
+    {
+     "id": "C2-A-1",
+     "text": "Trust her: \"Help me reach him.\"",
+     "effects": "trust_meera+1;porter_path=1",
+     "lines": [
+      {
+       "id": "c2_ary_07",
+       "s": "aryan",
+       "tier": "calm",
+       "t": "Then help me reach him before Bhaskar does something worse."
+      },
+      {
+       "id": "c2_mee_03",
+       "s": "meera",
+       "tier": "calm",
+       "t": "The porters have a path. I will mark it in chalk."
+      }
+     ]
+    },
+    {
+     "id": "C2-A-2",
+     "text": "Reprimand: \"You cost me an hour.\"",
+     "effects": "trust_meera-1;meera_out=1",
+     "lines": [
+      {
+       "id": "c2_ary_08",
+       "s": "aryan",
+       "tier": "firm",
+       "t": "You cost me an hour I did not have. Stay with the Pujari."
+      },
+      {
+       "id": "c2_mee_04",
+       "s": "meera",
+       "tier": "firm",
+       "t": "And you will cost me a brother."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "conv_c3",
+   "scene": "ShrineCrime",
+   "npc": "priest",
+   "lines": [
+    {
+     "id": "c3_ary_05",
+     "s": "aryan",
+     "tier": "calm",
+     "t": "\"Ford at moonset. Sun Wall at first light.\""
+    },
+    {
+     "id": "c3_ary_06",
+     "s": "aryan",
+     "tier": "firm",
+     "t": "They are not selling. They are opening something."
+    },
+    {
+     "id": "c3_puj_01",
+     "s": "pujari",
+     "tier": "firm",
+     "t": "The Sun Wall. It needs all three."
+    },
+    {
+     "id": "c3_puj_02",
+     "s": "pujari",
+     "tier": "calm",
+     "t": "Behind it lie our records. Every family that ever served this temple."
+    },
+    {
+     "id": "c3_ary_07",
+     "s": "aryan",
+     "tier": "calm",
+     "t": "And things a buyer would pay a great deal for."
+    }
+   ],
+   "prompt": "MEERA HAS FOLLOWED YOU HERE.",
+   "choices": [
+    {
+     "id": "C3-A-1",
+     "text": "Carry her message to Kishore",
+     "effects": "trust_meera+1;has_message=1",
+     "lines": [
+      {
+       "id": "c3_mee_01",
+       "s": "meera",
+       "tier": "calm",
+       "t": "Tell him the debt is paid. I sold the bangles. He owes Bhaskar nothing."
+      },
+      {
+       "id": "c3_ary_09",
+       "s": "aryan",
+       "tier": "calm",
+       "t": "I will tell him. In your words."
+      }
+     ],
+     "when": "meera_out==0"
+    },
+    {
+     "id": "C3-A-2",
+     "text": "Send her home",
+     "effects": "",
+     "lines": [
+      {
+       "id": "c3_ary_10",
+       "s": "aryan",
+       "tier": "firm",
+       "t": "This stopped being a family matter at 3:10. Go home, Meera."
+      },
+      {
+       "id": "c3_mee_02",
+       "s": "meera",
+       "tier": "calm",
+       "t": "It was never anything else."
+      }
+     ],
+     "when": "meera_out==0"
+    }
+   ]
+  },
+  {
+   "id": "conv_c4",
+   "scene": "PuzzleWall",
+   "npc": "priest",
+   "lines": [
+    {
+     "id": "c4_puj_01",
+     "s": "pujari",
+     "tier": "calm",
+     "t": "It is closed again. They tried, and the wall refused them."
+    },
+    {
+     "id": "c4_scr_01",
+     "s": "scroll",
+     "tier": "calm",
+     "t": "Lotus for the waking. Conch for the call. Wheel for the road. Kalash for the return."
+    },
+    {
+     "id": "c4_scr_02",
+     "s": "scroll",
+     "tier": "calm",
+     "t": "Then the heart of the wall, and the sun will do the rest."
+    },
+    {
+     "id": "c4_ary_01",
+     "s": "aryan",
+     "tier": "calm",
+     "t": "The centre socket is empty. The Padma Shila is the key, and Bhaskar has it."
+    },
+    {
+     "id": "c4_puj_02",
+     "s": "pujari",
+     "tier": "calm",
+     "t": "My grandfather spoke of a hand-wheel, for the years the stone was away for repair."
+    },
+    {
+     "id": "c4_puj_03",
+     "s": "pujari",
+     "tier": "firm",
+     "t": "Turn the four, and the wheel will turn by hand."
+    }
+   ]
+  },
+  {
+   "id": "conv_c4_open",
+   "scene": "PuzzleWall",
+   "npc": "",
+   "lines": [
+    {
+     "id": "c4_ary_03",
+     "s": "aryan",
+     "tier": "calm",
+     "t": "The passage is open. Boot prints, two sizes, heading into the trees."
+    },
+    {
+     "id": "c4_ary_04",
+     "s": "aryan",
+     "tier": "firm",
+     "t": "Dawn in forty minutes."
+    },
+    {
+     "id": "c4_puj_05",
+     "s": "pujari",
+     "tier": "calm",
+     "t": "Bring them home, Aryan-ji. And bring that foolish boy home too."
+    }
+   ]
+  },
+  {
+   "id": "conv_c5_confront",
+   "scene": "JunglePath",
+   "npc": "",
+   "lines": [
+    {
+     "id": "c5_bha_05",
+     "s": "bhaskar",
+     "tier": "firm",
+     "t": "The investigator. Persistent. I respect that. It will not save you."
+    },
+    {
+     "id": "c5_ary_01",
+     "s": "aryan",
+     "tier": "firm",
+     "t": "Put the satchel down, Bhaskar. This ends quietly or it ends badly."
+    },
+    {
+     "id": "c5_bha_06",
+     "s": "bhaskar",
+     "tier": "calm",
+     "t": "You will starve with a clean conscience."
+    }
+   ]
+  },
+  {
+   "id": "conv_c5_after",
+   "scene": "JunglePath",
+   "npc": "",
+   "lines": [
+    {
+     "id": "c5_kis_09",
+     "s": "kishore",
+     "tier": "calm",
+     "t": "Take it. Tell Meera I am sorry."
+    },
+    {
+     "id": "c5_ary_08",
+     "s": "aryan",
+     "tier": "calm",
+     "t": "Tell her yourself."
+    },
+    {
+     "id": "c5_bha_10",
+     "s": "bhaskar",
+     "tier": "calm",
+     "t": "There will be another night, investigator. There is always a buyer."
+    },
+    {
+     "id": "c5_ary_09",
+     "s": "aryan",
+     "tier": "calm",
+     "t": "And there will always be someone who says no."
+    }
+   ]
+  },
+  {
+   "id": "conv_c6",
+   "scene": "Courtyard",
+   "npc": "priest",
+   "lines": [
+    {
+     "id": "c6_puj_01",
+     "s": "pujari",
+     "tier": "calm",
+     "t": "You kept your word, Aryan-ji. All three, and before the sun.",
+     "when": "late==0"
+    },
+    {
+     "id": "c6_puj_02",
+     "s": "pujari",
+     "tier": "calm",
+     "t": "The sun is up without us. We will light it late, but we will light it.",
+     "when": "late==1"
+    },
+    {
+     "id": "c6_mee_01",
+     "s": "meera",
+     "tier": "calm",
+     "t": "You came back. I did not think you would come back."
+    },
+    {
+     "id": "c6_kis_10",
+     "s": "kishore",
+     "tier": "calm",
+     "t": "I carried it out. Let me be the one to carry it in."
+    },
+    {
+     "id": "c6_ary_01",
+     "s": "aryan",
+     "tier": "calm",
+     "t": "He will face the law, and your word will matter."
+    },
+    {
+     "id": "c6_ary_02",
+     "s": "aryan",
+     "tier": "calm",
+     "t": "So will mine. I saw what he did when it counted.",
+     "when": "kishore_turned==1"
+    },
+    {
+     "id": "c6_puj_03",
+     "s": "pujari",
+     "tier": "calm",
+     "t": "The flame goes from house to house. It always has. It will today."
+    }
+   ]
+  }
+ ],
+ "objectives": [
+  {
+   "id": "obj_c1_pujari",
+   "chapter": "ch1",
+   "scene": "Courtyard",
+   "title": "Speak with Pujari Ananda",
+   "instruction": "Walk to the priest at the temple steps and talk to him.",
+   "keys": "WASD walk, E talk",
+   "target": "npc:priest",
+   "area": "Temple steps",
+   "complete": {
+    "type": "dialogue",
+    "id": "conv_c1_pujari"
+   },
+   "hints": [
+    "Someone at the temple is waiting for you.",
+    "The priest stands near the temple steps ahead.",
+    "Walk to Pujari Ananda and press E."
+   ]
+  },
+  {
+   "id": "obj_c1_meera",
+   "chapter": "ch1",
+   "scene": "Courtyard",
+   "title": "Question Meera",
+   "instruction": "Talk to Meera. Listen for the answer that does not fit, then decide how to handle her.",
+   "keys": "E talk, 1-3 choose",
+   "target": "npc:villager",
+   "area": "Near the well",
+   "complete": {
+    "type": "dialogue",
+    "id": "conv_c1_meera_b"
+   },
+   "hints": [
+    "Meera was awake before anyone.",
+    "She stands to the right of the temple steps.",
+    "Press E beside Meera. \"It was dark\" is the answer that does not fit."
+   ],
+   "start": "conv_c1_meera"
+  },
+  {
+   "id": "obj_c1_chase",
+   "chapter": "ch1",
+   "scene": "Courtyard",
+   "title": "Catch the runner",
+   "instruction": "A hooded figure is running along the east wall. Sprint after him before he gets away.",
+   "keys": "Shift sprint, Space hop",
+   "target": "obj:Marker_Runner",
+   "area": "East wall",
+   "complete": {
+    "type": "minigame",
+    "id": "chase_c1"
+   },
+   "hints": [
+    "Someone was listening.",
+    "Hold Shift and W. Stay within 25 metres of him.",
+    "Follow the small marker. He drops something at the last corner."
+   ]
+  },
+  {
+   "id": "obj_c1_token",
+   "chapter": "ch1",
+   "scene": "Courtyard",
+   "title": "Pick up what he dropped",
+   "instruction": "The runner dropped something small and metal. Inspect it.",
+   "keys": "E inspect",
+   "target": "clues",
+   "area": "East wall",
+   "complete": {
+    "type": "clues",
+    "ids": [
+     "clue_token17"
+    ]
+   },
+   "hints": [
+    "He dropped something as he ran.",
+    "Look on the ground where the runner turned.",
+    "Walk to the tin token and press E."
+   ]
+  },
+  {
+   "id": "obj_c1_enter",
+   "chapter": "ch1",
+   "scene": "Courtyard",
+   "title": "Enter the storage hall",
+   "instruction": "Go into the storage hall where the three pieces were kept.",
+   "keys": "E enter",
+   "target": "exit:Sanctum",
+   "area": "Temple door",
+   "complete": {
+    "type": "scene",
+    "id": "Sanctum"
+   },
+   "hints": [
+    "The theft happened inside.",
+    "The storage hall is through the temple door.",
+    "Walk to the door and press E."
+   ]
+  },
+  {
+   "id": "obj_c2_search",
+   "chapter": "ch2",
+   "scene": "Sanctum",
+   "title": "Search the dark hall",
+   "instruction": "The lamps are out. Turn on your flashlight and find three clues. Watch the battery.",
+   "keys": "G flashlight, E inspect",
+   "target": "clues",
+   "area": "Storage hall",
+   "complete": {
+    "type": "clues",
+    "ids": [
+     "clue_broken_lock",
+     "clue_breached_case",
+     "clue_muddy_footprints"
+    ]
+   },
+   "hints": [
+    "It is too dark to see detail without light.",
+    "Press G. Look at the lock, the stands and the floor.",
+    "Follow the marker to each clue and press E. Spare cells glow faintly blue."
+   ]
+  },
+  {
+   "id": "obj_c2_lamps",
+   "chapter": "ch2",
+   "scene": "Sanctum",
+   "title": "Relight the five lamps",
+   "instruction": "Light the wall lamps in the order the sun travels: east first. A wrong lamp blows them all out.",
+   "keys": "E light a lamp",
+   "target": "obj:Marker_Lamps",
+   "area": "Hall walls",
+   "complete": {
+    "type": "minigame",
+    "id": "lamps"
+   },
+   "hints": [
+    "The Pujari said: east first, as the sun does.",
+    "Each lamp has a sun carving: sunrise, morning, noon, afternoon, dusk.",
+    "Order: Sunrise, Morning, Noon, Afternoon, Dusk."
+   ]
+  },
+  {
+   "id": "obj_c2_pujari",
+   "chapter": "ch2",
+   "scene": "Sanctum",
+   "title": "Show the token to the Pujari",
+   "instruction": "Show porter token No. 17 to Pujari Ananda.",
+   "keys": "E talk",
+   "target": "npc:priest",
+   "area": "Storage hall",
+   "complete": {
+    "type": "dialogue",
+    "id": "conv_c2_token"
+   },
+   "hints": [
+    "Someone here knows whose token that is.",
+    "The Pujari is waiting in the hall.",
+    "Walk to Pujari Ananda and press E."
+   ]
+  },
+  {
+   "id": "obj_c2_deduce",
+   "chapter": "ch2",
+   "scene": "Sanctum",
+   "title": "Work out how they got in",
+   "instruction": "Open the deduction board and match each clue to what it proves.",
+   "keys": "B board, 1-3 choose",
+   "target": "",
+   "area": "Anywhere in the hall",
+   "complete": {
+    "type": "minigame",
+    "id": "deduction"
+   },
+   "hints": [
+    "Three clues, three conclusions.",
+    "Press B to open the deduction board.",
+    "Key: inside help. Handprint: a careful carrier. Chalk: a guide for the second man."
+   ]
+  },
+  {
+   "id": "obj_c2_exit",
+   "chapter": "ch2",
+   "scene": "Sanctum",
+   "title": "Go to the outer shrine",
+   "instruction": "Follow the trail out to the outer shrine.",
+   "keys": "E enter",
+   "target": "exit:ShrineCrime",
+   "area": "Hall exit",
+   "complete": {
+    "type": "scene",
+    "id": "ShrineCrime"
+   },
+   "hints": [
+    "The trail leads outside.",
+    "Find the exit toward the outer shrine.",
+    "Walk to the exit and press E."
+   ]
+  },
+  {
+   "id": "obj_c3_traps",
+   "chapter": "ch3",
+   "scene": "ShrineCrime",
+   "title": "Disarm the bell traps",
+   "instruction": "Threads with bells cross the forecourt. Crouch beside each one and disarm it. Do not walk through them.",
+   "keys": "C crouch, hold E disarm",
+   "target": "obj:Marker_Trap",
+   "area": "Shrine forecourt",
+   "complete": {
+    "type": "minigame",
+    "id": "traps"
+   },
+   "hints": [
+    "They expected to be followed.",
+    "The threads glint in your flashlight beam. Crouch with C next to one.",
+    "Press E when the moving mark is inside the green zone, three times per trap."
+   ]
+  },
+  {
+   "id": "obj_c3_clues",
+   "chapter": "ch3",
+   "scene": "ShrineCrime",
+   "title": "Examine the evidence",
+   "instruction": "Inspect the red silk and the torn note.",
+   "keys": "E inspect",
+   "target": "clues",
+   "area": "Shrine doorway",
+   "complete": {
+    "type": "clues",
+    "ids": [
+     "clue_fabric_fragment",
+     "clue_ancient_map"
+    ]
+   },
+   "hints": [
+    "Two things were left behind at the door.",
+    "Look at the doorframe and the floor near it.",
+    "Follow the marker to each and press E."
+   ]
+  },
+  {
+   "id": "obj_c3_forensics",
+   "chapter": "ch3",
+   "scene": "ShrineCrime",
+   "title": "Use the forensic kit",
+   "instruction": "Measure the bootprints, test the lamp and join the torn note.",
+   "keys": "K kit, A/D adjust, E confirm",
+   "target": "",
+   "area": "Shrine forecourt",
+   "complete": {
+    "type": "minigame",
+    "id": "forensics"
+   },
+   "hints": [
+    "The prints, the lamp and the note still have things to say.",
+    "Press K to open the kit. There are three tasks.",
+    "Line the ruler up with each print, hold the lamp test, and rotate the pieces until they join."
+   ]
+  },
+  {
+   "id": "obj_c3_pujari",
+   "chapter": "ch3",
+   "scene": "ShrineCrime",
+   "title": "Tell the Pujari what the note says",
+   "instruction": "Read the note to Pujari Ananda.",
+   "keys": "E talk",
+   "target": "npc:priest",
+   "area": "Outer shrine",
+   "complete": {
+    "type": "dialogue",
+    "id": "conv_c3"
+   },
+   "hints": [
+    "The note names a place.",
+    "The Pujari is close by.",
+    "Walk to Pujari Ananda and press E."
+   ]
+  },
+  {
+   "id": "obj_c3_exit",
+   "chapter": "ch3",
+   "scene": "ShrineCrime",
+   "title": "Go to the Sun Wall",
+   "instruction": "Take the passage to the Sun Wall.",
+   "keys": "E enter",
+   "target": "exit:PuzzleWall",
+   "area": "Passage",
+   "complete": {
+    "type": "scene",
+    "id": "PuzzleWall"
+   },
+   "hints": [
+    "The note said: Sun Wall at first light.",
+    "Find the passage to the Sun Wall.",
+    "Walk to the exit and press E."
+   ]
+  },
+  {
+   "id": "obj_c4_pujari",
+   "chapter": "ch4",
+   "scene": "PuzzleWall",
+   "title": "Hear the scroll",
+   "instruction": "Ask Pujari Ananda how the wall opens.",
+   "keys": "E talk",
+   "target": "npc:priest",
+   "area": "Before the wall",
+   "complete": {
+    "type": "dialogue",
+    "id": "conv_c4"
+   },
+   "hints": [
+    "The wall has an order.",
+    "The Pujari knows the old scroll.",
+    "Walk to Pujari Ananda and press E."
+   ]
+  },
+  {
+   "id": "obj_c4_wall",
+   "chapter": "ch4",
+   "scene": "PuzzleWall",
+   "title": "Open the Sun Wall",
+   "instruction": "Turn the four symbols in the scroll's order, then crank the centre by hand before the wall resets.",
+   "keys": "E use, 1-4 symbols, A/D crank",
+   "target": "puzzle",
+   "area": "The wall",
+   "complete": {
+    "type": "puzzle",
+    "id": "chakra_wall"
+   },
+   "hints": [
+    "Lotus, conch, wheel, kalash. Then the heart.",
+    "Press E at the wall. The timer resets the wall, so be quick.",
+    "Press 1, 2, 3, 4, then Enter and alternate A and D to crank."
+   ]
+  },
+  {
+   "id": "obj_c4_exit",
+   "chapter": "ch4",
+   "scene": "PuzzleWall",
+   "title": "Follow them into the jungle",
+   "instruction": "The passage is open. Follow the boot prints.",
+   "keys": "E enter",
+   "target": "exit:JunglePath",
+   "area": "Open passage",
+   "complete": {
+    "type": "scene",
+    "id": "JunglePath"
+   },
+   "hints": [
+    "They went through.",
+    "The open passage leads to the jungle.",
+    "Walk through the passage and press E."
+   ]
+  },
+  {
+   "id": "obj_c5_stealth",
+   "chapter": "ch5",
+   "scene": "JunglePath",
+   "title": "Follow them unseen",
+   "instruction": "Follow the two men through the ruins. Stay low, use grass and stones, throw pebbles to distract.",
+   "keys": "C crouch, T throw pebble",
+   "target": "npc:robber1",
+   "area": "Jungle ruins",
+   "complete": {
+    "type": "minigame",
+    "id": "stealth"
+   },
+   "hints": [
+    "They must not know you are close.",
+    "Crouch with C. Tall grass hides you. Stay out of the cones.",
+    "Stay 6 to 14 metres behind them, crouched, and hide when the meter rises."
+   ]
+  },
+  {
+   "id": "obj_c5_fight",
+   "chapter": "ch5",
+   "scene": "JunglePath",
+   "title": "Stop Bhaskar",
+   "instruction": "Subdue Bhaskar. Block or counter the white glint, dodge the red glint, use the braziers and your flashlight.",
+   "keys": "LMB attack, RMB block, V dodge, G flash",
+   "target": "npc:robber1",
+   "area": "Brazier courtyard",
+   "complete": {
+    "type": "minigame",
+    "id": "fight"
+   },
+   "hints": [
+    "He is strong, but he telegraphs every swing.",
+    "White glint: block (right mouse). Red glint: dodge (V). Then hit back.",
+    "Flash him with G, knock a brazier with E when he stands near it, and attack while he is stunned."
+   ]
+  },
+  {
+   "id": "obj_c5_recover",
+   "chapter": "ch5",
+   "scene": "JunglePath",
+   "title": "Recover the three pieces",
+   "instruction": "Lift the Surya Pradeepa, the Padma Shila and the Tala Patra from the open satchel.",
+   "keys": "E inspect",
+   "target": "clues",
+   "area": "The ford",
+   "complete": {
+    "type": "clues",
+    "ids": [
+     "relic_pradip",
+     "relic_rosette",
+     "relic_manuscript"
+    ]
+   },
+   "hints": [
+    "The satchel has fallen open.",
+    "The three pieces lie near Bhaskar.",
+    "Follow the marker to each piece and press E."
+   ]
+  },
+  {
+   "id": "obj_return",
+   "chapter": "ch6",
+   "scene": "Courtyard",
+   "title": "Return to Pujari Ananda",
+   "instruction": "Bring the three pieces home before the dawn rite.",
+   "keys": "E talk",
+   "target": "npc:priest",
+   "area": "Temple steps",
+   "complete": {
+    "type": "dialogue",
+    "id": "conv_c6"
+   },
+   "hints": [
+    "The rite is waiting.",
+    "The Pujari is at the temple steps.",
+    "Walk to Pujari Ananda and press E."
+   ]
+  }
+ ],
+ "barks": [
+  {
+   "id": "c1_ary_08",
+   "s": "aryan",
+   "tier": "firm",
+   "t": "There. On the wall. Stay here, both of you.",
+   "trigger": "start:obj_c1_chase"
+  },
+  {
+   "id": "c1_ary_09",
+   "s": "aryan",
+   "tier": "shout",
+   "t": "Stop! I only want to talk!",
+   "trigger": "chase_mid"
+  },
+  {
+   "id": "c1_ary_10",
+   "s": "aryan",
+   "tier": "calm",
+   "t": "A porter's token. Tin. Number seventeen.",
+   "trigger": "clue:clue_token17"
+  },
+  {
+   "id": "c1_ary_11",
+   "s": "aryan",
+   "tier": "calm",
+   "t": "He ran like a man who knows every stone here.",
+   "trigger": "done:obj_c1_token"
+  },
+  {
+   "id": "c2_ary_01",
+   "s": "aryan",
+   "tier": "calm",
+   "t": "Every lamp is out. Somebody wanted this room blind.",
+   "trigger": "start:obj_c2_search"
+  },
+  {
+   "id": "c2_puj_01",
+   "s": "pujari",
+   "tier": "calm",
+   "t": "The lamps are lit in an order, Aryan-ji. East first, as the sun does.",
+   "trigger": "start:obj_c2_lamps"
+  },
+  {
+   "id": "c2_ary_02",
+   "s": "aryan",
+   "tier": "calm",
+   "t": "A key cut from wax. Fresh filings on the floor.",
+   "trigger": "clue:clue_broken_lock"
+  },
+  {
+   "id": "c2_ary_03",
+   "s": "aryan",
+   "tier": "calm",
+   "t": "An oily handprint, low on the stand. He knelt. He was careful.",
+   "trigger": "clue:clue_breached_case"
+  },
+  {
+   "id": "c2_ary_04",
+   "s": "aryan",
+   "tier": "calm",
+   "t": "A chalk mark on the third pillar. A sign for someone who came later.",
+   "trigger": "clue:clue_muddy_footprints"
+  },
+  {
+   "id": "c2_ary_05",
+   "s": "aryan",
+   "tier": "firm",
+   "t": "They did not break the lock. They had it opened.",
+   "trigger": "done:obj_c2_search"
+  },
+  {
+   "id": "c2_ary_09",
+   "s": "aryan",
+   "tier": "calm",
+   "t": "Kishore opened the door. Bhaskar brought the reason.",
+   "trigger": "done:obj_c2_deduce"
+  },
+  {
+   "id": "c3_ary_01",
+   "s": "aryan",
+   "tier": "calm",
+   "t": "Bells on a thread, ankle height. They expected to be followed.",
+   "trigger": "start:obj_c3_traps"
+  },
+  {
+   "id": "c3_ary_02",
+   "s": "aryan",
+   "tier": "calm",
+   "t": "Two boot sizes. One print pressed deep. He is carrying weight.",
+   "trigger": "forensic_boots"
+  },
+  {
+   "id": "c3_ary_03",
+   "s": "aryan",
+   "tier": "calm",
+   "t": "Red silk on the doorframe. He was in a hurry, or he did not care.",
+   "trigger": "clue:clue_fabric_fragment"
+  },
+  {
+   "id": "c3_ary_04",
+   "s": "aryan",
+   "tier": "calm",
+   "t": "A broken lamp. Still warm at the wick.",
+   "trigger": "forensic_lamp"
+  },
+  {
+   "id": "c3_ary_08",
+   "s": "aryan",
+   "tier": "firm",
+   "t": "That was heard. Move.",
+   "trigger": "bell_rung"
+  },
+  {
+   "id": "c4_ary_02",
+   "s": "aryan",
+   "tier": "firm",
+   "t": "It resets. Ninety seconds, then it forgets everything I have done.",
+   "trigger": "wall_reset"
+  },
+  {
+   "id": "c4_puj_04",
+   "s": "pujari",
+   "tier": "firm",
+   "t": "Wrong, Aryan-ji! The dust is falling. Begin again.",
+   "trigger": "wall_wrong"
+  },
+  {
+   "id": "c5_bha_01",
+   "s": "bhaskar",
+   "tier": "calm",
+   "t": "Moonset at the ford. Yes. All three.",
+   "trigger": "overhear_1"
+  },
+  {
+   "id": "c5_bha_02",
+   "s": "bhaskar",
+   "tier": "calm",
+   "t": "No. The wall first. What is behind it is worth ten of these.",
+   "trigger": "overhear_2"
+  },
+  {
+   "id": "c5_kis_01",
+   "s": "kishore",
+   "tier": "calm",
+   "t": "Bhaskar, the manuscript is the village's name.",
+   "trigger": "overhear_3"
+  },
+  {
+   "id": "c5_bha_03",
+   "s": "bhaskar",
+   "tier": "calm",
+   "t": "Names do not pay debts.",
+   "trigger": "overhear_4"
+  },
+  {
+   "id": "c5_kis_02",
+   "s": "kishore",
+   "tier": "calm",
+   "t": "You said nobody would be hurt. You said one night.",
+   "trigger": "overhear_5"
+  },
+  {
+   "id": "c5_bha_04",
+   "s": "bhaskar",
+   "tier": "firm",
+   "t": "I said what a frightened man needed to hear. Walk.",
+   "trigger": "overhear_6"
+  },
+  {
+   "id": "c5_ary_02",
+   "s": "aryan",
+   "tier": "shout",
+   "t": "Kishore! Meera sold the bangles. The debt is paid. You owe him nothing!",
+   "trigger": "message_yes"
+  },
+  {
+   "id": "c5_kis_03",
+   "s": "kishore",
+   "tier": "calm",
+   "t": "She... she sold them?",
+   "trigger": "message_yes_reply"
+  },
+  {
+   "id": "c5_ary_03",
+   "s": "aryan",
+   "tier": "shout",
+   "t": "Kishore! Walk away now or you go down with him!",
+   "trigger": "message_no"
+  },
+  {
+   "id": "c5_kis_04",
+   "s": "kishore",
+   "tier": "calm",
+   "t": "I cannot go back. Not now.",
+   "trigger": "message_no_reply"
+  },
+  {
+   "id": "c5_ary_04",
+   "s": "aryan",
+   "tier": "shout",
+   "t": "Enough, Bhaskar!",
+   "trigger": "phase1"
+  },
+  {
+   "id": "c5_ary_05",
+   "s": "aryan",
+   "tier": "shout",
+   "t": "It is not yours to sell!",
+   "trigger": "phase2"
+  },
+  {
+   "id": "c5_bha_07",
+   "s": "bhaskar",
+   "tier": "firm",
+   "t": "Everything is for sale. You only have to find the hour.",
+   "trigger": "phase2_reply"
+  },
+  {
+   "id": "c5_ary_06",
+   "s": "aryan",
+   "tier": "shout",
+   "t": "You cannot carry what it means!",
+   "trigger": "phase3"
+  },
+  {
+   "id": "c5_bha_08",
+   "s": "bhaskar",
+   "tier": "shout",
+   "t": "Then I will carry what it weighs!",
+   "trigger": "phase3_reply"
+  },
+  {
+   "id": "c5_kis_05",
+   "s": "kishore",
+   "tier": "shout",
+   "t": "Bhaskar, stop. I cannot.",
+   "trigger": "turn_1"
+  },
+  {
+   "id": "c5_kis_06",
+   "s": "kishore",
+   "tier": "shout",
+   "t": "Aryan-ji! Catch!",
+   "trigger": "turn_2"
+  },
+  {
+   "id": "c5_bha_09",
+   "s": "bhaskar",
+   "tier": "firm",
+   "t": "Porter. You were always only a porter.",
+   "trigger": "turn_3"
+  },
+  {
+   "id": "c5_kis_07",
+   "s": "kishore",
+   "tier": "firm",
+   "t": "Forgive me. I have nowhere else to stand.",
+   "trigger": "two_on_one"
+  },
+  {
+   "id": "c5_ary_07",
+   "s": "aryan",
+   "tier": "firm",
+   "t": "Then stand down, before I have to make you.",
+   "trigger": "two_on_one_reply"
+  },
+  {
+   "id": "c5_kis_08",
+   "s": "kishore",
+   "tier": "calm",
+   "t": "Enough... enough. I am done.",
+   "trigger": "kishore_down"
+  },
+  {
+   "id": "bk_ary_01",
+   "s": "aryan",
+   "tier": "shout",
+   "t": "Drop the blade!",
+   "trigger": "counter"
+  },
+  {
+   "id": "bk_ary_02",
+   "s": "aryan",
+   "tier": "shout",
+   "t": "Behind you!",
+   "trigger": "warn"
+  },
+  {
+   "id": "bk_ary_03",
+   "s": "aryan",
+   "tier": "shout",
+   "t": "Not today!",
+   "trigger": "dodge"
+  },
+  {
+   "id": "bk_ary_04",
+   "s": "aryan",
+   "tier": "shout",
+   "t": "Stay down!",
+   "trigger": "stagger"
+  },
+  {
+   "id": "bk_bha_01",
+   "s": "bhaskar",
+   "tier": "firm",
+   "t": "You are too late!",
+   "trigger": "boss_phase"
+  },
+  {
+   "id": "bk_bha_02",
+   "s": "bhaskar",
+   "tier": "firm",
+   "t": "Come closer!",
+   "trigger": "boss_taunt"
+  },
+  {
+   "id": "bk_bha_03",
+   "s": "bhaskar",
+   "tier": "firm",
+   "t": "One more step!",
+   "trigger": "boss_lunge"
+  },
+  {
+   "id": "bk_kis_01",
+   "s": "kishore",
+   "tier": "firm",
+   "t": "I do not want this!",
+   "trigger": "kishore_attack"
+  }
+ ],
+ "clues": [
+  {
+   "id": "clue_broken_lock",
+   "title": "Wax-cut key and filings",
+   "text": "The lock is whole. Beside it lie brass filings and a smear of wax: a key was copied.",
+   "note": "Not forced. Someone with access made a copy."
+  },
+  {
+   "id": "clue_breached_case",
+   "title": "Oily handprint on the stand",
+   "text": "A handprint in lamp oil, low on the cloth-lined stand.",
+   "note": "He knelt to lift it. A careful carrier, used to heavy loads."
+  },
+  {
+   "id": "clue_muddy_footprints",
+   "title": "Chalk mark on the pillar",
+   "text": "A small chalk arrow on the third pillar, pointing at the stands.",
+   "note": "A guide left for someone who did not know the hall."
+  },
+  {
+   "id": "clue_fabric_fragment",
+   "title": "Red silk on the doorframe",
+   "text": "A torn strip of red silk caught on a splinter.",
+   "note": "The man in the red scarf left in a hurry."
+  },
+  {
+   "id": "clue_ancient_map",
+   "title": "Torn note",
+   "text": "Four torn pieces of a note. Pieced together: \"Ford at moonset. Sun Wall at first light.\"",
+   "note": "They are not selling. They are opening something."
+  },
+  {
+   "id": "clue_token17",
+   "title": "Porter token No. 17",
+   "text": "A tin porter's token stamped 17.",
+   "note": "The runner knew every stone of this courtyard."
+  },
+  {
+   "id": "relic_pradip",
+   "title": "Surya Pradeepa",
+   "text": "The brass lamp-vessel, unharmed.",
+   "note": "Fictional object."
+  },
+  {
+   "id": "relic_rosette",
+   "title": "Padma Shila",
+   "text": "The carved sandstone rosette, unharmed.",
+   "note": "Fictional object."
+  },
+  {
+   "id": "relic_manuscript",
+   "title": "Tala Patra",
+   "text": "The palm-leaf manuscript, unharmed.",
+   "note": "Fictional object."
+  }
+ ],
+ "codex": [
+  {
+   "id": "surya_pradeepa",
+   "title": "Surya Pradeepa",
+   "unlock": "conv_c1_pujari",
+   "text": "A brass lamp-vessel lit at the first-light rite. Its flame is carried from household to household, so every home's morning lamp is lit from the same fire.  <i>(Fictional. Inspired by traditional crafts; not a real temple's property.)</i>"
+  },
+  {
+   "id": "padma_shila",
+   "title": "Padma Shila",
+   "unlock": "conv_c1_pujari",
+   "text": "A carved sandstone rosette, the temple's foundation emblem. It is also the centre key of the Sun Wall.  <i>(Fictional. Inspired by traditional crafts; not a real temple's property.)</i>"
+  },
+  {
+   "id": "tala_patra",
+   "title": "Tala Patra",
+   "unlock": "conv_c1_pujari",
+   "text": "A palm-leaf manuscript holding the words of the dawn rite and the register of the families who serve the temple. Without it the rite cannot be recited.  <i>(Fictional. Inspired by traditional crafts; not a real temple's property.)</i>"
+  },
+  {
+   "id": "sun_wall",
+   "title": "The Sun Wall",
+   "unlock": "conv_c3",
+   "text": "A sealed chamber wall that opens at first light when four symbols are turned in order and the centre key is set. Behind it the community keeps generations of records.  <i>(Fictional. Inspired by traditional crafts; not a real temple's property.)</i>"
+  },
+  {
+   "id": "token_17",
+   "title": "Porter Token No. 17",
+   "unlock": "conv_c2_token",
+   "text": "A tin token issued to temple porters. Kishore's was never handed back.  <i>(Fictional. Inspired by traditional crafts; not a real temple's property.)</i>"
+  }
+ ],
+ "tips": [
+  "The lock was not forced. Ask who had the key.",
+  "A lamp that is still warm was lit by someone nearby.",
+  "The deeper print carries the heavier load.",
+  "A wrong turn at the Sun Wall costs minutes you do not have.",
+  "Crouching makes no sound. Running does.",
+  "A thrown pebble buys you six seconds.",
+  "The red glint cannot be blocked. Step aside.",
+  "Your flashlight can blind as well as reveal.",
+  "People lie fastest about the things they love.",
+  "Bells on a thread: someone expected to be followed.",
+  "Time saved in one chapter is time earned for the next.",
+  "Dawn does not wait."
+ ],
+ "endings": [
+  {
+   "id": "dawn_light",
+   "title": "DAWN LIGHT",
+   "text": "All three pieces came home before first light, and Kishore chose the right side when it counted."
+  },
+  {
+   "id": "late_dawn",
+   "title": "LATE DAWN",
+   "text": "The three pieces are home. The rite began late, but it began."
+  },
+  {
+   "id": "lost_dawn",
+   "title": "LOST DAWN",
+   "text": "Bhaskar reached the ford. The stands are still empty."
+  }
+ ],
+ "ending": {
+  "title": "MISSION COMPLETED",
+  "text": "Every temple holds a story. Every artifact carries a memory. Protecting heritage means protecting our history."
+ }
 }

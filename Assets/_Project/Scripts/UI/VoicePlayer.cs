@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
@@ -17,6 +18,7 @@ namespace LegacyOfTemples.UI
         public static VoicePlayer Instance { get; private set; }
         public string LastPlayed { get; private set; } = "";
         private AudioSource source;
+        public AudioSource Source => source;
         private readonly Dictionary<string, AudioClip> blips = new Dictionary<string, AudioClip>();
 
         public static float Volume
@@ -39,10 +41,11 @@ namespace LegacyOfTemples.UI
             source = gameObject.AddComponent<AudioSource>();
             source.playOnAwake = false; source.spatialBlend = 0f; source.priority = 0;
             UIManager.OnSubtitleLine += OnLine;
+            StoryDialogueSystem.OnBark += OnBark;
             EventBus.OnDialogueEnd += _ => source.Stop();
         }
 
-        private void OnDestroy() { UIManager.OnSubtitleLine -= OnLine; }
+        private void OnDestroy() { UIManager.OnSubtitleLine -= OnLine; StoryDialogueSystem.OnBark -= OnBark; }
 
         private static string SpeakerId(string name)
         {
@@ -61,16 +64,37 @@ namespace LegacyOfTemples.UI
             }
         }
 
+        /// <summary>Last tier spoken (calm / firm / shout): the audio mixer follows it.</summary>
+        public static string LastTier { get; private set; } = "calm";
+        public static event Action<string, string> OnVoice; // (speaker id, tier)
+
         private void OnLine(string speaker, string text)
         {
             source.Stop();
-            string id = SpeakerId(speaker);
-            AudioClip clip = id != null ? Resources.Load<AudioClip>($"Voice/{id}/{Hash(text)}") : null;
-            if (clip == null) clip = Blip(id ?? speaker, text.Length);
+            if (text.StartsWith("(")) return; // a prompt, not speech
+            var line = StoryData.LineByText(text);
+            Play(line != null ? line.s : SpeakerId(speaker) ?? speaker, line, text);
+        }
+
+        private void OnBark(StoryLine line) { Play(line.s, line, line.t); }
+
+        /// <summary>Recorded file "<id>.wav" wins, then the "<id>_tts.wav" placeholder, then the old text hash, then blips.</summary>
+        private void Play(string id, StoryLine line, string text)
+        {
+            AudioClip clip = null;
+            if (line != null && !string.IsNullOrEmpty(line.id))
+            {
+                clip = Resources.Load<AudioClip>($"Voice/{id}/{line.id}");
+                if (clip == null) clip = Resources.Load<AudioClip>($"Voice/{id}/{line.id}_tts");
+            }
+            if (clip == null) clip = Resources.Load<AudioClip>($"Voice/{id}/{Hash(text)}");
+            if (clip == null) clip = Blip(id, text.Length);
+            LastTier = line != null && !string.IsNullOrEmpty(line.tier) ? line.tier : "calm";
+            OnVoice?.Invoke(id, LastTier);
             source.clip = clip;
-            source.volume = Volume;
+            source.volume = Volume * (LastTier == "shout" ? 1f : LastTier == "firm" ? 0.9f : 0.8f);
             source.Play();
-            LastPlayed = (id ?? speaker) + ":" + clip.name;
+            LastPlayed = id + ":" + clip.name;
         }
 
         /// <summary>Fallback talk blips with a different pitch per character.</summary>

@@ -69,6 +69,8 @@ namespace LegacyOfTemples.Gameplay
 
         private void Start()
         {
+            var st = StoryData.Clue(clueId); // story text overrides the scene's old labels
+            if (st != null) { clueTitle = st.title; clueDescription = st.text; detectiveNote = st.note; }
             if (Camera.main != null)
             {
                 mainOrbitCam = Camera.main.GetComponent<OrbitCamera>();

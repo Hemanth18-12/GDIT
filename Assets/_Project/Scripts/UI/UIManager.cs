@@ -1392,6 +1392,12 @@ namespace LegacyOfTemples.UI
 
         public void AdvanceDialogue()
         {
+            // Never skip a choice: on the last line the choices must be shown and answered.
+            if (currentDialogueLine >= activeDialogueLines.Length - 1 && activeDialogueChoices != null && activeDialogueChoices.Length > 0)
+            {
+                if (!dialogueChoicesContainer.activeSelf) ShowDialogueChoices();
+                return;
+            }
             currentDialogueLine++;
             if (currentDialogueLine < activeDialogueLines.Length)
             {
