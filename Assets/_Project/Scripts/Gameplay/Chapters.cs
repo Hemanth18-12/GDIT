@@ -242,6 +242,9 @@ namespace LegacyOfTemples.Gameplay
             if (lostTimer > 1.5f) { ChaseRunning = false; Destroy(runner.gameObject); DawnClock.Instance.Penalty(2f, "lost the runner"); DawnClock.Instance.Fail("He is gone. The runner got away over the wall."); }
         }
 
+        /// <summary>Bot / test hook: finish the chase now (drops the token).</summary>
+        public void DebugEndChase() { if (ChaseRunning && runner != null) EndChase(); }
+
         private void EndChase()
         {
             ChaseRunning = false;

@@ -121,12 +121,141 @@ namespace LegacyOfTemples.UI
             }
         }
 
+        private readonly HashSet<string> rainShots = new HashSet<string>();
+        private IEnumerator WaitLoaded() { float w = 0f; yield return null; while (SceneLoader.IsLoading && w < 30f) { w += Time.unscaledDeltaTime; yield return null; } }
+
+        /// <summary>Captures every loading screen while it is up.</summary>
+        private IEnumerator LoadingWatcher()
+        {
+            int n = 0;
+            while (true)
+            {
+                while (!SceneLoader.IsLoading) yield return null;
+                yield return new WaitForSecondsRealtime(1.6f);
+                n++;
+                Line($"  loading screen {n}: image={LoadingScreen.LastImage}, bar={LoadingScreen.LastProgress:0.00}");
+                yield return Shot("v2-loading-" + n + "-" + LoadingScreen.LastImage + ".png");
+                if (n == 1) yield return UiAuditAllResolutions("Loading screen");
+                while (SceneLoader.IsLoading) yield return null;
+            }
+        }
+
+        /// <summary>Plays each new section through its real actions where possible, with screenshots.</summary>
+        private IEnumerator PlayMinigame(string id, StoryDialogueSystem story, PlayerController player)
+        {
+            var cd = ChapterDirector.Instance; var fd = FightDirector.Instance;
+            Line("  minigame '" + id + "'");
+            if (id == "chase_c1")
+            {
+                yield return new WaitForSecondsRealtime(1.5f);
+                Hold(Key.W); float t = 0f;
+                while (t < 3.5f) { t += Time.unscaledDeltaTime; yield return null; }
+                Release();
+                Line($"  chase: running={cd.ChaseRunning}, distance={cd.ChaseDistance:0.0} m");
+                yield return Shot("v2-chase.png");
+                cd.DebugEndChase();
+            }
+            else if (id == "lamps")
+            {
+                cd.LightLamp(3); yield return new WaitForSecondsRealtime(0.4f);
+                Line($"  lamps: wrong lamp first -> lit={cd.LampsLit}, penalty={(DawnClock.Instance != null ? DawnClock.Instance.LastPenalty : 0f):0.0} min");
+                for (int i = 0; i < 5; i++) { cd.LightLamp(i); yield return new WaitForSecondsRealtime(0.35f); if (i == 2) yield return Shot("v2-lamps.png"); }
+                Line($"  lamps: lit={cd.LampsLit}");
+            }
+            else if (id == "deduction")
+            {
+                cd.OpenBoard(); yield return new WaitForSecondsRealtime(0.6f);
+                yield return Shot("v2-deduction-board.png");
+                yield return UiAuditAllResolutions("Deduction board");
+                cd.BoardAnswerPick(2); yield return new WaitForSecondsRealtime(0.4f);
+                foreach (int a in new[] { 1, 0, 1 }) { cd.BoardAnswerPick(a); yield return new WaitForSecondsRealtime(0.4f); }
+                Line($"  deduction: step={cd.BoardStep}");
+            }
+            else if (id == "traps")
+            {
+                int k = 0;
+                foreach (var t in cd.Traps)
+                {
+                    cd.BeginDisarm(t, true); yield return new WaitForSecondsRealtime(0.5f);
+                    if (k++ == 0) { yield return Shot("v2-trap-disarm.png"); yield return UiAudit("Trap ring", Screen.width, Screen.height); }
+                    for (int i = 0; i < 3; i++) { cd.DisarmPress(0.5f); yield return new WaitForSecondsRealtime(0.2f); }
+                }
+                Line($"  traps: {cd.Traps.Count} disarmed, bells rung={cd.BellsRung}");
+            }
+            else if (id == "forensics")
+            {
+                var kit = ForensicKit.Instance;
+                VirtualInput.Press("kit"); yield return new WaitForSecondsRealtime(0.6f);
+                yield return Shot("v2-forensics-ruler.png");
+                yield return UiAudit("Forensic kit", Screen.width, Screen.height);
+                kit.SlideRuler(6.5f); kit.Confirm(); yield return new WaitForSecondsRealtime(0.3f);
+                kit.SlideRuler(10f); kit.Confirm(); yield return new WaitForSecondsRealtime(0.3f);
+                kit.Answer(1); yield return new WaitForSecondsRealtime(0.3f);
+                kit.HoldLamp(2.1f); yield return new WaitForSecondsRealtime(0.3f);
+                yield return Shot("v2-forensics-note.png");
+                for (int pc = 0; pc < 4; pc++) { kit.Answer(pc); for (int r = 0; r < 4 && kit.PieceRotation(pc) != 0; r++) kit.RotatePiece(); }
+                kit.Confirm();
+                Line($"  forensics: task={kit.Task}/3");
+            }
+            else if (id == "stealth")
+            {
+                yield return new WaitForSecondsRealtime(2.5f);
+                Hold(Key.C); yield return new WaitForSecondsRealtime(1.5f);
+                fd.ThrowPebble(); yield return new WaitForSecondsRealtime(0.5f);
+                Line($"  stealth: running={fd.StealthRunning}, hidden={fd.Hidden}, detection={fd.Detection:0.00}, spotted={fd.Spotted}");
+                yield return Shot("v2-stealth.png");
+                yield return UiAudit("Stealth HUD", Screen.width, Screen.height);
+                Release();
+            }
+            else if (id == "fight")
+            {
+                float w = 0f;
+                while (w < 25f && fd.Phase != 1) { w += 0.5f; if (DialogueActive()) yield return FinishDialogue("v2-fight-confront.png"); yield return new WaitForSecondsRealtime(0.5f); }
+                yield return new WaitForSecondsRealtime(1.5f);
+                Line($"  fight: phase={fd.Phase}, kishore turns={fd.KishoreTurns}, on-screen controls visible={(TouchControls.Instance != null && TouchControls.Instance.Visible)}, storm intensity={(LegacyOfTemples.World.WeatherManager.Instance != null ? LegacyOfTemples.World.WeatherManager.Instance.Intensity : 0f):0.00}");
+                yield return Shot("v2-fight-phase1-hud.png");
+                yield return UiAuditAllResolutions("Fight HUD with on-screen controls");
+                // real actions through the on-screen buttons
+                if (fd.Bhaskar != null) player.Teleport(fd.Bhaskar.transform.position - fd.Bhaskar.transform.forward * -1.6f, Quaternion.LookRotation(-fd.Bhaskar.transform.forward));
+                yield return new WaitForSecondsRealtime(0.3f);
+                float g0 = fd.Bhaskar != null ? fd.Bhaskar.Guard : 0f; int hits0 = fd.HitsLanded;
+                for (int i = 0; i < 4; i++) { TouchControls.Instance.Click("attack"); yield return new WaitForSecondsRealtime(0.45f); }
+                TouchControls.Instance.Click("heavy"); yield return new WaitForSecondsRealtime(0.9f);
+                Line($"  fight: 4 ATTACK + 1 HEAVY button clicks -> hits landed={fd.HitsLanded - hits0}, Bhaskar guard {g0:0} -> {(fd.Bhaskar != null ? fd.Bhaskar.Guard : 0f):0}");
+                yield return Shot("v2-fight-attack.png");
+                TouchControls.Instance.Click("flash"); yield return new WaitForSecondsRealtime(0.3f);
+                Line($"  fight: FLASH -> Bhaskar state={(fd.Bhaskar != null ? fd.Bhaskar.State.ToString() : "?")}");
+                float h0 = fd.Health; yield return new WaitForSecondsRealtime(4f);
+                Line($"  fight: after 4 s of his attacks health {h0:0} -> {fd.Health:0}, attacks started={(fd.Bhaskar != null ? fd.Bhaskar.AttacksStarted : 0)}");
+                yield return Shot("v2-fight-telegraph.png");
+                for (int ph = 1; ph <= 2 && fd.Bhaskar != null; ph++)
+                {
+                    fd.Bhaskar.TakeGuard(9999f); yield return new WaitForSecondsRealtime(0.4f);
+                    yield return Shot("v2-fight-phase" + ph + "-staggered.png");
+                    fd.Finisher(fd.Bhaskar);
+                    w = 0f; while (w < 15f && fd.Phase != ph + 1) { w += 0.25f; yield return new WaitForSecondsRealtime(0.25f); }
+                    yield return new WaitForSecondsRealtime(1.2f);
+                    Line($"  fight: phase now {fd.Phase}, kishore_turned={StoryFlags.Get("kishore_turned")}");
+                    yield return Shot("v2-fight-phase" + (ph + 1) + ".png");
+                }
+                yield return new WaitForSecondsRealtime(1.5f);
+                fd.DebugGrapple(); yield return new WaitForSecondsRealtime(0.5f);
+                yield return Shot("v2-fight-phase3-grapple.png");
+                fd.GrappleTwist(0.5f);
+                w = 0f; while (w < 15f && story.Current != null && story.Current.complete.id == "fight") { w += 0.5f; if (DialogueActive()) yield return FinishDialogue("v2-fight-after.png"); yield return new WaitForSecondsRealtime(0.5f); }
+                if (DialogueActive()) yield return FinishDialogue("v2-fight-after.png");
+                Line($"  fight: finished, objective now {(story.Current != null ? story.Current.id : "end")}, health={fd.Health:0}");
+            }
+        }
+
         private IEnumerator PlayThrough()
         {
             Line("\n## Play-through from New Game (bot uses the Guide target for every objective)");
             var newGame = GameObject.Find("Btn_NEW GAME");
             if (newGame == null) { Line("- New Game button NOT FOUND => BROKEN"); yield break; }
+            StartCoroutine(LoadingWatcher());
             newGame.GetComponent<Button>().onClick.Invoke();
+            yield return WaitLoaded();
             yield return new WaitForSecondsRealtime(3f);
             yield return Shot("pt-00-cinematic.png");
             yield return SkipIntro();
@@ -163,11 +292,22 @@ namespace LegacyOfTemples.UI
             while (!story.IsComplete && fails < 6 && step < 60)
             {
                 step++;
+                yield return WaitLoaded();
+                if (DialogueActive()) yield return FinishDialogue(null);
                 var o = story.Current;
+                if (o == null) break;
                 string scene = SceneManager.GetActiveScene().name;
                 var player = FindAnyObjectByType<PlayerController>();
                 if (player == null) { yield return new WaitForSecondsRealtime(1f); fails++; continue; }
 
+                if (rainShots.Add(scene))
+                {
+                    yield return new WaitForSecondsRealtime(4f);
+                    var wm = LegacyOfTemples.World.WeatherManager.Instance;
+                    Line($"  weather in {scene}: intensity={(wm != null ? wm.Intensity : -1f):0.00}, rain active={(wm != null && wm.RainActive)}, particles={(wm != null ? wm.ParticleCount : 0)}, interior={(wm != null && wm.Interior)}, clock={(DawnClock.Instance != null ? DawnClock.Instance.DawnIn : "?")}");
+                    yield return Shot("v2-rain-" + scene + ".png");
+                    if (scene == Constants.Courtyard) { yield return Shot("v2-dawn-clock.png"); yield return UiAuditAllResolutions("HUD with dawn clock"); }
+                }
                 if (guideShotScenes.Add(scene) && GuideSystem.Instance != null)
                 {
                     if (GuideSystem.Instance.IsOpen) GuideSystem.Instance.Toggle();
@@ -214,11 +354,10 @@ namespace LegacyOfTemples.UI
                 Line($"- [{story.ObjectiveIndex + 1}/{story.ObjectiveCount}] {o.id} \"{o.title}\" in {scene}: target={(target ? target.name : "NONE")}");
                 if (o.complete.type == "minigame")
                 {
-                    yield return new WaitForSecondsRealtime(1.5f);
-                    yield return Shot("pt-minigame-" + o.complete.id + ".png");
-                    Line("  minigame '" + o.complete.id + "': auto-completed by the bot (the mechanic itself is covered by PlayMode tests)");
-                    story.DebugCompleteCurrent();
+                    int was = story.ObjectiveIndex;
+                    yield return PlayMinigame(o.complete.id, story, player);
                     yield return new WaitForSecondsRealtime(1f);
+                    if (story.ObjectiveIndex == was) { Line("  minigame '" + o.complete.id + "' did not complete by play; completed by the bot's debug hook"); story.DebugCompleteCurrent(); yield return new WaitForSecondsRealtime(0.5f); }
                     fails = 0; continue;
                 }
                 if (target == null) { fails++; yield return new WaitForSecondsRealtime(1f); continue; }
@@ -240,7 +379,12 @@ namespace LegacyOfTemples.UI
                     yield return Tap(Key.Digit2); yield return new WaitForSecondsRealtime(0.4f); // wrong order on purpose
                     string wrongMsg = ChakraPuzzleController.Active != null ? ChakraPuzzleController.Active.Message : "";
                     foreach (var k in new[] { Key.Digit1, Key.Digit2, Key.Digit3, Key.Digit4 }) { yield return Tap(k); yield return new WaitForSecondsRealtime(0.4f); }
+                    yield return Shot("v2-sunwall-timer.png");
                     yield return Tap(Key.Enter);
+                    yield return new WaitForSecondsRealtime(0.5f);
+                    var pzc = ChakraPuzzleController.Active;
+                    Line($"  puzzle: resets={(pzc != null ? pzc.Resets : -1)}, timer left={(pzc != null ? pzc.ResetLeft : -1f):0}s, cranking={(pzc != null && pzc.Cranking)}");
+                    for (int ck = 0; ck < 20 && pzc != null && !pzc.IsSolved; ck++) { yield return Tap(ck % 2 == 0 ? Key.A : Key.D); if (ck == 6) yield return Shot("v2-sunwall-crank.png"); }
                     yield return new WaitForSecondsRealtime(1.5f);
                     Line($"  puzzle: wrong-order message='{wrongMsg}', solved={ChakraPuzzleController.Active != null && ChakraPuzzleController.Active.IsSolved}");
                     yield return FinishDialogue(null);
@@ -272,7 +416,9 @@ namespace LegacyOfTemples.UI
                     if (t.StartsWith("exit:"))
                     {
                         if (o.id == "obj_enter_hall") Line("  (temple entrance screenshot taken before entering)");
-                        yield return new WaitForSecondsRealtime(2.5f);
+                        yield return new WaitForSecondsRealtime(0.5f);
+                        yield return WaitLoaded();
+                        yield return new WaitForSecondsRealtime(1.5f);
                         yield return SkipIntro();
                         Line($"  exit: now in {SceneManager.GetActiveScene().name}");
                         yield return Shot($"pt-scene-{SceneManager.GetActiveScene().name}.png");
@@ -283,14 +429,19 @@ namespace LegacyOfTemples.UI
                 else fails = 0;
                 if (story.Current != null && story.Current.id == "obj_return" && SceneManager.GetActiveScene().name != Constants.Courtyard)
                 {
-                    yield return new WaitForSecondsRealtime(6f);
+                    float wr = 0f;
+                    while (wr < 25f && (SceneManager.GetActiveScene().name != Constants.Courtyard || SceneLoader.IsLoading)) { wr += Time.unscaledDeltaTime; if (DialogueActive()) yield return FinishDialogue(null); yield return null; }
+                    yield return new WaitForSecondsRealtime(2f);
                     yield return SkipIntro();
+                    yield return Shot("v2-first-light-courtyard.png");
                     Line($"  returned at sunrise: scene={SceneManager.GetActiveScene().name}");
                 }
             }
             yield return new WaitForSecondsRealtime(2.5f);
             bool endingShown = GameLevelManager.Instance != null && GameLevelManager.Instance.IsEndingActive;
             yield return Shot("pt-ending.png");
+            yield return Shot("v2-ending.png");
+            Line($"- Ending id={DawnClock.EndingId()}, clock={DawnClock.ClockText(DawnClock.Instance != null ? DawnClock.Instance.Minutes : 0f)}, trust_meera={StoryFlags.Get("trust_meera")}, kishore_turned={StoryFlags.Get("kishore_turned")}, loading screens shown={LoadingScreen.LoadsShown}");
             yield return UiAuditAllResolutions("Ending");
             Line($"- Story complete={story.IsComplete}, ending shown={endingShown}, score={story.Score}, time={story.Elapsed:0}s, hints={story.HintsUsed} => {(story.IsComplete && endingShown ? "WORKS" : "BROKEN")}");
             yield return Tap(Key.Enter);

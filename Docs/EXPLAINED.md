@@ -106,3 +106,31 @@ Built the standalone macOS application (`Builds/LegacyOfTheTemple.app`) with **0
   - The jump fires once per press, only on the ground, with a 0.1 s coyote time.
   - The pause menu shows "build <date time>", so you can tell whether a build is new.
 - **Test:** Tests/PlayMode/SpaceJumpPlayBot.cs. The results are in Docs/QA/space_jump_results.txt and the per-frame log is in Docs/QA/space_jump_log.txt.
+
+## The v2 thriller run (2026-11-11)
+
+**What changed, in plain words**
+- **Story:** the whole script is now the 3:10 AM thriller from Docs/STORY_BIBLE_V2.md. It lives in one data file
+  (`Resources/Story/story.json`, built by `Tools/story/build_story.py`). Choices change a "trust" number for Meera;
+  at 2 or more, Kishore turns on Bhaskar in the fight. Press **B** for the Codex.
+- **Dawn Clock:** the clock at the top runs from 03:10 to 05:45. Mistakes cost minutes. If a chapter's time runs
+  out you retry from the last checkpoint. Difficulty (Easy / Normal / Hard) is in Settings and the pause menu.
+- **Loading screens:** every map change shows a picture, a gold bar tied to the real load, the chapter name, the
+  clock and a tip. Pictures are in `Assets/_Project/UI/Loading/`.
+- **Weather:** rain, mist, splashes, drips, puddles, wet stone, lightning and thunder (`WeatherManager`).
+  Settings > Gameplay > Weather effects: Off / Low / High.
+- **Chapters:** Ch1 question Meera and chase the runner; Ch2 flashlight battery, five lamps in sun order,
+  deduction board (B); Ch3 bell-thread traps (crouch, E) and the forensic kit (K); Ch4 the Sun Wall on a timer with a hand-wheel.
+- **Chapter 5:** sneak behind the robbers (C crouch, T pebble), then the fight: left click attack, hold or R heavy,
+  right click block (tap just before a hit to counter), V dodge, G flash, E for braziers, the rope and finishers.
+- **On-screen controls:** gold buttons and a floating joystick appear in fights (Settings: Off / In fights / Always).
+- **Audio:** 69 synthesised sounds, five music layers switched by the mixer, voices by line id.
+- **Graphics:** night lighting per map, light shafts, lamp glows, mist, jungle trees and a glowing temple far away;
+  the ending switches the courtyard to golden first light.
+
+**Where the code is:** `Scripts/Gameplay/` (StoryData, StoryDialogueSystem, DawnClock, Chapters, Combat,
+InvestigationTools), `Scripts/UI/` (LoadingScreen, FightHud, TouchControls, AudioDirector, VoicePlayer),
+`Scripts/World/` (WeatherManager, LookTuner), `Scripts/Core/GameOptions.cs`.
+
+**What is still a stand-in:** the two robbers' models, all combat animations, the voices and the sound quality.
+See Docs/BLOCKED.md for exactly what to supply.

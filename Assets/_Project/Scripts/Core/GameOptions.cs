@@ -53,15 +53,25 @@ namespace LegacyOfTemples.Core
         }
     }
 
-    /// <summary>Virtual input written by the on-screen controls and read by gameplay next to keyboard and gamepad.</summary>
+    /// <summary>Virtual input written by the on-screen controls (and bots) and read by gameplay next to keyboard and gamepad.</summary>
     public static class VirtualInput
     {
         public static Vector2 Move, Look;
         public static bool Sprint, Block, CrouchHeld, TouchVisible;
-        private static readonly System.Collections.Generic.Dictionary<string, int> pressed = new System.Collections.Generic.Dictionary<string, int>();
-        /// <summary>Called by a button or a bot: the action reads as "pressed" for the whole of the next frame.</summary>
-        public static void Press(string action) { pressed[action] = Time.frameCount + 1; }
-        public static bool Down(string action) => pressed.TryGetValue(action, out int f) && f == Time.frameCount;
-        public static void Clear() { Move = Look = Vector2.zero; Sprint = Block = CrouchHeld = false; pressed.Clear(); }
+        private static readonly System.Collections.Generic.HashSet<string> pending = new System.Collections.Generic.HashSet<string>(), active = new System.Collections.Generic.HashSet<string>();
+        /// <summary>A button press: every reader sees it as "pressed" for the whole of the next frame.</summary>
+        public static void Press(string action) { pending.Add(action); }
+        public static bool Down(string action) => active.Contains(action);
+        /// <summary>Called first thing every frame.</summary>
+        public static void Tick() { active.Clear(); foreach (var a in pending) active.Add(a); pending.Clear(); }
+        public static void Clear() { Move = Look = Vector2.zero; Sprint = Block = CrouchHeld = false; pending.Clear(); active.Clear(); }
+    }
+
+    [DefaultExecutionOrder(-10000)]
+    public sealed class VirtualInputTicker : MonoBehaviour
+    {
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+        private static void Bootstrap() { var go = new GameObject("VirtualInputTicker"); DontDestroyOnLoad(go); go.AddComponent<VirtualInputTicker>(); }
+        private void Update() { VirtualInput.Tick(); }
     }
 }

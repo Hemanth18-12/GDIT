@@ -142,6 +142,7 @@ namespace LegacyOfTemples.Gameplay
             }
             else if (Task == 2 && i >= 0 && i < 4) piece = i;
         }
+        public int PieceRotation(int i) => i >= 0 && i < 4 ? rot[i] : 0;
         public void RotatePiece() { if (Task == 2) rot[piece] = (rot[piece] + 1) % 4; }
         public void HoldLamp(float dt)
         {

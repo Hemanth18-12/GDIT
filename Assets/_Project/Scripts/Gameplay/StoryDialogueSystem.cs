@@ -176,6 +176,7 @@ namespace LegacyOfTemples.Gameplay
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
             orbitCam = FindAnyObjectByType<OrbitCamera>();
+            activeConversation = null; activeTrigger = null; talking = null; // a conversation never survives a scene change
             if (!IsGameplayScene(scene.name)) return;
             var cur = Current;
             while (cur != null && cur.complete != null && cur.complete.type == "scene" && cur.complete.id == scene.name) { Advance(false); cur = Current; }
