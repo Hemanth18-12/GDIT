@@ -144,6 +144,7 @@ namespace LegacyOfTemples.Gameplay
         {
             var w = WeatherManager.Instance; if (w == null || story == null) return;
             var ch = story.Chapter;
+            LookTuner.Dawn = ch != null && ch.id == "ch6" ? 1f : 0f;
             if (ch != null && ch.id == "ch6") w.SetTarget(0f, false, true);          // the storm has cleared at first light
             else if (scene == Constants.JunglePath) w.SetTarget(0.65f, true, true);
         }
@@ -159,6 +160,7 @@ namespace LegacyOfTemples.Gameplay
             if (player == null) player = FindAnyObjectByType<PlayerController>();
             if (player == null) return;
             if (!built) { if (Time.timeSinceLevelLoad < 0.8f) return; Build(); }
+            if (scene == Constants.JunglePath && DawnClock.Instance != null) LookTuner.DawnProgress = Mathf.InverseLerp(115f, 155f, DawnClock.Instance.Minutes);
             if (scene == Constants.Courtyard) UpdateChase();
             if (scene == Constants.Sanctum) { UpdateCells(); UpdateBoard(); UpdateMeera(Constants.Sanctum, "obj_c2_pujari"); }
             if (scene == Constants.ShrineCrime) { UpdateTraps(); if (StoryFlags.Get("meera_out") == 0) UpdateMeera(Constants.ShrineCrime, "obj_c3_pujari"); }

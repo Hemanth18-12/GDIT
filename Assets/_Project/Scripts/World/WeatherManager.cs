@@ -46,7 +46,7 @@ namespace LegacyOfTemples.World
         private readonly List<(Material m, Color col, float smooth)> wet = new List<(Material, Color, float)>();
         private float wetApplied = -1f; private Transform puddleRoot; private Material puddleMat; private Color puddleBase;
         private float dripTimer; private Color ambSky, ambEq, ambGround; private bool ambSaved;
-        private bool overridden;
+        private bool overridden; private float skyBase = -1f;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void Bootstrap()
@@ -299,7 +299,8 @@ namespace LegacyOfTemples.World
                 flash.intensity = k * 2.6f;
                 RenderSettings.ambientSkyColor = ambSky + new Color(0.5f, 0.55f, 0.7f) * k;
                 RenderSettings.ambientEquatorColor = ambEq + new Color(0.3f, 0.33f, 0.42f) * k;
-                if (flashT > 0.6f) { flashT = -1f; flash.intensity = 0f; RenderSettings.ambientSkyColor = ambSky; RenderSettings.ambientEquatorColor = ambEq; RenderSettings.ambientGroundColor = ambGround; ambSaved = false; }
+                var sky = RenderSettings.skybox; if (sky != null && sky.HasProperty("_Exposure")) { if (skyBase < 0f) skyBase = sky.GetFloat("_Exposure"); sky.SetFloat("_Exposure", skyBase + k * 1.4f); } // sky flash
+                if (flashT > 0.6f) { var sk = RenderSettings.skybox; if (sk != null && skyBase >= 0f) sk.SetFloat("_Exposure", skyBase); skyBase = -1f; flashT = -1f; flash.intensity = 0f; RenderSettings.ambientSkyColor = ambSky; RenderSettings.ambientEquatorColor = ambEq; RenderSettings.ambientGroundColor = ambGround; ambSaved = false; }
             }
             for (int i = thunder.Count - 1; i >= 0; i--)
                 if (Time.time >= thunder[i].time)
