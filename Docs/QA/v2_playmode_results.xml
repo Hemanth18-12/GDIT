@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Passed" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-11 10:13:23Z" end-time="2026-11-11 10:14:18Z" duration="55.2784765">
+  <test-suite type="TestSuite" id="1032" name="My project" fullname="My project" runstate="Runnable" testcasecount="20" result="Passed" start-time="2026-11-11 10:13:23Z" end-time="2026-11-11 10:14:18Z" duration="55.278477" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1058" name="LOT.Grounding.PlayModeTests.dll" fullname="/Users/hemanth/Desktop/GDIT/My project/Library/ScriptAssemblies/LOT.Grounding.PlayModeTests.dll" runstate="Runnable" testcasecount="20" result="Passed" start-time="2026-11-11 10:13:23Z" end-time="2026-11-11 10:14:18Z" duration="55.275204" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="7130" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+      <test-suite type="TestSuite" id="1059" name="LegacyOfTemples" fullname="LegacyOfTemples" runstate="Runnable" testcasecount="20" result="Passed" start-time="2026-11-11 10:13:23Z" end-time="2026-11-11 10:14:18Z" duration="55.274431" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+        <test-suite type="TestSuite" id="1060" name="Tests" fullname="LegacyOfTemples.Tests" runstate="Runnable" testcasecount="20" result="Passed" start-time="2026-11-11 10:13:23Z" end-time="2026-11-11 10:14:18Z" duration="55.273707" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+          <test-suite type="TestFixture" id="1051" name="V2PlayModeTests" fullname="LegacyOfTemples.Tests.V2PlayModeTests" classname="LegacyOfTemples.Tests.V2PlayModeTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-11-11 10:13:23Z" end-time="2026-11-11 10:14:18Z" duration="55.272673" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+            <test-case id="1057" name="Combat_Flow_And_OnScreen_Controls" fullname="LegacyOfTemples.Tests.V2PlayModeTests.Combat_Flow_And_OnScreen_Controls" methodname="Combat_Flow_And_OnScreen_Controls" classname="LegacyOfTemples.Tests.V2PlayModeTests" runstate="Runnable" seed="436056861" result="Passed" start-time="2026-11-11 10:13:23Z" end-time="2026-11-11 10:14:18Z" duration="55.266861" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+
+IgnoreFailingMessages:true
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+[CharacterManager] Player placed in Courtyard: spawn=Spawn_player_start (0.00, 0.05, 15.00) -> player (0.00, 0.00, 15.00)
+[CharacterManager] Player placed in Courtyard: spawn=Spawn_player_start (0.00, 0.05, 15.00) -> player (0.00, 0.00, 15.00)
+[V2Test] before JUMP click: blocked=False, enabled=True, crouch=False, vy=-2.00, timeScale=1
+[CharacterManager] Player placed in Sanctum: spawn=Spawn_player_start (0.00, 0.05, 5.00) -> player (0.00, 0.00, 5.00)
+[CharacterManager] Player placed in Sanctum: spawn=Spawn_player_start (0.00, 0.05, 5.00) -> player (0.00, 0.00, 5.00)
+The character used for Ellipsis is not available in font asset [NotoSans SDF (runtime)] or any potential fallbacks. Switching Text Overflow mode to Truncate.
+[CharacterManager] Player placed in ShrineCrime: spawn=Spawn_player_start (0.00, 0.05, 2.50) -> player (0.00, 0.00, 2.50)
+[CharacterManager] Player placed in ShrineCrime: spawn=Spawn_player_start (0.00, 0.05, 2.50) -> player (0.00, 0.00, 2.50)
+[CharacterManager] Player placed in PuzzleWall: spawn=Spawn_player_start (0.00, 0.00, 5.00) -> player (0.00, 0.00, 5.00)
+[CharacterManager] Player placed in PuzzleWall: spawn=Spawn_player_start (0.00, 0.00, 5.00) -> player (0.00, 0.00, 5.00)
+[CharacterManager] Player placed in JunglePath: spawn=Spawn_player_start (0.00, 0.00, 18.00) -> player (0.00, 0.00, 18.00)
+[CharacterManager] Player placed in JunglePath: spawn=Spawn_player_start (0.00, 0.00, 18.00) -> player (0.00, 0.00, 18.00)
+[Story] Conversation start: 'conv_c5_confront' with none
+[Story] Conversation finished: 'conv_c5_confront'
+[GameLevelManager] Clue registered: relic_manuscript
+[Story] Conversation start: 'conv_c5_after' with none
+[V2Test] combat and on-screen controls ok
+Saving results to: /Users/hemanth/Library/Application Support/DefaultCompany/My project/TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

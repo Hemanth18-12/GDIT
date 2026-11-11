@@ -397,3 +397,8 @@ Heights normalized to 1.78/1.65/1.60/1.75/1.70 m; HeroScaleGroundTest passes; Do
 Prompt: fix only Space (jump floats/repeats; Space also jumps during dialogue/tutorial). Play-bot SpaceJumpPlayBot logs per-frame y/vy/grounded/anim/snap.
 Causes: (b) stale ground support cancelled gravity after a jump; (g) gameplay read Space while UI open (gate captured a destroyed UIManager duplicate). Fixed with InputGate + coyote time; single 0.67 m hop lands in 0.57 s.
 Rebuilt app (build 2026-11-07 19:50, stamp in pause menu); built-app ground test PASS (max 0.67 m, 20/20 landings).
+
+## 2026-11-11 full v2 thriller run
+Prompt: implement steps 1-10 (model fixes, story v2, dawn clock, loading screens, weather, chapters 1-4, chapter 5 stealth/combat/on-screen controls, audio, graphics, verification).
+Result: steps 1-9 implemented and committed; six new PlayMode tests pass. The user then asked to push without the final checks, so the single build, the built-app screenshot pass and the full old+new test run were NOT done.
+Blocked: real robber models and Mixamo combat clips (Docs/BLOCKED.md).
