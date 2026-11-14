@@ -303,6 +303,7 @@ namespace LegacyOfTemples.Characters
             foreach (Collider hit in hits)
             {
                 IInteractable interactable = hit.GetComponent<IInteractable>() ?? hit.GetComponentInParent<IInteractable>();
+                if (interactable is Behaviour beh && !beh.isActiveAndEnabled) continue;   // switched off (e.g. the robbers during the fight)
                 if (interactable != null)
                 {
                     Vector3 to = interactable.Anchor.position - transform.position;

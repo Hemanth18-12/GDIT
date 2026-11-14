@@ -24,9 +24,18 @@ namespace LegacyOfTemples.Gameplay
     public sealed class IntroCinematic : MonoBehaviour
     {
         public static bool Playing { get; private set; }
+        /// <summary>True from the first frame of the first shot to the last (what the recorder captures).</summary>
+        public static bool Rolling { get; private set; }
         public static bool Finished { get; private set; }
         public static string LastShot { get; private set; } = "";
+        public static string LastVoice { get; private set; } = "";
         public const float Length = 68.5f;
+        /// <summary>
+        /// New Game plays the arrival only (village, jeep, directions): the temple reveal, robbery and discovery are the intro
+        /// video that plays when the game starts. "-introVideoPart" plays just that first part (used to record the video).
+        /// </summary>
+        public static float StartAt = 30.6f, EndAt = Length;
+        public static bool VideoPart => System.Array.IndexOf(System.Environment.GetCommandLineArgs(), "-introVideoPart") >= 0;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void Hook() { OpeningCinematic.Prelude = Play; }
@@ -45,6 +54,7 @@ namespace LegacyOfTemples.Gameplay
             public string name; public float start, end; public bool night; public float blendIn;
             public Mode mode; public Vector3 a, b, lookA, lookB; public Transform rel, focus; public float fov = 40f;
             public CinemachineCamera cam;
+            public bool lockPose, cached; public Matrix4x4 pose;   // lockPose: frame the actor where he is when the shot starts, then hold
         }
         private readonly List<Shot> shots = new List<Shot>();
         private PlayableDirector director; private CinemachineBrain brain; private Camera mainCam;
@@ -64,8 +74,10 @@ namespace LegacyOfTemples.Gameplay
             float w = 0f; while (VillageLife.Instance == null || VillageLife.NpcCount == 0 && w < 6f) { w += Time.unscaledDeltaTime; yield return null; }   // the village builds itself just after load
             yield return new WaitForSeconds(0.3f);
             if (!Setup()) { Debug.LogWarning("[Intro] could not set up (missing village or camera): skipped"); Finish(); yield break; }
-            director.Play();
-            while (t < Length && !skipped && !OpeningCinematic.SkipRequested)
+            if (VideoPart) { StartAt = 0f; EndAt = 31.2f; } else { StartAt = 30.6f; EndAt = Length; }
+            director.time = StartAt; director.Play(); t = StartAt; Rolling = true;
+            if (music != null && music.clip != null) music.time = Mathf.Min(StartAt, music.clip.length - 0.1f);
+            while (t < EndAt && !skipped && !OpeningCinematic.SkipRequested)
             {
                 t = (float)director.time; Beat(); Move(); Ui();
                 var kb = Keyboard.current; var gp = Gamepad.current;
@@ -92,7 +104,7 @@ namespace LegacyOfTemples.Gameplay
             if (pujari != null) { pujariHome = pujari.position; pujariRot = pujari.rotation; }
             jeep = Jeep.Instance;
             if (jeep == null) jeep = Jeep.Spawn(Village.RoadStart + new Vector3(2.2f, 0.6f, -2f), Quaternion.LookRotation(Vector3.back));
-            jeepStop = new Vector3(Village.Centre.x + 2.2f, Village.Top, Village.ZMax + 27f);
+            jeepStop = new Vector3(Village.Centre.x + 2.2f, Village.Top, Village.ZMax + 30f);
             var temple = GameObject.Find("Temple_Site");
             tower = temple != null ? temple.transform.position + Vector3.up * 40f : new Vector3(Village.Centre.x, Village.Top + 18f, Village.Centre.z - 18f);
 
@@ -105,7 +117,7 @@ namespace LegacyOfTemples.Gameplay
 
             // the two robbers
             Vector3 d = door != null ? door.position : Village.Centre + new Vector3(0f, 0f, -12f);
-            Vector3 df = door != null ? Flat(door.forward) : Vector3.forward;
+            Vector3 df = DoorOut(d);
             robber1 = Actor("NPC/Robber1_Cine", d + df * 9f + Vector3.right * 7f, d);
             robber2 = Actor("NPC/Robber2_Cine", d + df * 10f + Vector3.right * 8.5f, d);
             if (robber2 != null) { loot = ArtUpgrade.Place(robber2, "brass_pot_01", robber2.position + robber2.right * 0.3f + Vector3.up * 0.95f, 1.6f, 0f, false)?.transform; if (loot != null) loot.gameObject.SetActive(false); }
@@ -130,10 +142,12 @@ namespace LegacyOfTemples.Gameplay
 
             music = gameObject.AddComponent<AudioSource>(); music.clip = AudioManager.Instance != null ? AudioManager.Instance.GetClip("mus_intro") : null; music.volume = 0.5f; music.spatialBlend = 0f; AudioManager.Route(music, "Music");
             AudioManager.Instance?.StopBGM(); if (music.clip != null) music.Play();
-            voice = gameObject.AddComponent<AudioSource>(); voice.spatialBlend = 0f; voice.volume = 1f; AudioManager.Route(voice, "VoiceNPC");
+            voice = gameObject.AddComponent<AudioSource>(); voice.spatialBlend = 0f; voice.volume = 1f; voice.priority = 0; voice.bypassListenerEffects = true;   // straight to the speakers: no mixer group can duck it
             return true;
         }
 
+        /// <summary>From the storage door out into the courtyard (the door object's own forward is not reliable).</summary>
+        private Vector3 DoorOut(Vector3 d) { Vector3 o = Village.Centre - d; o.y = 0f; return o.sqrMagnitude > 1f ? o.normalized : Vector3.forward; }
         private static Vector3 Flat(Vector3 v) { v.y = 0f; return v.sqrMagnitude > 0.0001f ? v.normalized : Vector3.forward; }
         private static void Show(Transform t, bool on) { foreach (var r in t.GetComponentsInChildren<Renderer>(true)) r.enabled = on; }
 
@@ -150,8 +164,8 @@ namespace LegacyOfTemples.Gameplay
             foreach (var (p, isNight) in new[] { (dawn, false), (night, true) })
             {
                 var ca = p.Add<ColorAdjustments>(true);
-                ca.postExposure.Override(isNight ? -0.9f : 0.2f); ca.contrast.Override(isNight ? 18f : 14f); ca.saturation.Override(isNight ? -28f : 12f);
-                ca.colorFilter.Override(isNight ? new Color(0.62f, 0.76f, 1f) : new Color(1f, 0.9f, 0.76f));
+                ca.postExposure.Override(isNight ? 0.35f : 0.1f); ca.contrast.Override(isNight ? 16f : 14f); ca.saturation.Override(isNight ? -18f : 12f);
+                ca.colorFilter.Override(isNight ? new Color(0.72f, 0.82f, 1f) : new Color(1f, 0.92f, 0.8f));
                 var wb = p.Add<WhiteBalance>(true); wb.temperature.Override(isNight ? -30f : 18f);
                 var vg = p.Add<Vignette>(true); vg.intensity.Override(isNight ? 0.42f : 0.3f); vg.smoothness.Override(0.5f);
                 var dof = p.Add<DepthOfField>(true); dof.mode.Override(DepthOfFieldMode.Bokeh); dof.focalLength.Override(55f); dof.aperture.Override(isNight ? 2.8f : 4.5f); dof.focusDistance.Override(8f);
@@ -181,18 +195,18 @@ namespace LegacyOfTemples.Gameplay
             S("01a_aerial_village", 0f, 6f, false, r0 + up * 60f + Vector3.forward * 10f, g + up * 38f + Vector3.forward * 45f, tower, tower, 45f);
             S("01b_crane_to_gate", 6f, 11.5f, false, g + up * 24f + Vector3.forward * 12f, g + up * 1.3f + Vector3.forward * 9f, tower, tower + up * 4f, 50f, 1.2f);
             // 02 the robbery (night)
-            S("02a_low_tracking", 11.5f, 15f, true, d + df * 13f + dr * 5f + up * 0.45f, d + df * 6.5f + dr * 3.5f + up * 0.45f, d + df * 8f + up * 1.2f, d + up * 1.4f, 42f, 0f, null, robber1);
-            S("02b_closeup_lookout", 15f, 18f, true, d + df * 2.4f + dr * 1.0f + up * 1.65f, d + df * 2.2f + dr * 0.8f + up * 1.6f, d + df * 1.0f + up * 1.6f, d + df * 1.0f + up * 1.6f, 30f, 0f, null, robber1);
-            S("02c_high_wide_door", 18f, 21f, true, d + df * 9f + dr * -6f + up * 7f, d + df * 8f + dr * -5f + up * 6f, d + up * 1f, d + df * 3f + up * 1f, 46f);
-            S("02d_escape_track", 21f, 24f, true, d + df * 6f + dr * 9f + up * 1.5f, d + df * 6f + dr * 16f + up * 1.5f, d + df * 4f + dr * 8f + up * 1.2f, d + df * 4f + dr * 18f + up * 1.2f, 44f, 0f, null, robber2);
-            // 03 the discovery
-            S("03a_pujari_medium", 24f, 28f, true, d + df * 4.5f + dr * 2.2f + up * 1.6f, d + df * 4.0f + dr * 1.8f + up * 1.6f, d + df * 1.2f + up * 1.3f, d + df * 1.2f + up * 1.3f, 40f, 0f, null, pujari);
-            S("03b_pujari_closeup", 28f, 31f, true, d + df * 2.6f + up * 1.6f, d + df * 2.35f + up * 1.6f, d + df * 1.2f + up * 1.55f, d + df * 1.2f + up * 1.55f, 26f, 0f, null, pujari);
+            S("02a_low_tracking", 11.5f, 15f, true, new Vector3(-2.6f, 0.6f, -7.5f), new Vector3(-2.2f, 0.6f, -5.8f), new Vector3(0f, 1.3f, 1.5f), new Vector3(0f, 1.4f, 1.5f), 44f, 0f, robber1, robber1);
+            S("02b_closeup_lookout", 15f, 18f, true, new Vector3(0.9f, 1.75f, 2.4f), new Vector3(0.75f, 1.72f, 2.1f), new Vector3(0f, 1.62f, 0f), new Vector3(0f, 1.62f, 0f), 34f, 0f, robber1, robber1).lockPose = true;
+            S("02c_high_wide_door", 18f, 21f, true, d + df * 10f + dr * -6f + up * 7f, d + df * 9f + dr * -5f + up * 6f, d + up * 1f, d + df * 3f + up * 1f, 46f);
+            S("02d_escape_track", 21f, 24f, true, new Vector3(7.0f, 1.8f, 1.5f), new Vector3(6.6f, 1.8f, 0.5f), new Vector3(0f, 1.2f, 0.8f), new Vector3(0f, 1.2f, 0.8f), 44f, 0f, robber2, robber2);
+            // 03 the discovery: the Pujari points at the broken lock, then turns, shocked
+            S("03a_pujari_medium", 24f, 28f, true, d + df * 4.6f + dr * 2.4f + up * 1.6f, d + df * 4.1f + dr * 2.0f + up * 1.6f, d + df * 1.2f + up * 1.3f, d + df * 1.2f + up * 1.3f, 40f, 0f, null, pujari);
+            S("03b_pujari_closeup", 28f, 31f, true, new Vector3(0.45f, 1.55f, 2.0f), new Vector3(0.35f, 1.52f, 1.7f), new Vector3(0f, 1.42f, 0f), new Vector3(0f, 1.42f, 0f), 32f, 0f, pujari, pujari);
             // 04 the arrival (dawn): jeep-relative shots use local offsets
             S("04a_aerial_follow", 31f, 36f, false, new Vector3(0f, 26f, -26f), new Vector3(0f, 18f, -14f), new Vector3(0f, 0f, 14f), new Vector3(0f, 0f, 10f), 48f, 0f, jt, jt);
             S("04b_low_front", 36f, 40f, false, new Vector3(0.6f, 0.45f, 13f), new Vector3(0.6f, 0.45f, 8f), new Vector3(0f, 1.1f, 0f), new Vector3(0f, 1.1f, 0f), 38f, 0f, jt, jt);
             S("04c_wheel_closeup", 40f, 43f, false, new Vector3(-2.0f, 0.55f, 2.6f), new Vector3(-1.9f, 0.5f, 1.9f), new Vector3(-0.9f, 0.4f, 1.4f), new Vector3(-0.9f, 0.4f, 1.4f), 34f, 0f, jt, null);
-            S("04d_side_tracking", 43f, 49f, false, new Vector3(-7f, 1.7f, 1f), new Vector3(-7f, 1.7f, -1f), new Vector3(0f, 1.1f, 0f), new Vector3(0f, 1.1f, 0f), 42f, 0.8f, jt, jt);
+            S("04d_side_tracking", 43f, 49f, false, new Vector3(7f, 1.7f, 1f), new Vector3(7f, 1.7f, -1f), new Vector3(0f, 1.1f, 0f), new Vector3(0f, 1.1f, 0f), 42f, 0.8f, jt, jt);
             S("04e_wide_stop", 49f, 53f, false, jeepStop + new Vector3(-9f, 3.5f, -11f), jeepStop + new Vector3(-8f, 3.2f, -9f), jeepStop + up * 1f, jeepStop + up * 1f, 40f, 0.8f);
             Vector3 exit = jeepStop + new Vector3(-1.8f, 0f, 0.4f);
             S("04f_boots_to_face", 53f, 57f, false, exit + new Vector3(-1.4f, 0.25f, -0.9f), exit + new Vector3(-1.5f, 1.55f, -1.2f), exit + up * 0.15f, exit + up * 1.65f, 34f, 0f, null, player.transform);
@@ -211,7 +225,11 @@ namespace LegacyOfTemples.Gameplay
                 if (t < s.start - s.blendIn - 0.05f || t > s.end + 0.05f) continue;
                 float k = Mathf.SmoothStep(0f, 1f, Mathf.InverseLerp(s.start - s.blendIn, s.end, t));
                 Vector3 p = Vector3.Lerp(s.a, s.b, k), l = Vector3.Lerp(s.lookA, s.lookB, k);
-                if (s.mode == Mode.Follow && s.rel != null) { p = s.rel.TransformPoint(p); l = s.rel.TransformPoint(l); }
+                if (s.mode == Mode.Follow && s.rel != null)
+                {
+                    if (s.lockPose) { if (!s.cached) { s.pose = s.rel.localToWorldMatrix; s.cached = true; } p = s.pose.MultiplyPoint3x4(p); l = s.pose.MultiplyPoint3x4(l); }
+                    else { p = s.rel.TransformPoint(p); l = s.rel.TransformPoint(l); }
+                }
                 s.cam.transform.position = p;
                 if ((l - p).sqrMagnitude > 0.001f) s.cam.transform.rotation = Quaternion.LookRotation(l - p, Vector3.up);
                 if (t >= s.start && t < s.end) LastShot = s.name;
@@ -219,11 +237,12 @@ namespace LegacyOfTemples.Gameplay
         }
 
         // ------------------------------------------------------------------ beats
-        private bool Once(string id, float at) { if (t < at || fired.Contains(id)) return false; fired.Add(id); return true; }
+        private bool Once(string id, float at) { if (t < at || fired.Contains(id)) return false; fired.Add(id); return at >= StartAt - 0.01f; }   // beats before the start point are skipped, not replayed
         private void Say(string speakerName, string line, string clip, float seconds)
         {
             subtitle = line; speaker = speakerName; subUntil = t + seconds;
             var c = Resources.Load<AudioClip>("Voice/" + clip); if (c != null) { voice.Stop(); voice.clip = c; voice.Play(); }
+            LastVoice = clip + (c != null ? $" ({c.length:0.0}s, playing={voice.isPlaying}, listener volume {AudioListener.volume:0.00})" : " MISSING"); Debug.Log("[Intro] voice " + LastVoice);
             if (music != null) music.volume = 0.22f;   // the music ducks under the voice
         }
         private static void Walk(Transform a, Vector3 to, float speed)
@@ -238,24 +257,27 @@ namespace LegacyOfTemples.Gameplay
 
         private void Beat()
         {
-            Vector3 d = door != null ? door.position : Village.Centre + new Vector3(0f, 0f, -12f), df = door != null ? Flat(door.forward) : Vector3.forward, dr = Vector3.Cross(Vector3.up, df);
+            // light: golden hour for the reveal, night for the robbery and the discovery, morning for the arrival (cuts hide the change)
+            LookTuner.Dawn = t < 11.5f ? 1f : t < 31f ? 0f : 0.8f;
+            Vector3 d = door != null ? door.position : Village.Centre + new Vector3(0f, 0f, -12f), df = DoorOut(d), dr = Vector3.Cross(Vector3.up, df);
             if (Once("bell1", 1f)) AudioManager.Instance?.PlaySFX("sfx_bell_temple", 0.5f);
             if (Once("bell2", 7f)) AudioManager.Instance?.PlaySFX("sfx_bell_temple", 0.35f, 0.9f);
             // 02 robbery
             if (Once("robbers_on", 11.4f)) { if (robber1 != null) Show(robber1, true); if (robber2 != null) Show(robber2, true); }
-            if (t > 11.5f && t < 17.5f) { Walk(robber1, d + df * 1.2f + dr * 0.6f, 1.6f); Walk(robber2, d + df * 2.4f + dr * 1.6f, 1.5f); }
+            if (t > 11.5f && t < 17.5f) { Walk(robber1, d + df * 1.2f + dr * 0.6f, 1.6f); Walk(robber2, d + df * 4.0f + dr * 3.6f, 1.5f); }
             if (t > 15.2f && t < 17.8f && robber1 != null) robber1.rotation = Quaternion.LookRotation(Quaternion.Euler(0f, Mathf.Sin((t - 15.2f) * 2.4f) * 70f, 0f) * -df);   // looks round
             if (Once("inside", 17.9f)) { if (robber1 != null) Show(robber1, false); if (robber2 != null) Show(robber2, false); AudioManager.Instance?.PlaySFX("sfx_door_stone", 0.35f); }
             if (Once("out", 19.2f))
             {
                 if (robber1 != null) { robber1.position = d + df * 0.8f; Show(robber1, true); }
-                if (robber2 != null) { robber2.position = d + df * 1.0f + dr * 0.9f; Show(robber2, true); if (loot != null) loot.gameObject.SetActive(true); }
+                if (robber2 != null) { robber2.position = d + df * 2.6f + dr * 2.6f; Show(robber2, true); if (loot != null) loot.gameObject.SetActive(true); }
             }
-            if (t > 19.2f && t < 24.5f) { Walk(robber1, d + df * 5f + dr * 24f, 4.2f); Walk(robber2, d + df * 6f + dr * 25f, 4.0f); }
+            if (t > 19.2f && t < 24.5f) { Walk(robber1, d + df * 5f + dr * 24f, 4.2f); Walk(robber2, d + df * 8.5f + dr * 25f, 4.0f); }
             if (Once("robbers_off", 24.2f)) { if (robber1 != null) robber1.gameObject.SetActive(false); if (robber2 != null) robber2.gameObject.SetActive(false); }
             // 03 discovery
             if (Once("pujari_on", 23.9f) && pujari != null) { pujari.position = d + df * 1.3f + dr * -0.4f; pujari.rotation = Quaternion.LookRotation(-df); Show(pujari, true); }
             if (Once("pujari_point", 25.2f) && pujari != null) { var an = pujari.GetComponentInChildren<Animator>(); if (an != null) an.SetTrigger("Point"); }
+            if (Once("pujari_turn", 27.6f) && pujari != null) pujari.rotation = Quaternion.LookRotation(df);   // he turns from the empty hall
             if (Once("pujari_line", 28.3f)) Say("Pujari Ananda", "Something terrible has happened!", "pujari/intro_puj_01_tts", 2.6f);
             if (Once("phone", 30.0f)) AudioManager.Instance?.PlaySFX("sfx_phone_ring", 0.5f);
             // 04 arrival
@@ -264,14 +286,16 @@ namespace LegacyOfTemples.Gameplay
             {
                 var car = jeep.Car; Vector3 jp = jeep.transform.position, to = jeepStop - jp; to.y = 0f;
                 float dist = Vector3.Dot(to, jeep.transform.forward);
-                float lateral = Vector3.Dot(to, jeep.transform.right);
-                car.autoSteer = Mathf.Clamp(lateral * 0.25f, -0.4f, 0.4f);
+                // keep to the lane: aim at a point 9 m ahead on the lane's centre line
+                Vector3 aim = new Vector3(jeepStop.x, jp.y, jp.z - 9f) - jp; aim.y = 0f;
+                car.autoSteer = Mathf.Clamp(Vector3.SignedAngle(Flat(jeep.transform.forward), aim, Vector3.up) / 25f, -0.6f, 0.6f);
                 float want = dist > 14f ? 5.4f : Mathf.Max(0f, dist * 0.38f);
                 car.autoThrottle = car.CurrentSpeed < want - 0.3f ? 0.75f : 0f;
                 car.autoBrake = dist < 0.8f || car.CurrentSpeed > want + 1.2f;
                 if (dist < 0.8f) { car.autoThrottle = 0f; car.autoBrake = true; }
                 jeep.Audio.engineLevel = t > 50.5f ? Mathf.MoveTowards(jeep.Audio.engineLevel, 0f, Time.deltaTime * 0.6f) : 1f;   // engine fades as it parks
             }
+            if (Once("park", 51.8f) && jeep != null) { var prb = jeep.GetComponent<Rigidbody>(); prb.linearVelocity = Vector3.zero; prb.angularVelocity = Vector3.zero; prb.isKinematic = true; }   // parked: nothing can shove it
             if (Once("door_open", 52.2f) && jeep != null) StartCoroutine(jeep.DriverDoor(true, 0.6f));
             if (Once("hero_out", 52.7f))
             {
@@ -282,7 +306,8 @@ namespace LegacyOfTemples.Gameplay
             if (Once("door_close", 55.2f) && jeep != null) StartCoroutine(jeep.DriverDoor(false, 0.5f));
             // 05 directions
             Vector3 stand = VillageLife.Instance != null ? VillageLife.Instance.TeaStallStand + new Vector3(1.0f, 0f, 0f) : jeepStop;
-            if (t > 55.5f && t < 58.8f) Walk(player.transform, stand, 1.45f);
+            if (t > 55.5f && t < 57.1f && jeep != null) Walk(player.transform, jeep.transform.position + jeep.transform.forward * 3.0f + Vector3.left * 0.0f, 1.6f);   // round the front of the jeep, not through it
+            else if (t >= 57.1f && t < 58.8f) Walk(player.transform, stand, 1.6f);
             if (t > 58.8f && t < 67f && meera != null) { Vector3 to = meera.position - player.transform.position; to.y = 0f; if (to.sqrMagnitude > 0.01f) player.transform.rotation = Quaternion.Slerp(player.transform.rotation, Quaternion.LookRotation(to), Time.deltaTime * 4f); }
             if (Once("ask", 58.6f)) Say("Aryan", "Excuse me, could you tell me the way to Jagannath Temple?", "aryan/intro_ary_01_tts", 3.0f);
             if (Once("meera_gesture", 61.6f) && meera != null) { var an = meera.GetComponentInChildren<Animator>(); if (an != null) { an.SetTrigger("Pray"); an.SetBool("IsTalking", true); } }
@@ -293,7 +318,7 @@ namespace LegacyOfTemples.Gameplay
 
         private void Ui()
         {
-            float fade = t < 1.5f ? 1f - t / 1.5f : (t > 11.1f && t < 11.9f ? 1f - Mathf.Abs(t - 11.5f) / 0.4f : (t > 30.6f && t < 31.4f ? 1f - Mathf.Abs(t - 31f) / 0.4f : 0f));
+            float fade = StartAt > 0f && t < StartAt + 1.2f ? 1f - (t - StartAt) / 1.2f : t > EndAt - 0.8f && EndAt < Length ? (t - (EndAt - 0.8f)) / 0.8f : t < 1.5f ? 1f - t / 1.5f : (t > 11.1f && t < 11.9f ? 1f - Mathf.Abs(t - 11.5f) / 0.4f : (t > 30.6f && t < 31.4f ? 1f - Mathf.Abs(t - 31f) / 0.4f : 0f));
             if (fadeImg == null)
             {
                 var cv = new GameObject("IntroFade").AddComponent<Canvas>(); cv.transform.SetParent(transform, false); cv.renderMode = RenderMode.ScreenSpaceOverlay; cv.sortingOrder = 700;
@@ -301,33 +326,55 @@ namespace LegacyOfTemples.Gameplay
                 var rt = fadeImg.rectTransform; rt.anchorMin = Vector2.zero; rt.anchorMax = Vector2.one; rt.offsetMin = rt.offsetMax = Vector2.zero;
             }
             fadeImg.color = new Color(0f, 0f, 0f, Mathf.Clamp01(fade));
-            if (t > 6.5f && t < 11f)
-            {
-                float a = Mathf.Clamp01((t - 6.5f) / 1.2f) * Mathf.Clamp01((11f - t) / 0.8f);
-                ScreenText.Panel("intro_title", null, $"<alpha=#{(int)(a * 255):X2}><size=260%><color=#FFC857><b>LEGACY OF THE TEMPLE</b></color></size>\n<size=110%><color=#FFF4D6>A heritage mystery</color></size>", PanelAnchor.Center, 1500f, null, false, 90);
+            {   // the title: antique gold Cinzel straight on the picture, no box
+                float a = t > 6.5f && t < 11f ? Mathf.Clamp01((t - 6.5f) / 1.2f) * Mathf.Clamp01((11f - t) / 0.8f) : 0f;
+                if (title == null) MakeTitle();
+                title.alpha = a; subTitle.alpha = a * 0.9f;
+                title.characterSpacing = Mathf.Lerp(18f, 6f, Mathf.Clamp01((t - 6.5f) / 4f));
             }
             if (t > 11.6f && t < 14f) ScreenText.Panel("intro_card", null, "<color=#5CE1E6>3:10 AM</color>   <color=#FFF4D6>The storage hall</color>", PanelAnchor.BottomLeft, 520f, null, false, 80);
             if (t > 31.2f && t < 34f) ScreenText.Panel("intro_card", null, "<color=#FFC857>First light</color>   <color=#FFF4D6>Suryapur village</color>", PanelAnchor.BottomLeft, 560f, null, false, 80);
             if (t < subUntil && !string.IsNullOrEmpty(subtitle) && PlayerPrefs.GetInt("Settings_Subtitles", 1) == 1)
                 ScreenText.Panel("intro_sub", null, $"<color=#FFC857><b>{speaker}</b></color>  {subtitle}", PanelAnchor.BottomCenter, 1400f, null, false, 85);
             string ring = escHeld > 0.05f ? $"  <color=#FFC857>{Mathf.RoundToInt(Mathf.Clamp01(escHeld) * 100)}%</color>" : "";
-            ScreenText.Panel("intro_skip", null, $"HOLD {ScreenText.Key("Esc")} TO SKIP{ring}", PanelAnchor.TopRight, 360f, null, false, 96);
+            if (!VideoPart) ScreenText.Panel("intro_skip", null, $"HOLD {ScreenText.Key("Esc")} TO SKIP{ring}", PanelAnchor.TopRight, 470f, null, false, 96);   // the video has its own
+        }
+
+        private TMPro.TextMeshProUGUI title, subTitle; private static TMPro.TMP_FontAsset cinzel;
+        private void MakeTitle()
+        {
+            if (cinzel == null) { var f = Resources.Load<Font>("Fonts/Cinzel"); if (f != null) cinzel = TMPro.TMP_FontAsset.CreateFontAsset(f, 90, 9, UnityEngine.TextCore.LowLevel.GlyphRenderMode.SDFAA, 1024, 1024, TMPro.AtlasPopulationMode.Dynamic, true); }
+            if (fadeImg == null) Ui();
+            var cv = fadeImg.canvas.transform;
+            TMPro.TextMeshProUGUI T(string n, float size, float y, Color c)
+            {
+                var tx = new GameObject(n, typeof(RectTransform)).AddComponent<TMPro.TextMeshProUGUI>(); tx.transform.SetParent(cv, false);
+                if (cinzel != null) tx.font = cinzel; tx.fontSize = size; tx.color = c; tx.alignment = TMPro.TextAlignmentOptions.Center; tx.raycastTarget = false;
+                tx.textWrappingMode = TMPro.TextWrappingModes.NoWrap; tx.outlineWidth = 0.15f; tx.outlineColor = new Color32(40, 22, 4, 255);
+                var r = tx.rectTransform; r.anchorMin = new Vector2(0f, 0.5f); r.anchorMax = new Vector2(1f, 0.5f); r.sizeDelta = new Vector2(0f, size * 1.4f); r.anchoredPosition = new Vector2(0f, y);
+                tx.enableVertexGradient = true; return tx;
+            }
+            var sc = cv.GetComponent<UnityEngine.UI.CanvasScaler>() ?? cv.gameObject.AddComponent<UnityEngine.UI.CanvasScaler>();
+            sc.uiScaleMode = UnityEngine.UI.CanvasScaler.ScaleMode.ScaleWithScreenSize; sc.referenceResolution = new Vector2(1920, 1080); sc.matchWidthOrHeight = 0.5f;
+            title = T("IntroTitle", 104f, 40f, Color.white); title.text = "LEGACY OF THE TEMPLE"; title.fontStyle = TMPro.FontStyles.Bold;
+            title.colorGradient = new TMPro.VertexGradient(new Color(1f, 0.9f, 0.55f), new Color(1f, 0.9f, 0.55f), new Color(0.78f, 0.52f, 0.16f), new Color(0.78f, 0.52f, 0.16f));
+            subTitle = T("IntroSubtitle", 34f, -48f, new Color(1f, 0.95f, 0.84f)); subTitle.text = "A HERITAGE MYSTERY"; subTitle.characterSpacing = 30f; subTitle.enableVertexGradient = false;
         }
 
         // ------------------------------------------------------------------ hand-over (also the skip path: everything ends in the same safe state)
         private void Finish()
         {
-            if (director != null) director.Stop();
+            Rolling = false; if (director != null) director.Stop();
             if (jeep != null)
             {
                 var rbj = jeep.GetComponent<Rigidbody>();
                 if (skipped || OpeningCinematic.SkipRequested || Vector3.Distance(jeep.transform.position, jeepStop) > 6f)
                 { jeep.transform.position = jeepStop + Vector3.up * 0.4f; jeep.transform.rotation = Quaternion.LookRotation(Vector3.back); if (rbj != null) { rbj.linearVelocity = Vector3.zero; rbj.angularVelocity = Vector3.zero; } }
-                jeep.Car.autopilot = false; jeep.Car.autoBrake = false; jeep.Audio.engineLevel = 0.6f; jeep.Lights.SetHeadLights(false);
+                rbj.isKinematic = false; jeep.Car.autopilot = false; jeep.Car.autoBrake = false; jeep.Audio.engineLevel = 0.6f; jeep.Lights.SetHeadLights(false);
             }
             if (robber1 != null) Destroy(robber1.gameObject); if (robber2 != null) Destroy(robber2.gameObject);
             if (pujari != null) { pujari.position = pujariHome; pujari.rotation = pujariRot; Show(pujari, true); }
-            if (meera != null) { Show(meera, true); var an = meera.GetComponentInChildren<Animator>(); if (an != null) an.SetBool("IsTalking", false); if (!skipped && !OpeningCinematic.SkipRequested) StartCoroutine(MeeraHome()); else { meera.position = meeraHome; meera.rotation = meeraRot; } }
+            if (meera != null) { Show(meera, true); var an = meera.GetComponentInChildren<Animator>(); if (an != null) an.SetBool("IsTalking", false); if (!skipped && !OpeningCinematic.SkipRequested && VillageLife.Instance != null) VillageLife.Instance.StartCoroutine(MeeraHome()); else { meera.position = meeraHome; meera.rotation = meeraRot; } }
             if (player != null)
             {
                 if (skipped || OpeningCinematic.SkipRequested || t < 55f)
@@ -344,7 +391,7 @@ namespace LegacyOfTemples.Gameplay
             if (brain != null) Destroy(brain);
             if (orbit != null) { orbit.enabled = true; orbit.SetTarget(player != null ? player.transform : null); }
             if (music != null) music.Stop();
-            DawnClock.Hold = false; InputGate.CinematicActive = false; Playing = false; Finished = true;
+            DawnClock.Hold = false; InputGate.CinematicActive = false; Playing = false; Finished = true; LookTuner.Dawn = 0.8f;   // play goes on in the same morning light
             ObjectiveBanner.Show("OBJECTIVE", "REACH JAGANNATH TEMPLE", 4.5f);
             StoryDialogueSystem.Instance?.RegisterMinigame("reach_temple");
             Debug.Log($"[Intro] finished at {t:0.0}s ({(skipped || OpeningCinematic.SkipRequested ? "skipped" : "played through")}), last shot {LastShot}");
@@ -373,7 +420,7 @@ namespace LegacyOfTemples.Gameplay
         private void Update()
         {
             if (Time.unscaledTime > until) return;
-            ScreenText.Panel("objective_banner", null, $"<size=80%><color=#5CE1E6>{head}</color></size>\n<size=150%><color=#FFC857><b>{body}</b></color></size>", PanelAnchor.TopCenter, 900f, null, false, 70);
+            ScreenText.Panel("objective_banner", null, $"<size=80%><color=#5CE1E6>{head}</color></size>\n<size=150%><color=#FFC857><b>{body}</b></color></size>", PanelAnchor.TopCenter, 640f, null, false, 70);
         }
     }
 }

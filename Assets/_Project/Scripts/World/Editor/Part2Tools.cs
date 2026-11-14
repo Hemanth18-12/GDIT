@@ -191,17 +191,20 @@ namespace LegacyOfTemples.World.Editor
                 else if (s != null) m.CopyPropertiesFromMaterial(s);
                 m.SetColor("_BaseColor", tint); m.SetTextureScale("_BaseMap", Vector2.one / tile); EditorUtility.SetDirty(m); return m;
             }
-            var sandstone = FromPh("MAT_Temple_Sandstone", "sandstone_blocks_08", new Color(1f, 0.93f, 0.82f), 2.6f);
-            var laterite = FromPh("MAT_Temple_Laterite", "red_sandstone_wall", new Color(0.78f, 0.6f, 0.5f), 2.2f);
-            var carved = FromPh("MAT_Temple_Carved", "red_sandstone_wall", new Color(1f, 0.9f, 0.78f), 1.6f);
-            var roof = FromPh("MAT_Temple_RoofStone", "sandstone_blocks_08", new Color(0.86f, 0.74f, 0.6f), 1.8f);
+            // rich Indian temple colours instead of pale cream: red and ochre sandstone, terracotta and saffron tiers, white spires
+            var sandstone = FromPh("MAT_Temple_Sandstone", "red_sandstone_wall", new Color(1f, 0.7f, 0.52f), 2.4f);
+            var laterite = FromPh("MAT_Temple_Laterite", "red_sandstone_wall", new Color(0.72f, 0.36f, 0.26f), 2.2f);
+            var carved = FromPh("MAT_Temple_Carved", "sandstone_blocks_08", new Color(1f, 0.74f, 0.4f), 1.6f);
+            var roof = FromPh("MAT_Temple_RoofStone", "red_sandstone_wall", new Color(0.92f, 0.46f, 0.28f), 1.8f);
+            var saffron = FromPh("MAT_Temple_Saffron", "white_plaster_rough_01", new Color(1f, 0.55f, 0.14f), 1.5f);
+            var white = FromPh("MAT_Temple_WhiteSpire", "white_plaster_rough_01", new Color(1f, 0.96f, 0.9f), 1.5f);
             var wood = FromPh("MAT_Temple_Wood", "medieval_wood", Color.white, 1.4f);
             var gold = Lit(TempleDir + "/Materials/MAT_Temple_Gold.mat", G(0.83f, 0.6f, 0.2f), 1f, 0.72f);
             var glass = Lit(TempleDir + "/Materials/MAT_Temple_Glass.mat", G(0.1f, 0.12f, 0.12f), 0f, 0.9f, null, 0.5f);
             var cloth = Lit(TempleDir + "/Materials/MAT_Temple_FlagRed.mat", G(0.6f, 0.03f, 0.02f), 0f, 0.2f);
             System.Func<string, Material> pick = n =>
                 n.StartsWith("Stone_01_01") ? sandstone : n.StartsWith("Stone_01_02") ? laterite : n.StartsWith("Stone_01_03") ? carved :
-                n.StartsWith("Roof_01_01") ? roof : n.StartsWith("Roof_01_02") ? laterite : n.StartsWith("Roof_01_03") ? sandstone :
+                n.StartsWith("Roof_01_01") ? roof : n.StartsWith("Roof_01_02") ? saffron : n.StartsWith("Roof_01_03") ? white :
                 n.StartsWith("Metal") ? gold : n.StartsWith("Glass") ? glass : n.StartsWith("Wood") ? wood : cloth;
             string lod1 = TempleDir + "/Temple_Game_LOD1.fbx";
             foreach (var f in new[] { fbx, lod1 })

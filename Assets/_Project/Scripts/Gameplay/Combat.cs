@@ -47,7 +47,25 @@ namespace LegacyOfTemples.Gameplay
         }
 
         public void Begin(float guard) { MaxGuard = Guard = guard; State = EnemyState.Circle; stateT = 0f; nextAttack = Time.time + 1.6f; }
-        public void SetState(EnemyState s) { State = s; stateT = 0f; TelegraphLeft = 0f; }
+        public void SetState(EnemyState s) { State = s; stateT = 0f; TelegraphLeft = 0f; Animate(s); }
+
+        // ---- fight animations (Open Kit 3D sword clips on the robbers' RobberCombat controller)
+        private Animator anim; private readonly System.Collections.Generic.HashSet<string> animParams = new System.Collections.Generic.HashSet<string>();
+        private void AnimSet(string p, bool? b = null)
+        {
+            if (anim == null) { anim = GetComponentInChildren<Animator>(); if (anim != null) foreach (var q in anim.parameters) animParams.Add(q.name); }
+            if (anim == null || !animParams.Contains(p)) return;
+            if (b.HasValue) anim.SetBool(p, b.Value); else anim.SetTrigger(p);
+        }
+        private void Animate(EnemyState s)
+        {
+            AnimSet("Down", s == EnemyState.Down);
+            switch (s)
+            {
+                case EnemyState.Telegraph: AnimSet(Current == Move.Lunge || Current == Move.Kick || Current == Move.Shove ? "Thrust" : Current == Move.WideSwing || Current == Move.DoubleSlash ? "Combo" : "Slash"); break;
+                case EnemyState.Stunned: case EnemyState.Staggered: AnimSet("Hit"); break;
+            }
+        }
 
         public static float TelegraphTime(Move m)
         {
@@ -68,6 +86,7 @@ namespace LegacyOfTemples.Gameplay
         {
             if (State == EnemyState.Down || State == EnemyState.Ally || State == EnemyState.Flee && amount < 999f) { }
             if (State == EnemyState.Down || State == EnemyState.Ally) return false;
+            if (State != EnemyState.Telegraph) AnimSet("Hit");   // flinch on every landed blow (not mid-swing)
             Guard = Mathf.Max(0f, Guard - amount);
             if (Guard <= 0f) { SetState(EnemyState.Staggered); return true; }
             if (stagger > 0f) { SetState(EnemyState.Stunned); stateT = -stagger + 0.001f; stunFor = stagger; }
@@ -615,7 +634,16 @@ namespace LegacyOfTemples.Gameplay
             return best;
         }
 
-        public void SetBlocking(bool on) { if (on && !Blocking) blockStart = Time.time; Blocking = on && Stamina > 0f; }
+        public void SetBlocking(bool on) { if (on && !Blocking) blockStart = Time.time; Blocking = on && Stamina > 0f; PlayerAnim("Block", Blocking); }
+
+        // ---- the investigator's fight animations (strike combo, heavy, block, hit) on CharacterAnimator
+        private int lightChain; private Animator heroAnim; private readonly System.Collections.Generic.HashSet<string> heroParams = new System.Collections.Generic.HashSet<string>();
+        private void PlayerAnim(string p, bool? b = null)
+        {
+            if (heroAnim == null && player != null) { heroAnim = player.GetComponentInChildren<Animator>(); heroParams.Clear(); if (heroAnim != null) foreach (var q in heroAnim.parameters) heroParams.Add(q.name); }
+            if (heroAnim == null || !heroParams.Contains(p)) return;
+            if (b.HasValue) { if (heroAnim.GetBool(p) != b.Value) heroAnim.SetBool(p, b.Value); } else heroAnim.SetTrigger(p);
+        }
 
         private void PlayerCombat()
         {
@@ -662,6 +690,7 @@ namespace LegacyOfTemples.Gameplay
         {
             if (heavy && Stamina < 20f) heavy = false;
             if (heavy) { Stamina -= 20f; lastStamUse = Time.time; }
+            PlayerAnim(heavy ? "Heavy" : "Attack" + (1 + (lightChain++ % 3)));
             float wind = heavy ? 0.45f : 0.18f;
             attackUntil = Time.time + wind + (heavy ? 0.3f : 0.12f);
             var t = Nearest(3.0f, 80f);
@@ -734,7 +763,7 @@ namespace LegacyOfTemples.Gameplay
         public void Hurt(float dmg, Vector3 from)
         {
             dmg *= GameOptions.DamageTaken;
-            Health = Mathf.Max(0f, Health - dmg); HitsTaken++;
+            Health = Mathf.Max(0f, Health - dmg); HitsTaken++; PlayerAnim("Hit");
             LastDamageTime = Time.time; LastDamageDir = Flat(from - player.transform.position).normalized;
             AudioManager.Instance?.PlaySFX("sfx_hit_taken"); AudioManager.Instance?.PlaySFX("sfx_grunt_pain", 0.6f);
             if (Health <= 0f)

@@ -207,10 +207,10 @@ namespace LegacyOfTemples.Gameplay.Vehicles
 
         // ------------------------------------------------------------------ getting in and out (E)
         public string Id => "vehicle_jeep";
-        public string Prompt => DamageState >= 3 ? "The jeep is wrecked" : "Drive the jeep";
+        public string Prompt => Occupied ? "" : DamageState >= 3 ? "The jeep is wrecked" : "Drive the jeep";
         public Transform Anchor { get { if (anchor == null) { anchor = new GameObject("JeepDoorAnchor").transform; anchor.SetParent(transform, false); } anchor.position = DriverExitPoint; return anchor; } }
         private Transform anchor;
-        public float Radius => 2.4f;
+        public float Radius => Occupied ? 0f : 2.4f;
 
         public void Interact()
         {
@@ -289,14 +289,15 @@ namespace LegacyOfTemples.Gameplay.Vehicles
 
         private void OnCollisionEnter(Collision c)
         {
-            if (rb == null || c.contactCount == 0) return;
-            if (c.collider.GetComponentInParent<PlayerController>() != null) return;
+            if (rb == null || rb.isKinematic || c.contactCount == 0) return;
+            if (c.collider.GetComponentInParent<PlayerController>() != null || debris.Contains(c.gameObject) || c.collider.transform.IsChildOf(transform)) return;
             var cp = c.GetContact(0);
             if (Vector3.Dot(cp.normal, Vector3.up) > 0.7f) return;          // driving over a kerb or a step is not a crash
-            float dv = c.impulse.magnitude / rb.mass; LastImpact = dv;
+            if (c.rigidbody != null && c.rigidbody.mass < 60f) return;      // small loose things (props, fallen parts) do not damage it
+            float dv = Mathf.Abs(Vector3.Dot(c.relativeVelocity, cp.normal)); LastImpact = dv;   // closing speed along the hit: overlap pushes do not count
             Audio?.Impact(dv);
             if (dv < 2.2f) return;                                          // bumps and scrapes do nothing
-            ApplyDamage(transform.InverseTransformPoint(cp.point), Mathf.Pow(dv - 2.2f, 1.3f) * 6f, cp.point, cp.normal);
+            ApplyDamage(transform.InverseTransformPoint(cp.point), Mathf.Pow(dv - 2.2f, 1.3f) * 3.5f, cp.point, cp.normal);   // one hard wall crash (~40 km/h) leaves it Wrecked, not Destroyed
         }
 
         /// <summary>Damage at a point (root-local). Public so tests and the cinematic can exercise it.</summary>
@@ -356,6 +357,7 @@ namespace LegacyOfTemples.Gameplay.Vehicles
             t.SetParent(null, true);
             foreach (var l in t.GetComponentsInChildren<Light>()) l.enabled = false;
             var col = t.gameObject.AddComponent<BoxCollider>(); col.center = t.InverseTransformPoint(b.center); col.size = Vector3.Max(t.InverseTransformVector(b.size).Abs(), Vector3.one * 0.05f);
+            foreach (var own in GetComponentsInChildren<Collider>()) if (own != col) Physics.IgnoreCollision(col, own, true);   // a falling part never hits its own jeep
             var prb = t.gameObject.AddComponent<Rigidbody>(); prb.mass = Mathf.Clamp(b.size.x * b.size.y * b.size.z * 200f, 2f, 45f);
             prb.linearVelocity = (rb != null ? rb.linearVelocity : Vector3.zero) * 0.6f - normal * 1.5f + Vector3.up * 2f; prb.angularVelocity = Random.insideUnitSphere * 4f;
             debris.Add(t.gameObject);

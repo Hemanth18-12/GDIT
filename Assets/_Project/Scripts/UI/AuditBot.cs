@@ -52,7 +52,19 @@ namespace LegacyOfTemples.UI
         {
             Directory.CreateDirectory(output);
             Line("# Runtime audit (" + DateTime.Now.ToString("yyyy-MM-dd HH:mm") + ", " + (Application.isEditor ? "Editor" : "Standalone") + ", " + Screen.width + "x" + Screen.height + ")");
-            yield return new WaitForSecondsRealtime(2f);
+            yield return new WaitForSecondsRealtime(1.5f);
+            if (StartupIntroVideo.Playing)
+            {   // the intro video at start-up: a few frames as evidence, then let it finish
+                Line("## Intro video at start-up: playing");
+                foreach (float at in new[] { 3f, 10f, 18f, 27f })
+                {
+                    float w0 = Time.unscaledTime; while (StartupIntroVideo.Playing && Time.unscaledTime - w0 < at - (at > 3f ? 0f : 1.5f)) yield return null;
+                    if (!StartupIntroVideo.Playing) break; yield return Shot($"s0-intro-video-{at:00}s.png");
+                }
+                float wv = 0f; while (StartupIntroVideo.Playing && wv < 50f) { wv += Time.unscaledDeltaTime; yield return null; }
+                Line($"  video finished, menu shown: {!StartupIntroVideo.Playing}");
+                yield return new WaitForSecondsRealtime(1.5f);
+            }
 
             // ---------- Main menu UI ----------
             Line("\n## UI: MainMenu");
@@ -93,6 +105,29 @@ namespace LegacyOfTemples.UI
         }
 
         // ------------------------------------------------------------------ full play-through
+        /// <summary>Only what changed in this round: intro voices, jeep, village and temple colours, and the final fight with the real robbers.</summary>
+        private IEnumerator FocusCheck()
+        {
+            Line($"  intro voice (last line played): {IntroCinematic.LastVoice}");
+            yield return JeepCheck();
+            yield return VillageShots();
+            var story = StoryDialogueSystem.Instance;
+            int guard = 0; while (story != null && story.Current != null && story.Current.id != "obj_c5_stealth" && guard++ < 40) { story.DebugCompleteCurrent(); yield return null; }
+            Line($"\n## Fight check: objective now {story?.Current?.id}");
+            SceneLoader.Load(Constants.JunglePath); yield return WaitLoaded(); yield return new WaitForSecondsRealtime(3f); yield return SkipIntro();
+            var pc = FindAnyObjectByType<PlayerController>();
+            foreach (var r in new[] { "Robber1", "Robber2" })
+            {
+                var go = GameObject.Find(r); var an = go != null ? go.GetComponentInChildren<Animator>() : null;
+                Line($"  {r}: present={go != null}, model={(an != null ? an.gameObject.name : "-")}, humanoid={(an != null && an.isHuman)}, controller={(an != null && an.runtimeAnimatorController != null ? an.runtimeAnimatorController.name : "-")}");
+            }
+            yield return PlayMinigame("stealth", story, pc); yield return new WaitForSecondsRealtime(1f);
+            if (story.Current != null && story.Current.id == "obj_c5_stealth") { story.DebugCompleteCurrent(); yield return new WaitForSecondsRealtime(1f); }
+            yield return PlayMinigame("fight", story, pc);
+            File.WriteAllText(Path.Combine(output, "audit.md"), report.ToString());
+            Debug.Log("[AuditBot] DONE " + output); yield return new WaitForSecondsRealtime(1f); Application.Quit();
+        }
+
         /// <summary>Stage 7 evidence: screenshots through the whole opening (or the skip path with -introSkip).</summary>
         private IEnumerator IntroShots()
         {
@@ -145,10 +180,12 @@ namespace LegacyOfTemples.UI
             var wall = GameObject.Find("Wall_South_L");
             if (wall != null)
             {   // a hard crash into a wall must damage it (a bump must not)
-                var rbj = jeep.GetComponent<Rigidbody>(); Vector3 wp = wall.GetComponent<Renderer>().bounds.center; wp.y = jeep.transform.position.y;
-                jeep.transform.position = wp + Vector3.forward * 14f; jeep.transform.rotation = Quaternion.LookRotation(Vector3.back); rbj.linearVelocity = Vector3.back * 12f; rbj.angularVelocity = Vector3.zero;
-                float w = 0f; while (w < 3f && jeep.LastImpact < 2f) { w += Time.unscaledDeltaTime; yield return null; }
-                yield return new WaitForSecondsRealtime(0.8f);
+                var rbj = jeep.GetComponent<Rigidbody>(); Vector3 wp = wall.GetComponent<Renderer>().bounds.center; wp.y = jeep.transform.position.y + 0.2f;
+                rbj.position = wp + Vector3.forward * 16f; rbj.rotation = Quaternion.LookRotation(Vector3.back); jeep.transform.SetPositionAndRotation(rbj.position, rbj.rotation);
+                rbj.linearVelocity = Vector3.back * 11f; rbj.angularVelocity = Vector3.zero;
+                jeep.Car.autopilot = true; jeep.Car.autoThrottle = 1f; jeep.Car.autoBrake = false; jeep.Car.autoSteer = 0f;   // a driver flooring it into the wall
+                float w = 0f; while (w < 4f && jeep.LastImpact < 2f) { w += Time.unscaledDeltaTime; yield return null; }
+                jeep.Car.autopilot = false; yield return new WaitForSecondsRealtime(0.8f);
                 Line($"  crash at 43 km/h into the courtyard wall: impact dv={jeep.LastImpact:0.0} m/s, state={jeep.StateName}, total damage={jeep.TotalDamage:0}, parts broken={jeep.PartsBroken}");
                 var cam = Camera.main; if (cam != null) { cam.transform.position = jeep.transform.position + new Vector3(4f, 2.5f, 5f); cam.transform.LookAt(jeep.transform.position + Vector3.up); }
                 yield return null; yield return Shot("s3-jeep-crash.png");
@@ -179,7 +216,7 @@ namespace LegacyOfTemples.UI
                 while (!HintTutorial.Showing && w < 4f) { w += Time.unscaledDeltaTime; yield return null; }
                 yield return Shot($"s1-hint-{was + 1}.png");
                 if (was == 0) { Hold(Key.W); yield return new WaitForSecondsRealtime(1.3f); Release(); }
-                else if (was == 1) { for (int k = 0; k < 30; k++) { VirtualInput.Look = new Vector2(12f, 0f); yield return null; } VirtualInput.Look = Vector2.zero; }
+                else if (was == 1) { for (int k = 0; k < 40; k++) { if (Mouse.current != null) InputSystem.QueueDeltaStateEvent(Mouse.current.delta, new Vector2(14f, 0f)); VirtualInput.Look = new Vector2(10f, 0f); yield return null; } VirtualInput.Look = Vector2.zero; }
                 else if (was == 2)
                 {
                     var npc = FindAnyObjectByType<NPCDialogueTrigger>();
@@ -382,11 +419,16 @@ namespace LegacyOfTemples.UI
             yield return WaitLoaded();
             yield return IntroShots();
             yield return SkipIntro();
+            if (Array.IndexOf(Environment.GetCommandLineArgs(), "-focusCheck") >= 0) { yield return FocusCheck(); yield break; }
             if (Array.IndexOf(Environment.GetCommandLineArgs(), "-stopAfterIntro") >= 0)
             {   // short run: the first objective, a few seconds of walking up the road, then stop
                 yield return new WaitForSecondsRealtime(2.5f); yield return Shot("s7-first-objective.png");
                 Hold(Key.W); yield return new WaitForSecondsRealtime(5f); Release(); yield return new WaitForSecondsRealtime(1f);
                 yield return Shot("s7-walking-to-temple.png");
+                yield return Tap(Key.Escape); yield return new WaitForSecondsRealtime(0.6f);
+                foreach (var b in FindObjectsByType<Button>()) if (b.name == "Btn_CONTROLS") { b.onClick.Invoke(); break; }
+                yield return new WaitForSecondsRealtime(0.6f); yield return Shot("s1-pause-controls.png"); yield return UiAudit("Pause controls", Screen.width, Screen.height);
+                yield return Tap(Key.Escape); yield return new WaitForSecondsRealtime(0.4f); if (Time.timeScale == 0f) { yield return Tap(Key.Escape); yield return new WaitForSecondsRealtime(0.4f); }
                 Line($"  after intro: objective={StoryDialogueSystem.Instance?.Current?.id}, hint step={HintTutorial.Step}");
                 File.WriteAllText(Path.Combine(output, "audit.md"), report.ToString());
                 Debug.Log("[AuditBot] DONE " + output); yield return new WaitForSecondsRealtime(1f); Application.Quit(); yield break;

@@ -54,11 +54,11 @@ namespace LegacyOfTemples.Gameplay
         }
         private static void Sign(Transform p, Vector3 pos, float yaw, string text, Vector2 size, Color board)
         {
-            Box(p, "Signboard", pos, new Vector3(size.x, size.y, 0.08f), "weathered_planks", 1.2f, board, false, yaw);
+            Box(p, "Signboard", pos, new Vector3(size.x, size.y, 0.06f), "weathered_planks", 1.2f, board, false, yaw);
             for (int s = -1; s <= 1; s += 2)
             {
                 var t = new GameObject("SignText").AddComponent<TMPro.TextMeshPro>(); t.transform.SetParent(p, false);
-                t.transform.position = pos + Quaternion.Euler(0f, yaw, 0f) * new Vector3(0f, 0f, s * 0.05f); t.transform.rotation = Quaternion.Euler(0f, yaw + (s > 0 ? 180f : 0f), 0f);
+                t.transform.position = pos + Quaternion.Euler(0f, yaw, 0f) * new Vector3(0f, 0f, s * 0.09f);   // well clear of the board, so the back text never shows through t.transform.rotation = Quaternion.Euler(0f, yaw + (s > 0 ? 0f : 180f), 0f);   // each face reads the right way round
                 t.rectTransform.sizeDelta = size * 0.92f; t.alignment = TMPro.TextAlignmentOptions.Center; t.enableAutoSizing = true; t.fontSizeMin = 0.5f; t.fontSizeMax = 4f;
                 t.color = new Color(1f, 0.95f, 0.85f); t.fontStyle = TMPro.FontStyles.Bold; t.text = text;
             }
@@ -129,7 +129,7 @@ namespace LegacyOfTemples.Gameplay
         {
             var g = new GameObject("Charpoy").transform; g.SetParent(p, false); g.position = at; g.rotation = Quaternion.Euler(0f, yaw, 0f);
             for (int i = 0; i < 4; i++) { var leg = Box(g, "Leg", Vector3.zero, new Vector3(0.08f, 0.45f, 0.08f), "medieval_wood", 1f); leg.transform.localPosition = new Vector3(i % 2 == 0 ? -0.45f : 0.45f, 0.22f, i < 2 ? -0.95f : 0.95f); }
-            var frame = Box(g, "Frame", Vector3.zero, new Vector3(1.0f, 0.06f, 2.0f), "medieval_wood", 1f); frame.transform.localPosition = new Vector3(0f, 0.45f, 0f);
+            var frame = Box(g, "Frame", Vector3.zero, new Vector3(1.0f, 0.06f, 2.0f), "medieval_wood", 1f, null, false); frame.transform.localPosition = new Vector3(0f, 0.45f, 0f);
             var web = Box(g, "RopeWeave", Vector3.zero, new Vector3(0.9f, 0.03f, 1.9f), "thatch_roof_angled", 0.6f, new Color(0.95f, 0.85f, 0.6f), false); web.transform.localPosition = new Vector3(0f, 0.48f, 0f);
         }
 
@@ -186,7 +186,7 @@ namespace LegacyOfTemples.Gameplay
         }
 
         // ------------------------------------------------------------------ villagers
-        private static readonly Color[] Saree = { new Color(0.9f, 0.25f, 0.2f), new Color(0.2f, 0.45f, 0.9f), new Color(0.95f, 0.75f, 0.15f), new Color(0.2f, 0.65f, 0.35f), new Color(0.8f, 0.3f, 0.7f), new Color(0.95f, 0.55f, 0.2f), new Color(0.35f, 0.75f, 0.8f), new Color(0.95f, 0.95f, 0.9f), new Color(0.55f, 0.2f, 0.25f), new Color(0.3f, 0.3f, 0.75f), new Color(0.85f, 0.85f, 0.35f), new Color(0.6f, 0.4f, 0.25f) };
+        private static readonly Color[] Saree = { new Color(1f, 0.62f, 0.55f), new Color(0.62f, 0.78f, 1f), new Color(1f, 0.92f, 0.5f), new Color(0.62f, 1f, 0.7f), new Color(1f, 0.66f, 0.95f), new Color(1f, 0.8f, 0.55f), new Color(0.6f, 0.98f, 1f), new Color(1f, 1f, 1f), new Color(0.95f, 0.7f, 0.7f), new Color(0.75f, 0.72f, 1f), new Color(1f, 1f, 0.7f), new Color(0.85f, 0.75f, 0.6f) };
 
         private void SpawnVillagers(Transform root, Vector3 c, float top, float z0, System.Random rng)
         {
@@ -208,6 +208,7 @@ namespace LegacyOfTemples.Gameplay
                         if (mpb == null) mpb = new MaterialPropertyBlock(); r.GetPropertyBlock(mpb, i); mpb.SetColor("_BaseColor", Saree[k % Saree.Length]); r.SetPropertyBlock(mpb, i);
                     }
                 }
+                foreach (var col in g.GetComponentsInChildren<Collider>()) Destroy(col);   // villagers step aside; they must not stop the jeep like a wall
                 Npcs.Add(g.transform); k++; NpcCount++; return g.transform;
             }
             // walkers along both edges of the road

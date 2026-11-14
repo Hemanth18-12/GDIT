@@ -84,3 +84,14 @@ menu **Legacy of the Temple > Sync loading images**. A missing picture shows a d
 The 69 effects, ambience loops and five music stems are synthesised by `Tools/audio/build_audio.py` (own work).
 They are placeholders in quality: clear and distinct, but not recorded foley or composed music. To upgrade, replace a
 file in `Assets/_Project/Audio/Resources/Audio/` with a CC0 file of the same name and add it to ATTRIBUTION.md.
+
+## Update 2026-11-15: robbers now use the owner's models from assets.blend
+On the owner's instruction the two robbers are the two figures in `Heritage Mystery Project/assets.blend`:
+`tripo_node_0f07ddad` (black-armoured figure with a bone crown and sword) → Robber1 / Bhaskar, and
+`tripo_node_ca66fc79` (winged armoured figure with a halo and sword) → Robber2 / Kishore.
+They were static meshes (about 1 million vertices each, no skeleton). `Tools/blender/rig_robbers.py` makes game copies
+(assets.blend is opened read-only and never saved): about 40,000 triangles, 1.9 m tall, a 22-bone humanoid skeleton with
+Mixamo bone names, distance-based skin weights, texture saved as PNG. `RobberRealTools.Build` puts them into
+`Prefabs/Characters/Robber1.prefab` and `Robber2.prefab` as Humanoid, so the project's idle / walk / run clips play on them.
+The old tinted-detective stand-ins are gone. Limits: the skin weights are automatic, so the sword, cape and wings bend with the
+nearest bone (visible as some stretching in big poses); there are still no fight clips (see the Mixamo list above).

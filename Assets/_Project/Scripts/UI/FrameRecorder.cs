@@ -27,8 +27,10 @@ namespace LegacyOfTemples.UI
 
         private IEnumerator Start()
         {
+            bool introOnly = System.Array.IndexOf(Environment.GetCommandLineArgs(), "-recordIntroOnly") >= 0;
+            if (introOnly) { while (!LegacyOfTemples.Gameplay.IntroCinematic.Rolling) yield return null; }   // record only while the intro plays
             Time.captureFramerate = 24;
-            while (frames < max)
+            while (frames < max && (!introOnly || LegacyOfTemples.Gameplay.IntroCinematic.Rolling))
             {
                 yield return new WaitForEndOfFrame();
                 var tex = ScreenCapture.CaptureScreenshotAsTexture();

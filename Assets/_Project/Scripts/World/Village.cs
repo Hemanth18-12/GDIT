@@ -241,7 +241,7 @@ namespace LegacyOfTemples.World
             if (mat == "window_glow") { r.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off; return; }
             if (mpb == null) mpb = new MaterialPropertyBlock();
             r.GetPropertyBlock(mpb); mpb.SetVector("_BaseMap_ST", new Vector4(Mathf.Max(0.25f, st.x), Mathf.Max(0.25f, st.y), 0f, 0f));
-            if (nextTint.HasValue) { mpb.SetColor("_BaseColor", nextTint.Value); nextTint = null; } else mpb.SetColor("_BaseColor", Color.white);
+            if (nextTint.HasValue) { mpb.SetColor("_BaseColor", nextTint.Value); nextTint = null; } else mpb.SetColor("_BaseColor", ArtUpgrade.Tint(mat));
             r.SetPropertyBlock(mpb);
         }
 

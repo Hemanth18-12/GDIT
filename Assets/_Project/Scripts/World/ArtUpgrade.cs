@@ -35,6 +35,11 @@ namespace LegacyOfTemples.World
             }
         }
 
+        /// <summary>Warm colour for each surface so stone reads as red / ochre sandstone, not pale cream.</summary>
+        public static Color Tint(string mat) =>
+            mat == "sandstone_blocks_08" ? new Color(1f, 0.74f, 0.55f) : mat == "red_sandstone_wall" ? new Color(1f, 0.78f, 0.62f) :
+            mat == "red_sandstone_pavement" ? new Color(0.92f, 0.78f, 0.7f) : Color.white;
+
         public static void Apply(string scene)
         {
             Retextured = 0;
@@ -58,7 +63,7 @@ namespace LegacyOfTemples.World
                 else if (s.z <= s.x) st = new Vector2(s.x, s.y) / map.tile;                        // wall along X
                 else st = new Vector2(s.z, s.y) / map.tile;                                        // wall along Z
                 st = new Vector2(Mathf.Max(0.25f, st.x), Mathf.Max(0.25f, st.y));
-                r.GetPropertyBlock(mpb); mpb.SetVector("_BaseMap_ST", new Vector4(st.x, st.y, 0f, 0f)); r.SetPropertyBlock(mpb);
+                r.GetPropertyBlock(mpb); mpb.SetVector("_BaseMap_ST", new Vector4(st.x, st.y, 0f, 0f)); mpb.SetColor("_BaseColor", Tint(map.mat)); r.SetPropertyBlock(mpb);
                 Retextured++;
             }
             Lamps(); Guardians();

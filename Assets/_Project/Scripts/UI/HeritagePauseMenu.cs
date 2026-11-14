@@ -60,7 +60,7 @@ namespace LegacyOfTemples.UI
             if (showControls)
             {
                 t.text = "CONTROLS";
-                var ct = ScreenTextRenderer.MakeText(panel, "PauseControlsBody", 28 * ScreenTextRenderer.Scale, ScreenTextRenderer.Ivory, false, TextAlignmentOptions.Left);
+                var ct = ScreenTextRenderer.MakeText(panel, "PauseControlsBody", 21 * ScreenTextRenderer.Scale, ScreenTextRenderer.Ivory, false, TextAlignmentOptions.Left); ct.lineSpacing = -8f;
                 ct.text = ControlsText.Body; ct.textWrappingMode = TextWrappingModes.Normal; items.Add(ct.gameObject);
                 var back = Button("BACK", () => { showControls = false; Rebuild(); });
                 EventSystem.current?.SetSelectedGameObject(back);

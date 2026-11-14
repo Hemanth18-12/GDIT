@@ -29,7 +29,7 @@ namespace LegacyOfTemples.UI
         };
         private static readonly string[] Keys = { "W A S D", "Mouse", "E", "J / M", "H" };
 
-        private PlayerController player; private Vector3 lastPos; private float moved, looked, doneAt = -1f, quiet;
+        private PlayerController player; private Vector3 lastPos; private float moved, looked, doneAt = -1f, quiet, lastYaw = -1000f;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void Boot()
@@ -77,6 +77,8 @@ namespace LegacyOfTemples.UI
                     Vector3 d = player.transform.position - lastPos; d.y = 0f; moved += d.magnitude; lastPos = player.transform.position;
                     done = moved > 2f; break;
                 case 1:
+                    var cam = Camera.main;   // any way of turning the view counts: mouse, stick, touch
+                    if (cam != null) { float yaw = cam.transform.eulerAngles.y; if (lastYaw > -999f) looked += Mathf.Abs(Mathf.DeltaAngle(lastYaw, yaw)) * 6f; lastYaw = yaw; }
                     if (mouse != null) looked += mouse.delta.ReadValue().magnitude;
                     if (gp != null) looked += gp.rightStick.ReadValue().magnitude * 600f * Time.unscaledDeltaTime;
                     looked += VirtualInput.Look.magnitude;

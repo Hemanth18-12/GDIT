@@ -140,7 +140,7 @@ namespace LegacyOfTemples.Gameplay
 
             if (ci < 4 && Minutes > Deadline[ci]) { OutOfTime = true; FailReason = ""; return; }
 
-            if (ci < 5)
+            if (ci < 5 && Time.timeScale > 0f)   // hidden while the game is paused, so it never draws over the pause screen
             {
                 float left = ChapterLeft;
                 string col = left < 5f ? ScreenText.Coral : ScreenText.Ivory;
