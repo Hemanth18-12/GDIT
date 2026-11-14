@@ -35,6 +35,15 @@ namespace LegacyOfTemples.World.Editor
             }
             m.enableInstancing = true; EditorUtility.SetDirty(m); return m;
         }
+        /// <summary>Turn on "pre-bake triangle collision" in the model's import settings (cooked at import, so the build has no warning and nothing cooks on load).</summary>
+        static void PreBake(ModelImporter imp)
+        {
+            var so = new SerializedObject(imp);
+            var p = so.FindProperty("m_PreBakeTriangleCollisionMesh") ?? so.FindProperty("preBakeTriangleCollisionMesh");
+            if (p == null) { var it = so.GetIterator(); while (it.Next(true)) if (it.name.ToLowerInvariant().Contains("prebake")) { Debug.Log("[Part2] importer property: " + it.propertyPath); } Debug.LogWarning("[Part2] pre-bake property not found on " + imp.assetPath); return; }
+            p.boolValue = true; so.ApplyModifiedPropertiesWithoutUndo();
+        }
+
         static Color G(float r, float g, float b) => new Color(r, g, b).gamma;   // Blender values are linear
 
         static void Remap(string fbx, System.Func<string, Material> pick)
@@ -152,6 +161,7 @@ namespace LegacyOfTemples.World.Editor
             var imp0 = Tex("M_Tree_Impostor_0", "T_Tree_Impostor_0.png", null, true, Color.white);
             var imp1 = Tex("M_Tree_Impostor_1", "T_Tree_Impostor_1.png", null, true, Color.white);
             Remap(fbx, n => n.Contains("Bark") ? bark : n.Contains("Leaves") ? leaves : n.Contains("Canopy") ? canopy : n.Contains("Impostor_1") ? imp1 : n.Contains("Impostor") ? imp0 : bark);
+            { var ti = (ModelImporter)AssetImporter.GetAtPath(fbx); PreBake(ti); ti.SaveAndReimport(); }
             var model = AssetDatabase.LoadAssetAtPath<GameObject>(fbx);
             var root = (GameObject)PrefabUtility.InstantiatePrefab(model); PrefabUtility.UnpackPrefabInstance(root, PrefabUnpackMode.Completely, InteractionMode.AutomatedAction);
             root.name = "oak_tree";
@@ -189,20 +199,33 @@ namespace LegacyOfTemples.World.Editor
             var gold = Lit(TempleDir + "/Materials/MAT_Temple_Gold.mat", G(0.83f, 0.6f, 0.2f), 1f, 0.72f);
             var glass = Lit(TempleDir + "/Materials/MAT_Temple_Glass.mat", G(0.1f, 0.12f, 0.12f), 0f, 0.9f, null, 0.5f);
             var cloth = Lit(TempleDir + "/Materials/MAT_Temple_FlagRed.mat", G(0.6f, 0.03f, 0.02f), 0f, 0.2f);
-            Remap(fbx, n =>
+            System.Func<string, Material> pick = n =>
                 n.StartsWith("Stone_01_01") ? sandstone : n.StartsWith("Stone_01_02") ? laterite : n.StartsWith("Stone_01_03") ? carved :
                 n.StartsWith("Roof_01_01") ? roof : n.StartsWith("Roof_01_02") ? laterite : n.StartsWith("Roof_01_03") ? sandstone :
-                n.StartsWith("Metal") ? gold : n.StartsWith("Glass") ? glass : n.StartsWith("Wood") ? wood : cloth);
-            var imp = (ModelImporter)AssetImporter.GetAtPath(fbx); imp.indexFormat = ModelImporterIndexFormat.UInt32; imp.isReadable = true; imp.SaveAndReimport();
-            var model = AssetDatabase.LoadAssetAtPath<GameObject>(fbx);
-            var root = (GameObject)PrefabUtility.InstantiatePrefab(model); PrefabUtility.UnpackPrefabInstance(root, PrefabUnpackMode.Completely, InteractionMode.AutomatedAction);
-            root.name = "Temple"; int tris = 0, cols = 0;
-            foreach (var mf in root.GetComponentsInChildren<MeshFilter>())
+                n.StartsWith("Metal") ? gold : n.StartsWith("Glass") ? glass : n.StartsWith("Wood") ? wood : cloth;
+            string lod1 = TempleDir + "/Temple_Game_LOD1.fbx";
+            foreach (var f in new[] { fbx, lod1 })
             {
-                tris += mf.sharedMesh.triangles.Length / 3;
-                var mr = mf.GetComponent<MeshRenderer>(); string mn = mr.sharedMaterial != null ? mr.sharedMaterial.name : "";
-                mf.gameObject.isStatic = true;
-                if (!mn.Contains("Glass") && !mn.Contains("Flag") && !mn.Contains("Gold")) { mf.gameObject.AddComponent<MeshCollider>().sharedMesh = mf.sharedMesh; cols++; }
+                if (!File.Exists(f)) continue;
+                Remap(f, pick);
+                var imp = (ModelImporter)AssetImporter.GetAtPath(f); imp.indexFormat = ModelImporterIndexFormat.UInt32; imp.isReadable = f == fbx; imp.meshCompression = ModelImporterMeshCompression.Medium; if (f == lod1) PreBake(imp); imp.SaveAndReimport();
+            }
+            PlayerSettings.bakeCollisionMeshes = true;   // the temple's mesh colliders are cooked at build time, not on load
+            var root = new GameObject("Temple"); int tris = 0, cols = 0;
+            var l0 = (GameObject)PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>(fbx)); PrefabUtility.UnpackPrefabInstance(l0, PrefabUnpackMode.Completely, InteractionMode.AutomatedAction); l0.name = "LOD0"; l0.transform.SetParent(root.transform, false);
+            GameObject l1 = null;
+            if (File.Exists(lod1)) { l1 = (GameObject)PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>(lod1)); PrefabUtility.UnpackPrefabInstance(l1, PrefabUnpackMode.Completely, InteractionMode.AutomatedAction); l1.name = "LOD1"; l1.transform.SetParent(root.transform, false); }
+            foreach (var mf in l0.GetComponentsInChildren<MeshFilter>()) { tris += (int)(mf.sharedMesh.GetIndexCount(0) / 3); mf.gameObject.isStatic = true; }
+            var colRoot = new GameObject("Collision"); colRoot.transform.SetParent(root.transform, false);
+            foreach (var mf in (l1 != null ? l1 : l0).GetComponentsInChildren<MeshFilter>())
+            {
+                var c = new GameObject("COL_" + mf.name); c.transform.SetParent(colRoot.transform, false); c.transform.SetPositionAndRotation(mf.transform.position, mf.transform.rotation); c.transform.localScale = mf.transform.lossyScale;
+                c.AddComponent<MeshCollider>().sharedMesh = mf.sharedMesh; c.isStatic = true; cols++;
+            }
+            if (l1 != null)
+            {
+                foreach (var r in l1.GetComponentsInChildren<Renderer>()) r.gameObject.isStatic = true;
+                root.AddComponent<LODGroup>().SetLODs(new[] { new LOD(0.18f, l0.GetComponentsInChildren<Renderer>()), new LOD(0.015f, l1.GetComponentsInChildren<Renderer>()) });
             }
             Directory.CreateDirectory("Assets/_Project/Resources/Temple");
             PrefabUtility.SaveAsPrefabAsset(root, "Assets/_Project/Resources/Temple/Temple.prefab"); Object.DestroyImmediate(root);

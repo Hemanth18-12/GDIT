@@ -382,6 +382,15 @@ namespace LegacyOfTemples.UI
             yield return WaitLoaded();
             yield return IntroShots();
             yield return SkipIntro();
+            if (Array.IndexOf(Environment.GetCommandLineArgs(), "-stopAfterIntro") >= 0)
+            {   // short run: the first objective, a few seconds of walking up the road, then stop
+                yield return new WaitForSecondsRealtime(2.5f); yield return Shot("s7-first-objective.png");
+                Hold(Key.W); yield return new WaitForSecondsRealtime(5f); Release(); yield return new WaitForSecondsRealtime(1f);
+                yield return Shot("s7-walking-to-temple.png");
+                Line($"  after intro: objective={StoryDialogueSystem.Instance?.Current?.id}, hint step={HintTutorial.Step}");
+                File.WriteAllText(Path.Combine(output, "audit.md"), report.ToString());
+                Debug.Log("[AuditBot] DONE " + output); yield return new WaitForSecondsRealtime(1f); Application.Quit(); yield break;
+            }
             yield return JeepCheck();
 
             // Tutorial: play it for a while with real keys, then skip the rest.

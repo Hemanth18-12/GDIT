@@ -1,0 +1,5 @@
+source: Art_Source/Temple/temple.fbx (user's file, unchanged): a kit of about 25 temple buildings in rows, plus a studio backdrop 'Floor' (removed)
+source tris: 114511428 in 27639 objects (436 unique meshes, instanced), temple height 62.0 m
+Temple_Game: 1964284 triangles in 9 area meshes
+Temple_Game_LOD1: 1382163 triangles in 9 area meshes
+LOD1 is also the collision mesh. Bounds: 258.0 x 114.8 x 62.0 m

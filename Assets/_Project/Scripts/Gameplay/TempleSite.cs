@@ -50,7 +50,7 @@ namespace LegacyOfTemples.Gameplay
             // its south edge 34 m beyond the village's north lane, centred on the main road, standing on the ground
             Vector3 shift = new Vector3(Village.Centre.x - b.center.x, top - b.min.y - 0.05f, (Village.ZMin - 34f) - b.max.z);
             g.transform.position += shift; b = Measure(g); Footprint = b;
-            int tris = 0; foreach (var mf in g.GetComponentsInChildren<MeshFilter>()) if (mf.sharedMesh != null) tris += (int)(mf.sharedMesh.GetIndexCount(0) / 3); Triangles = tris;
+            int tris = 0; var lod0 = g.transform.Find("LOD0"); foreach (var mf in (lod0 != null ? lod0 : g.transform).GetComponentsInChildren<MeshFilter>()) if (mf.sharedMesh != null) for (int sm = 0; sm < mf.sharedMesh.subMeshCount; sm++) tris += (int)(mf.sharedMesh.GetIndexCount(sm) / 3); Triangles = tris;
 
             var ground = Village.Box(g.transform, "TempleGround", Vector3.zero, new Vector3(b.size.x + 60f, 0.2f, b.size.z + 60f), "red_sandstone_pavement", 3.2f);
             ground.transform.position = new Vector3(b.center.x, top - 0.12f, b.center.z);
