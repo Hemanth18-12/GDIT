@@ -320,6 +320,7 @@ namespace LegacyOfTemples.World
             ArtUpgrade.Scatter(root, scene, p, f);
             gps.Play();
             ExtrasBuilt = root.childCount;
+            ArtUpgrade.Foliage(); Village.ClearGate();
         }
 
         private static void LightenStone()

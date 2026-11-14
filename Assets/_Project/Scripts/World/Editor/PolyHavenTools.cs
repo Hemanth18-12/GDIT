@@ -76,6 +76,35 @@ namespace LegacyOfTemples.World.Editor
             Debug.Log("[Batch] window_glow material written");
         }
 
+        /// <summary>Painted leaf-mass texture and material for tree crowns and bushes (own work).</summary>
+        public static void BuildFoliage()
+        {
+            const int N = 512; var px = new Color[N * N]; var rng = new System.Random(77);
+            for (int i = 0; i < px.Length; i++) px[i] = new Color(0.16f, 0.24f, 0.11f);
+            for (int k = 0; k < 2600; k++)
+            {   // overlapping leaves, darker first then lighter on top
+                float t = k / 2600f; int cx = rng.Next(N), cy = rng.Next(N); float ang = (float)rng.NextDouble() * Mathf.PI, len = 9f + (float)rng.NextDouble() * 9f, wid = len * 0.42f;
+                float shade = 0.55f + 0.6f * t * (0.6f + 0.4f * (float)rng.NextDouble()); var col = new Color(0.30f * shade, 0.52f * shade, 0.20f * shade);
+                float ca = Mathf.Cos(ang), sa = Mathf.Sin(ang); int rad = Mathf.CeilToInt(len);
+                for (int y = -rad; y <= rad; y++) for (int x = -rad; x <= rad; x++)
+                {
+                    float u = (x * ca + y * sa) / len, v = (-x * sa + y * ca) / wid; float d = u * u + v * v; if (d > 1f) continue;
+                    int ix = ((cx + x) % N + N) % N, iy = ((cy + y) % N + N) % N;
+                    float vein = Mathf.Abs(v) < 0.08f ? 0.82f : 1f, edge = d > 0.8f ? 0.8f : 1f;
+                    px[iy * N + ix] = new Color(col.r * vein * edge, col.g * vein * edge, col.b * vein * edge);
+                }
+            }
+            var tex = new Texture2D(N, N, TextureFormat.RGB24, false); tex.SetPixels(px); tex.Apply();
+            const string tp = "Assets/_Project/Art/FX/foliage.png", mp = "Assets/_Project/Resources/Mats/foliage.mat";
+            System.IO.File.WriteAllBytes(tp, tex.EncodeToPNG()); AssetDatabase.ImportAsset(tp);
+            var imp = (TextureImporter)AssetImporter.GetAtPath(tp); imp.wrapMode = TextureWrapMode.Repeat; imp.mipmapEnabled = true; imp.SaveAndReimport();
+            var m = AssetDatabase.LoadAssetAtPath<Material>(mp);
+            if (m == null) { m = new Material(Shader.Find("Universal Render Pipeline/Lit")); AssetDatabase.CreateAsset(m, mp); }
+            m.SetTexture("_BaseMap", AssetDatabase.LoadAssetAtPath<Texture2D>(tp)); m.SetColor("_BaseColor", Color.white); m.SetFloat("_Smoothness", 0.12f); m.enableInstancing = true;
+            EditorUtility.SetDirty(m); AssetDatabase.SaveAssets();
+            Debug.Log("[Batch] foliage texture and material written");
+        }
+
         [MenuItem("Legacy of the Temple/Rebuild Poly Haven props and materials")]
         public static void Build()
         {

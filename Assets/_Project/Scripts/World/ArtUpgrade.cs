@@ -61,6 +61,138 @@ namespace LegacyOfTemples.World
                 r.GetPropertyBlock(mpb); mpb.SetVector("_BaseMap_ST", new Vector4(st.x, st.y, 0f, 0f)); r.SetPropertyBlock(mpb);
                 Retextured++;
             }
+            Lamps(); Guardians();
+        }
+
+        private static void Hide(Transform t) { var r = t.GetComponent<Renderer>(); if (r != null) r.enabled = false; }
+
+        /// <summary>Brass-cylinder lamp stands become a sandstone pedestal carrying a brass diya lantern model.</summary>
+        public static void Lamps()
+        {
+            var mpb = new MaterialPropertyBlock();
+            foreach (var t in Object.FindObjectsByType<Transform>())
+            {
+                if (t.name != "OilBowl" || t.parent == null || t.parent.Find("Lantern") != null) continue;
+                var root = t.parent; var stone = Mat("red_sandstone_wall");
+                foreach (Transform c in root)
+                {
+                    if (c.name == "OilBowl" || c.name == "FlameMesh") Hide(c);
+                    else if ((c.name == "Pillar" || c.name == "BasePedestal") && stone != null)
+                    {
+                        var r = c.GetComponent<Renderer>(); if (r == null) continue;
+                        if (c.name == "Pillar") c.localScale = new Vector3(0.34f, c.localScale.y, 0.34f);
+                        r.sharedMaterial = stone; r.GetPropertyBlock(mpb); mpb.SetVector("_BaseMap_ST", new Vector4(1.5f, c.name == "Pillar" ? 1.5f : 0.4f, 0f, 0f)); r.SetPropertyBlock(mpb);
+                    }
+                }
+                var cap = GameObject.CreatePrimitive(PrimitiveType.Cube); Object.Destroy(cap.GetComponent<Collider>()); cap.name = "PedestalCap"; cap.transform.SetParent(root, false);
+                cap.transform.localPosition = new Vector3(0f, 1.52f, 0f); cap.transform.localScale = new Vector3(0.62f, 0.1f, 0.62f); if (stone != null) cap.GetComponent<Renderer>().sharedMaterial = stone;
+                var g = Place(root, "brass_diya_lantern", root.TransformPoint(new Vector3(0f, 1.57f, 0f)), 2.4f, 0f, false); if (g != null) g.name = "Lantern";
+            }
+        }
+
+        /// <summary>The box-built gate guardians become carved elephant statues on their pedestals.</summary>
+        public static void Guardians()
+        {
+            foreach (var t in Object.FindObjectsByType<Transform>())
+            {
+                if (t.name != "Lion_Torso" || t.parent == null || t.parent.Find("Guardian") != null) continue;
+                var root = t.parent;
+                foreach (Transform c in root) if (c.name.StartsWith("Lion_") || c.name.StartsWith("Paw_")) { Hide(c); var col = c.GetComponent<Collider>(); if (col != null) col.enabled = false; }
+                var g = Place(root, "carved_wooden_elephant", root.TransformPoint(new Vector3(0f, 0.9f, 0f)), 15f, 0f, false); if (g == null) continue;
+                g.name = "Guardian"; g.transform.localRotation = Quaternion.Euler(0f, GuardianYaw, 0f);
+                var box = g.AddComponent<BoxCollider>(); box.center = new Vector3(0f, 0.05f, 0f); box.size = new Vector3(0.1f, 0.1f, 0.06f);
+            }
+        }
+        public static float GuardianYaw = -90f;
+
+        // ---- foliage: lumpy leaf masses instead of smooth green balls
+        private static Mesh[] blobs;
+        private static Mesh Blob(int k)
+        {
+            if (blobs == null)
+            {
+                var tmp = GameObject.CreatePrimitive(PrimitiveType.Sphere); var src = tmp.GetComponent<MeshFilter>().sharedMesh; Object.Destroy(tmp);
+                blobs = new Mesh[4];
+                for (int i = 0; i < blobs.Length; i++)
+                {
+                    var v = src.vertices; float s = 3.1f + i * 7.7f;
+                    for (int j = 0; j < v.Length; j++)
+                    {
+                        Vector3 q = v[j] * 2f;
+                        float n = Mathf.PerlinNoise(q.x * 2.6f + s, q.y * 2.6f + s) + Mathf.PerlinNoise(q.z * 2.6f + s * 2f, q.x * 2.6f - s) + 0.5f * Mathf.PerlinNoise(q.y * 6f + s, q.z * 6f + s) - 1.25f;
+                        v[j] *= 1f + 0.42f * n;
+                    }
+                    var m = new Mesh { name = "FoliageBlob" + i, vertices = v, uv = src.uv, triangles = src.triangles };
+                    m.RecalculateNormals(); m.RecalculateTangents(); m.RecalculateBounds(); blobs[i] = m;
+                }
+            }
+            return blobs[Mathf.Abs(k) % blobs.Length];
+        }
+
+        private static void Leafy(GameObject g, int seed, MaterialPropertyBlock mpb)
+        {
+            var mat = Mat("foliage"); if (mat == null) return;
+            var rng = new System.Random(seed);
+            float R(float a, float b) => a + (float)rng.NextDouble() * (b - a);
+            void One(GameObject o)
+            {
+                o.GetComponent<MeshFilter>().sharedMesh = Blob(rng.Next(4));
+                var r = o.GetComponent<MeshRenderer>(); r.sharedMaterial = mat;
+                float t = R(0.75f, 1.15f); r.GetPropertyBlock(mpb); mpb.SetColor("_BaseColor", new Color(0.55f * t, 0.8f * t, 0.42f * t)); mpb.SetVector("_BaseMap_ST", new Vector4(2.5f, 2.5f, R(0, 1), R(0, 1))); r.SetPropertyBlock(mpb);
+            }
+            One(g);
+            int extra = Mathf.Max(g.transform.lossyScale.x, g.transform.lossyScale.z) > 2f ? 5 : 2;
+            for (int i = 0; i < extra; i++)
+            {
+                var c = new GameObject("Leaves"); c.transform.SetParent(g.transform, false);
+                Vector3 d = new Vector3(R(-1f, 1f), R(-0.35f, 0.7f), R(-1f, 1f)).normalized * R(0.3f, 0.48f);
+                c.transform.localPosition = d; c.transform.localRotation = Quaternion.Euler(R(0, 360), R(0, 360), R(0, 360)); c.transform.localScale = Vector3.one * R(0.5f, 0.8f);
+                c.AddComponent<MeshFilter>(); c.AddComponent<MeshRenderer>(); One(c);
+            }
+        }
+
+        /// <summary>Every green ball (tree crown, bush, fern) in the scene becomes a cluster of leaf masses.</summary>
+        public static int Foliage()
+        {
+            int n = 0; var mpb = new MaterialPropertyBlock();
+            foreach (var r in Object.FindObjectsByType<MeshRenderer>())
+            {
+                var mf = r.GetComponent<MeshFilter>(); var m = r.sharedMaterial;
+                if (mf == null || mf.sharedMesh == null || mf.sharedMesh.name != "Sphere" || m == null || !m.HasProperty("_BaseColor") || !r.enabled) continue;
+                if (r.name.StartsWith("Lion") || r.name.Contains("Flame") || r.name.Contains("Temple")) continue;
+                Color c = m.GetColor("_BaseColor"); Vector3 s = r.transform.lossyScale;
+                if (!(c.g > c.r * 1.2f && c.g > c.b * 1.1f) || Mathf.Max(s.x, s.z) < 0.6f) continue;
+                Leafy(r.gameObject, r.transform.position.GetHashCode(), mpb); n++;
+            }
+            return n;
+        }
+
+        /// <summary>A tree: bark trunk, two boughs and a leaf crown.</summary>
+        public static GameObject Tree(Transform root, Vector3 pos, float height, int seed)
+        {
+            var rng = new System.Random(seed); float R(float a, float b) => a + (float)rng.NextDouble() * (b - a);
+            var t = new GameObject("Tree"); t.transform.SetParent(root, false); t.transform.position = pos; t.transform.rotation = Quaternion.Euler(0f, R(0, 360), 0f);
+            var mpb = new MaterialPropertyBlock(); var bark = Mat("bark_brown_02");
+            GameObject Limb(Vector3 lp, Vector3 scale, Vector3 euler)
+            {
+                var c = GameObject.CreatePrimitive(PrimitiveType.Cylinder); c.name = "Limb"; c.transform.SetParent(t.transform, false);
+                c.transform.localPosition = lp; c.transform.localScale = scale; c.transform.localRotation = Quaternion.Euler(euler);
+                var r = c.GetComponent<Renderer>(); if (bark != null) r.sharedMaterial = bark;
+                r.GetPropertyBlock(mpb); mpb.SetVector("_BaseMap_ST", new Vector4(2f, scale.y * 1.2f, 0f, 0f)); r.SetPropertyBlock(mpb);
+                return c;
+            }
+            Limb(new Vector3(0f, height * 0.5f, 0f), new Vector3(0.42f, height * 0.5f, 0.42f), new Vector3(R(-3, 3), 0f, R(-3, 3)));
+            Object.Destroy(Limb(new Vector3(0.55f, height * 0.82f, 0f), new Vector3(0.18f, 0.9f, 0.18f), new Vector3(0f, 0f, -48f)).GetComponent<Collider>());
+            Object.Destroy(Limb(new Vector3(-0.5f, height * 0.72f, 0.2f), new Vector3(0.16f, 0.8f, 0.16f), new Vector3(15f, 0f, 52f)).GetComponent<Collider>());
+            for (int i = 0; i < 3; i++)
+            {
+                var crown = GameObject.CreatePrimitive(PrimitiveType.Sphere); Object.Destroy(crown.GetComponent<Collider>()); crown.name = "Crown"; crown.transform.SetParent(t.transform, false);
+                crown.transform.localPosition = i == 0 ? new Vector3(0f, height + 0.9f, 0f) : new Vector3(i == 1 ? 1.5f : -1.4f, height + R(-0.2f, 0.5f), i == 1 ? 0.2f : 0.5f);
+                float w = i == 0 ? R(4.2f, 5.2f) : R(2.6f, 3.4f); crown.transform.localScale = new Vector3(w, w * 0.68f, w);
+                Leafy(crown, seed * 7 + i, mpb);
+                if (i == 0) crown.AddComponent<WindSway>().amount = 0.35f;
+            }
+            return t;
         }
 
         public static Vector3 Ground(Vector3 p) => Physics.Raycast(p + Vector3.up * 8f, Vector3.down, out RaycastHit h, 30f, ~0, QueryTriggerInteraction.Ignore) ? h.point : p;

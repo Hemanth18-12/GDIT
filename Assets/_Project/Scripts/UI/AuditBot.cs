@@ -93,8 +93,15 @@ namespace LegacyOfTemples.UI
         }
 
         // ------------------------------------------------------------------ full play-through
+        private bool introShot;
         private IEnumerator SkipIntro()
         {
+            if (HeritageIntro.Active && !introShot)
+            {
+                introShot = true; yield return new WaitForSecondsRealtime(1.6f);
+                yield return Shot("v3-heritage-intro.png"); yield return UiAudit("Heritage intro", Screen.width, Screen.height);
+                Line($"  heritage intro: active={HeritageIntro.Active}, card={HeritageIntro.CardsShown}, timeScale={Time.timeScale}");
+            }
             for (int i = 0; i < 3; i++)
             {
                 yield return new WaitForSecondsRealtime(1.2f);
@@ -540,7 +547,7 @@ namespace LegacyOfTemples.UI
             var orbits = new List<MonoBehaviour>();
             foreach (var mb in FindObjectsByType<MonoBehaviour>()) if (mb != null && mb.GetType().Name == "OrbitCamera" && mb.enabled) { mb.enabled = false; orbits.Add(mb); }
             Vector3 keepP = cam.transform.position; Quaternion keepR = cam.transform.rotation;
-            var views = new[] { (new Vector3(0f, 7f, 0f), new Vector3(1f, -0.12f, 0.25f), "east"), (new Vector3(0f, 7f, 0f), new Vector3(-0.3f, -0.12f, 1f), "south"), (new Vector3(34f, 2.2f, 4f), new Vector3(0.25f, 0.02f, 1f), "lane") };
+            var views = new[] { (new Vector3(0f, 7f, 0f), new Vector3(1f, -0.12f, 0.25f), "east"), (new Vector3(0f, 7f, 0f), new Vector3(-0.3f, -0.12f, 1f), "south"), (new Vector3(34f, 2.2f, 4f), new Vector3(0.25f, 0.02f, 1f), "lane"), (new Vector3(0f, 2.4f, 20f), new Vector3(0f, 0.08f, 1f), "gate"), (new Vector3(-6f, 2.6f, 34.5f), new Vector3(-1f, 0.06f, 0f), "hall-gateway"), (new Vector3(0f, 2.6f, 8f), new Vector3(0.12f, 0.02f, -1f), "guardians") };
             foreach (var v in views)
             {
                 cam.transform.position = v.Item1; cam.transform.rotation = Quaternion.LookRotation(v.Item2.normalized);

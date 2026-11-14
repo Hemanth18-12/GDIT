@@ -47,12 +47,15 @@ namespace LegacyOfTemples.Gameplay
             }
 
             // Check if opening cinematic is requested
-            bool shouldPlay = playOnStart || PlayerPrefs.GetInt("OpeningCinematicActive", 0) == 1;
+            bool newGame = PlayerPrefs.GetInt("OpeningCinematicActive", 0) == 1;
+            bool shouldPlay = playOnStart || newGame;
             if (shouldPlay)
             {
                 PlayerPrefs.SetInt("OpeningCinematicActive", 0);
                 PlayerPrefs.Save();
-                StartCinematic();
+                SkipRequested = false;
+                if (newGame && Prelude != null) StartCoroutine(PreludeThenCinematic());
+                else StartCinematic();
             }
         }
 
@@ -113,6 +116,19 @@ namespace LegacyOfTemples.Gameplay
             };
         }
 
+        /// <summary>Optional sequence shown before the cinematic on a new game (the heritage introduction, set by the UI layer).</summary>
+        public static System.Func<System.Collections.IEnumerator> Prelude;
+        /// <summary>True once anything asked to skip the opening (EndCinematic): the prelude stops too.</summary>
+        public static bool SkipRequested;
+
+        private System.Collections.IEnumerator PreludeThenCinematic()
+        {
+            if (player != null) player.enabled = false;
+            yield return Prelude();
+            if (SkipRequested) { if (player != null) player.enabled = true; yield break; }
+            StartCinematic();
+        }
+
         public void StartCinematic()
         {
             isPlaying = true;
@@ -167,6 +183,7 @@ namespace LegacyOfTemples.Gameplay
 
         public void EndCinematic()
         {
+            SkipRequested = true;
             isPlaying = false;
             currentSubtitle = "";
 

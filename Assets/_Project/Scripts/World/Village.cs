@@ -24,12 +24,14 @@ namespace LegacyOfTemples.World
             Vector3 c = new Vector3(b.center.x, top, b.center.z);
 
             // ground and the lane that circles the compound
-            Box(v, "Village_Ground", new Vector3(c.x, top - 0.16f, c.z), new Vector3(280f, 0.2f, 280f), "red_laterite_soil_stones", 5f, false);
+            Box(v, "Village_Ground", new Vector3(c.x, top - 0.16f, c.z), new Vector3(280f, 0.2f, 280f), "red_laterite_soil_stones", 5f);
             float laneX = xOut - 2.5f, zc = (zMax + zMin) * 0.5f, zLen = zMax - zMin + 6f;
-            Box(v, "Lane_E", new Vector3(c.x + laneX, top - 0.1f, zc), new Vector3(5f, 0.2f, zLen), "stony_dirt_path", 4f, false);
-            Box(v, "Lane_W", new Vector3(c.x - laneX, top - 0.1f, zc), new Vector3(5f, 0.2f, zLen), "stony_dirt_path", 4f, false);
-            Box(v, "Lane_S", new Vector3(c.x, top - 0.1f, zMax - 2.5f), new Vector3(laneX * 2f, 0.2f, 5f), "stony_dirt_path", 4f, false);
-            Box(v, "Lane_N", new Vector3(c.x, top - 0.1f, zMin + 2.5f), new Vector3(laneX * 2f, 0.2f, 5f), "stony_dirt_path", 4f, false);
+            Box(v, "Lane_E", new Vector3(c.x + laneX, top - 0.1f, zc), new Vector3(5f, 0.2f, zLen), "stony_dirt_path", 4f);
+            Box(v, "Lane_W", new Vector3(c.x - laneX, top - 0.1f, zc), new Vector3(5f, 0.2f, zLen), "stony_dirt_path", 4f);
+            Box(v, "Lane_S", new Vector3(c.x, top - 0.1f, zMax - 2.5f), new Vector3(laneX * 2f, 0.2f, 5f), "stony_dirt_path", 4f);
+            Box(v, "Lane_N", new Vector3(c.x, top - 0.1f, zMin + 2.5f), new Vector3(laneX * 2f, 0.2f, 5f), "stony_dirt_path", 4f);
+
+            Hub(v, c, top, xOut, zMin, zMax, laneX);
 
             var rng = new System.Random(1712);
             float R(float a, float d) => a + (float)rng.NextDouble() * (d - a);
@@ -48,6 +50,91 @@ namespace LegacyOfTemples.World
                     House(v, new Vector3(c.x + x + R(-1.2f, 1.2f), top, zMin - off + R(-1f, 1f)), R(-8f, 8f), rng, row == 0 && lights++ % 3 == 0);
                 }
             }
+        }
+
+        /// <summary>
+        /// Makes the village walkable: a gate in the compound's south wall, an outer boundary, trees,
+        /// and a stone gateway with a name board for each of the five places in the story.
+        /// </summary>
+        private static void Hub(Transform v, Vector3 c, float top, float xOut, float zMin, float zMax, float laneX)
+        {
+            // gate through the south wall
+            var south = GameObject.Find("Wall_South");
+            if (south != null)
+            {
+                Vector3 wp = south.transform.position, ws = south.transform.lossyScale; float half = ws.x * 0.5f, gap = 3.2f;
+                south.SetActive(false);
+                Box(v, "Wall_South_L", new Vector3(wp.x - (half + gap) * 0.5f, wp.y, wp.z), new Vector3(half - gap, ws.y, ws.z), "sandstone_blocks_08", 2.6f);
+                Box(v, "Wall_South_R", new Vector3(wp.x + (half + gap) * 0.5f, wp.y, wp.z), new Vector3(half - gap, ws.y, ws.z), "sandstone_blocks_08", 2.6f);
+                Gateway(v, new Vector3(wp.x, top, wp.z), 0f, gap * 2f, "TEMPLE COURTYARD", "1");
+                Box(v, "GateApron", new Vector3(wp.x, top - 0.1f, wp.z + 2.5f), new Vector3(gap * 2f, 0.2f, 6f), "red_sandstone_pavement", 3.2f);
+            }
+            float zs = zMax - 2.5f, zn = zMin + 2.5f, zc = (zMax + zMin) * 0.5f;
+            Gateway(v, new Vector3(c.x - laneX * 0.55f, top, zs), 90f, 5.6f, "STORAGE HALL", "2");
+            Gateway(v, new Vector3(c.x - laneX, top, zc + 6f), 0f, 5.6f, "OUTER SHRINE", "3");
+            Gateway(v, new Vector3(c.x + laneX * 0.2f, top, zn), 90f, 5.6f, "SUN WALL", "4");
+            Gateway(v, new Vector3(c.x + laneX, top, zc + 6f), 0f, 5.6f, "JUNGLE RUINS", "5");
+
+            // outer boundary (invisible) so nobody walks off the edge of the world
+            float bx = xOut + 30f, bzMax = zMax + 30f, bzMin = zMin - 30f;
+            Fence(v, new Vector3(c.x + bx, top + 3f, zc), new Vector3(1f, 8f, bzMax - bzMin + 2f)); Fence(v, new Vector3(c.x - bx, top + 3f, zc), new Vector3(1f, 8f, bzMax - bzMin + 2f));
+            Fence(v, new Vector3(c.x, top + 3f, bzMax), new Vector3(bx * 2f + 2f, 8f, 1f)); Fence(v, new Vector3(c.x, top + 3f, bzMin), new Vector3(bx * 2f + 2f, 8f, 1f));
+
+            // trees behind and between the houses
+            var rng = new System.Random(99); float R(float a, float d) => a + (float)rng.NextDouble() * (d - a);
+            for (int i = 0; i < 26; i++)
+            {
+                bool side = i % 2 == 0; float sgn = i % 4 < 2 ? 1f : -1f;
+                Vector3 p = side ? new Vector3(c.x + sgn * (xOut + R(10.5f, 12.5f)), top - 0.06f, R(zMin - 4f, zMax + 4f)) : new Vector3(c.x + R(-xOut, xOut), top - 0.06f, sgn > 0 ? zMax + R(10.5f, 12.5f) : zMin - R(10.5f, 12.5f));
+                ArtUpgrade.Tree(v, p, R(4.2f, 6.2f), 500 + i);
+            }
+        }
+
+        /// <summary>Hides loose scenery (stalls, shrubs without colliders) standing in the gateway so the way out is clear.</summary>
+        public static void ClearGate()
+        {
+            var v = GameObject.Find("Village"); var gate = GameObject.Find("Gateway_TEMPLE_COURTYARD"); if (v == null || gate == null) return;
+            Vector3 g = gate.transform.position;
+            foreach (var r in Object.FindObjectsByType<MeshRenderer>())
+            {
+                Vector3 p = r.bounds.center;
+                if (Mathf.Abs(p.x - g.x) > 4.2f || p.z > g.z - 0.9f || p.z < g.z - 7f || r.bounds.size.y > 6f) continue;
+                if (r.transform.IsChildOf(v.transform) || r.GetComponent<Collider>() != null || r.GetComponentInParent<Animator>() != null || r.bounds.min.y > g.y + 4f) continue;
+                if (r.bounds.size.x > 12f || r.bounds.size.z > 12f) continue; // floors and large slabs stay
+                r.enabled = false;
+            }
+        }
+
+        private static void Fence(Transform v, Vector3 pos, Vector3 size)
+        {
+            var g = new GameObject("VillageBoundary"); g.transform.SetParent(v, false); g.transform.position = pos;
+            g.AddComponent<BoxCollider>().size = size;
+        }
+
+        /// <summary>A sandstone gateway across a lane with a painted name board on both faces.</summary>
+        private static void Gateway(Transform v, Vector3 pos, float yaw, float span, string title, string number)
+        {
+            var g = new GameObject("Gateway_" + title.Replace(' ', '_')).transform; g.SetParent(v, false); g.position = pos; g.rotation = Quaternion.Euler(0f, yaw, 0f);
+            float half = span * 0.5f + 0.45f, h = 4.2f;
+            for (int s = -1; s <= 1; s += 2)
+            {
+                Box(g, "Pillar", new Vector3(s * half, h * 0.5f, 0f), new Vector3(0.9f, h, 1.3f), "red_sandstone_wall", 2f);
+                Box(g, "PillarBase", new Vector3(s * half, 0.3f, 0f), new Vector3(1.3f, 0.6f, 1.7f), "sandstone_blocks_08", 2f);
+                Box(g, "PillarCap", new Vector3(s * half, h + 0.9f, 0f), new Vector3(1.2f, 0.3f, 1.6f), "sandstone_blocks_08", 2f, false);
+                ArtUpgrade.Place(g, "brass_diya_lantern", g.TransformPoint(new Vector3(s * half, h + 1.05f, 0f)), 2.6f, 0f, false);
+                ArtUpgrade.Place(g, "lion_head", g.TransformPoint(new Vector3(s * half, 2.6f, 0.68f)), 1.3f, yaw, false);
+            }
+            Box(g, "Lintel", new Vector3(0f, h + 0.35f, 0f), new Vector3(half * 2f + 1.6f, 0.7f, 1.4f), "sandstone_blocks_08", 2.4f, false);
+            Box(g, "Board", new Vector3(0f, h - 0.45f, 0f), new Vector3(span, 0.9f, 0.16f), "medieval_wood", 1.6f, false);
+            for (int s = -1; s <= 1; s += 2)
+            {
+                var t = new GameObject("BoardText").AddComponent<TMPro.TextMeshPro>(); t.transform.SetParent(g, false);
+                t.transform.localPosition = new Vector3(0f, h - 0.45f, s * 0.1f); t.transform.localRotation = Quaternion.Euler(0f, s > 0 ? 180f : 0f, 0f);
+                t.rectTransform.sizeDelta = new Vector2(span - 0.3f, 0.8f); t.alignment = TMPro.TextAlignmentOptions.Center; t.enableAutoSizing = true; t.fontSizeMin = 1f; t.fontSizeMax = 5f;
+                t.color = new Color(1f, 0.82f, 0.42f); t.fontStyle = TMPro.FontStyles.Bold; t.text = number + "  ·  " + title;
+            }
+            var l = new GameObject("GatewayLight").AddComponent<Light>(); l.transform.SetParent(g, false); l.transform.localPosition = new Vector3(0f, h - 1.2f, 0f);
+            l.type = LightType.Point; l.range = 8f; l.intensity = 2.6f; l.color = new Color(1f, 0.7f, 0.36f); l.shadows = LightShadows.None;
         }
 
         /// <summary>One house. Its front (door, veranda) faces local +Z.</summary>
