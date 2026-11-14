@@ -57,8 +57,8 @@ namespace LegacyOfTemples.UI
 
             var block = Rect("PlayerBars", transform); block.anchorMin = block.anchorMax = block.pivot = new Vector2(0, 1); block.anchoredPosition = new Vector2(32, -32); block.sizeDelta = new Vector2(420, 96);
             ScreenTextRenderer.MakePanel(block, "PlayerBarsPanel", out var panel); panel.anchorMin = Vector2.zero; panel.anchorMax = Vector2.one; panel.offsetMin = panel.offsetMax = Vector2.zero;
-            var name = ScreenTextRenderer.MakeText(block, "FightPlayerName", 24, ScreenTextRenderer.Gold, true, TextAlignmentOptions.TopLeft);
-            name.text = "ARYAN"; name.raycastTarget = false; var nr = name.rectTransform; nr.anchorMin = new Vector2(0, 1); nr.anchorMax = new Vector2(1, 1); nr.pivot = new Vector2(0, 1); nr.anchoredPosition = new Vector2(16, -8); nr.sizeDelta = new Vector2(-32, 30);
+            var name = playerName = ScreenTextRenderer.MakeText(block, "FightPlayerName", 24, ScreenTextRenderer.Gold, true, TextAlignmentOptions.TopLeft);
+            name.text = "ARYAN"; name.raycastTarget = false; var nr = name.rectTransform; nr.anchorMin = new Vector2(0, 1); nr.anchorMax = new Vector2(1, 1); nr.pivot = new Vector2(0, 1); nr.anchoredPosition = new Vector2(16, -8); nr.sizeDelta = new Vector2(-32, 34);
             hp = Bar("HealthBar", block, new Vector2(388, 22), new Color(0.56f, 0.89f, 0.66f), out hpImg);
             var hb = (RectTransform)hp.parent; hb.anchorMin = hb.anchorMax = hb.pivot = new Vector2(0, 1); hb.anchoredPosition = new Vector2(16, -42);
             st = Bar("StaminaBar", block, new Vector2(388, 14), new Color(1f, 0.78f, 0.34f), out _);
@@ -67,10 +67,10 @@ namespace LegacyOfTemples.UI
             for (int i = 0; i < 2; i++)
             {
                 var row = Rect("EnemyRow" + i, transform); guardRow[i] = row.gameObject;
-                row.anchorMin = row.anchorMax = row.pivot = new Vector2(0.5f, 0); row.anchoredPosition = new Vector2(0, 20 + i * 62); row.sizeDelta = new Vector2(640, 54);
+                row.anchorMin = row.anchorMax = row.pivot = new Vector2(0.5f, 0); row.anchoredPosition = new Vector2(0, 20 + i * 62); row.sizeDelta = new Vector2(720, 54);
                 ScreenTextRenderer.MakePanel(row, "EnemyRowPanel", out var rp); rp.anchorMin = Vector2.zero; rp.anchorMax = Vector2.one; rp.offsetMin = rp.offsetMax = Vector2.zero;
                 guardName[i] = ScreenTextRenderer.MakeText(row, "EnemyName" + i, 22, ScreenTextRenderer.Ivory, true, TextAlignmentOptions.Left);
-                guardName[i].raycastTarget = false; var gr = guardName[i].rectTransform; gr.anchorMin = new Vector2(0, 0); gr.anchorMax = new Vector2(0, 1); gr.pivot = new Vector2(0, 0.5f); gr.anchoredPosition = new Vector2(14, 0); gr.sizeDelta = new Vector2(250, 0);
+                guardName[i].raycastTarget = false; var gr = guardName[i].rectTransform; gr.anchorMin = new Vector2(0, 0); gr.anchorMax = new Vector2(0, 1); gr.pivot = new Vector2(0, 0.5f); gr.anchoredPosition = new Vector2(14, 0); gr.sizeDelta = new Vector2(330, 0);
                 guardName[i].textWrappingMode = TextWrappingModes.NoWrap; guardName[i].overflowMode = TextOverflowModes.Ellipsis;
                 guard[i] = Bar("GuardBar" + i, row, new Vector2(350, 18), new Color(1f, 0.71f, 0.66f), out _);
                 var gb = (RectTransform)guard[i].parent; gb.anchorMin = gb.anchorMax = gb.pivot = new Vector2(1, 0.5f); gb.anchoredPosition = new Vector2(-14, 0);
@@ -79,6 +79,8 @@ namespace LegacyOfTemples.UI
             marker = ScreenTextRenderer.MakeText(transform, "HitMarker", 44, Color.white, true, TextAlignmentOptions.Center);
             marker.text = "X"; marker.raycastTarget = false; var mr = marker.rectTransform; mr.anchorMin = mr.anchorMax = mr.pivot = new Vector2(0.5f, 0.5f); mr.sizeDelta = new Vector2(80, 60); mr.anchoredPosition = new Vector2(0, 40);
         }
+
+        private TMP_Text playerName; private int shownHp = -1;
 
         private static void SetFill(RectTransform fill, float v) { fill.anchorMax = new Vector2(Mathf.Clamp01(v), 1f); fill.offsetMax = new Vector2(v >= 0.999f ? -2 : 0, -2); }
 
@@ -90,6 +92,7 @@ namespace LegacyOfTemples.UI
             group.alpha = Mathf.MoveTowards(group.alpha, Visible ? 1f : 0f, Time.unscaledDeltaTime * 4f);
             if (f == null || group.alpha <= 0f) return;
             SetFill(hp, f.Health / 100f); SetFill(st, f.Stamina / 100f);
+            int hpNow = Mathf.CeilToInt(Mathf.Max(0f, f.Health)); if (hpNow != shownHp) { shownHp = hpNow; playerName.text = "ARYAN   HEALTH " + hpNow; }
             hpImg.color = f.Health < 30f ? new Color(1f, 0.45f, 0.4f) : new Color(0.56f, 0.89f, 0.66f);
             var enemies = new[] { f.Bhaskar, f.Kishore };
             for (int i = 0; i < 2; i++)
@@ -98,7 +101,7 @@ namespace LegacyOfTemples.UI
                 bool show = e != null && e.State != EnemyState.Idle && e.State != EnemyState.Ally && !(i == 1 && e.State == EnemyState.Down) && !(f.Phase == 3);
                 guardRow[i].SetActive(show);
                 if (!show) continue;
-                guardName[i].text = (i == 0 ? "BHASKAR" : "KISHORE") + (e == f.Target ? "  <" : "") + (i == 0 ? "   P" + f.Phase : "");
+                guardName[i].text = (i == 0 ? "BHASKAR" : "KISHORE") + "  HEALTH " + Mathf.CeilToInt(e.MaxGuard > 0f ? 100f * e.Guard / e.MaxGuard : 0f) + (e == f.Target ? "  <" : "");
                 SetFill(guard[i], e.MaxGuard > 0f ? e.Guard / e.MaxGuard : 0f);
             }
             marker.alpha = Mathf.Clamp01(1f - (Time.unscaledTime - f.LastHitMarker) / 0.18f);

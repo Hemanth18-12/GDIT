@@ -402,3 +402,8 @@ Rebuilt app (build 2026-11-07 19:50, stamp in pause menu); built-app ground test
 Prompt: implement steps 1-10 (model fixes, story v2, dawn clock, loading screens, weather, chapters 1-4, chapter 5 stealth/combat/on-screen controls, audio, graphics, verification).
 Result: steps 1-9 implemented and committed; six new PlayMode tests pass. The user then asked to push without the final checks, so the single build, the built-app screenshot pass and the full old+new test run were NOT done.
 Blocked: real robber models and Mixamo combat clips (Docs/BLOCKED.md).
+
+## 2026-11-14 — "highly professional 3D", village, rain only in the final round
+Request: make the game look professional, add a village, rain only in the final round, health in fights, check the whole game for errors.
+Done: Poly Haven CC0 textures and props on every level, 60-house village round the courtyard, brighter lighting, rain only in the fight, health numbers, five gameplay bugs fixed (see Docs/EXPLAINED.md). Evidence: Docs/QA/v12run, Docs/QA/v13run.
+Open: Mixamo animations, real robber models, walkable village hub, temple intro, tree and statue models.

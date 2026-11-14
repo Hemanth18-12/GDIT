@@ -78,7 +78,8 @@ namespace LegacyOfTemples.Characters
 
             bool interactPressed = false;
             var kb = Keyboard.current;
-            if (kb != null && (kb.eKey.wasPressedThisFrame || kb.enterKey.wasPressedThisFrame))
+            bool wallOpen = Time.frameCount <= InputGate.EnterReservedUntil; // Enter turns the Sun Wall centre wheel there
+            if (kb != null && (kb.eKey.wasPressedThisFrame || (kb.enterKey.wasPressedThisFrame && !wallOpen)))
             {
                 interactPressed = true;
             }

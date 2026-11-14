@@ -141,9 +141,9 @@ namespace LegacyOfTemples.Gameplay
             {
                 float left = ChapterLeft;
                 string col = left < 5f ? ScreenText.Coral : ScreenText.Ivory;
-                string body = $"<color={ScreenText.Gold}><b>{DawnIn}</b></color>   <color={col}>{ClockText(Minutes)}  •  {(left >= 0f ? Mathf.CeilToInt(left) + " min left here" : "past first light")}</color>";
+                string body = $"<color={ScreenText.Gold}><b>{DawnIn}</b></color>   <color={col}>{ClockText(Minutes)}  •  {(left >= 0f ? Mathf.CeilToInt(left) + " min left" : "past first light")}</color>";
                 if (Time.unscaledTime < toastUntil) body += $"\n<color={ScreenText.Coral}>{toast}</color>";
-                ScreenText.Panel("clock", null, body, PanelAnchor.TopCenter, 600f, null, false, 1);
+                ScreenText.Panel("clock", null, body, PanelAnchor.TopCenter, 680f, null, false, 1);
             }
         }
     }

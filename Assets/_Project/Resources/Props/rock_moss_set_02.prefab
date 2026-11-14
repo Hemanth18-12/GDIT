@@ -1,0 +1,124 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5464984224774980904
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6382988652229370975}
+  m_Layer: 0
+  m_Name: rock_moss_set_02
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6382988652229370975
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5464984224774980904}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2878763843996710625}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &2340135727957020938
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 6382988652229370975}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 8881cc8eeeb6f4ceaa5dec8090653c7c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.3304305
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8881cc8eeeb6f4ceaa5dec8090653c7c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.31517884
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8881cc8eeeb6f4ceaa5dec8090653c7c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.2092781
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8881cc8eeeb6f4ceaa5dec8090653c7c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8881cc8eeeb6f4ceaa5dec8090653c7c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8881cc8eeeb6f4ceaa5dec8090653c7c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8881cc8eeeb6f4ceaa5dec8090653c7c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8881cc8eeeb6f4ceaa5dec8090653c7c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8881cc8eeeb6f4ceaa5dec8090653c7c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8881cc8eeeb6f4ceaa5dec8090653c7c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7260100034124161115, guid: 8881cc8eeeb6f4ceaa5dec8090653c7c, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: b3981de51509b478e9697fc36716fe94, type: 2}
+    - target: {fileID: -4859171787413526202, guid: 8881cc8eeeb6f4ceaa5dec8090653c7c, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: b3981de51509b478e9697fc36716fe94, type: 2}
+    - target: {fileID: -2739170498716212709, guid: 8881cc8eeeb6f4ceaa5dec8090653c7c, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: b3981de51509b478e9697fc36716fe94, type: 2}
+    - target: {fileID: -588629724643266271, guid: 8881cc8eeeb6f4ceaa5dec8090653c7c, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: b3981de51509b478e9697fc36716fe94, type: 2}
+    - target: {fileID: 919132149155446097, guid: 8881cc8eeeb6f4ceaa5dec8090653c7c, type: 3}
+      propertyPath: m_Name
+      value: rock_moss_set_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 1825384961077066380, guid: 8881cc8eeeb6f4ceaa5dec8090653c7c, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: b3981de51509b478e9697fc36716fe94, type: 2}
+    - target: {fileID: 6051808637313666893, guid: 8881cc8eeeb6f4ceaa5dec8090653c7c, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: b3981de51509b478e9697fc36716fe94, type: 2}
+    - target: {fileID: 7868980632827813723, guid: 8881cc8eeeb6f4ceaa5dec8090653c7c, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: b3981de51509b478e9697fc36716fe94, type: 2}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8881cc8eeeb6f4ceaa5dec8090653c7c, type: 3}
+--- !u!4 &2878763843996710625 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 8881cc8eeeb6f4ceaa5dec8090653c7c, type: 3}
+  m_PrefabInstance: {fileID: 2340135727957020938}
+  m_PrefabAsset: {fileID: 0}

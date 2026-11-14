@@ -122,7 +122,7 @@ namespace LegacyOfTemples.UI
                 if (kb.digit1Key.wasPressedThisFrame) RevealHint(1);
                 if (kb.digit2Key.wasPressedThisFrame) RevealHint(2);
                 if (kb.digit3Key.wasPressedThisFrame) RevealHint(3);
-                if (kb.enterKey.wasPressedThisFrame || kb.gKey.wasPressedThisFrame) ShowTheWay(!WayShown);
+                if (kb.enterKey.wasPressedThisFrame) ShowTheWay(!WayShown); // G is the flashlight
             }
             if (IsOpen && gp != null && gp.buttonNorth.wasPressedThisFrame) RevealHint(HintLevel + 1);
             if (IsOpen && gp != null && gp.buttonSouth.wasPressedThisFrame) ShowTheWay(!WayShown);

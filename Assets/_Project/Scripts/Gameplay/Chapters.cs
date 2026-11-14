@@ -33,6 +33,22 @@ namespace LegacyOfTemples.Gameplay
             return g;
         }
 
+        /// <summary>
+        /// Floor height under a moving character. Unlike Ground it ignores every character's own colliders:
+        /// a plain ray from above hits the walker's head and lifts him a little more each frame.
+        /// </summary>
+        public static float Floor(Vector3 p, Transform self)
+        {
+            float best = float.NegativeInfinity;
+            foreach (var h in Physics.RaycastAll(p + Vector3.up * 0.7f, Vector3.down, 8f, ~0, QueryTriggerInteraction.Ignore))
+            {
+                var t = h.collider.transform;
+                if ((self != null && t.IsChildOf(self)) || h.collider is CharacterController || h.collider.GetComponentInParent<Animator>() != null || h.collider.GetComponentInParent<ClueInspectable>() != null) continue;
+                if (h.point.y > best) best = h.point.y;
+            }
+            return float.IsNegativeInfinity(best) ? p.y : best;
+        }
+
         public static Vector3 Ground(Vector3 p, float up = 6f)
         {
             if (Physics.Raycast(p + Vector3.up * up, Vector3.down, out RaycastHit h, up + 12f, ~0, QueryTriggerInteraction.Ignore)) return h.point;
@@ -146,7 +162,7 @@ namespace LegacyOfTemples.Gameplay
             var ch = story.Chapter;
             LookTuner.Dawn = ch != null && ch.id == "ch6" ? 1f : 0f;
             if (ch != null && ch.id == "ch6") w.SetTarget(0f, false, true);          // the storm has cleared at first light
-            else if (scene == Constants.JunglePath) w.SetTarget(0.65f, true, true);
+            else w.SetTarget(0f, false, true);   // rain is kept for the final round only
         }
 
         private bool Is(string minigame) => story != null && story.Current != null && story.Current.complete.id == minigame && story.Current.scene == scene;
@@ -230,7 +246,7 @@ namespace LegacyOfTemples.Gameplay
             else
             {
                 Vector3 np = runner.position + d.normalized * speed * Time.deltaTime;
-                np.y = Fx.Ground(np, 2f).y;
+                np.y = Fx.Floor(np, runner);
                 runner.position = np;
                 runner.rotation = Quaternion.Slerp(runner.rotation, Quaternion.LookRotation(d.normalized), Time.deltaTime * 8f);
             }
@@ -276,9 +292,10 @@ namespace LegacyOfTemples.Gameplay
                 Vector3 pos = centre + (f * Mathf.Cos(ang) + right * Mathf.Sin(ang)) * 5.5f;
                 for (int k = 0; k < 6 && Physics.CheckSphere(Fx.Ground(pos) + Vector3.up, 0.4f, ~0, QueryTriggerInteraction.Ignore); k++) pos = Vector3.Lerp(pos, centre, 0.2f);
                 pos = Fx.Ground(pos);
-                var stand = Fx.Prim(PrimitiveType.Cylinder, "HallLamp_" + LampNames[order[i]], root, pos + Vector3.up * 0.6f, new Vector3(0.14f, 0.6f, 0.14f), Fx.Lit(new Color(0.72f, 0.54f, 0.18f), 0.7f, 0.9f), true);
-                Fx.Prim(PrimitiveType.Sphere, "Bowl", stand.transform, pos + Vector3.up * 1.25f, new Vector3(0.34f, 0.16f, 0.34f), Fx.Lit(new Color(0.72f, 0.54f, 0.18f), 0.7f, 0.9f));
-                var light = new GameObject("Flame").AddComponent<Light>(); light.transform.SetParent(stand.transform, false); light.transform.position = pos + Vector3.up * 1.5f;
+                var stand = Fx.Prim(PrimitiveType.Cylinder, "HallLamp_" + LampNames[order[i]], root, pos + Vector3.up * 0.45f, new Vector3(0.3f, 0.45f, 0.3f), ArtUpgrade.Mat("red_sandstone_wall") ?? Fx.Lit(new Color(0.72f, 0.54f, 0.18f), 0.7f, 0.9f), true);
+                if (ArtUpgrade.Place(root, "vintage_oil_lamp", pos + Vector3.up * 0.9f, 1.1f, 0f, false) == null)
+                    Fx.Prim(PrimitiveType.Sphere, "Bowl", stand.transform, pos + Vector3.up * 1.25f, new Vector3(0.34f, 0.16f, 0.34f), Fx.Lit(new Color(0.72f, 0.54f, 0.18f), 0.7f, 0.9f));
+                var light = new GameObject("Flame").AddComponent<Light>(); light.transform.SetParent(stand.transform, false); light.transform.position = pos + Vector3.up * 1.75f;
                 light.type = LightType.Point; light.range = 9f; light.intensity = 0f; light.color = new Color(1f, 0.7f, 0.35f); light.shadows = LightShadows.None;
                 int ord = order[i]; var entry = (stand, light, ord); lamps.Add(entry);
                 UseProp.Add(stand, "lamp_" + ord, "Light the " + LampNames[ord] + " lamp", 2.2f, () => LightLamp(ord), () => Is("lamps") && light.intensity <= 0f);

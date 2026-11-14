@@ -106,6 +106,7 @@ namespace LegacyOfTemples.Gameplay
             }
             if (Cranking && !isSolved) Crank = Mathf.Max(0f, Crank - Time.deltaTime * 0.12f);
             if (!isInteracting || isSolved) return;
+            InputGate.EnterReservedUntil = Time.frameCount + 1;
             var kb = Keyboard.current;
             var gp = Gamepad.current;
             if (kb == null && gp == null) return;

@@ -75,15 +75,7 @@ namespace LegacyOfTemples.World
         /// <summary>Default weather per map: drizzle in the courtyard, heavy rain at the outer shrine, storm in the jungle.</summary>
         public static float DefaultFor(string scene)
         {
-            switch (scene)
-            {
-                case "Courtyard": return 0.25f;
-                case "Sanctum": return 0.4f;
-                case "ShrineCrime": return 0.8f;
-                case "PuzzleWall": return 0.3f;
-                case "JunglePath": return 0.65f;
-                default: return 0f;
-            }
+            return 0f; // dry by default: rain belongs to the final round (set by the fight)
         }
 
         /// <summary>Story override (for example: storm 1.0 in the final fight, 0 at first light).</summary>
@@ -96,12 +88,12 @@ namespace LegacyOfTemples.World
         private void OnScene(string scene)
         {
             Interior = scene == "Sanctum" || scene == "PuzzleWall";
-            if (!overridden) { Target = DefaultFor(scene); Storm = scene == "JunglePath"; }
+            if (!overridden) { Target = 0f; Storm = false; }
             overridden = false;
             Intensity = Target;
             wet.Clear(); wetApplied = -1f; ambSaved = false; thunder.Clear();
             nextLightning = Time.time + Random.Range(6f, 12f);
-            bool game = DefaultFor(scene) > 0f || scene == "Courtyard";
+            bool game = scene == "Courtyard" || scene == "Sanctum" || scene == "ShrineCrime" || scene == "PuzzleWall" || scene == "JunglePath";
             if (!game) { Target = Intensity = 0f; return; }
             Invoke(nameof(Collect), 0.6f); // after LookTuner made its material instances and decor
         }
@@ -109,7 +101,7 @@ namespace LegacyOfTemples.World
         private static bool Wettable(string n)
         {
             n = n.ToLowerInvariant();
-            return n.Contains("stone") || n.Contains("temple") || n.Contains("floor") || n.Contains("ground") || n.Contains("pav") || n.Contains("wall") ||
+            return n.Contains("stone") || n.Contains("sandstone") || n.Contains("leaves") || n.Contains("temple") || n.Contains("floor") || n.Contains("ground") || n.Contains("pav") || n.Contains("wall") ||
                    n.Contains("step") || n.Contains("brick") || n.Contains("rock") || n.Contains("plinth") || n.Contains("carved") || n.Contains("laterite") || n.Contains("courtyard");
         }
 

@@ -100,7 +100,8 @@ namespace LegacyOfTemples.Gameplay
             Vector3 p = transform.position + delta;
             Vector3 fromC = Flat(p - arenaCentre);
             if (State != EnemyState.Flee && fromC.magnitude > arenaRadius) p = arenaCentre + fromC.normalized * arenaRadius;
-            p.y = Fx.Ground(p, 2f).y;
+            // stay on the arena floor: never more than a step above or below it, whatever the ray finds
+            p.y = Mathf.Clamp(Fx.Floor(new Vector3(p.x, arenaCentre.y + 0.3f, p.z), transform), arenaCentre.y - 1f, arenaCentre.y + 1f);
             transform.position = p;
         }
 
@@ -305,7 +306,7 @@ namespace LegacyOfTemples.Gameplay
                     if (k < 4) q.AddComponent<WindSway>().amount = 2f;
                 }
                 Vector3 s = Fx.Ground(playerStart + dir * (6f + i * 6f) - right * side * 2.6f);
-                var rock = Fx.Prim(PrimitiveType.Cube, "CarvedStone", root, s + Vector3.up * 0.75f, new Vector3(1.5f, 1.5f, 0.7f), stone, true);
+                var rock = Fx.Prim(PrimitiveType.Cube, "CarvedStone", root, s + Vector3.up * 0.75f, new Vector3(1.5f, 1.5f, 0.7f), ArtUpgrade.Mat("mossy_sandstone") ?? stone, true);
                 rock.transform.rotation = Quaternion.LookRotation(right);
             }
             if (StoryFlags.Get("porter_path") == 1)
@@ -318,7 +319,7 @@ namespace LegacyOfTemples.Gameplay
 
         private void UpdateStealth()
         {
-            if (!stealth) { stealth = true; traveled = 0f; stealthT = 0f; listenT = 0f; Detection = 0f; overheard = 0; WeatherManager.Instance?.SetTarget(0.65f, true); }
+            if (!stealth) { stealth = true; traveled = 0f; stealthT = 0f; listenT = 0f; Detection = 0f; overheard = 0; }
             stealthT += Time.deltaTime;
             float cycle = stealthT % 8f; bool pause = cycle > 5f; // walk 5 s, stop and look around 3 s
             bool moving = !pause && traveled < PathLength && Time.time > investigateUntil;
@@ -333,7 +334,7 @@ namespace LegacyOfTemples.Gameplay
                 if (Time.time < investigateUntil && r == investigator) look = Flat(investigatePos - r.position);
                 else if (pause) look = Quaternion.Euler(0f, Mathf.Sin((cycle - 5f) / 3f * Mathf.PI * 2f + i) * 150f, 0f) * dir;
                 if (look.sqrMagnitude > 0.01f) r.rotation = Quaternion.Slerp(r.rotation, Quaternion.LookRotation(look), Time.deltaTime * 3.5f);
-                if (moving) { Vector3 np = r.position + dir * 1.15f * Time.deltaTime; np.y = Fx.Ground(np, 2f).y; r.position = np; }
+                if (moving) { Vector3 np = r.position + dir * 1.15f * Time.deltaTime; np.y = Fx.Floor(np, r); r.position = np; }
                 Vector3 eye = r.position + Vector3.up * 1.6f, chest = pp + Vector3.up * (player.IsCrouching ? 0.8f : 1.4f);
                 Vector3 to = chest - eye; float d = to.magnitude; nearest = Mathf.Min(nearest, d);
                 float range = GameOptions.SightRange * (player.IsCrouching ? 0.6f : 1f);
@@ -440,7 +441,9 @@ namespace LegacyOfTemples.Gameplay
             foreach (var o in new[] { new Vector2(-1, -1), new Vector2(1, -1), new Vector2(-1, 1), new Vector2(1, 1) })
             {
                 Vector3 p = Fx.Ground(arena + right * o.x * 5f + dir * o.y * 5f);
-                var b = Fx.Prim(PrimitiveType.Cylinder, "Brazier", root, p + Vector3.up * 0.5f, new Vector3(0.55f, 0.5f, 0.55f), brass, true);
+                var b = Fx.Prim(PrimitiveType.Cylinder, "Brazier", root, p + Vector3.up * 0.5f, new Vector3(0.55f, 0.5f, 0.55f), ArtUpgrade.Mat("red_sandstone_wall") ?? brass, true);
+                var pit = ArtUpgrade.Place(b.transform, "stone_fire_pit", p + Vector3.up * 1.0f, 0.75f, 0f, false);
+                if (pit != null) pit.transform.localScale = Vector3.one * 0.75f / 0.55f;
                 var l = new GameObject("BrazierFire").AddComponent<Light>(); l.transform.SetParent(b.transform, false); l.transform.position = p + Vector3.up * 1.4f;
                 l.type = LightType.Point; l.range = 9f; l.intensity = 3f; l.color = new Color(1f, 0.6f, 0.25f); l.shadows = LightShadows.None;
                 l.gameObject.AddComponent<LightFlicker>();
@@ -794,8 +797,13 @@ namespace LegacyOfTemples.Gameplay
                 if (Bhaskar.State != EnemyState.Stunned)
                 {
                     if (Bhaskar.State != EnemyState.Flee) Bhaskar.SetState(EnemyState.Flee);
-                    float sp = 3.7f; Vector3 np = b.position + dir * sp * Time.deltaTime; np.y = Fx.Ground(np, 2f).y; b.position = np;
-                    b.rotation = Quaternion.Slerp(b.rotation, Quaternion.LookRotation(dir), Time.deltaTime * 8f);
+                    // he runs laps round the brazier court (never through a wall or off the map), so he can always be cut off
+                    float sp = 3.7f; const float lap = 6f; Vector3 rel = Flat(b.position - arena); if (rel.sqrMagnitude < 0.01f) rel = dir;
+                    float ang = Mathf.Atan2(rel.x, rel.z) + sp / lap * Time.deltaTime * 1.5f;
+                    Vector3 goal = arena + new Vector3(Mathf.Sin(ang), 0f, Mathf.Cos(ang)) * lap;
+                    Vector3 np = Vector3.MoveTowards(b.position, new Vector3(goal.x, b.position.y, goal.z), sp * Time.deltaTime); Vector3 step = Flat(np - b.position);
+                    np.y = Mathf.Clamp(Fx.Floor(new Vector3(np.x, arena.y + 0.3f, np.z), b), arena.y - 1f, arena.y + 1f); b.position = np;
+                    if (step.sqrMagnitude > 0.000001f) b.rotation = Quaternion.Slerp(b.rotation, Quaternion.LookRotation(step), Time.deltaTime * 8f);
                     fleeDist += sp * Time.deltaTime;
                 }
                 stoneT -= Time.deltaTime;
@@ -900,7 +908,7 @@ namespace LegacyOfTemples.Gameplay
             {
                 if (c.Id != "relic_pradip" && c.Id != "relic_rosette" && !(c.Id == "relic_manuscript" && !story.HasClue("relic_manuscript"))) continue;
                 c.gameObject.SetActive(true);
-                c.transform.position = Fx.Ground(Bhaskar.transform.position - dir * 1.4f + right * (k - 1) * 1.1f) + Vector3.up * 0.3f; k++;
+                Vector3 rp = Bhaskar.transform.position - dir * 1.4f + right * (k - 1) * 1.1f; rp.y = Mathf.Clamp(Fx.Floor(new Vector3(rp.x, arena.y + 0.5f, rp.z), Bhaskar.transform), arena.y - 1f, arena.y + 1f) + 0.3f; c.transform.position = rp; k++;
             }
             CombatState.InCombat = false; SavedPhase = 0;
             story.PlayConversation(StoryData.Conversation("conv_c5_after"), null);

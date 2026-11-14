@@ -134,3 +134,28 @@ InvestigationTools), `Scripts/UI/` (LoadingScreen, FightHud, TouchControls, Audi
 
 **What is still a stand-in:** the two robbers' models, all combat animations, the voices and the sound quality.
 See Docs/BLOCKED.md for exactly what to supply.
+
+## 2026-11-14 — Real textures and props, a village round the temple, and fight fixes
+
+**What changed**
+- **Real surfaces and objects.** The levels were plain boxes with flat colours. They now use photo-scanned stone, pavement, wood, bark and soil textures and real 3D props (brass pots and lamps, vases, rocks, ferns, a fire pit). All are free CC0 assets from Poly Haven and are listed in ATTRIBUTION.md. Files: `Assets/_Project/Art/PolyHaven/`, `Resources/Mats`, `Resources/Props`, `Scripts/World/ArtUpgrade.cs`.
+- **A village.** 60 houses with plaster walls, tiled or thatch roofs, verandas, lit windows and a dirt lane now stand around the temple compound. File: `Scripts/World/Village.cs`. You see their roofs and windows over the compound wall in the Courtyard. You cannot walk into the village yet.
+- **Brighter levels.** Every level was too dark to show its colours. The night lighting is now a bright moonlit look (`Scripts/World/LookTuner.cs`).
+- **Rain only in the final fight.** All other levels are dry.
+- **Health numbers in the fight.** The bars now read "ARYAN HEALTH 100" and "BHASKAR HEALTH 100".
+
+**Bugs found by playing the build with the test bot, and fixed**
+1. Sun Wall: pressing Enter to turn the centre wheel also closed the puzzle, so the crank could never be finished.
+2. Final fight: Bhaskar drifted up into the sky while moving (he was more than 1,000 m up), so the player could not see him. Enemies are now held to the arena floor.
+3. After the fight the recovered pieces were placed up in the sky with him and could not be picked up, so the story could not end.
+4. In the last phase Bhaskar ran in a straight line through walls and off the map. He now runs laps inside the brazier court.
+5. The G key was used by both the flashlight and the guide. The guide now uses Enter only.
+
+**How to see it**
+Open the built game (`Builds/LegacyOfTheTemple.app`) or press Play in Unity from the MainMenu scene. Evidence screenshots are in `Docs/QA/v12run/` (full play-through, story completes) and `Docs/QA/v13run/v3-village-*.png` (the village).
+
+**Still not done**
+- No fight or walk animations for the robbers: these need the Mixamo clips listed in Docs/BLOCKED.md.
+- Trees are still simple shapes, and the lion statues and lamp stands are still built from boxes and cylinders.
+- The village is scenery only; a walkable village with the five levels as places inside it is not built.
+- No temple introduction sequence yet (needs licensed photos).

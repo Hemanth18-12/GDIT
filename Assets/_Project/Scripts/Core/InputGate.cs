@@ -11,6 +11,8 @@ namespace LegacyOfTemples.Core
     public static class InputGate
     {
         public static Func<bool> UiOpen;
+        /// <summary>Frame until which Enter belongs to a mechanism (the Sun Wall centre wheel), not to "interact".</summary>
+        public static int EnterReservedUntil = -1;
         private static int lastUiFrame = -100;
 
         public static bool GameplayBlocked

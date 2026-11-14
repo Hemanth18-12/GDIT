@@ -40,6 +40,7 @@ namespace LegacyOfTemples.UI
             if (index < 0 || index + 1 >= args.Length) return;
             requested = true;
             Application.runInBackground = true;
+            InputSystem.settings.backgroundBehavior = InputSettings.BackgroundBehavior.IgnoreFocus; // the bot must work when the window is not in front
             var go = new GameObject("AuditBot");
             DontDestroyOnLoad(go);
             go.AddComponent<AuditBot>().output = args[index + 1];
@@ -236,6 +237,7 @@ namespace LegacyOfTemples.UI
                     w = 0f; while (w < 15f && fd.Phase != ph + 1) { w += 0.25f; yield return new WaitForSecondsRealtime(0.25f); }
                     yield return new WaitForSecondsRealtime(1.2f);
                     Line($"  fight: phase now {fd.Phase}, kishore_turned={StoryFlags.Get("kishore_turned")}");
+                    Line($"  fight: Bhaskar height above player = {(fd.Bhaskar != null ? fd.Bhaskar.transform.position.y - player.transform.position.y : 0f):0.00} m");
                     yield return Shot("v2-fight-phase" + (ph + 1) + ".png");
                 }
                 yield return new WaitForSecondsRealtime(1.5f);
@@ -349,6 +351,7 @@ namespace LegacyOfTemples.UI
                     if (cam != null && Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit ch, 6f, ~0, QueryTriggerInteraction.Ignore)) hitName = ch.collider.name + " at " + ch.distance.ToString("0.0") + "m";
                     Line($"  start: player={player.transform.position} yaw={player.transform.eulerAngles.y:0}, camera={(cam ? cam.transform.position.ToString() : "none")} yaw={(cam ? cam.transform.eulerAngles.y : 0):0}, camera looks at {hitName}");
                     yield return Shot("pt-start-view.png");
+                    yield return VillageShots();
                 }
                 Transform target = story.ResolveTarget(player.transform.position);
                 Line($"- [{story.ObjectiveIndex + 1}/{story.ObjectiveCount}] {o.id} \"{o.title}\" in {scene}: target={(target ? target.name : "NONE")}");
@@ -370,6 +373,7 @@ namespace LegacyOfTemples.UI
                 yield return new WaitForSecondsRealtime(0.8f);
                 int before = story.ObjectiveIndex;
                 string t = o.target ?? "";
+                if (o.id == "obj_c2_search") Line($"  flashlight before: on={Flashlight.On}, battery={Flashlight.Battery:0}");
                 if (o.id == "obj_c2_search" && !Flashlight.On) { yield return Tap(Key.G); yield return new WaitForSecondsRealtime(0.5f); yield return Shot("pt-flashlight-Sanctum.png"); }
                 if (t == "puzzle")
                 {
@@ -384,13 +388,14 @@ namespace LegacyOfTemples.UI
                     yield return new WaitForSecondsRealtime(0.5f);
                     var pzc = ChakraPuzzleController.Active;
                     Line($"  puzzle: resets={(pzc != null ? pzc.Resets : -1)}, timer left={(pzc != null ? pzc.ResetLeft : -1f):0}s, cranking={(pzc != null && pzc.Cranking)}");
-                    for (int ck = 0; ck < 20 && pzc != null && !pzc.IsSolved; ck++) { yield return Tap(ck % 2 == 0 ? Key.A : Key.D); if (ck == 6) yield return Shot("v2-sunwall-crank.png"); }
+                    for (int ck = 0; ck < 90 && pzc != null && pzc.Cranking && !pzc.IsSolved; ck++) { yield return Tap(ck % 2 == 0 ? Key.A : Key.D); if (ck == 6) yield return Shot("v2-sunwall-crank.png"); }
                     yield return new WaitForSecondsRealtime(1.5f);
                     Line($"  puzzle: wrong-order message='{wrongMsg}', solved={ChakraPuzzleController.Active != null && ChakraPuzzleController.Active.IsSolved}");
                     yield return FinishDialogue(null);
                 }
                 else if (t == "clues")
                 {
+                    if (scene == Constants.Sanctum && !Flashlight.Usable) { Line("  flashlight was off before the clue: forcing it on (G did not hold)"); Flashlight.Set(true); Flashlight.AddBattery(100f); yield return null; }
                     yield return Tap(Key.F); yield return new WaitForSecondsRealtime(0.8f);
                     if (!Flag("ClueInspectable", "isInspecting")) { yield return Tap(Key.E); yield return new WaitForSecondsRealtime(0.8f); }
                     bool insp = Flag("ClueInspectable", "isInspecting");
@@ -399,6 +404,7 @@ namespace LegacyOfTemples.UI
                     yield return Tap(Key.Escape); yield return new WaitForSecondsRealtime(0.6f);
                     if (Time.timeScale == 0f) { yield return Tap(Key.Escape); yield return new WaitForSecondsRealtime(0.4f); }
                     Line($"  clue {target.name}: inspecting={insp}, found={story.ClueCount}");
+                    if (!insp) Line($"    target at {target.position}, active={target.gameObject.activeInHierarchy}, player at {player.transform.position}, prompt='{(player.CurrentInteractable != null ? player.CurrentInteractable.Prompt : "(none)")}', combat={CombatState.InCombat}, gate={InputGate.GameplayBlocked}");
                 }
                 else
                 {
@@ -527,6 +533,25 @@ namespace LegacyOfTemples.UI
             held.CopyTo(keys);
             InputSystem.QueueStateEvent(Keyboard.current, new KeyboardState(keys));
         }
+        /// <summary>Lifts the camera above the compound wall to photograph the village around the temple.</summary>
+        private IEnumerator VillageShots()
+        {
+            var cam = Camera.main; if (cam == null) yield break;
+            var orbits = new List<MonoBehaviour>();
+            foreach (var mb in FindObjectsByType<MonoBehaviour>()) if (mb != null && mb.GetType().Name == "OrbitCamera" && mb.enabled) { mb.enabled = false; orbits.Add(mb); }
+            Vector3 keepP = cam.transform.position; Quaternion keepR = cam.transform.rotation;
+            var views = new[] { (new Vector3(0f, 7f, 0f), new Vector3(1f, -0.12f, 0.25f), "east"), (new Vector3(0f, 7f, 0f), new Vector3(-0.3f, -0.12f, 1f), "south"), (new Vector3(34f, 2.2f, 4f), new Vector3(0.25f, 0.02f, 1f), "lane") };
+            foreach (var v in views)
+            {
+                cam.transform.position = v.Item1; cam.transform.rotation = Quaternion.LookRotation(v.Item2.normalized);
+                yield return null; yield return null;
+                yield return Shot("v3-village-" + v.Item3 + ".png");
+            }
+            Line($"  village: houses built={LegacyOfTemples.World.Village.Houses}");
+            cam.transform.position = keepP; cam.transform.rotation = keepR;
+            foreach (var mb in orbits) mb.enabled = true;
+        }
+
         private IEnumerator Tap(Key k)
         {
             var keep = new HashSet<Key>(held);

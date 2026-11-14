@@ -61,20 +61,20 @@ namespace LegacyOfTemples.World
             switch (scene)
             {
                 case "Sanctum": // dark storage hall: the flashlight and the relit lamps matter here
-                    return new Look { exposure = 0.3f, ambient = 0.4f, fog = 0.014f, sky = C(0.33f, 0.3f, 0.28f), equator = C(0.3f, 0.23f, 0.16f), ground = C(0.12f, 0.1f, 0.08f), fogColor = C(0.11f, 0.09f, 0.07f),
+                    return new Look { exposure = 0.6f, ambient = 0.7f, fog = 0.01f, sky = C(0.33f, 0.3f, 0.28f), equator = C(0.3f, 0.23f, 0.16f), ground = C(0.12f, 0.1f, 0.08f), fogColor = C(0.11f, 0.09f, 0.07f),
                         sunIntensity = 0.15f, sunColor = C(1f, 0.8f, 0.6f), sunAngles = new Vector2(60f, 20f), skyExposure = 0.15f, skyTint = C(0.2f, 0.2f, 0.3f), bloom = 0.45f, saturation = 4f, vignette = 0.3f, fill = 0f };
                 case "ShrineCrime": // blue moonlight against warm lamps, in rain
-                    return new Look { exposure = 0.95f, ambient = 1f, fog = 0.015f, sky = C(0.22f, 0.3f, 0.52f), equator = C(0.2f, 0.2f, 0.27f), ground = C(0.08f, 0.08f, 0.1f), fogColor = C(0.12f, 0.16f, 0.26f),
-                        sunIntensity = 0.9f, sunColor = C(0.6f, 0.72f, 1f), sunAngles = new Vector2(42f, 30f), skyExposure = 0.2f, skyTint = C(0.12f, 0.18f, 0.4f), bloom = 0.4f, saturation = -4f, vignette = 0.26f, fill = 0.22f };
+                    return new Look { exposure = 1.35f, ambient = 1.5f, fog = 0.008f, sky = C(0.36f, 0.42f, 0.6f), equator = C(0.34f, 0.32f, 0.36f), ground = C(0.16f, 0.14f, 0.14f), fogColor = C(0.12f, 0.16f, 0.26f),
+                        sunIntensity = 1.5f, sunColor = C(0.82f, 0.88f, 1f), sunAngles = new Vector2(42f, 30f), skyExposure = 0.45f, skyTint = C(0.2f, 0.28f, 0.5f), bloom = 0.4f, saturation = 10f, vignette = 0.26f, fill = 0.22f };
                 case "PuzzleWall": // torch-lit stone
-                    return new Look { exposure = 0.6f, ambient = 0.9f, fog = 0.018f, sky = C(0.24f, 0.19f, 0.15f), equator = C(0.32f, 0.22f, 0.14f), ground = C(0.11f, 0.09f, 0.07f), fogColor = C(0.13f, 0.09f, 0.06f),
+                    return new Look { exposure = 1.0f, ambient = 1.4f, fog = 0.008f, sky = C(0.24f, 0.19f, 0.15f), equator = C(0.32f, 0.22f, 0.14f), ground = C(0.11f, 0.09f, 0.07f), fogColor = C(0.13f, 0.09f, 0.06f),
                         sunIntensity = 0.3f, sunColor = C(1f, 0.75f, 0.5f), sunAngles = new Vector2(55f, 0f), skyExposure = 0.15f, skyTint = C(0.2f, 0.18f, 0.2f), bloom = 0.45f, saturation = 6f, vignette = 0.28f, fill = 0f };
                 case "JunglePath": // moonlit storm, a glowing temple far away
-                    return new Look { exposure = 1.0f, ambient = 1f, fog = 0.028f, sky = C(0.17f, 0.25f, 0.38f), equator = C(0.12f, 0.2f, 0.2f), ground = C(0.05f, 0.08f, 0.07f), fogColor = C(0.08f, 0.13f, 0.17f),
-                        sunIntensity = 0.8f, sunColor = C(0.62f, 0.74f, 1f), sunAngles = new Vector2(48f, -20f), skyExposure = 0.2f, skyTint = C(0.1f, 0.17f, 0.36f), bloom = 0.4f, saturation = -3f, vignette = 0.3f, fill = 0.2f };
+                    return new Look { exposure = 1.35f, ambient = 1.5f, fog = 0.014f, sky = C(0.3f, 0.4f, 0.5f), equator = C(0.24f, 0.34f, 0.3f), ground = C(0.12f, 0.16f, 0.12f), fogColor = C(0.08f, 0.13f, 0.17f),
+                        sunIntensity = 1.4f, sunColor = C(0.82f, 0.9f, 1f), sunAngles = new Vector2(48f, -20f), skyExposure = 0.45f, skyTint = C(0.18f, 0.28f, 0.46f), bloom = 0.4f, saturation = 12f, vignette = 0.3f, fill = 0.2f };
                 case "Courtyard": // 3:10 AM: moonlight, drizzle and oil lamps
-                    return new Look { exposure = 1.0f, ambient = 1f, fog = 0.012f, sky = C(0.2f, 0.27f, 0.45f), equator = C(0.17f, 0.17f, 0.23f), ground = C(0.07f, 0.06f, 0.07f), fogColor = C(0.1f, 0.13f, 0.22f),
-                        sunIntensity = 0.75f, sunColor = C(0.62f, 0.74f, 1f), sunAngles = new Vector2(38f, -40f), skyExposure = 0.22f, skyTint = C(0.12f, 0.18f, 0.4f), bloom = 0.4f, saturation = -5f, vignette = 0.25f, fill = 0.25f };
+                    return new Look { exposure = 1.4f, ambient = 1.5f, fog = 0.006f, sky = C(0.36f, 0.42f, 0.6f), equator = C(0.36f, 0.32f, 0.34f), ground = C(0.18f, 0.15f, 0.14f), fogColor = C(0.1f, 0.13f, 0.22f),
+                        sunIntensity = 1.5f, sunColor = C(0.84f, 0.89f, 1f), sunAngles = new Vector2(38f, -40f), skyExposure = 0.5f, skyTint = C(0.2f, 0.28f, 0.5f), bloom = 0.4f, saturation = 10f, vignette = 0.25f, fill = 0.25f };
                 default:
                     return new Look { exposure = 0.6f, ambient = 1f, fog = 0.006f, sky = C(0.6f, 0.68f, 0.85f), equator = C(0.7f, 0.56f, 0.42f), ground = C(0.3f, 0.24f, 0.18f), fogColor = C(0.8f, 0.68f, 0.55f),
                         sunIntensity = 1.2f, sunColor = C(1f, 0.9f, 0.8f), sunAngles = new Vector2(40f, 30f), skyExposure = 1f, skyTint = C(0.5f, 0.5f, 0.5f), bloom = 0.35f, saturation = 6f, vignette = 0.2f, fill = 0.35f };
@@ -146,7 +146,7 @@ namespace LegacyOfTemples.World
                 key.type = LightType.Point; key.range = 3f; key.intensity = 1.2f; key.color = new Color(1f, 0.85f, 0.7f); key.shadows = LightShadows.None;
             }
 
-            LightenStone();
+            if (game) ArtUpgrade.Apply(scene); // real stone, wood and ground surfaces instead of flat colours
             if (scene == "Courtyard") Dress();
             if (game) { CancelInvoke(nameof(Extras)); Invoke(nameof(Extras), 1.0f); }
         }
@@ -234,6 +234,7 @@ namespace LegacyOfTemples.World
             var player = GameObject.FindWithTag("Player");
             Vector3 p = player != null ? player.transform.position : Vector3.zero, f = player != null ? player.transform.forward : Vector3.forward, right = Vector3.Cross(Vector3.up, f);
             int n = 0;
+            if (scene == "Courtyard") Village.Build(root);
 
             // a soft glow on every warm lamp
             var glow = new GameObject("LookTuner_LampGlows"); glow.transform.SetParent(root, false);
@@ -316,6 +317,7 @@ namespace LegacyOfTemples.World
                     gps.Emit(new ParticleSystem.EmitParams { position = far + Vector3.up * 9f - f * 8f, startSize = 30f, startColor = new Color(1f, 0.6f, 0.25f, 0.35f), startLifetime = 100000f }, 1);
                     break;
             }
+            ArtUpgrade.Scatter(root, scene, p, f);
             gps.Play();
             ExtrasBuilt = root.childCount;
         }
@@ -353,8 +355,8 @@ namespace LegacyOfTemples.World
             var root = new GameObject("LookTuner_Decor").transform;
             var lit = Shader.Find("Universal Render Pipeline/Lit");
             Material M(Color c) { var m = new Material(lit); m.SetColor("_BaseColor", c); m.SetFloat("_Smoothness", 0.15f); return m; }
-            var bark = M(new Color(0.32f, 0.22f, 0.14f)); var leaf = M(new Color(0.22f, 0.42f, 0.18f)); var leaf2 = M(new Color(0.3f, 0.5f, 0.2f));
-            var brass = M(new Color(0.85f, 0.65f, 0.3f)); var cloth = M(new Color(0.85f, 0.35f, 0.15f)); var cloth2 = M(new Color(0.95f, 0.75f, 0.25f)); var wood = M(new Color(0.45f, 0.3f, 0.18f));
+            var bark = ArtUpgrade.Mat("bark_brown_02") ?? M(new Color(0.32f, 0.22f, 0.14f)); var leaf = M(new Color(0.22f, 0.42f, 0.18f)); var leaf2 = M(new Color(0.3f, 0.5f, 0.2f));
+            var brass = M(new Color(0.85f, 0.65f, 0.3f)); var cloth = M(new Color(0.85f, 0.35f, 0.15f)); var cloth2 = M(new Color(0.95f, 0.75f, 0.25f)); var wood = ArtUpgrade.Mat("weathered_planks") ?? M(new Color(0.45f, 0.3f, 0.18f));
             GameObject P(PrimitiveType t, Vector3 pos, Vector3 scale, Material m)
             {
                 var g = GameObject.CreatePrimitive(t); Object.Destroy(g.GetComponent<Collider>());
