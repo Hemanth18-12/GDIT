@@ -946,15 +946,10 @@ namespace LegacyOfTemples.UI
             // Buttons Container
             float startY = -105f;
             CreateMenuButton(pausePanel.transform, "Resume Game", new Vector2(0f, startY), () => TogglePause());
-            CreateMenuButton(pausePanel.transform, "Replay Tutorial", new Vector2(0f, startY - 55f), () =>
+            CreateMenuButton(pausePanel.transform, "Show The Five Hints Again", new Vector2(0f, startY - 55f), () =>
             {
                 TogglePause();
-                TutorialManager.Instance.StartTutorial();
-            });
-            CreateMenuButton(pausePanel.transform, "Skip Tutorial", new Vector2(0f, startY - 110f), () =>
-            {
-                TogglePause();
-                TutorialManager.Instance.SkipTutorial();
+                HintTutorial.Restart();
             });
             CreateMenuButton(pausePanel.transform, "Investigation Journal [J]", new Vector2(0f, startY - 165f), () =>
             {
@@ -1097,7 +1092,7 @@ namespace LegacyOfTemples.UI
             hintText.alignment = TextAlignmentOptions.Center;
             bottomHintText = hintText;
             hintText.color = ColorTextWarmIvory;
-            hintText.text = "<color=#FFC857>[WASD]</color> Move  •  <color=#FFC857>[Shift]</color> Run  •  <color=#FFC857>[E]</color> Talk / Use  •  <color=#FFC857>[F]</color> Inspect  •  <color=#FFC857>[J]</color> Journal  •  <color=#FFC857>[M]</color> Map  •  <color=#FFC857>[H]</color> Guide  •  <color=#FFC857>[Esc]</color> Pause";
+            hintText.text = "<color=#FFC857>[H]</color> Help  •  <color=#FFC857>[Esc]</color> Pause and Controls";
 
             RectTransform trt = textObj.GetComponent<RectTransform>();
             trt.anchorMin = Vector2.zero;

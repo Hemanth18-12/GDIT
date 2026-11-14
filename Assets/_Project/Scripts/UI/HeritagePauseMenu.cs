@@ -46,7 +46,7 @@ namespace LegacyOfTemples.UI
         {
             bool open = UIManager.Instance != null && UIManager.Instance.IsPauseOpen;
             if (open && !shown) Build();
-            if (!open && shown) { panel.gameObject.SetActive(false); shown = false; }
+            if (!open && shown) { panel.gameObject.SetActive(false); shown = false; showControls = false; }
         }
 
         private void Build()
@@ -57,7 +57,17 @@ namespace LegacyOfTemples.UI
             panel.gameObject.SetActive(true);
             var t = ScreenTextRenderer.MakeText(panel, "PauseTitle", ScreenTextRenderer.TitleSize * ScreenTextRenderer.Scale, ScreenTextRenderer.Gold, true, TextAlignmentOptions.Center);
             t.text = "PAUSED"; items.Add(t.gameObject);
+            if (showControls)
+            {
+                t.text = "CONTROLS";
+                var ct = ScreenTextRenderer.MakeText(panel, "PauseControlsBody", 28 * ScreenTextRenderer.Scale, ScreenTextRenderer.Ivory, false, TextAlignmentOptions.Left);
+                ct.text = ControlsText.Body; ct.textWrappingMode = TextWrappingModes.Normal; items.Add(ct.gameObject);
+                var back = Button("BACK", () => { showControls = false; Rebuild(); });
+                EventSystem.current?.SetSelectedGameObject(back);
+                return;
+            }
             var first = Button("RESUME", () => UIManager.Instance.TogglePause());
+            Button("CONTROLS", () => { showControls = true; Rebuild(); });
             Button("GUIDE: WHAT DO I DO?", () => { UIManager.Instance.TogglePause(); GuideSystem.Instance?.Toggle(); });
             int ts = PlayerPrefs.GetInt("Settings_TextScaleIndex", 1);
             Button("Text size: " + TextSizes[Mathf.Clamp(ts, 0, 3)], () => { UIManager.Instance.CycleTextScale(); Rebuild(); });
@@ -85,6 +95,7 @@ namespace LegacyOfTemples.UI
             EventSystem.current?.SetSelectedGameObject(first);
         }
 
+        private bool showControls;
         private void Rebuild() { shown = false; }
 
         private GameObject Button(string label, Action onClick)

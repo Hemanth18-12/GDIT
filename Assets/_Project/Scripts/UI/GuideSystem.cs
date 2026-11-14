@@ -207,6 +207,11 @@ namespace LegacyOfTemples.UI
         // ------------------------------------------------------------ in-world guidance
         private RectTransform diamondRt;
         private TextMeshProUGUI distanceText;
+        private static bool CentrePanelLive()
+        {
+            foreach (var p in ScreenText.Panels.Values) if (ScreenText.IsLive(p.lastFrame) && (p.anchor == PanelAnchor.Center || p.anchor == PanelAnchor.TopCenter || p.dimBackground)) return true;
+            return false;
+        }
 
         /// <summary>Small static marker: a diamond above the target with the distance, or a small edge arrow when off-screen.</summary>
         private void DrawWay(Transform player, Transform target)
@@ -251,7 +256,7 @@ namespace LegacyOfTemples.UI
                 arrowRt.anchoredPosition = pos;
                 arrowRt.localRotation = Quaternion.Euler(0, 0, Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f);
             }
-            distanceText.gameObject.SetActive(true);
+            distanceText.gameObject.SetActive(!CentrePanelLive()); // never draw the distance over a card
             distanceText.rectTransform.anchoredPosition = pos + new Vector2(0, -32);
         }
 

@@ -66,14 +66,9 @@ namespace LegacyOfTemples.UI
         private void Start()
         {
             // If New Game was requested or first play, trigger tutorial
-            int tutorialDone = PlayerPrefs.GetInt("Tutorial_Completed", 0);
-            int forceTutorial = PlayerPrefs.GetInt("Force_Tutorial_On_Start", 1);
-            if (tutorialDone == 0 || forceTutorial == 1)
-            {
-                PlayerPrefs.SetInt("Force_Tutorial_On_Start", 0);
-                PlayerPrefs.Save();
-                StartCoroutine(DeferredStartTutorial());
-            }
+            // The 12-step tutorial no longer starts by itself (it used to open over the main menu).
+            // New games get five small hints instead: see HintTutorial.
+            isTutorialActive = false; currentStep = TutorialStep.Completed;
         }
 
         private IEnumerator DeferredStartTutorial()
@@ -97,8 +92,8 @@ namespace LegacyOfTemples.UI
             currentStep = TutorialStep.Completed;
             PlayerPrefs.SetInt("Tutorial_Completed", 1);
             PlayerPrefs.Save();
-            UIManager.Instance.HideTutorial();
-            UIManager.Instance.ShowHowToPlay(OnHowToPlayDismissed);
+            if (UIManager.Instance != null) UIManager.Instance.HideTutorial();
+            OnHowToPlayDismissed();
         }
 
         public void ReplayTutorial()

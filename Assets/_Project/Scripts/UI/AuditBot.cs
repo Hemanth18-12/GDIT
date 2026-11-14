@@ -93,15 +93,36 @@ namespace LegacyOfTemples.UI
         }
 
         // ------------------------------------------------------------------ full play-through
-        private bool introShot;
+        /// <summary>Stage 1 evidence: the five hints appear one at a time and each goes away when its action is done.</summary>
+        private IEnumerator HintsCheck()
+        {
+            yield return new WaitForSecondsRealtime(1.5f);
+            Line($"- Hints: step at start={HintTutorial.Step} of {HintTutorial.Count}, old tutorial active={Flag("TutorialManager", "isTutorialActive")}");
+            var pc = FindAnyObjectByType<PlayerController>();
+            for (int i = 0; i < HintTutorial.Count && HintTutorial.Step < HintTutorial.Count; i++)
+            {
+                int was = HintTutorial.Step; float w = 0f;
+                while (!HintTutorial.Showing && w < 4f) { w += Time.unscaledDeltaTime; yield return null; }
+                yield return Shot($"s1-hint-{was + 1}.png");
+                if (was == 0) { Hold(Key.W); yield return new WaitForSecondsRealtime(1.3f); Release(); }
+                else if (was == 1) { for (int k = 0; k < 30; k++) { VirtualInput.Look = new Vector2(12f, 0f); yield return null; } VirtualInput.Look = Vector2.zero; }
+                else if (was == 2)
+                {
+                    var npc = FindAnyObjectByType<NPCDialogueTrigger>();
+                    if (pc != null && npc != null) { pc.Teleport(npc.transform.position + npc.transform.forward * 1.3f, Quaternion.LookRotation(-npc.transform.forward)); yield return new WaitForSecondsRealtime(1.2f); }
+                    yield return Tap(Key.E); yield return new WaitForSecondsRealtime(0.8f);
+                    if (DialogueActive()) yield return FinishDialogue(null);
+                }
+                else if (was == 3) { yield return Tap(Key.J); yield return new WaitForSecondsRealtime(0.5f); yield return Tap(Key.J); }
+                else { yield return Tap(Key.H); yield return new WaitForSecondsRealtime(0.5f); yield return Tap(Key.H); }
+                yield return new WaitForSecondsRealtime(1.6f);
+                Line($"  hint {was + 1}: step after action={HintTutorial.Step} => {(HintTutorial.Step > was ? "CLEARED" : "STILL SHOWING")}");
+            }
+            if (HintTutorial.Step < HintTutorial.Count) Line("  hints did not all clear");
+        }
+
         private IEnumerator SkipIntro()
         {
-            if (HeritageIntro.Active && !introShot)
-            {
-                introShot = true; yield return new WaitForSecondsRealtime(1.6f);
-                yield return Shot("v3-heritage-intro.png"); yield return UiAudit("Heritage intro", Screen.width, Screen.height);
-                Line($"  heritage intro: active={HeritageIntro.Active}, card={HeritageIntro.CardsShown}, timeScale={Time.timeScale}");
-            }
             for (int i = 0; i < 3; i++)
             {
                 yield return new WaitForSecondsRealtime(1.2f);
@@ -139,11 +160,21 @@ namespace LegacyOfTemples.UI
             while (true)
             {
                 while (!SceneLoader.IsLoading) yield return null;
-                yield return new WaitForSecondsRealtime(1.6f);
                 n++;
+                if (n <= 3)
+                {   // prove the bar moves: photograph it at about 30%, 60% and 100%
+                    float w0 = 0f;
+                    foreach (float mark in new[] { 0.3f, 0.6f, 0.995f })
+                    {
+                        while (SceneLoader.IsLoading && LoadingScreen.LastProgress < mark && w0 < 12f) { w0 += Time.unscaledDeltaTime; yield return null; }
+                        Line($"  loading bar: {LoadingScreen.LastProgress * 100f:0}% at {w0:0.00} s (image {LoadingScreen.LastImage})");
+                        yield return Shot($"s2-loading-{n}-{Mathf.RoundToInt(mark * 100f)}pct.png");
+                    }
+                }
+                else yield return new WaitForSecondsRealtime(1.2f);
                 Line($"  loading screen {n}: image={LoadingScreen.LastImage}, bar={LoadingScreen.LastProgress:0.00}");
                 yield return Shot("v2-loading-" + n + "-" + LoadingScreen.LastImage + ".png");
-                if (n == 1) yield return UiAuditAllResolutions("Loading screen");
+
                 while (SceneLoader.IsLoading) yield return null;
             }
         }
@@ -270,6 +301,7 @@ namespace LegacyOfTemples.UI
             yield return SkipIntro();
 
             // Tutorial: play it for a while with real keys, then skip the rest.
+            yield return HintsCheck();
             if (TutorialManager.Instance != null)
             {
                 bool active = Flag("TutorialManager", "isTutorialActive");
@@ -358,6 +390,11 @@ namespace LegacyOfTemples.UI
                     if (cam != null && Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit ch, 6f, ~0, QueryTriggerInteraction.Ignore)) hitName = ch.collider.name + " at " + ch.distance.ToString("0.0") + "m";
                     Line($"  start: player={player.transform.position} yaw={player.transform.eulerAngles.y:0}, camera={(cam ? cam.transform.position.ToString() : "none")} yaw={(cam ? cam.transform.eulerAngles.y : 0):0}, camera looks at {hitName}");
                     yield return Shot("pt-start-view.png");
+                    yield return Tap(Key.Escape); yield return new WaitForSecondsRealtime(0.6f);
+                    foreach (var b in FindObjectsByType<Button>()) if (b.name == "Btn_CONTROLS") { b.onClick.Invoke(); break; }
+                    yield return new WaitForSecondsRealtime(0.5f); yield return Shot("s1-pause-controls.png"); yield return UiAudit("Pause controls", Screen.width, Screen.height);
+                    yield return Tap(Key.Escape); yield return new WaitForSecondsRealtime(0.5f);
+                    if (Time.timeScale == 0f) { yield return Tap(Key.Escape); yield return new WaitForSecondsRealtime(0.4f); }
                     yield return VillageShots();
                 }
                 Transform target = story.ResolveTarget(player.transform.position);
