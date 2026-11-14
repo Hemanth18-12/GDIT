@@ -246,7 +246,7 @@ namespace LegacyOfTemples.UI
 
 
             // Pause Toggle (Esc)
-            if (((kb != null && kb.escapeKey.wasPressedThisFrame) || VirtualInput.Down("pause")) && !OverlayOwnsEscape())
+            if (((kb != null && kb.escapeKey.wasPressedThisFrame) || VirtualInput.Down("pause")) && !OverlayOwnsEscape() && !InputGate.CinematicActive)
             {
                 if (howToPlayPanel != null && howToPlayPanel.activeSelf)
                 {
@@ -1571,6 +1571,7 @@ namespace LegacyOfTemples.UI
                 || (InvestigationJournal.Instance != null && InvestigationJournal.Instance.IsOpen) || (TempleMapOverlay.Instance != null && TempleMapOverlay.Instance.IsOpen)
                 || IsPauseOpen;
             foreach (var spec in ScreenText.Panels.Values) if (spec.dimBackground && ScreenText.IsLive(spec.lastFrame)) modal = true;
+            if (InputGate.CinematicActive) modal = true;
             bool fight = CombatState.InCombat; // the fight HUD replaces the goal card and key bar
             SetVisible(hudPanel, !modal && !fight);
             SetVisible(bottomHintBar, !modal && !fight);

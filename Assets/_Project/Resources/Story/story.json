@@ -667,6 +667,25 @@
  ],
  "objectives": [
   {
+   "id": "obj_c0_reach",
+   "chapter": "ch1",
+   "scene": "Courtyard",
+   "title": "Reach Jagannath Temple",
+   "instruction": "Follow the village road and go through the old stone entrance. The temple is at the end.",
+   "keys": "WASD walk, E drive the jeep",
+   "target": "obj:Gateway_TEMPLE_COURTYARD",
+   "area": "Village road",
+   "complete": {
+    "type": "minigame",
+    "id": "reach_temple"
+   },
+   "hints": [
+    "The temple is at the end of the village road.",
+    "Walk or drive north along the main road, past the tea stall.",
+    "Go through the stone gateway marked 1 · TEMPLE COURTYARD."
+   ]
+  },
+  {
    "id": "obj_c1_pujari",
    "chapter": "ch1",
    "scene": "Courtyard",

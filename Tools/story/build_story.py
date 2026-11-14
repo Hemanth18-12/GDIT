@@ -199,6 +199,8 @@ sc = lambda i: {"type": "scene", "id": i}
 cl = lambda *i: {"type": "clues", "ids": list(i)}
 
 objectives = [
+ O("obj_c0_reach", "ch1", "Courtyard", "Reach Jagannath Temple", "Follow the village road and go through the old stone entrance. The temple is at the end.", "WASD walk, E drive the jeep", "obj:Gateway_TEMPLE_COURTYARD", "Village road", mg("reach_temple"),
+   ["The temple is at the end of the village road.", "Walk or drive north along the main road, past the tea stall.", "Go through the stone gateway marked 1 · TEMPLE COURTYARD."]),
  O("obj_c1_pujari", "ch1", "Courtyard", "Speak with Pujari Ananda", "Walk to the priest at the temple steps and talk to him.", "WASD walk, E talk", "npc:priest", "Temple steps", dlg("conv_c1_pujari"),
    ["Someone at the temple is waiting for you.", "The priest stands near the temple steps ahead.", "Walk to Pujari Ananda and press E."]),
  O("obj_c1_meera", "ch1", "Courtyard", "Question Meera", "Talk to Meera. Listen for the answer that does not fit, then decide how to handle her.", "E talk, 1-3 choose", "npc:villager", "Near the well", dlg("conv_c1_meera_b"),

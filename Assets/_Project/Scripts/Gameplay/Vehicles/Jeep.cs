@@ -1,0 +1,405 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.InputSystem;
+using LegacyOfTemples.Characters;
+using LegacyOfTemples.Core;
+
+namespace LegacyOfTemples.Gameplay.Vehicles
+{
+    /// <summary>
+    /// The investigator's jeep (own Blender model, Art_Source/Jeep). Wires the model up at runtime: wheel colliders,
+    /// body colliders, rigidbody, lights, engine audio, the ported car controller, doors and hood that open, getting
+    /// in and out with E, the driving camera and the speed panel, and damage by impact strength and location.
+    /// </summary>
+    public class Jeep : MonoBehaviour, IInteractable
+    {
+        public static Jeep Instance { get; private set; }
+
+        [Header("Damage meshes (filled by the editor tool)")]
+        public Mesh[] bodyStates = new Mesh[4];   // 0 = intact (taken from the model), 1 damaged, 2 wrecked, 3 destroyed
+        public Mesh[] hoodStates = new Mesh[4];
+        public Material scuffedPaint, burntPaint, interior;
+
+        public CarController Car { get; private set; }
+        public CarLights Lights { get; private set; }
+        public CarAudio Audio { get; private set; }
+        public bool Occupied { get; private set; }
+        public int DamageState { get; private set; }
+        public float TotalDamage { get; private set; }
+        public readonly Dictionary<string, float> ZoneDamage = new Dictionary<string, float> { { "front", 0f }, { "rear", 0f }, { "left", 0f }, { "right", 0f }, { "top", 0f } };
+        public int PartsBroken { get; private set; }
+        public float LastImpact { get; private set; }
+
+        public Transform Model { get; private set; }
+        private Rigidbody rb;
+        private readonly Dictionary<string, Transform> named = new Dictionary<string, Transform>();
+        private Transform driverDoor, hood, steeringCol; private float driverSide = 1f;
+        private Quaternion driverDoorClosed, hoodClosed; private float driverDoorSign = 1f, hoodSign = 1f;
+        private PlayerController player; private OrbitCamera orbit; private CarFollowCamera follow;
+        private int enteredFrame = -10;
+        private ParticleSystem smoke;
+
+        // ------------------------------------------------------------------ spawning
+        public static Jeep Spawn(Vector3 position, Quaternion rotation)
+        {
+            var pf = Resources.Load<GameObject>("Vehicles/Jeep");
+            if (pf == null) { Debug.LogWarning("[Jeep] Resources/Vehicles/Jeep prefab is missing (run VehicleTools.Build)."); return null; }
+            var g = Instantiate(pf, position, rotation); g.name = "Jeep";
+            return g.GetComponent<Jeep>();
+        }
+
+        private void Awake()
+        {
+            Instance = this;
+            Model = transform.childCount > 0 ? transform.GetChild(0) : transform;
+            foreach (var t in GetComponentsInChildren<Transform>(true)) if (!named.ContainsKey(t.name)) named[t.name] = t;
+            AlignModel();
+            BuildPhysics();
+            BuildLights();
+            Audio = gameObject.AddComponent<CarAudio>(); Audio.Init();
+            Car.Init();
+            CacheMovingParts();
+            if (bodyStates[0] == null && T("SM_Jeep_Body") != null) bodyStates[0] = T("SM_Jeep_Body").GetComponent<MeshFilter>().sharedMesh;
+            if (hoodStates[0] == null && T("SM_Jeep_Hood") != null) hoodStates[0] = T("SM_Jeep_Hood").GetComponent<MeshFilter>().sharedMesh;
+        }
+
+        private void OnDestroy() { if (Instance == this) Instance = null; }
+
+        private Transform T(string n) => named.TryGetValue(n, out var t) ? t : null;
+        private Vector3 L(Transform t) => transform.InverseTransformPoint(t.position);
+        private Bounds LocalBounds(Transform t)
+        {
+            var r = t.GetComponent<Renderer>(); if (r == null) return new Bounds(L(t), Vector3.zero);
+            var b = r.bounds; var lb = new Bounds(transform.InverseTransformPoint(b.center), Vector3.zero);
+            foreach (var c in new[] { b.min, b.max, new Vector3(b.min.x, b.min.y, b.max.z), new Vector3(b.max.x, b.max.y, b.min.z) }) lb.Encapsulate(transform.InverseTransformPoint(c));
+            return lb;
+        }
+
+        /// <summary>Turn the model so its front wheels point along +Z and its wheels stand on y = 0.</summary>
+        private void AlignModel()
+        {
+            Transform fl = T("SM_Jeep_Wheel_FL"), fr = T("SM_Jeep_Wheel_FR"), rl = T("SM_Jeep_Wheel_RL"), rr = T("SM_Jeep_Wheel_RR");
+            if (fl == null || rl == null) { Debug.LogWarning("[Jeep] wheel objects not found in the model"); return; }
+            Vector3 f = (L(fl) + L(fr)) * 0.5f - (L(rl) + L(rr)) * 0.5f; f.y = 0f;
+            if (f.sqrMagnitude > 0.01f) Model.localRotation = Quaternion.FromToRotation(f.normalized, Vector3.forward) * Model.localRotation;
+            float low = float.MaxValue;
+            foreach (var w in new[] { fl, fr, rl, rr }) { var b = LocalBounds(w); low = Mathf.Min(low, b.min.y); }
+            Model.localPosition += Vector3.up * -low;
+        }
+
+        // ------------------------------------------------------------------ physics
+        private WheelCollider Wheel(Transform mesh, string n)
+        {
+            var b = LocalBounds(mesh);
+            var g = new GameObject(n); g.transform.SetParent(transform, false);
+            g.transform.localPosition = b.center + Vector3.up * 0.12f;
+            var wc = g.AddComponent<WheelCollider>();
+            wc.radius = b.extents.y; wc.mass = 30f; wc.wheelDampingRate = 0.6f; wc.suspensionDistance = 0.24f; wc.forceAppPointDistance = 0.12f;
+            var sp = wc.suspensionSpring; sp.spring = 38000f; sp.damper = 4200f; sp.targetPosition = 0.45f; wc.suspensionSpring = sp;
+            var fw = wc.forwardFriction; fw.stiffness = 1.5f; wc.forwardFriction = fw;
+            var sw = wc.sidewaysFriction; sw.stiffness = 2.1f; wc.sidewaysFriction = sw;   // grippy: the jeep must not slide on the road
+            return wc;
+        }
+
+        private void BuildPhysics()
+        {
+            rb = gameObject.GetComponent<Rigidbody>() ?? gameObject.AddComponent<Rigidbody>();
+            rb.mass = 1650f; rb.linearDamping = 0.05f; rb.angularDamping = 0.6f; rb.interpolation = RigidbodyInterpolation.Interpolate;
+            rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+            var body = T("SM_Jeep_Body"); var top = T("SM_Jeep_Hardtop");
+            if (body != null)
+            {
+                var b = LocalBounds(body); var c = gameObject.AddComponent<BoxCollider>();
+                float bottom = 0.5f; c.center = new Vector3(b.center.x, (bottom + Mathf.Min(b.max.y, 1.15f)) * 0.5f, b.center.z); c.size = new Vector3(b.size.x, Mathf.Min(b.max.y, 1.15f) - bottom, b.size.z + 0.25f);
+                if (top != null) { var tb = LocalBounds(top); var cc = gameObject.AddComponent<BoxCollider>(); cc.center = new Vector3(tb.center.x, (1.15f + tb.max.y) * 0.5f, tb.center.z); cc.size = new Vector3(tb.size.x, tb.max.y - 1.15f, tb.size.z); }
+            }
+            Car = gameObject.AddComponent<CarController>();
+            Transform fl = T("SM_Jeep_Wheel_FL"), fr = T("SM_Jeep_Wheel_FR"), rl = T("SM_Jeep_Wheel_RL"), rr = T("SM_Jeep_Wheel_RR");
+            // name the sides from where the wheels really are after alignment (left = -X in Unity)
+            if (L(fl).x > L(fr).x) { var t = fl; fl = fr; fr = t; }
+            if (L(rl).x > L(rr).x) { var t = rl; rl = rr; rr = t; }
+            Car.frontLeftWheel = Wheel(fl, "WC_FrontLeft"); Car.frontRightWheel = Wheel(fr, "WC_FrontRight");
+            Car.rearLeftWheel = Wheel(rl, "WC_RearLeft"); Car.rearRightWheel = Wheel(rr, "WC_RearRight");
+            Car.frontLeftWheelTransform = fl; Car.frontRightWheelTransform = fr; Car.rearLeftWheelTransform = rl; Car.rearRightWheelTransform = rr;
+            Car.steeringWheel = T("SM_Jeep_SteeringWheel");
+        }
+
+        // ------------------------------------------------------------------ lights
+        private Light Lamp(Transform at, LightType type, Color c, float range, float angle, Vector3 dirLocal)
+        {
+            var g = new GameObject("LGT_" + at.name); g.transform.SetParent(at, false); g.transform.position = at.GetComponent<Renderer>() != null ? at.GetComponent<Renderer>().bounds.center : at.position;
+            g.transform.rotation = Quaternion.LookRotation(transform.TransformDirection(dirLocal));
+            var l = g.AddComponent<Light>(); l.type = type; l.color = c; l.range = range; l.shadows = LightShadows.None; l.enabled = false;
+            if (type == LightType.Spot) { l.spotAngle = angle; l.innerSpotAngle = angle * 0.6f; }
+            return l;
+        }
+
+        private void BuildLights()
+        {
+            Lights = gameObject.AddComponent<CarLights>();
+            var head = new List<Light>(); var stop = new List<Light>(); var rev = new List<Light>(); var tl = new List<Light>(); var tr = new List<Light>();
+            var headR = new List<Renderer>(); var stopR = new List<Renderer>(); var revR = new List<Renderer>(); var tlR = new List<Renderer>(); var trR = new List<Renderer>();
+            foreach (var kv in named)
+            {
+                var t = kv.Value; string n = kv.Key; var r = t.GetComponent<Renderer>(); if (r == null) continue;
+                bool left = L(t).x < 0f, front = L(t).z > 0f;
+                if (n.StartsWith("SM_Jeep_Headlight")) { head.Add(Lamp(t, LightType.Spot, new Color(1f, 0.93f, 0.8f), 32f, 62f, new Vector3(0f, -0.08f, 1f))); headR.Add(r); }
+                else if (n.StartsWith("SM_Jeep_SpotLight") || n.StartsWith("SM_Jeep_FogLight")) headR.Add(r);
+                else if (n.StartsWith("SM_Jeep_TailLight") && !n.Contains("Bezel")) { stop.Add(Lamp(t, LightType.Point, new Color(1f, 0.05f, 0.03f), 3.5f, 0f, Vector3.back)); stopR.Add(r); }
+                else if (n.StartsWith("SM_Jeep_ReverseLight")) { rev.Add(Lamp(t, LightType.Spot, Color.white, 9f, 80f, new Vector3(0f, -0.2f, -1f))); revR.Add(r); }
+                else if (n.StartsWith("SM_Jeep_Indicator")) { var l = Lamp(t, LightType.Point, new Color(1f, 0.55f, 0f), 2.5f, 0f, front ? Vector3.forward : Vector3.back); if (left) { tl.Add(l); tlR.Add(r); } else { tr.Add(l); trR.Add(r); } }
+            }
+            Lights.head = head.ToArray(); Lights.stop = stop.ToArray(); Lights.reverse = rev.ToArray(); Lights.turnLeft = tl.ToArray(); Lights.turnRight = tr.ToArray();
+            Lights.headMesh = headR.ToArray(); Lights.stopMesh = stopR.ToArray(); Lights.reverseMesh = revR.ToArray(); Lights.turnLeftMesh = tlR.ToArray(); Lights.turnRightMesh = trR.ToArray();
+            Car.lights = Lights;
+        }
+
+        // ------------------------------------------------------------------ doors and hood
+        private void CacheMovingParts()
+        {
+            steeringCol = T("SM_Jeep_SteeringWheel");
+            driverSide = steeringCol != null && L(steeringCol).x < 0f ? -1f : 1f;
+            foreach (var n in new[] { "SM_Jeep_Door_FL", "SM_Jeep_Door_FR" })
+            {
+                var d = T(n); if (d != null && Mathf.Sign(L(d).x) == driverSide) driverDoor = d;
+            }
+            if (driverDoor != null) { driverDoorClosed = driverDoor.localRotation; driverDoorSign = OpenSign(driverDoor, Vector3.up, b => Mathf.Abs(b.center.x)); }
+            hood = T("SM_Jeep_Hood");
+            if (hood != null) { hoodClosed = hood.localRotation; hoodSign = OpenSign(hood, Vector3.right, b => b.center.y); }
+        }
+
+        /// <summary>Which way a hinged part opens: try a small turn both ways and keep the one that moves it outward / upward.</summary>
+        private float OpenSign(Transform part, Vector3 axis, System.Func<Bounds, float> score)
+        {
+            var keep = part.localRotation; float before = score(LocalBounds(part));
+            part.localRotation = keep * Quaternion.AngleAxis(25f, axis); float plus = score(LocalBounds(part));
+            part.localRotation = keep; return plus > before ? 1f : -1f;
+        }
+
+        public IEnumerator DriverDoor(bool open, float seconds = 0.6f)
+        {
+            if (driverDoor == null) yield break;
+            Quaternion from = driverDoor.localRotation, to = open ? driverDoorClosed * Quaternion.AngleAxis(68f * driverDoorSign, Vector3.up) : driverDoorClosed;
+            for (float t = 0f; t < 1f; t += Time.deltaTime / seconds) { driverDoor.localRotation = Quaternion.Slerp(from, to, Mathf.SmoothStep(0f, 1f, t)); yield return null; }
+            driverDoor.localRotation = to;
+            AudioManager.Instance?.PlaySFX(open ? "sfx_door_open" : "sfx_door_close", 0.6f);
+        }
+
+        public IEnumerator Hood(bool open, float seconds = 0.9f)
+        {
+            if (hood == null) yield break;
+            Quaternion from = hood.localRotation, to = open ? hoodClosed * Quaternion.AngleAxis(55f * hoodSign, Vector3.right) : hoodClosed;
+            for (float t = 0f; t < 1f; t += Time.deltaTime / seconds) { hood.localRotation = Quaternion.Slerp(from, to, Mathf.SmoothStep(0f, 1f, t)); yield return null; }
+            hood.localRotation = to;
+        }
+
+        /// <summary>World point just outside the driver's door, where the player gets in and out.</summary>
+        public Vector3 DriverExitPoint
+        {
+            get
+            {
+                Vector3 p = driverDoor != null ? L(driverDoor) : new Vector3(driverSide * 0.9f, 0f, 0.6f);
+                return transform.TransformPoint(new Vector3(driverSide * 1.75f, 0.05f, p.z - 0.55f));
+            }
+        }
+        public Vector3 SeatPoint => steeringCol != null ? steeringCol.position + transform.forward * -0.45f + Vector3.down * 0.35f : transform.TransformPoint(new Vector3(driverSide * 0.4f, 1.0f, 0.1f));
+
+        // ------------------------------------------------------------------ getting in and out (E)
+        public string Id => "vehicle_jeep";
+        public string Prompt => DamageState >= 3 ? "The jeep is wrecked" : "Drive the jeep";
+        public Transform Anchor { get { if (anchor == null) { anchor = new GameObject("JeepDoorAnchor").transform; anchor.SetParent(transform, false); } anchor.position = DriverExitPoint; return anchor; } }
+        private Transform anchor;
+        public float Radius => 2.4f;
+
+        public void Interact()
+        {
+            if (Occupied || DamageState >= 3) return;
+            var pc = FindAnyObjectByType<PlayerController>(); if (pc == null) return;
+            StartCoroutine(GetIn(pc));
+        }
+
+        private IEnumerator GetIn(PlayerController pc)
+        {
+            Occupied = true; enteredFrame = Time.frameCount; player = pc;
+            pc.enabled = false;
+            yield return DriverDoor(true, 0.45f);
+            SetPlayerVisible(false);
+            yield return DriverDoor(false, 0.4f);
+            orbit = FindAnyObjectByType<OrbitCamera>(); if (orbit != null) orbit.enabled = false;
+            var cam = Camera.main;
+            if (cam != null) { follow = cam.GetComponent<CarFollowCamera>() ?? cam.gameObject.AddComponent<CarFollowCamera>(); follow.target = transform; follow.car = Car; follow.enabled = true; follow.Snap(); }
+            Car.Driven = true; Lights.SetHeadLights(true); Audio.engineLevel = 1f;
+        }
+
+        public IEnumerator GetOut()
+        {
+            if (!Occupied || player == null) yield break;
+            Car.Driven = false; Lights.SignalsOff();
+            yield return DriverDoor(true, 0.45f);
+            Vector3 p = DriverExitPoint;
+            if (Physics.Raycast(p + Vector3.up * 2f, Vector3.down, out RaycastHit h, 6f, ~0, QueryTriggerInteraction.Ignore) && !h.collider.transform.IsChildOf(transform)) p.y = h.point.y + 0.02f;
+            player.Teleport(p, Quaternion.LookRotation(Vector3.ProjectOnPlane(transform.forward, Vector3.up)));
+            SetPlayerVisible(true); player.enabled = true;
+            if (follow != null) follow.enabled = false;
+            if (orbit != null) { orbit.enabled = true; orbit.SetTarget(player.transform); }
+            yield return DriverDoor(false, 0.4f);
+            Occupied = false; player = null;
+        }
+
+        private void SetPlayerVisible(bool on)
+        {
+            if (player == null) return;
+            foreach (var r in player.GetComponentsInChildren<Renderer>(true)) r.enabled = on;
+            var cc = player.GetComponent<CharacterController>(); if (cc != null) cc.enabled = on;
+            foreach (var c in player.GetComponentsInChildren<Collider>()) if (!(c is CharacterController)) c.enabled = on;
+        }
+
+        private void Update()
+        {
+            if (Occupied && Car.Driven && Time.frameCount > enteredFrame + 2 && !InputGate.GameplayBlocked)
+            {
+                var kb = Keyboard.current; var gp = Gamepad.current;
+                bool exit = (kb != null && kb.eKey.wasPressedThisFrame) || (gp != null && gp.buttonWest.wasPressedThisFrame) || VirtualInput.Down("interact");
+                if (exit && Car.CurrentSpeed < 3f) StartCoroutine(GetOut());
+                ScreenText.Panel("jeep_ui", null,
+                    $"<size=140%><b>{Car.CurrentSpeed * 3.6f:0}</b></size> km/h   <color={ScreenText.Gold}>{Car.EffectiveGear.ToString()[0]}</color>" + (DamageState > 0 ? $"   <color={ScreenText.Coral}>{StateName}</color>" : "") +
+                    $"\n{ScreenText.Key("W S")} Drive  {ScreenText.Key("A D")} Steer  {ScreenText.Key("Space")} Brake  {ScreenText.Key("L")} Lights  {ScreenText.Key("E")} Get out",
+                    PanelAnchor.BottomLeft, 560f, null, false, 2);
+            }
+        }
+
+        private void LateUpdate()
+        {
+            if (Occupied && player != null) player.transform.position = SeatPoint;   // anything that asks where the player is gets the jeep
+        }
+
+        // ------------------------------------------------------------------ damage
+        public string StateName => DamageState == 0 ? "Normal" : DamageState == 1 ? "Damaged" : DamageState == 2 ? "Wrecked" : "Destroyed";
+        private readonly List<GameObject> debris = new List<GameObject>();
+        private const int MaxDebris = 18;
+
+        private string Zone(Vector3 local)
+        {
+            if (local.y > 1.95f) return "top";
+            if (local.z > 1.35f) return "front";
+            if (local.z < -1.35f) return "rear";
+            return local.x < 0f ? "left" : "right";
+        }
+
+        private void OnCollisionEnter(Collision c)
+        {
+            if (rb == null || c.contactCount == 0) return;
+            if (c.collider.GetComponentInParent<PlayerController>() != null) return;
+            var cp = c.GetContact(0);
+            if (Vector3.Dot(cp.normal, Vector3.up) > 0.7f) return;          // driving over a kerb or a step is not a crash
+            float dv = c.impulse.magnitude / rb.mass; LastImpact = dv;
+            Audio?.Impact(dv);
+            if (dv < 2.2f) return;                                          // bumps and scrapes do nothing
+            ApplyDamage(transform.InverseTransformPoint(cp.point), Mathf.Pow(dv - 2.2f, 1.3f) * 6f, cp.point, cp.normal);
+        }
+
+        /// <summary>Damage at a point (root-local). Public so tests and the cinematic can exercise it.</summary>
+        public void ApplyDamage(Vector3 local, float amount, Vector3 worldPoint, Vector3 normal)
+        {
+            string z = Zone(local); ZoneDamage[z] += amount; TotalDamage += amount;
+            Fx.Burst("Spark", worldPoint, Mathf.Clamp((int)(amount * 2f), 6, 40), 4f, 0.08f, 0.5f, new Color(1f, 0.75f, 0.35f, 1f), 1.2f);
+            Fx.Burst("Dust", worldPoint, 10, 1.5f, 0.4f, 1.2f, new Color(0.6f, 0.55f, 0.5f, 0.6f), 0.2f);
+            AudioManager.Instance?.PlaySFX("sfx_metal_hit", Mathf.Clamp01(0.3f + amount / 40f));
+            BreakParts(z, ZoneDamage[z], normal);
+            int s = TotalDamage >= 100f ? 3 : TotalDamage >= 55f ? 2 : TotalDamage >= 20f ? 1 : 0;
+            if (s > DamageState) SetState(s);
+        }
+
+        private static readonly (string prefix, float threshold, bool glass)[] Breakables =
+        {
+            ("SM_Jeep_Glass", 14f, true), ("SM_Jeep_Headlight", 12f, false), ("SM_Jeep_Indicator", 12f, false), ("SM_Jeep_FogLight", 14f, false),
+            ("SM_Jeep_TailLight_", 12f, false), ("SM_Jeep_ReverseLight", 12f, false), ("SM_Jeep_Plate", 18f, false), ("SM_Jeep_TowHooks", 40f, false),
+            ("SM_Jeep_Bumper", 30f, false), ("SM_Jeep_BullBar", 38f, false), ("SM_Jeep_MudFlaps", 22f, false), ("SM_Jeep_SideStep", 34f, false),
+            ("SM_Jeep_Door_", 48f, false), ("SM_Jeep_Hood", 55f, false), ("SM_Jeep_SpotLight", 20f, false), ("SM_Jeep_RoofRack", 35f, false), ("SM_Jeep_Antenna", 12f, false),
+        };
+
+        private void BreakParts(string zone, float zoneDamage, Vector3 normal)
+        {
+            foreach (var kv in new List<KeyValuePair<string, Transform>>(named))
+            {
+                var t = kv.Value; if (t == null || !t.gameObject.activeInHierarchy || t.parent == null || !t.IsChildOf(transform)) continue;
+                foreach (var b in Breakables)
+                {
+                    if (!kv.Key.StartsWith(b.prefix) || zoneDamage < b.threshold) continue;
+                    var r = t.GetComponent<Renderer>(); if (r == null || !r.enabled) break;
+                    if (Zone(LocalBounds(t).center) != zone && !(zone == "top" && b.prefix.Contains("Roof"))) break;
+                    if (b.glass) { Shatter(r); }
+                    else if (kv.Key == "SM_Jeep_Hood" || kv.Key.StartsWith("SM_Jeep_Door_")) { if (driverDoor == t && Occupied) break; Detach(t, normal); }
+                    else Detach(t, normal);
+                    if (kv.Key.StartsWith("SM_Jeep_Headlight") || kv.Key.StartsWith("SM_Jeep_FogLight")) Lights.broken[0] = Lights.broken[0] || CountAlive("SM_Jeep_Headlight") == 0;
+                    if (kv.Key.StartsWith("SM_Jeep_TailLight_")) Lights.broken[1] = CountAlive("SM_Jeep_TailLight_") == 0;
+                    if (kv.Key.StartsWith("SM_Jeep_ReverseLight")) Lights.broken[2] = CountAlive("SM_Jeep_ReverseLight") == 0;
+                    PartsBroken++;
+                    break;
+                }
+            }
+        }
+
+        private int CountAlive(string prefix) { int n = 0; foreach (var kv in named) if (kv.Key.StartsWith(prefix) && kv.Value != null && kv.Value.IsChildOf(transform)) { var r = kv.Value.GetComponent<Renderer>(); if (r != null && r.enabled) n++; } return n; }
+
+        private void Shatter(Renderer r)
+        {
+            r.enabled = false;
+            Fx.Burst("Spark", r.bounds.center, 34, 2.5f, 0.05f, 1.2f, new Color(0.75f, 0.9f, 1f, 0.9f), 2.5f);  // glass shards
+            AudioManager.Instance?.PlaySFX("sfx_glass", 0.6f);
+        }
+
+        private void Detach(Transform t, Vector3 normal)
+        {
+            var r = t.GetComponent<Renderer>(); var b = r != null ? r.bounds : new Bounds(t.position, Vector3.one * 0.3f);
+            t.SetParent(null, true);
+            foreach (var l in t.GetComponentsInChildren<Light>()) l.enabled = false;
+            var col = t.gameObject.AddComponent<BoxCollider>(); col.center = t.InverseTransformPoint(b.center); col.size = Vector3.Max(t.InverseTransformVector(b.size).Abs(), Vector3.one * 0.05f);
+            var prb = t.gameObject.AddComponent<Rigidbody>(); prb.mass = Mathf.Clamp(b.size.x * b.size.y * b.size.z * 200f, 2f, 45f);
+            prb.linearVelocity = (rb != null ? rb.linearVelocity : Vector3.zero) * 0.6f - normal * 1.5f + Vector3.up * 2f; prb.angularVelocity = Random.insideUnitSphere * 4f;
+            debris.Add(t.gameObject);
+            while (debris.Count > MaxDebris) { var old = debris[0]; debris.RemoveAt(0); if (old != null) old.SetActive(false); }   // pooled: oldest pieces are put away
+            StartCoroutine(Cleanup(t.gameObject, 25f));
+        }
+
+        private IEnumerator Cleanup(GameObject g, float after) { yield return new WaitForSeconds(after); if (g != null) { g.SetActive(false); debris.Remove(g); } }
+
+        private void SetState(int s)
+        {
+            DamageState = s;
+            var body = T("SM_Jeep_Body"); var hd = T("SM_Jeep_Hood");
+            Swap(body, bodyStates, s); if (hd != null && hd.IsChildOf(transform)) Swap(hd, hoodStates, s);
+            if (s >= 2 && smoke == null) smoke = Smoke();
+            if (s >= 3) { Car.motorForce = 0f; Audio.engineLevel = 0f; Lights.broken[0] = true; if (Occupied) StartCoroutine(GetOut()); }
+            Debug.Log($"[Jeep] damage state {StateName} (total {TotalDamage:0}, parts broken {PartsBroken})");
+        }
+
+        private void Swap(Transform t, Mesh[] states, int s)
+        {
+            if (t == null || s >= states.Length || states[s] == null) return;
+            var mf = t.GetComponent<MeshFilter>(); var mr = t.GetComponent<MeshRenderer>(); if (mf == null || mr == null) return;
+            mf.sharedMesh = states[s];
+            var paint = s >= 3 ? burntPaint : scuffedPaint;
+            if (paint == null) return;
+            var mats = new Material[Mathf.Max(1, states[s].subMeshCount)];
+            for (int i = 0; i < mats.Length; i++) mats[i] = i == 0 ? paint : (interior != null ? interior : paint);
+            mr.sharedMaterials = mats;
+        }
+
+        private ParticleSystem Smoke()
+        {
+            var g = new GameObject("JeepSmoke"); g.transform.SetParent(transform, false); g.transform.localPosition = new Vector3(0f, 1.2f, 1.6f);
+            var ps = g.AddComponent<ParticleSystem>(); ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+            var m = ps.main; m.startLifetime = 3.5f; m.startSpeed = 1.2f; m.startSize = new ParticleSystem.MinMaxCurve(0.6f, 1.4f); m.startColor = new Color(0.18f, 0.17f, 0.16f, 0.5f); m.maxParticles = 120; m.simulationSpace = ParticleSystemSimulationSpace.World; m.gravityModifier = -0.08f;
+            var e = ps.emission; e.rateOverTime = 14f;
+            var sh = ps.shape; sh.shapeType = ParticleSystemShapeType.Sphere; sh.radius = 0.3f;
+            var col = ps.colorOverLifetime; col.enabled = true; var gr = new Gradient(); gr.SetKeys(new[] { new GradientColorKey(Color.white, 0f), new GradientColorKey(Color.white, 1f) }, new[] { new GradientAlphaKey(0.6f, 0f), new GradientAlphaKey(0f, 1f) }); col.color = gr;
+            var sz = ps.sizeOverLifetime; sz.enabled = true; sz.size = new ParticleSystem.MinMaxCurve(1f, AnimationCurve.Linear(0f, 0.6f, 1f, 2.2f));
+            g.GetComponent<ParticleSystemRenderer>().sharedMaterial = Fx.Res("Dust");
+            ps.Play(); return ps;
+        }
+    }
+
+    internal static class V3 { public static Vector3 Abs(this Vector3 v) => new Vector3(Mathf.Abs(v.x), Mathf.Abs(v.y), Mathf.Abs(v.z)); }
+}

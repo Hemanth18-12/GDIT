@@ -1,0 +1,10 @@
+JEEP VALIDATION (blender-skills validation-checklist)
+forward axis: -Y in Blender (Unity +Z after FBX axis conversion); 1 unit = 1 m
+LOD0 triangles: 35504 (budget for a drivable vehicle: 30,000-80,000)
+LOD1 triangles: 13248   LOD2 triangles: 3455
+objects: 72   materials: 16
+names without SM_ prefix: none
+objects with unapplied scale: none
+loose vertices: 0
+collision: UCX_Jeep_Body, UCX_Jeep_Cabin (convex boxes)
+moving parts with pivots: wheels (axle centre), doors (front hinge), hood (cowl hinge), rear door (left hinge), steering wheel (column)

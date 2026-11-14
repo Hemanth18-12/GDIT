@@ -93,6 +93,80 @@ namespace LegacyOfTemples.UI
         }
 
         // ------------------------------------------------------------------ full play-through
+        /// <summary>Stage 7 evidence: screenshots through the whole opening (or the skip path with -introSkip).</summary>
+        private IEnumerator IntroShots()
+        {
+            float w = 0f; while (!IntroCinematic.Playing && w < 12f) { w += Time.unscaledDeltaTime; yield return null; }
+            Line($"\n## Intro: playing={IntroCinematic.Playing}");
+            if (Array.IndexOf(Environment.GetCommandLineArgs(), "-introSkip") >= 0)
+            {
+                yield return new WaitForSecondsRealtime(5f); Hold(Key.Escape); yield return new WaitForSecondsRealtime(0.5f); yield return Shot("s7-hold-esc.png"); yield return new WaitForSecondsRealtime(1.0f); Release();
+                w = 0f; while (IntroCinematic.Playing && w < 5f) { w += Time.unscaledDeltaTime; yield return null; }
+                yield return new WaitForSecondsRealtime(1.5f);
+                var p0 = FindAnyObjectByType<PlayerController>();
+                Line($"  intro skipped: finished={IntroCinematic.Finished}, player enabled={(p0 != null && p0.enabled)}, banner='{ObjectiveBanner.Last}', objective={StoryDialogueSystem.Instance?.Current?.id}, clock hold={DawnClock.Hold}");
+                yield return Shot("s7-after-skip.png"); yield break;
+            }
+            float[] at = { 2.5f, 8.8f, 13.5f, 16.5f, 19.8f, 22.5f, 26f, 29.2f, 33.5f, 38f, 41.5f, 46f, 51.5f, 54f, 56.5f, 60.5f, 64f, 68f };
+            int i = 0; float startReal = Time.realtimeSinceStartup;
+            while (IntroCinematic.Playing && w < 140f)
+            {
+                var dir = FindAnyObjectByType<UnityEngine.Playables.PlayableDirector>(); float t = dir != null ? (float)dir.time : 0f;
+                if (i < at.Length && t >= at[i]) { yield return Shot($"s7-intro-{i + 1:00}-{IntroCinematic.LastShot}.png"); Line($"  intro t={t:0.0}s shot={IntroCinematic.LastShot}"); i++; }
+                w += Time.unscaledDeltaTime; yield return null;
+            }
+            yield return new WaitForSecondsRealtime(1.2f);
+            var p = FindAnyObjectByType<PlayerController>();
+            Line($"  intro ended after {Time.realtimeSinceStartup - startReal:0.0}s real time: shots captured={i}, player enabled={(p != null && p.enabled)}, banner='{ObjectiveBanner.Last}', objective={StoryDialogueSystem.Instance?.Current?.id}");
+            yield return Shot("s7-handover-objective.png");
+        }
+
+        /// <summary>Stage 3 evidence: get in, drive, lights, brake, get out, a real crash and the damage states.</summary>
+        private IEnumerator JeepCheck()
+        {
+            var jeep = LegacyOfTemples.Gameplay.Vehicles.Jeep.Instance; var pc = FindAnyObjectByType<PlayerController>();
+            Line($"\n## Jeep: present={(jeep != null)}");
+            if (jeep == null || pc == null) yield break;
+            pc.Teleport(jeep.DriverExitPoint, Quaternion.LookRotation(jeep.transform.position - jeep.DriverExitPoint));
+            yield return new WaitForSecondsRealtime(1.0f);
+            Line($"  prompt near the door: '{(pc.CurrentInteractable != null ? pc.CurrentInteractable.Prompt : "(none)")}'");
+            yield return Shot("s3-jeep-parked.png");
+            yield return Tap(Key.E); yield return new WaitForSecondsRealtime(2.2f);
+            Line($"  after E: occupied={jeep.Occupied}, driven={jeep.Car.Driven}");
+            Vector3 start = jeep.transform.position;
+            Hold(Key.W); yield return new WaitForSecondsRealtime(3.5f);
+            yield return Shot("s3-jeep-driving.png"); Release();
+            Line($"  after 3.5 s of W: speed={jeep.Car.CurrentSpeed * 3.6f:0} km/h, moved {Vector3.Distance(start, jeep.transform.position):0.0} m, wheel FL rpm={jeep.Car.frontLeftWheel.rpm:0}, tilt={Vector3.Angle(jeep.transform.up, Vector3.up):0} deg");
+            Hold(Key.Space); yield return new WaitForSecondsRealtime(0.6f); yield return Shot("s3-jeep-braking.png"); yield return new WaitForSecondsRealtime(1.4f); Release();
+            Line($"  after braking: speed={jeep.Car.CurrentSpeed * 3.6f:0} km/h");
+            yield return Tap(Key.L); yield return new WaitForSecondsRealtime(0.4f); Line($"  headlights toggled: on={jeep.Lights.HeadLightsOn}");
+            yield return Tap(Key.E); yield return new WaitForSecondsRealtime(2.0f);
+            Line($"  after E: occupied={jeep.Occupied}, player enabled={pc.enabled}"); yield return Shot("s3-jeep-got-out.png");
+            var wall = GameObject.Find("Wall_South_L");
+            if (wall != null)
+            {   // a hard crash into a wall must damage it (a bump must not)
+                var rbj = jeep.GetComponent<Rigidbody>(); Vector3 wp = wall.GetComponent<Renderer>().bounds.center; wp.y = jeep.transform.position.y;
+                jeep.transform.position = wp + Vector3.forward * 14f; jeep.transform.rotation = Quaternion.LookRotation(Vector3.back); rbj.linearVelocity = Vector3.back * 12f; rbj.angularVelocity = Vector3.zero;
+                float w = 0f; while (w < 3f && jeep.LastImpact < 2f) { w += Time.unscaledDeltaTime; yield return null; }
+                yield return new WaitForSecondsRealtime(0.8f);
+                Line($"  crash at 43 km/h into the courtyard wall: impact dv={jeep.LastImpact:0.0} m/s, state={jeep.StateName}, total damage={jeep.TotalDamage:0}, parts broken={jeep.PartsBroken}");
+                var cam = Camera.main; if (cam != null) { cam.transform.position = jeep.transform.position + new Vector3(4f, 2.5f, 5f); cam.transform.LookAt(jeep.transform.position + Vector3.up); }
+                yield return null; yield return Shot("s3-jeep-crash.png");
+            }
+            for (int k = jeep.DamageState + 1; k <= 3; k++)
+            {
+                float need = (k == 1 ? 20f : k == 2 ? 55f : 100f) - jeep.TotalDamage + 1f;
+                jeep.ApplyDamage(new Vector3(k == 2 ? -0.9f : 0f, 0.9f, k == 3 ? -2.3f : 2.3f), need, jeep.transform.position + jeep.transform.forward * 2f, -jeep.transform.forward);
+                yield return new WaitForSecondsRealtime(1.2f);
+                var cam = Camera.main; if (cam != null) { cam.transform.position = jeep.transform.position + jeep.transform.forward * 5f + jeep.transform.right * 3f + Vector3.up * 2.2f; cam.transform.LookAt(jeep.transform.position + Vector3.up); }
+                yield return null;
+                Line($"  damage step: state={jeep.StateName}, total={jeep.TotalDamage:0}, parts broken={jeep.PartsBroken}");
+                yield return Shot($"s3-jeep-state-{k}-{jeep.StateName}.png");
+            }
+            var stand = LegacyOfTemples.Gameplay.VillageLife.Instance != null ? LegacyOfTemples.Gameplay.VillageLife.Instance.TeaStallStand + Vector3.right * 2f : pc.transform.position;
+            pc.Teleport(stand, Quaternion.LookRotation(Vector3.back)); yield return new WaitForSecondsRealtime(0.8f);
+        }
+
         /// <summary>Stage 1 evidence: the five hints appear one at a time and each goes away when its action is done.</summary>
         private IEnumerator HintsCheck()
         {
@@ -184,6 +258,16 @@ namespace LegacyOfTemples.UI
         {
             var cd = ChapterDirector.Instance; var fd = FightDirector.Instance;
             Line("  minigame '" + id + "'");
+            if (id == "reach_temple")
+            {   // walk in through the courtyard gateway: the objective completes and the temple is "discovered"
+                var gate = GameObject.Find("Gateway_TEMPLE_COURTYARD");
+                if (gate != null) { player.Teleport(gate.transform.position + Vector3.back * 2.5f + Vector3.up * 0.1f, Quaternion.LookRotation(Vector3.back)); }
+                float w = 0f; while (w < 2.5f && !ObjectiveBanner.Last.StartsWith("NEW")) { w += Time.unscaledDeltaTime; yield return null; }
+                yield return new WaitForSecondsRealtime(1.0f); yield return Shot("s8-new-location-discovered.png");
+                w = 0f; while (w < 8f && story.Current != null && story.Current.id == "obj_c0_reach") { w += 0.25f; yield return new WaitForSecondsRealtime(0.25f); }
+                Line($"  reach temple: banner='{ObjectiveBanner.Last}', objective now {(story.Current != null ? story.Current.id : "end")}");
+                yield break;
+            }
             if (id == "chase_c1")
             {
                 yield return new WaitForSecondsRealtime(1.5f);
@@ -296,9 +380,9 @@ namespace LegacyOfTemples.UI
             StartCoroutine(LoadingWatcher());
             newGame.GetComponent<Button>().onClick.Invoke();
             yield return WaitLoaded();
-            yield return new WaitForSecondsRealtime(3f);
-            yield return Shot("pt-00-cinematic.png");
+            yield return IntroShots();
             yield return SkipIntro();
+            yield return JeepCheck();
 
             // Tutorial: play it for a while with real keys, then skip the rest.
             yield return HintsCheck();
@@ -591,7 +675,34 @@ namespace LegacyOfTemples.UI
                 yield return null; yield return null;
                 yield return Shot("v3-village-" + v.Item3 + ".png");
             }
-            Line($"  village: houses built={LegacyOfTemples.World.Village.Houses}");
+            Line($"  village: houses built={LegacyOfTemples.World.Village.Houses}, villagers={LegacyOfTemples.Gameplay.VillageLife.NpcCount}");
+            Vector3 vc = LegacyOfTemples.World.Village.Centre; float vz = LegacyOfTemples.World.Village.ZMax;
+            var lifeShots = new[] { (LegacyOfTemples.World.Village.RoadStart + new Vector3(-3f, 2.2f, -4f), Vector3.back + Vector3.down * 0.05f, "road-entrance"),
+                (new Vector3(vc.x - 1f, 2.4f, vz + 30f), new Vector3(-0.8f, -0.12f, -0.6f), "tea-stall"),
+                (new Vector3(vc.x + 1f, 2.4f, vz + 10f), new Vector3(0.5f, 0.02f, 0.85f), "shops-poles") };
+            foreach (var v in lifeShots)
+            {
+                cam.transform.position = v.Item1; cam.transform.rotation = Quaternion.LookRotation(v.Item2.normalized);
+                yield return null; yield return null; yield return Shot("s4-village-" + v.Item3 + ".png");
+            }
+            var site = LegacyOfTemples.Gameplay.TempleSite.Instance;
+            if (site != null && site.Temple != null)
+            {
+                var fb = LegacyOfTemples.Gameplay.TempleSite.Footprint;
+                Line($"  temple: {LegacyOfTemples.Gameplay.TempleSite.Triangles} triangles, footprint {fb.size.x:0} x {fb.size.z:0} m, height {fb.size.y:0} m");
+                Vector3 aim = site.TowerTop == Vector3.zero ? fb.center : Vector3.Lerp(fb.center, site.TowerTop, 0.5f);
+                foreach (var v in new[] { (new Vector3(fb.center.x + 20f, fb.max.y * 0.6f, fb.max.z + 70f), "approach"), (new Vector3(fb.center.x - 90f, fb.max.y + 25f, fb.max.z + 40f), "aerial"), (new Vector3(fb.center.x + 6f, 1.8f, fb.max.z + 6f), "gate-low") })
+                {
+                    cam.transform.position = v.Item1; cam.transform.rotation = Quaternion.LookRotation(aim - v.Item1);
+                    yield return null; yield return null; yield return Shot("s1-temple-" + v.Item2 + ".png");
+                }
+                cam.transform.position = LegacyOfTemples.World.Village.GatePos + new Vector3(0f, 3f, 8f); cam.transform.rotation = Quaternion.LookRotation(Vector3.back + Vector3.up * 0.15f);
+                float ft = 0f; for (int k = 0; k < 90; k++) { yield return null; ft += Time.unscaledDeltaTime; }
+                site.Temple.gameObject.SetActive(false); float fn = 0f; for (int k = 0; k < 90; k++) { yield return null; fn += Time.unscaledDeltaTime; }
+                site.Temple.gameObject.SetActive(true);
+                Line($"  frame time looking toward the temple: {ft / 90f * 1000f:0.0} ms with it, {fn / 90f * 1000f:0.0} ms without it");
+            }
+
             cam.transform.position = keepP; cam.transform.rotation = keepR;
             foreach (var mb in orbits) mb.enabled = true;
         }

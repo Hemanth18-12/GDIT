@@ -31,7 +31,8 @@ def mat(name, col, metallic=0.0, rough=0.5, emit=None, alpha=1.0):
     return m
 
 M = {
-    "paint": mat("Jeep_Paint_Olive", (0.115, 0.15, 0.07), 0.55, 0.38),
+    "paint": mat("Jeep_Paint_Red", (0.42, 0.018, 0.012), 0.45, 0.3),
+    "top": mat("Jeep_Hardtop_Black", (0.03, 0.03, 0.03), 0.0, 0.6),
     "trim": mat("Jeep_BlackTrim", (0.02, 0.02, 0.02), 0.1, 0.55),
     "rubber": mat("Jeep_Rubber", (0.015, 0.015, 0.015), 0.0, 0.9),
     "alloy": mat("Jeep_Alloy", (0.55, 0.56, 0.58), 1.0, 0.28),
@@ -139,11 +140,12 @@ def keep(o, parent=None):
     o.parent = parent or root; parts[o.name] = o; return o
 
 # ---------------------------------------------------------------- body shell
-outer = [(-2.05, 0.46), (-2.10, 0.62), (-2.08, 0.98), (-1.96, 1.07), (-0.76, 1.13), (-0.72, 1.13), (-0.38, 1.75), (1.74, 1.77), (1.98, 1.72), (2.03, 1.00), (2.00, 0.46)]
+# classic jeep: flat hood, near-upright windshield, flat roof, square tail
+outer = [(-2.05, 0.46), (-2.08, 0.60), (-2.08, 1.10), (-2.02, 1.13), (-0.70, 1.13), (-0.66, 1.13), (-0.56, 1.80), (1.96, 1.80), (2.02, 1.74), (2.03, 1.00), (2.00, 0.46)]
 body = profile("Body", outer, -HW, HW, "Body", M["paint"], bevel=0.035)
 apply_mods(body)
 # hollow cabin
-cav = profile("cav", [(-0.60, 0.56), (-0.655, 1.11), (-0.325, 1.69), (1.92, 1.69), (1.95, 0.56)], -HW + 0.08, HW - 0.08, "Body", M["interior"]); cut(body, cav)
+cav = profile("cav", [(-0.58, 0.56), (-0.60, 1.11), (-0.51, 1.72), (1.92, 1.72), (1.95, 0.56)], -HW + 0.08, HW - 0.08, "Body", M["interior"]); cut(body, cav)
 # wheel arches (each side separately so the floor stays closed)
 for sx in (-1, 1):
     for ay in (FA, RA):
@@ -154,8 +156,8 @@ for nm, (sx, y0, y1) in DOORS.items():
     cut(body, box("dc", (0.3, y1 - y0, 1.12), (sx * HW, (y0 + y1) / 2, 1.12), "Body", M["trim"]))
 for sx in (-1, 1):
     cut(body, box("qw", (0.3, 0.80, 0.46), (sx * HW, 1.44, 1.39), "Body", M["trim"]))          # rear quarter windows
-slope = math.atan2(0.34, 0.62)
-cut(body, box("ws", (1.50, 0.5, 0.56), (0, -0.55, 1.44), "Body", M["trim"], rot=(-slope, 0, 0)))   # windshield
+slope = math.atan2(0.10, 0.67)
+cut(body, box("ws", (1.50, 0.5, 0.56), (0, -0.62, 1.46), "Body", M["trim"], rot=(-slope, 0, 0)))   # windshield
 cut(body, box("rw", (1.24, 0.4, 0.40), (0, 2.0, 1.42), "Body", M["trim"]))                        # rear window
 for i, p in enumerate(body.data.polygons): p.use_smooth = False
 keep(single(body, (0, 0, 0)))
@@ -168,16 +170,22 @@ lin = [box("l1", (1.62, 2.5, 0.03), (0, 0.66, 0.575), "Interior", M["interior"])
 keep(join("Interior_Lining", lin, "Interior", (0, 0, 0)))
 
 # hood (opens, hinge at the windshield end)
-hood = box("Hood", (1.70, 1.22, 0.045), (0, -1.37, 1.118), "Body", M["paint"], 0.015, rot=(math.atan2(0.06, 1.2), 0, 0))
-scoop = box("hs", (0.5, 0.6, 0.03), (0, -1.3, 1.15), "Body", M["paint"], 0.012, rot=(math.atan2(0.06, 1.2), 0, 0))
-keep(join("Hood", [hood, scoop], "Body", (0, -0.77, 1.14)))
+hood = box("Hood", (1.76, 1.34, 0.045), (0, -1.37, 1.152), "Body", M["paint"], 0.015)
+hl1 = box("hs", (0.04, 1.1, 0.02), (-0.5, -1.37, 1.18), "Body", M["trim"], 0.006); hl2 = box("hs", (0.04, 1.1, 0.02), (0.5, -1.37, 1.18), "Body", M["trim"], 0.006)
+keep(join("Hood", [hood, hl1, hl2], "Body", (0, -0.70, 1.15)))
+# black hardtop over the cabin, flat fenders over the front wheels
+keep(single(box("Hardtop", (1.84, 2.56, 0.07), (0, 0.70, 1.82), "Body", M["top"], 0.02), (0, 0.70, 1.82)))
+fend = []
+for sx in (-1, 1):
+    fend += [box("f", (0.20, 1.36, 0.05), (sx * (HW + 0.07), -1.40, 0.985), "Body", M["paint"], 0.015), box("f", (0.20, 0.05, 0.42), (sx * (HW + 0.07), -2.06, 0.79), "Body", M["paint"], 0.015)]
+keep(join("Fenders_Front", fend, "Body", (0, -1.40, 0.985)))
 
 # ---------------------------------------------------------------- glass
-keep(single(box("Glass_Windshield", (1.52, 0.012, 0.58), (0, -0.565, 1.44), "Glass", M["glass"], rot=(-slope, 0, 0)), (0, -0.565, 1.44)))
+keep(single(box("Glass_Windshield", (1.52, 0.012, 0.60), (0, -0.615, 1.46), "Glass", M["glass"], rot=(-slope, 0, 0)), (0, -0.565, 1.44)))
 keep(single(box("Glass_Rear", (1.26, 0.012, 0.42), (0, 2.0, 1.42), "Glass", M["glass"]), (0, 2.0, 1.42)))
 for sx, s in ((-1, "L"), (1, "R")):
     keep(single(box("Glass_Quarter_" + s, (0.012, 0.82, 0.48), (sx * (HW - 0.03), 1.44, 1.39), "Glass", M["glass"]), (sx * (HW - 0.03), 1.44, 1.39)))
-wip = [box("w", (0.5, 0.02, 0.02), (sx * 0.36, -0.69, 1.19), "Accessories", M["trim"], rot=(-slope, 0, math.radians(8 * sx))) for sx in (-1, 1)]
+wip = [box("w", (0.5, 0.02, 0.02), (sx * 0.36, -0.69, 1.17), "Accessories", M["trim"], rot=(-slope, 0, math.radians(8 * sx))) for sx in (-1, 1)]
 keep(join("Wipers", wip, "Accessories", (0, -0.69, 1.19)))
 
 # ---------------------------------------------------------------- doors (origin = hinge at the front edge)
@@ -212,13 +220,14 @@ rd = [box("rd", (1.5, 0.04, 0.62), (0, 2.035, 0.86), "Doors", M["paint"], 0.012)
 rear_door = keep(join("Door_Rear", rd, "Doors", (-0.75, 2.03, 0.86)))
 
 # ---------------------------------------------------------------- front: grille, lights, bumper, bull bar, plate
-gr = [box("g", (1.10, 0.05, 0.38), (0, -2.10, 0.86), "Body", M["trim"], 0.01)]
-for i in range(7): gr.append(box("g", (0.07, 0.03, 0.30), (-0.39 + i * 0.13, -2.135, 0.86), "Body", M["chrome"], 0.008))
+# body-colour grille with nine vertical slots (not the seven-slot trademark) and the round lamps set into it
+gr = [box("g", (1.72, 0.05, 0.50), (0, -2.10, 0.86), "Body", M["paint"], 0.015)]
+for i in range(9): gr.append(box("g", (0.055, 0.02, 0.36), (-0.36 + i * 0.09, -2.128, 0.87), "Body", M["trim"], 0.006))
 keep(join("Grille", gr, "Body", (0, -2.10, 0.86)))
 for sx, s in ((-1, "L"), (1, "R")):
-    hl = [cyl("h", 0.125, 0.06, (sx * 0.70, -2.105, 0.88), "Lights", M["chrome"], 'Y', 28), cyl("h", 0.105, 0.065, (sx * 0.70, -2.112, 0.88), "Lights", M["head"], 'Y', 28)]
-    keep(join("Headlight_" + s, hl, "Lights", (sx * 0.70, -2.11, 0.88)))
-    keep(single(box("Indicator_F" + s, (0.16, 0.04, 0.05), (sx * 0.70, -2.105, 0.70), "Lights", M["indicator"], 0.01), (sx * 0.70, -2.105, 0.70)))
+    hl = [cyl("h", 0.125, 0.06, (sx * 0.64, -2.12, 0.90), "Lights", M["chrome"], 'Y', 28), cyl("h", 0.105, 0.065, (sx * 0.64, -2.127, 0.90), "Lights", M["head"], 'Y', 28)]
+    keep(join("Headlight_" + s, hl, "Lights", (sx * 0.64, -2.12, 0.90)))
+    keep(single(box("Indicator_F" + s, (0.16, 0.04, 0.05), (sx * 0.64, -2.13, 0.70), "Lights", M["indicator"], 0.01), (sx * 0.64, -2.13, 0.70)))
     fg = [cyl("f", 0.065, 0.05, (sx * 0.62, -2.20, 0.56), "Lights", M["trim"], 'Y', 20), cyl("f", 0.05, 0.055, (sx * 0.62, -2.205, 0.56), "Lights", M["head"], 'Y', 20)]
     keep(join("FogLight_" + s, fg, "Lights", (sx * 0.62, -2.20, 0.56)))
     keep(single(box("TailLight_" + s, (0.14, 0.05, 0.30), (sx * 0.80, 2.03, 0.98), "Lights", M["tail"], 0.012), (sx * 0.80, 2.03, 0.98)))
@@ -251,17 +260,17 @@ plate("Plate_Front", -2.262, -1); plate("Plate_Rear", 2.165, 1)
 # ---------------------------------------------------------------- roof rack with four spot lights
 rk = []
 for sx in (-1, 1):
-    rk.append(tube("r", (sx * 0.74, -0.25, 1.90), (sx * 0.74, 1.80, 1.90), 0.022, "Accessories", M["trim"]))
-    for y in (-0.2, 0.75, 1.72): rk.append(tube("r", (sx * 0.74, y, 1.76), (sx * 0.74, y, 1.90), 0.02, "Accessories", M["trim"]))
-for i in range(7): rk.append(tube("r", (-0.74, -0.25 + i * 0.34, 1.90), (0.74, -0.25 + i * 0.34, 1.90), 0.016, "Accessories", M["trim"]))
-rk.append(tube("r", (-0.74, -0.25, 1.98), (0.74, -0.25, 1.98), 0.02, "Accessories", M["trim"]))
-for sx in (-1, 1): rk.append(tube("r", (sx * 0.74, -0.25, 1.90), (sx * 0.74, -0.25, 1.98), 0.02, "Accessories", M["trim"]))
-keep(join("RoofRack", rk, "Accessories", (0, 0.78, 1.90)))
+    rk.append(tube("r", (sx * 0.74, -0.25, 1.96), (sx * 0.74, 1.80, 1.96), 0.022, "Accessories", M["trim"]))
+    for y in (-0.2, 0.75, 1.72): rk.append(tube("r", (sx * 0.74, y, 1.86), (sx * 0.74, y, 1.96), 0.02, "Accessories", M["trim"]))
+for i in range(7): rk.append(tube("r", (-0.74, -0.25 + i * 0.34, 1.96), (0.74, -0.25 + i * 0.34, 1.96), 0.016, "Accessories", M["trim"]))
+rk.append(tube("r", (-0.74, -0.25, 2.04), (0.74, -0.25, 2.04), 0.02, "Accessories", M["trim"]))
+for sx in (-1, 1): rk.append(tube("r", (sx * 0.74, -0.25, 1.96), (sx * 0.74, -0.25, 2.04), 0.02, "Accessories", M["trim"]))
+keep(join("RoofRack", rk, "Accessories", (0, 0.78, 1.96)))
 for i in range(4):
     x = -0.48 + i * 0.32
-    sp = [cyl("s", 0.085, 0.09, (x, -0.29, 2.07), "Lights", M["trim"], 'Y', 22), cyl("s", 0.07, 0.095, (x, -0.297, 2.07), "Lights", M["head"], 'Y', 22),
-          tube("s", (x, -0.27, 1.98), (x, -0.27, 2.02), 0.015, "Lights", M["trim"], 8)]
-    keep(join("SpotLight_%d" % (i + 1), sp, "Lights", (x, -0.29, 2.07)))
+    sp = [cyl("s", 0.085, 0.09, (x, -0.29, 2.13), "Lights", M["trim"], 'Y', 22), cyl("s", 0.07, 0.095, (x, -0.297, 2.13), "Lights", M["head"], 'Y', 22),
+          tube("s", (x, -0.27, 2.04), (x, -0.27, 2.08), 0.015, "Lights", M["trim"], 8)]
+    keep(join("SpotLight_%d" % (i + 1), sp, "Lights", (x, -0.29, 2.13)))
 
 # side steps, arch flares, mud flaps, antenna
 for sx, s in ((-1, "L"), (1, "R")):
@@ -337,9 +346,63 @@ for sx in (-1, 1):
     for ay in (FA, RA): uc.append(cyl("u", 0.06, 0.3, (sx * 0.62, ay, 0.62), "Undercarriage", M["chrome"], 'Z', 10))
 keep(join("Undercarriage", uc, "Undercarriage", (0, 0, 0.44)))
 
+# ---------------------------------------------------------------- classic-jeep details (blender-skills: tertiary detail, instanced greebles)
+def attach(child, parent):
+    """Parent while keeping the world position (door hardware moves with its door)."""
+    bpy.context.view_layer.update(); mw = child.matrix_world.copy(); child.parent = parent; child.matrix_parent_inverse = parent.matrix_world.inverted(); child.matrix_world = mw
+    parts[child.name] = child; return child
+
+for nm, (sx, y0, y1) in DOORS.items():      # exposed door hinges, the classic jeep tell
+    hg = [box("hg", (0.022, 0.11, 0.075), (sx * (HW + 0.004), y0 + 0.06, z), "Doors", M["trim"], 0.006) for z in (0.82, 1.28)]
+    hg += [cyl("hb", 0.013, 0.02, (sx * (HW + 0.017), y0 + 0.03 + k * 0.05, z), "Doors", M["chrome"], 'X', 8) for z in (0.82, 1.28) for k in (0, 1)]
+    h = join("Hinges_" + nm, hg, "Doors", (sx * (HW - 0.02), y0 + 0.006, 1.12)); attach(h, parts[nm])
+lat = []
+for sx in (-1, 1):                          # rubber T-latches holding the hood down
+    lat += [box("lt", (0.02, 0.05, 0.13), (sx * (HW + 0.02), -1.90, 1.06), "Accessories", M["rubber"], 0.008), box("lt", (0.02, 0.10, 0.03), (sx * (HW + 0.02), -1.90, 1.12), "Accessories", M["rubber"], 0.006)]
+keep(join("HoodLatches", lat, "Accessories", (0, -1.90, 1.10)))
+# windshield frame in body colour, with hinges at its foot
+wf = []
+c0 = Vector((0, -0.615, 1.46)); rot = Euler((-slope, 0, 0))
+def wpt(x, z): return tuple(c0 + rot.to_matrix() @ Vector((x, 0, z)))
+wf += [box("wf", (1.62, 0.05, 0.05), wpt(0, 0.32), "Body", M["paint"], 0.012, rot=(-slope, 0, 0)), box("wf", (1.62, 0.06, 0.06), wpt(0, -0.32), "Body", M["paint"], 0.012, rot=(-slope, 0, 0))]
+wf += [box("wf", (0.06, 0.05, 0.66), wpt(sx * 0.79, 0), "Body", M["paint"], 0.012, rot=(-slope, 0, 0)) for sx in (-1, 1)]
+wf += [cyl("wh", 0.022, 0.12, wpt(sx * 0.55, -0.35), "Body", M["trim"], 'X', 10) for sx in (-1, 1)]
+keep(join("WindshieldFrame", wf, "Body", c0))
+keep(single(box("CowlSeam", (1.74, 0.03, 0.018), (0, -0.70, 1.178), "Body", M["trim"]), (0, -0.70, 1.178)))
+bolts = []                                  # bolts round each wheel-arch flare (instanced detail)
+for sx in (-1, 1):
+    for ay in (FA, RA):
+        for k in range(7):
+            a = math.radians(20 + k * 23.3)
+            bolts.append(cyl("bt", 0.014, 0.02, (sx * (HW + 0.05), ay + math.cos(a) * 0.53, WR + math.sin(a) * 0.53), "Accessories", M["chrome"], 'X', 6))
+keep(join("FlareBolts", bolts, "Accessories", (0, 0, WR)))
+hooks = []                                  # red tow hooks on the front bumper
+for sx in (-1, 1):
+    hooks += [tube("hk", (sx * 0.66, -2.24, 0.56), (sx * 0.66, -2.34, 0.56), 0.02, "Accessories", M["paint"], 8), tube("hk", (sx * 0.66, -2.34, 0.56), (sx * 0.66, -2.34, 0.46), 0.02, "Accessories", M["paint"], 8),
+              tube("hk", (sx * 0.66, -2.34, 0.46), (sx * 0.66, -2.28, 0.46), 0.02, "Accessories", M["paint"], 8)]
+keep(join("TowHooks", hooks, "Accessories", (0, -2.30, 0.51)))
+bez = [box("bz", (0.18, 0.035, 0.34), (sx * 0.80, 2.022, 0.98), "Lights", M["chrome"], 0.01) for sx in (-1, 1)]
+keep(join("TailLightBezels", bez, "Lights", (0, 2.022, 0.98)))
+keep(single(cyl("FuelCap", 0.07, 0.025, (-(HW + 0.006), 1.55, 1.08), "Accessories", M["chrome"], 'X', 18, bevel=0.006), (-(HW + 0.006), 1.55, 1.08)))
+flaps = [box("mf", (0.28, 0.012, 0.30), (sx * TR, RA + 0.47, 0.34), "Accessories", M["rubber"], 0.01) for sx in (-1, 1)]
+keep(join("MudFlaps", flaps, "Accessories", (0, RA + 0.47, 0.34)))
+
 # ---------------------------------------------------------------- collision meshes (simple boxes)
 col_objs = [single(box("COL_Body", (1.84, 4.3, 0.62), (0, 0, 0.77), "Collision", M["trim"]), (0, 0, 0)), single(box("COL_Cabin", (1.80, 2.5, 0.70), (0, 0.75, 1.42), "Collision", M["trim"]), (0, 0, 0))]
 for o in col_objs: o.hide_render = True; o.display_type = 'WIRE'
+
+# ---------------------------------------------------------------- shading pass (blender-skills: bevel then weighted normals, sharp at 35 deg)
+def smooth_sharp(o, angle=35.0):
+    if o.type != 'MESH' or o.name.startswith("Glass") or o.name.startswith("COL_"): return
+    bm = bmesh.new(); bm.from_mesh(o.data)
+    bmesh.ops.remove_doubles(bm, verts=bm.verts, dist=0.0004)
+    for e in bm.edges:
+        e.smooth = not (e.is_boundary or (e.is_manifold and e.calc_face_angle(0) > math.radians(angle)))
+    for f in bm.faces: f.smooth = True
+    bm.to_mesh(o.data); bm.free()
+    wn = o.modifiers.new("WeightedNormal", 'WEIGHTED_NORMAL'); wn.keep_sharp = True; wn.weight = 50
+    apply_mods(o)
+for o in list(parts.values()): smooth_sharp(o)
 
 # ---------------------------------------------------------------- UVs and stats
 tris = 0
@@ -372,6 +435,9 @@ def render_views(tag):
     except Exception: scene.render.engine = 'BLENDER_WORKBENCH'
     scene.render.resolution_x, scene.render.resolution_y = 1280, 720
     w = bpy.data.worlds.new("W"); scene.world = w; w.use_nodes = True; w.node_tree.nodes["Background"].inputs[0].default_value = (0.55, 0.6, 0.68, 1); w.node_tree.nodes["Background"].inputs[1].default_value = 0.9
+    try: scene.view_settings.view_transform = "AgX"
+    except Exception: pass
+    fill = bpy.data.objects.new("Fill", bpy.data.lights.new("Fill", 'SUN')); fill.data.energy = 1.2; fill.rotation_euler = (math.radians(65), 0, math.radians(140)); scene.collection.objects.link(fill)
     sun = bpy.data.objects.new("Sun", bpy.data.lights.new("Sun", 'SUN')); sun.data.energy = 4.0; sun.rotation_euler = (math.radians(50), 0, math.radians(-40)); scene.collection.objects.link(sun)
     gm = mat("Ground", (0.32, 0.27, 0.2), 0, 0.9); bm = bmesh.new(); bmesh.ops.create_grid(bm, x_segments=1, y_segments=1, size=30); gme = bpy.data.meshes.new("G"); bm.to_mesh(gme); bm.free(); gme.materials.append(gm)
     g = bpy.data.objects.new("Ground", gme); scene.collection.objects.link(g)
@@ -382,7 +448,55 @@ def render_views(tag):
         scene.render.filepath = os.path.join(OUT, "Car_Reference_Renders", "%s_%s.png" % (tag, nm))
         try: bpy.ops.render.render(write_still=True)
         except Exception as e: print("render failed", nm, e); break
-    for o in (sun, g, cam): bpy.data.objects.remove(o, do_unlink=True)
+    for o in (sun, fill, g, cam): bpy.data.objects.remove(o, do_unlink=True)
+
+# ---------------------------------------------------------------- naming (blender-skills conventions)
+for k, c in C.items(): c.name = "COL_Jeep_" + k
+for k, m in M.items():
+    if not m.name.startswith("MAT_"): m.name = "MAT_" + m.name.replace("Jeep_", "")
+for o in list(parts.values()):
+    if o.type == 'MESH' and not o.name.startswith("SM_"): o.name = "SM_Jeep_" + o.name
+for o in col_objs: o.name = o.name.replace("COL_", "UCX_Jeep_")   # UCX_ = convex collision in Unity/Unreal import
+root.name = "SM_Jeep"
+
+# ---------------------------------------------------------------- LOD1 / LOD2: whole-car merged copies for distance and background shots
+def merged_copy(name, ratio):
+    bm = bmesh.new(); mats = []
+    bpy.context.view_layer.update()
+    for o in parts.values():
+        if o.type != 'MESH' or "Interior" in o.name or "Seat" in o.name or "Dashboard" in o.name or "Steering" in o.name: continue
+        me = o.data.copy(); me.transform(o.matrix_world)
+        remap = []
+        for mt in o.data.materials:
+            if mt not in mats: mats.append(mt)
+            remap.append(mats.index(mt))
+        for poly in me.polygons: poly.material_index = remap[min(poly.material_index, len(remap) - 1)] if remap else 0
+        bm.from_mesh(me); bpy.data.meshes.remove(me)
+    me = bpy.data.meshes.new(name); bm.to_mesh(me); bm.free()
+    for mt in mats: me.materials.append(mt)
+    ob = bpy.data.objects.new(name, me); scene.collection.objects.link(ob)
+    d = ob.modifiers.new("dec", 'DECIMATE'); d.ratio = ratio; apply_mods(ob)
+    ob.data.calc_loop_triangles(); return ob, len(ob.data.loop_triangles)
+lod1, t1 = merged_copy("SM_Jeep_LOD1", 0.4); lod2, t2 = merged_copy("SM_Jeep_LOD2", 0.12)
+for o, n in ((lod1, "Car_Model_LOD1"), (lod2, "Car_Model_LOD2")):
+    for x in bpy.data.objects: x.select_set(False)
+    o.select_set(True); bpy.ops.export_scene.fbx(filepath=os.path.join(OUT, n + ".fbx"), use_selection=True, apply_scale_options='FBX_SCALE_ALL', bake_space_transform=True, object_types={'MESH'}, mesh_smooth_type='FACE')
+    bpy.data.objects.remove(o, do_unlink=True)
+
+# ---------------------------------------------------------------- validation (blender-skills validation-checklist)
+rep = ["JEEP VALIDATION (blender-skills validation-checklist)", "forward axis: -Y in Blender (Unity +Z after FBX axis conversion); 1 unit = 1 m"]
+bad_names = [o.name for o in parts.values() if o.type == 'MESH' and not o.name.startswith("SM_")]
+bad_scale = [o.name for o in parts.values() if o.type == 'MESH' and any(abs(v - 1) > 1e-4 for v in o.scale)]
+nm_bad = 0
+for o in parts.values():
+    if o.type != 'MESH': continue
+    bm = bmesh.new(); bm.from_mesh(o.data); nm_bad += sum(1 for v in bm.verts if not v.link_edges); bm.free()
+rep += ["LOD0 triangles: %d (budget for a drivable vehicle: 30,000-80,000)" % tris, "LOD1 triangles: %d   LOD2 triangles: %d" % (t1, t2),
+        "objects: %d   materials: %d" % (len([o for o in parts.values() if o.type == 'MESH']), len(M)),
+        "names without SM_ prefix: %s" % (bad_names or "none"), "objects with unapplied scale: %s" % (bad_scale or "none"), "loose vertices: %d" % nm_bad,
+        "collision: %s (convex boxes)" % ", ".join(o.name for o in col_objs),
+        "moving parts with pivots: wheels (axle centre), doors (front hinge), hood (cowl hinge), rear door (left hinge), steering wheel (column)"]
+open(os.path.join(OUT, "jeep_validation.txt"), "w").write("\n".join(rep) + "\n"); print("\n".join(rep))
 
 render_objs = [root] + list(parts.values())
 export(os.path.join(OUT, "Car_Model"), render_objs, glb=True)
@@ -411,12 +525,12 @@ def damaged_copy(src, name, strength, seed, material, crush_front=0.0):
 os.makedirs(os.path.join(OUT, "Car_Damaged"), exist_ok=True)
 for tag, st, seed, mt, crush in (("Damaged", 0.05, 3, scuffed, 0.05), ("Wrecked", 0.12, 7, scuffed, 0.22), ("Destroyed", 0.2, 11, burnt, 0.4)):
     b = damaged_copy(parts["Body"], "Body", st, seed, mt, crush); h = damaged_copy(parts["Hood"], "Hood", st * 1.5, seed + 1, mt, crush)
-    b.name = "Body"; h.name = "Hood"
+    b.name = "SM_Jeep_Body"; h.name = "SM_Jeep_Hood"
     export(os.path.join(OUT, "Car_Damaged", "Car_Damage_" + tag), [b, h])
     if tag == "Destroyed":
         for o in bpy.data.objects: o.hide_render = True
         b.hide_render = False; h.hide_render = False
-        for n in ("Undercarriage", "Wheel_FL", "Wheel_RR", "Seat_FL", "Seat_FR", "Dashboard", "RoofRack"): parts[n].hide_render = False
+        for n in ("Undercarriage", "Wheel_FL", "Wheel_RR", "Seat_FL", "Seat_FR", "Dashboard", "RoofRack", "Interior_Lining"): parts[n].hide_render = False
         render_views("destroyed")
         for o in bpy.data.objects: o.hide_render = False
     bpy.data.objects.remove(b, do_unlink=True); bpy.data.objects.remove(h, do_unlink=True)
@@ -425,6 +539,6 @@ bpy.ops.wm.save_as_mainfile(filepath=os.path.join(OUT, "Car_Damaged.blend"))
 if UNITY:
     import shutil
     os.makedirs(UNITY, exist_ok=True)
-    for f in ["Car_Model.fbx", "Car_Collision_Meshes/Car_Collision.fbx", "Car_Damaged/Car_Damage_Damaged.fbx", "Car_Damaged/Car_Damage_Wrecked.fbx", "Car_Damaged/Car_Damage_Destroyed.fbx"]:
+    for f in ["Car_Model.fbx", "Car_Model_LOD1.fbx", "Car_Model_LOD2.fbx", "jeep_validation.txt", "Car_Collision_Meshes/Car_Collision.fbx", "Car_Damaged/Car_Damage_Damaged.fbx", "Car_Damaged/Car_Damage_Wrecked.fbx", "Car_Damaged/Car_Damage_Destroyed.fbx"]:
         shutil.copy(os.path.join(OUT, f), os.path.join(UNITY, os.path.basename(f)))
 print("JEEP DONE", OUT)

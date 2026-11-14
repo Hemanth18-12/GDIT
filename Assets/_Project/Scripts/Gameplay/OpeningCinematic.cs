@@ -125,8 +125,7 @@ namespace LegacyOfTemples.Gameplay
         {
             if (player != null) player.enabled = false;
             yield return Prelude();
-            if (SkipRequested) { if (player != null) player.enabled = true; yield break; }
-            StartCinematic();
+            EndCinematic(); // the in-engine intro replaces the old fixed camera shots
         }
 
         public void StartCinematic()

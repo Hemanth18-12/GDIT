@@ -174,7 +174,7 @@ namespace LegacyOfTemples.UI
         {
             int mode = GameOptions.TouchMode;
             bool ui = InputGate.UiOpen != null && InputGate.UiOpen();
-            bool want = Gameplay(SceneManager.GetActiveScene().name) && !SceneLoader.IsLoading && !ui && Time.timeScale > 0f &&
+            bool want = Gameplay(SceneManager.GetActiveScene().name) && !SceneLoader.IsLoading && !ui && !InputGate.CinematicActive && Time.timeScale > 0f &&
                         (mode == 2 || (mode == 1 && CombatState.InCombat));
             if (want && EventSystem.current == null) { var es = new GameObject("EventSystem"); es.AddComponent<EventSystem>(); es.AddComponent<UnityEngine.InputSystem.UI.InputSystemUIInputModule>(); }
             if (Visible && !want) { stickPointer = -99; VirtualInput.Move = Vector2.zero; VirtualInput.Sprint = false; VirtualInput.Block = false; stickBase.gameObject.SetActive(false); }

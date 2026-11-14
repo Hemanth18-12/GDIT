@@ -10,6 +10,14 @@ namespace LegacyOfTemples.World
     public static class Village
     {
         public static int Houses { get; private set; }
+        /// <summary>Layout, for the village life, the jeep and the temple: compound centre (on the plaza), outer lane edges, main road.</summary>
+        public static Vector3 Centre; public static float Top, XOut, ZMin, ZMax;
+        public static Vector3 RoadStart, GatePos, NorthRoadEnd;
+        /// <summary>Indian lime-wash colours for the house walls, and darker dado bands.</summary>
+        private static readonly Color[] Wash = { new Color(0.62f, 0.8f, 0.95f), new Color(0.98f, 0.86f, 0.5f), new Color(0.96f, 0.72f, 0.74f), new Color(0.66f, 0.9f, 0.78f), new Color(1f, 0.97f, 0.9f), new Color(0.98f, 0.66f, 0.42f), new Color(0.72f, 0.7f, 0.95f), new Color(0.55f, 0.85f, 0.85f) };
+        private static readonly Color[] Dado = { new Color(0.35f, 0.15f, 0.12f), new Color(0.15f, 0.28f, 0.5f), new Color(0.55f, 0.22f, 0.12f), new Color(0.2f, 0.35f, 0.25f) };
+        private static readonly Color[] DoorPaint = { new Color(0.15f, 0.42f, 0.62f), new Color(0.2f, 0.5f, 0.32f), new Color(0.62f, 0.2f, 0.15f), new Color(0.75f, 0.55f, 0.2f) };
+        private static Color? nextTint;
         private static MaterialPropertyBlock mpb;
 
         public static void Build(Transform root)
@@ -22,6 +30,7 @@ namespace LegacyOfTemples.World
             float xOut = b.extents.x + 7f, zMax = b.max.z + 7f, zMin = Mathf.Min(b.min.z, b.center.z - 40f) - 7f;
             var v = new GameObject("Village").transform; v.SetParent(root, false);
             Vector3 c = new Vector3(b.center.x, top, b.center.z);
+            Centre = c; Top = top; XOut = xOut; ZMin = zMin; ZMax = zMax;
 
             // ground and the lane that circles the compound
             Box(v, "Village_Ground", new Vector3(c.x, top - 0.16f, c.z), new Vector3(280f, 0.2f, 280f), "red_laterite_soil_stones", 5f);
@@ -31,6 +40,9 @@ namespace LegacyOfTemples.World
             Box(v, "Lane_S", new Vector3(c.x, top - 0.1f, zMax - 2.5f), new Vector3(laneX * 2f, 0.2f, 5f), "stony_dirt_path", 4f);
             Box(v, "Lane_N", new Vector3(c.x, top - 0.1f, zMin + 2.5f), new Vector3(laneX * 2f, 0.2f, 5f), "stony_dirt_path", 4f);
 
+            Box(v, "MainRoad_South", new Vector3(c.x, top - 0.08f, zMax + 62f), new Vector3(8f, 0.2f, 130f), "stony_dirt_path", 4f);
+            Box(v, "MainRoad_North", new Vector3(c.x, top - 0.08f, zMin - 30f), new Vector3(8f, 0.2f, 66f), "stony_dirt_path", 4f);
+            RoadStart = new Vector3(c.x, top, zMax + 118f); NorthRoadEnd = new Vector3(c.x, top, zMin - 62f);
             Hub(v, c, top, xOut, zMin, zMax, laneX);
 
             var rng = new System.Random(1712);
@@ -46,6 +58,7 @@ namespace LegacyOfTemples.World
                 }
                 for (float x = -xOut + 6f; x <= xOut - 6f; x += R(10.5f, 13f))
                 {
+                    if (Mathf.Abs(x) < 9f) continue;   // the main road runs through here
                     House(v, new Vector3(c.x + x + R(-1.2f, 1.2f), top, zMax + off + R(-1f, 1f)), 180f + R(-8f, 8f), rng, row == 0 && lights++ % 3 == 0);
                     House(v, new Vector3(c.x + x + R(-1.2f, 1.2f), top, zMin - off + R(-1f, 1f)), R(-8f, 8f), rng, row == 0 && lights++ % 3 == 0);
                 }
@@ -66,7 +79,7 @@ namespace LegacyOfTemples.World
                 south.SetActive(false);
                 Box(v, "Wall_South_L", new Vector3(wp.x - (half + gap) * 0.5f, wp.y, wp.z), new Vector3(half - gap, ws.y, ws.z), "sandstone_blocks_08", 2.6f);
                 Box(v, "Wall_South_R", new Vector3(wp.x + (half + gap) * 0.5f, wp.y, wp.z), new Vector3(half - gap, ws.y, ws.z), "sandstone_blocks_08", 2.6f);
-                Gateway(v, new Vector3(wp.x, top, wp.z), 0f, gap * 2f, "TEMPLE COURTYARD", "1");
+                Gateway(v, new Vector3(wp.x, top, wp.z), 0f, gap * 2f, "TEMPLE COURTYARD", "1"); GatePos = new Vector3(wp.x, top, wp.z);
                 Box(v, "GateApron", new Vector3(wp.x, top - 0.1f, wp.z + 2.5f), new Vector3(gap * 2f, 0.2f, 6f), "red_sandstone_pavement", 3.2f);
             }
             float zs = zMax - 2.5f, zn = zMin + 2.5f, zc = (zMax + zMin) * 0.5f;
@@ -76,9 +89,11 @@ namespace LegacyOfTemples.World
             Gateway(v, new Vector3(c.x + laneX, top, zc + 6f), 0f, 5.6f, "JUNGLE RUINS", "5");
 
             // outer boundary (invisible) so nobody walks off the edge of the world
-            float bx = xOut + 30f, bzMax = zMax + 30f, bzMin = zMin - 30f;
-            Fence(v, new Vector3(c.x + bx, top + 3f, zc), new Vector3(1f, 8f, bzMax - bzMin + 2f)); Fence(v, new Vector3(c.x - bx, top + 3f, zc), new Vector3(1f, 8f, bzMax - bzMin + 2f));
-            Fence(v, new Vector3(c.x, top + 3f, bzMax), new Vector3(bx * 2f + 2f, 8f, 1f)); Fence(v, new Vector3(c.x, top + 3f, bzMin), new Vector3(bx * 2f + 2f, 8f, 1f));
+            float bx = xOut + 30f, bzMax = zMax + 128f, bzMin = zMin - 30f; float bzc = (bzMax + bzMin) * 0.5f;
+            Fence(v, new Vector3(c.x + bx, top + 3f, bzc), new Vector3(1f, 8f, bzMax - bzMin + 2f)); Fence(v, new Vector3(c.x - bx, top + 3f, bzc), new Vector3(1f, 8f, bzMax - bzMin + 2f));
+            Fence(v, new Vector3(c.x, top + 3f, bzMax), new Vector3(bx * 2f + 2f, 8f, 1f));
+            var north = new GameObject("VillageBoundary_North"); north.transform.SetParent(v, false); north.transform.position = new Vector3(c.x, top + 3f, bzMin); north.AddComponent<BoxCollider>().size = new Vector3(bx * 2f + 2f, 8f, 1f);
+            Box(v, "Village_Ground_South", new Vector3(c.x, top - 0.16f, zMax + 84f), new Vector3(bx * 2f + 20f, 0.2f, 108f), "red_laterite_soil_stones", 5f);
 
             // trees behind and between the houses
             var rng = new System.Random(99); float R(float a, float d) => a + (float)rng.NextDouble() * (d - a);
@@ -86,7 +101,12 @@ namespace LegacyOfTemples.World
             {
                 bool side = i % 2 == 0; float sgn = i % 4 < 2 ? 1f : -1f;
                 Vector3 p = side ? new Vector3(c.x + sgn * (xOut + R(10.5f, 12.5f)), top - 0.06f, R(zMin - 4f, zMax + 4f)) : new Vector3(c.x + R(-xOut, xOut), top - 0.06f, sgn > 0 ? zMax + R(10.5f, 12.5f) : zMin - R(10.5f, 12.5f));
-                ArtUpgrade.Tree(v, p, R(4.2f, 6.2f), 500 + i);
+                Tree(v, p, R(4.2f, 6.2f), 500 + i, rng);
+            }
+            for (int i = 0; i < 20; i++)   // shade trees along the main road, the way village roads are lined
+            {
+                float side = i % 2 == 0 ? -1f : 1f;
+                Tree(v, new Vector3(c.x + side * R(7.5f, 9.5f), top - 0.06f, zMax + 12f + (i / 2) * 10f + R(-1.5f, 1.5f)), R(4.5f, 6f), 700 + i, rng);
             }
         }
 
@@ -105,6 +125,13 @@ namespace LegacyOfTemples.World
             }
         }
 
+        /// <summary>The CC0 oak from the Medieval Village Kit when it is imported, otherwise the built tree.</summary>
+        private static void Tree(Transform v, Vector3 p, float h, int seed, System.Random rng)
+        {
+            var oak = ArtUpgrade.Place(v, "oak_tree", p, h / 5.2f * (0.85f + 0.3f * (float)rng.NextDouble()), (float)rng.NextDouble() * 360f, false);
+            if (oak == null) ArtUpgrade.Tree(v, p, h, seed);
+        }
+
         private static void Fence(Transform v, Vector3 pos, Vector3 size)
         {
             var g = new GameObject("VillageBoundary"); g.transform.SetParent(v, false); g.transform.position = pos;
@@ -112,7 +139,7 @@ namespace LegacyOfTemples.World
         }
 
         /// <summary>A sandstone gateway across a lane with a painted name board on both faces.</summary>
-        private static void Gateway(Transform v, Vector3 pos, float yaw, float span, string title, string number)
+        public static void Gateway(Transform v, Vector3 pos, float yaw, float span, string title, string number)
         {
             var g = new GameObject("Gateway_" + title.Replace(' ', '_')).transform; g.SetParent(v, false); g.position = pos; g.rotation = Quaternion.Euler(0f, yaw, 0f);
             float half = span * 0.5f + 0.45f, h = 4.2f;
@@ -131,7 +158,7 @@ namespace LegacyOfTemples.World
                 var t = new GameObject("BoardText").AddComponent<TMPro.TextMeshPro>(); t.transform.SetParent(g, false);
                 t.transform.localPosition = new Vector3(0f, h - 0.45f, s * 0.1f); t.transform.localRotation = Quaternion.Euler(0f, s > 0 ? 180f : 0f, 0f);
                 t.rectTransform.sizeDelta = new Vector2(span - 0.3f, 0.8f); t.alignment = TMPro.TextAlignmentOptions.Center; t.enableAutoSizing = true; t.fontSizeMin = 1f; t.fontSizeMax = 5f;
-                t.color = new Color(1f, 0.82f, 0.42f); t.fontStyle = TMPro.FontStyles.Bold; t.text = number + "  ·  " + title;
+                t.color = new Color(1f, 0.82f, 0.42f); t.fontStyle = TMPro.FontStyles.Bold; t.text = string.IsNullOrEmpty(number) ? title : number + "  ·  " + title;
             }
             var l = new GameObject("GatewayLight").AddComponent<Light>(); l.transform.SetParent(g, false); l.transform.localPosition = new Vector3(0f, h - 1.2f, 0f);
             l.type = LightType.Point; l.range = 8f; l.intensity = 2.6f; l.color = new Color(1f, 0.7f, 0.36f); l.shadows = LightShadows.None;
@@ -149,11 +176,14 @@ namespace LegacyOfTemples.World
             bool thatch = rng.Next(5) < 2;
 
             Box(h, "Plinth", new Vector3(0f, baseY * 0.5f, 0.5f), new Vector3(w + 0.7f, baseY, d + 1.8f), "sandstone_blocks_08", 2.2f);
-            Box(h, "Walls", new Vector3(0f, baseY + ht * 0.5f, 0f), new Vector3(w, ht, d), plaster, 2.6f);
-            Box(h, "Band", new Vector3(0f, baseY + 0.25f, 0f), new Vector3(w + 0.06f, 0.5f, d + 0.06f), "red_sandstone_wall", 2f);
+            nextTint = Wash[rng.Next(Wash.Length)];
+            Box(h, "Walls", new Vector3(0f, baseY + ht * 0.5f, 0f), new Vector3(w, ht, d), "white_plaster_rough_01", 2.6f);
+            nextTint = Dado[rng.Next(Dado.Length)];
+            Box(h, "Band", new Vector3(0f, baseY + 0.45f, 0f), new Vector3(w + 0.06f, 0.9f, d + 0.06f), "white_plaster_rough_01", 2f);
             Roof(h, new Vector3(0f, baseY + ht, 0f), w + 1.1f, d + 1.1f, R(1.5f, 2.2f), thatch ? "thatch_roof_angled" : "clay_roof_tiles_02", thatch ? 2.4f : 1.8f);
 
             float fz = d * 0.5f;
+            nextTint = DoorPaint[rng.Next(DoorPaint.Length)];
             Box(h, "Door", new Vector3(0f, baseY + 1f, fz + 0.03f), new Vector3(1.1f, 2f, 0.12f), "medieval_wood", 1.2f);
             Box(h, "DoorFrame", new Vector3(0f, baseY + 1.05f, fz + 0.01f), new Vector3(1.4f, 2.2f, 0.1f), "weathered_planks", 1.2f);
             for (int s = -1; s <= 1; s += 2)
@@ -194,7 +224,7 @@ namespace LegacyOfTemples.World
             }
         }
 
-        private static GameObject Box(Transform parent, string name, Vector3 localPos, Vector3 size, string mat, float tile, bool keepCollider = true)
+        public static GameObject Box(Transform parent, string name, Vector3 localPos, Vector3 size, string mat, float tile, bool keepCollider = true)
         {
             var g = GameObject.CreatePrimitive(PrimitiveType.Cube); g.name = name; g.transform.SetParent(parent, false);
             g.transform.localPosition = localPos; g.transform.localScale = size;
@@ -210,7 +240,9 @@ namespace LegacyOfTemples.World
             if (m != null) r.sharedMaterial = m;
             if (mat == "window_glow") { r.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off; return; }
             if (mpb == null) mpb = new MaterialPropertyBlock();
-            r.GetPropertyBlock(mpb); mpb.SetVector("_BaseMap_ST", new Vector4(Mathf.Max(0.25f, st.x), Mathf.Max(0.25f, st.y), 0f, 0f)); r.SetPropertyBlock(mpb);
+            r.GetPropertyBlock(mpb); mpb.SetVector("_BaseMap_ST", new Vector4(Mathf.Max(0.25f, st.x), Mathf.Max(0.25f, st.y), 0f, 0f));
+            if (nextTint.HasValue) { mpb.SetColor("_BaseColor", nextTint.Value); nextTint = null; } else mpb.SetColor("_BaseColor", Color.white);
+            r.SetPropertyBlock(mpb);
         }
 
         /// <summary>A gabled roof (ridge along local Z) with UVs in metres so thatch and tiles keep their real size.</summary>

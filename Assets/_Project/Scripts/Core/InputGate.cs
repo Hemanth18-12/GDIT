@@ -10,6 +10,9 @@ namespace LegacyOfTemples.Core
     /// </summary>
     public static class InputGate
     {
+        /// <summary>True while the opening cinematic plays: HUD, labels, guide, touch buttons and the Esc pause menu stay out of it.</summary>
+        public static bool CinematicActive;
+
         public static Func<bool> UiOpen;
         /// <summary>Frame until which Enter belongs to a mechanism (the Sun Wall centre wheel), not to "interact".</summary>
         public static int EnterReservedUntil = -1;

@@ -7,7 +7,11 @@
         "LOT.Characters",
         "LOT.Gameplay",
         "Unity.InputSystem",
-        "Unity.TextMeshPro"
+        "Unity.TextMeshPro",
+        "Unity.Cinemachine",
+        "Unity.Timeline",
+        "Unity.RenderPipelines.Universal.Runtime",
+        "Unity.RenderPipelines.Core.Runtime"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
@@ -19,4 +23,3 @@
     "versionDefines": [],
     "noEngineReferences": false
 }
-

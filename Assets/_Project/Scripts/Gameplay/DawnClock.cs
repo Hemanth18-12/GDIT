@@ -113,11 +113,14 @@ namespace LegacyOfTemples.Gameplay
             SceneLoader.Load(string.IsNullOrEmpty(cpScene) ? SceneManager.GetActiveScene().name : cpScene);
         }
 
+        /// <summary>True during the opening cinematic: the clock neither runs nor shows.</summary>
+        public static bool Hold;
+
         private void Update()
         {
             string scene = SceneManager.GetActiveScene().name;
             var story = StoryDialogueSystem.Instance;
-            if (!IsGameplay(scene) || story == null || story.IsComplete || SceneLoader.IsLoading) return;
+            if (!IsGameplay(scene) || story == null || story.IsComplete || SceneLoader.IsLoading || Hold) return;
             var ch = story.Chapter; int ci = ChapterIndex(ch);
 
             if (OutOfTime)

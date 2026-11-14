@@ -107,7 +107,7 @@ namespace LegacyOfTemples.UI
         private void Update()
         {
             string scene = SceneManager.GetActiveScene().name;
-            bool gameplay = GameplayScenes.Contains(scene) && !EventBus.IsPhotoModeActive && !EventBus.IsShowcaseActive;
+            bool gameplay = GameplayScenes.Contains(scene) && !EventBus.IsPhotoModeActive && !EventBus.IsShowcaseActive && !InputGate.CinematicActive;
             var story = StoryDialogueSystem.Instance;
 
             if (ending && story != null) { DrawEnding(story); buttonRt.gameObject.SetActive(false); arrowRt.gameObject.SetActive(false); ClearWorldMarkers(); return; }
