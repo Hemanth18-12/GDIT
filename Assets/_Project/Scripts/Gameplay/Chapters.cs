@@ -140,14 +140,14 @@ namespace LegacyOfTemples.Gameplay
         private void Start()
         {
             story = StoryDialogueSystem.Instance;
-            foreach (string id in new[] { "chase_c1", "lamps", "lock", "deduction", "traps" }) story?.RegisterMinigame(id);
+            foreach (string id in new[] { "chase_c1", "lamps", "lock", "deduction", "traps", "timeline" }) story?.RegisterMinigame(id);
         }
 
         private bool built;
         private void Build()
         {
             built = true;
-            ChaseRunning = false; runner = null; lamps.Clear(); LampsLit = 0; Traps.Clear(); ActiveTrap = null; BoardOpen = false; BoardStep = 0;
+            ChaseRunning = false; runner = null; lamps.Clear(); LampsLit = 0; Traps.Clear(); ActiveTrap = null; BoardOpen = false; BoardStep = 0; TimelineOpen = false; TimelineStep = 0; LockOpen = false;
             root = new GameObject("ChapterProps").transform;
             Vector3 p = player.transform.position; Vector3 f = player.transform.forward;
             if (scene == Constants.Sanctum) BuildHall(p, f);
@@ -179,7 +179,7 @@ namespace LegacyOfTemples.Gameplay
             if (scene == Constants.JunglePath && DawnClock.Instance != null) LookTuner.DawnProgress = Mathf.InverseLerp(115f, 155f, DawnClock.Instance.Minutes);
             if (scene == Constants.Courtyard) UpdateChase();
             if (scene == Constants.Sanctum) { UpdateLock(); UpdateCells(); UpdateBoard(); UpdateMeera(Constants.Sanctum, "obj_c2_pujari"); }
-            if (scene == Constants.ShrineCrime) { UpdateTraps(); if (StoryFlags.Get("meera_out") == 0) UpdateMeera(Constants.ShrineCrime, "obj_c3_pujari"); }
+            if (scene == Constants.ShrineCrime) { UpdateTimeline(); UpdateTraps(); if (StoryFlags.Get("meera_out") == 0) UpdateMeera(Constants.ShrineCrime, "obj_c3_pujari"); }
         }
 
         // ------------------------------------------------------------------ Meera walks in for her scenes
@@ -318,6 +318,44 @@ namespace LegacyOfTemples.Gameplay
             UseProp.Add(box, "storage_case_lock", "Try the dial lock", 2.4f, () => { if (Is("lock")) { LockOpen = true; lockSel = 0; lockMsg = ""; player.enabled = false; EventBus.RaiseHidePrompt(); } }, () => Is("lock") && !LockOpen);
             var lm = new GameObject("Marker_Lock"); lm.transform.SetParent(root, false); lm.transform.position = cp;
             if (story.ConversationDone("mg:lock")) lockPlate.SetActive(false);
+        }
+
+        // ------------------------------------------------------------------ Level 3 evidence board: put the night in order
+        public static bool TimelineOpen; public static int TimelineStep; private string tlMsg = "";
+        public static readonly string[] TimelineEvents = {
+            "Opened the storage door with the key (lock unmarked)",
+            "Lifted the three pieces off their stands",
+            "Knocked over the brass lamp on the way out",
+            "Red silk scarf tore on the shrine door",
+            "Two sets of bootprints ran to the old passage" };
+        private static readonly int[] TimelineShown = { 2, 4, 0, 3, 1 };   // the board lists them shuffled
+        private void UpdateTimeline()
+        {
+            if (!Is("timeline")) { if (TimelineOpen && player != null) player.enabled = true; TimelineOpen = false; return; }
+            var kb = Keyboard.current;
+            if (kb != null && kb.tKey.wasPressedThisFrame) { TimelineOpen = !TimelineOpen; tlMsg = ""; if (TimelineOpen) EventBus.RaiseHidePrompt(); if (player != null) player.enabled = !TimelineOpen; }
+            if (!TimelineOpen) { ScreenText.Panel("timeline_hint", null, $"{ScreenText.Key("T")} open the evidence board", PanelAnchor.TopRight, 420f, null, false, 5); return; }
+            if (kb != null)
+            {
+                Key[] keys = { Key.Digit1, Key.Digit2, Key.Digit3, Key.Digit4, Key.Digit5 };
+                for (int i = 0; i < 5; i++) if (kb[keys[i]].wasPressedThisFrame) TimelinePick(TimelineShown[i]);
+            }
+            string body = $"<color={ScreenText.Gold}><b>THE NIGHT, IN ORDER</b></color>   pick the next event\n";
+            for (int i = 0; i < 5; i++)
+            {
+                int ev = TimelineShown[i];
+                body += ev < TimelineStep ? $"<color={ScreenText.Green}>  {ev + 1}. {TimelineEvents[ev]}</color>\n" : $"{ScreenText.Key((i + 1).ToString())} {TimelineEvents[ev]}\n";
+            }
+            body += $"{tlMsg}   {ScreenText.Key("T")} close";
+            ScreenText.Panel("timeline", null, body, PanelAnchor.Center, 1000f, null, false, 6);
+        }
+        public void TimelinePick(int ev)
+        {
+            if (!Is("timeline") || TimelineStep >= 5) return;
+            if (ev == TimelineStep) { TimelineStep++; tlMsg = $"<color={ScreenText.Green}>That follows.</color>"; AudioManager.Instance?.PlaySFX("sfx_lamp_ignite", 0.3f); }
+            else if (ev < TimelineStep) return;
+            else { tlMsg = $"<color={ScreenText.Coral}>The evidence does not fit that order.</color>"; DawnClock.Instance?.Penalty(0.5f, "a wrong timeline step"); }
+            if (TimelineStep >= 5) { TimelineOpen = false; if (player != null) player.enabled = true; story.CompleteMinigame("timeline"); ObjectiveBanner.Show("TIMELINE COMPLETE", "TWO MEN, A KEY, AND A HURRIED EXIT", 3.5f); }
         }
 
         // ------------------------------------------------------------------ combination lock: three dials, code 1-7-5 (porter No. 17, five lamps)

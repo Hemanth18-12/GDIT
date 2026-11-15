@@ -326,6 +326,17 @@ namespace LegacyOfTemples.UI
                 yield return Shot("v2-chase.png");
                 cd.DebugEndChase();
             }
+            else if (id == "timeline")
+            {   // real keys: open with T, one wrong pick, then the right order (keys map to the shuffled list 2,4,0,3,1)
+                yield return Tap(Key.T); yield return new WaitForSecondsRealtime(0.4f);
+                Line($"  timeline: board open={ChapterDirector.TimelineOpen}");
+                yield return Tap(Key.Digit1); yield return new WaitForSecondsRealtime(0.3f);
+                yield return Shot("s4-timeline-wrong.png"); Line($"  timeline: wrong first pick -> step={ChapterDirector.TimelineStep}");
+                foreach (var k in new[] { Key.Digit3, Key.Digit5, Key.Digit1, Key.Digit4 }) { yield return Tap(k); yield return new WaitForSecondsRealtime(0.25f); }
+                yield return Shot("s4-timeline-four.png");
+                yield return Tap(Key.Digit2); yield return new WaitForSecondsRealtime(1.0f);
+                Line($"  timeline: after the right order -> step={ChapterDirector.TimelineStep}, banner='{ObjectiveBanner.Last}', objective now {story.Current?.id}");
+            }
             else if (id == "lock")
             {   // walk to the case, press E, enter a wrong code, then the right one, all with real keys
                 var box = GameObject.Find("StorageCase_Locked");
@@ -453,6 +464,10 @@ namespace LegacyOfTemples.UI
                 SceneLoader.Load(Constants.Sanctum); yield return WaitLoaded(); yield return new WaitForSecondsRealtime(3f); yield return SkipIntro();
                 Line($"\n## Lock check: objective {st?.Current?.id}");
                 yield return PlayMinigame("lock", st, FindAnyObjectByType<PlayerController>());
+                guard = 0; while (st != null && st.Current != null && st.Current.id != "obj_c3_timeline" && guard++ < 40) { st.DebugCompleteCurrent(); yield return null; }
+                SceneLoader.Load(Constants.ShrineCrime); yield return WaitLoaded(); yield return new WaitForSecondsRealtime(3f); yield return SkipIntro();
+                Line($"\n## Timeline board: objective {st?.Current?.id}");
+                yield return PlayMinigame("timeline", st, FindAnyObjectByType<PlayerController>());
                 guard = 0; while (st != null && st.Current != null && st.Current.id != "obj_c4_pujari" && guard++ < 40) { st.DebugCompleteCurrent(); yield return null; }
                 st.DebugCompleteCurrent(); yield return null;
                 Line($"\n## PuzzleWall: after the scroll talk the objective is {st?.Current?.id} (Sun Wall step removed)");

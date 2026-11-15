@@ -962,6 +962,25 @@
    ]
   },
   {
+   "id": "obj_c3_timeline",
+   "chapter": "ch3",
+   "scene": "ShrineCrime",
+   "title": "Put the night in order",
+   "instruction": "Open the evidence board and place the five events of the robbery in the order they happened.",
+   "keys": "T board, 1-5 pick the next event",
+   "target": "",
+   "area": "Anywhere at the shrine",
+   "complete": {
+    "type": "minigame",
+    "id": "timeline"
+   },
+   "hints": [
+    "Start where they got in: the lock was opened, not broken.",
+    "They took the pieces before anything went wrong.",
+    "Order: key, pieces, lamp, silk, bootprints."
+   ]
+  },
+  {
    "id": "obj_c3_pujari",
    "chapter": "ch3",
    "scene": "ShrineCrime",
@@ -984,8 +1003,8 @@
    "id": "obj_c3_exit",
    "chapter": "ch3",
    "scene": "ShrineCrime",
-   "title": "Go to the Sun Wall",
-   "instruction": "Take the passage to the Sun Wall.",
+   "title": "Take the passage to the old wall",
+   "instruction": "Follow the passage to the old wall.",
    "keys": "E enter",
    "target": "exit:PuzzleWall",
    "area": "Passage",

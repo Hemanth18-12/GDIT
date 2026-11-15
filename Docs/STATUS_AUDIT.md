@@ -8,3 +8,4 @@
 - RESUME FROM: new level mechanics (combination lock, forensic board, mirror light puzzle, jungle jeep chase), spline roads, Stage 5 intro framing, Stage 6 known issues, Stage 7 full-run video.
 - Stage 6 (part): dawn sky tint warmed; horizon still mustard (not fully fixed).
 - Rain removed, Sun Wall removed (wall pre-opened), Sanctum dial lock added (Docs/QA/master_lock). RESUME FROM: forensic board, jungle jeep chase, spline roads, Stage 5-7.
+- Level 3 evidence timeline board added (Docs/QA/master_timeline). RESUME FROM: jungle jeep chase, spline roads, Stage 5-7.

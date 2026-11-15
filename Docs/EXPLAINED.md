@@ -227,3 +227,10 @@ Open `Builds/LegacyOfTheTemple.app` (or open Unity → MainMenu → Play). Scree
 - **New: brass dial lock (Sanctum, Level 2).** After showing the token to the Pujari, open the locked storage case. Press E at the case, A/D to pick a dial, W/S to turn it, Enter to try, Q to step back. The code is **1 7 5** (porter No. 17 + the 5 lamps you lit). A wrong code costs 30 s on the dawn clock. H gives hints.
 - Evidence: `Docs/QA/master_lock/` (audit.md: wrong code keeps it shut, 1-7-5 opens it and the objective moves on; s4-lock-175.png; s4-puzzlewall-open.png).
 - Files: `Gameplay/Chapters.cs`, `Resources/Story/story.json`, `Gameplay/ChakraPuzzleController.cs`, `World/WeatherManager.cs`, `Gameplay/Combat.cs`, `World/LookTuner.cs`.
+
+## New: Level 3 evidence board ("Put the night in order")
+- In ShrineCrime, after the forensic kit, press **T** to open the evidence board. Five events are listed in a mixed-up order. Press **1–5** to choose the event that came NEXT. Correct picks turn green; a wrong pick costs 30 s on the dawn clock. While the board is open, Aryan stands still and the [E] prompt is hidden.
+- Right order: key opens the door → pieces lifted → lamp knocked over → red silk tears on the door → bootprints to the passage. Press H for hints.
+- The next step's title is now "Take the passage to the old wall" (the Sun Wall puzzle was removed).
+- Evidence: `Docs/QA/master_timeline/` (audit.md: wrong pick keeps step 0, right order completes it and the story moves to the Pujari; s4-timeline-four.png shows the board with no overlaps).
+- Files: `Gameplay/Chapters.cs`, `Resources/Story/story.json`, `UI/AuditBot.cs`.
