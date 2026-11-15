@@ -85,11 +85,11 @@ def build(target, base):
                 co = l.vert.co; l[uv].uv = (co.y, co.z) if ax == 0 else (co.x, co.z) if ax == 1 else (co.x, co.y)
         name = "%s_Area_%d%d" % (base, gx, gy); me = bpy.data.meshes.new(name); bm.to_mesh(me); bm.free()
         for mt in slots: me.materials.append(mt)
-        for p in me.polygons: p.use_smooth = False
+        for p in me.polygons: p.use_smooth = True
         ob = bpy.data.objects.new(name, me); bpy.context.scene.collection.objects.link(ob); ob.parent = root; made.append(ob)
         me.calc_loop_triangles(); out += len(me.loop_triangles)
     for x in bpy.data.objects: x.select_set(x in made)
-    bpy.ops.export_scene.fbx(filepath=os.path.join(OUT, base + ".fbx"), use_selection=True, apply_scale_options='FBX_SCALE_ALL', bake_space_transform=True, object_types={'MESH', 'EMPTY'}, mesh_smooth_type='FACE', add_leaf_bones=False)
+    bpy.ops.export_scene.fbx(filepath=os.path.join(OUT, base + ".fbx"), use_selection=True, apply_scale_options='FBX_SCALE_ALL', bake_space_transform=True, object_types={'MESH', 'EMPTY'}, mesh_smooth_type='EDGE', add_leaf_bones=False)
     for x in made: bpy.data.objects.remove(x, do_unlink=True)
     for nm in set(id(v) for v in dec.values()):
         pass

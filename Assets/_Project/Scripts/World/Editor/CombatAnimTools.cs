@@ -12,7 +12,13 @@ namespace LegacyOfTemples.World.Editor
     public static class CombatAnimTools
     {
         const string Clips = "Assets/_Project/Animations/Clips/OpenKit3D/";
-        static AnimationClip C(string n) => AssetDatabase.LoadAssetAtPath<AnimationClip>(Clips + n + ".anim");
+        const string HeroClips = "Assets/_Project/Animations/Clips/Hero/";
+        static AnimationClip C(string n)
+        {
+            var c = AssetDatabase.LoadAssetAtPath<AnimationClip>(HeroClips + n + ".anim");
+            if (c == null) c = AssetDatabase.LoadAssetAtPath<AnimationClip>(Clips + n + ".anim");
+            return c;
+        }
 
         static void Loop(string n, bool on)
         {
@@ -72,9 +78,9 @@ namespace LegacyOfTemples.World.Editor
                 { bool has = false; foreach (var q in hero.parameters) if (q.name == p) has = true; if (!has) hero.AddParameter(p, t); }
                 var hsm = hero.layers[0].stateMachine; var def = hsm.defaultState;
                 foreach (var cs in hsm.states) if (cs.state.name.StartsWith("Fight_")) hsm.RemoveState(cs.state);
-                foreach (var (name, clip, trig) in new[] { ("Fight_Attack1", "Sword_Regular_A", "Attack1"), ("Fight_Attack2", "Sword_Regular_B", "Attack2"), ("Fight_Attack3", "Sword_Regular_C", "Attack3"), ("Fight_Heavy", "OHS_Thrust", "Heavy"), ("Fight_Hit", "OHS_Hit", "Hit") })
+                foreach (var (name, clip, trig) in new[] { ("Fight_Attack1", "Punch_Jab", "Attack1"), ("Fight_Attack2", "Punch_Cross", "Attack2"), ("Fight_Attack3", "Punch_Jab", "Attack3"), ("Fight_Heavy", "Punch_Cross", "Heavy"), ("Fight_Hit", "Hit_Chest", "Hit") })
                 {
-                    var s = hsm.AddState(name); s.motion = C(clip); s.speed = name == "Fight_Heavy" ? 1.1f : 1.35f;
+                    var s = hsm.AddState(name); s.motion = C(clip); s.speed = name == "Fight_Heavy" ? 1.25f : 1.4f;
                     var a = hsm.AddAnyStateTransition(s); a.hasExitTime = false; a.duration = 0.06f; a.canTransitionToSelf = true; a.AddCondition(AnimatorConditionMode.If, 0, trig);
                     var back = s.AddTransition(def); back.hasExitTime = true; back.exitTime = 0.85f; back.duration = 0.15f;
                 }

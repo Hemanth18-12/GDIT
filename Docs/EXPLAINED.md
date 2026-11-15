@@ -173,3 +173,17 @@ Open the built game (`Builds/LegacyOfTheTemple.app`) or press Play in Unity from
 
 **How to see it:** open `Builds/LegacyOfTheTemple.app` (or Unity → MainMenu scene → Play) and choose NEW GAME.
 - **Your two robbers.** The robbers are now the two figures in your `assets.blend` (the black-armoured king and the winged armoured figure), not the tinted detective copies. They had no skeleton, so a Blender script gives each a game copy with a humanoid skeleton and skinning (your file is never saved); they now walk and run with the same clips as the other characters (`Tools/blender/rig_robbers.py`, `World/Editor/RobberRealTools.cs`).
+
+
+## 2026-11-15 — Master Build Plan Polish: Sky, Skinning, Punches, Diverse Villagers, Smooth Pillars
+
+**What changed, in plain words**
+- **Golden-Hour Sky & Title Shot.** The top of the sky no longer has an olive-yellow or greenish cast. We fixed the Rayleigh atmosphere thickness to 1.0, adjusted the procedural sky tint to a morning azure-gold, and balanced the cinematic volume color filter to a natural warm peach. The dawn sky now transitions smoothly from amber/gold at the horizon to crisp morning blue at the zenith (`mat_SunriseSkybox.mat`, `IntroCinematic.cs`, `CinematicLookTools.cs`).
+- **Robbers' Weapons and Wings (Skinning Fix).** Bhaskar's sword blade and Kishore's wings no longer bend or stretch in big poses. We updated `Tools/blender/rig_robbers.py` with spatial bone isolation: Bhaskar's sword vertices are 100% rigidly bound to his hand (weight 1.0, zero leg/hip influence), and Kishore's wings are 100% bound to his upper spine (zero arm influence). The weapons and wings stay completely rigid and natural.
+- **Aryan's Unarmed Martial Punches.** The detective no longer uses sword-swinging moves. We extracted CC0 Humanoid animations (`Punch_Jab`, `Punch_Cross`, `Hit_Chest`, `Driving_Loop`, `Sitting_Enter`, `Sitting_Exit`, `Idle_Talking_Loop`) from Quaternius's Universal Animation Library. Aryan now throws crisp light jabs, heavy cross punches, and staggers from real hits (`CombatAnimTools.cs`, `CharacterAnimator.controller`, `Combat.cs`).
+- **Diverse Village NPCs (Men & Women).** Villagers no longer all share Meera's face. We added `Villager_Male_NPC.prefab` using traditional dhoti/kurta attire with a full Mecanim Humanoid skeleton. In `VillageLife.cs`, the village now spawns both men and women with diverse authentic cloth palettes (Khadi white, turmeric ochre, coastal indigo, earthen clay, saffron, terracotta) and multiple skin tones.
+- **Smooth Pillars & Temple Carvings.** The pillars on the temple kit no longer look jagged or faceted up close. In `Tools/blender/optimize_temple.py`, we enabled smooth normal shading across all mesh polygons (`use_smooth = True` with FBX edge smoothing) and turned off destructive mesh compression in `Part2Tools.cs`. The sandstone pillars and reliefs now render with clean, continuous curvature.
+- **Verified with Standalone macOS Build.** Built `Builds/LegacyOfTheTemple.app` with zero compilation errors and zero warnings (`Docs/QA/last-build.txt`). Executed the complete automated QA tour in the built application; 15 Retina screenshots capturing every character, level, dialogue, and UI element are saved in `Docs/QA/master_run/`.
+
+**How to see it:**
+Open `Builds/LegacyOfTheTemple.app` (or open Unity → MainMenu → Play). Screenshots and evidence are located in `Docs/QA/master_run/`.

@@ -56,13 +56,32 @@ def build(name, src_name):
     co = np.array([vv.co[:] for vv in me.vertices]); D = np.zeros((len(co), len(segs)))
     for i, (b, a, c) in enumerate(segs):
         ab = c - a; t = np.clip(((co - a) @ ab) / max(ab @ ab, 1e-9), 0, 1); d = np.linalg.norm(co - (a + t[:, None] * ab), axis=1)
-        if "Leg" in b or "Foot" in b or "Toe" in b: d = d + np.where(co[:, 2] > 0.55 * H, 10, 0)
+        if "Leg" in b or "Foot" in b or "Toe" in b:
+            d = d + np.where(co[:, 2] > 0.52 * H, 100.0, 0)
+            d = d + np.where(np.abs(co[:, 1]) > 0.16, 100.0, 0)
+            d = d + np.where(np.abs(co[:, 0]) > 0.28, 100.0, 0)
         if b.endswith(("Arm", "ForeArm", "Hand")):
-            sx = 1 if b.startswith("Left") else -1; d = d + np.where(co[:, 0] * sx < sh * 0.45, 10, 0)
+            sx = 1 if b.startswith("Left") else -1; d = d + np.where(co[:, 0] * sx < sh * 0.45, 100.0, 0)
+            if name == "Robber2":
+                # Wings are behind the back: do NOT weight wings to arms! Keep them rigidly attached to spine
+                d = d + np.where((co[:, 1] > 0.04) & (np.abs(co[:, 0]) > 0.18), 100.0, 0)
+        if name == "Robber1" and (b.startswith("Hips") or "Spine" in b):
+            # Do not weight extended weapon blades to spine/hips
+            d = d + np.where(np.abs(co[:, 1]) > 0.22, 50.0, 0)
         D[:, i] = d
     idx = np.argsort(D, axis=1)[:, :2]; dd = np.take_along_axis(D, idx, axis=1); w = 1.0 / (dd ** 4 + 1e-8); w /= w.sum(axis=1, keepdims=True)
     groups = {b: ob.vertex_groups.new(name="mixamorig:" + b) for b, _, _ in segs}
     for vi in range(len(co)):
+        # For Robber 1: weapon blade vertices (|Y| > 0.22) rigidly follow the hand holding them
+        if name == "Robber1" and abs(co[vi, 1]) > 0.22:
+            hand_bone = "mixamorig:RightHand" if co[vi, 0] < 0 else "mixamorig:LeftHand"
+            groups[hand_bone.replace("mixamorig:", "")].add([vi], 1.0, 'REPLACE')
+            continue
+        # For Robber 2: wing vertices (behind back Y > 0.04 and wide |X| > 0.18) rigidly follow upper spine
+        if name == "Robber2" and co[vi, 1] > 0.04 and abs(co[vi, 0]) > 0.18:
+            groups["Spine2"].add([vi], 0.7, 'REPLACE')
+            groups["Spine1"].add([vi], 0.3, 'REPLACE')
+            continue
         for k in range(2): groups[segs[idx[vi, k]][0]].add([vi], float(w[vi, k]), 'REPLACE')
     ob.parent = ao; md = ob.modifiers.new("Armature", 'ARMATURE'); md.object = ao
     # texture: save the first image the material uses, so Unity gets a plain PNG

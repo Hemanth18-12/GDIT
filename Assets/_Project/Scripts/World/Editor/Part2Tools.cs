@@ -128,6 +128,40 @@ namespace LegacyOfTemples.World.Editor
             Directory.CreateDirectory("Assets/_Project/Resources/NPC");
             PrefabUtility.SaveAsPrefabAsset(g, "Assets/_Project/Resources/NPC/Villager_NPC.prefab"); Object.DestroyImmediate(g);
             Debug.Log("[Batch] villager NPC prefab built");
+
+            string maleFbx = "Assets/_Project/Models/Characters/Villager_Male.fbx";
+            if (File.Exists(maleFbx))
+            {
+                var mImp = (ModelImporter)AssetImporter.GetAtPath(maleFbx);
+                if (mImp != null && mImp.animationType != ModelImporterAnimationType.Human)
+                {
+                    mImp.animationType = ModelImporterAnimationType.Human;
+                    mImp.avatarSetup = ModelImporterAvatarSetup.CreateFromThisModel;
+                    mImp.SaveAndReimport();
+                }
+                Avatar mAvatar = null;
+                foreach (var o in AssetDatabase.LoadAllAssetsAtPath(maleFbx)) if (o is Avatar a) mAvatar = a;
+                var mModel = AssetDatabase.LoadAssetAtPath<GameObject>(maleFbx);
+                if (mModel != null)
+                {
+                    var mg = (GameObject)PrefabUtility.InstantiatePrefab(mModel);
+                    mg.name = "Villager_Male_NPC";
+                    foreach (var c in mg.GetComponentsInChildren<Collider>(true)) Object.DestroyImmediate(c);
+                    var man = mg.GetComponent<Animator>() ?? mg.AddComponent<Animator>();
+                    man.avatar = mAvatar;
+                    man.runtimeAnimatorController = ctrl;
+                    man.applyRootMotion = false;
+                    man.cullingMode = AnimatorCullingMode.CullUpdateTransforms;
+                    mg.AddComponent<LegacyOfTemples.Characters.NpcAnimDriver>();
+                    var mcap = mg.AddComponent<CapsuleCollider>();
+                    mcap.center = new Vector3(0f, 0.85f, 0f);
+                    mcap.height = 1.7f;
+                    mcap.radius = 0.25f;
+                    PrefabUtility.SaveAsPrefabAsset(mg, "Assets/_Project/Resources/NPC/Villager_Male_NPC.prefab");
+                    Object.DestroyImmediate(mg);
+                    Debug.Log("[Batch] villager Male NPC prefab built");
+                }
+            }
             foreach (var rn in new[] { "Robber1", "Robber2" })
             {   // the project's two robbers, for the opening cinematic only (no dialogue or combat scripts)
                 var rs = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/Characters/" + rn + ".prefab"); if (rs == null) continue;
@@ -211,7 +245,7 @@ namespace LegacyOfTemples.World.Editor
             {
                 if (!File.Exists(f)) continue;
                 Remap(f, pick);
-                var imp = (ModelImporter)AssetImporter.GetAtPath(f); imp.indexFormat = ModelImporterIndexFormat.UInt32; imp.isReadable = f == fbx; imp.meshCompression = ModelImporterMeshCompression.Medium; if (f == lod1) PreBake(imp); imp.SaveAndReimport();
+                var imp = (ModelImporter)AssetImporter.GetAtPath(f); imp.indexFormat = ModelImporterIndexFormat.UInt32; imp.isReadable = f == fbx; imp.meshCompression = f == fbx ? ModelImporterMeshCompression.Off : ModelImporterMeshCompression.Low; imp.importNormals = ModelImporterNormals.Import; imp.normalCalculationMode = ModelImporterNormalCalculationMode.AreaAndAngleWeighted; if (f == lod1) PreBake(imp); imp.SaveAndReimport();
             }
             PlayerSettings.bakeCollisionMeshes = true;   // the temple's mesh colliders are cooked at build time, not on load
             var root = new GameObject("Temple"); int tris = 0, cols = 0;

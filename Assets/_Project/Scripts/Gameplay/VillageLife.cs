@@ -186,45 +186,84 @@ namespace LegacyOfTemples.Gameplay
         }
 
         // ------------------------------------------------------------------ villagers
-        private static readonly Color[] Saree = { new Color(1f, 0.62f, 0.55f), new Color(0.62f, 0.78f, 1f), new Color(1f, 0.92f, 0.5f), new Color(0.62f, 1f, 0.7f), new Color(1f, 0.66f, 0.95f), new Color(1f, 0.8f, 0.55f), new Color(0.6f, 0.98f, 1f), new Color(1f, 1f, 1f), new Color(0.95f, 0.7f, 0.7f), new Color(0.75f, 0.72f, 1f), new Color(1f, 1f, 0.7f), new Color(0.85f, 0.75f, 0.6f) };
+        private static readonly Color[] Saree = {
+            new Color(0.95f, 0.35f, 0.28f), // Terracotta crimson
+            new Color(0.24f, 0.52f, 0.85f), // Indigo coastal blue
+            new Color(0.96f, 0.72f, 0.18f), // Turmeric marigold
+            new Color(0.25f, 0.68f, 0.45f), // Temple moss green
+            new Color(0.85f, 0.36f, 0.60f), // Lotus pink
+            new Color(0.92f, 0.48f, 0.16f), // Saffron dawn
+            new Color(0.30f, 0.75f, 0.80f), // Peacock turquoise
+            new Color(0.92f, 0.88f, 0.82f)  // Raw silk ivory
+        };
+        private static readonly Color[] DhotiKurta = {
+            new Color(0.94f, 0.92f, 0.87f), // Khadi cotton white
+            new Color(0.82f, 0.60f, 0.35f), // Earthen ochre
+            new Color(0.92f, 0.52f, 0.18f), // Saffron kurta
+            new Color(0.55f, 0.40f, 0.30f), // Clay brown
+            new Color(0.32f, 0.48f, 0.62f), // Village blue
+            new Color(0.68f, 0.32f, 0.26f)  // Brick red
+        };
+        private static readonly Color[] SkinTones = {
+            new Color(0.92f, 0.80f, 0.70f), // Warm wheatish
+            new Color(0.78f, 0.62f, 0.50f), // Caramel bronze
+            new Color(0.65f, 0.48f, 0.36f), // Dusky earthen
+            new Color(0.52f, 0.36f, 0.26f)  // Deep terracotta
+        };
 
         private void SpawnVillagers(Transform root, Vector3 c, float top, float z0, System.Random rng)
         {
-            var pf = Resources.Load<GameObject>("NPC/Villager_NPC"); NpcCount = 0;
-            if (pf == null) { Debug.LogWarning("[VillageLife] Resources/NPC/Villager_NPC missing (run Part2Tools.BuildNpc)"); return; }
+            var pfFemale = Resources.Load<GameObject>("NPC/Villager_NPC");
+            var pfMale = Resources.Load<GameObject>("NPC/Villager_Male_NPC") ?? pfFemale;
+            NpcCount = 0;
+            if (pfFemale == null) { Debug.LogWarning("[VillageLife] Resources/NPC/Villager_NPC missing (run Part2Tools.BuildNpc)"); return; }
             float R(float a, float b) => a + (float)rng.NextDouble() * (b - a);
             Vector3 P(float x, float z) => new Vector3(c.x + x, top, z);
             int k = 0;
-            Transform Spawn(Vector3 at, float yaw)
+            Transform Spawn(Vector3 at, float yaw, bool isMale)
             {
-                var g = Instantiate(pf, at, Quaternion.Euler(0f, yaw, 0f), root); g.name = "Villager_" + k;
-                g.transform.localScale = Vector3.one * R(0.94f, 1.04f);
+                var pf = isMale ? pfMale : pfFemale;
+                var g = Instantiate(pf, at, Quaternion.Euler(0f, yaw, 0f), root);
+                g.name = (isMale ? "Villager_Male_" : "Villager_Female_") + k;
+                g.transform.localScale = Vector3.one * R(isMale ? 0.98f : 0.93f, isMale ? 1.05f : 1.01f);
+                Color clothCol = isMale ? DhotiKurta[k % DhotiKurta.Length] : Saree[k % Saree.Length];
+                Color skinCol = SkinTones[k % SkinTones.Length];
                 foreach (var r in g.GetComponentsInChildren<Renderer>())
                 {
                     var mats = r.sharedMaterials;
                     for (int i = 0; i < mats.Length; i++)
                     {
-                        if (mats[i] == null || !mats[i].name.Contains("Outfit")) continue;
-                        if (mpb == null) mpb = new MaterialPropertyBlock(); r.GetPropertyBlock(mpb, i); mpb.SetColor("_BaseColor", Saree[k % Saree.Length]); r.SetPropertyBlock(mpb, i);
+                        if (mats[i] == null) continue;
+                        string mName = mats[i].name.ToLower();
+                        if (mpb == null) mpb = new MaterialPropertyBlock();
+                        r.GetPropertyBlock(mpb, i);
+                        if (mName.Contains("outfit") || mName.Contains("material_01") || mName.Contains("body") || mName.Contains("cloth") || mName.Contains("kurta") || mName.Contains("dhoti"))
+                            mpb.SetColor("_BaseColor", clothCol);
+                        else if (mName.Contains("head") || mName.Contains("skin") || mName.Contains("face"))
+                            mpb.SetColor("_BaseColor", skinCol);
+                        r.SetPropertyBlock(mpb, i);
                     }
                 }
                 foreach (var col in g.GetComponentsInChildren<Collider>()) Destroy(col);   // villagers step aside; they must not stop the jeep like a wall
                 Npcs.Add(g.transform); k++; NpcCount++; return g.transform;
             }
-            // walkers along both edges of the road
+            // walkers along both edges of the road (mix of men and women)
             for (int i = 0; i < 5; i++)
             {
                 float side = i % 2 == 0 ? -4.6f : 4.6f;
-                var w = Spawn(P(side, z0 + R(8f, 60f)), 0f).gameObject.AddComponent<RoadWalker>();
+                bool male = i % 2 == 1;
+                var w = Spawn(P(side, z0 + R(8f, 60f)), 0f, male).gameObject.AddComponent<RoadWalker>();
                 w.a = P(side, z0 + 6f); w.b = P(side, z0 + 66f); w.speed = R(1.0f, 1.35f);
                 if (i == 1) ArtUpgrade.Place(w.transform, "brass_pot_02", w.transform.position + Vector3.up * 1.72f, 1.9f, 0f, false);   // water pot carried on the head
             }
             // chatting at the tea stall and the shops (idle, facing each other)
             Vector3 ts = TeaStall != null ? TeaStall.position : P(-7f, z0 + 22f);
-            Spawn(ts + new Vector3(2.0f, 0f, -1.2f), 70f); Spawn(ts + new Vector3(3.1f, 0f, -0.6f), 250f);
-            Spawn(P(5.4f, z0 + 18.5f), 90f); Spawn(P(4.6f, z0 + 33.2f), 80f);
-            Spawn(P(-5.6f, z0 + 54f), 270f);   // at the well
-            Spawn(P(-4.2f, z0 + 40.5f), 270f); // at the tailor
+            Spawn(ts + new Vector3(2.0f, 0f, -1.2f), 70f, true);   // male villager at tea stall
+            Spawn(ts + new Vector3(3.1f, 0f, -0.6f), 250f, false);  // female villager talking
+            Spawn(P(5.4f, z0 + 18.5f), 90f, true);                  // male shopkeeper/patron
+            Spawn(P(4.6f, z0 + 33.2f), 80f, false);                 // female shopper
+            Spawn(P(-5.6f, z0 + 54f), 270f, false);                 // woman at the well
+            Spawn(P(-4.2f, z0 + 40.5f), 270f, true);                // man at the tailor
             foreach (var n in Npcs) if (n.GetComponent<RoadWalker>() == null) n.gameObject.AddComponent<IdleLook>();
         }
 

@@ -67,6 +67,16 @@ Heritage Mystery Project.zip
 *.pptx
 *.pdf
 
+# Local scratch QA captures
+Docs/QA/focus*
+Docs/QA/part2*
+Docs/QA/stage*
+Docs/QA/v*run/
+Docs/QA/onepass*
+Docs/QA/spacefix*
+Docs/QA/audit-*
+Docs/QA/velocity_city3d_screen.png
+
 # original 125 MB temple (too big for GitHub); the optimized copy lives in Assets/_Project/Models/Temple
 Art_Source/Temple/temple.fbx
 Art_Source/Temple/*.blend1

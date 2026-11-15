@@ -179,9 +179,11 @@ namespace LegacyOfTemples.World.Editor
             var sky = AssetDatabase.LoadAssetAtPath<Material>("Assets/_Project/Models/Environment/Materials/mat_SunriseSkybox.mat");
             if (sky != null)
             {
-                sky.SetFloat("_Exposure", 0.8f);
-                sky.SetFloat("_SunSize", 0.025f);
-                sky.SetColor("_SkyTint", new Color(0.46f, 0.53f, 0.65f));
+                sky.SetFloat("_AtmosphereThickness", 1.0f);
+                sky.SetFloat("_Exposure", 1.0f);
+                sky.SetFloat("_SunSize", 0.04f);
+                sky.SetColor("_SkyTint", new Color(0.62f, 0.72f, 0.90f));
+                sky.SetColor("_GroundColor", new Color(0.40f, 0.30f, 0.24f));
                 EditorUtility.SetDirty(sky);
             }
             AssetDatabase.SaveAssets();

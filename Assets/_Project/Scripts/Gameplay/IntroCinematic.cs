@@ -165,8 +165,8 @@ namespace LegacyOfTemples.Gameplay
             {
                 var ca = p.Add<ColorAdjustments>(true);
                 ca.postExposure.Override(isNight ? 0.35f : 0.1f); ca.contrast.Override(isNight ? 16f : 14f); ca.saturation.Override(isNight ? -18f : 12f);
-                ca.colorFilter.Override(isNight ? new Color(0.72f, 0.82f, 1f) : new Color(1f, 0.92f, 0.8f));
-                var wb = p.Add<WhiteBalance>(true); wb.temperature.Override(isNight ? -30f : 18f);
+                ca.colorFilter.Override(isNight ? new Color(0.72f, 0.82f, 1f) : new Color(1f, 0.97f, 0.94f));
+                var wb = p.Add<WhiteBalance>(true); wb.temperature.Override(isNight ? -30f : 6f);
                 var vg = p.Add<Vignette>(true); vg.intensity.Override(isNight ? 0.42f : 0.3f); vg.smoothness.Override(0.5f);
                 var dof = p.Add<DepthOfField>(true); dof.mode.Override(DepthOfFieldMode.Bokeh); dof.focalLength.Override(55f); dof.aperture.Override(isNight ? 2.8f : 4.5f); dof.focusDistance.Override(8f);
                 var bl = p.Add<Bloom>(true); bl.intensity.Override(isNight ? 0.6f : 0.45f); bl.threshold.Override(0.95f);
