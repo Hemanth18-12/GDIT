@@ -6,3 +6,4 @@
 - RESUME FROM STAGE 3 (spline roads): spline roads, temple hidden on approach plus a reveal (the banner already exists in TempleSite.Discover), then Stage 4 level looks/mechanics, Stage 5 intro framing, Stage 6 known issues (olive sky, robber skinning, Aryan strikes, villager faces, temple pillars), Stage 7 full run video.
 - Stage 4 (part): per-level looks (PuzzleWall midday, JunglePath dusk teal mist), ShrineCrime rain, crash bounce fix (Docs/QA/master_stage4).
 - RESUME FROM: new level mechanics (combination lock, forensic board, mirror light puzzle, jungle jeep chase), spline roads, Stage 5 intro framing, Stage 6 known issues, Stage 7 full-run video.
+- Stage 6 (part): dawn sky tint warmed; horizon still mustard (not fully fixed).

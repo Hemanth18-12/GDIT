@@ -83,7 +83,7 @@ namespace LegacyOfTemples.World
 
         /// <summary>Golden first light: low warm sun, long shadows, warm mist (the ending).</summary>
         private static Look DawnLook() => new Look { exposure = 0.6f, ambient = 1.15f, fog = 0.0022f, sky = C(0.5f, 0.62f, 0.85f), equator = C(0.8f, 0.7f, 0.6f), ground = C(0.3f, 0.24f, 0.18f), fogColor = C(0.7f, 0.78f, 0.9f),
-            sunIntensity = 1.5f, sunColor = C(1f, 0.79f, 0.54f), sunAngles = new Vector2(8f, 115f), skyExposure = 1.1f, skyTint = C(0.92f, 0.88f, 0.95f), bloom = 0.4f, saturation = 24f, vignette = 0.2f, fill = 0.35f };
+            sunIntensity = 1.5f, sunColor = C(1f, 0.79f, 0.54f), sunAngles = new Vector2(8f, 115f), skyExposure = 1.05f, skyTint = C(1.0f, 0.8f, 0.86f), bloom = 0.4f, saturation = 24f, vignette = 0.2f, fill = 0.35f };
 
         private static Look Blend(Look a, Look b, float t)
         {

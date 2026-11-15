@@ -217,3 +217,6 @@ Open `Builds/LegacyOfTheTemple.app` (or open Unity → MainMenu → Play). Scree
 - **Hints hidden during the temple reveal.**
 - Evidence: `Docs/QA/master_stage4/` (s4-look-*.png, audit.md lines "Level look …", "crash at 43 km/h … Wrecked").
 - Files: `World/LookTuner.cs`, `World/WeatherManager.cs`, `Gameplay/Chapters.cs`, `Gameplay/Vehicles/Jeep.cs`, `Gameplay/TempleSite.cs`.
+
+## Stage 6 (attempt): olive dawn sky
+- Changed the dawn sky tint from cool grey-violet to warm rose (`LookTuner.DawnLook`, skyTint 1.0/0.8/0.86). The green band in the upper sky is gone (now grey-blue), but the horizon is still mustard yellow, so this is only partly fixed. Next idea: change the sun colour near the horizon or use a gradient skybox. Evidence: `Docs/QA/master_sky/s7-intro-10-04b_low_front.png`.
