@@ -1,0 +1,16 @@
+# Decisions log (V3)
+
+Each line: what was planned, what went wrong or was unclear, what I chose, and why.
+
+| # | Date | Decision |
+|---|---|---|
+| D-01 | 2026-11-16 | **Skills folder location.** The brief said to copy blender-skills into the Unity project's `.claude/skills`. `My project/` is git-ignored and Claude sessions start in the repository root, so skills there would never load or be saved. Installed all 94 skills in `GDIT/.claude/skills/` instead (MIT, commit 904f095). |
+| D-02 | 2026-11-16 | **Blender connection.** It was closed when V3 started; work continued with headless Blender scripts (same Blender 5.2.2, reproducible). You reopened it and it is verified (object list and screenshot). Both routes are used: live connection for inspection, headless scripts for anything that must be repeatable. |
+| D-03 | 2026-11-16 | **Audit method.** You asked me to test only what changes and to run tests in the background, so the audit uses one real run of the built app (menu, loading, intro, jeep), one screenshot per later scene from the same day, and a code read. Items I did not re-test are marked "not re-tested" in AUDIT_V3.md instead of being given a guess. |
+| D-04 | 2026-11-16 | **Robber models.** The only robber models in your originals are an armoured fantasy king and a winged boss. They do not look like village thieves. Rule 5 forbids replacing them, so they stay and enemy variants are recolours and resizes of these two. Flagged in the audit for your decision. |
+| D-05 | 2026-11-16 | **The inside man.** The cast list has no spare named character, so the inside man is Madhav the key-keeper, played by the existing male villager model. He is on screen in every zone before the reveal. |
+| D-06 | 2026-11-16 | **Treasure 5 placement.** The brief puts item 5 at the Sun Wall and also asks for a final recovery in zone 6. Zone 5 now yields the finial's empty case and the route; the finial itself is recovered from the leader in zone 6. This keeps a reward in every zone and gives the last fight a prize. |
+| D-07 | 2026-11-16 | **Loading image with an idol (needs your eyes).** Your "robber" loading image shows a thief carrying an idol that looks like a real deity. Your project rules say the idol is never stolen or carried and V3 says no real deity likeness. It is your artwork and you told me to use it, so I did not alter or remove it. Recommended: regenerate that image with the robber carrying only the brass chest. |
+| D-08 | 2026-11-16 | **Rain.** Rain was removed on your instruction two days ago; V3 asks for heavy rain at the stepwell. V3 is newer, so rain returns, but only in zone 4. |
+| D-09 | 2026-11-16 | **One world scene.** The brief asks for one connected world replacing five scenes. The five old scenes stay in the project and in the build until each new zone passes its test, so the game is never left unplayable between milestones. |
+| D-10 | 2026-11-16 | **Puzzle framework before art.** Core puzzle parts are built as plain, tested components first (logic separated from visuals), so every zone puzzle can be verified by a fast automated test instead of a full playthrough. |

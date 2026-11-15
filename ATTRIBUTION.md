@@ -103,3 +103,8 @@ All from polyhaven.com, licence CC0 1.0 (public domain), downloaded with Tools/a
 | Art_Source/Temple/temple.fbx → Assets/_Project/Models/Temple/Temple_Game.fbx | Jagannath temple model | Supplied by the project owner | Added to Assets by the owner, 2026-11-15 | Owner's responsibility: source and licence not stated | Original kept unchanged; the game copy is reduced in Blender (Tools/blender/optimize_temple.py). |
 | Assets/_Project/Animations/Clips/Hero/Punch_Jab.anim, Punch_Cross.anim, Hit_Chest.anim, Driving_Loop.anim, Sitting_Enter.anim, Sitting_Exit.anim, Idle_Talking_Loop.anim | Universal Animation Library | Quaternius | https://quaternius.itch.io/universal-animation-library / https://github.com/J-Ponzo/gltf-universal-animation-library | CC0 1.0 (Public Domain) | Unarmed punches, hit reactions, driving and NPC idle-talking clips extracted and retargeted to Humanoid. |
 | github.com/GrokCodeReliant/OpenKit3D | Open Kit 3D | GrokCodeReliant | https://github.com/GrokCodeReliant/OpenKit3D | CC0 1.0 | Checked; nothing imported (its clips are Generic for its own rig). |
+
+## V3 (2026-11-16): tools
+| Files | Asset | Author | Source | Licence |
+|---|---|---|---|---|
+| .claude/skills/* (94 skill folders, references) | blender-skills pack (instructions for Blender work; no art assets) | blender-skills contributors | https://github.com/arjun988/blender-skills (commit 904f095) | MIT (copy at .claude/skills/BLENDER_SKILLS_LICENSE.txt) |
