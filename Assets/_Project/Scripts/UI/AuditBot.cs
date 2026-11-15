@@ -157,6 +157,72 @@ namespace LegacyOfTemples.UI
         }
 
         /// <summary>Stage 3 evidence: get in, drive, lights, brake, get out, a real crash and the damage states.</summary>
+        private IEnumerator V3Use(PlayerController pc, Vector3 stand, Vector3 look, string what)
+        {
+            Vector3 d = look - stand; d.y = 0f;
+            pc.Teleport(stand, Quaternion.LookRotation(d.sqrMagnitude > 0.001f ? d : Vector3.forward)); yield return new WaitForSecondsRealtime(0.5f);
+            string prompt = pc.CurrentInteractable != null ? pc.CurrentInteractable.Prompt : "(none)";
+            yield return Tap(Key.E); yield return new WaitForSecondsRealtime(0.6f);
+            Line($"  {what}: prompt '{prompt}'");
+        }
+
+        private IEnumerator V3Zone2Check()
+        {
+            var z = LegacyOfTemples.Gameplay.BreakInPuzzle.Instance; var pc = FindAnyObjectByType<PlayerController>();
+            Line($"\n## V3 zone 2 break-in puzzle: present={(z != null)}, built={(z != null && z.Built)}");
+            if (z == null || !z.Built || pc == null) yield break;
+            LegacyOfTemples.Gameplay.Puzzles.PuzzleSave.Clear(); LegacyOfTemples.Gameplay.ScoreSystem.ResetAll();
+            MonoBehaviour orbit = null; foreach (var mb in FindObjectsByType<MonoBehaviour>()) if (mb != null && mb.GetType().Name == "OrbitCamera") orbit = mb;
+            Transform r = z.transform; var cam = Camera.main;
+            System.Func<Vector3, Vector3, IEnumerator> view = (from, at) => V3View(orbit, cam, r.TransformPoint(from), r.TransformPoint(at));
+            pc.Teleport(r.TransformPoint(new Vector3(0f, 0f, 7f)), Quaternion.LookRotation(-r.forward)); yield return new WaitForSecondsRealtime(1.2f);
+            yield return Shot("v3z2-01-arrive-gameplay-camera.png");
+            yield return view(new Vector3(6f, 3.2f, 9f), new Vector3(0f, 1.2f, 0.5f)); yield return Shot("v3z2-02-storeroom-wide.png");
+            yield return view(new Vector3(-1f, 1.2f, 4.2f), new Vector3(-3.2f, 0.9f, 1.3f)); yield return Shot("v3z2-03-plinth-and-shard.png"); V3ViewEnd(orbit);
+            Line($"  start: lantern usable={z.Lantern.enabled}, flagstone locked={z.Flagstone.locked}, treasure usable={z.Chronicle.enabled}");
+            // a wrong order first: the flagstone must not lift and the lantern must not be usable yet
+            z.Flagstone.Interact(); z.Lantern.Interact();
+            Line($"  wrong order tried first (flagstone, lantern): flagstone state={z.Flagstone.State} (0 = still down), flagstone prompt='{z.Flagstone.Prompt}', holding={(LegacyOfTemples.Gameplay.Puzzles.Carryable.Held != null)}");
+            for (int i = 0; i < 3; i++)
+            {
+                Vector3 sp = z.Shards[i].transform.position;
+                yield return V3Use(pc, sp + r.forward * 0.9f, sp, $"shard {i + 1} pick up");
+                yield return V3Use(pc, z.Plinth.position + r.forward * 1.3f, z.Plinth.position, $"shard {i + 1} at the plinth");
+                Line($"    socket states: {z.Sockets[0].State} {z.Sockets[1].State} {z.Sockets[2].State}");
+            }
+            yield return new WaitForSecondsRealtime(0.5f);
+            Line($"  pot whole={z.PotWhole}, lantern usable={z.Lantern.enabled}");
+            yield return view(new Vector3(-0.8f, 1.5f, 4.4f), new Vector3(-3.2f, 0.9f, 1.6f)); yield return Shot("v3z2-04-pot-whole-lantern-lit.png"); V3ViewEnd(orbit);
+            Vector3 lp = z.Lantern.transform.position;
+            yield return V3Use(pc, lp + r.forward * 1.0f, lp, "lantern pick up");
+            Vector3 stand = z.Stain.position + r.forward * 0.6f - r.right * -0.25f; stand.y = pc.transform.position.y;
+            yield return V3Use(pc, stand, z.Stain.position - r.forward * 3f, "lantern put down on the oil stain");
+            yield return new WaitForSecondsRealtime(0.5f);
+            Line($"  lantern on the stain={z.LampSpot.State == 1} (distance {Vector3.Distance(z.Lantern.transform.position, z.Stain.position):0.00} m), flagstone locked={z.Flagstone.locked}");
+            yield return view(new Vector3(4.2f, 2.6f, 5.6f), new Vector3(0.6f, 1.0f, 0.6f)); yield return Shot("v3z2-05-lantern-on-stain-grille-shadows.png"); V3ViewEnd(orbit);
+            Vector3 lk = z.LockPlate.transform.position;
+            yield return V3Use(pc, lk + r.forward * 1.1f - r.right * 0.5f, lk, "lock plate turn 1"); yield return V3Use(pc, lk + r.forward * 1.1f - r.right * 0.5f, lk, "lock plate turn 2");
+            yield return new WaitForSecondsRealtime(0.6f);
+            Line($"  lock plate state={z.LockPlate.State} (2 = inside face showing), evidence saved={LegacyOfTemples.Gameplay.Puzzles.PuzzleSave.Get("evidence.inside_lock")}, banner='{ObjectiveBanner.Last}'");
+            yield return view(new Vector3(-2.2f, 1.5f, 1.4f), new Vector3(-1.48f, 1.25f, 0.24f)); yield return Shot("v3z2-06-lock-plate-inside-scratches.png"); V3ViewEnd(orbit);
+            yield return V3Use(pc, z.Flagstone.transform.position + r.forward * 1.4f, z.Flagstone.transform.position, "lift the flagstone");
+            yield return new WaitForSecondsRealtime(0.5f);
+            Line($"  flagstone state={z.Flagstone.State}, puzzle solved={z.Group.Solved}, treasure usable={z.Chronicle.enabled}");
+            yield return view(new Vector3(3.2f, 2.2f, 5.6f), new Vector3(0.95f, 0.1f, 3.3f)); yield return Shot("v3z2-07-flagstone-lifted-chronicle.png"); V3ViewEnd(orbit);
+            yield return V3Use(pc, z.Chronicle.transform.position + r.forward * 1.2f + r.right * 0.8f, z.Chronicle.transform.position, "take the Chronicle");
+            var zs = LegacyOfTemples.Gameplay.ScoreSystem.Zone(LegacyOfTemples.Gameplay.BreakInPuzzle.ZoneId);
+            Line($"  treasure taken={z.Chronicle.Taken}; score: puzzle solved={zs.puzzleSolved}, hints={zs.hintsUsed}, items={zs.items}, points={LegacyOfTemples.Gameplay.ScoreSystem.Points(zs)}, grade={LegacyOfTemples.Gameplay.ScoreSystem.Grade(zs)}");
+            Line($"  checkpoint: {LegacyOfTemples.Gameplay.Checkpoints.Current.zone}/{LegacyOfTemples.Gameplay.Checkpoints.Current.label}");
+            yield return new WaitForSecondsRealtime(0.5f); yield return Shot("v3z2-08-recovered-banner.png");
+        }
+        private IEnumerator V3View(MonoBehaviour orbit, Camera cam, Vector3 from, Vector3 at)
+        {
+            if (orbit != null) orbit.enabled = false;
+            if (cam != null) { cam.transform.position = from; cam.transform.LookAt(at); }
+            yield return null; yield return null;
+        }
+        private void V3ViewEnd(MonoBehaviour orbit) { if (orbit != null) orbit.enabled = true; }
+
         private IEnumerator JeepCheck()
         {
             var jeep = LegacyOfTemples.Gameplay.Vehicles.Jeep.Instance; var pc = FindAnyObjectByType<PlayerController>();
@@ -504,6 +570,13 @@ namespace LegacyOfTemples.UI
                 var wm2 = LegacyOfTemples.World.WeatherManager.Instance; var cpz = ChakraPuzzleController.Active;
                 Line($"  rain intensity={(wm2 != null ? wm2.Intensity : -1f):0.00}, wall solved={(cpz != null && cpz.IsSolved)}, wall prompt radius={(cpz != null ? cpz.Radius : -1f):0.0}, sun={(RenderSettings.sun != null ? RenderSettings.sun.intensity : -1f):0.0}");
                 yield return Shot("s4-puzzlewall-open.png");
+                File.WriteAllText(Path.Combine(output, "audit.md"), report.ToString());
+                Debug.Log("[AuditBot] DONE " + output); yield return new WaitForSecondsRealtime(1f); Application.Quit(); yield break;
+            }
+            if (Array.IndexOf(Environment.GetCommandLineArgs(), "-v3Zone2") >= 0)
+            {   // V3 zone 2 only: play the break-in puzzle with real key presses and take a picture of every step
+                yield return new WaitForSecondsRealtime(6f);
+                yield return V3Zone2Check();
                 File.WriteAllText(Path.Combine(output, "audit.md"), report.ToString());
                 Debug.Log("[AuditBot] DONE " + output); yield return new WaitForSecondsRealtime(1f); Application.Quit(); yield break;
             }

@@ -1,0 +1,55 @@
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using LegacyOfTemples.Core;
+using LegacyOfTemples.World;
+
+namespace LegacyOfTemples.UI
+{
+    /// <summary>
+    /// The main menu's live background: the real temple at golden hour with a slow camera drift.
+    /// (The old menu camera circled a blank wall.) Built at runtime, away from the old menu set, with no colliders.
+    /// </summary>
+    public sealed class MenuTempleBackdrop : MonoBehaviour
+    {
+        static readonly Vector3 Site = new Vector3(3000f, 0f, 3000f);
+        Bounds b; Camera cam; float t;
+        public static bool Ready { get; private set; }
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+        static void Boot()
+        {
+            SceneManager.sceneLoaded += (s, m) => { if (s.name == "MainMenu") Make(); };
+            if (SceneManager.GetActiveScene().name == "MainMenu") Make();
+        }
+        static void Make() { Ready = false; new GameObject("MenuTempleBackdrop").AddComponent<MenuTempleBackdrop>(); }
+
+        void Start()
+        {
+            var pf = Resources.Load<GameObject>("Temple/Temple"); cam = Camera.main;
+            if (pf == null || cam == null) { Debug.LogWarning("[Menu] temple prefab or camera missing; keeping the old menu background"); enabled = false; return; }
+            var g = Instantiate(pf, Site, Quaternion.identity, transform); g.name = "MenuTemple";
+            foreach (var c in g.GetComponentsInChildren<Collider>()) Destroy(c);
+            bool first = true; foreach (var r in g.GetComponentsInChildren<Renderer>()) { if (first) { b = r.bounds; first = false; } else b.Encapsulate(r.bounds); }
+            g.transform.position += new Vector3(Site.x - b.center.x, -b.min.y, Site.z - b.center.z); b.center = new Vector3(Site.x, b.extents.y, Site.z);
+            var ground = Village.Box(transform, "MenuGround", Vector3.zero, new Vector3(900f, 0.2f, 900f), "red_sandstone_pavement", 3.2f, false); ground.transform.position = new Vector3(Site.x, -0.1f, Site.z);
+            // golden hour: one low warm sun from the front-left, warm haze
+            Light sun = RenderSettings.sun; if (sun == null) foreach (var l in FindObjectsByType<Light>()) if (l.type == LightType.Directional) sun = l;
+            if (sun == null) { sun = new GameObject("MenuSun").AddComponent<Light>(); sun.type = LightType.Directional; }
+            sun.transform.rotation = Quaternion.Euler(14f, 205f, 0f); sun.color = new Color(1f, 0.74f, 0.48f); sun.intensity = 1.9f; sun.shadows = LightShadows.Soft;
+            RenderSettings.fog = true; RenderSettings.fogMode = FogMode.ExponentialSquared; RenderSettings.fogColor = new Color(0.86f, 0.62f, 0.42f); RenderSettings.fogDensity = 0.0028f;
+            RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Trilight; RenderSettings.ambientSkyColor = new Color(0.62f, 0.56f, 0.6f); RenderSettings.ambientEquatorColor = new Color(0.6f, 0.44f, 0.34f); RenderSettings.ambientGroundColor = new Color(0.22f, 0.15f, 0.12f);
+            var old = cam.GetComponent<MenuCameraController>(); if (old != null) old.enabled = false;
+            cam.farClipPlane = Mathf.Max(cam.farClipPlane, 900f);
+            Ready = true; Drift();
+        }
+
+        void LateUpdate() { if (Ready) Drift(); }
+        void Drift()
+        {
+            t += Time.unscaledDeltaTime;
+            float sway = Mathf.Sin(t * 0.045f) * 34f, rise = 9f + 5f * (0.5f + 0.5f * Mathf.Sin(t * 0.03f));
+            cam.transform.position = new Vector3(b.center.x - 55f + sway, rise, b.max.z + 105f);   // the menu panel sits on the left, so the temple is framed to the right
+            cam.transform.LookAt(new Vector3(b.center.x + 18f, b.size.y * 0.42f, b.center.z));
+        }
+    }
+}

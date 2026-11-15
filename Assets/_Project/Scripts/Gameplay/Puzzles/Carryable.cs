@@ -15,13 +15,14 @@ namespace LegacyOfTemples.Gameplay.Puzzles
         Transform carrier;
 
         public string Id => "carry." + name;
-        public string Prompt => Held == this ? "Put down " + displayName : Held != null ? "" : "Pick up " + displayName;
+        public string Prompt => Held == this ? (SocketInReach() != null ? "Place " : "Put down ") + displayName : Held != null ? "" : "Pick up " + displayName;
         public Transform Anchor => transform;
         public float Radius => Held != null && Held != this ? 0f : radius;
 
         public void Interact()
         {
-            if (Held == this) { Drop(); return; }
+            if (!isActiveAndEnabled) return;   // switched off = not usable yet (for example a lantern with no oil)
+            if (Held == this) { var socket = SocketInReach(); if (socket != null) socket.Place(this); else Drop(); return; }
             if (Held != null) return;
             var pc = FindAnyObjectByType<LegacyOfTemples.Characters.PlayerController>();
             if (pc != null) PickUp(pc.transform);
@@ -31,7 +32,7 @@ namespace LegacyOfTemples.Gameplay.Puzzles
         {
             if (InSocket != null) InSocket.Remove();
             carrier = by; Held = this;
-            foreach (var c in GetComponentsInChildren<Collider>()) c.enabled = false;
+            foreach (var c in GetComponentsInChildren<Collider>()) if (!c.isTrigger) c.enabled = false;   // the trigger stays on so E can still reach the held thing
             var rb = GetComponent<Rigidbody>(); if (rb != null) rb.isKinematic = true;
         }
         public void Drop()
@@ -46,6 +47,20 @@ namespace LegacyOfTemples.Gameplay.Puzzles
             if (Held == this) Held = null; carrier = null;
             foreach (var c in GetComponentsInChildren<Collider>()) c.enabled = true;
         }
+        /// <summary>An empty socket that takes this item and is within reach of whoever carries it.</summary>
+        PlacementSocket SocketInReach()
+        {
+            if (carrier == null) return null;
+            PlacementSocket best = null; float bd = float.MaxValue;
+            foreach (var s in FindObjectsByType<PlacementSocket>())
+            {
+                if (s.locked || s.Item != null || !s.Fits(this)) continue;
+                float d = Vector3.Distance(carrier.position, s.transform.position);
+                if (d <= s.radius && d < bd) { bd = d; best = s; }
+            }
+            return best;
+        }
+
         void LateUpdate()
         {
             if (Held != this || carrier == null) return;

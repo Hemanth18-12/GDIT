@@ -17,7 +17,7 @@ namespace LegacyOfTemples.Gameplay.Puzzles
         public string Prompt => locked ? "" : Item == null && Carryable.Held != null && Fits(Carryable.Held) ? "Place " + Carryable.Held.displayName : Item != null && Carryable.Held == null ? "Take " + Item.displayName : "";
         public Transform Anchor => transform;
         public float Radius => string.IsNullOrEmpty(Prompt) ? 0f : radius;
-        bool Fits(Carryable c) => takesAnyItem || c.itemKey == acceptsKey;
+        public bool Fits(Carryable c) => c != null && (takesAnyItem || c.itemKey == acceptsKey);
 
         public void Interact()
         {

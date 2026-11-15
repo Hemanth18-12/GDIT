@@ -11,6 +11,11 @@ Say "Continue from Docs/PROGRESS.md" to resume. Last update: 2026-11-16.
 - Phase 1C level design: `Docs/LEVEL_DESIGN_V3.md`, map `Docs/QA/v3_map_overview.png`.
 - `Docs/DECISIONS.md` (D-01 to D-10).
 
+## Zone 2 (2026-11-16)
+- Break-in puzzle built in the Courtyard scene (`BreakInPuzzle.cs`) and played end to end by the bot with real key presses: `Docs/QA/v3/zone2_run/audit.md`, pictures `Docs/QA/v3/zone2_sheet.png` (sheet is from the run before the lock plate was moved).
+- Main menu now shows the real temple (`MenuTempleBackdrop.cs`).
+- Not done in zone 2: the lookout fight, the journal evidence board, art polish (walls are textured boxes), old objective panel still shows the old story.
+
 ## In progress
 - Phase 1D core systems (see the list at the bottom of this file for what exists).
 
