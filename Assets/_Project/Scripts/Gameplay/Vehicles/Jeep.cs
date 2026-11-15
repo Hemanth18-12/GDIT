@@ -415,6 +415,7 @@ namespace LegacyOfTemples.Gameplay.Vehicles
             return local.x < 0f ? "left" : "right";
         }
 
+        private float lastHitTime = -10f, lastHitDv;
         private void OnCollisionEnter(Collision c)
         {
             if (rb == null || rb.isKinematic || c.contactCount == 0) return;
@@ -422,10 +423,15 @@ namespace LegacyOfTemples.Gameplay.Vehicles
             var cp = c.GetContact(0);
             if (Vector3.Dot(cp.normal, Vector3.up) > 0.7f) return;          // driving over a kerb or a step is not a crash
             if (c.rigidbody != null && c.rigidbody.mass < 60f) return;      // small loose things (props, fallen parts) do not damage it
-            float dv = Mathf.Abs(Vector3.Dot(c.relativeVelocity, cp.normal)); LastImpact = dv;   // closing speed along the hit: overlap pushes do not count
+            float dv = Mathf.Abs(Vector3.Dot(c.relativeVelocity, cp.normal));   // closing speed along the hit: overlap pushes do not count
             Audio?.Impact(dv);
             if (dv < 2.2f) return;                                          // bumps and scrapes do nothing
-            ApplyDamage(transform.InverseTransformPoint(cp.point), Mathf.Pow(dv - 2.2f, 1.3f) * 3.5f, cp.point, cp.normal);   // one hard wall crash (~40 km/h) leaves it Wrecked, not Destroyed
+            // the bounce-back of the same crash arrives a few frames later: within 0.5 s only the part stronger than the first hit counts
+            float amount = Mathf.Pow(dv - 2.2f, 1.3f) * 3.5f;
+            if (Time.time - lastHitTime < 0.5f) { if (dv <= lastHitDv) return; amount -= Mathf.Pow(lastHitDv - 2.2f, 1.3f) * 3.5f; }
+            else lastHitDv = 0f;
+            lastHitTime = Time.time; lastHitDv = Mathf.Max(lastHitDv, dv); LastImpact = lastHitDv;
+            ApplyDamage(transform.InverseTransformPoint(cp.point), amount, cp.point, cp.normal);   // one hard wall crash (~40 km/h) leaves it Wrecked, not Destroyed
         }
 
         /// <summary>Damage at a point (root-local). Public so tests and the cinematic can exercise it.</summary>

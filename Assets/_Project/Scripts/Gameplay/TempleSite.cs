@@ -123,6 +123,7 @@ namespace LegacyOfTemples.Gameplay
         {
             var cam = Camera.main; var orbit = FindAnyObjectByType<OrbitCamera>();
             if (pc != null) pc.enabled = false; if (orbit != null) orbit.enabled = false;
+            InputGate.CinematicActive = true;   // HUD hints stay away during the reveal
             SetHidden(false);
             if (cam != null)
             {
@@ -140,6 +141,7 @@ namespace LegacyOfTemples.Gameplay
                 }
                 yield return new WaitForSeconds(0.8f);
             }
+            InputGate.CinematicActive = false;
             if (orbit != null) orbit.enabled = true; if (pc != null) pc.enabled = true;
             done?.Invoke();
         }

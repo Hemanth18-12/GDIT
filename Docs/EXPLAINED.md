@@ -207,3 +207,13 @@ Open `Builds/LegacyOfTheTemple.app` (or open Unity → MainMenu → Play). Scree
 - Files: `Gameplay/TempleSite.cs` (SetHidden, Reveal), `Gameplay/IntroCinematic.cs`.
 - Evidence: `Docs/QA/master_reveal/` (log: "SetHidden(True)", "SetHidden(False) parts=29"; s7-handover-objective.png = camera rising with the temple now visible).
 - Not done yet: spline-built roads with a real bend.
+
+## Master Build — Stage 4 (part): each level looks different, rain at the shrine, fairer crash damage
+- **ShrineCrime (Level 3):** steady rain (strength 0.7). Before, `Chapters.cs` forced the rain to 0 in every level; now it uses each level's own setting (`WeatherManager.DefaultFor`).
+- **PuzzleWall:** harsh midday look: high white sun (74°), clear air, bleached colours.
+- **JunglePath:** dusk look: low orange sun (7°) through thick teal mist.
+- Sanctum stays a dark interior; the village stays in golden dawn light.
+- **Crash damage:** the bounce after a crash used to count as a second crash, so a 43 km/h hit destroyed the jeep. Now, within 0.5 s, only a stronger hit adds damage. 43 km/h into a wall = **Wrecked** (59 damage), as intended.
+- **Hints hidden during the temple reveal.**
+- Evidence: `Docs/QA/master_stage4/` (s4-look-*.png, audit.md lines "Level look …", "crash at 43 km/h … Wrecked").
+- Files: `World/LookTuner.cs`, `World/WeatherManager.cs`, `Gameplay/Chapters.cs`, `Gameplay/Vehicles/Jeep.cs`, `Gameplay/TempleSite.cs`.

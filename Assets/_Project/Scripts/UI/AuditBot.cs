@@ -439,6 +439,13 @@ namespace LegacyOfTemples.UI
                 Line($"\n## Jeep spawn height every 0.5 s (10 s): {string.Join(", ", hs.ConvertAll(h => h.ToString("0.000")))}  max-min={(hs.Count > 0 ? (Mathf.Max(hs.ToArray()) - Mathf.Min(hs.ToArray())) : -1f):0.000} m");
                 yield return Shot("s3-jeep-after-intro.png");
                 yield return JeepCheck();
+                foreach (var lv in new[] { "Sanctum", "ShrineCrime", "PuzzleWall", "JunglePath" })
+                {   // Stage 4: each level has its own look (and rain at the shrine)
+                    UnityEngine.SceneManagement.SceneManager.LoadScene(lv); yield return new WaitForSecondsRealtime(5f);
+                    var wm = FindAnyObjectByType<LegacyOfTemples.World.WeatherManager>();
+                    Line($"- Level look {lv}: weather managers={FindObjectsByType<LegacyOfTemples.World.WeatherManager>().Length}, intensity={(wm != null ? wm.Intensity : -1f):0.00}, rain active={(wm != null && wm.RainActive)}, sun={(RenderSettings.sun != null ? RenderSettings.sun.intensity.ToString("0.0") + " at " + RenderSettings.sun.transform.eulerAngles.x.ToString("0") + " deg" : "none")}, fog={RenderSettings.fogDensity:0.0000}");
+                    yield return Shot($"s4-look-{lv}.png");
+                }
                 File.WriteAllText(Path.Combine(output, "audit.md"), report.ToString());
                 Debug.Log("[AuditBot] DONE " + output); yield return new WaitForSecondsRealtime(1f); Application.Quit(); yield break;
             }

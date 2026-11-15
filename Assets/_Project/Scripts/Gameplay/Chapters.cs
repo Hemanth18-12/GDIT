@@ -162,7 +162,7 @@ namespace LegacyOfTemples.Gameplay
             var ch = story.Chapter;
             LookTuner.Dawn = ch != null && ch.id == "ch6" ? 1f : 0f;
             if (ch != null && ch.id == "ch6") w.SetTarget(0f, false, true);          // the storm has cleared at first light
-            else w.SetTarget(0f, false, true);   // rain is kept for the final round only
+            else w.SetTarget(WeatherManager.DefaultFor(scene), false, true);   // steady rain at the shrine crime scene (Level 3); dry elsewhere until the final round
         }
 
         private bool Is(string minigame) => story != null && story.Current != null && story.Current.complete.id == minigame && story.Current.scene == scene;

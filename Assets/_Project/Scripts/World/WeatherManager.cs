@@ -75,7 +75,7 @@ namespace LegacyOfTemples.World
         /// <summary>Default weather per map: drizzle in the courtyard, heavy rain at the outer shrine, storm in the jungle.</summary>
         public static float DefaultFor(string scene)
         {
-            return 0f; // dry by default: rain belongs to the final round (set by the fight)
+            return scene == "ShrineCrime" ? 0.7f : 0f;   // Level 3 is a night crime scene in steady rain; elsewhere dry until the final fight sets the storm
         }
 
         /// <summary>Story override (for example: storm 1.0 in the final fight, 0 at first light).</summary>
@@ -88,13 +88,14 @@ namespace LegacyOfTemples.World
         private void OnScene(string scene)
         {
             Interior = scene == "Sanctum" || scene == "PuzzleWall";
-            if (!overridden) { Target = 0f; Storm = false; }
+            if (!overridden) { Target = DefaultFor(scene); Storm = false; }
             overridden = false;
             Intensity = Target;
             wet.Clear(); wetApplied = -1f; ambSaved = false; thunder.Clear();
             nextLightning = Time.time + Random.Range(6f, 12f);
             bool game = scene == "Courtyard" || scene == "Sanctum" || scene == "ShrineCrime" || scene == "PuzzleWall" || scene == "JunglePath";
             if (!game) { Target = Intensity = 0f; return; }
+            Debug.Log($"[Weather] scene {scene}: target={Target:0.00}, interior={Interior}, quality={GameOptions.WeatherQuality}");
             Invoke(nameof(Collect), 0.6f); // after LookTuner made its material instances and decor
         }
 
