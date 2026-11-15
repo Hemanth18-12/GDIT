@@ -234,3 +234,8 @@ Open `Builds/LegacyOfTheTemple.app` (or open Unity → MainMenu → Play). Scree
 - The next step's title is now "Take the passage to the old wall" (the Sun Wall puzzle was removed).
 - Evidence: `Docs/QA/master_timeline/` (audit.md: wrong pick keeps step 0, right order completes it and the story moves to the Pujari; s4-timeline-four.png shows the board with no overlaps).
 - Files: `Gameplay/Chapters.cs`, `Resources/Story/story.json`, `UI/AuditBot.cs`.
+
+## Tried and removed: jungle jeep chase
+- I built a chase where Bhaskar and Kishore run down the path and you close the gap in the jeep. It did not work in this level: the jungle is an enclosed ruin full of walls and stealth props. Measured from the start, the longest clear straight lane in any of 16 directions is only **23 m** (the jeep needs 60+ m). Screenshot: `Docs/QA/master_chase/s5-chase-driving.png`.
+- So I removed it (no story change; the level plays exactly as before) instead of leaving a step you cannot finish.
+- Better plan: run the chase on the long village road (about 130 m) before the jungle, or open up a road through the jungle level.
