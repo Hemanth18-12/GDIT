@@ -729,8 +729,8 @@
    "chapter": "ch1",
    "scene": "Courtyard",
    "title": "Catch the runner",
-   "instruction": "A hooded figure is running along the east wall. Sprint after him before he gets away.",
-   "keys": "Shift sprint, Space hop",
+   "instruction": "A hooded figure is running out of the gate and down the village road. Take the jeep and get close behind him before he reaches the fields.",
+   "keys": "E jeep, W S drive, A D steer",
    "target": "obj:Marker_Runner",
    "area": "East wall",
    "complete": {
@@ -738,9 +738,9 @@
     "id": "chase_c1"
    },
    "hints": [
-    "Someone was listening.",
-    "Hold Shift and W. Stay within 25 metres of him.",
-    "Follow the small marker. He drops something at the last corner."
+    "He is too fast on foot. The jeep is parked on the road.",
+    "Drive down the road after him.",
+    "Get within a few metres behind him; you do not need to touch him."
    ]
   },
   {
@@ -1142,7 +1142,7 @@
    "id": "c1_ary_08",
    "s": "aryan",
    "tier": "firm",
-   "t": "There. On the wall. Stay here, both of you.",
+   "t": "There, out the gate! Stay here, both of you. I'll take the jeep.",
    "trigger": "start:obj_c1_chase"
   },
   {

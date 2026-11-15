@@ -457,6 +457,33 @@ namespace LegacyOfTemples.UI
             yield return IntroShots();
             yield return SkipIntro();
             if (Array.IndexOf(Environment.GetCommandLineArgs(), "-focusCheck") >= 0) { yield return FocusCheck(); yield break; }
+            if (Array.IndexOf(Environment.GetCommandLineArgs(), "-chaseFocus") >= 0)
+            {   // Level 1 runner chase in the jeep: real E to get in; the bot steers through the car's autopilot (it cannot see the road)
+                var st = StoryDialogueSystem.Instance; int guard = 0;
+                var pc0 = FindAnyObjectByType<PlayerController>();
+                if (pc0 != null && LegacyOfTemples.World.Village.GatePos != Vector3.zero) pc0.Teleport(LegacyOfTemples.World.Village.GatePos - Vector3.forward * 10f, Quaternion.LookRotation(Vector3.forward));   // start inside the courtyard, as in the story
+                yield return new WaitForSecondsRealtime(1f);
+                while (st != null && st.Current != null && st.Current.id != "obj_c1_chase" && guard++ < 10) { st.DebugCompleteCurrent(); yield return null; }
+                yield return new WaitForSecondsRealtime(2.5f);
+                var cd = ChapterDirector.Instance; var jp = LegacyOfTemples.Gameplay.Vehicles.Jeep.Instance; var pc = FindAnyObjectByType<PlayerController>();
+                Line($"\n## Runner chase: objective {st?.Current?.id}, running={(cd != null && cd.ChaseRunning)}, jeep={jp != null}");
+                yield return Shot("s5-chase-start.png");
+                // run to the jeep on foot (about the time a player needs), then get in
+                if (jp != null) { float run = Vector3.Distance(pc.transform.position, jp.DriverExitPoint) / 6.5f; Line($"  run to the jeep: {Vector3.Distance(pc.transform.position, jp.DriverExitPoint):0} m, waiting {run:0.0} s"); yield return new WaitForSecondsRealtime(run); pc.Teleport(jp.DriverExitPoint, Quaternion.LookRotation(jp.transform.position - jp.DriverExitPoint)); yield return new WaitForSecondsRealtime(0.8f); yield return Tap(Key.E); yield return new WaitForSecondsRealtime(2.4f); }
+                Line($"  in the jeep={jp != null && jp.Occupied}, runner {(cd != null ? cd.ChaseDistance : -1f):0} m away");
+                float w = 0f; bool shot = false;
+                while (w < 40f && st.Current != null && st.Current.id == "obj_c1_chase")
+                {
+                    var r = GameObject.Find("Marker_Runner");
+                    if (jp != null && r != null) { Vector3 to = r.transform.position - jp.transform.position; to.y = 0f; jp.Car.autopilot = true; jp.Car.autoSteer = Mathf.Clamp(Vector3.SignedAngle(Vector3.ProjectOnPlane(jp.transform.forward, Vector3.up), to, Vector3.up) / 25f, -1f, 1f); jp.Car.autoThrottle = to.magnitude > 14f ? 1f : 0.4f; jp.Car.autoBrake = false; }
+                    if (!shot && jp != null && jp.Car.CurrentSpeed > 6f) { shot = true; yield return Shot("s5-chase-driving.png"); }
+                    w += Time.unscaledDeltaTime; yield return null;
+                }
+                yield return new WaitForSecondsRealtime(2.5f); yield return Shot("s5-chase-caught.png");
+                Line($"  after {w:0.0} s: objective now {st.Current?.id}, token on the ground={(GameObject.Find("Clue_Token17") != null)}, jeep occupied={jp != null && jp.Occupied}, failed={(DawnClock.Instance != null && DawnClock.Instance.OutOfTime)}");
+                File.WriteAllText(Path.Combine(output, "audit.md"), report.ToString());
+                Debug.Log("[AuditBot] DONE " + output); yield return new WaitForSecondsRealtime(1f); Application.Quit(); yield break;
+            }
             if (Array.IndexOf(Environment.GetCommandLineArgs(), "-lockFocus") >= 0)
             {   // Level 2 combination lock only
                 var st = StoryDialogueSystem.Instance; int guard = 0;

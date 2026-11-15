@@ -207,19 +207,11 @@ namespace LegacyOfTemples.Gameplay
         {
             ChaseRunning = true; seg = 0; lostTimer = 0f; chaseTime = 0f; barked = false;
             path.Clear();
-            Vector3 c = player.transform.position; float baseY = c.y;
-            for (int i = 0; i <= 20; i++)
-            {   // one and a quarter laps of the courtyard, pulled inward wherever a wall or prop is in the way
-                float ang = (i / 16f) * Mathf.PI * 2f; float r = 14f;
-                Vector3 q = c;
-                for (int k = 0; k < 8; k++, r -= 1.3f)
-                {
-                    q = c + new Vector3(Mathf.Cos(ang), 0f, Mathf.Sin(ang)) * r;
-                    Vector3 g = Fx.Ground(q);
-                    if (Mathf.Abs(g.y - baseY) < 0.6f && !Physics.CheckSphere(g + Vector3.up * 1f, 0.45f, ~0, QueryTriggerInteraction.Ignore)) { q = g; break; }
-                }
-                path.Add(q);
-            }
+            // out through the courtyard gate and down the village road towards the fields: too fast on foot, so take the jeep
+            Vector3 gate = Village.GatePos != Vector3.zero ? Village.GatePos : Village.Centre + Vector3.forward * 20f;
+            Vector3 start = player.transform.position + Vector3.ProjectOnPlane(gate - player.transform.position, Vector3.up).normalized * 6f;
+            path.Add(Fx.Ground(start)); path.Add(Fx.Ground(gate - Vector3.forward * 3f)); path.Add(Fx.Ground(gate + Vector3.forward * 4f));
+            for (float z = gate.z + 10f; z <= Village.ZMax + 122f; z += 6f) path.Add(Fx.Ground(Village.RoadPoint(z) + Vector3.left * 1.8f));
             GameObject go = null;
             if (CharacterManager.Instance != null) go = CharacterManager.Instance.SpawnNpc(Constants.Robber2, path[0], Quaternion.identity);
             if (go == null) go = Fx.Prim(PrimitiveType.Capsule, "Runner", null, path[0] + Vector3.up, new Vector3(0.6f, 0.9f, 0.6f), Fx.Lit(new Color(0.05f, 0.05f, 0.06f)));
@@ -229,33 +221,38 @@ namespace LegacyOfTemples.Gameplay
             foreach (var col in go.GetComponentsInChildren<Collider>()) col.enabled = false;
             if (go.GetComponent<NpcAnimDriver>() == null) go.AddComponent<NpcAnimDriver>();
             runner = go.transform;
+            ObjectiveBanner.Show("HE IS RUNNING FOR THE FIELDS", "TAKE THE JEEP", 3f);
         }
 
+        public const float RunnerSpeed = 5.6f, CatchInJeep = 6f, CatchOnFoot = 2.2f;
         private void UpdateChase()
         {
-            if (!Is("chase_c1")) { if (runner != null && !ChaseRunning) { } return; }
+            if (!Is("chase_c1")) return;
             if (!ChaseRunning) { if (InputGate.UiOpen != null && InputGate.UiOpen()) return; StartChase(); return; }
             if (runner == null || DawnClock.Instance == null || DawnClock.Instance.OutOfTime) return;
             chaseTime += Time.deltaTime;
-            Vector3 to = player.transform.position - runner.position; to.y = 0f;
+            var jeep = Vehicles.Jeep.Instance; bool driving = jeep != null && jeep.Occupied;
+            Vector3 me = driving ? jeep.transform.position : player.transform.position;
+            Vector3 to = me - runner.position; to.y = 0f;
             ChaseDistance = to.magnitude;
-            float speed = Mathf.Lerp(4.7f, 3.2f, Mathf.InverseLerp(5f, 16f, ChaseDistance)); // rubber band: he stays just ahead
+            if (ChaseDistance < (driving ? CatchInJeep : CatchOnFoot)) { EndChase(); return; }
             Vector3 target = path[Mathf.Min(seg + 1, path.Count - 1)];
             Vector3 d = target - runner.position; d.y = 0f;
-            if (d.magnitude < 0.6f) { seg++; if (seg >= path.Count - 1) { EndChase(); return; } }
+            if (d.magnitude < 0.6f) { seg++; if (seg >= path.Count - 1) { lostTimer = 99f; } }
             else
             {
+                float speed = ChaseDistance < 10f ? RunnerSpeed * 1.08f : RunnerSpeed;   // a last burst when the jeep is on him
                 Vector3 np = runner.position + d.normalized * speed * Time.deltaTime;
                 np.y = Fx.Floor(np, runner);
                 runner.position = np;
                 runner.rotation = Quaternion.Slerp(runner.rotation, Quaternion.LookRotation(d.normalized), Time.deltaTime * 8f);
             }
-            if (StoryFlags.Get("chase_hint") == 1 && chaseTime < 6f) ScreenText.WorldLabel("runner", runner.position + Vector3.up * 2.2f, "THE RUNNER", new Color(1f, 0.78f, 0.34f));
+            if (chaseTime < 6f) ScreenText.WorldLabel("runner", runner.position + Vector3.up * 2.2f, "THE RUNNER", new Color(1f, 0.78f, 0.34f));
             if (!barked && chaseTime > 8f) { barked = true; story.Say("chase_mid"); }
-            lostTimer = ChaseDistance > 25f ? lostTimer + Time.deltaTime : 0f;
-            string col = ChaseDistance > 18f ? ScreenText.Coral : ScreenText.Green;
-            ScreenText.Panel("chase", null, $"<b>CHASE</b>  He is <color={col}>{ChaseDistance:0} m</color> ahead. Do not let him get 25 m away.\n{ScreenText.Key("Shift")} Sprint", PanelAnchor.TopRight, 600f, null, false, 4);
-            if (lostTimer > 1.5f) { ChaseRunning = false; Destroy(runner.gameObject); DawnClock.Instance.Penalty(2f, "lost the runner"); DawnClock.Instance.Fail("He is gone. The runner got away over the wall."); }
+            float left = Mathf.Max(0f, Village.ZMax + 122f - runner.position.z);
+            string col = left < 30f ? ScreenText.Coral : ScreenText.Green;
+            ScreenText.Panel("chase", null, $"<b>CHASE</b>  He is {ChaseDistance:0} m ahead, <color={col}>{left:0} m</color> from the fields.\n" + (driving ? "Get close behind him. No need to touch him." : $"Too fast on foot: {ScreenText.Key("E")} at the jeep to drive"), PanelAnchor.TopRight, 600f, null, false, 4);
+            if (lostTimer > 1f) { ChaseRunning = false; Destroy(runner.gameObject); DawnClock.Instance.Penalty(2f, "lost the runner"); DawnClock.Instance.Fail("He reached the fields and was gone."); }
         }
 
         /// <summary>Bot / test hook: finish the chase now (drops the token).</summary>

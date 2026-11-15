@@ -245,3 +245,9 @@ Open `Builds/LegacyOfTheTemple.app` (or open Unity → MainMenu → Play). Scree
 - Everything beside the road follows the bend: the shade trees, electric poles and wires, street lamps, the SURYAPUR VILLAGE arch and the jeep's start point (`Village.RoadOffset` / `Village.RoadPoint`). In the intro the jeep stays in its lane through the bend.
 - Evidence: `Docs/QA/master_road/` (s7-intro-07: aerial view of the bend with kerbs and trees following it; s7-intro-10: the jeep on the kerbed road). Driving check: 42 km/h, 21.7 m in 3.5 s. Crash and exit checks are unchanged.
 - Files: `World/Village.cs`, `World/LOT.World.asmdef` (+Unity.Splines, Unity.Mathematics), `Gameplay/VillageLife.cs`, `Gameplay/IntroCinematic.cs`.
+
+## Level 1: "Catch the runner" is now a jeep chase on the village road
+- The hooded runner now bolts out of the courtyard gate and down the spline road towards the fields. On foot he is too fast, so run to the parked jeep (E) and drive after him. Get within 6 m behind him (no need to touch him) and he trips and drops porter token No. 17, as before. If he reaches the fields (the end of the road), you fail and get the usual retry.
+- Aryan's line is now "There, out the gate! Stay here, both of you. I'll take the jeep." The hints explain the jeep.
+- Evidence (test where the bot started next to the jeep): caught after 3.4 s in the jeep, token dropped, story moved on to "Pick up what he dropped" (`Docs/QA/master_runner/`). The fairer test, starting inside the courtyard, was stopped before it finished, so it is not verified yet.
+- Files: `Gameplay/Chapters.cs` (StartChase / UpdateChase), `Resources/Story/story.json`, `UI/AuditBot.cs` (-chaseFocus).

@@ -11,3 +11,4 @@
 - Level 3 evidence timeline board added (Docs/QA/master_timeline). RESUME FROM: jungle jeep chase, spline roads, Stage 5-7.
 - Jungle jeep chase attempted and removed: JunglePath longest clear lane 23 m (Docs/QA/master_chase). Proposal: chase on the village road. RESUME FROM: chase on village road (needs decision), spline roads, Stage 5-7.
 - Spline approach road with bend + kerbs (Docs/QA/master_road). RESUME FROM: jeep chase on the village road, Stage 5 framing, Stage 6 fixes, Stage 7 video.
+- Runner chase now by jeep on the village road (Docs/QA/master_runner); the courtyard-start test is still to run. RESUME FROM: run -chaseFocus once, Stage 5 framing, Stage 6 fixes, Stage 7 video.
