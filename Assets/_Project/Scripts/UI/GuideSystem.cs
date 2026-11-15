@@ -98,9 +98,17 @@ namespace LegacyOfTemples.UI
         public void Toggle() { IsOpen = !IsOpen; if (IsOpen) WayShown = true; }
         public void RevealHint(int level)
         {
+            var puzzle = NearPuzzle();
+            if (puzzle != null) { while (puzzle.HintsUsed < Mathf.Clamp(level, 0, 3)) puzzle.NextHint(); return; }   // V3: a physical puzzle nearby gives its own three hints
             var o = StoryDialogueSystem.Instance?.Current;
             if (o == null) return;
             if (level > HintLevel) { HintLevel = Mathf.Clamp(level, 0, 3); StoryDialogueSystem.Instance.RegisterHintUsed(); }
+        }
+        /// <summary>The unsolved physical puzzle the player is standing near, if any.</summary>
+        private static LegacyOfTemples.Gameplay.Puzzles.PuzzleGroup NearPuzzle()
+        {
+            var pc = FindAnyObjectByType<LegacyOfTemples.Characters.PlayerController>();
+            return pc != null ? LegacyOfTemples.Gameplay.Puzzles.PuzzleGroup.Nearest(pc.transform.position) : null;
         }
         public void ShowTheWay(bool on) { WayShown = on; if (!on) ClearWorldMarkers(); }
 
@@ -170,9 +178,15 @@ namespace LegacyOfTemples.UI
             }
             sb.Append($"<color={ScreenText.Gold}><b>HINTS</b></color>\n");
             string[] names = { "General", "Specific", "Direct answer" };
+            var nearPuzzle = NearPuzzle();
             for (int i = 0; i < 3; i++)
             {
-                if (o.hints != null && i < o.hints.Length && HintLevel > i) sb.Append($"{i + 1}. {names[i]}: {o.hints[i]}\n");
+                if (nearPuzzle != null)
+                {
+                    if (nearPuzzle.HintsUsed > i && nearPuzzle.hints != null && i < nearPuzzle.hints.Length) sb.Append($"{i + 1}. {nearPuzzle.hints[i]}\n");
+                    else sb.Append($"{ScreenText.Key((i + 1).ToString())} Show hint {i + 1}\n");
+                }
+                else if (o.hints != null && i < o.hints.Length && HintLevel > i) sb.Append($"{i + 1}. {names[i]}: {o.hints[i]}\n");
                 else sb.Append($"{ScreenText.Key((i + 1).ToString())} Show {names[i].ToLowerInvariant()} hint\n");
             }
             string footer = $"{ScreenText.Key("Enter")} {(WayShown ? "Hide the way" : "SHOW ME THE WAY")}    {ScreenText.Key("H")} / {ScreenText.Key("Tab")} Close";

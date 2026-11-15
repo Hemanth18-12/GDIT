@@ -183,6 +183,7 @@ namespace LegacyOfTemples.Characters
 
             Vector2 lookDelta = mouseDelta + gamepadDelta + LegacyOfTemples.Core.VirtualInput.Look; // + drag on the right half (on-screen controls)
             LegacyOfTemples.Core.VirtualInput.Look = Vector2.zero;
+            lookDelta *= LegacyOfTemples.Core.GameOptions.LookSensitivity; if (LegacyOfTemples.Core.GameOptions.InvertY) lookDelta.y = -lookDelta.y;   // Settings: mouse sensitivity, invert Y
 
             if (canOrbit && lookDelta.sqrMagnitude > 0.001f)
             {

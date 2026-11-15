@@ -1,15 +1,17 @@
 {
-  "name": "LOT.Grounding.PlayModeTests",
-  "references": [
-    "LOT.Characters",
-    "LOT.Core",
-    "LOT.Gameplay",
-    "LOT.UI",
-    "Unity.InputSystem",
-    "Unity.InputSystem.TestFramework",
-    "LOT.World"
-  ],
-  "optionalUnityReferences": [
-    "TestAssemblies"
-  ]
+    "name": "LOT.Grounding.PlayModeTests",
+    "references": [
+        "LOT.Characters",
+        "LOT.Core",
+        "LOT.Gameplay",
+        "LOT.UI",
+        "Unity.InputSystem",
+        "Unity.InputSystem.TestFramework",
+        "LOT.World",
+        "Unity.RenderPipelines.Universal.Runtime",
+        "Unity.RenderPipelines.Core.Runtime"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ]
 }

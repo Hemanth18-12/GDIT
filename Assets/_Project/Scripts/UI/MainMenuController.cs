@@ -145,6 +145,10 @@ namespace LegacyOfTemples.UI
                     AddText("MenuTitle", "GAMEPLAY", 64, ScreenTextRenderer.Gold, true, TextAlignmentOptions.Center);
                     first = AddButton("Difficulty: " + GameOptions.DifficultyNames[GameOptions.Difficulty], () => { GameOptions.Difficulty = (GameOptions.Difficulty + 1) % 3; Show(Screen.Gameplay); });
                     AddButton("Weather effects: " + GameOptions.WeatherNames[GameOptions.WeatherQuality], () => { GameOptions.WeatherQuality = (GameOptions.WeatherQuality + 1) % 3; Show(Screen.Gameplay); });
+                    AddButton("Graphics: " + GameOptions.GraphicsNames[GameOptions.Graphics], () => { GameOptions.Graphics = (GameOptions.Graphics + 1) % 4; Show(Screen.Gameplay); });
+                    AddButton("Fullscreen: " + (GameOptions.Fullscreen ? "ON" : "OFF"), () => { GameOptions.Fullscreen = !GameOptions.Fullscreen; Show(Screen.Gameplay); });
+                    AddButton("Mouse speed: " + GameOptions.SensitivityNames[GameOptions.SensitivityIndex], () => { GameOptions.SensitivityIndex = (GameOptions.SensitivityIndex + 1) % 4; Show(Screen.Gameplay); });
+                    AddButton("Invert look up/down: " + (GameOptions.InvertY ? "ON" : "OFF"), () => { GameOptions.InvertY = !GameOptions.InvertY; Show(Screen.Gameplay); });
                     AddButton("On-screen controls: " + GameOptions.TouchNames[GameOptions.TouchMode], () => { GameOptions.TouchMode = (GameOptions.TouchMode + 1) % 3; Show(Screen.Gameplay); });
                     AddButton("Button size: " + GameOptions.SizeNames[GameOptions.TouchSize], () => { GameOptions.TouchSize = (GameOptions.TouchSize + 1) % 3; Show(Screen.Gameplay); });
                     AddButton("Button opacity: " + GameOptions.OpacityNames[GameOptions.TouchOpacityIndex], () => { GameOptions.TouchOpacityIndex = (GameOptions.TouchOpacityIndex + 1) % 3; Show(Screen.Gameplay); });

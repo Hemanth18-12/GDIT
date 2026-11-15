@@ -26,6 +26,16 @@ namespace LegacyOfTemples.Core
         public static float WallResetSeconds => D(120f, 90f, 70f);
         public static int GuideCostMinutes => Difficulty == 0 ? 0 : 1;
 
+        // ---- graphics and camera (V3) ----
+        public static readonly string[] GraphicsNames = { "Low", "Medium", "High", "Ultra" };
+        /// <summary>Graphics preset. High is the default.</summary>
+        public static int Graphics { get => Mathf.Clamp(Get("Settings_Graphics", 2), 0, 3); set => Set("Settings_Graphics", Mathf.Clamp(value, 0, 3)); }
+        public static bool Fullscreen { get => Get("Settings_Fullscreen", 1) == 1; set => Set("Settings_Fullscreen", value ? 1 : 0); }
+        public static readonly string[] SensitivityNames = { "Slow", "Normal", "Fast", "Very fast" };
+        public static int SensitivityIndex { get => Mathf.Clamp(Get("Settings_Sensitivity", 1), 0, 3); set => Set("Settings_Sensitivity", Mathf.Clamp(value, 0, 3)); }
+        public static float LookSensitivity => SensitivityIndex == 0 ? 0.6f : SensitivityIndex == 1 ? 1f : SensitivityIndex == 2 ? 1.4f : 1.9f;
+        public static bool InvertY { get => Get("Settings_InvertY", 0) == 1; set => Set("Settings_InvertY", value ? 1 : 0); }
+
         // ---- weather quality ----
         public static readonly string[] WeatherNames = { "Off", "Low", "High" };
         public static int WeatherQuality { get => Mathf.Clamp(Get("Settings_Weather", 2), 0, 2); set => Set("Settings_Weather", Mathf.Clamp(value, 0, 2)); }

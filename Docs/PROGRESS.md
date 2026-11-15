@@ -25,5 +25,20 @@ Say "Continue from Docs/PROGRESS.md" to resume. Last update: 2026-11-16.
 - Performance has never been measured.
 - The old five scenes are still the playable game until the new zones replace them (D-09).
 
-## Phase 1D status
-(updated as each system lands)
+## Phase 1D status (2026-11-16)
+| System | State | Evidence |
+|---|---|---|
+| Puzzle framework: discs, mirrors, levers, plates, pushable blocks, valves and water level, sound lock, carry and place, shadow match, light beams and sockets; saved, resettable, three hints | Built and tested (logic only, no art yet) | `Docs/QA/v3/core_systems_tests.txt` |
+| Scoring and grades, high-score table | Built and tested; no screen shows it yet | same |
+| Checkpoints (save and restore position) | Built and tested; not yet called by any zone | same |
+| Puzzle hints in the H guide | Wired in code; not seen in the running game yet | code |
+| Graphics presets, fullscreen, mouse speed, invert look | Built; preset test passes; the new menu rows have not been looked at in the running game | same |
+| Per-zone look profiles (6) | Built and tested; not placed in any scene yet | same |
+| Lip sync and blinking | Built; works on Meera (visemes) and the Investigator (jaw bone); Pujari, villagers and robbers have no face rig; not yet watched with a real voice line | same |
+| Journal evidence board for the inside man | NOT STARTED | |
+| Menu live background on the temple | NOT STARTED (still faces a wall) | |
+| Death and retry flow | NOT STARTED | |
+| Lighting pipeline items (probes, reflection probes, SSAO, wet shader, decals) | NOT STARTED | |
+| Performance measurement | NOT STARTED | |
+
+Phase 1 is therefore NOT fully closed: the documents and the tested systems above are done, the five rows marked NOT STARTED remain.
