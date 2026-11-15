@@ -151,9 +151,11 @@ namespace LegacyOfTemples.Gameplay.Vehicles
             else if (noThrottle && coastBrakeForce > 0f)
                 currentBrakeForce = coastBrakeForce * (coastBrakeStopSpeed > 0f ? Mathf.Lerp(2f, 1f, Mathf.Clamp01(Mathf.Abs(fwd) / coastBrakeStopSpeed)) : 1f);
             else currentBrakeForce = 0f;
-            float fb = currentBrakeForce * frontBrakeBias;
-            frontLeftWheel.brakeTorque = frontRightWheel.brakeTorque = fb;
-            rearLeftWheel.brakeTorque = rearRightWheel.brakeTorque = currentBrakeForce;
+            // The front axle takes the larger share (frontBrakeBias), like a real car. It used to be the other way round
+            // (rear 100 %, front 60 %), which locks the rear wheels first and can spin the car under hard braking.
+            float bias = Mathf.Clamp(frontBrakeBias, 0.5f, 0.9f);
+            frontLeftWheel.brakeTorque = frontRightWheel.brakeTorque = currentBrakeForce;
+            rearLeftWheel.brakeTorque = rearRightWheel.brakeTorque = currentBrakeForce * (1f - bias) / bias;
         }
 
         private void HandleSteering()

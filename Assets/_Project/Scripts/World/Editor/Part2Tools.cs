@@ -64,28 +64,36 @@ namespace LegacyOfTemples.World.Editor
         public static void BuildJeep()
         {
             Directory.CreateDirectory(JeepDir + "/Materials"); AssetDatabase.Refresh();
+            AssetDatabase.ImportAsset(JeepDir, ImportAssetOptions.ImportRecursive | ImportAssetOptions.ForceSynchronousImport);
             string M(string n) => JeepDir + "/Materials/" + n + ".mat";
+            Texture2D Tex(string n) => AssetDatabase.LoadAssetAtPath<Texture2D>(JeepDir + "/Textures/" + n + ".png");
+            Material WithMap(Material m, Texture2D t) { if (t != null) { m.SetTexture("_BaseMap", t); m.mainTexture = t; EditorUtility.SetDirty(m); } return m; }
+            // Colours are the Blender (linear) values from Tools/blender/build_jeep_v2.py. Default paint is military olive; Jeep.SetPaint tints it.
+            var paint = WithMap(Lit(M("MAT_Paint_Body"), G(0.072f, 0.098f, 0.042f), 0.1f, 0.55f), Tex("T_Jeep_PaintDirt"));
+            var emblem = WithMap(Lit(M("MAT_Gold_Emblem"), Color.white, 0.5f, 0.6f), Tex("T_Jeep_Emblem"));
+            emblem.SetFloat("_AlphaClip", 1f); emblem.SetFloat("_Cutoff", 0.4f); emblem.EnableKeyword("_ALPHATEST_ON"); emblem.renderQueue = (int)RenderQueue.AlphaTest; emblem.SetOverrideTag("RenderType", "TransparentCutout");
             var mats = new Dictionary<string, Material>
             {
-                { "MAT_Paint_Body", Lit(M("MAT_Paint_Body"), G(0.82f, 0.82f, 0.80f), 0.25f, 0.8f) },
-                { "MAT_Hardtop_Black", Lit(M("MAT_Hardtop_Black"), G(0.03f, 0.03f, 0.03f), 0f, 0.35f) },
-                { "MAT_BlackTrim", Lit(M("MAT_BlackTrim"), G(0.02f, 0.02f, 0.02f), 0.1f, 0.4f) },
-                { "MAT_Rubber", Lit(M("MAT_Rubber"), G(0.018f, 0.018f, 0.018f), 0f, 0.12f) },
-                { "MAT_Alloy", Lit(M("MAT_Alloy"), G(0.035f, 0.035f, 0.04f), 0.9f, 0.6f) },
-                { "MAT_Chrome", Lit(M("MAT_Chrome"), G(0.8f, 0.8f, 0.8f), 1f, 0.9f) },
-                { "MAT_Glass", Lit(M("MAT_Glass"), G(0.03f, 0.05f, 0.05f), 0f, 0.95f, null, 0.35f) },
-                { "MAT_Light_Head", Lit(M("MAT_Light_Head"), G(1f, 0.96f, 0.85f), 0f, 0.9f, Color.black) },
-                { "MAT_Light_Tail", Lit(M("MAT_Light_Tail"), G(0.5f, 0.02f, 0.02f), 0f, 0.8f, Color.black) },
-                { "MAT_Light_Reverse", Lit(M("MAT_Light_Reverse"), G(0.9f, 0.9f, 0.9f), 0f, 0.8f, Color.black) },
-                { "MAT_Light_Indicator", Lit(M("MAT_Light_Indicator"), G(1f, 0.5f, 0.05f), 0f, 0.8f, Color.black) },
-                { "MAT_Gold_Emblem", Lit(M("MAT_Gold_Emblem"), G(0.83f, 0.62f, 0.22f), 1f, 0.7f) },
-                { "MAT_Interior", Lit(M("MAT_Interior"), G(0.06f, 0.055f, 0.05f), 0f, 0.25f) },
-                { "MAT_Seat_Leather", Lit(M("MAT_Seat_Leather"), G(0.11f, 0.075f, 0.05f), 0f, 0.4f) },
-                { "MAT_Plate", Lit(M("MAT_Plate"), G(0.92f, 0.92f, 0.88f), 0f, 0.5f) },
-                { "MAT_Undercarriage", Lit(M("MAT_Undercarriage"), G(0.035f, 0.035f, 0.04f), 0.4f, 0.3f) },
-                { "Jeep_Screen", Lit(M("MAT_Screen"), G(0.05f, 0.18f, 0.3f), 0f, 0.8f, new Color(0.1f, 0.4f, 0.7f)) },
-                { "Jeep_Paint_Scuffed", Lit(M("MAT_Paint_Red_Scuffed"), G(0.52f, 0.50f, 0.46f), 0.2f, 0.35f) },
-                { "Jeep_Paint_Burnt", Lit(M("MAT_Paint_Burnt"), G(0.035f, 0.032f, 0.028f), 0.3f, 0.15f) },
+                { "MAT_Paint_Body", paint },
+                { "MAT_Paint_Scuffed", WithMap(Lit(M("MAT_Paint_Red_Scuffed"), G(0.085f, 0.10f, 0.055f), 0.1f, 0.25f), Tex("T_Jeep_PaintDirt")) },
+                { "MAT_Paint_Burnt", Lit(M("MAT_Paint_Burnt"), G(0.012f, 0.010f, 0.008f), 0.3f, 0.12f) },
+                { "MAT_Hardtop_Black", Lit(M("MAT_Hardtop_Black"), G(0.012f, 0.012f, 0.012f), 0f, 0.35f) },
+                { "MAT_BlackTrim", Lit(M("MAT_BlackTrim"), G(0.012f, 0.012f, 0.013f), 0.1f, 0.45f) },
+                { "MAT_Rubber", Lit(M("MAT_Rubber"), G(0.012f, 0.012f, 0.012f), 0f, 0.12f) },
+                { "MAT_Alloy", Lit(M("MAT_Alloy"), G(0.02f, 0.02f, 0.022f), 0.9f, 0.62f) },
+                { "MAT_Steel_Machined", Lit(M("MAT_Steel_Machined"), G(0.45f, 0.45f, 0.47f), 1f, 0.7f) },
+                { "MAT_Chrome", Lit(M("MAT_Chrome"), G(0.72f, 0.72f, 0.74f), 1f, 0.9f) },
+                { "MAT_Glass", Lit(M("MAT_Glass"), G(0.02f, 0.035f, 0.04f), 0f, 0.95f, null, 0.42f) },
+                { "MAT_Light_Head", Lit(M("MAT_Light_Head"), G(1f, 0.94f, 0.80f), 0f, 0.9f, Color.black) },
+                { "MAT_Light_Tail", Lit(M("MAT_Light_Tail"), G(0.55f, 0.01f, 0.01f), 0f, 0.8f, Color.black) },
+                { "MAT_Light_Reverse", Lit(M("MAT_Light_Reverse"), G(0.85f, 0.85f, 0.85f), 0f, 0.8f, Color.black) },
+                { "MAT_Light_Indicator", Lit(M("MAT_Light_Indicator"), G(1f, 0.42f, 0.02f), 0f, 0.8f, Color.black) },
+                { "MAT_Gold_Emblem", emblem },
+                { "MAT_Interior", Lit(M("MAT_Interior"), G(0.018f, 0.018f, 0.02f), 0f, 0.3f) },
+                { "MAT_Seat_Leather", Lit(M("MAT_Seat_Leather"), G(0.045f, 0.045f, 0.05f), 0f, 0.42f) },
+                { "MAT_Plate", WithMap(Lit(M("MAT_Plate"), Color.white, 0f, 0.5f), Tex("T_Jeep_Plate")) },
+                { "MAT_Undercarriage", Lit(M("MAT_Undercarriage"), G(0.02f, 0.02f, 0.022f), 0.5f, 0.35f) },
+                { "MAT_Screen", Lit(M("MAT_Screen"), G(0.01f, 0.04f, 0.08f), 0f, 0.85f, new Color(0.05f, 0.2f, 0.38f)) },
             };
             Material Pick(string n) { foreach (var kv in mats) if (n == kv.Key || n.StartsWith(kv.Key)) return kv.Value; return mats["MAT_BlackTrim"]; }
             foreach (var f in new[] { "Car_Model", "Car_Model_LOD1", "Car_Model_LOD2", "Car_Damage_Damaged", "Car_Damage_Wrecked", "Car_Damage_Destroyed" })
@@ -104,7 +112,7 @@ namespace LegacyOfTemples.World.Editor
             }
             string[] states = { null, "Car_Damage_Damaged", "Car_Damage_Wrecked", "Car_Damage_Destroyed" };
             for (int i = 1; i < 4; i++) { jeep.bodyStates[i] = Find(states[i], "SM_Jeep_Body"); jeep.hoodStates[i] = Find(states[i], "SM_Jeep_Hood"); }
-            jeep.scuffedPaint = mats["Jeep_Paint_Scuffed"]; jeep.burntPaint = mats["Jeep_Paint_Burnt"]; jeep.interior = mats["MAT_Interior"];
+            jeep.scuffedPaint = mats["MAT_Paint_Scuffed"]; jeep.burntPaint = mats["MAT_Paint_Burnt"]; jeep.interior = mats["MAT_Interior"];
             Directory.CreateDirectory("Assets/_Project/Resources/Vehicles");
             PrefabUtility.SaveAsPrefabAsset(root, "Assets/_Project/Resources/Vehicles/Jeep.prefab");
             Object.DestroyImmediate(root);

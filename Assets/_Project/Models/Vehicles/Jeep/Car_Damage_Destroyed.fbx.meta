@@ -9,6 +9,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: Jeep_Paint_Burnt
     second: {fileID: 2100000, guid: 935102c9a19db43bb9197f30963a362b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_Paint_Burnt
+    second: {fileID: 2100000, guid: 935102c9a19db43bb9197f30963a362b, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

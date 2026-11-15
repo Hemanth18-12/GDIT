@@ -188,6 +188,7 @@ namespace LegacyOfTemples.UI
             { var ys = new System.Collections.Generic.List<string>(); for (int k = 0; k < 16; k++) { yield return new WaitForSecondsRealtime(0.15f); ys.Add($"{pc.transform.position.y:0.00}/{jeep.transform.position.y:0.00}"); }
               Line($"  exit heights player/jeep every 0.15 s: {string.Join(" ", ys)}"); }
             Line($"  after E: occupied={jeep.Occupied}, player enabled={pc.enabled}"); yield return Shot("s3-jeep-got-out.png");
+            MonoBehaviour orbitCam = null; foreach (var mb in FindObjectsByType<MonoBehaviour>()) if (mb != null && mb.GetType().Name == "OrbitCamera" && mb.enabled) { mb.enabled = false; orbitCam = mb; }   // the crash and damage shots place the camera themselves
             var wall = GameObject.Find("Wall_South_L");
             if (wall != null)
             {   // a hard crash into a wall must damage it (a bump must not)
@@ -206,11 +207,12 @@ namespace LegacyOfTemples.UI
                 float need = (k == 1 ? 20f : k == 2 ? 55f : 100f) - jeep.TotalDamage + 1f;
                 jeep.ApplyDamage(new Vector3(k == 2 ? -0.9f : 0f, 0.9f, k == 3 ? -2.3f : 2.3f), need, jeep.transform.position + jeep.transform.forward * 2f, -jeep.transform.forward);
                 yield return new WaitForSecondsRealtime(1.2f);
-                var cam = Camera.main; if (cam != null) { cam.transform.position = jeep.transform.position + jeep.transform.forward * 5f + jeep.transform.right * 3f + Vector3.up * 2.2f; cam.transform.LookAt(jeep.transform.position + Vector3.up); }
+                var cam = Camera.main; if (cam != null) { cam.transform.position = jeep.transform.position + jeep.transform.forward * 5.5f + jeep.transform.right * 3.5f + Vector3.up * 2.4f; cam.transform.LookAt(jeep.transform.position + Vector3.up); }
                 yield return null;
                 Line($"  damage step: state={jeep.StateName}, total={jeep.TotalDamage:0}, parts broken={jeep.PartsBroken}");
                 yield return Shot($"s3-jeep-state-{k}-{jeep.StateName}.png");
             }
+            if (orbitCam != null) orbitCam.enabled = true;
             var stand = LegacyOfTemples.Gameplay.VillageLife.Instance != null ? LegacyOfTemples.Gameplay.VillageLife.Instance.TeaStallStand + Vector3.right * 2f : pc.transform.position;
             pc.Teleport(stand, Quaternion.LookRotation(Vector3.back)); yield return new WaitForSecondsRealtime(0.8f);
         }

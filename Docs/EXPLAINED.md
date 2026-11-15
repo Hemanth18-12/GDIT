@@ -251,3 +251,33 @@ Open `Builds/LegacyOfTheTemple.app` (or open Unity → MainMenu → Play). Scree
 - Aryan's line is now "There, out the gate! Stay here, both of you. I'll take the jeep." The hints explain the jeep.
 - Evidence (test where the bot started next to the jeep): caught after 3.4 s in the jeep, token dropped, story moved on to "Pick up what he dropped" (`Docs/QA/master_runner/`). The fairer test, starting inside the courtyard, was stopped before it finished, so it is not verified yet.
 - Files: `Gameplay/Chapters.cs` (StartChase / UpdateChase), `Resources/Story/story.json`, `UI/AuditBot.cs` (-chaseFocus).
+
+## Investigator Jeep in Blender: setup check (2026-11-15)
+- **What I did:** Checked that Claude can control Blender through the Blender connection (MCP). It works: Blender 5.2.2 answered with its default scene (a cube, a camera and a light), and I took a screenshot of it.
+- **Files:** I saved your Jeep design sheet as `Docs/References/jeep_3d_design_reference.png` and created two empty folders: `Docs/Blender/Jeep/` for the versioned `.blend` files and `Docs/QA/Jeep/` for the render screenshots.
+- **Note:** `.gitignore` excludes all `.blend` files, so the Jeep `.blend` versions will only exist on your disk, not in git.
+- **Nothing modelled yet.** Stage A (block-out) starts only when you say "do Stage A".
+
+## Investigator Jeep, Stage A: block-out and proportions (2026-11-15)
+- **What a block-out is:** a rough version of the car made from simple shapes (boxes, cylinders, tubes). It has no detail yet. Its only job is to get the size and the silhouette right before the real modelling starts in Stage B.
+- **What I did:** I cut the four flat views (front, back, left, right) out of your design sheet, placed them in Blender as see-through reference pictures at real-world size, and built the rough Jeep on top of them: lower body with wheel arches, cabin, 9 pieces of glass, 4 wheels plus the spare, fender flares, bumpers, bull bar, roof rack with 4 spot lights, lights, mirrors, side steps, number plates, 4 door panels, and simple interior placeholders with the steering wheel on the right-hand side.
+- **How I checked it:** I rendered the model from the same four directions and laid each render over the reference picture (yellow line = my model's outline). I did this three times and corrected the hood height, cabin width, roof-rack position, spot lights and wheel track until the outlines matched.
+- **Size:** 4.3 m long (4.37 m with the number plates), 1.96 m wide over the flares (2.06 m with mirrors), 2.01 m tall with the rack, wheelbase 2.72 m, tyres 0.78 m. These follow the picture, so they differ a little from the "about" numbers in the brief.
+- **Files:** `Docs/Blender/Jeep/Jeep_v002.blend` (latest; `Jeep_v001.blend` is the earlier save), build script `Docs/Blender/Jeep/scripts/stageA_blockout.py`, reference crops in `Docs/Blender/Jeep/refs/`, evidence pictures in `Docs/QA/Jeep/StageA_*.png`.
+- **How to see it:** open `Jeep_v002.blend` in Blender. Press numpad 1 (front), numpad 3 (side) or Ctrl+numpad 1 (back) to see the model over the reference picture. The Outliner on the right shows the folders BODY, GLASS, LIGHTS, WHEELS, DOORS, INTERIOR, ACCESSORIES, DAMAGE, COLLISION, RIG.
+- **Not done:** there is no top-view reference because the sheet has no top view. Nothing is in Unity yet.
+
+## New investigator jeep in the game (2026-11-15)
+- **What you asked:** the old jeep looked bad, but driving, braking and damage worked. Build the car from the reference sheet, with its damage looks, and put it on the working systems.
+- **What I built:** a new olive SUV in Blender that follows your sheet: bull bar, slatted grille, round headlights with chrome rings, fog lights, roof rack with 4 spot lights, rear spare, black flares, chrome side steps, plates "IND 01 BX 7721", an original gold temple emblem on both front doors, and a right-hand-drive interior. 52,778 triangles.
+- **Why the game code still works:** the game finds parts by name (for example `SM_Jeep_Wheel_FL`, `SM_Jeep_Door_FR`). I gave the new parts the same names, so wheels, doors, lights, glass and falling parts work as before. The files in `Assets/_Project/Models/Vehicles/Jeep/` were replaced.
+- **Damage looks:** three bent versions of the body and hood (Damaged, Wrecked, Destroyed). In the game, every painted panel now turns worn or burnt with the body, and a destroyed jeep loses its glass.
+- **Code mistakes I found and fixed:**
+  1. `CarController.cs`: the brakes were stronger at the back than the front (the wrong way round, which can spin a car). The front now takes the larger share.
+  2. `Jeep.cs`: three lines used `??` to add a missing component. That does not work inside the Unity Editor, so the jeep had no Rigidbody when tested there. Replaced with a normal null check.
+  3. `IntroCinematic.cs`: if you skipped the intro before the hero got out, he stayed "seated" inside the jeep while his collision switched back on. That threw the jeep 2 m into the air and onto its side. He is now taken out of the seat first.
+  4. `Jeep.cs`: the roof zone for damage started above the new roof; the driver's hip height is lowered so his head clears the roof.
+  5. `AuditBot.cs` (test robot only): the crash screenshots now point at the jeep.
+- **Proof from the built game** (`Docs/QA/Jeep/run4/audit.md`, pictures in `Docs/QA/Jeep/Final_game_sheet.png`): the jeep rests still (moves 0.012 m in 10 s), the hero sits in the right-hand seat, 3.5 s of W reaches 44 km/h, Space stops it, headlights toggle, a 43 km/h wall crash leaves it Wrecked with 11 parts broken, and it then goes to Destroyed. Build: 0 errors, 0 warnings. New test `JeepPhysicsTests` passes.
+- **How to see it:** open `My project` in Unity and press Play, or run `Builds/LegacyOfTheTemple.app`. Walk to the jeep and press E. In Blender open `Docs/Blender/Jeep/Jeep_v003.blend`.
+- **Not done:** no Blender animation clips (the game animates from code); the tailgate does not open; glass vanishes with sparks instead of breaking into modelled shards; dirt is one simple texture; colour variants are tints in code. Details in `Docs/JEEP_MODEL.md`.

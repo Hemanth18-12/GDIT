@@ -377,6 +377,8 @@ namespace LegacyOfTemples.Gameplay
                 var rbj = jeep.GetComponent<Rigidbody>();
                 if (skipped || OpeningCinematic.SkipRequested || Vector3.Distance(jeep.transform.position, jeepStop) > 6f)
                 { jeep.transform.position = JeepPath(1f); jeep.transform.rotation = Quaternion.LookRotation(Vector3.back); }
+                // Skipped before the hero got out: take him out of the seat first. Otherwise his collision comes back on inside the jeep and throws it over.
+                if (player != null && player.GetComponent<LegacyOfTemples.Gameplay.Vehicles.SeatedPose>() != null) jeep.SeatDriver(player.transform, false, jeep.DriverExitPoint);
                 jeep.EndScripted(true); if (rbj != null) { rbj.linearVelocity = Vector3.zero; rbj.angularVelocity = Vector3.zero; }
                 jeep.Car.autopilot = false; jeep.Car.autoBrake = false; jeep.Audio.engineLevel = 0.6f; jeep.Lights.SetHeadLights(false);
             }

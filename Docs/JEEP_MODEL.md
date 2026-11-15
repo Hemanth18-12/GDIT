@@ -1,31 +1,46 @@
-# The investigator's jeep
+# The investigator's jeep (version 2, olive SUV)
 
-Built in Blender 5.2 by `Tools/blender/build_jeep.py` (run headless: `Blender --background --python Tools/blender/build_jeep.py -- Art_Source/Jeep Assets/_Project/Models/Vehicles/Jeep`).
-Workflow and checks follow the MIT "blender-skills" pack (vehicle-artist, hard-surface, validation-checklist, naming-conventions); Blender MCP was not connected in this session, so the same steps run as a script.
+Built in Blender 5.2 by `Tools/blender/build_jeep_v2.py`, which follows the reference sheet `Docs/References/jeep_3d_design_reference.png`.
+Run it headless from the repository root:
 
-## Reference analysis (from `Docs/References/jeep_reference_sheet.png`, owner's direction: red, classic jeep look)
-| Category | Decision |
+    /Applications/Blender.app/Contents/MacOS/Blender --background --python Tools/blender/build_jeep_v2.py -- "$PWD"
+
+The three textures (number plate, temple emblem, paint dirt) are made by `Tools/blender/make_jeep_textures.py` (own work).
+The older white/red classic jeep script `Tools/blender/build_jeep.py` is kept only for history; its output files were replaced.
+
+## What the model has
+| Area | Parts |
 |---|---|
-| Subject | Drivable gameplay vehicle, forward -Y in Blender (+Z in Unity) |
-| Silhouette | Boxy classic jeep: flat hood, near-upright windshield, flat roof, square tail, separate flat front fenders |
-| Proportions | 4.35 m long, 1.8 m wide (2.1 m over steps), 2.1 m to the roof lights; wheelbase 2.8 m; tyre radius 0.40 m |
-| Materials | Gloss red paint, black hardtop and trim, satin alloy wheels, chrome bezels and bolts, tinted glass, gold temple emblem |
-| Features kept from the sheet | Roof rack with 4 spot lights, bull bar, rear spare wheel, side steps, black arch flares, mirrors, wipers, number plate (fictional "LOT 7721") |
-| Classic details added | 9-slot body-colour grille with round lamps (not the 7-slot trademark), exposed door hinges, rubber hood T-latches, windshield frame with hinges, bolted flares, red tow hooks, fuel cap, mud flaps |
+| Body | Hollow lower body with wheel wells, engine bay and door openings; painted cabin with window openings; black roof cap; hood; 4 fender flares; grille with horizontal slats; front and rear bumper |
+| Doors | 4 doors with window frames, handles and rub strips; each door owns its glass; the front doors carry the gold temple emblem |
+| Glass | Windscreen, rear window, 2 quarter windows, 4 door windows |
+| Lights | 2 round headlights with chrome rings, 2 fog lights, 4 roof spot lights, 2 tail lights, 2 reverse lights, 4 indicators |
+| Wheels | 4 wheels and the rear spare: tyre with tread blocks and shoulder lugs, black six-twin-spoke alloy, brake disc, wheel nuts |
+| Accessories | Bull bar with lower cross-bar, roof rack with rails and floor bars, chrome side steps, mirrors, wipers, antenna, number plates "IND 01 BX 7721" (fictional) |
+| Interior | Right-hand drive: dashboard, instrument cluster, centre touch screen, steering wheel on its own column axis, gear lever, handbrake, console, pedals, 4 seats, rear-view mirror |
+| Underneath | Chassis rails, axles, differentials, driveshaft, shocks, exhaust, skid plate, fuel tank, engine block, black wheel-well liners |
 
-## Validation (`Art_Source/Jeep/jeep_validation.txt`)
-- LOD0 35,504 triangles (drivable budget 30,000–80,000); LOD1 13,248; LOD2 3,455.
-- 72 objects, all `SM_Jeep_*`; materials `MAT_*`; collections `COL_Jeep_*`; convex collision `UCX_Jeep_Body`, `UCX_Jeep_Cabin`.
-- No unapplied scale, no loose vertices; bevels plus weighted normals (sharp above 35°).
-- Moving parts with correct pivots: 4 wheels (axle centre), 4 doors (front hinge), hood (cowl hinge), rear door (left hinge), steering wheel (column).
+## Numbers (`Art_Source/Jeep/jeep_validation.txt`)
+- 4.38 m long (with plates), 2.09 m wide with mirrors (1.96 m over the flares), 2.00 m tall with the rack; wheelbase 2.72 m; tyres 0.78 m.
+- 52,778 triangles, 65 objects, 18 materials. LOD1 22,153, LOD2 6,331, LOD3 4,408.
+- Damage states (whole visible car): Damaged 68,482, Wrecked 64,428, Destroyed 52,342 triangles.
+- Collision boxes: `UCX_Jeep_Body`, `UCX_Jeep_Cabin`, `UCX_Jeep_Rack`.
+- Pivots: wheels at the centre, doors at the front hinge, hood at the rear hinge, steering wheel on its column.
 
 ## Files
-- `Art_Source/Jeep/Car_Model.blend`, `Car_Model.fbx`, `Car_Model.glb`, `Car_Model_LOD1.fbx`, `Car_Model_LOD2.fbx`
-- `Art_Source/Jeep/Car_Damaged.blend`, `Car_Damaged/Car_Damage_Damaged|Wrecked|Destroyed.fbx` (deformed body and hood shells; scuffed and burnt paint)
-- `Art_Source/Jeep/Car_Collision_Meshes/Car_Collision.fbx`
-- `Art_Source/Jeep/Car_Reference_Renders/` (front, back, left, right, three-quarter, top-rear; normal and destroyed)
-- In Unity: `Assets/_Project/Models/Vehicles/Jeep/` (FBX + `Materials/`), prefab `Assets/_Project/Resources/Vehicles/Jeep.prefab` built by `Part2Tools.BuildJeep`.
+- `Art_Source/Jeep/Car_Model.blend`, `Car_Model.fbx`, `Car_Model.glb`, `Car_Model_LOD1|2|3.fbx`, `Car_Textures/`
+- `Art_Source/Jeep/Car_Damaged.blend`, `Car_Damaged/Car_Damage_Damaged|Wrecked|Destroyed.fbx` (bent body and hood)
+- `Art_Source/Jeep/Car_Collision_Meshes/Car_Collision.fbx`, `Car_Reference_Renders/` (normal: 8 views; each damage state: 3 views)
+- `Docs/Blender/Jeep/Jeep_v001..v003.blend` (v001-v002 block-out, v003 the detailed model)
+- In Unity: `Assets/_Project/Models/Vehicles/Jeep/` (FBX, `Materials/`, `Textures/`), prefab `Assets/_Project/Resources/Vehicles/Jeep.prefab` built by `Part2Tools.BuildJeep`.
 
 ## In the game (`Scripts/Gameplay/Vehicles/`)
-- `Jeep.cs` wires the model at runtime: WheelColliders (grippy sideways friction so it does not slide), anti-roll bars, rigidbody 1,650 kg, body and cabin box colliders, head / brake / reverse / indicator lights, engine audio, E to get in and out at the driver's door, driving camera, speed panel.
-- Damage depends on impact strength (speed change on contact, bumps under 2.2 m/s and kerbs ignored) and location (front, rear, left, right, top). Parts in the hit zone break at their own thresholds: glass shatters (shards, glass sound), lamps go dark and fall off, bumpers, bull bar, plates, mud flaps, side steps, doors, hood, roof rack and spot lights detach with physics. Debris is pooled (at most 18 pieces, the oldest put away; each removed after 25 s). Total damage moves the body through Normal → Damaged (20) → Wrecked (55, smoke) → Destroyed (100, engine dead, burnt paint).
+The driving, braking, lights, horn, get in / get out, seated driver and crash damage code is the existing system. The new model uses the same
+part names (`SM_Jeep_*`), so that code finds the wheels, doors, hood, lamps, glass and breakable parts without changes to how it works.
+Code fixes made with this model are listed in `Docs/EXPLAINED.md` (2026-11-15, "New investigator jeep").
+
+## Not done
+- No Blender animation Actions: the game moves wheels, steering, doors, hood and lights from code.
+- The tailgate does not open. Glass does not break into modelled shards (it disappears with a spark burst, as before).
+- Colour variants are the four tints in `Jeep.SetPaint` (white, olive, red, blue), not separate Blender materials.
+- Dirt is one simple texture; there are no baked normal or roughness maps.

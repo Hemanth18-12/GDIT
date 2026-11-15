@@ -87,8 +87,18 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: MAT_Screen
+    second: {fileID: 2100000, guid: 778173dc7edd24f418f3fccba09cc3ac, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: MAT_Seat_Leather
     second: {fileID: 2100000, guid: 03a1b3b5d72084d4a8d40058c62fc6d6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_Steel_Machined
+    second: {fileID: 2100000, guid: c29282c56a94a4c438213c19adff0947, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule

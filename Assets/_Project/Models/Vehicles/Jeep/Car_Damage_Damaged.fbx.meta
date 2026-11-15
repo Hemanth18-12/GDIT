@@ -9,6 +9,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: Jeep_Paint_Scuffed
     second: {fileID: 2100000, guid: ebe95558b751f457dbc8a32f66b87e9d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_Paint_Scuffed
+    second: {fileID: 2100000, guid: ebe95558b751f457dbc8a32f66b87e9d, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

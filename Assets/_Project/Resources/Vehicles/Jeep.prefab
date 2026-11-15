@@ -48,13 +48,13 @@ MonoBehaviour:
   bodyStates:
   - {fileID: 0}
   - {fileID: -7939850485254014432, guid: cd39084e2fcf7472abb163c9ca4ba1c3, type: 3}
-  - {fileID: -7939850485254014432, guid: 117475cf581534862956081e96957b8e, type: 3}
-  - {fileID: -7939850485254014432, guid: bc87ae61da0364ffba7fe593b4c0e7a9, type: 3}
+  - {fileID: 9196184417616886325, guid: 117475cf581534862956081e96957b8e, type: 3}
+  - {fileID: -1381014553837919969, guid: bc87ae61da0364ffba7fe593b4c0e7a9, type: 3}
   hoodStates:
   - {fileID: 0}
   - {fileID: 6868824816540874160, guid: cd39084e2fcf7472abb163c9ca4ba1c3, type: 3}
-  - {fileID: 6868824816540874160, guid: 117475cf581534862956081e96957b8e, type: 3}
-  - {fileID: 6868824816540874160, guid: bc87ae61da0364ffba7fe593b4c0e7a9, type: 3}
+  - {fileID: -3060546616452590698, guid: 117475cf581534862956081e96957b8e, type: 3}
+  - {fileID: 4380952410157987788, guid: bc87ae61da0364ffba7fe593b4c0e7a9, type: 3}
   scuffedPaint: {fileID: 2100000, guid: ebe95558b751f457dbc8a32f66b87e9d, type: 2}
   burntPaint: {fileID: 2100000, guid: 935102c9a19db43bb9197f30963a362b, type: 2}
   interior: {fileID: 2100000, guid: f8a6235d082f849178f3634d5a483ed0, type: 2}
@@ -68,7 +68,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 35af4e6cbd97546c3a313ebd575796ac, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 35af4e6cbd97546c3a313ebd575796ac, type: 3}
       propertyPath: m_LocalPosition.y
@@ -88,11 +88,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 35af4e6cbd97546c3a313ebd575796ac, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 35af4e6cbd97546c3a313ebd575796ac, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 35af4e6cbd97546c3a313ebd575796ac, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -107,6 +107,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -4517477734522493674, guid: 35af4e6cbd97546c3a313ebd575796ac, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -3620366673068360633, guid: 35af4e6cbd97546c3a313ebd575796ac, type: 3}
       propertyPath: m_CastShadows
       value: 0
       objectReference: {fileID: 0}
@@ -127,10 +131,6 @@ PrefabInstance:
       value: Model
       objectReference: {fileID: 0}
     - target: {fileID: 3321011807294285541, guid: 35af4e6cbd97546c3a313ebd575796ac, type: 3}
-      propertyPath: m_CastShadows
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5511269799515670969, guid: 35af4e6cbd97546c3a313ebd575796ac, type: 3}
       propertyPath: m_CastShadows
       value: 0
       objectReference: {fileID: 0}

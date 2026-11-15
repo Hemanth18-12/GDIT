@@ -12,3 +12,16 @@
 - Jungle jeep chase attempted and removed: JunglePath longest clear lane 23 m (Docs/QA/master_chase). Proposal: chase on the village road. RESUME FROM: chase on village road (needs decision), spline roads, Stage 5-7.
 - Spline approach road with bend + kerbs (Docs/QA/master_road). RESUME FROM: jeep chase on the village road, Stage 5 framing, Stage 6 fixes, Stage 7 video.
 - Runner chase now by jeep on the village road (Docs/QA/master_runner); the courtyard-start test is still to run. RESUME FROM: run -chaseFocus once, Stage 5 framing, Stage 6 fixes, Stage 7 video.
+
+## Investigator Jeep v2 (olive SUV), updated 2026-11-15
+| Item | Status | Evidence |
+|---|---|---|
+| Block-out matched to the sheet | DONE | `Docs/QA/Jeep/StageA_compare_sheet.png` |
+| Detailed model, materials, plate, emblem, interior | DONE (game quality, simple dirt texture) | `Docs/QA/Jeep/Final_blender_sheet.png`, `Art_Source/Jeep/jeep_validation.txt` |
+| LODs and collision boxes | DONE (LOD1-3 exported; the game does not use a LODGroup yet) | `Art_Source/Jeep/Car_Model_LOD*.fbx` |
+| Damage states (body and hood) | DONE | `Art_Source/Jeep/Car_Reference_Renders/damaged|wrecked|destroyed_*.png` |
+| In the game on the existing driving, braking, lights and damage code | DONE, play-tested in the built app | `Docs/QA/Jeep/run4/audit.md`, `Docs/QA/Jeep/Final_game_sheet.png` |
+| Code fixes (brake bias, Editor Rigidbody, intro-skip jeep flip) | DONE | `Docs/EXPLAINED.md` |
+| Blender animation Actions, opening tailgate, modelled glass shards, baked PBR maps, material colour variants | NOT DONE | `Docs/JEEP_MODEL.md` "Not done" |
+
+RESUME FROM: jeep extras listed as NOT DONE (only if wanted), then Stage 5 framing, Stage 6 fixes, Stage 7 video.

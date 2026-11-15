@@ -88,7 +88,7 @@ namespace LegacyOfTemples.Gameplay.Vehicles
         public enum Paint { White, Olive, Red, Blue }
         public void SetPaint(Paint p)
         {
-            Color c = p == Paint.Olive ? new Color(0.22f, 0.27f, 0.14f) : p == Paint.Red ? new Color(0.62f, 0.06f, 0.04f) : p == Paint.Blue ? new Color(0.12f, 0.2f, 0.42f) : new Color(0.9f, 0.9f, 0.88f);
+            Color c = p == Paint.Olive ? new Color(0.30f, 0.35f, 0.23f) : p == Paint.Red ? new Color(0.62f, 0.06f, 0.04f) : p == Paint.Blue ? new Color(0.12f, 0.2f, 0.42f) : new Color(0.9f, 0.9f, 0.88f);
             var mpb = new MaterialPropertyBlock();
             foreach (var r in GetComponentsInChildren<Renderer>(true))
             {
@@ -168,7 +168,7 @@ namespace LegacyOfTemples.Gameplay.Vehicles
 
         private void BuildPhysics()
         {
-            rb = gameObject.GetComponent<Rigidbody>() ?? gameObject.AddComponent<Rigidbody>();
+            rb = gameObject.GetComponent<Rigidbody>(); if (rb == null) rb = gameObject.AddComponent<Rigidbody>();   // not "??": Unity's null check is needed here
             rb.mass = 1500f; rb.linearDamping = 0.05f; rb.angularDamping = 0.6f; rb.interpolation = RigidbodyInterpolation.Interpolate;
             rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
             var body = T("SM_Jeep_Body"); var top = T("SM_Jeep_Hardtop");
@@ -288,7 +288,7 @@ namespace LegacyOfTemples.Gameplay.Vehicles
             Occupied = true; enteredFrame = Time.frameCount; player = pc;
             pc.enabled = false;
             LegacyOfTemples.Core.EventBus.RaiseHidePrompt();
-            var drv = pc.GetComponent<NpcAnimDriver>() ?? pc.gameObject.AddComponent<NpcAnimDriver>();
+            var drv = pc.GetComponent<NpcAnimDriver>(); if (drv == null) drv = pc.gameObject.AddComponent<NpcAnimDriver>();
             Vector3 door = DriverExitPoint;
             for (float t = 0f; t < 1.2f && Vector3.Distance(Flat(pc.transform.position), Flat(door)) > 0.15f; t += Time.deltaTime)
             {   // walk to the door
@@ -301,7 +301,7 @@ namespace LegacyOfTemples.Gameplay.Vehicles
             yield return DriverDoor(false, 0.4f);
             orbit = FindAnyObjectByType<OrbitCamera>(); if (orbit != null) orbit.enabled = false;
             var cam = Camera.main;
-            if (cam != null) { follow = cam.GetComponent<CarFollowCamera>() ?? cam.gameObject.AddComponent<CarFollowCamera>(); follow.target = transform; follow.car = Car; follow.enabled = true; follow.Snap(); }
+            if (cam != null) { follow = cam.GetComponent<CarFollowCamera>(); if (follow == null) follow = cam.gameObject.AddComponent<CarFollowCamera>(); follow.target = transform; follow.car = Car; follow.enabled = true; follow.Snap(); }
             Car.Driven = true; Lights.SetHeadLights(true); Audio.engineLevel = 1f;
         }
 
@@ -354,7 +354,7 @@ namespace LegacyOfTemples.Gameplay.Vehicles
                 Transform best = null;
                 foreach (var n in new[] { "SM_Jeep_Seat_FL", "SM_Jeep_Seat_FR" }) { var t = T(n); if (t != null && Mathf.Sign(L(t).x) == driverSide) best = t; }
                 if (best == null) return new Vector3(driverSide * 0.4f, 0.95f, 0f);
-                var b = LocalBounds(best); return new Vector3(b.center.x, b.min.y + 0.36f, b.center.z + 0.02f);
+                var b = LocalBounds(best); return new Vector3(b.center.x, b.min.y + 0.30f, b.center.z + 0.02f);   // hips about 0.15 m above the cushion, head clear of the roof
             }
         }
 
@@ -397,11 +397,6 @@ namespace LegacyOfTemples.Gameplay.Vehicles
             if (on && !hornSrc.isPlaying) hornSrc.Play(); else if (!on && hornSrc.isPlaying) hornSrc.Stop();
         }
 
-        private void LateUpdate()
-        {
-            // the seated pose keeps the investigator on the seat (he is parented to the jeep)
-        }
-
         // ------------------------------------------------------------------ damage
         public string StateName => DamageState == 0 ? "Normal" : DamageState == 1 ? "Damaged" : DamageState == 2 ? "Wrecked" : "Destroyed";
         private readonly List<GameObject> debris = new List<GameObject>();
@@ -409,7 +404,7 @@ namespace LegacyOfTemples.Gameplay.Vehicles
 
         private string Zone(Vector3 local)
         {
-            if (local.y > 1.95f) return "top";
+            if (local.y > 1.7f) return "top";   // roof and rack of the 2.0 m tall jeep
             if (local.z > 1.35f) return "front";
             if (local.z < -1.35f) return "rear";
             return local.x < 0f ? "left" : "right";
@@ -506,6 +501,18 @@ namespace LegacyOfTemples.Gameplay.Vehicles
             DamageState = s;
             var body = T("SM_Jeep_Body"); var hd = T("SM_Jeep_Hood");
             Swap(body, bodyStates, s); if (hd != null && hd.IsChildOf(transform)) Swap(hd, hoodStates, s);
+            // Every painted panel still on the car (doors, cabin, hood) takes the same worn or burnt paint as the body, so a wreck is not half clean.
+            var worn = s >= 3 ? burntPaint : scuffedPaint;
+            if (worn != null)
+                foreach (var r in GetComponentsInChildren<MeshRenderer>(true))
+                {
+                    var ms = r.sharedMaterials; bool changed = false;
+                    for (int i = 0; i < ms.Length; i++)
+                        if (ms[i] != null && ms[i] != worn && (ms[i].name.Contains("Paint_Body") || ms[i] == scuffedPaint)) { ms[i] = worn; changed = true; if (s >= 3) r.SetPropertyBlock(null, i); }
+                    if (changed) r.sharedMaterials = ms;
+                }
+            if (s >= 3)   // a destroyed jeep has no glass left
+                foreach (var kv in named) if (kv.Key.StartsWith("SM_Jeep_Glass") && kv.Value != null) { var gr = kv.Value.GetComponent<Renderer>(); if (gr != null) gr.enabled = false; }
             if (s >= 2 && smoke == null) smoke = Smoke();
             if (s >= 3) { Car.motorForce = 0f; Audio.engineLevel = 0f; Lights.broken[0] = true; if (Occupied) StartCoroutine(GetOut()); }
             Debug.Log($"[Jeep] damage state {StateName} (total {TotalDamage:0}, parts broken {PartsBroken})");
