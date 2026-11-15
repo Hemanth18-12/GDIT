@@ -106,6 +106,7 @@ namespace LegacyOfTemples.Gameplay
             if (jeep == null) jeep = Jeep.Spawn(Village.RoadStart + new Vector3(2.2f, 0.6f, -2f), Quaternion.LookRotation(Vector3.back));
             jeepStop = new Vector3(Village.Centre.x + 2.2f, Village.Top, Village.ZMax + 30f);
             var temple = GameObject.Find("Temple_Site");
+            if (!VideoPart && TempleSite.Instance != null) TempleSite.Instance.SetHidden(true); Debug.Log($"[Intro] temple hidden: {(TempleSite.Instance != null)}");   // the temple is not seen on the approach
             tower = temple != null ? temple.transform.position + Vector3.up * 40f : new Vector3(Village.Centre.x, Village.Top + 18f, Village.Centre.z - 18f);
 
             // controls locked, player hidden until the jeep stops
@@ -399,8 +400,11 @@ namespace LegacyOfTemples.Gameplay
             if (orbit != null) { orbit.enabled = true; orbit.SetTarget(player != null ? player.transform : null); }
             if (music != null) music.Stop();
             DawnClock.Hold = false; InputGate.CinematicActive = false; Playing = false; Finished = true; LookTuner.Dawn = 0.8f;   // play goes on in the same morning light
-            ObjectiveBanner.Show("OBJECTIVE", "REACH JAGANNATH TEMPLE", 4.5f);
             StoryDialogueSystem.Instance?.RegisterMinigame("reach_temple");
+            Debug.Log($"[Intro] reveal check: videoPart={VideoPart}, site={(TempleSite.Instance != null)}, skipped={skipped}, skipReq={OpeningCinematic.SkipRequested}");
+            if (!VideoPart && TempleSite.Instance != null && !skipped && !OpeningCinematic.SkipRequested)
+                TempleSite.Instance.StartCoroutine(TempleSite.Instance.Reveal(player, () => ObjectiveBanner.Show("OBJECTIVE", "REACH JAGANNATH TEMPLE", 4.5f)));
+            else { if (TempleSite.Instance != null) TempleSite.Instance.SetHidden(false); ObjectiveBanner.Show("OBJECTIVE", "REACH JAGANNATH TEMPLE", 4.5f); }
             Debug.Log($"[Intro] finished at {t:0.0}s ({(skipped || OpeningCinematic.SkipRequested ? "skipped" : "played through")}), last shot {LastShot}");
         }
 

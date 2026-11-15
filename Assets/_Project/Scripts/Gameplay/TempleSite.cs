@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -107,6 +108,42 @@ namespace LegacyOfTemples.Gameplay
         }
 
         // ------------------------------------------------------------------ reaching the temple
+        // ------------------------------------------------------------------ hidden on the approach, revealed after the directions
+        private readonly List<Renderer> hiddenParts = new List<Renderer>();
+        /// <summary>Hides the tall temple buildings (not the ground or road) while the jeep arrives, so the first sight of it is the reveal.</summary>
+        public void SetHidden(bool hide)
+        {
+            if (Temple == null) return;
+            Debug.Log($"[TempleSite] SetHidden({hide}) temple={(Temple != null)} parts={hiddenParts.Count}");
+            if (hide) { hiddenParts.Clear(); foreach (var r in Temple.GetComponentsInChildren<Renderer>()) if (r.enabled && r.bounds.max.y > Village.Top + 4f) { r.enabled = false; hiddenParts.Add(r); } }
+            else { foreach (var r in hiddenParts) if (r != null) r.enabled = true; hiddenParts.Clear(); }
+        }
+        /// <summary>The reveal: a short fade, the camera rises over the village rooftops to the temple tower, bell, banner. Then play.</summary>
+        public IEnumerator Reveal(PlayerController pc, System.Action done)
+        {
+            var cam = Camera.main; var orbit = FindAnyObjectByType<OrbitCamera>();
+            if (pc != null) pc.enabled = false; if (orbit != null) orbit.enabled = false;
+            SetHidden(false);
+            if (cam != null)
+            {
+                Vector3 look = TowerTop != Vector3.zero ? TowerTop + Vector3.down * 12f : Village.Centre + Vector3.up * 15f;
+                Vector3 start = (pc != null ? pc.transform.position : Village.Centre) + Vector3.up * 1.7f + Vector3.forward * 3.5f;
+                Vector3 end = start + Vector3.up * 9f + Vector3.forward * 4f;
+                Quaternion r0 = Quaternion.LookRotation(Vector3.back + Vector3.down * 0.15f);
+                for (float t = 0f; t < 4.2f; t += Time.deltaTime)
+                {
+                    float k = Mathf.SmoothStep(0f, 1f, t / 4.2f);
+                    cam.transform.position = Vector3.Lerp(start, end, k);
+                    cam.transform.rotation = Quaternion.Slerp(r0, Quaternion.LookRotation(look - cam.transform.position), Mathf.SmoothStep(0f, 1f, Mathf.Clamp01(t / 2.4f)));
+                    if (t > 1.4f && t - Time.deltaTime <= 1.4f) { ObjectiveBanner.Show("NEW LOCATION DISCOVERED", "JAGANNATH TEMPLE", 3.5f); AudioManager.Instance?.PlaySFX("sfx_bell_temple", 0.6f); }
+                    yield return null;
+                }
+                yield return new WaitForSeconds(0.8f);
+            }
+            if (orbit != null) orbit.enabled = true; if (pc != null) pc.enabled = true;
+            done?.Invoke();
+        }
+
         private void CheckArrival()
         {
             var story = StoryDialogueSystem.Instance; if (story == null || story.Current == null || discovered) return;
@@ -125,7 +162,7 @@ namespace LegacyOfTemples.Gameplay
         private IEnumerator Discover(PlayerController pc, Vehicles.Jeep jeep)
         {
             if (jeep != null && jeep.Occupied) yield return jeep.GetOut();
-            ObjectiveBanner.Show("NEW LOCATION DISCOVERED", "JAGANNATH TEMPLE", 4f);
+            ObjectiveBanner.Show("YOU HAVE ARRIVED", "JAGANNATH TEMPLE", 4f);
             AudioManager.Instance?.PlaySFX("sfx_bell_temple", 0.55f);
             // a short camera moment: up over the courtyard to the temple tower, then straight back to play
             var cam = Camera.main; var orbit = FindAnyObjectByType<OrbitCamera>();

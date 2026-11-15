@@ -199,3 +199,11 @@ Open `Builds/LegacyOfTheTemple.app` (or open Unity → MainMenu → Play). Scree
 - Files: `Gameplay/Vehicles/Jeep.cs`, `Gameplay/Vehicles/SeatedPose.cs` (new), `Gameplay/IntroCinematic.cs`, `UI/LoadingScreen.cs`, `UI/AuditBot.cs` (`-jeepFocus` check), `World/Editor/Part2Tools.cs`.
 **How to see it:** New Game → watch the jeep arrive with Aryan driving → walk to the jeep → E.
 - **Fix: jump after getting out.** The seat script was removed one frame late, so it pulled Aryan back onto the seat after he had been moved out. His collision then switched on inside the jeep and pushed both apart. Now the pose stops first, he is placed outside, and only then does his collision come back on. Proof (`Docs/QA/master_jeep/audit.md`): player/jeep height after E = 1.10 (seat) → 0.02 (ground) and stays there; jeep 0.03 throughout.
+
+## Master Build — Stage 3 (part): temple hidden on the approach, then revealed
+- While the jeep drives in, the tall temple buildings are switched off (29 parts; ground and road stay). After Meera's directions, the camera rises over the rooftops towards the tower. The temple appears, the bell rings, and the banner **NEW LOCATION DISCOVERED – JAGANNATH TEMPLE** shows. Then the objective "REACH JAGANNATH TEMPLE" appears and you can play.
+- When you reach the gate, the banner now says **YOU HAVE ARRIVED** (so the "discovered" message is not shown twice).
+- If you skip the intro, the temple is simply shown (no reveal moment).
+- Files: `Gameplay/TempleSite.cs` (SetHidden, Reveal), `Gameplay/IntroCinematic.cs`.
+- Evidence: `Docs/QA/master_reveal/` (log: "SetHidden(True)", "SetHidden(False) parts=29"; s7-handover-objective.png = camera rising with the temple now visible).
+- Not done yet: spline-built roads with a real bend.

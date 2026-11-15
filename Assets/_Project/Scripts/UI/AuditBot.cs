@@ -433,6 +433,8 @@ namespace LegacyOfTemples.UI
             if (Array.IndexOf(Environment.GetCommandLineArgs(), "-focusCheck") >= 0) { yield return FocusCheck(); yield break; }
             if (Array.IndexOf(Environment.GetCommandLineArgs(), "-jeepFocus") >= 0)
             {   // Stage 2 check only: no hop at spawn (height log), seated visible driver, driving, damage
+                yield return new WaitForSecondsRealtime(1.0f); yield return Shot("s3-temple-reveal.png"); Line($"\n## Reveal banner: '{ObjectiveBanner.Last}'");
+                yield return new WaitForSecondsRealtime(4.5f); Line($"  after reveal: banner='{ObjectiveBanner.Last}', player enabled={FindAnyObjectByType<PlayerController>()?.enabled}");
                 var hs = LegacyOfTemples.Gameplay.Vehicles.Jeep.SpawnHeights;
                 Line($"\n## Jeep spawn height every 0.5 s (10 s): {string.Join(", ", hs.ConvertAll(h => h.ToString("0.000")))}  max-min={(hs.Count > 0 ? (Mathf.Max(hs.ToArray()) - Mathf.Min(hs.ToArray())) : -1f):0.000} m");
                 yield return Shot("s3-jeep-after-intro.png");
