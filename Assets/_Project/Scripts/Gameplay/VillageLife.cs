@@ -68,7 +68,7 @@ namespace LegacyOfTemples.Gameplay
         {
             var root = new GameObject("VillageLife_Props").transform;
             Vector3 c = Village.Centre; float top = Village.Top, z0 = Village.ZMax;
-            Vector3 P(float x, float z) => new Vector3(c.x + x, top, z);
+            Vector3 P(float x, float z) => new Vector3(c.x + Village.RoadOffset(z) + x, top, z);   // roadside positions follow the spline road's bend
             var rng = new System.Random(4242); float R(float a, float b) => a + (float)rng.NextDouble() * (b - a);
 
             Village.Gateway(root, Village.RoadStart + Vector3.forward * -2f, 0f, 8.4f, "SURYAPUR VILLAGE", "");
@@ -218,7 +218,7 @@ namespace LegacyOfTemples.Gameplay
             NpcCount = 0;
             if (pfFemale == null) { Debug.LogWarning("[VillageLife] Resources/NPC/Villager_NPC missing (run Part2Tools.BuildNpc)"); return; }
             float R(float a, float b) => a + (float)rng.NextDouble() * (b - a);
-            Vector3 P(float x, float z) => new Vector3(c.x + x, top, z);
+            Vector3 P(float x, float z) => new Vector3(c.x + Village.RoadOffset(z) + x, top, z);   // roadside positions follow the spline road's bend
             int k = 0;
             Transform Spawn(Vector3 at, float yaw, bool isMale)
             {

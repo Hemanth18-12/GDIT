@@ -361,7 +361,7 @@ namespace LegacyOfTemples.Gameplay
         private Vector3 JeepPath(float u)
         {
             Vector3 p = Vector3.Lerp(jeepFrom, jeepStop, u);
-            p.x += Mathf.Sin(u * Mathf.PI * 2f) * 1.1f * (1f - u);   // a small weave, straightening as it slows
+            p.x = Village.RoadPoint(p.z).x + (jeepStop.x - Village.Centre.x);   // keep to the left lane of the spline road through its bend
             var hits = Physics.RaycastAll(p + Vector3.up * 4f, Vector3.down, 12f, ~0, QueryTriggerInteraction.Ignore);
             float best = float.NegativeInfinity;
             foreach (var h in hits) if (h.collider.GetComponentInParent<Jeep>() == null && h.collider.GetComponentInParent<Animator>() == null && h.point.y > best) best = h.point.y;

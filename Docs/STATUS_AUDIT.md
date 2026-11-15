@@ -10,3 +10,4 @@
 - Rain removed, Sun Wall removed (wall pre-opened), Sanctum dial lock added (Docs/QA/master_lock). RESUME FROM: forensic board, jungle jeep chase, spline roads, Stage 5-7.
 - Level 3 evidence timeline board added (Docs/QA/master_timeline). RESUME FROM: jungle jeep chase, spline roads, Stage 5-7.
 - Jungle jeep chase attempted and removed: JunglePath longest clear lane 23 m (Docs/QA/master_chase). Proposal: chase on the village road. RESUME FROM: chase on village road (needs decision), spline roads, Stage 5-7.
+- Spline approach road with bend + kerbs (Docs/QA/master_road). RESUME FROM: jeep chase on the village road, Stage 5 framing, Stage 6 fixes, Stage 7 video.

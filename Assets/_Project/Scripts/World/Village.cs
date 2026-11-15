@@ -40,9 +40,9 @@ namespace LegacyOfTemples.World
             Box(v, "Lane_S", new Vector3(c.x, top - 0.1f, zMax - 2.5f), new Vector3(laneX * 2f, 0.2f, 5f), "stony_dirt_path", 4f);
             Box(v, "Lane_N", new Vector3(c.x, top - 0.1f, zMin + 2.5f), new Vector3(laneX * 2f, 0.2f, 5f), "stony_dirt_path", 4f);
 
-            Box(v, "MainRoad_South", new Vector3(c.x, top - 0.08f, zMax + 62f), new Vector3(8f, 0.2f, 130f), "stony_dirt_path", 4f);
+            SplineRoad(v, zMax - 3f, zMax + 128f);   // the approach road: a Unity Spline with a bend, meshed with kerbs
             Box(v, "MainRoad_North", new Vector3(c.x, top - 0.08f, zMin - 30f), new Vector3(8f, 0.2f, 66f), "stony_dirt_path", 4f);
-            RoadStart = new Vector3(c.x, top, zMax + 118f); NorthRoadEnd = new Vector3(c.x, top, zMin - 62f);
+            RoadStart = RoadPoint(zMax + 118f); NorthRoadEnd = new Vector3(c.x, top, zMin - 62f);
             Hub(v, c, top, xOut, zMin, zMax, laneX);
 
             var rng = new System.Random(1712);
@@ -106,7 +106,8 @@ namespace LegacyOfTemples.World
             for (int i = 0; i < 20; i++)   // shade trees along the main road, the way village roads are lined
             {
                 float side = i % 2 == 0 ? -1f : 1f;
-                Tree(v, new Vector3(c.x + side * R(7.5f, 9.5f), top - 0.06f, zMax + 12f + (i / 2) * 10f + R(-1.5f, 1.5f)), R(4.5f, 6f), 700 + i, rng);
+                float tz = zMax + 12f + (i / 2) * 10f;
+                Tree(v, new Vector3(RoadPoint(tz).x + side * R(7.5f, 9.5f), top - 0.06f, tz + R(-1.5f, 1.5f)), R(4.5f, 6f), 700 + i, rng);
             }
         }
 
@@ -222,6 +223,55 @@ namespace LegacyOfTemples.World
                 l.type = LightType.Point; l.range = 9f; l.intensity = 3f; l.color = new Color(1f, 0.68f, 0.34f); l.shadows = LightShadows.None;
                 if (lg == null) l.intensity = 2.4f;
             }
+        }
+
+        /// <summary>Sideways shift of the approach road: straight through the village, then a smooth 6 m bend out in the fields.</summary>
+        public static float RoadOffset(float z) => 6f * Mathf.SmoothStep(0f, 1f, Mathf.InverseLerp(ZMax + 55f, ZMax + 95f, z));
+        /// <summary>Centre of the approach road at this z (on the ground).</summary>
+        public static Vector3 RoadPoint(float z) => new Vector3(Centre.x + RoadOffset(z), Top, z);
+
+        /// <summary>Builds the approach road from a Unity Spline: knots every 8 m along the bend, then a flat 8 m road
+        /// mesh (UVs in metres, with a collider) and a low kerb on each side, both sampled from the spline.</summary>
+        private static void SplineRoad(Transform parent, float z0, float z1)
+        {
+            var go = new GameObject("MainRoad_South_Spline"); go.transform.SetParent(parent, false);
+            var container = go.AddComponent<UnityEngine.Splines.SplineContainer>(); var spline = container.Spline; spline.Clear();
+            for (float z = z0; z <= z1 + 0.01f; z += 8f) { Vector3 p = RoadPoint(z); spline.Add(new UnityEngine.Splines.BezierKnot(new Unity.Mathematics.float3(p.x, p.y + 0.02f, p.z)), UnityEngine.Splines.TangentMode.AutoSmooth); }
+            float len = UnityEngine.Splines.SplineUtility.CalculateLength(spline, Unity.Mathematics.float4x4.identity);
+            int n = Mathf.CeilToInt(len); var verts = new System.Collections.Generic.List<Vector3>(); var uvs = new System.Collections.Generic.List<Vector2>(); var tris = new System.Collections.Generic.List<int>();
+            var kerb = new System.Collections.Generic.List<Vector3>(); var kuv = new System.Collections.Generic.List<Vector2>(); var ktri = new System.Collections.Generic.List<int>();
+            for (int i = 0; i <= n; i++)
+            {
+                float t = i / (float)n; Vector3 p = (Vector3)UnityEngine.Splines.SplineUtility.EvaluatePosition(spline, t);
+                Vector3 tan = ((Vector3)UnityEngine.Splines.SplineUtility.EvaluateTangent(spline, t)); tan.y = 0f; tan.Normalize();
+                Vector3 side = Vector3.Cross(Vector3.up, tan); float d = t * len;
+                verts.Add(p - side * 4f); verts.Add(p + side * 4f); uvs.Add(new Vector2(0f, d / 4f)); uvs.Add(new Vector2(2f, d / 4f));
+                foreach (float sg in new[] { -1f, 1f })
+                {   // kerb: a 0.3 m wide, 0.1 m high strip on each edge
+                    Vector3 a = p + side * sg * 4f, b = p + side * sg * 4.3f;
+                    kerb.Add(a); kerb.Add(a + Vector3.up * 0.1f); kerb.Add(b + Vector3.up * 0.1f); kerb.Add(b);
+                    kuv.Add(new Vector2(0f, d)); kuv.Add(new Vector2(0.1f, d)); kuv.Add(new Vector2(0.4f, d)); kuv.Add(new Vector2(0.5f, d));
+                }
+                if (i > 0)
+                {
+                    int b0 = (i - 1) * 2; tris.AddRange(new[] { b0, b0 + 2, b0 + 1, b0 + 1, b0 + 2, b0 + 3 });
+                    for (int k = 0; k < 2; k++)
+                    {
+                        int q0 = (i - 1) * 8 + k * 4, q1 = i * 8 + k * 4;
+                        for (int e = 0; e < 3; e++) { int a0 = q0 + e, a1 = q0 + e + 1, c0 = q1 + e, c1 = q1 + e + 1; if (k == 0) ktri.AddRange(new[] { a0, a1, c0, a1, c1, c0 }); else ktri.AddRange(new[] { a0, c0, a1, a1, c0, c1 }); }
+                    }
+                }
+            }
+            var mesh = new Mesh { name = "MainRoad_South" }; mesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
+            mesh.SetVertices(verts); mesh.SetUVs(0, uvs); mesh.SetTriangles(tris, 0); mesh.RecalculateNormals(); mesh.RecalculateBounds();
+            var road = new GameObject("MainRoad_South"); road.transform.SetParent(go.transform, false);
+            road.AddComponent<MeshFilter>().sharedMesh = mesh; var mr = road.AddComponent<MeshRenderer>(); mr.sharedMaterial = ArtUpgrade.Mat("stony_dirt_path");
+            if (mpb == null) mpb = new MaterialPropertyBlock();
+            mr.GetPropertyBlock(mpb); mpb.SetColor("_BaseColor", ArtUpgrade.Tint("stony_dirt_path")); mr.SetPropertyBlock(mpb);
+            road.AddComponent<MeshCollider>().sharedMesh = mesh;
+            var km = new Mesh { name = "MainRoad_South_Kerbs" }; km.SetVertices(kerb); km.SetUVs(0, kuv); km.SetTriangles(ktri, 0); km.RecalculateNormals(); km.RecalculateBounds();
+            var kg = new GameObject("MainRoad_South_Kerbs"); kg.transform.SetParent(go.transform, false);
+            kg.AddComponent<MeshFilter>().sharedMesh = km; var kr = kg.AddComponent<MeshRenderer>(); kr.sharedMaterial = ArtUpgrade.Mat("sandstone_blocks_08") ?? ArtUpgrade.Mat("stony_dirt_path");
         }
 
         public static GameObject Box(Transform parent, string name, Vector3 localPos, Vector3 size, string mat, float tile, bool keepCollider = true)

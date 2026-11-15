@@ -239,3 +239,9 @@ Open `Builds/LegacyOfTheTemple.app` (or open Unity → MainMenu → Play). Scree
 - I built a chase where Bhaskar and Kishore run down the path and you close the gap in the jeep. It did not work in this level: the jungle is an enclosed ruin full of walls and stealth props. Measured from the start, the longest clear straight lane in any of 16 directions is only **23 m** (the jeep needs 60+ m). Screenshot: `Docs/QA/master_chase/s5-chase-driving.png`.
 - So I removed it (no story change; the level plays exactly as before) instead of leaving a step you cannot finish.
 - Better plan: run the chase on the long village road (about 130 m) before the jungle, or open up a road through the jungle level.
+
+## Stage 3: the approach road is now a Unity Spline with a bend and kerbs
+- The straight box road into the village was replaced by a road built from a **Unity Spline** (`SplineContainer`, knots every 8 m). Out in the fields it bends 6 m to the side, then runs straight into the village. A flat 8 m road surface (with collision) and a low stone kerb on each side are generated along the spline.
+- Everything beside the road follows the bend: the shade trees, electric poles and wires, street lamps, the SURYAPUR VILLAGE arch and the jeep's start point (`Village.RoadOffset` / `Village.RoadPoint`). In the intro the jeep stays in its lane through the bend.
+- Evidence: `Docs/QA/master_road/` (s7-intro-07: aerial view of the bend with kerbs and trees following it; s7-intro-10: the jeep on the kerbed road). Driving check: 42 km/h, 21.7 m in 3.5 s. Crash and exit checks are unchanged.
+- Files: `World/Village.cs`, `World/LOT.World.asmdef` (+Unity.Splines, Unity.Mathematics), `Gameplay/VillageLife.cs`, `Gameplay/IntroCinematic.cs`.
