@@ -198,3 +198,4 @@ Open `Builds/LegacyOfTheTemple.app` (or open Unity → MainMenu → Play). Scree
 - **Horn:** hold G. The "[E] Drive the jeep" prompt now disappears once you are inside.
 - Files: `Gameplay/Vehicles/Jeep.cs`, `Gameplay/Vehicles/SeatedPose.cs` (new), `Gameplay/IntroCinematic.cs`, `UI/LoadingScreen.cs`, `UI/AuditBot.cs` (`-jeepFocus` check), `World/Editor/Part2Tools.cs`.
 **How to see it:** New Game → watch the jeep arrive with Aryan driving → walk to the jeep → E.
+- **Fix: jump after getting out.** The seat script was removed one frame late, so it pulled Aryan back onto the seat after he had been moved out. His collision then switched on inside the jeep and pushed both apart. Now the pose stops first, he is placed outside, and only then does his collision come back on. Proof (`Docs/QA/master_jeep/audit.md`): player/jeep height after E = 1.10 (seat) → 0.02 (ground) and stays there; jeep 0.03 throughout.

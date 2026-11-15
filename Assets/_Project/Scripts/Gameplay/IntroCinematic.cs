@@ -293,7 +293,7 @@ namespace LegacyOfTemples.Gameplay
             if (Once("hero_out", 52.7f))
             {
                 Vector3 ex = jeep != null ? jeep.DriverExitPoint : jeepStop + new Vector3(-1.8f, 0f, 0f);
-                if (jeep != null) jeep.SeatDriver(player.transform, false);
+                if (jeep != null) jeep.SeatDriver(player.transform, false, ex);
                 player.Teleport(ex, Quaternion.LookRotation(Vector3.left)); Show(player.transform, true);
                 if (meera != null && VillageLife.Instance != null) { var ts = VillageLife.Instance.TeaStallStand; meera.position = ts + new Vector3(-0.4f, 0f, 0f); meera.rotation = Quaternion.LookRotation(Vector3.right); Show(meera, true); }
             }

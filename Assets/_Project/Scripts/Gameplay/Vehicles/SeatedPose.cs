@@ -45,9 +45,9 @@ namespace LegacyOfTemples.Gameplay.Vehicles
             if (logT > 0f && (logT -= Time.deltaTime) <= 0f) Debug.Log($"[SeatedPose] seat={car.TransformPoint(seatLocal)} hips={(hips != null ? hips.position : Vector3.zero)} root={transform.position} head={anim.GetBoneTransform(HumanBodyBones.Head)?.position}");
         }
 
+        private void OnDisable() { if (anim != null) anim.enabled = true; }
         private void OnDestroy()
         {
-            if (anim != null) anim.enabled = true;
             handler?.Dispose();
         }
     }

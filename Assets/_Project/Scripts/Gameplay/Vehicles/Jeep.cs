@@ -312,7 +312,7 @@ namespace LegacyOfTemples.Gameplay.Vehicles
             yield return DriverDoor(true, 0.45f);
             Vector3 p = DriverExitPoint;
             if (Physics.Raycast(p + Vector3.up * 2f, Vector3.down, out RaycastHit h, 6f, ~0, QueryTriggerInteraction.Ignore) && !h.collider.transform.IsChildOf(transform)) p.y = h.point.y + 0.02f;
-            SeatPlayer(false);
+            if (player != null) SeatDriver(player.transform, false, p);
             player.Teleport(p, Quaternion.LookRotation(Vector3.ProjectOnPlane(transform.forward, Vector3.up)));
             player.enabled = true;
             if (follow != null) follow.enabled = false;
@@ -324,19 +324,27 @@ namespace LegacyOfTemples.Gameplay.Vehicles
         /// <summary>The investigator sits in the right-hand driver's seat, visible through the windows, hands on the wheel.</summary>
         private void SeatPlayer(bool sit) { if (player != null) SeatDriver(player.transform, sit); }
         /// <summary>Puts a character in (or takes them out of) the driver's seat with the seated pose. Also used by the intro.</summary>
-        public void SeatDriver(Transform who, bool sit)
+        public void SeatDriver(Transform who, bool sit, Vector3? exitAt = null)
         {
             if (who == null) return; var player = who;
+            var sp = player.GetComponent<SeatedPose>();
+            if (!sit)
+            {   // order matters: stop the pose, put him outside, and only then switch his collision back on (no push, no jump)
+                if (sp != null) { sp.enabled = false; Destroy(sp); }
+                player.SetParent(null, true);
+                if (exitAt.HasValue) player.position = exitAt.Value;
+                player.rotation = Quaternion.LookRotation(Vector3.ProjectOnPlane(transform.forward, Vector3.up));
+                Physics.SyncTransforms();
+            }
             var cc = player.GetComponent<CharacterController>(); if (cc != null) cc.enabled = !sit;
             foreach (var c in player.GetComponentsInChildren<Collider>()) if (!(c is CharacterController)) c.enabled = !sit;
-            var sp = player.GetComponent<SeatedPose>();
             if (sit)
             {
                 player.transform.SetParent(transform, true);
                 if (sp == null) sp = player.gameObject.AddComponent<SeatedPose>();
                 sp.car = transform; sp.seatLocal = DriverSeatLocal;
             }
-            else { if (sp != null) Destroy(sp); player.transform.SetParent(null, true); }
+
         }
         /// <summary>Top of the driver's seat cushion (the seat on the steering-wheel side), in the jeep's space.</summary>
         public Vector3 DriverSeatLocal

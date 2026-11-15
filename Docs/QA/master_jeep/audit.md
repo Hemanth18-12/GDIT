@@ -1,51 +1,54 @@
-# Runtime audit (2026-11-15 18:31, Standalone, 1920x1080)
+# Runtime audit (2026-11-15 18:33, Standalone, 1920x1080)
 
 ## UI: MainMenu
 
-#### UI table: MainMenu @ requested 1280x720 (actual 1280x720); TMP texts=8; active IMGUI(OnGUI) scripts not measurable=0
+#### UI table: MainMenu @ requested 1280x720 (actual 1280x720); TMP texts=9; active IMGUI(OnGUI) scripts not measurable=0
 | text | px@1080p | min | contrast(worst) | issues |
 |---|---|---|---|---|
 | BtnKeyHint: SHOWCASE TOUR | 43 | 18 | 16.2 |  |
-| MenuTitle: LEGACY OF THE TEMPLE | 80 | 48 | 9.8 |  |
+| BtnKeyHint: CONTINUE | 43 | 18 | 16.2 |  |
 | BtnKeyHint: NEW GAME | 43 | 18 | 16.2 |  |
 | BtnKeyHint: QUIT | 43 | 18 | 16.2 |  |
-| BtnKeyHint: CONTROLS | 43 | 18 | 16.2 |  |
-| BtnKeyHint: CREDITS | 43 | 18 | 16.2 |  |
 | MenuSubtitle: A heritage mystery | 40 | 26 | 13.8 |  |
+| MenuTitle: LEGACY OF THE TEMPLE | 80 | 48 | 9.8 |  |
+| BtnKeyHint: CREDITS | 43 | 18 | 16.2 |  |
 | BtnKeyHint: SETTINGS | 43 | 18 | 16.2 |  |
+| BtnKeyHint: CONTROLS | 43 | 18 | 16.2 |  |
 Problems in this view: 0
 
-#### UI table: MainMenu @ requested 1920x1080 (actual 1920x1080); TMP texts=8; active IMGUI(OnGUI) scripts not measurable=0
+#### UI table: MainMenu @ requested 1920x1080 (actual 1920x1080); TMP texts=9; active IMGUI(OnGUI) scripts not measurable=0
 | text | px@1080p | min | contrast(worst) | issues |
 |---|---|---|---|---|
 | BtnKeyHint: SHOWCASE TOUR | 43 | 18 | 16.2 |  |
-| MenuTitle: LEGACY OF THE TEMPLE | 80 | 48 | 9.8 |  |
+| BtnKeyHint: CONTINUE | 43 | 18 | 16.2 |  |
 | BtnKeyHint: NEW GAME | 43 | 18 | 16.2 |  |
 | BtnKeyHint: QUIT | 43 | 18 | 16.2 |  |
-| BtnKeyHint: CONTROLS | 43 | 18 | 16.2 |  |
-| BtnKeyHint: CREDITS | 43 | 18 | 16.2 |  |
 | MenuSubtitle: A heritage mystery | 40 | 26 | 13.8 |  |
+| MenuTitle: LEGACY OF THE TEMPLE | 80 | 48 | 9.8 |  |
+| BtnKeyHint: CREDITS | 43 | 18 | 16.2 |  |
 | BtnKeyHint: SETTINGS | 43 | 18 | 16.2 |  |
+| BtnKeyHint: CONTROLS | 43 | 18 | 16.2 |  |
 Problems in this view: 0
 
-#### UI table: MainMenu @ requested 2560x1440 (actual 2560x1440); TMP texts=8; active IMGUI(OnGUI) scripts not measurable=0
+#### UI table: MainMenu @ requested 2560x1440 (actual 2560x1440); TMP texts=9; active IMGUI(OnGUI) scripts not measurable=0
 | text | px@1080p | min | contrast(worst) | issues |
 |---|---|---|---|---|
 | BtnKeyHint: SHOWCASE TOUR | 43 | 18 | 16.2 |  |
-| MenuTitle: LEGACY OF THE TEMPLE | 80 | 48 | 9.8 |  |
+| BtnKeyHint: CONTINUE | 43 | 18 | 16.2 |  |
 | BtnKeyHint: NEW GAME | 43 | 18 | 16.2 |  |
 | BtnKeyHint: QUIT | 43 | 18 | 16.2 |  |
-| BtnKeyHint: CONTROLS | 43 | 18 | 16.2 |  |
-| BtnKeyHint: CREDITS | 43 | 18 | 16.2 |  |
 | MenuSubtitle: A heritage mystery | 40 | 26 | 13.8 |  |
+| MenuTitle: LEGACY OF THE TEMPLE | 80 | 48 | 9.8 |  |
+| BtnKeyHint: CREDITS | 43 | 18 | 16.2 |  |
 | BtnKeyHint: SETTINGS | 43 | 18 | 16.2 |  |
+| BtnKeyHint: CONTROLS | 43 | 18 | 16.2 |  |
 Problems in this view: 0
 
 ## Play-through from New Game (bot uses the Guide target for every objective)
-  loading bar: 30% at 0.70 s (image loading_a_temple_sunset)
-  loading bar: 60% at 1.25 s (image loading_a_temple_sunset)
-  loading bar: 100% at 2.08 s (image loading_a_temple_sunset)
-  loading screen 1: image=loading_a_temple_sunset, bar=1.00
+  loading bar: 30% at 0.70 s (image loading_b_thieves)
+  loading bar: 60% at 1.25 s (image loading_b_thieves)
+  loading bar: 100% at 2.08 s (image loading_b_thieves)
+  loading screen 1: image=loading_b_thieves, bar=1.00
 
 ## Intro: playing=True
   intro t=30.6s shot=03b_pujari_closeup
@@ -68,13 +71,14 @@ Problems in this view: 0
   intro t=68.0s shot=05c_handover
   intro ended after 40.5s real time: shots captured=18, player enabled=True, banner='OBJECTIVE: REACH JAGANNATH TEMPLE', objective=obj_c0_reach
 
-## Jeep spawn height every 0.5 s (10 s): 0.020, 0.032, 0.031, 0.031, 0.031, 0.031, 0.031, 0.031, 0.031, 0.031, 0.031  max-min=0.012 m
+## Jeep spawn height every 0.5 s (10 s): 0.020, 0.032, 0.031, 0.031, 0.031, 0.031, 0.031, 0.031, 0.031, 0.031  max-min=0.012 m
 
 ## Jeep: present=True
   prompt near the door: 'Drive the jeep'
   after E: occupied=True, driven=True, player visible=True, seated pose=True, player parent=Jeep
-  after 3.5 s of W: speed=44 km/h, moved 23.3 m, wheel FL rpm=259, tilt=0 deg
+  after 3.5 s of W: speed=42 km/h, moved 21.7 m, wheel FL rpm=351, tilt=0 deg
   after braking: speed=0 km/h
-  headlights toggled: on=True
-  after E: occupied=False, player enabled=False
-  crash at 43 km/h into the courtyard wall: impact dv=2.9 m/s, state=Destroyed, total damage=121, parts broken=13
+  headlights toggled: on=False
+  exit heights player/jeep every 0.15 s: 1.10/0.03 1.10/0.03 0.02/0.03 0.02/0.03 0.02/0.03 0.02/0.03 0.02/0.03 0.02/0.03 0.02/0.03 0.02/0.03 0.02/0.03 0.02/0.03 0.02/0.03 0.02/0.03 0.02/0.03 0.02/0.03
+  after E: occupied=False, player enabled=True
+  crash at 43 km/h into the courtyard wall: impact dv=0.1 m/s, state=Destroyed, total damage=118, parts broken=13

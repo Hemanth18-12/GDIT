@@ -184,7 +184,9 @@ namespace LegacyOfTemples.UI
             Hold(Key.Space); yield return new WaitForSecondsRealtime(0.6f); yield return Shot("s3-jeep-braking.png"); yield return new WaitForSecondsRealtime(1.4f); Release();
             Line($"  after braking: speed={jeep.Car.CurrentSpeed * 3.6f:0} km/h");
             yield return Tap(Key.L); yield return new WaitForSecondsRealtime(0.4f); Line($"  headlights toggled: on={jeep.Lights.HeadLightsOn}");
-            yield return Tap(Key.E); yield return new WaitForSecondsRealtime(2.0f);
+            yield return Tap(Key.E);
+            { var ys = new System.Collections.Generic.List<string>(); for (int k = 0; k < 16; k++) { yield return new WaitForSecondsRealtime(0.15f); ys.Add($"{pc.transform.position.y:0.00}/{jeep.transform.position.y:0.00}"); }
+              Line($"  exit heights player/jeep every 0.15 s: {string.Join(" ", ys)}"); }
             Line($"  after E: occupied={jeep.Occupied}, player enabled={pc.enabled}"); yield return Shot("s3-jeep-got-out.png");
             var wall = GameObject.Find("Wall_South_L");
             if (wall != null)
