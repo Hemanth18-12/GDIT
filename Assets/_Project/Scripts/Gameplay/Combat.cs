@@ -448,7 +448,7 @@ namespace LegacyOfTemples.Gameplay
             }
             foreach (var r in robbers) foreach (var t in r.GetComponents<NPCDialogueTrigger>()) t.enabled = false;
             BuildArena();
-            WeatherManager.Instance?.SetTarget(1f, true);
+            WeatherManager.Instance?.SetTarget(0f, false);   // no rain (removed at the player's request)
             Health = 100f; Stamina = 100f;
             routine = StartCoroutine(SavedPhase >= 2 ? ResumeAt(SavedPhase) : Intro());
         }
@@ -929,7 +929,7 @@ namespace LegacyOfTemples.Gameplay
             SetBanner("BHASKAR IS SUBDUED", 3f);
             AudioManager.Instance?.PlaySFX("sfx_body_fall");
             Fx.Burst("Dust", Bhaskar.transform.position + Vector3.up * 0.5f, 24, 2f, 0.4f, 1f, new Color(0.7f, 0.65f, 0.55f, 0.6f));
-            WeatherManager.Instance?.SetTarget(0.35f, false);
+            WeatherManager.Instance?.SetTarget(0f, false);
             yield return new WaitForSeconds(1.6f);
             // the satchel falls open: the pieces lie beside him
             Vector3 right = Vector3.Cross(Vector3.up, dir); int k = 0;

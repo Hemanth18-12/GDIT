@@ -140,7 +140,7 @@ namespace LegacyOfTemples.Gameplay
         private void Start()
         {
             story = StoryDialogueSystem.Instance;
-            foreach (string id in new[] { "chase_c1", "lamps", "deduction", "traps" }) story?.RegisterMinigame(id);
+            foreach (string id in new[] { "chase_c1", "lamps", "lock", "deduction", "traps" }) story?.RegisterMinigame(id);
         }
 
         private bool built;
@@ -178,7 +178,7 @@ namespace LegacyOfTemples.Gameplay
             if (!built) { if (Time.timeSinceLevelLoad < 0.8f) return; Build(); }
             if (scene == Constants.JunglePath && DawnClock.Instance != null) LookTuner.DawnProgress = Mathf.InverseLerp(115f, 155f, DawnClock.Instance.Minutes);
             if (scene == Constants.Courtyard) UpdateChase();
-            if (scene == Constants.Sanctum) { UpdateCells(); UpdateBoard(); UpdateMeera(Constants.Sanctum, "obj_c2_pujari"); }
+            if (scene == Constants.Sanctum) { UpdateLock(); UpdateCells(); UpdateBoard(); UpdateMeera(Constants.Sanctum, "obj_c2_pujari"); }
             if (scene == Constants.ShrineCrime) { UpdateTraps(); if (StoryFlags.Get("meera_out") == 0) UpdateMeera(Constants.ShrineCrime, "obj_c3_pujari"); }
         }
 
@@ -307,7 +307,53 @@ namespace LegacyOfTemples.Gameplay
                 cells.Add(Fx.Prim(PrimitiveType.Cube, "BatteryCell", root, pos + Vector3.up * 0.12f, new Vector3(0.1f, 0.2f, 0.1f), Fx.Lit(new Color(0.1f, 0.2f, 0.5f), 0.5f, 0.2f, new Color(0.2f, 0.6f, 1.6f))));
             }
             var marker = new GameObject("Marker_Lamps"); marker.transform.SetParent(root, false); marker.transform.position = centre;
+            // the locked storage case with a three-dial brass lock (Level 2 combination lock)
+            Vector3 cp = centre - f * 1.5f + right * 2.2f;
+            for (int k = 0; k < 6 && Physics.CheckSphere(Fx.Ground(cp) + Vector3.up * 0.6f, 0.5f, ~0, QueryTriggerInteraction.Ignore); k++) cp = Vector3.Lerp(cp, centre, 0.25f);
+            cp = Fx.Ground(cp);
+            var box = Fx.Prim(PrimitiveType.Cube, "StorageCase_Locked", root, cp + Vector3.up * 0.45f, new Vector3(1.2f, 0.9f, 0.7f), ArtUpgrade.Mat("wood_table") ?? Fx.Lit(new Color(0.32f, 0.2f, 0.1f), 0.1f, 0.4f), true);
+            box.transform.rotation = Quaternion.LookRotation(-f);
+            lockPlate = Fx.Prim(PrimitiveType.Cube, "BrassDialLock", box.transform, box.transform.position + box.transform.forward * 0.37f + Vector3.up * 0.15f, new Vector3(0.28f, 0.16f, 0.05f), Fx.Lit(new Color(0.78f, 0.58f, 0.2f), 0.9f, 0.8f));
+            lockPlate.transform.rotation = box.transform.rotation;
+            UseProp.Add(box, "storage_case_lock", "Try the dial lock", 2.4f, () => { if (Is("lock")) { LockOpen = true; lockSel = 0; lockMsg = ""; player.enabled = false; EventBus.RaiseHidePrompt(); } }, () => Is("lock") && !LockOpen);
+            var lm = new GameObject("Marker_Lock"); lm.transform.SetParent(root, false); lm.transform.position = cp;
+            if (story.ConversationDone("mg:lock")) lockPlate.SetActive(false);
         }
+
+        // ------------------------------------------------------------------ combination lock: three dials, code 1-7-5 (porter No. 17, five lamps)
+        public static bool LockOpen; private GameObject lockPlate; private readonly int[] dials = new int[3]; private int lockSel; private string lockMsg = "";
+        private static readonly int[] LockCode = { 1, 7, 5 };
+        private void UpdateLock()
+        {
+            if (!LockOpen) return;
+            if (!Is("lock")) { CloseLock(); return; }
+            var kb = Keyboard.current;
+            if (kb != null)
+            {
+                if (kb.aKey.wasPressedThisFrame || kb.leftArrowKey.wasPressedThisFrame) lockSel = (lockSel + 2) % 3;
+                if (kb.dKey.wasPressedThisFrame || kb.rightArrowKey.wasPressedThisFrame) lockSel = (lockSel + 1) % 3;
+                if (kb.wKey.wasPressedThisFrame || kb.upArrowKey.wasPressedThisFrame) { dials[lockSel] = (dials[lockSel] + 1) % 10; AudioManager.Instance?.PlaySFX("sfx_metal_hit", 0.15f); }
+                if (kb.sKey.wasPressedThisFrame || kb.downArrowKey.wasPressedThisFrame) { dials[lockSel] = (dials[lockSel] + 9) % 10; AudioManager.Instance?.PlaySFX("sfx_metal_hit", 0.15f); }
+                if (kb.backspaceKey.wasPressedThisFrame || kb.qKey.wasPressedThisFrame) { CloseLock(); return; }
+                if (kb.enterKey.wasPressedThisFrame || kb.numpadEnterKey.wasPressedThisFrame) TryLock();
+            }
+            string d = "";
+            for (int i = 0; i < 3; i++) d += (i == lockSel ? $"<color={ScreenText.Gold}>[ {dials[i]} ]</color>" : $"  {dials[i]}  ") + " ";
+            ScreenText.Panel("lock", "BRASS DIAL LOCK", $"<size=160%>{d}</size>\n{ScreenText.Key("A D")} dial  {ScreenText.Key("W S")} turn  {ScreenText.Key("Enter")} try  {ScreenText.Key("Q")} step back\n{lockMsg}", PanelAnchor.Center, 620f, null, false, 6);
+        }
+        public void TryLock()
+        {
+            if (!Is("lock")) return;
+            if (dials[0] == LockCode[0] && dials[1] == LockCode[1] && dials[2] == LockCode[2])
+            {
+                AudioManager.Instance?.PlaySFX("sfx_door_open", 0.6f); if (lockPlate != null) lockPlate.SetActive(false);
+                CloseLock(); story.CompleteMinigame("lock");
+                ObjectiveBanner.Show("CASE OPENED", "AN EMPTY CLOTH LINING, STILL WARM WITH LAMP SOOT", 3.5f);
+            }
+            else { lockMsg = $"<color={ScreenText.Coral}>The shackle does not move.</color>"; AudioManager.Instance?.PlaySFX("sfx_metal_hit", 0.4f); DawnClock.Instance?.Penalty(0.5f, "a wrong lock code"); }
+        }
+        public void SetDials(int a, int b, int c) { dials[0] = a; dials[1] = b; dials[2] = c; }
+        private void CloseLock() { LockOpen = false; if (player != null) player.enabled = true; }
 
         public void LightLamp(int ord)
         {

@@ -41,7 +41,7 @@ namespace LegacyOfTemples.Gameplay
         public string Id => "puzzle_chakra_wall";
         public string Prompt => isSolved ? "The sun wall is open" : "Use the sun wall";
         public Transform Anchor => transform;
-        public float Radius => 3.5f;
+        public float Radius => isSolved ? 0f : 3.5f;
         public bool IsSolved => isSolved;
         public bool IsInteracting => isInteracting;
         public int Step => step;
@@ -68,7 +68,7 @@ namespace LegacyOfTemples.Gameplay
 
         private void Start()
         {
-            if (PlayerPrefs.GetInt("ChakraPuzzle_Solved", 0) == 1) SolvePuzzle(true);
+            SolvePuzzle(true);   // the Sun Wall puzzle was removed at the player's request: the passage is already open
         }
 
         private void OnEnable() { Active = this; }

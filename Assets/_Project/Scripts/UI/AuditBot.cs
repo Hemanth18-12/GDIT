@@ -326,6 +326,21 @@ namespace LegacyOfTemples.UI
                 yield return Shot("v2-chase.png");
                 cd.DebugEndChase();
             }
+            else if (id == "lock")
+            {   // walk to the case, press E, enter a wrong code, then the right one, all with real keys
+                var box = GameObject.Find("StorageCase_Locked");
+                if (box != null) { player.Teleport(box.transform.position + box.transform.forward * 1.6f, Quaternion.LookRotation(-box.transform.forward)); yield return new WaitForSecondsRealtime(0.8f); }
+                Line($"  lock: case present={box != null}, prompt='{(player.CurrentInteractable != null ? player.CurrentInteractable.Prompt : "(none)")}'");
+                yield return Tap(Key.E); yield return new WaitForSecondsRealtime(0.5f);
+                Line($"  lock: panel open={ChapterDirector.LockOpen}");
+                yield return Tap(Key.W); yield return Tap(Key.Enter); yield return new WaitForSecondsRealtime(0.4f);
+                yield return Shot("s4-lock-wrong.png"); Line($"  lock: wrong code 1-0-0 -> still open={ChapterDirector.LockOpen}, objective={story.Current?.id}");
+                yield return Tap(Key.D); for (int k = 0; k < 7; k++) yield return Tap(Key.W);
+                yield return Tap(Key.D); for (int k = 0; k < 5; k++) yield return Tap(Key.S);
+                yield return Shot("s4-lock-175.png"); yield return Tap(Key.Enter); yield return new WaitForSecondsRealtime(1.0f);
+                yield return Shot("s4-lock-opened.png");
+                Line($"  lock: code 1-7-5 -> panel open={ChapterDirector.LockOpen}, banner='{ObjectiveBanner.Last}', objective now {story.Current?.id}");
+            }
             else if (id == "lamps")
             {
                 cd.LightLamp(3); yield return new WaitForSecondsRealtime(0.4f);
@@ -431,6 +446,23 @@ namespace LegacyOfTemples.UI
             yield return IntroShots();
             yield return SkipIntro();
             if (Array.IndexOf(Environment.GetCommandLineArgs(), "-focusCheck") >= 0) { yield return FocusCheck(); yield break; }
+            if (Array.IndexOf(Environment.GetCommandLineArgs(), "-lockFocus") >= 0)
+            {   // Level 2 combination lock only
+                var st = StoryDialogueSystem.Instance; int guard = 0;
+                while (st != null && st.Current != null && st.Current.id != "obj_c2_lock" && guard++ < 40) { st.DebugCompleteCurrent(); yield return null; }
+                SceneLoader.Load(Constants.Sanctum); yield return WaitLoaded(); yield return new WaitForSecondsRealtime(3f); yield return SkipIntro();
+                Line($"\n## Lock check: objective {st?.Current?.id}");
+                yield return PlayMinigame("lock", st, FindAnyObjectByType<PlayerController>());
+                guard = 0; while (st != null && st.Current != null && st.Current.id != "obj_c4_pujari" && guard++ < 40) { st.DebugCompleteCurrent(); yield return null; }
+                st.DebugCompleteCurrent(); yield return null;
+                Line($"\n## PuzzleWall: after the scroll talk the objective is {st?.Current?.id} (Sun Wall step removed)");
+                SceneLoader.Load(Constants.PuzzleWall); yield return WaitLoaded(); yield return new WaitForSecondsRealtime(4f); yield return SkipIntro();
+                var wm2 = LegacyOfTemples.World.WeatherManager.Instance; var cpz = ChakraPuzzleController.Active;
+                Line($"  rain intensity={(wm2 != null ? wm2.Intensity : -1f):0.00}, wall solved={(cpz != null && cpz.IsSolved)}, wall prompt radius={(cpz != null ? cpz.Radius : -1f):0.0}, sun={(RenderSettings.sun != null ? RenderSettings.sun.intensity : -1f):0.0}");
+                yield return Shot("s4-puzzlewall-open.png");
+                File.WriteAllText(Path.Combine(output, "audit.md"), report.ToString());
+                Debug.Log("[AuditBot] DONE " + output); yield return new WaitForSecondsRealtime(1f); Application.Quit(); yield break;
+            }
             if (Array.IndexOf(Environment.GetCommandLineArgs(), "-jeepFocus") >= 0)
             {   // Stage 2 check only: no hop at spawn (height log), seated visible driver, driving, damage
                 yield return new WaitForSecondsRealtime(1.0f); yield return Shot("s3-temple-reveal.png"); Line($"\n## Reveal banner: '{ObjectiveBanner.Last}'");

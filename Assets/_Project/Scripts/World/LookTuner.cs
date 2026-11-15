@@ -66,9 +66,9 @@ namespace LegacyOfTemples.World
                 case "ShrineCrime": // blue moonlight against warm lamps, in rain
                     return new Look { exposure = 1.35f, ambient = 1.5f, fog = 0.008f, sky = C(0.36f, 0.42f, 0.6f), equator = C(0.34f, 0.32f, 0.36f), ground = C(0.16f, 0.14f, 0.14f), fogColor = C(0.12f, 0.16f, 0.26f),
                         sunIntensity = 1.5f, sunColor = C(0.82f, 0.88f, 1f), sunAngles = new Vector2(42f, 30f), skyExposure = 0.45f, skyTint = C(0.2f, 0.28f, 0.5f), bloom = 0.4f, saturation = 10f, vignette = 0.26f, fill = 0.22f };
-                case "PuzzleWall": // harsh midday: high white sun, hard short shadows, bleached stone, clear air
-                    return new Look { exposure = 0.55f, ambient = 1.1f, fog = 0.0018f, sky = C(0.55f, 0.7f, 0.95f), equator = C(0.75f, 0.7f, 0.62f), ground = C(0.35f, 0.3f, 0.24f), fogColor = C(0.85f, 0.87f, 0.92f),
-                        sunIntensity = 2.2f, sunColor = C(1f, 0.97f, 0.92f), sunAngles = new Vector2(74f, 20f), skyExposure = 1.2f, skyTint = C(0.5f, 0.56f, 0.66f), bloom = 0.25f, saturation = 0f, vignette = 0.12f, fill = 0.3f };
+                case "PuzzleWall": // torch-lit stone (the bright midday look was removed at the player's request)
+                    return new Look { exposure = 1.0f, ambient = 1.4f, fog = 0.008f, sky = C(0.24f, 0.19f, 0.15f), equator = C(0.32f, 0.22f, 0.14f), ground = C(0.11f, 0.09f, 0.07f), fogColor = C(0.13f, 0.09f, 0.06f),
+                        sunIntensity = 0.3f, sunColor = C(1f, 0.75f, 0.5f), sunAngles = new Vector2(55f, 0f), skyExposure = 0.15f, skyTint = C(0.2f, 0.18f, 0.2f), bloom = 0.45f, saturation = 6f, vignette = 0.28f, fill = 0f };
                 case "JunglePath": // dusk: low orange sun through teal mist
                     return new Look { exposure = 0.95f, ambient = 1.25f, fog = 0.02f, sky = C(0.35f, 0.5f, 0.55f), equator = C(0.55f, 0.44f, 0.38f), ground = C(0.14f, 0.16f, 0.12f), fogColor = C(0.3f, 0.48f, 0.5f),
                         sunIntensity = 1.4f, sunColor = C(1f, 0.56f, 0.3f), sunAngles = new Vector2(7f, -60f), skyExposure = 0.75f, skyTint = C(0.5f, 0.42f, 0.42f), bloom = 0.5f, saturation = 14f, vignette = 0.3f, fill = 0.2f };

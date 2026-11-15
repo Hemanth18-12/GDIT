@@ -220,3 +220,10 @@ Open `Builds/LegacyOfTheTemple.app` (or open Unity → MainMenu → Play). Scree
 
 ## Stage 6 (attempt): olive dawn sky
 - Changed the dawn sky tint from cool grey-violet to warm rose (`LookTuner.DawnLook`, skyTint 1.0/0.8/0.86). The green band in the upper sky is gone (now grey-blue), but the horizon is still mustard yellow, so this is only partly fixed. Next idea: change the sun colour near the horizon or use a gradient skybox. Evidence: `Docs/QA/master_sky/s7-intro-10-04b_low_front.png`.
+
+## Your requests: no rain, Sun Wall removed, plus a new dial lock in Level 2
+- **Rain removed everywhere**, including the final fight's storm (`WeatherManager.DefaultFor` returns 0; `Combat.cs` no longer starts rain). Log: rain intensity = 0.00.
+- **Sun Wall puzzle removed.** The "Open the Sun Wall" step is gone from `story.json`, and the wall is already open when you arrive (`ChakraPuzzleController` opens it silently). After the scroll talk, the next step is "Follow them into the jungle". The bright midday light on that level is back to the torch-lit look.
+- **New: brass dial lock (Sanctum, Level 2).** After showing the token to the Pujari, open the locked storage case. Press E at the case, A/D to pick a dial, W/S to turn it, Enter to try, Q to step back. The code is **1 7 5** (porter No. 17 + the 5 lamps you lit). A wrong code costs 30 s on the dawn clock. H gives hints.
+- Evidence: `Docs/QA/master_lock/` (audit.md: wrong code keeps it shut, 1-7-5 opens it and the objective moves on; s4-lock-175.png; s4-puzzlewall-open.png).
+- Files: `Gameplay/Chapters.cs`, `Resources/Story/story.json`, `Gameplay/ChakraPuzzleController.cs`, `World/WeatherManager.cs`, `Gameplay/Combat.cs`, `World/LookTuner.cs`.

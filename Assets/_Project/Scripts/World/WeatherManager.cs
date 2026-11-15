@@ -75,7 +75,7 @@ namespace LegacyOfTemples.World
         /// <summary>Default weather per map: drizzle in the courtyard, heavy rain at the outer shrine, storm in the jungle.</summary>
         public static float DefaultFor(string scene)
         {
-            return scene == "ShrineCrime" ? 0.7f : 0f;   // Level 3 is a night crime scene in steady rain; elsewhere dry until the final fight sets the storm
+            return 0f;   // no rain anywhere (removed at the player's request)
         }
 
         /// <summary>Story override (for example: storm 1.0 in the final fight, 0 at first light).</summary>

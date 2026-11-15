@@ -845,6 +845,25 @@
    ]
   },
   {
+   "id": "obj_c2_lock",
+   "chapter": "ch2",
+   "scene": "Sanctum",
+   "title": "Open the locked storage case",
+   "instruction": "One storage case is still shut with a three-dial brass lock. The porter's number and the lamps you lit give the code.",
+   "keys": "E use, A D choose dial, W S turn, Enter try",
+   "target": "obj:Marker_Lock",
+   "area": "Storage hall",
+   "complete": {
+    "type": "minigame",
+    "id": "lock"
+   },
+   "hints": [
+    "The token said No. 17.",
+    "Two dials for the porter's number, one for the lamps.",
+    "The code is 1 7 5."
+   ]
+  },
+  {
    "id": "obj_c2_deduce",
    "chapter": "ch2",
    "scene": "Sanctum",
@@ -997,25 +1016,6 @@
     "The wall has an order.",
     "The Pujari knows the old scroll.",
     "Walk to Pujari Ananda and press E."
-   ]
-  },
-  {
-   "id": "obj_c4_wall",
-   "chapter": "ch4",
-   "scene": "PuzzleWall",
-   "title": "Open the Sun Wall",
-   "instruction": "Turn the four symbols in the scroll's order, then crank the centre by hand before the wall resets.",
-   "keys": "E use, 1-4 symbols, A/D crank",
-   "target": "puzzle",
-   "area": "The wall",
-   "complete": {
-    "type": "puzzle",
-    "id": "chakra_wall"
-   },
-   "hints": [
-    "Lotus, conch, wheel, kalash. Then the heart.",
-    "Press E at the wall. The timer resets the wall, so be quick.",
-    "Press 1, 2, 3, 4, then Enter and alternate A and D to crank."
    ]
   },
   {
