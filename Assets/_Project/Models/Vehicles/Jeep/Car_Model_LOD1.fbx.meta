@@ -62,6 +62,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: MAT_Paint_Body
+    second: {fileID: 2100000, guid: 8f5af28dcbdd74cddafbf268952614bf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: MAT_Paint_Red
     second: {fileID: 2100000, guid: 1a34d518d1bc145dab540076a927070f, type: 2}
   - first:

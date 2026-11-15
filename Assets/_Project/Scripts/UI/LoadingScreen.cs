@@ -21,15 +21,10 @@ namespace LegacyOfTemples.UI
         public static float LastProgress { get; private set; }
         public const float MinSeconds = 2.2f;
 
-        private CanvasGroup group; private RawImage image; private RectTransform barFill, track, glow, tipPill; private Image glowImg; private TMP_Text tipText, pctText;
+        private CanvasGroup group; private RawImage image; private RectTransform barFill, track, glow, tipPill; private Image glowImg; private TMP_Text tipText, pctText, titleText, loadingText;
         private Texture2D[] images; private Texture2D fallback; private string[] tips; private int tipIndex; private float tipAt;
 
-        /// <summary>Where each picture has its painted bar, in picture units (0..1, v from the bottom): the real bar is drawn exactly over it.</summary>
-        private struct Layout { public float x0, x1, barV, tipV; }
-        private static Layout LayoutFor(string name) =>
-            name != null && name.Contains("01") ? new Layout { x0 = 0.276f, x1 = 0.724f, barV = 0.126f, tipV = 0.083f }
-                                               : new Layout { x0 = 0.236f, x1 = 0.769f, barV = 0.073f, tipV = 0.030f };
-        private Layout layout;
+
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void Bootstrap()
@@ -58,8 +53,13 @@ namespace LegacyOfTemples.UI
             for (int x = 0; x < 32; x++) { float a = 1f - Mathf.Abs(x - 15.5f) / 15.5f; gt.SetPixel(x, 0, new Color(1f, 0.95f, 0.7f, a * a)); }
             gt.Apply(); glowImg.sprite = Sprite.Create(gt, new UnityEngine.Rect(0, 0, 32, 1), new Vector2(0.5f, 0.5f));
 
-            tipPill = Rect("LoadingTipPill", transform); tipPill.gameObject.AddComponent<Image>().color = new Color(0.03f, 0.02f, 0.01f, 0.86f);
-            tipText = ScreenTextRenderer.MakeText(tipPill, "LoadingTip", 26, ScreenTextRenderer.Ivory, false, TextAlignmentOptions.Center);
+            var grad = Rect("BottomGradient", transform); var gi = grad.gameObject.AddComponent<RawImage>(); gi.texture = Gradient(new Color(0f, 0f, 0f, 0.92f), new Color(0f, 0f, 0f, 0f)); gi.raycastTarget = false;
+            grad.anchorMin = new Vector2(0f, 0f); grad.anchorMax = new Vector2(1f, 0.30f); grad.offsetMin = grad.offsetMax = Vector2.zero; grad.SetSiblingIndex(2);
+            titleText = ScreenTextRenderer.MakeText(transform, "LoadingTitle", 46, ScreenTextRenderer.Gold, true, TextAlignmentOptions.BottomLeft); titleText.raycastTarget = false;
+            titleText.text = "LEGACY OF THE TEMPLE"; titleText.characterSpacing = 8f; titleText.textWrappingMode = TextWrappingModes.NoWrap;
+            loadingText = ScreenTextRenderer.MakeText(transform, "LoadingLabel", 24, ScreenTextRenderer.Ivory, false, TextAlignmentOptions.BottomRight); loadingText.raycastTarget = false; loadingText.textWrappingMode = TextWrappingModes.NoWrap;
+            tipPill = Rect("LoadingTipPill", transform); tipPill.gameObject.AddComponent<Image>().color = new Color(0f, 0f, 0f, 0f);
+            tipText = ScreenTextRenderer.MakeText(tipPill, "LoadingTip", 26, ScreenTextRenderer.Ivory, false, TextAlignmentOptions.Left);
             Stretch(tipText.rectTransform); tipText.rectTransform.offsetMin = new Vector2(16, 0); tipText.rectTransform.offsetMax = new Vector2(-16, 0);
             tipText.fontStyle = FontStyles.Italic; tipText.textWrappingMode = TextWrappingModes.NoWrap; tipText.enableAutoSizing = true; tipText.fontSizeMax = 26; tipText.fontSizeMin = 16; tipText.raycastTarget = false;
             pctText = ScreenTextRenderer.MakeText(transform, "LoadingPercent", 28, ScreenTextRenderer.Gold, true, TextAlignmentOptions.Right); pctText.raycastTarget = false; pctText.textWrappingMode = TextWrappingModes.NoWrap;
@@ -97,7 +97,7 @@ namespace LegacyOfTemples.UI
             PlayerPrefs.SetInt("Loading_ImageIndex", pick + 1);
             if (tex == null) Debug.LogWarning("[LoadingScreen] No pictures in Resources/UI/Loading. Showing the dark gradient.");
             LastImage = tex != null ? tex.name : "(gradient fallback)";
-            image.texture = tex != null ? tex : fallback; layout = LayoutFor(tex != null ? tex.name : null);
+            image.texture = tex != null ? tex : fallback;
             tips = StoryData.File.tips ?? new string[0];
             tipIndex = PlayerPrefs.GetInt("Loading_TipIndex", 0); PlayerPrefs.SetInt("Loading_TipIndex", tipIndex + 2); NextTip();
             SetBar(0f); group.blocksRaycasts = true;
@@ -142,23 +142,23 @@ namespace LegacyOfTemples.UI
             barFill.anchorMax = new Vector2(p, 1f); barFill.offsetMax = new Vector2(p >= 0.999f ? -3 : 0, -3);
             glow.anchorMin = new Vector2(p, 0f); glow.anchorMax = new Vector2(p, 1f); glow.sizeDelta = new Vector2(90f, 22f); glow.anchoredPosition = Vector2.zero;
             glowImg.color = new Color(1f, 1f, 1f, p > 0.005f && p < 0.999f ? 0.55f + 0.35f * Mathf.Sin(Time.unscaledTime * 7f) : 0f);
-            pctText.text = Mathf.RoundToInt(p * 100f) + "%";
+            pctText.text = Mathf.RoundToInt(p * 100f) + "%"; if (loadingText != null) loadingText.text = "Loading" + new string('.', 1 + (int)(Time.unscaledTime * 2f) % 3);
         }
 
-        /// <summary>Cover-fit the picture without stretching it, and put the real bar exactly over the painted one.</summary>
+        /// <summary>Cover-fit the picture without stretching it (painted UI was cropped out of the art); the game's own UI sits in the bottom 15%.</summary>
         private void Place(float aspect)
         {
             float screen = (float)Screen.width / Mathf.Max(1, Screen.height);
             float w = 1f, h = 1f;
             if (aspect > screen) w = screen / aspect; else h = aspect / screen;
-            var uv = new UnityEngine.Rect((1f - w) * 0.5f, (1f - h) * 0.5f, w, h); image.uvRect = uv;
-            Vector2 A(float u, float v) => new Vector2(Mathf.Clamp((u - uv.x) / uv.width, 0.04f, 0.96f), Mathf.Clamp((v - uv.y) / uv.height, 0.02f, 0.98f));
-            Vector2 a0 = A(layout.x0, layout.barV), a1 = A(layout.x1, layout.barV);
-            track.anchorMin = new Vector2(a0.x, a0.y); track.anchorMax = new Vector2(a1.x, a0.y); track.pivot = new Vector2(0.5f, 0.5f); track.sizeDelta = new Vector2(0f, 30f); track.anchoredPosition = Vector2.zero;
-            Vector2 t0 = A(layout.x0, layout.tipV), t1 = A(layout.x1, layout.tipV);
-            tipPill.anchorMin = new Vector2(t0.x, t0.y); tipPill.anchorMax = new Vector2(t1.x, t0.y); tipPill.pivot = new Vector2(0.5f, 0.5f); tipPill.sizeDelta = new Vector2(0f, 40f); tipPill.anchoredPosition = Vector2.zero;
-            var pr = pctText.rectTransform; pr.anchorMin = pr.anchorMax = new Vector2(a1.x, a0.y); pr.pivot = new Vector2(0f, 0.5f); pr.sizeDelta = new Vector2(110f, 40f); pr.anchoredPosition = new Vector2(14f, 0f);
-            pctText.alignment = TextAlignmentOptions.Left;
+            image.uvRect = new UnityEngine.Rect((1f - w) * 0.5f, (1f - h) * 0.5f, w, h);
+            void At(RectTransform r, float x0, float x1, float y, float height) { r.anchorMin = new Vector2(x0, 0f); r.anchorMax = new Vector2(x1, 0f); r.pivot = new Vector2(0.5f, 0.5f); r.sizeDelta = new Vector2(0f, height); r.anchoredPosition = new Vector2(0f, y); }
+            At(titleText.rectTransform, 0.06f, 0.70f, 132f, 60f);
+            At(loadingText.rectTransform, 0.60f, 0.88f, 104f, 34f);
+            At(track, 0.06f, 0.94f, 76f, 14f);
+            At(tipPill, 0.06f, 0.94f, 40f, 36f);
+            var pr = pctText.rectTransform; pr.anchorMin = pr.anchorMax = new Vector2(0.94f, 0f); pr.pivot = new Vector2(1f, 0.5f); pr.sizeDelta = new Vector2(110f, 34f); pr.anchoredPosition = new Vector2(0f, 104f);
+            pctText.alignment = TextAlignmentOptions.Right;
         }
     }
 }

@@ -167,7 +167,16 @@ namespace LegacyOfTemples.UI
             Line($"  prompt near the door: '{(pc.CurrentInteractable != null ? pc.CurrentInteractable.Prompt : "(none)")}'");
             yield return Shot("s3-jeep-parked.png");
             yield return Tap(Key.E); yield return new WaitForSecondsRealtime(2.2f);
-            Line($"  after E: occupied={jeep.Occupied}, driven={jeep.Car.Driven}");
+            Line($"  after E: occupied={jeep.Occupied}, driven={jeep.Car.Driven}, player visible={pc.GetComponentInChildren<Renderer>()?.enabled}, seated pose={pc.GetComponent<LegacyOfTemples.Gameplay.Vehicles.SeatedPose>() != null}, player parent={(pc.transform.parent != null ? pc.transform.parent.name : "none")}");
+            {   // close-up through the driver's window: the investigator must be visible in the right-hand seat
+                var fc = Camera.main != null ? Camera.main.GetComponent<LegacyOfTemples.Gameplay.Vehicles.CarFollowCamera>() : null; bool was = fc != null && fc.enabled; if (fc != null) fc.enabled = false;
+                var cam = Camera.main; Vector3 seat = jeep.transform.TransformPoint(jeep.DriverSeatLocal);
+                cam.transform.position = seat + jeep.transform.right * Mathf.Sign(jeep.DriverSeatLocal.x) * 2.6f + jeep.transform.forward * 1.2f + Vector3.up * 0.55f; cam.transform.LookAt(seat + Vector3.up * 0.3f);
+                yield return null; yield return Shot("s3-jeep-driver-seated.png");
+                cam.transform.position = seat + jeep.transform.forward * 3.2f + Vector3.up * 0.9f; cam.transform.LookAt(seat + Vector3.up * 0.35f);
+                yield return null; yield return Shot("s3-jeep-driver-front.png");
+                if (fc != null) fc.enabled = was;
+            }
             Vector3 start = jeep.transform.position;
             Hold(Key.W); yield return new WaitForSecondsRealtime(3.5f);
             yield return Shot("s3-jeep-driving.png"); Release();
@@ -420,6 +429,15 @@ namespace LegacyOfTemples.UI
             yield return IntroShots();
             yield return SkipIntro();
             if (Array.IndexOf(Environment.GetCommandLineArgs(), "-focusCheck") >= 0) { yield return FocusCheck(); yield break; }
+            if (Array.IndexOf(Environment.GetCommandLineArgs(), "-jeepFocus") >= 0)
+            {   // Stage 2 check only: no hop at spawn (height log), seated visible driver, driving, damage
+                var hs = LegacyOfTemples.Gameplay.Vehicles.Jeep.SpawnHeights;
+                Line($"\n## Jeep spawn height every 0.5 s (10 s): {string.Join(", ", hs.ConvertAll(h => h.ToString("0.000")))}  max-min={(hs.Count > 0 ? (Mathf.Max(hs.ToArray()) - Mathf.Min(hs.ToArray())) : -1f):0.000} m");
+                yield return Shot("s3-jeep-after-intro.png");
+                yield return JeepCheck();
+                File.WriteAllText(Path.Combine(output, "audit.md"), report.ToString());
+                Debug.Log("[AuditBot] DONE " + output); yield return new WaitForSecondsRealtime(1f); Application.Quit(); yield break;
+            }
             if (Array.IndexOf(Environment.GetCommandLineArgs(), "-stopAfterIntro") >= 0)
             {   // short run: the first objective, a few seconds of walking up the road, then stop
                 yield return new WaitForSecondsRealtime(2.5f); yield return Shot("s7-first-objective.png");

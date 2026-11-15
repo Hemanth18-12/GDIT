@@ -45,8 +45,11 @@ namespace LegacyOfTemples.Gameplay.Vehicles
         {
             var pf = Resources.Load<GameObject>("Vehicles/Jeep");
             if (pf == null) { Debug.LogWarning("[Jeep] Resources/Vehicles/Jeep prefab is missing (run VehicleTools.Build)."); return null; }
+            // stand it exactly on the ground (wheels touch y = 0 of the root after AlignModel), never drop it
+            if (Physics.Raycast(position + Vector3.up * 3f, Vector3.down, out RaycastHit h, 10f, ~0, QueryTriggerInteraction.Ignore)) position.y = h.point.y + 0.02f;
             var g = Instantiate(pf, position, rotation); g.name = "Jeep";
-            return g.GetComponent<Jeep>();
+            var j = g.GetComponent<Jeep>(); j.StartCoroutine(j.Settle());
+            return j;
         }
 
         private void Awake()
@@ -65,6 +68,67 @@ namespace LegacyOfTemples.Gameplay.Vehicles
         }
 
         private void OnDestroy() { if (Instance == this) Instance = null; }
+
+        /// <summary>Physics stays asleep for the first moments, so the jeep never hops when a level starts.</summary>
+        public IEnumerator Settle()
+        {
+            rb.isKinematic = true;
+            yield return new WaitForSeconds(0.6f);
+            if (!Scripted) { rb.isKinematic = false; rb.linearVelocity = Vector3.zero; rb.angularVelocity = Vector3.zero; StartCoroutine(LogHeights()); }
+        }
+        private IEnumerator LogHeights()
+        {
+            SpawnHeights.Clear(); float t0 = Time.time;
+            while (Time.time - t0 < 10f) { SpawnHeights.Add(transform.position.y); yield return new WaitForSeconds(0.5f); }
+        }
+        /// <summary>Height of the jeep every half second for 10 s after spawning (QA proof that it does not hop).</summary>
+        public static readonly List<float> SpawnHeights = new List<float>();
+
+        // ------------------------------------------------------------------ paint variants
+        public enum Paint { White, Olive, Red, Blue }
+        public void SetPaint(Paint p)
+        {
+            Color c = p == Paint.Olive ? new Color(0.22f, 0.27f, 0.14f) : p == Paint.Red ? new Color(0.62f, 0.06f, 0.04f) : p == Paint.Blue ? new Color(0.12f, 0.2f, 0.42f) : new Color(0.9f, 0.9f, 0.88f);
+            var mpb = new MaterialPropertyBlock();
+            foreach (var r in GetComponentsInChildren<Renderer>(true))
+            {
+                var mats = r.sharedMaterials;
+                for (int i = 0; i < mats.Length; i++) if (mats[i] != null && mats[i].name.Contains("Paint_Body")) { r.GetPropertyBlock(mpb, i); mpb.SetColor("_BaseColor", c); r.SetPropertyBlock(mpb, i); }
+            }
+        }
+
+        // ------------------------------------------------------------------ scripted (cutscene) driving: kinematic, no physics jitter
+        public bool Scripted { get; private set; }
+        private Quaternion[] wheelRest; private Transform[] wheelT; private float spin, bobT; private Vector3 modelRest, lastPos; private Quaternion lastRot;
+        public void BeginScripted()
+        {
+            Scripted = true; rb.isKinematic = true; Car.enabled = false;
+            wheelT = new[] { Car.frontLeftWheelTransform, Car.frontRightWheelTransform, Car.rearLeftWheelTransform, Car.rearRightWheelTransform };
+            wheelRest = new Quaternion[4]; for (int i = 0; i < 4; i++) wheelRest[i] = Quaternion.Inverse(transform.rotation) * wheelT[i].rotation;
+            modelRest = Model.localPosition; lastPos = transform.position; lastRot = transform.rotation;
+        }
+        /// <summary>Move along the cutscene path: wheels spin with distance, the front wheels steer with the turn, the body bobs a little on its springs.</summary>
+        public void ScriptedMove(Vector3 pos, Quaternion rot)
+        {
+            if (!Scripted) return;
+            float dist = Vector3.Distance(Flat(pos), Flat(lastPos)), dt = Mathf.Max(Time.deltaTime, 1e-4f), speed = dist / dt;
+            float yawRate = Mathf.DeltaAngle(lastRot.eulerAngles.y, rot.eulerAngles.y) / dt;
+            transform.SetPositionAndRotation(pos, rot); lastPos = pos; lastRot = rot;
+            spin += dist / 0.4f * Mathf.Rad2Deg;
+            float steer = Mathf.Clamp(yawRate * 0.9f, -28f, 28f);
+            for (int i = 0; i < 4; i++) if (wheelT[i] != null) wheelT[i].rotation = transform.rotation * Quaternion.Euler(0f, i < 2 ? steer : 0f, 0f) * Quaternion.Euler(spin, 0f, 0f) * wheelRest[i];
+            bobT += dt * (6f + speed);
+            Model.localPosition = modelRest + Vector3.up * (Mathf.Sin(bobT) * 0.008f * Mathf.Clamp01(speed / 6f)) ;
+            Audio.engineLevel = 0.6f + 0.4f * Mathf.Clamp01(speed / 8f);
+        }
+        public void EndScripted(bool physics)
+        {
+            if (!Scripted) return;
+            Scripted = false; Model.localPosition = modelRest; Car.enabled = true;
+            rb.isKinematic = !physics; rb.linearVelocity = Vector3.zero; rb.angularVelocity = Vector3.zero;
+            if (physics) StartCoroutine(LogHeights());
+        }
+        private static Vector3 Flat(Vector3 v) { v.y = 0f; return v; }
 
         private Transform T(string n) => named.TryGetValue(n, out var t) ? t : null;
         private Vector3 L(Transform t) => transform.InverseTransformPoint(t.position);
@@ -105,7 +169,7 @@ namespace LegacyOfTemples.Gameplay.Vehicles
         private void BuildPhysics()
         {
             rb = gameObject.GetComponent<Rigidbody>() ?? gameObject.AddComponent<Rigidbody>();
-            rb.mass = 1650f; rb.linearDamping = 0.05f; rb.angularDamping = 0.6f; rb.interpolation = RigidbodyInterpolation.Interpolate;
+            rb.mass = 1500f; rb.linearDamping = 0.05f; rb.angularDamping = 0.6f; rb.interpolation = RigidbodyInterpolation.Interpolate;
             rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
             var body = T("SM_Jeep_Body"); var top = T("SM_Jeep_Hardtop");
             if (body != null)
@@ -223,8 +287,17 @@ namespace LegacyOfTemples.Gameplay.Vehicles
         {
             Occupied = true; enteredFrame = Time.frameCount; player = pc;
             pc.enabled = false;
+            LegacyOfTemples.Core.EventBus.RaiseHidePrompt();
+            var drv = pc.GetComponent<NpcAnimDriver>() ?? pc.gameObject.AddComponent<NpcAnimDriver>();
+            Vector3 door = DriverExitPoint;
+            for (float t = 0f; t < 1.2f && Vector3.Distance(Flat(pc.transform.position), Flat(door)) > 0.15f; t += Time.deltaTime)
+            {   // walk to the door
+                Vector3 d = Flat(door - pc.transform.position); pc.transform.rotation = Quaternion.Slerp(pc.transform.rotation, Quaternion.LookRotation(d), Time.deltaTime * 8f);
+                pc.transform.position += d.normalized * Mathf.Min(1.5f * Time.deltaTime, d.magnitude); yield return null;
+            }
+            Destroy(drv);
             yield return DriverDoor(true, 0.45f);
-            SetPlayerVisible(false);
+            SeatPlayer(true);
             yield return DriverDoor(false, 0.4f);
             orbit = FindAnyObjectByType<OrbitCamera>(); if (orbit != null) orbit.enabled = false;
             var cam = Camera.main;
@@ -239,12 +312,42 @@ namespace LegacyOfTemples.Gameplay.Vehicles
             yield return DriverDoor(true, 0.45f);
             Vector3 p = DriverExitPoint;
             if (Physics.Raycast(p + Vector3.up * 2f, Vector3.down, out RaycastHit h, 6f, ~0, QueryTriggerInteraction.Ignore) && !h.collider.transform.IsChildOf(transform)) p.y = h.point.y + 0.02f;
+            SeatPlayer(false);
             player.Teleport(p, Quaternion.LookRotation(Vector3.ProjectOnPlane(transform.forward, Vector3.up)));
-            SetPlayerVisible(true); player.enabled = true;
+            player.enabled = true;
             if (follow != null) follow.enabled = false;
             if (orbit != null) { orbit.enabled = true; orbit.SetTarget(player.transform); }
             yield return DriverDoor(false, 0.4f);
             Occupied = false; player = null;
+        }
+
+        /// <summary>The investigator sits in the right-hand driver's seat, visible through the windows, hands on the wheel.</summary>
+        private void SeatPlayer(bool sit) { if (player != null) SeatDriver(player.transform, sit); }
+        /// <summary>Puts a character in (or takes them out of) the driver's seat with the seated pose. Also used by the intro.</summary>
+        public void SeatDriver(Transform who, bool sit)
+        {
+            if (who == null) return; var player = who;
+            var cc = player.GetComponent<CharacterController>(); if (cc != null) cc.enabled = !sit;
+            foreach (var c in player.GetComponentsInChildren<Collider>()) if (!(c is CharacterController)) c.enabled = !sit;
+            var sp = player.GetComponent<SeatedPose>();
+            if (sit)
+            {
+                player.transform.SetParent(transform, true);
+                if (sp == null) sp = player.gameObject.AddComponent<SeatedPose>();
+                sp.car = transform; sp.seatLocal = DriverSeatLocal;
+            }
+            else { if (sp != null) Destroy(sp); player.transform.SetParent(null, true); }
+        }
+        /// <summary>Top of the driver's seat cushion (the seat on the steering-wheel side), in the jeep's space.</summary>
+        public Vector3 DriverSeatLocal
+        {
+            get
+            {
+                Transform best = null;
+                foreach (var n in new[] { "SM_Jeep_Seat_FL", "SM_Jeep_Seat_FR" }) { var t = T(n); if (t != null && Mathf.Sign(L(t).x) == driverSide) best = t; }
+                if (best == null) return new Vector3(driverSide * 0.4f, 0.95f, 0f);
+                var b = LocalBounds(best); return new Vector3(b.center.x, b.min.y + 0.36f, b.center.z + 0.02f);
+            }
         }
 
         private void SetPlayerVisible(bool on)
@@ -262,16 +365,33 @@ namespace LegacyOfTemples.Gameplay.Vehicles
                 var kb = Keyboard.current; var gp = Gamepad.current;
                 bool exit = (kb != null && kb.eKey.wasPressedThisFrame) || (gp != null && gp.buttonWest.wasPressedThisFrame) || VirtualInput.Down("interact");
                 if (exit && Car.CurrentSpeed < 3f) StartCoroutine(GetOut());
+                bool horn = (kb != null && kb.gKey.isPressed) || (gp != null && gp.leftStickButton.isPressed);
+                Horn(horn);
                 ScreenText.Panel("jeep_ui", null,
                     $"<size=140%><b>{Car.CurrentSpeed * 3.6f:0}</b></size> km/h   <color={ScreenText.Gold}>{Car.EffectiveGear.ToString()[0]}</color>" + (DamageState > 0 ? $"   <color={ScreenText.Coral}>{StateName}</color>" : "") +
-                    $"\n{ScreenText.Key("W S")} Drive  {ScreenText.Key("A D")} Steer  {ScreenText.Key("Space")} Brake  {ScreenText.Key("L")} Lights  {ScreenText.Key("E")} Get out",
+                    $"\n{ScreenText.Key("W S")} Drive  {ScreenText.Key("A D")} Steer  {ScreenText.Key("Space")} Brake\n{ScreenText.Key("L")} Lights  {ScreenText.Key("G")} Horn  {ScreenText.Key("E")} Get out",
                     PanelAnchor.BottomLeft, 560f, null, false, 2);
             }
         }
 
+        private AudioSource hornSrc;
+        /// <summary>Two-tone horn made in code (no downloaded sound), held while G is down.</summary>
+        private void Horn(bool on)
+        {
+            if (hornSrc == null)
+            {
+                if (!on) return;
+                int sr = 44100, n = sr; var data = new float[n];
+                for (int i = 0; i < n; i++) { float t = i / (float)sr; float v = Mathf.Sign(Mathf.Sin(2f * Mathf.PI * 415f * t)) * 0.5f + Mathf.Sign(Mathf.Sin(2f * Mathf.PI * 520f * t)) * 0.5f; data[i] = v * 0.18f; }
+                var clip = AudioClip.Create("jeep_horn", n, 1, sr, false); clip.SetData(data, 0);
+                hornSrc = gameObject.AddComponent<AudioSource>(); hornSrc.clip = clip; hornSrc.loop = true; hornSrc.spatialBlend = 0.6f; hornSrc.volume = 0.55f; hornSrc.playOnAwake = false;
+            }
+            if (on && !hornSrc.isPlaying) hornSrc.Play(); else if (!on && hornSrc.isPlaying) hornSrc.Stop();
+        }
+
         private void LateUpdate()
         {
-            if (Occupied && player != null) player.transform.position = SeatPoint;   // anything that asks where the player is gets the jeep
+            // the seated pose keeps the investigator on the seat (he is parented to the jeep)
         }
 
         // ------------------------------------------------------------------ damage

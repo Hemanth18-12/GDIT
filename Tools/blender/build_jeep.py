@@ -31,11 +31,11 @@ def mat(name, col, metallic=0.0, rough=0.5, emit=None, alpha=1.0):
     return m
 
 M = {
-    "paint": mat("Jeep_Paint_Red", (0.42, 0.018, 0.012), 0.45, 0.3),
+    "paint": mat("Jeep_Paint_Body", (0.82, 0.82, 0.80), 0.3, 0.25),   # white body (owner's sheet); olive / red / blue are paint variants in the game
     "top": mat("Jeep_Hardtop_Black", (0.03, 0.03, 0.03), 0.0, 0.6),
     "trim": mat("Jeep_BlackTrim", (0.02, 0.02, 0.02), 0.1, 0.55),
     "rubber": mat("Jeep_Rubber", (0.015, 0.015, 0.015), 0.0, 0.9),
-    "alloy": mat("Jeep_Alloy", (0.55, 0.56, 0.58), 1.0, 0.28),
+    "alloy": mat("Jeep_Alloy", (0.035, 0.035, 0.04), 0.9, 0.35),   # black alloy wheels
     "chrome": mat("Jeep_Chrome", (0.8, 0.8, 0.8), 1.0, 0.12),
     "glass": mat("Jeep_Glass", (0.03, 0.05, 0.05), 0.0, 0.05, alpha=0.38),
     "head": mat("Jeep_Light_Head", (1.0, 0.96, 0.82), 0.0, 0.1, emit=(1.0, 0.93, 0.75, 2.5)),
@@ -196,6 +196,9 @@ def emblem(sx, yc):
     ps.append(cyl("e", 0.035, 0.008, (x, yc, 0.965), "Doors", M["gold"], 'X', 16))
     ps.append(box("e", (0.008, 0.008, 0.07), (x, yc, 1.03), "Doors", M["gold"]))
     ps.append(box("e", (0.008, 0.06, 0.025), (x, yc + 0.035, 1.05), "Doors", M["gold"]))
+    for side in (-1, 1):   # the wings either side of the temple (owner's decal)
+        for i in range(4):
+            ps.append(box("w", (0.008, 0.20 - 0.035 * i, 0.022), (x, yc + side * (0.19 + 0.025 * i), 0.855 + 0.045 * i), "Doors", M["gold"], rot=(math.radians(side * (-12 - 9 * i)), 0, 0)))
     return ps
 
 for nm, (sx, y0, y1) in DOORS.items():
@@ -247,7 +250,7 @@ keep(join("BullBar", bb, "Accessories", (0, -2.27, 0.78)))
 def plate(name, y, face):
     ps = [box("p", (0.46, 0.012, 0.12), (0, y, 0.60), "Accessories", M["plate"], 0.004)]
     try:
-        cu = bpy.data.curves.new("txt", 'FONT'); cu.body = "LOT 7721"; cu.size = 0.085; cu.extrude = 0.003; cu.align_x = 'CENTER'; cu.align_y = 'CENTER'
+        cu = bpy.data.curves.new("txt", 'FONT'); cu.body = "OD 02 8047"; cu.size = 0.085; cu.extrude = 0.003; cu.align_x = 'CENTER'; cu.align_y = 'CENTER'
         t = bpy.data.objects.new("t", cu); C["Accessories"].objects.link(t)
         t.rotation_euler = (math.radians(90), 0, 0 if face < 0 else math.radians(180)); t.location = (0, y + face * 0.008, 0.60)
         bpy.context.view_layer.update(); me = bpy.data.meshes.new_from_object(t.evaluated_get(bpy.context.evaluated_depsgraph_get()))
@@ -313,6 +316,8 @@ def wheel(name, loc, spare=False):
     w.location = loc; return keep(w)
 wheel("Wheel_FL", (-TR, FA, WR)); wheel("Wheel_FR", (TR, FA, WR)); wheel("Wheel_RL", (-TR, RA, WR)); wheel("Wheel_RR", (TR, RA, WR))
 sp = wheel("Wheel_Spare", (0.12, 2.23, 1.02), spare=True); sp.parent = rear_door; sp.location = Vector((0.12, 2.23, 1.02)) - Vector((-0.75, 2.03, 0.86))
+cov = [cyl("cv", 0.425, 0.20, (0.12, 2.30, 1.02), "Accessories", M["top"], 'Y', 36, bevel=0.03), cyl("cv", 0.13, 0.012, (0.12, 2.404, 1.02), "Accessories", M["gold"], 'Y', 24)]
+cover = join("SpareCover", cov, "Accessories", (-0.75, 2.03, 0.86)); cover.parent = rear_door; cover.location = (0, 0, 0); parts[cover.name] = cover
 mount = single(tube("SpareMount", (0.12, 2.05, 1.02), (0.12, 2.12, 1.02), 0.06, "Accessories", M["trim"], 12), (-0.75, 2.03, 0.86)); mount.parent = rear_door; mount.location = (0, 0, 0); parts[mount.name] = mount
 
 # ---------------------------------------------------------------- interior
@@ -326,7 +331,7 @@ dash = [box("d", (1.60, 0.30, 0.30), (0, -0.50, 1.00), "Interior", M["interior"]
         box("d", (0.28, 0.9, 0.22), (0, 0.10, 0.70), "Interior", M["interior"], 0.03), cyl("d", 0.022, 0.2, (0, 0.02, 0.88), "Interior", M["trim"], 'Z', 10), cyl("d", 0.035, 0.05, (0, 0.02, 0.99), "Interior", M["chrome"], 'Z', 12)]
 keep(join("Dashboard", dash, "Interior", (0, -0.50, 1.00)))
 # steering wheel (right-hand drive as in the reference). The empty is tilted; the wheel spins about its own local Z.
-col = bpy.data.objects.new("SteeringColumn", None); C["Interior"].objects.link(col); col.location = (0.40, -0.30, 1.07); col.rotation_euler = (math.radians(-62), 0, 0); keep(col)
+col = bpy.data.objects.new("SteeringColumn", None); C["Interior"].objects.link(col); col.location = (-0.40, -0.30, 1.07); col.rotation_euler = (math.radians(-62), 0, 0); keep(col)
 bpy.ops.mesh.primitive_torus_add(major_radius=0.17, minor_radius=0.018, major_segments=32, minor_segments=8, location=(0, 0, 0))
 tor = bpy.context.active_object
 for cc in tor.users_collection: cc.objects.unlink(tor)
@@ -334,7 +339,7 @@ C["Interior"].objects.link(tor); tor.data.materials.append(M["trim"])
 for p in tor.data.polygons: p.use_smooth = True
 sw = [tor, cyl("h", 0.05, 0.03, (0, 0, 0), "Interior", M["trim"], 'Z', 16)] + [box("sp", (0.022, 0.16, 0.014), (math.sin(a) * 0.08, math.cos(a) * 0.08, 0), "Interior", M["trim"], rot=(0, 0, -a)) for a in (0, math.radians(120), math.radians(240))]
 stw = join("SteeringWheel", sw, "Interior", (0, 0, 0)); stw.parent = col; parts[stw.name] = stw
-keep(single(tube("SteeringShaft", (0.40, -0.30, 1.07), (0.40, -0.52, 0.95), 0.02, "Interior", M["trim"], 8), (0.40, -0.30, 1.07)))
+keep(single(tube("SteeringShaft", (-0.40, -0.30, 1.07), (-0.40, -0.52, 0.95), 0.02, "Interior", M["trim"], 8), (-0.40, -0.30, 1.07)))
 
 # ---------------------------------------------------------------- undercarriage
 uc = [box("u", (0.10, 3.6, 0.10), (-0.45, 0, 0.44), "Undercarriage", M["under"]), box("u", (0.10, 3.6, 0.10), (0.45, 0, 0.44), "Undercarriage", M["under"]),

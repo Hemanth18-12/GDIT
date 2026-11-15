@@ -187,3 +187,14 @@ Open the built game (`Builds/LegacyOfTheTemple.app`) or press Play in Unity from
 
 **How to see it:**
 Open `Builds/LegacyOfTheTemple.app` (or open Unity → MainMenu → Play). Screenshots and evidence are located in `Docs/QA/master_run/`.
+
+## Master Build — Stage 1 + Stage 2 (loading screen, white jeep, driver in the seat)
+**What changed (plain English)**
+- **Loading screen:** the pictures no longer have their own "0%" bar baked in (it was cropped off). The game draws its own title "LEGACY OF THE TEMPLE", a gold bar that follows real loading progress, "Loading…" and a tip, all in the bottom strip. Evidence: `Docs/QA/master_jeep/s2-loading-1-30pct.png`, `-60pct`, `-100pct`.
+- **Jeep looks like the reference sheet:** white body, black alloy wheels, bull bar, roof rack with 4 spot lights, covered spare tyre with a gold disc, gold winged-temple door decal, plate "OD 02 8047", steering wheel on the RIGHT. 39,680 triangles. Script: `Tools/blender/build_jeep.py`; Unity prefab rebuilt with `Part2Tools.BuildJeep`.
+- **No hop at start:** the jeep is placed on the ground with a ray and kept still (physics off) for 0.6 s. Height log over 10 s varies by only 1.2 cm (it settles on its springs).
+- **Driver visible:** Aryan walks to the door, the door opens, and he sits in the right-hand seat, facing forward with his hands towards the wheel (a pose set through Unity's humanoid muscles in `SeatedPose.cs`, not a fake animation file). When he gets out, he is put back on the ground. He is also visible at the wheel during the intro arrival.
+- **Cutscene driving:** in the intro the jeep follows a smooth path without physics. The wheels spin with the distance travelled, the front wheels turn with the bend, and the body bobs a little on its springs. Physics comes back only when you drive.
+- **Horn:** hold G. The "[E] Drive the jeep" prompt now disappears once you are inside.
+- Files: `Gameplay/Vehicles/Jeep.cs`, `Gameplay/Vehicles/SeatedPose.cs` (new), `Gameplay/IntroCinematic.cs`, `UI/LoadingScreen.cs`, `UI/AuditBot.cs` (`-jeepFocus` check), `World/Editor/Part2Tools.cs`.
+**How to see it:** New Game → watch the jeep arrive with Aryan driving → walk to the jeep → E.

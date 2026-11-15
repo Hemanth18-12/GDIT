@@ -60,7 +60,7 @@ namespace LegacyOfTemples.Gameplay
         private PlayableDirector director; private CinemachineBrain brain; private Camera mainCam;
         private PlayerController player; private OrbitCamera orbit;
         private Transform pujari, meera, door, robber1, robber2, loot; private Vector3 meeraHome, pujariHome; private Quaternion meeraRot, pujariRot;
-        private Jeep jeep; private Vector3 jeepStop; private Vector3 tower;
+        private Jeep jeep; private Vector3 jeepFrom; private Vector3 jeepStop; private Vector3 tower;
         private VolumeProfile dawn, night;
         private AudioSource music, voice;
         private float t; private bool skipped; private float escHeld;
@@ -113,7 +113,7 @@ namespace LegacyOfTemples.Gameplay
             if (player.GetComponent<NpcAnimDriver>() == null) player.gameObject.AddComponent<NpcAnimDriver>();
             if (meera != null) Show(meera, false);
             if (pujari != null) Show(pujari, false);
-            if (jeep != null) { jeep.transform.position = Village.RoadStart + new Vector3(2.2f, 0.6f, -2f); jeep.transform.rotation = Quaternion.LookRotation(Vector3.back); jeep.Car.autopilot = true; jeep.Car.autoBrake = true; jeep.Lights.SetHeadLights(true); }
+            if (jeep != null) { jeep.transform.position = Village.RoadStart + new Vector3(2.2f, 0.6f, -2f); jeep.transform.rotation = Quaternion.LookRotation(Vector3.back); jeep.BeginScripted(); jeep.Lights.SetHeadLights(true); jeepFrom = jeep.transform.position; jeep.transform.position = JeepPath(0f); jeep.SeatDriver(player.transform, true); Show(player.transform, true); }   // Aryan drives in, visible at the wheel
 
             // the two robbers
             Vector3 d = door != null ? door.position : Village.Centre + new Vector3(0f, 0f, -12f);
@@ -283,23 +283,17 @@ namespace LegacyOfTemples.Gameplay
             // 04 arrival
             if (Once("pujari_home", 31f) && pujari != null) { pujari.position = pujariHome; pujari.rotation = pujariRot; }
             if (jeep != null && t > 31f && t < 53f)
-            {
-                var car = jeep.Car; Vector3 jp = jeep.transform.position, to = jeepStop - jp; to.y = 0f;
-                float dist = Vector3.Dot(to, jeep.transform.forward);
-                // keep to the lane: aim at a point 9 m ahead on the lane's centre line
-                Vector3 aim = new Vector3(jeepStop.x, jp.y, jp.z - 9f) - jp; aim.y = 0f;
-                car.autoSteer = Mathf.Clamp(Vector3.SignedAngle(Flat(jeep.transform.forward), aim, Vector3.up) / 25f, -0.6f, 0.6f);
-                float want = dist > 14f ? 5.4f : Mathf.Max(0f, dist * 0.38f);
-                car.autoThrottle = car.CurrentSpeed < want - 0.3f ? 0.75f : 0f;
-                car.autoBrake = dist < 0.8f || car.CurrentSpeed > want + 1.2f;
-                if (dist < 0.8f) { car.autoThrottle = 0f; car.autoBrake = true; }
-                jeep.Audio.engineLevel = t > 50.5f ? Mathf.MoveTowards(jeep.Audio.engineLevel, 0f, Time.deltaTime * 0.6f) : 1f;   // engine fades as it parks
+            {   // the arrival is a camera path, not physics: the jeep rolls along a smooth curve, slows and stops (wheels spin, body rides its springs)
+                float x = Mathf.Clamp01((t - 31f) / 20.6f), e = 1f - (1f - x) * (1f - x);
+                jeep.ScriptedMove(JeepPath(e), Quaternion.LookRotation(Flat(JeepPath(Mathf.Min(1f, e + 0.01f)) - JeepPath(Mathf.Max(0f, e - 0.01f))) + Vector3.back * 1e-3f));
+                if (t > 50.5f) jeep.Audio.engineLevel = Mathf.MoveTowards(jeep.Audio.engineLevel, 0f, Time.deltaTime * 0.6f);   // engine fades as it parks
             }
-            if (Once("park", 51.8f) && jeep != null) { var prb = jeep.GetComponent<Rigidbody>(); prb.linearVelocity = Vector3.zero; prb.angularVelocity = Vector3.zero; prb.isKinematic = true; }   // parked: nothing can shove it
+            // parked: the jeep stays kinematic (scripted) until the hand-over, so nothing can shove it
             if (Once("door_open", 52.2f) && jeep != null) StartCoroutine(jeep.DriverDoor(true, 0.6f));
             if (Once("hero_out", 52.7f))
             {
                 Vector3 ex = jeep != null ? jeep.DriverExitPoint : jeepStop + new Vector3(-1.8f, 0f, 0f);
+                if (jeep != null) jeep.SeatDriver(player.transform, false);
                 player.Teleport(ex, Quaternion.LookRotation(Vector3.left)); Show(player.transform, true);
                 if (meera != null && VillageLife.Instance != null) { var ts = VillageLife.Instance.TeaStallStand; meera.position = ts + new Vector3(-0.4f, 0f, 0f); meera.rotation = Quaternion.LookRotation(Vector3.right); Show(meera, true); }
             }
@@ -362,6 +356,18 @@ namespace LegacyOfTemples.Gameplay
         }
 
         // ------------------------------------------------------------------ hand-over (also the skip path: everything ends in the same safe state)
+        /// <summary>Arrival route (0..1): a gentle S-bend down the lane to the stop, standing on the ground.</summary>
+        private Vector3 JeepPath(float u)
+        {
+            Vector3 p = Vector3.Lerp(jeepFrom, jeepStop, u);
+            p.x += Mathf.Sin(u * Mathf.PI * 2f) * 1.1f * (1f - u);   // a small weave, straightening as it slows
+            var hits = Physics.RaycastAll(p + Vector3.up * 4f, Vector3.down, 12f, ~0, QueryTriggerInteraction.Ignore);
+            float best = float.NegativeInfinity;
+            foreach (var h in hits) if (h.collider.GetComponentInParent<Jeep>() == null && h.collider.GetComponentInParent<Animator>() == null && h.point.y > best) best = h.point.y;
+            if (!float.IsNegativeInfinity(best)) p.y = best;
+            return p;
+        }
+
         private void Finish()
         {
             Rolling = false; if (director != null) director.Stop();
@@ -369,8 +375,9 @@ namespace LegacyOfTemples.Gameplay
             {
                 var rbj = jeep.GetComponent<Rigidbody>();
                 if (skipped || OpeningCinematic.SkipRequested || Vector3.Distance(jeep.transform.position, jeepStop) > 6f)
-                { jeep.transform.position = jeepStop + Vector3.up * 0.4f; jeep.transform.rotation = Quaternion.LookRotation(Vector3.back); if (rbj != null) { rbj.linearVelocity = Vector3.zero; rbj.angularVelocity = Vector3.zero; } }
-                rbj.isKinematic = false; jeep.Car.autopilot = false; jeep.Car.autoBrake = false; jeep.Audio.engineLevel = 0.6f; jeep.Lights.SetHeadLights(false);
+                { jeep.transform.position = JeepPath(1f); jeep.transform.rotation = Quaternion.LookRotation(Vector3.back); }
+                jeep.EndScripted(true); if (rbj != null) { rbj.linearVelocity = Vector3.zero; rbj.angularVelocity = Vector3.zero; }
+                jeep.Car.autopilot = false; jeep.Car.autoBrake = false; jeep.Audio.engineLevel = 0.6f; jeep.Lights.SetHeadLights(false);
             }
             if (robber1 != null) Destroy(robber1.gameObject); if (robber2 != null) Destroy(robber2.gameObject);
             if (pujari != null) { pujari.position = pujariHome; pujari.rotation = pujariRot; Show(pujari, true); }

@@ -67,11 +67,11 @@ namespace LegacyOfTemples.World.Editor
             string M(string n) => JeepDir + "/Materials/" + n + ".mat";
             var mats = new Dictionary<string, Material>
             {
-                { "MAT_Paint_Red", Lit(M("MAT_Paint_Red"), G(0.42f, 0.018f, 0.012f), 0.35f, 0.78f) },
+                { "MAT_Paint_Body", Lit(M("MAT_Paint_Body"), G(0.82f, 0.82f, 0.80f), 0.25f, 0.8f) },
                 { "MAT_Hardtop_Black", Lit(M("MAT_Hardtop_Black"), G(0.03f, 0.03f, 0.03f), 0f, 0.35f) },
                 { "MAT_BlackTrim", Lit(M("MAT_BlackTrim"), G(0.02f, 0.02f, 0.02f), 0.1f, 0.4f) },
                 { "MAT_Rubber", Lit(M("MAT_Rubber"), G(0.018f, 0.018f, 0.018f), 0f, 0.12f) },
-                { "MAT_Alloy", Lit(M("MAT_Alloy"), G(0.55f, 0.56f, 0.58f), 1f, 0.72f) },
+                { "MAT_Alloy", Lit(M("MAT_Alloy"), G(0.035f, 0.035f, 0.04f), 0.9f, 0.6f) },
                 { "MAT_Chrome", Lit(M("MAT_Chrome"), G(0.8f, 0.8f, 0.8f), 1f, 0.9f) },
                 { "MAT_Glass", Lit(M("MAT_Glass"), G(0.03f, 0.05f, 0.05f), 0f, 0.95f, null, 0.35f) },
                 { "MAT_Light_Head", Lit(M("MAT_Light_Head"), G(1f, 0.96f, 0.85f), 0f, 0.9f, Color.black) },
@@ -84,7 +84,7 @@ namespace LegacyOfTemples.World.Editor
                 { "MAT_Plate", Lit(M("MAT_Plate"), G(0.92f, 0.92f, 0.88f), 0f, 0.5f) },
                 { "MAT_Undercarriage", Lit(M("MAT_Undercarriage"), G(0.035f, 0.035f, 0.04f), 0.4f, 0.3f) },
                 { "Jeep_Screen", Lit(M("MAT_Screen"), G(0.05f, 0.18f, 0.3f), 0f, 0.8f, new Color(0.1f, 0.4f, 0.7f)) },
-                { "Jeep_Paint_Scuffed", Lit(M("MAT_Paint_Red_Scuffed"), G(0.30f, 0.03f, 0.02f), 0.2f, 0.35f) },
+                { "Jeep_Paint_Scuffed", Lit(M("MAT_Paint_Red_Scuffed"), G(0.52f, 0.50f, 0.46f), 0.2f, 0.35f) },
                 { "Jeep_Paint_Burnt", Lit(M("MAT_Paint_Burnt"), G(0.035f, 0.032f, 0.028f), 0.3f, 0.15f) },
             };
             Material Pick(string n) { foreach (var kv in mats) if (n == kv.Key || n.StartsWith(kv.Key)) return kv.Value; return mats["MAT_BlackTrim"]; }
