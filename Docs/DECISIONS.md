@@ -23,4 +23,7 @@ Each line: what was planned, what went wrong or was unclear, what I chose, and w
 | D-17 | 2026-11-16 | **Vault guards and lantern battery.** Not built yet (they need the enemy AI from the combat phase). The plates are held by two pushed blocks instead of one block plus a guard's patrol. |
 | D-18 | 2026-11-16 | **One sky, several times of day.** The world is one scene with one sun. While the camera is inside a zone, the sun, fog and colour grade blend to that zone's own values (midday at the Sun Wall, night at the stepwell, dark in the vaults) and blend back outside. |
 | D-19 | 2026-11-16 | **Naming the inside man needs three of four pieces.** Zone 1 (the courier's list) is not built yet, and a player may also miss one piece; three is enough to reason it out and still leaves a wrong guess possible. |
+| D-20 | 2026-11-16 | **V3 runs on the existing story system.** Instead of a second story engine, the story file was rewritten so its steps are the V3 zones; each zone reports "done" when its treasure is taken. The guide, clock, map, ending and save all keep working. |
+| D-21 | 2026-11-16 | **Fewer HUD boxes.** You said the gold boxes were too many and too big. Removed the help bar (the GUIDE button covers it), the goal card now fades after 7 seconds, and the small boxes are smaller and see-through. |
+| D-22 | 2026-11-16 | **Zones 1 and 6 still missing.** The path runs courtyard, vaults, stepwell, Sun Wall, then back to the priest; the ending says honestly that the fifth treasure is on the river road. |
 

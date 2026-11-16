@@ -17,7 +17,7 @@ namespace LegacyOfTemples.UI
         public static ScreenTextRenderer Instance { get; private set; }
 
         private static readonly float[] Multipliers = { 0.9f, 1.0f, 1.12f, 1.25f };
-        public const float TitleSize = 56f, HeadingSize = 28f, BodySize = 26f, FooterSize = 24f, LabelSize = 22f;
+        public const float TitleSize = 56f, HeadingSize = 28f, BodySize = 26f, HudBodySize = 21f, FooterSize = 24f, LabelSize = 22f;
 
         private Canvas canvas;
         private RectTransform root;
@@ -85,7 +85,7 @@ namespace LegacyOfTemples.UI
             rt = (RectTransform)go.transform;
             var img = go.AddComponent<Image>();
             img.color = PanelColor;
-            AddBorder(rt, new Color(Gold.r, Gold.g, Gold.b, 0.9f), 2f);
+            AddBorder(rt, new Color(Gold.r, Gold.g, Gold.b, 0.4f), 1f);
             return img;
         }
 
@@ -154,8 +154,11 @@ namespace LegacyOfTemples.UI
                 if (!panels.TryGetValue(spec.id, out var v)) v = CreatePanel(spec.id);
                 v.rt.gameObject.SetActive(true);
                 v.rt.SetAsLastSibling();
-                v.bg.color = PanelColor;
                 bool big = spec.anchor == PanelAnchor.Center;
+                // V3: small HUD boxes are lighter and tighter than the big centre panels
+                v.bg.color = big || HighContrast ? PanelColor : new Color(0f, 0f, 0f, 0.55f);
+                var vlg = v.rt.GetComponent<VerticalLayoutGroup>();
+                if (vlg != null) { vlg.padding = big ? new RectOffset(36, 36, 28, 28) : new RectOffset(18, 18, 9, 9); vlg.spacing = big ? 14 : 4; }
                 anyDim |= spec.dimBackground;
 
                 v.title.gameObject.SetActive(!string.IsNullOrEmpty(spec.title));
@@ -164,7 +167,7 @@ namespace LegacyOfTemples.UI
                 v.title.alignment = big ? TextAlignmentOptions.Top : TextAlignmentOptions.TopLeft;
                 v.title.name = big ? "PanelTitle" : "PanelObjectiveHeading";
                 v.body.text = spec.body ?? "";
-                v.body.fontSize = BodySize * s;
+                v.body.fontSize = (big ? BodySize : HudBodySize) * s;
                 v.body.color = HighContrast ? Color.white : Ivory;
                 v.footer.gameObject.SetActive(!string.IsNullOrEmpty(spec.footer));
                 v.footer.text = spec.footer ?? "";

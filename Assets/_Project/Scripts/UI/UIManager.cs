@@ -36,7 +36,7 @@ namespace LegacyOfTemples.UI
 
         public static readonly Color ColorPanelBgNormal = new Color(0.0f, 0.0f, 0.0f, 0.85f);        // #000000 @ 85% (>= 7:1 for every text colour)
         public static readonly Color ColorPanelBgHighContrast = new Color(0.0f, 0.0f, 0.0f, 0.98f);  // #000000 @ 98%
-        public static readonly Color ColorBorderGold = new Color(1.0f, 0.784f, 0.341f, 0.85f);       // Thin Gold Border
+        public static readonly Color ColorBorderGold = new Color(1.0f, 0.784f, 0.341f, 0.35f);       // Thin Gold Border
         #endregion
 
         [Header("Font Assets")]
@@ -205,7 +205,7 @@ namespace LegacyOfTemples.UI
         private void HandleOverlayMenuToggled(bool isOpen)
         {
             SetHudActive(!isOpen);
-            if (bottomHintBar != null) bottomHintBar.SetActive(!isOpen && !isPhotoMode);
+            if (bottomHintBar != null) bottomHintBar.SetActive(false);   // V3: the guide button already says [H]; the extra bar was clutter
         }
 
         private void LateUpdate() { ThemeAndLayout(); }
@@ -417,8 +417,9 @@ namespace LegacyOfTemples.UI
             rt.anchorMin = new Vector2(0f, 1f);
             rt.anchorMax = new Vector2(0f, 1f);
             rt.pivot = new Vector2(0f, 1f);
-            rt.anchoredPosition = new Vector2(32f, -32f);
-            rt.sizeDelta = new Vector2(720f, 200f);
+            rt.anchoredPosition = new Vector2(24f, -24f);
+            rt.sizeDelta = new Vector2(500f, 140f);
+            objectiveGroup = hudPanel.AddComponent<CanvasGroup>(); objectiveGroup.blocksRaycasts = false; objectiveGroup.interactable = false;
 
             hudPanelBg = hudPanel.AddComponent<Image>();
             hudPanelBg.sprite = CreateColorSprite(ColorPanelBgNormal);
@@ -442,7 +443,7 @@ namespace LegacyOfTemples.UI
             titleObj.transform.SetParent(hudPanel.transform, false);
             objectiveTitleText = titleObj.AddComponent<TextMeshProUGUI>();
             objectiveTitleText.font = defaultFont;
-            objectiveTitleText.fontSize = 40f * currentFontMultiplier;
+            objectiveTitleText.fontSize = 26f * currentFontMultiplier;
             objectiveTitleText.fontStyle = FontStyles.Bold;
             objectiveTitleText.color = ColorHeaderAntiqueGold;
             objectiveTitleText.text = "CURRENT OBJECTIVE";
@@ -459,7 +460,7 @@ namespace LegacyOfTemples.UI
             bodyObj.transform.SetParent(hudPanel.transform, false);
             objectiveBodyText = bodyObj.AddComponent<TextMeshProUGUI>();
             objectiveBodyText.font = defaultFont;
-            objectiveBodyText.fontSize = 34f * currentFontMultiplier;
+            objectiveBodyText.fontSize = 22f * currentFontMultiplier;
             objectiveBodyText.color = ColorTextWarmIvory;
             objectiveBodyText.text = "Speak with Head Priest Ananda at the courtyard steps.";
             objectiveBodyText.textWrappingMode = TextWrappingModes.Normal;
@@ -476,7 +477,7 @@ namespace LegacyOfTemples.UI
             counterObj.transform.SetParent(hudPanel.transform, false);
             objectiveCounterText = counterObj.AddComponent<TextMeshProUGUI>();
             objectiveCounterText.font = defaultFont;
-            objectiveCounterText.fontSize = 34f * currentFontMultiplier;
+            objectiveCounterText.fontSize = 20f * currentFontMultiplier;
             objectiveCounterText.fontStyle = FontStyles.Italic;
             objectiveCounterText.color = ColorClueCyan;
             objectiveCounterText.text = "Stolen Relics Recovered: 0/3  |  Clues Found: 0/5";
@@ -499,8 +500,8 @@ namespace LegacyOfTemples.UI
             rt.anchorMin = new Vector2(0.5f, 0f);
             rt.anchorMax = new Vector2(0.5f, 0f);
             rt.pivot = new Vector2(0.5f, 0f);
-            rt.anchoredPosition = new Vector2(0f, 95f);
-            rt.sizeDelta = new Vector2(720f, 72f);
+            rt.anchoredPosition = new Vector2(0f, 70f);
+            rt.sizeDelta = new Vector2(460f, 52f);
 
             promptPanelBg = promptPanel.AddComponent<Image>();
             promptPanelBg.sprite = CreateColorSprite(ColorPanelBgNormal);
@@ -515,7 +516,7 @@ namespace LegacyOfTemples.UI
             krt.anchorMax = new Vector2(0f, 0.5f);
             krt.pivot = new Vector2(0f, 0.5f);
             krt.anchoredPosition = new Vector2(16f, 0f);
-            krt.sizeDelta = new Vector2(64f, 50f);
+            krt.sizeDelta = new Vector2(50f, 38f);
             Image keyBg = keyObj.AddComponent<Image>();
             keyBg.color = new Color(0.25f, 0.20f, 0.12f, 1.0f);
 
@@ -523,7 +524,7 @@ namespace LegacyOfTemples.UI
             keyTextObj.transform.SetParent(keyObj.transform, false);
             promptKeyText = keyTextObj.AddComponent<TextMeshProUGUI>();
             promptKeyText.font = defaultFont;
-            promptKeyText.fontSize = 34f * currentFontMultiplier;
+            promptKeyText.fontSize = 24f * currentFontMultiplier;
             promptKeyText.fontStyle = FontStyles.Bold;
             promptKeyText.alignment = TextAlignmentOptions.Center;
             promptKeyText.color = ColorHeaderAntiqueGold;
@@ -539,7 +540,7 @@ namespace LegacyOfTemples.UI
             actionObj.transform.SetParent(promptPanel.transform, false);
             promptActionText = actionObj.AddComponent<TextMeshProUGUI>();
             promptActionText.font = defaultFont;
-            promptActionText.fontSize = 34f * currentFontMultiplier;
+            promptActionText.fontSize = 24f * currentFontMultiplier;
             promptActionText.fontStyle = FontStyles.Bold;
             promptActionText.alignment = TextAlignmentOptions.MidlineLeft;
             promptActionText.color = ColorTextWarmIvory;
@@ -1231,8 +1232,20 @@ namespace LegacyOfTemples.UI
 
         #region Public UI Controls
 
+        private CanvasGroup objectiveGroup; private float objectiveShownAt = -100f; private string lastObjective = "";
+        /// <summary>V3: the objective card shows for a few seconds when the goal changes, then fades away (the world shows the way, not a box).</summary>
+        public const float ObjectiveSeconds = 7f;
+        public float ObjectiveAlpha => objectiveGroup != null ? objectiveGroup.alpha : 1f;
+        private void FadeObjective()
+        {
+            if (objectiveGroup == null) return;
+            float age = Time.unscaledTime - objectiveShownAt;
+            objectiveGroup.alpha = age < ObjectiveSeconds ? 1f : Mathf.Clamp01(1f - (age - ObjectiveSeconds));
+        }
         public void SetObjective(string title, string body, string counter = null)
         {
+            string key = (title ?? "") + "|" + (body ?? "");
+            if (key != lastObjective) { lastObjective = key; objectiveShownAt = Time.unscaledTime; }
             if (objectiveTitleText != null && !string.IsNullOrEmpty(title)) objectiveTitleText.text = title;
             if (objectiveBodyText != null && !string.IsNullOrEmpty(body)) objectiveBodyText.text = body;
             if (objectiveCounterText != null && !string.IsNullOrEmpty(counter)) objectiveCounterText.text = counter;
@@ -1559,7 +1572,7 @@ namespace LegacyOfTemples.UI
                 HeritageFonts.Apply(t, title);
             }
             float canvasW = ((RectTransform)mainCanvas.transform).rect.width, canvasH = ((RectTransform)mainCanvas.transform).rect.height;
-            if (hudPanel != null) { var hp = (RectTransform)hudPanel.transform; hp.sizeDelta = new Vector2(Mathf.Max(420f, canvasW * 0.28f), hp.sizeDelta.y); }
+            if (hudPanel != null) { var hp = (RectTransform)hudPanel.transform; hp.sizeDelta = new Vector2(Mathf.Clamp(canvasW * 0.22f, 340f, 460f), hp.sizeDelta.y); }
             StackPanel(hudPanel, 14f, 14f, 24f, 18f, 4f, 0f, objectiveTitleText, objectiveBodyText, objectiveCounterText);
             if (isDialogueActive)
             {
@@ -1573,8 +1586,8 @@ namespace LegacyOfTemples.UI
             foreach (var spec in ScreenText.Panels.Values) if (spec.dimBackground && ScreenText.IsLive(spec.lastFrame)) modal = true;
             if (InputGate.CinematicActive) modal = true;
             bool fight = CombatState.InCombat; // the fight HUD replaces the goal card and key bar
-            SetVisible(hudPanel, !modal && !fight);
-            SetVisible(bottomHintBar, !modal && !fight);
+            SetVisible(hudPanel, !modal && !fight); if (!modal && !fight) FadeObjective();   // V3: the goal card shows when the goal changes, then fades
+            SetVisible(bottomHintBar, false);   // V3: removed; the small GUIDE (H) button covers it
             SetVisible(dialoguePanel, !modal || isDialogueActive);
             ScreenText.HideLabels = modal;
             // Reserved zones for world labels (reference units, origin bottom-left).
@@ -1637,10 +1650,10 @@ namespace LegacyOfTemples.UI
         {
             switch (n)
             {
-                case "ObjectiveTitle": return 28f;
-                case "ObjectiveBody": return 26f;
-                case "ObjectiveCounter": return 24f;
-                case "PromptAction": return 28f;
+                case "ObjectiveTitle": return 22f;
+                case "ObjectiveBody": return 19f;
+                case "ObjectiveCounter": return 17f;
+                case "PromptAction": return 22f;
                 case "KeyText": return 24f;
                 case "SpeakerName": return 30f;
                 case "DialogueBody": return 30f;

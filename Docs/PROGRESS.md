@@ -21,7 +21,14 @@ Say "Continue from Docs/PROGRESS.md" to resume. Last update: 2026-11-16.
 - Evidence board on B (`EvidenceBoard.cs`): lists only found evidence, lets the player name the inside man once. Logic test written; the panel has not been looked at in the running game.
 - Not done in these zones: fights (lookout, guards, knife man, Kishore), vault patrol stealth and lantern battery, art polish, sound.
 
-## In progress
+## V3 is now the main story (2026-11-16)
+- `Resources/Story/story.json` rewritten (old version kept at `Docs/story_v2_backup.json`): 7 steps (reach the temple, priest, storeroom, vaults, stepwell, Sun Wall, return), 12 short spoken lines. Old saves from the 24-step story start fresh. Doors to the old scenes are closed.
+- Every zone has its fight: lookout (courtyard), two vault guards, knife man and helper (stepwell), Kishore with two phases (Sun Wall). `Brawl.cs`: light 3-hit combo, heavy, dodge roll, block and parry, finisher with slow motion, at most two attackers, enemies guard after three hits, retry on the spot.
+- HUD: bottom help bar removed, goal card smaller and fades after 7 s, tutorial hints move on after 10 s, smaller lighter boxes.
+- Bot played the whole path from New Game to "Mission Completed": `Docs/QA/v3/story_run/audit.md`, pictures `Docs/QA/v3/story_sheet.png`, 0 exceptions, grade S.
+- No sound on 2026-11-16 was the Mac's own output being muted, not the game.
+
+
 - Phase 1D core systems (see the list at the bottom of this file for what exists).
 
 ## Next (in order)

@@ -125,7 +125,7 @@ namespace LegacyOfTemples.Gameplay
             Group = gg.AddComponent<PuzzleGroup>(); Group.puzzleId = "z3_vaults"; Group.zoneId = ZoneId; Group.hintRadius = 16f;
             Group.hints = new[] { "Two floor plates hold the gate. Stone is heavier than a man.", "The light from the roof draws three rings on the floor. Each ring has one bright mark.", "Push a block onto each plate (one must go round the pillar; the lever puts them back). Then turn the small, middle and large discs until their notches sit where the bright marks are." };
             for (int i = 0; i < 3; i++) Group.conditions.Add(new PuzzleGroup.Condition { element = Discs[i], state = Answer[i] });
-            Group.OnSolved += _ => { Rosette.enabled = true; if (PuzzleSave.Get("evidence.ledger") == 0) { PuzzleSave.Set("evidence.ledger", 1); ObjectiveBanner.Show("NOTED", "The vault duty ledger. Signed \"M.\"", 4f); } };
+            Group.OnSolved += _ => { if (PuzzleSave.Get("evidence.ledger") == 0) { PuzzleSave.Set("evidence.ledger", 1); ObjectiveBanner.Show("NOTED", "The vault duty ledger. Signed \"M.\"", 4f); } };
 
             var lookGo = new GameObject("ZoneLook_Vaults"); lookGo.transform.SetParent(root, false); lookGo.transform.localPosition = new Vector3(0f, 2.2f, 0f);
             var look = lookGo.AddComponent<ZoneLook>(); look.zone = ZoneLook.Zone.Vaults; look.size = new Vector3(24.4f, 4.4f, 10.4f); look.blendDistance = 2f; look.Build();
@@ -140,7 +140,12 @@ namespace LegacyOfTemples.Gameplay
             GateOpen = Group.Solved || (Plates[0].State == 1 && Plates[1].State == 1) || PuzzleSave.Get("z3.gate_passed") == 1;
             if (GateOpen && !Group.Solved && PuzzleSave.Get("z3.gate_passed") == 0) { var pc = ZoneKit.Player; if (pc != null && transform.InverseTransformPoint(pc.transform.position).x > 0.5f) PuzzleSave.Set("z3.gate_passed", 1); }   // once through, it never shuts the player in
             gateT = Mathf.MoveTowards(gateT, GateOpen ? 1f : 0f, Time.deltaTime * 0.7f); gate.localPosition = new Vector3(-1f, 3.1f * Mathf.SmoothStep(0f, 1f, gateT), 0f);
-            bool open = Group.Solved; if (open && !Rosette.enabled && !Rosette.Taken) Rosette.enabled = true;
+            bool open = Group.Solved;
+            if (open && !Rosette.enabled && !Rosette.Taken)
+            {   // the two vault guards come for whoever opened the chest
+                if (Brawl.WonBefore(ZoneId)) Rosette.enabled = true;
+                else if (Brawl.Active == null) Brawl.Begin(ZoneId, transform.TransformPoint(new Vector3(5.5f, 0f, 0f)), 4.2f, new[] { Brawl.Robber("the heavy guard", 1, BrawlType.Heavy, 1.12f, new Color(0.5f, 0.42f, 0.36f)), Brawl.Robber("the vault guard", 1, BrawlType.Brawler, 1f, new Color(0.7f, 0.62f, 0.5f)) }, null);
+            }
             lidT = Mathf.MoveTowards(lidT, open ? 1f : 0f, Time.deltaTime * 0.6f); lid.localRotation = Quaternion.Euler(0f, 0f, -95f * Mathf.SmoothStep(0f, 1f, lidT));
         }
     }

@@ -433,7 +433,7 @@ namespace LegacyOfTemples.Gameplay
         private void Update()
         {
             if (Time.unscaledTime > until) return;
-            ScreenText.Panel("objective_banner", null, $"<size=80%><color=#5CE1E6>{head}</color></size>\n<size=150%><color=#FFC857><b>{body}</b></color></size>", PanelAnchor.TopCenter, 640f, null, false, 70);
+            ScreenText.Panel("objective_banner", null, string.IsNullOrEmpty(body) ? $"<color=#FFC857><b>{head}</b></color>" : $"<size=80%><color=#5CE1E6>{head}</color></size>\n<color=#FFC857><b>{body}</b></color>", PanelAnchor.TopCenter, 460f, null, false, 70);
         }
     }
 }

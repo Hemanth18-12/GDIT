@@ -40,7 +40,7 @@ namespace LegacyOfTemples.UI
             if (index < 0 || index + 1 >= args.Length) return;
             requested = true;
             Application.runInBackground = true;
-            foreach (var arg in args) if (arg.StartsWith("-v3Zone")) { LegacyOfTemples.Gameplay.ZoneKit.NewGame(); LegacyOfTemples.Gameplay.ScoreSystem.ResetAll(); break; }   // zone checks start from a clean save
+            foreach (var arg in args) if (arg.StartsWith("-v3Zone") || arg == "-v3Story") { LegacyOfTemples.Gameplay.ZoneKit.NewGame(); LegacyOfTemples.Gameplay.ScoreSystem.ResetAll(); break; }   // zone checks start from a clean save
             InputSystem.settings.backgroundBehavior = InputSettings.BackgroundBehavior.IgnoreFocus; // the bot must work when the window is not in front
             var go = new GameObject("AuditBot");
             DontDestroyOnLoad(go);
@@ -209,12 +209,79 @@ namespace LegacyOfTemples.UI
             yield return new WaitForSecondsRealtime(0.5f);
             Line($"  flagstone state={z.Flagstone.State}, puzzle solved={z.Group.Solved}, treasure usable={z.Chronicle.enabled}");
             yield return view(new Vector3(3.2f, 2.2f, 5.6f), new Vector3(0.95f, 0.1f, 3.3f)); yield return Shot("v3z2-07-flagstone-lifted-chronicle.png"); V3ViewEnd(orbit);
+            yield return V3Fight("v3z2-07b-fight-lookout.png");
             yield return V3Use(pc, z.Chronicle.transform.position + r.forward * 1.2f + r.right * 0.8f, z.Chronicle.transform.position, "take the Chronicle");
             var zs = LegacyOfTemples.Gameplay.ScoreSystem.Zone(LegacyOfTemples.Gameplay.BreakInPuzzle.ZoneId);
             Line($"  treasure taken={z.Chronicle.Taken}; score: puzzle solved={zs.puzzleSolved}, hints={zs.hintsUsed}, items={zs.items}, points={LegacyOfTemples.Gameplay.ScoreSystem.Points(zs)}, grade={LegacyOfTemples.Gameplay.ScoreSystem.Grade(zs)}");
             Line($"  checkpoint: {LegacyOfTemples.Gameplay.Checkpoints.Current.zone}/{LegacyOfTemples.Gameplay.Checkpoints.Current.label}");
             yield return new WaitForSecondsRealtime(0.5f); yield return Shot("v3z2-08-recovered-banner.png");
         }
+        /// <summary>Fights the current V3 encounter through the game's own virtual buttons (strike, heavy, dodge, block, finisher). The bot is moved next to its target instead of walking.</summary>
+        private IEnumerator V3Fight(string shot)
+        {
+            float w = 0f; while (LegacyOfTemples.Gameplay.Brawl.Active == null && w < 4f) { w += Time.unscaledDeltaTime; yield return null; }
+            var f = LegacyOfTemples.Gameplay.Brawl.Active; var pc = FindAnyObjectByType<PlayerController>();
+            if (f == null || pc == null) { Line("  fight: none started"); yield break; }
+            yield return Shot(shot.Replace(".png", "-hud.png"));
+            Line($"  fight begins: {f.Enemies.Count} enemy(ies): {string.Join(", ", f.Enemies.ConvertAll(e => e.name + " (" + e.type + ", " + e.maxHealth.ToString("0") + " hp)"))}");
+            float t0 = Time.time; int maxAttackers = 0, n = 0; bool shotTaken = false, sawPhase2 = false, sawTelegraph = false;
+            while (!f.Won && Time.time - t0 < 150f)
+            {
+                LegacyOfTemples.Gameplay.BrawlEnemy target = null; float bd = 1e9f; bool danger = false;
+                foreach (var e in f.Enemies) { if (!e.Alive) continue; float d = Vector3.Distance(e.transform.position, pc.transform.position); if (d < bd) { bd = d; target = e; } if (e.Now == LegacyOfTemples.Gameplay.BrawlEnemy.State.Telegraph) { sawTelegraph = true; if (d < 4f) danger = true; } if (e.Phase > 1) sawPhase2 = true; }
+                maxAttackers = Mathf.Max(maxAttackers, f.Attacking);
+                if (target == null) break;
+                if (danger && n % 3 == 0) { VirtualInput.Block = true; yield return new WaitForSecondsRealtime(0.1f); VirtualInput.Block = false; VirtualInput.Press("dodge"); yield return new WaitForSecondsRealtime(0.5f); }
+                Vector3 dir = (target.transform.position - pc.transform.position); dir.y = 0f; if (dir.sqrMagnitude < 0.01f) dir = Vector3.forward;
+                Vector3 stand = target.transform.position - dir.normalized * 1.5f; stand.y = pc.transform.position.y;
+                if (bd > 2.2f) pc.Teleport(stand, Quaternion.LookRotation(dir)); else pc.FaceTowards(target.transform.position);
+                yield return new WaitForSecondsRealtime(0.12f);
+                if (target.CanBeFinished && n % 2 == 0) VirtualInput.Press("finisher"); else VirtualInput.Press(n % 5 == 4 ? "heavy" : "light");
+                n++; yield return new WaitForSecondsRealtime(n % 5 == 0 ? 0.9f : 0.4f);
+                if (!shotTaken && Time.time - t0 > 2.5f) { shotTaken = true; yield return Shot(shot); }
+            }
+            yield return new WaitForSecondsRealtime(1.2f);
+            Line($"  fight result: won={f.Won} in {f.Seconds:0}s, health left {f.Health:0}, damage taken {f.DamageTaken:0}, max combo {f.MaxCombo}, parries {f.Parries}, finishers {f.Finishers}, retries {f.Retries}; most attackers at once {maxAttackers} (limit {LegacyOfTemples.Gameplay.Brawl.MaxAttackers}); telegraph seen={sawTelegraph}; boss phase 2 seen={sawPhase2}");
+        }
+
+        private string V3Obj() { var st = LegacyOfTemples.Gameplay.StoryDialogueSystem.Instance; return st != null && st.Current != null ? st.Current.id + " (" + st.Current.title + ")" : "(story complete)"; }
+        private IEnumerator V3TalkToPriest(PlayerController pc, string what)
+        {
+            NPCDialogueTrigger priest = null; foreach (var n in FindObjectsByType<NPCDialogueTrigger>()) if (n.CharacterId == Constants.Priest) priest = n;
+            if (priest == null) { Line($"  {what}: priest not found"); yield break; }
+            Vector3 at = priest.transform.position + priest.transform.forward * 1.6f;
+            pc.Teleport(at, Quaternion.LookRotation(priest.transform.position - at)); yield return new WaitForSecondsRealtime(0.8f);
+            string prompt = pc.CurrentInteractable != null ? pc.CurrentInteractable.Prompt : "(none)";
+            yield return Tap(Key.E); yield return new WaitForSecondsRealtime(1.2f);
+            yield return Shot($"v3s-talk-{what}.png");
+            for (int i = 0; i < 6; i++) { yield return Tap(Key.Space); yield return new WaitForSecondsRealtime(0.9f); }
+            Line($"  {what}: prompt '{prompt}', objective now {V3Obj()}");
+        }
+
+        private IEnumerator V3StoryCheck(string auditPath)
+        {
+            var pc = FindAnyObjectByType<PlayerController>();
+            Line($"\n## V3 main path: start objective {V3Obj()}");
+            if (pc == null) yield break;
+            yield return Shot("v3s-01-start-hud.png");
+            int doors = 0; foreach (var d in FindObjectsByType<LegacyOfTemples.Gameplay.SceneTransitionTrigger>()) if (d.Radius > 0f) doors++;
+            Line($"  old scene doors still usable: {doors}");
+            pc.Teleport(LegacyOfTemples.World.Village.GatePos + Vector3.back * 2f, Quaternion.LookRotation(Vector3.back)); yield return new WaitForSecondsRealtime(12f);
+            Line($"  through the gate: objective {V3Obj()}");
+            yield return V3TalkToPriest(pc, "priest-start");
+            yield return new WaitForSecondsRealtime(1.5f); yield return Shot("v3s-02-goal-card-new.png");
+            yield return new WaitForSecondsRealtime(9f); yield return Shot("v3s-03-goal-card-faded.png");
+            var ui = FindAnyObjectByType<UIManager>(); Line($"  goal card alpha 9 s after the goal changed: {(ui != null ? ui.ObjectiveAlpha : -1f):0.00}");
+            yield return V3Zone2Check(); Line($"  after the storeroom: objective {V3Obj()}"); File.WriteAllText(auditPath, report.ToString());
+            yield return V3Zone3Check(); Line($"  after the vaults: objective {V3Obj()}"); File.WriteAllText(auditPath, report.ToString());
+            yield return V3Zone4Check(); Line($"  after the stepwell: objective {V3Obj()}"); File.WriteAllText(auditPath, report.ToString());
+            yield return V3Zone5Check(); Line($"  after the Sun Wall: objective {V3Obj()}"); File.WriteAllText(auditPath, report.ToString());
+            yield return V3TalkToPriest(pc, "priest-return");
+            yield return new WaitForSecondsRealtime(4f); yield return Shot("v3s-09-ending.png");
+            var st = LegacyOfTemples.Gameplay.StoryDialogueSystem.Instance;
+            Line($"  story complete={(st != null && st.IsComplete)}; total {LegacyOfTemples.Gameplay.ScoreSystem.Total} points, grade {LegacyOfTemples.Gameplay.ScoreSystem.OverallGrade(4)}");
+        }
+
         private MonoBehaviour V3Orbit() { MonoBehaviour o = null; foreach (var mb in FindObjectsByType<MonoBehaviour>()) if (mb != null && mb.GetType().Name == "OrbitCamera") o = mb; return o; }
         private void V3Score(string zone)
         {
@@ -246,6 +313,7 @@ namespace LegacyOfTemples.UI
             yield return V3View(orbit, cam, r.TransformPoint(new Vector3(-11f, 7f, -17f)), r.TransformPoint(new Vector3(1f, 1.5f, 6f))); yield return Shot("v3z5-04-both-beams-reach-the-wall.png");
             yield return new WaitForSecondsRealtime(2.5f);
             yield return V3View(orbit, cam, r.TransformPoint(new Vector3(-5f, 2.4f, 7f)), r.TransformPoint(new Vector3(0.5f, 1.2f, 15.5f))); yield return Shot("v3z5-05-hidden-door-open.png"); V3ViewEnd(orbit);
+            yield return V3Fight("v3z5-06-fight-kishore.png");
             yield return V3Use(pc, r.TransformPoint(new Vector3(0f, 0f, 15.9f)), z.Case.transform.position, "take the case");
             Line($"  case taken={z.Case.Taken}"); V3Score(LegacyOfTemples.Gameplay.SunWallPuzzle.ZoneId);
         }
@@ -277,7 +345,10 @@ namespace LegacyOfTemples.UI
             Line($"  panel state={z.Panel.State}, solved={z.Group.Solved}, evidence key ring={LegacyOfTemples.Gameplay.Puzzles.PuzzleSave.Get("evidence.key_ring")}");
             yield return V3View(orbit, cam, r.TransformPoint(new Vector3(3.2f, 4.6f, -1.2f)), r.TransformPoint(new Vector3(9.6f, 3f, 0.2f))); yield return Shot("v3z4-05-chamber-vessel.png"); V3ViewEnd(orbit);
             yield return V3Use(pc, r.TransformPoint(new Vector3(8.6f, 2.7f, 0.2f)), z.Vessel.transform.position, "take the vessel");
-            Line($"  vessel taken={z.Vessel.Taken}"); V3Score(LegacyOfTemples.Gameplay.StepwellPuzzle.ZoneId);
+            Line($"  vessel taken={z.Vessel.Taken}");
+            pc.Teleport(r.TransformPoint(new Vector3(6f, 0f, -11.5f)), Quaternion.LookRotation(r.right)); yield return new WaitForSecondsRealtime(1f);
+            yield return V3Fight("v3z4-06-fight-knife-man.png");
+            V3Score(LegacyOfTemples.Gameplay.StepwellPuzzle.ZoneId);
         }
 
         private IEnumerator V3Zone3Check()
@@ -308,6 +379,7 @@ namespace LegacyOfTemples.UI
             yield return new WaitForSecondsRealtime(2.2f);
             Line($"  discs at {z.Discs[0].State} {z.Discs[1].State} {z.Discs[2].State} (answer {turns[0]} {turns[1]} {turns[2]}), solved={z.Group.Solved}, evidence ledger={LegacyOfTemples.Gameplay.Puzzles.PuzzleSave.Get("evidence.ledger")}");
             yield return V3View(orbit, cam, r.TransformPoint(new Vector3(5.5f, 2.6f, -3.4f)), r.TransformPoint(new Vector3(10.5f, 1.2f, 0.4f))); yield return Shot("v3z3-04-discs-solved-chest-open.png"); V3ViewEnd(orbit);
+            yield return V3Fight("v3z3-05-fight-vault-guards.png");
             yield return V3Use(pc, r.TransformPoint(new Vector3(7.8f, 0f, 0.9f)), z.Rosette.transform.position, "take the rosette");
             Line($"  rosette taken={z.Rosette.Taken}"); V3Score(LegacyOfTemples.Gameplay.VaultPuzzle.ZoneId);
         }
@@ -677,10 +749,22 @@ namespace LegacyOfTemples.UI
                 File.WriteAllText(Path.Combine(output, "audit.md"), report.ToString());
                 Debug.Log("[AuditBot] DONE " + output); yield return new WaitForSecondsRealtime(1f); Application.Quit(); yield break;
             }
+            if (Array.IndexOf(Environment.GetCommandLineArgs(), "-v3Story") >= 0)
+            {   // V3 main path start to finish: gate, priest, storeroom, vaults, stepwell, Sun Wall, return
+                string auditPath = Path.Combine(output, "audit.md");
+                yield return new WaitForSecondsRealtime(4f);
+                yield return V3StoryCheck(auditPath);
+                File.WriteAllText(auditPath, report.ToString());
+                Debug.Log("[AuditBot] DONE " + output); yield return new WaitForSecondsRealtime(1f); Application.Quit(); yield break;
+            }
             if (Array.IndexOf(Environment.GetCommandLineArgs(), "-v3Zones") >= 0)
             {   // V3 zones 2, 5, 4 and 3: play each puzzle with real key presses, a picture of every stage
                 yield return new WaitForSecondsRealtime(6f);
-                yield return V3Zone2Check(); yield return V3Zone5Check(); yield return V3Zone4Check(); yield return V3Zone3Check();
+                string auditPath = Path.Combine(output, "audit.md");
+                yield return V3Zone2Check(); File.WriteAllText(auditPath, report.ToString());
+                yield return V3Zone5Check(); File.WriteAllText(auditPath, report.ToString());
+                yield return V3Zone4Check(); File.WriteAllText(auditPath, report.ToString());
+                yield return V3Zone3Check(); File.WriteAllText(auditPath, report.ToString());
                 Line($"\n## V3 run total: {LegacyOfTemples.Gameplay.ScoreSystem.Total} points, overall grade for 4 zones {LegacyOfTemples.Gameplay.ScoreSystem.OverallGrade(4)}");
                 File.WriteAllText(Path.Combine(output, "audit.md"), report.ToString());
                 Debug.Log("[AuditBot] DONE " + output); yield return new WaitForSecondsRealtime(1f); Application.Quit(); yield break;

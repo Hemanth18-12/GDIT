@@ -130,8 +130,14 @@ namespace LegacyOfTemples.Gameplay
             OnNewGame?.Invoke();
         }
 
+        public const int SaveVersion = 3;
         private void Load()
         {
+            if (PlayerPrefs.GetInt("Story_SaveVersion", 0) != SaveVersion)
+            {   // the V2 story had 24 steps; its step number means nothing in V3, so it starts fresh
+                foreach (string k in new[] { "Story_Objective", "Story_Clues", "Story_Convs", "Story_Time", "Story_Hints", "Story_Choices", "Story_Flags", "Story_Codex", "LastPlayedScene" }) PlayerPrefs.DeleteKey(k);
+                PlayerPrefs.SetInt("Story_SaveVersion", SaveVersion); PlayerPrefs.Save();
+            }
             objectiveIndex = PlayerPrefs.GetInt("Story_Objective", 0);
             clues.Clear(); conversationsDone.Clear();
             foreach (var c in PlayerPrefs.GetString("Story_Clues", "").Split(',')) if (c.Length > 0) clues.Add(c);
@@ -338,7 +344,7 @@ namespace LegacyOfTemples.Gameplay
         private void MinigameFallback(string scene)
         {
             var cur = Current;
-            if (cur == null || cur.complete.type != "minigame" || cur.scene != scene || minigames.Contains(cur.complete.id) || activeConversation != null) return;
+            if (cur == null || cur.complete.type != "minigame" || cur.scene != scene || minigames.Contains(cur.complete.id) || cur.complete.id.StartsWith("v3_") || activeConversation != null) return;   // V3 places are always built
             if (Time.timeSinceLevelLoad < 3f) return;
             ScreenText.Panel("mg_fallback", null, $"This section ({cur.title}) is not available in this build. Press {ScreenText.Key("Enter")} to continue the story.", PanelAnchor.TopRight, 640f, null, false, 4);
             var kb = UnityEngine.InputSystem.Keyboard.current;

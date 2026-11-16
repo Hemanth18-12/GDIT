@@ -183,7 +183,11 @@ namespace LegacyOfTemples.Gameplay
             }
             Flagstone.locked = !(PotWhole && LampSpot.State == 1) && Flagstone.State == 0;
             if (LockPlate.State == 2 && PuzzleSave.Get("evidence.inside_lock") == 0) { PuzzleSave.Set("evidence.inside_lock", 1); ObjectiveBanner.Show("NOTED", "Scratches on the inside. Opened, not forced.", 4f); }
-            if (Flagstone.State == 1 && !Chronicle.enabled && !Chronicle.Taken) Chronicle.enabled = true;
+            if (Flagstone.State == 1 && !Chronicle.enabled && !Chronicle.Taken)
+            {   // the lookout was hiding on the ledge: the Chronicle is his until he is beaten
+                if (Brawl.WonBefore(ZoneId)) Chronicle.enabled = true;
+                else if (Brawl.Active == null) Brawl.Begin(ZoneId, transform.TransformPoint(new Vector3(0f, 0f, 6.5f)), 8f, new[] { Brawl.Robber("the lookout", 1, BrawlType.Knife, 0.95f, new Color(0.55f, 0.6f, 0.7f)) }, _ => Refresh());
+            }
         }
 
         void Update()

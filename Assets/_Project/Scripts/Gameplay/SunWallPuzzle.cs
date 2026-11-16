@@ -110,7 +110,7 @@ namespace LegacyOfTemples.Gameplay
             Group = gg.AddComponent<PuzzleGroup>(); Group.puzzleId = "z5_sunwall"; Group.zoneId = ZoneId; Group.hintRadius = 24f;
             Group.hints = new[] { "Light has to reach two carvings on the wall.", "One beam must pass between the spokes of the great wheel.", "Turn each mirror two stops so the beams bend toward the wall, then push the wheel one stop so no spoke hangs straight down." };
             foreach (var s in Sockets) Group.conditions.Add(new PuzzleGroup.Condition { element = s, state = 1 });
-            Group.OnSolved += _ => { foreach (var m in Mirrors) m.locked = true; Wheel.locked = true; Case.enabled = true; ObjectiveBanner.Show("THE WALL OPENS", "", 3f); };
+            Group.OnSolved += _ => { foreach (var m in Mirrors) m.locked = true; Wheel.locked = true; ObjectiveBanner.Show("THE WALL OPENS", "", 3f); };
 
             var lookGo = new GameObject("ZoneLook_SunWall"); lookGo.transform.SetParent(root, false); lookGo.transform.localPosition = new Vector3(0f, 10f, 2f);
             var look = lookGo.AddComponent<ZoneLook>(); look.zone = ZoneLook.Zone.SunWall; look.size = new Vector3(27f, 30f, 38f); look.blendDistance = 6f; look.Build();
@@ -122,7 +122,12 @@ namespace LegacyOfTemples.Gameplay
         void Update()
         {
             if (!Built || door == null) return;
-            bool open = Group.Solved; if (open && !Case.enabled && !Case.Taken) Case.enabled = true;
+            bool open = Group.Solved;
+            if (open && !Case.enabled && !Case.Taken)
+            {   // Kishore steps out as the wall opens: a two-phase fight in the plaza
+                if (Brawl.WonBefore(ZoneId)) Case.enabled = true;
+                else if (Brawl.Active == null) Brawl.Begin(ZoneId, transform.TransformPoint(new Vector3(0f, 0f, 8f)), 6f, new[] { Brawl.Robber("Kishore", 2, BrawlType.Boss, 1.1f, new Color(0.75f, 0.7f, 0.85f)) }, null);
+            }
             doorOpen = Mathf.MoveTowards(doorOpen, open ? 1f : 0f, Time.deltaTime * 0.5f);
             door.localPosition = new Vector3(0f, 1.4f - 2.75f * Mathf.SmoothStep(0f, 1f, doorOpen), 14.7f);
         }

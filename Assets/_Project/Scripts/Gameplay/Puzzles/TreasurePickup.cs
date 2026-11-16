@@ -16,7 +16,8 @@ namespace LegacyOfTemples.Gameplay.Puzzles
         public string Prompt => Taken ? "" : "Take " + treasureName;
         public Transform Anchor => transform;
         public float Radius => Taken ? 0f : radius;
-        void Start() { if (PuzzleSave.Get(Id) == 1) Hide(); }   // already recovered in this save
+        void Start() { StoryDialogueSystem.Instance?.RegisterMinigame(StoryId); if (PuzzleSave.Get(Id) == 1) { Hide(); StoryDialogueSystem.Instance?.CompleteMinigame(StoryId); } }
+        public string StoryId => "v3_" + zoneId;   // already recovered in this save
         void Hide() { Taken = true; foreach (var r in GetComponentsInChildren<Renderer>()) r.enabled = false; foreach (var c in GetComponentsInChildren<Collider>()) c.enabled = false; }
         public void Interact()
         {
@@ -25,6 +26,7 @@ namespace LegacyOfTemples.Gameplay.Puzzles
             ObjectiveBanner.Show("RECOVERED", treasureName, 4f);
             Debug.Log($"[Treasure] recovered {treasureName} in {zoneId}; zone points now {ScoreSystem.Points(ScoreSystem.Zone(zoneId))}");
             OnTaken?.Invoke(this);
+            StoryDialogueSystem.Instance?.CompleteMinigame(StoryId);
             foreach (var r in GetComponentsInChildren<Renderer>()) r.enabled = false;
             foreach (var c in GetComponentsInChildren<Collider>()) c.enabled = false;
         }

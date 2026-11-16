@@ -18,9 +18,12 @@ namespace LegacyOfTemples.Gameplay
         [SerializeField] private string requiredPrefKey = "";
 
         public string Id => $"portal_to_{targetSceneName}";
-        public string Prompt => $"Enter {portalLabel}";
+        /// <summary>V3: everything happens around the temple; the old scenes' doors are closed.</summary>
+        public static bool OldScenesClosed = true;
+        bool Closed => OldScenesClosed && targetSceneName != Constants.Courtyard;
+        public string Prompt => Closed ? "" : $"Enter {portalLabel}";
         public Transform Anchor => transform;
-        public float Radius => Mathf.Max(interactionRadius, 4f);
+        public float Radius => Closed ? 0f : Mathf.Max(interactionRadius, 4f);
 
         private void Awake()
         {
@@ -51,6 +54,7 @@ namespace LegacyOfTemples.Gameplay
 
         private void ExecuteTransition()
         {
+            if (Closed) return;
             if (!string.IsNullOrEmpty(requiredPrefKey) && PlayerPrefs.GetInt(requiredPrefKey, 0) == 0)
             {
                 Debug.Log($"[SceneTransitionTrigger] Portal locked! Requires completion of '{requiredPrefKey}'.");

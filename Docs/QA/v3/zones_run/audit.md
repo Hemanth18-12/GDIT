@@ -1,51 +1,54 @@
-# Runtime audit (2026-11-16 07:34, Standalone, 1600x900)
+# Runtime audit (2026-11-16 18:31, Standalone, 1600x900)
 
 ## UI: MainMenu
 
-#### UI table: MainMenu @ requested 1280x720 (actual 1280x720); TMP texts=8; active IMGUI(OnGUI) scripts not measurable=0
+#### UI table: MainMenu @ requested 1280x720 (actual 1280x720); TMP texts=9; active IMGUI(OnGUI) scripts not measurable=0
 | text | px@1080p | min | contrast(worst) | issues |
 |---|---|---|---|---|
-| MenuTitle: LEGACY OF THE TEMPLE | 80 | 48 | 9.8 |  |
-| BtnKeyHint: CREDITS | 43 | 18 | 16.2 |  |
-| BtnKeyHint: SHOWCASE TOUR | 43 | 18 | 16.2 |  |
-| BtnKeyHint: CONTROLS | 43 | 18 | 16.2 |  |
-| BtnKeyHint: QUIT | 43 | 18 | 16.2 |  |
-| BtnKeyHint: SETTINGS | 43 | 18 | 16.2 |  |
-| BtnKeyHint: NEW GAME | 43 | 18 | 16.2 |  |
-| MenuSubtitle: A heritage mystery | 40 | 26 | 13.8 |  |
+| MenuTitle: LEGACY OF THE TEMPLE | 58 | 48 | 9.8 |  |
+| BtnKeyHint: QUIT | 31 | 18 | 16.2 |  |
+| MenuSubtitle: A heritage mystery | 29 | 26 | 13.8 |  |
+| BtnKeyHint: CREDITS | 31 | 18 | 16.2 |  |
+| BtnKeyHint: SHOWCASE TOUR | 31 | 18 | 16.2 |  |
+| BtnKeyHint: SETTINGS | 31 | 18 | 16.2 |  |
+| BtnKeyHint: CONTINUE | 31 | 18 | 16.2 |  |
+| BtnKeyHint: NEW GAME | 31 | 18 | 16.2 |  |
+| BtnKeyHint: CONTROLS | 31 | 18 | 16.2 |  |
 Problems in this view: 0
 
-#### UI table: MainMenu @ requested 1920x1080 (actual 1920x1080); TMP texts=8; active IMGUI(OnGUI) scripts not measurable=0
+#### UI table: MainMenu @ requested 1920x1080 (actual 1920x1080); TMP texts=9; active IMGUI(OnGUI) scripts not measurable=0
 | text | px@1080p | min | contrast(worst) | issues |
 |---|---|---|---|---|
-| MenuTitle: LEGACY OF THE TEMPLE | 80 | 48 | 9.8 |  |
-| BtnKeyHint: CREDITS | 43 | 18 | 16.2 |  |
-| BtnKeyHint: SHOWCASE TOUR | 43 | 18 | 16.2 |  |
-| BtnKeyHint: CONTROLS | 43 | 18 | 16.2 |  |
-| BtnKeyHint: QUIT | 43 | 18 | 16.2 |  |
-| BtnKeyHint: SETTINGS | 43 | 18 | 16.2 |  |
-| BtnKeyHint: NEW GAME | 43 | 18 | 16.2 |  |
-| MenuSubtitle: A heritage mystery | 40 | 26 | 13.8 |  |
+| MenuTitle: LEGACY OF THE TEMPLE | 58 | 48 | 9.8 |  |
+| BtnKeyHint: QUIT | 31 | 18 | 16.2 |  |
+| MenuSubtitle: A heritage mystery | 29 | 26 | 13.8 |  |
+| BtnKeyHint: CREDITS | 31 | 18 | 16.2 |  |
+| BtnKeyHint: SHOWCASE TOUR | 31 | 18 | 16.2 |  |
+| BtnKeyHint: SETTINGS | 31 | 18 | 16.2 |  |
+| BtnKeyHint: CONTINUE | 31 | 18 | 16.2 |  |
+| BtnKeyHint: NEW GAME | 31 | 18 | 16.2 |  |
+| BtnKeyHint: CONTROLS | 31 | 18 | 16.2 |  |
 Problems in this view: 0
 
-#### UI table: MainMenu @ requested 2560x1440 (actual 2560x1440); TMP texts=8; active IMGUI(OnGUI) scripts not measurable=0
+#### UI table: MainMenu @ requested 2560x1440 (actual 2560x1440); TMP texts=9; active IMGUI(OnGUI) scripts not measurable=0
 | text | px@1080p | min | contrast(worst) | issues |
 |---|---|---|---|---|
-| MenuTitle: LEGACY OF THE TEMPLE | 80 | 48 | 9.8 |  |
-| BtnKeyHint: CREDITS | 43 | 18 | 16.2 |  |
-| BtnKeyHint: SHOWCASE TOUR | 43 | 18 | 16.2 |  |
-| BtnKeyHint: CONTROLS | 43 | 18 | 16.2 |  |
-| BtnKeyHint: QUIT | 43 | 18 | 16.2 |  |
-| BtnKeyHint: SETTINGS | 43 | 18 | 16.2 |  |
-| BtnKeyHint: NEW GAME | 43 | 18 | 16.2 |  |
-| MenuSubtitle: A heritage mystery | 40 | 26 | 13.8 |  |
+| MenuTitle: LEGACY OF THE TEMPLE | 58 | 48 | 9.8 |  |
+| BtnKeyHint: QUIT | 31 | 18 | 16.2 |  |
+| MenuSubtitle: A heritage mystery | 29 | 26 | 13.8 |  |
+| BtnKeyHint: CREDITS | 31 | 18 | 16.2 |  |
+| BtnKeyHint: SHOWCASE TOUR | 31 | 18 | 16.2 |  |
+| BtnKeyHint: SETTINGS | 31 | 18 | 16.2 |  |
+| BtnKeyHint: CONTINUE | 31 | 18 | 16.2 |  |
+| BtnKeyHint: NEW GAME | 31 | 18 | 16.2 |  |
+| BtnKeyHint: CONTROLS | 31 | 18 | 16.2 |  |
 Problems in this view: 0
 
 ## Play-through from New Game (bot uses the Guide target for every objective)
-  loading bar: 31% at 0.72 s (image loading_c_investigator)
-  loading bar: 60% at 1.23 s (image loading_c_investigator)
-  loading bar: 100% at 2.05 s (image loading_c_investigator)
-  loading screen 1: image=loading_c_investigator, bar=1.00
+  loading bar: 31% at 0.72 s (image loading_e_robbery)
+  loading bar: 60% at 1.23 s (image loading_e_robbery)
+  loading bar: 100% at 2.05 s (image loading_e_robbery)
+  loading screen 1: image=loading_e_robbery, bar=1.00
 
 ## Intro: playing=True
   intro skipped: finished=True, player enabled=True, banner='OBJECTIVE: REACH JAGANNATH TEMPLE', objective=obj_c0_reach, clock hold=False
@@ -70,10 +73,12 @@ Problems in this view: 0
   lock plate turn 2: prompt 'Turn lock plate'
   lock plate state=2 (2 = inside face showing), evidence saved=1, banner='NOTED: Scratches on the inside. Opened, not forced.'
   lift the flagstone: prompt 'Lift flagstone'
-  flagstone state=1, puzzle solved=True, treasure usable=True
+  flagstone state=1, puzzle solved=True, treasure usable=False
+  fight begins: 1 enemy(ies): the lookout (Knife, 70 hp)
+  fight result: won=True in 5s, health left 100, damage taken 0, max combo 6, parries 0, finishers 0, retries 0; most attackers at once 0 (limit 2); telegraph seen=False; boss phase 2 seen=False
   take the Chronicle: prompt 'Take the Palm-Leaf Chronicle'
-  treasure taken=True; score: puzzle solved=True, hints=0, items=1, points=3500, grade=A
-  checkpoint: courtyard/storeroom
+  treasure taken=True; score: puzzle solved=True, hints=0, items=1, points=3800, grade=S
+  checkpoint: courtyard/before_fight
 
 ## V3 zone 5 Sun Wall: present=True, built=True
   start: sockets lit 0 0, wheel stop 0, door item usable=False
@@ -88,9 +93,11 @@ Problems in this view: 0
   four mirrors set, wheel not moved: sockets lit 0 1 (the right one must still be dark: a spoke blocks its beam)
   push the wheel: prompt 'Push the wheel'
   wheel stop 1: sockets lit 1 1, solved=True
+  fight begins: 1 enemy(ies): Kishore (Boss, 320 hp)
+  fight result: won=True in 18s, health left 100, damage taken 0, max combo 21, parries 0, finishers 1, retries 0; most attackers at once 1 (limit 2); telegraph seen=True; boss phase 2 seen=True
   take the case: prompt 'Take the finial's empty case and a boat receipt'
   case taken=True
-  score sunwall: puzzle solved=True, hints=0, items=1, points=3500, grade=A
+  score sunwall: puzzle solved=True, hints=0, items=1, points=4000, grade=S
 
 ## V3 zone 4 Stepwell: present=True, built=True
   start: water level 0, panel locked=True
@@ -105,7 +112,9 @@ Problems in this view: 0
   panel state=1, solved=True, evidence key ring=1
   take the vessel: prompt 'Take the Monsoon Vessel'
   vessel taken=True
-  score stepwell: puzzle solved=True, hints=0, items=1, points=3500, grade=A
+  fight begins: 2 enemy(ies): the knife man (Knife, 70 hp), his helper (Brawler, 90 hp)
+  fight result: won=True in 13s, health left 58, damage taken 42, max combo 6, parries 0, finishers 1, retries 0; most attackers at once 1 (limit 2); telegraph seen=True; boss phase 2 seen=False
+  score stepwell: puzzle solved=True, hints=0, items=1, points=3590, grade=A
 
 ## V3 zone 3 Vaults: present=True, built=True
   start: gate open=False, plates 0 0
@@ -136,8 +145,10 @@ Problems in this view: 0
   disc 3 turn 2: prompt 'Turn the stone disc'
   disc 3 turn 3: prompt 'Turn the stone disc'
   discs at 2 5 3 (answer 2 5 3), solved=True, evidence ledger=1
+  fight begins: 2 enemy(ies): the heavy guard (Heavy, 160 hp), the vault guard (Brawler, 90 hp)
+  fight result: won=True in 15s, health left 68, damage taken 32, max combo 11, parries 0, finishers 2, retries 0; most attackers at once 1 (limit 2); telegraph seen=True; boss phase 2 seen=False
   take the rosette: prompt 'Take the Sun Rosette'
   rosette taken=True
-  score vaults: puzzle solved=True, hints=0, items=1, points=3500, grade=A
+  score vaults: puzzle solved=True, hints=0, items=1, points=3840, grade=S
 
-## V3 run total: 14000 points, overall grade for 4 zones A
+## V3 run total: 15230 points, overall grade for 4 zones S

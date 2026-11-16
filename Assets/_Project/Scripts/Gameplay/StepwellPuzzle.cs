@@ -130,6 +130,14 @@ namespace LegacyOfTemples.Gameplay
             Debug.Log($"[Stepwell] zone 4 puzzle built at {at:0.0}");
         }
 
+        void Update()
+        {   // the knife man and his helper wait at the foot of the ramp for whoever comes out with the Vessel
+            if (!Built || !Vessel.Taken || Brawl.WonBefore(ZoneId) || Brawl.Active != null) return;
+            var pc = ZoneKit.Player; Vector3 spot = transform.TransformPoint(new Vector3(9f, 0f, -12f));
+            if (pc != null && Vector3.Distance(pc.transform.position, spot) < 9f && pc.transform.position.y < spot.y + 1.5f)
+                Brawl.Begin(ZoneId, spot, 6f, new[] { Brawl.Robber("the knife man", 2, BrawlType.Knife, 0.92f, new Color(0.5f, 0.6f, 0.75f)), Brawl.Robber("his helper", 1, BrawlType.Brawler, 0.95f, new Color(0.6f, 0.6f, 0.65f)) }, null);
+        }
+
         void Refresh()
         {
             if (!Built) return;

@@ -15,6 +15,8 @@ namespace LegacyOfTemples.UI
     public sealed class HintTutorial : MonoBehaviour
     {
         public const int Count = 5;
+        private int shownStep = -1; private float shownFor;
+        public const float MaxSeconds = 10f;
         public static int Step { get => PlayerPrefs.GetInt("Hints_Step", Count); private set { PlayerPrefs.SetInt("Hints_Step", value); PlayerPrefs.Save(); } }
         public static bool Showing { get; private set; }
         public static void Restart() { Step = 0; }
@@ -61,13 +63,16 @@ namespace LegacyOfTemples.UI
 
             if (doneAt >= 0f)
             {   // a short tick, then the next hint
-                ScreenText.Panel("hint_tutorial", null, $"<color={ScreenText.Green}><b>Done</b></color>", PanelAnchor.BottomCenter, 300f, null, false, 3);
+                ScreenText.Panel("hint_tutorial", null, $"<color={ScreenText.Green}><b>Done</b></color>", PanelAnchor.BottomCenter, 160f, null, false, 3);
                 Showing = true;
                 if (Time.unscaledTime - doneAt > 0.7f) { doneAt = -1f; moved = looked = 0f; Step = step + 1; }
                 return;
             }
 
-            ScreenText.Panel("hint_tutorial", null, $"{ScreenText.Key(Keys[step])}  {Text[step]}   <size=70%><color={ScreenText.Grey}>{step + 1} / {Count}</color></size>", PanelAnchor.BottomCenter, 620f, null, false, 3);
+            if (shownStep != step) { shownStep = step; shownFor = 0f; }
+            shownFor += Time.unscaledDeltaTime;
+            if (shownFor > MaxSeconds) { Step = step + 1; moved = looked = 0f; return; }   // V3: a hint never sits on screen for long; it moves on by itself
+            ScreenText.Panel("hint_tutorial", null, $"{ScreenText.Key(Keys[step])}  {Text[step]}", PanelAnchor.BottomCenter, 420f, null, false, 3);
             Showing = true;
 
             var kb = Keyboard.current; var mouse = Mouse.current; var gp = Gamepad.current; bool done = false;
