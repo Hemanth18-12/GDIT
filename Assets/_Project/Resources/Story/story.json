@@ -42,6 +42,20 @@
    "role": "Temple Record",
    "color": "#5CE1E6",
    "npc": ""
+  },
+  {
+   "id": "madhav",
+   "name": "Madhav",
+   "role": "Key-keeper",
+   "color": "#D8D2C2",
+   "npc": "villager_male"
+  },
+  {
+   "id": "courier",
+   "name": "The courier",
+   "role": "Robber",
+   "color": "#FFB4A8",
+   "npc": "robber1"
   }
  ],
  "chapters": [
@@ -50,7 +64,7 @@
    "n": 1,
    "title": "THE EMPTY STANDS",
    "scene": "Courtyard",
-   "budget": 25,
+   "budget": 35,
    "image": "loading_01_dawn_courtyard",
    "weather": 0.0
   },
@@ -59,34 +73,34 @@
    "n": 2,
    "title": "THE STOREROOM",
    "scene": "Courtyard",
-   "budget": 30,
+   "budget": 35,
    "image": "loading_04_shrine",
    "weather": 0.0
   },
   {
    "id": "ch3",
    "n": 3,
-   "title": "THE VAULTS",
+   "title": "THE STEPWELL",
    "scene": "Courtyard",
-   "budget": 25,
+   "budget": 30,
    "image": "loading_02_gate_night",
    "weather": 0.0
   },
   {
    "id": "ch4",
    "n": 4,
-   "title": "THE STEPWELL",
+   "title": "THE SUN WALL",
    "scene": "Courtyard",
-   "budget": 35,
+   "budget": 25,
    "image": "loading_02_gate_night",
    "weather": 0.0
   },
   {
    "id": "ch5",
    "n": 5,
-   "title": "THE SUN WALL",
+   "title": "THE RIVER ROAD",
    "scene": "Courtyard",
-   "budget": 40,
+   "budget": 30,
    "image": "loading_03_jungle_path",
    "weather": 0.0
   },
@@ -235,7 +249,7 @@
      "id": "v3_ary_09",
      "s": "aryan",
      "tier": "calm",
-     "t": "The last piece is on the river road."
+     "t": "Every piece is home."
     }
    ]
   }
@@ -280,6 +294,25 @@
    ]
   },
   {
+   "id": "obj_v3_bazaar",
+   "chapter": "ch1",
+   "scene": "Courtyard",
+   "title": "The bell in the bazaar",
+   "instruction": "Listen for a bell. Follow, unseen.",
+   "keys": "WASD walk, C crouch, E use",
+   "target": "obj:Courier",
+   "area": "Village road near the tea stall",
+   "complete": {
+    "type": "minigame",
+    "id": "v3_bazaar"
+   },
+   "hints": [
+    "Go back to the tea stall on the village road and listen.",
+    "A man with a ringing bag walks south. Stay well behind him.",
+    "When he stops and turns, be far away, behind something, or crouching (C)."
+   ]
+  },
+  {
    "id": "obj_v3_storeroom",
    "chapter": "ch2",
    "scene": "Courtyard",
@@ -300,7 +333,7 @@
   },
   {
    "id": "obj_v3_vaults",
-   "chapter": "ch3",
+   "chapter": "ch2",
    "scene": "Courtyard",
    "title": "The vaults",
    "instruction": "Something was hidden below the hall.",
@@ -319,7 +352,7 @@
   },
   {
    "id": "obj_v3_stepwell",
-   "chapter": "ch4",
+   "chapter": "ch3",
    "scene": "Courtyard",
    "title": "The stepwell",
    "instruction": "They went to the old well.",
@@ -338,7 +371,7 @@
   },
   {
    "id": "obj_v3_sunwall",
-   "chapter": "ch5",
+   "chapter": "ch4",
    "scene": "Courtyard",
    "title": "The Sun Wall",
    "instruction": "A wall that opens to the sun.",
@@ -353,6 +386,25 @@
     "The Sun Wall is west of the temple.",
     "Light has to reach the wall.",
     "Press H in the plaza."
+   ]
+  },
+  {
+   "id": "obj_v3_jungle",
+   "chapter": "ch5",
+   "scene": "Courtyard",
+   "title": "The river road",
+   "instruction": "Bhaskar runs for the river. Follow him.",
+   "keys": "WASD walk, C crouch, E use",
+   "target": "obj:V3_Zone6_Jungle",
+   "area": "North road behind the temple",
+   "complete": {
+    "type": "minigame",
+    "id": "v3_jungle"
+   },
+   "hints": [
+    "The road north of the temple leads to the river.",
+    "Your jeep waits at the start of that road.",
+    "Drive after Bhaskar to the ruins, then get out and fight."
    ]
   },
   {
@@ -377,6 +429,41 @@
  ],
  "barks": [
   {
+   "id": "v3_mee_00",
+   "s": "meera",
+   "tier": "calm",
+   "t": "Two men. One carried a bell.",
+   "trigger": "start:obj_v3_bazaar"
+  },
+  {
+   "id": "v3_mee_03",
+   "s": "meera",
+   "tier": "calm",
+   "t": "It rang. He hid it fast.",
+   "trigger": "v3:bazaar_begin"
+  },
+  {
+   "id": "v3_ary_06",
+   "s": "aryan",
+   "tier": "firm",
+   "t": "He saw me. After him.",
+   "trigger": "v3:bazaar_run"
+  },
+  {
+   "id": "v3_cou_01",
+   "s": "courier",
+   "tier": "firm",
+   "t": "You followed me? Clever.",
+   "trigger": "v3:bazaar_cornered"
+  },
+  {
+   "id": "v3_ary_02",
+   "s": "aryan",
+   "tier": "calm",
+   "t": "One. Four to go.",
+   "trigger": "done:obj_v3_bazaar"
+  },
+  {
    "id": "v3_ary_01",
    "s": "aryan",
    "tier": "calm",
@@ -384,10 +471,10 @@
    "trigger": "start:obj_v3_storeroom"
   },
   {
-   "id": "v3_ary_02",
+   "id": "v3_ary_07",
    "s": "aryan",
    "tier": "calm",
-   "t": "One. Four to go.",
+   "t": "Two.",
    "trigger": "done:obj_v3_storeroom"
   },
   {
@@ -401,7 +488,7 @@
    "id": "v3_ary_03",
    "s": "aryan",
    "tier": "calm",
-   "t": "Two.",
+   "t": "Three.",
    "trigger": "done:obj_v3_vaults"
   },
   {
@@ -422,7 +509,7 @@
    "id": "v3_ary_04",
    "s": "aryan",
    "tier": "calm",
-   "t": "Three. The Sun Wall is next.",
+   "t": "Four. Now the Sun Wall.",
    "trigger": "start:obj_v3_sunwall"
   },
   {
@@ -431,6 +518,62 @@
    "tier": "calm",
    "t": "An empty case. The jungle road.",
    "trigger": "done:obj_v3_sunwall"
+  },
+  {
+   "id": "v3_mee_04",
+   "s": "meera",
+   "tier": "calm",
+   "t": "Your jeep waits on the north road.",
+   "trigger": "start:obj_v3_jungle"
+  },
+  {
+   "id": "v3_bha_01",
+   "s": "bhaskar",
+   "tier": "firm",
+   "t": "Keep moving. He is close.",
+   "trigger": "v3:jungle_run"
+  },
+  {
+   "id": "v3_bha_02",
+   "s": "bhaskar",
+   "tier": "firm",
+   "t": "Do you know what this fetches?",
+   "trigger": "v3:jungle_court"
+  },
+  {
+   "id": "v3_ary_08",
+   "s": "aryan",
+   "tier": "firm",
+   "t": "Its value is not money.",
+   "trigger": "v3:jungle_boss"
+  },
+  {
+   "id": "v3_mad_01",
+   "s": "madhav",
+   "tier": "calm",
+   "t": "You knew?",
+   "trigger": "v3:madhav_named"
+  },
+  {
+   "id": "v3_mad_02",
+   "s": "madhav",
+   "tier": "calm",
+   "t": "I am sorry, sir.",
+   "trigger": "v3:madhav_ambush"
+  },
+  {
+   "id": "v3_mad_03",
+   "s": "madhav",
+   "tier": "calm",
+   "t": "I only opened a door.",
+   "trigger": "v3:madhav_caught"
+  },
+  {
+   "id": "v3_ary_10",
+   "s": "aryan",
+   "tier": "calm",
+   "t": "Five.",
+   "trigger": "done:obj_v3_jungle"
   }
  ],
  "clues": [
@@ -539,12 +682,12 @@
   {
    "id": "dawn_light",
    "title": "DAWN LIGHT",
-   "text": "Four treasures came home before first light. The fifth is on the river road."
+   "text": "All five treasures came home before first light."
   },
   {
    "id": "late_dawn",
    "title": "LATE DAWN",
-   "text": "Four treasures came home. The rite began late, but it began."
+   "text": "All five treasures came home. The rite began late, but it began."
   },
   {
    "id": "lost_dawn",

@@ -272,14 +272,95 @@ namespace LegacyOfTemples.UI
             yield return new WaitForSecondsRealtime(1.5f); yield return Shot("v3s-02-goal-card-new.png");
             yield return new WaitForSecondsRealtime(9f); yield return Shot("v3s-03-goal-card-faded.png");
             var ui = FindAnyObjectByType<UIManager>(); Line($"  goal card alpha 9 s after the goal changed: {(ui != null ? ui.ObjectiveAlpha : -1f):0.00}");
+            yield return V3Zone1Check(); Line($"  after the bazaar: objective {V3Obj()}"); File.WriteAllText(auditPath, report.ToString());
             yield return V3Zone2Check(); Line($"  after the storeroom: objective {V3Obj()}"); File.WriteAllText(auditPath, report.ToString());
             yield return V3Zone3Check(); Line($"  after the vaults: objective {V3Obj()}"); File.WriteAllText(auditPath, report.ToString());
             yield return V3Zone4Check(); Line($"  after the stepwell: objective {V3Obj()}"); File.WriteAllText(auditPath, report.ToString());
             yield return V3Zone5Check(); Line($"  after the Sun Wall: objective {V3Obj()}"); File.WriteAllText(auditPath, report.ToString());
+            Line($"  evidence found {LegacyOfTemples.Gameplay.EvidenceBoard.Found} of 4; naming Madhav: {LegacyOfTemples.Gameplay.EvidenceBoard.Name(LegacyOfTemples.Gameplay.EvidenceBoard.InsideMan)}");
+            yield return V3Zone6Check(); Line($"  after the river road: objective {V3Obj()}"); File.WriteAllText(auditPath, report.ToString());
             yield return V3TalkToPriest(pc, "priest-return");
             yield return new WaitForSecondsRealtime(4f); yield return Shot("v3s-09-ending.png");
             var st = LegacyOfTemples.Gameplay.StoryDialogueSystem.Instance;
-            Line($"  story complete={(st != null && st.IsComplete)}; total {LegacyOfTemples.Gameplay.ScoreSystem.Total} points, grade {LegacyOfTemples.Gameplay.ScoreSystem.OverallGrade(4)}");
+            Line($"  story complete={(st != null && st.IsComplete)}; total {LegacyOfTemples.Gameplay.ScoreSystem.Total} points, grade {LegacyOfTemples.Gameplay.ScoreSystem.OverallGrade(6)}");
+        }
+
+        private IEnumerator V3Zone1Check()
+        {
+            var z = LegacyOfTemples.Gameplay.BazaarTail.Instance; var pc = FindAnyObjectByType<PlayerController>();
+            Line($"\n## V3 zone 1 Bazaar tail: present={(z != null)}, built={(z != null && z.Built)}, courier={(z != null && z.Courier != null)}");
+            if (z == null || !z.Built || z.Courier == null || pc == null) yield break;
+            var cam = Camera.main; var orbit = V3Orbit();
+            pc.Teleport(z.Route[0] + Vector3.back * 20f, Quaternion.LookRotation(Vector3.forward)); yield return new WaitForSecondsRealtime(2f);
+            Line($"  near the tea stall: courier phase {z.Now}");
+            yield return Shot("v3z1-01-courier-sets-off.png");
+            bool testedSpot = false; float t0 = Time.time;
+            while (z.Now != LegacyOfTemples.Gameplay.BazaarTail.Phase.Arrived && z.Now != LegacyOfTemples.Gameplay.BazaarTail.Phase.Fight && z.Now != LegacyOfTemples.Gameplay.BazaarTail.Phase.Done && Time.time - t0 < 180f)
+            {
+                Vector3 c = z.Courier.position; Vector3 back = (z.Route[0] - c); back.y = 0f; back = back.sqrMagnitude > 0.01f ? back.normalized : Vector3.back;
+                if (!testedSpot && z.Now == LegacyOfTemples.Gameplay.BazaarTail.Phase.LookingBack)
+                {   // one deliberate mistake: stand close in the open while he looks back
+                    testedSpot = true; pc.Teleport(c + back * 6f, Quaternion.LookRotation(-back)); yield return new WaitForSecondsRealtime(2.4f);
+                    Line($"  stood 6 m behind him in the open while he looked back: spotted {z.Spotted}");
+                    yield return Shot("v3z1-02-spotted.png");
+                }
+                else pc.Teleport(c + back * 19f, Quaternion.LookRotation(-back));
+                yield return new WaitForSecondsRealtime(0.5f);
+            }
+            Line($"  tail finished: phase {z.Now}, spotted {z.Spotted} time(s), {Time.time - t0:0} s");
+            yield return V3View(orbit, cam, z.Yard.TransformPoint(new Vector3(4f, 5f, -12f)), z.Yard.position + Vector3.up); yield return Shot("v3z1-03-the-yard.png"); V3ViewEnd(orbit);
+            pc.Teleport(z.Yard.TransformPoint(new Vector3(0f, 0f, -4f)), z.Yard.rotation); yield return new WaitForSecondsRealtime(1f);
+            yield return V3Fight("v3z1-04-street-fight.png");
+            yield return new WaitForSecondsRealtime(1f);
+            yield return V3Use(pc, z.Bell.transform.position - z.Yard.forward * 1.2f, z.Bell.transform.position, "take the Dawn Bell");
+            Line($"  bell taken={z.Bell.Taken}, evidence list={LegacyOfTemples.Gameplay.Puzzles.PuzzleSave.Get("evidence.list")}"); V3Score(LegacyOfTemples.Gameplay.BazaarTail.ZoneId);
+        }
+
+        private IEnumerator V3Zone6Check()
+        {
+            var z = LegacyOfTemples.Gameplay.JungleChase.Instance; var pc = FindAnyObjectByType<PlayerController>();
+            Line($"\n## V3 zone 6 Jungle road: present={(z != null)}, built={(z != null && z.Built)}, runner={(z != null && z.Runner != null)}");
+            if (z == null || !z.Built || z.Runner == null || pc == null) yield break;
+            var cam = Camera.main; var orbit = V3Orbit(); yield return new WaitForSecondsRealtime(1f);
+            var jeep = LegacyOfTemples.Gameplay.Vehicles.Jeep.Instance;
+            Line($"  jeep at the road start: {(jeep != null ? Vector3.Distance(jeep.transform.position, z.RoadStart).ToString("0.0") + " m" : "no jeep")}");
+            yield return V3View(orbit, cam, z.RoadStart + new Vector3(-8f, 6f, 10f), z.Road[5]); yield return Shot("v3z6-01-jungle-road.png"); V3ViewEnd(orbit);
+            bool drove = false;
+            if (jeep != null)
+            {
+                pc.Teleport(jeep.DriverExitPoint, Quaternion.LookRotation(jeep.transform.position - jeep.DriverExitPoint)); yield return new WaitForSecondsRealtime(0.8f);
+                yield return Tap(Key.E); yield return new WaitForSecondsRealtime(2.5f); drove = jeep.Occupied;
+            }
+            Line($"  in the jeep: {drove}; chase phase {z.Now}");
+            float t0 = Time.time; bool shot = false;
+            while (z.Now == LegacyOfTemples.Gameplay.JungleChase.Phase.Waiting || z.Now == LegacyOfTemples.Gameplay.JungleChase.Phase.Chase)
+            {
+                if (Time.time - t0 > 150f) break;
+                if (drove && jeep.Occupied)
+                {   // the bot drives along the road: aim at the road point a little ahead
+                    int best = 0; float bd = 1e9f; for (int i = 0; i < z.Road.Count; i++) { float d = Vector3.Distance(jeep.transform.position, z.Road[i]); if (d < bd) { bd = d; best = i; } }
+                    Vector3 aim = z.Road[Mathf.Min(best + 2, z.Road.Count - 1)] - jeep.transform.position; aim.y = 0f;
+                    float ang = Vector3.SignedAngle(jeep.transform.forward, aim, Vector3.up);
+                    float gap = Vector3.Distance(jeep.transform.position, z.Runner.position);
+                    jeep.Car.autopilot = true; jeep.Car.autoSteer = Mathf.Clamp(ang / 25f, -1f, 1f); jeep.Car.autoThrottle = gap > 14f ? 0.8f : 0.25f; jeep.Car.autoBrake = gap < 8f && jeep.Car.CurrentSpeed > 5f;
+                }
+                else { Vector3 back = z.Runner.position - z.Road[0]; pc.Teleport(z.Runner.position - back.normalized * 10f, Quaternion.LookRotation(back)); }
+                if (!shot && z.Now == LegacyOfTemples.Gameplay.JungleChase.Phase.Chase && Time.time - t0 > 6f) { shot = true; yield return Shot("v3z6-02-chase.png"); }
+                yield return new WaitForSecondsRealtime(0.1f);
+            }
+            if (jeep != null) { jeep.Car.autoThrottle = 0f; jeep.Car.autoBrake = true; jeep.Car.autoSteer = 0f; yield return new WaitForSecondsRealtime(2.5f); jeep.Car.autopilot = false; }
+            Line($"  chase over in {Time.time - t0:0} s: phase {z.Now}, closest gap {z.ClosestGap:0.0} m, caught up={z.Caught}, jeep damage state {(jeep != null ? jeep.StateName : "-")}");
+            if (jeep != null && jeep.Occupied) { yield return Tap(Key.E); yield return new WaitForSecondsRealtime(2.5f); }
+            pc.Teleport(z.Court.TransformPoint(new Vector3(0f, 0f, 9f)), Quaternion.LookRotation(-z.Court.forward)); yield return new WaitForSecondsRealtime(1.5f);
+            yield return V3View(orbit, cam, z.Court.TransformPoint(new Vector3(10f, 9f, 22f)), z.Court.position); yield return Shot("v3z6-03-ruin-court.png"); V3ViewEnd(orbit);
+            yield return V3Fight("v3z6-04-wave-1.png");
+            yield return new WaitForSecondsRealtime(3f); Line($"  wave 2 (inside man named correctly={LegacyOfTemples.Gameplay.EvidenceBoard.NamedCorrectly}):");
+            yield return V3Fight("v3z6-05-wave-2.png");
+            yield return new WaitForSecondsRealtime(3f); Line("  Bhaskar:");
+            yield return V3Fight("v3z6-06-bhaskar.png");
+            yield return new WaitForSecondsRealtime(4f); yield return Shot("v3z6-07-madhav-gives-up.png");
+            yield return V3Use(pc, z.Finial.transform.position + Vector3.forward * 1.2f, z.Finial.transform.position, "take the Chariot Finial");
+            Line($"  finial taken={z.Finial.Taken}, phase {z.Now}"); V3Score(LegacyOfTemples.Gameplay.JungleChase.ZoneId);
         }
 
         private MonoBehaviour V3Orbit() { MonoBehaviour o = null; foreach (var mb in FindObjectsByType<MonoBehaviour>()) if (mb != null && mb.GetType().Name == "OrbitCamera") o = mb; return o; }

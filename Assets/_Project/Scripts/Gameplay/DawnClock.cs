@@ -15,7 +15,7 @@ namespace LegacyOfTemples.Gameplay
     {
         public static DawnClock Instance { get; private set; }
         public const float DawnMinute = 155f;
-        private static readonly float[] Deadline = { 25f, 55f, 80f, 115f, 155f };
+        private static readonly float[] Deadline = { 35f, 70f, 100f, 125f, 155f };   // V3 chapters: bazaar, storeroom+vaults, stepwell, Sun Wall, river road
 
         public float Minutes { get; private set; }
         public bool OutOfTime { get; private set; }

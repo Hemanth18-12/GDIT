@@ -26,4 +26,7 @@ Each line: what was planned, what went wrong or was unclear, what I chose, and w
 | D-20 | 2026-11-16 | **V3 runs on the existing story system.** Instead of a second story engine, the story file was rewritten so its steps are the V3 zones; each zone reports "done" when its treasure is taken. The guide, clock, map, ending and save all keep working. |
 | D-21 | 2026-11-16 | **Fewer HUD boxes.** You said the gold boxes were too many and too big. Removed the help bar (the GUIDE button covers it), the goal card now fades after 7 seconds, and the small boxes are smaller and see-through. |
 | D-22 | 2026-11-16 | **Zones 1 and 6 still missing.** The path runs courtyard, vaults, stepwell, Sun Wall, then back to the priest; the ending says honestly that the fifth treasure is on the river road. |
+| D-23 | 2026-11-16 | **Courier and Madhav models.** The courier is a recoloured Robber 1 (rule 5: enemies are robber variants). Madhav uses the existing male villager model and never fights; if he was not named, he lets two extra robbers into wave 2 instead. |
+| D-24 | 2026-11-16 | **Jungle chase.** Bhaskar runs on foot and the player follows by jeep. He slows down if the player falls far behind, so the chase can be lost only in score, never as a dead end. The jeep is moved to the start of the north road when that step begins. |
+| D-25 | 2026-11-16 | **Bhaskar has two phases, not three.** The fight system's boss has two; the third "desperate" phase from the design was not built. |
 

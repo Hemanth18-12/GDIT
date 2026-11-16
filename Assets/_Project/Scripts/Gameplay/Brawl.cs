@@ -122,7 +122,7 @@ namespace LegacyOfTemples.Gameplay
     public sealed class Brawl : MonoBehaviour
     {
         public static Brawl Active { get; private set; }
-        public string zoneId = "zone"; public Vector3 Centre; public float Radius = 9f;
+        public string zoneId = "zone", fightId = "zone"; public Vector3 Centre; public float Radius = 9f;
         public readonly List<BrawlEnemy> Enemies = new List<BrawlEnemy>();
         public float Health { get; private set; } = 100f;
         public float Stamina { get; private set; } = 100f;
@@ -146,10 +146,10 @@ namespace LegacyOfTemples.Gameplay
         public static Spec Robber(string name, int model, BrawlType type, float scale, Color tint) => new Spec { prefab = model == 2 ? "NPC/Robber2_Cine" : "NPC/Robber1_Cine", type = type, scale = scale, tint = tint, name = name };
 
         /// <summary>Start a fight around a point. Enemies are the existing robber models, resized and tinted.</summary>
-        public static Brawl Begin(string zone, Vector3 centre, float radius, IList<Spec> specs, Action<Brawl> won)
+        public static Brawl Begin(string zone, Vector3 centre, float radius, IList<Spec> specs, Action<Brawl> won, string fightId = null)
         {
             if (Active != null) return Active;
-            var b = new GameObject("Brawl_" + zone).AddComponent<Brawl>(); b.zoneId = zone; b.Centre = centre; b.Radius = radius; if (won != null) b.OnWon += won;
+            var b = new GameObject("Brawl_" + zone).AddComponent<Brawl>(); b.zoneId = zone; b.fightId = fightId ?? zone; b.Centre = centre; b.Radius = radius; if (won != null) b.OnWon += won;
             b.player = ZoneKit.Player; if (b.player == null) { Destroy(b.gameObject); return null; }
             b.cc = b.player.GetComponent<CharacterController>(); b.heroAnim = b.player.GetComponentInChildren<Animator>();
             if (b.heroAnim != null) foreach (var p in b.heroAnim.parameters) b.heroParams.Add(p.name);
@@ -294,7 +294,7 @@ namespace LegacyOfTemples.Gameplay
 
         void Win()
         {
-            Won = true; Time.timeScale = 1f; HeroFlag("Block", false); PuzzleSave.Set("fight." + zoneId, 1);
+            Won = true; Time.timeScale = 1f; HeroFlag("Block", false); PuzzleSave.Set("fight." + fightId, 1);
             ScoreSystem.FinishZone(zoneId); if (Active == this) Active = null;
             ObjectiveBanner.Show("THE ROBBERS ARE DOWN", "", 2.5f);
             Debug.Log($"[Brawl] {zoneId}: won in {Seconds:0.0}s, damage taken {DamageTaken:0}, max combo {MaxCombo}, parries {Parries}, finishers {Finishers}, retries {Retries}");

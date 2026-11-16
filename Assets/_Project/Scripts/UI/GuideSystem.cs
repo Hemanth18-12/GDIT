@@ -372,7 +372,7 @@ namespace LegacyOfTemples.UI
             sb.Append($"<color={ScreenText.Gold}><b>ENDING: {end.title}</b></color>\n{end.text}\n\n");
             sb.Append($"<i>\"{file.ending?.text}\"</i>\n\n");
             // V3: the treasures recovered and the evidence found, then the score and grade for each place
-            int items = 0; foreach (var z in ScoreSystem.Zones) items += z.items;
+            int items = 0; foreach (var z in ScoreSystem.Zones) if (z.zone != SunWallPuzzle.ZoneId) items += z.items;   // the Sun Wall gives an empty case, not a treasure
             sb.Append($"<color={ScreenText.Gold}><b>RECOVERED</b></color>  {items} of 5 treasures\n");
             sb.Append($"<color={ScreenText.Gold}><b>EVIDENCE</b></color>\n");
             foreach (var p in EvidenceBoard.Pieces) sb.Append(LegacyOfTemples.Gameplay.Puzzles.PuzzleSave.Get(p.key) == 1 ? $"<color={ScreenText.Cyan}>• {p.text}</color>\n" : $"• ({p.zone}): not found\n");
@@ -381,7 +381,7 @@ namespace LegacyOfTemples.UI
             int t = Mathf.RoundToInt(story.Elapsed);
             float clock = DawnClock.Instance != null ? DawnClock.Instance.Minutes : 0f;
             sb.Append($"\n<color={ScreenText.Gold}><b>CLOCK</b></color>  {DawnClock.ClockText(clock)} (dawn 05:45)     <color={ScreenText.Gold}><b>PLAY TIME</b></color>  {t / 60:00}:{t % 60:00}     <color={ScreenText.Gold}><b>DIFFICULTY</b></color>  {GameOptions.DifficultyNames[GameOptions.Difficulty]}\n");
-            sb.Append($"<color={ScreenText.Gold}><b>SCORE</b></color>  {ScoreSystem.Total}  (grade {ScoreSystem.OverallGrade(4)})     <color={ScreenText.Gold}><b>HINTS USED</b></color>  {story.HintsUsed}     <color={ScreenText.Gold}><b>RETRIES</b></color>  {(DawnClock.Instance != null ? DawnClock.Instance.Retries : 0)}");
+            sb.Append($"<color={ScreenText.Gold}><b>SCORE</b></color>  {ScoreSystem.Total}  (grade {ScoreSystem.OverallGrade(6)})     <color={ScreenText.Gold}><b>HINTS USED</b></color>  {story.HintsUsed}     <color={ScreenText.Gold}><b>RETRIES</b></color>  {(DawnClock.Instance != null ? DawnClock.Instance.Retries : 0)}");
             ScreenText.Panel("ending", file.ending?.title ?? "MISSION COMPLETED", sb.ToString(), PanelAnchor.Center, 1400, ScreenText.Key("Enter") + " Return to main menu", true, 100);
             var kb = Keyboard.current; var gp = Gamepad.current;
             if (Time.unscaledTime - endingTime > 2f && ((kb != null && kb.enterKey.wasPressedThisFrame) || (gp != null && gp.buttonSouth.wasPressedThisFrame)))

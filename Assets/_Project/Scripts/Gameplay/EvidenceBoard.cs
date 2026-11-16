@@ -70,7 +70,7 @@ namespace LegacyOfTemples.Gameplay
             else if (CanName) { sb.Append($"<color={ScreenText.Gold}><b>NAME THE INSIDE MAN</b></color> (one choice, it cannot be changed)\n"); for (int i = 0; i < Suspects.Length; i++) sb.Append($"{ScreenText.Key((i + 1).ToString())} {Suspects[i]}\n"); }
             else sb.Append($"<i>{NeededToName - found} more piece(s) of evidence before I can name anyone.</i>\n");
             sb.Append($"\n<color={ScreenText.Gold}><b>RECOVERED</b></color>  ");
-            int items = 0; foreach (var z in ScoreSystem.Zones) items += z.items;
+            int items = 0; foreach (var z in ScoreSystem.Zones) if (z.zone != SunWallPuzzle.ZoneId) items += z.items;
             sb.Append($"{items} of 5     <color={ScreenText.Gold}><b>SCORE</b></color>  {ScoreSystem.Total}\n");
             foreach (var z in ScoreSystem.Zones) if (z.puzzleSolved || z.items > 0) sb.Append($"{z.zone}: {ScoreSystem.Points(z)} points, grade {ScoreSystem.Grade(z)}{(z.hintsUsed > 0 ? $", {z.hintsUsed} hint(s)" : "")}\n");
             return sb.ToString();
