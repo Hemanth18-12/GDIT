@@ -163,6 +163,21 @@ namespace LegacyOfTemples.Tests
         }
 
         [Test]
+        public void Evidence_Board_Shows_Only_What_Was_Found_And_Names_Once()
+        {
+            Assert.AreEqual(0, EvidenceBoard.Found); Assert.IsFalse(EvidenceBoard.CanName);
+            StringAssert.Contains("Nothing yet", EvidenceBoard.Body()); StringAssert.DoesNotContain("ledger", EvidenceBoard.Body());
+            PuzzleSave.Set("evidence.inside_lock", 1); PuzzleSave.Set("evidence.ledger", 1);
+            StringAssert.Contains("ledger", EvidenceBoard.Body()); StringAssert.DoesNotContain("key ring", EvidenceBoard.Body());
+            Assert.IsFalse(EvidenceBoard.Name(2), "two pieces are not enough to name anyone");
+            PuzzleSave.Set("evidence.key_ring", 1); Assert.IsTrue(EvidenceBoard.CanName);
+            StringAssert.DoesNotContain("Madhav", EvidenceBoard.Body().Split(new[] { "NAME THE INSIDE MAN" }, System.StringSplitOptions.None)[0], "the evidence text itself never gives the name");
+            Assert.IsTrue(EvidenceBoard.Name(2)); Assert.IsTrue(EvidenceBoard.NamedCorrectly);
+            Assert.IsFalse(EvidenceBoard.Name(0), "the choice cannot be changed");
+            PuzzleSave.Clear(); Assert.AreEqual(-1, EvidenceBoard.Named, "New Game forgets the accusation");
+        }
+
+        [Test]
         public void Checkpoint_Save_And_Restore()
         {
             Assert.IsFalse(Checkpoints.Has);

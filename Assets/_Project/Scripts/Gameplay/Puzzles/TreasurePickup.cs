@@ -16,6 +16,8 @@ namespace LegacyOfTemples.Gameplay.Puzzles
         public string Prompt => Taken ? "" : "Take " + treasureName;
         public Transform Anchor => transform;
         public float Radius => Taken ? 0f : radius;
+        void Start() { if (PuzzleSave.Get(Id) == 1) Hide(); }   // already recovered in this save
+        void Hide() { Taken = true; foreach (var r in GetComponentsInChildren<Renderer>()) r.enabled = false; foreach (var c in GetComponentsInChildren<Collider>()) c.enabled = false; }
         public void Interact()
         {
             if (Taken || !isActiveAndEnabled) return; Taken = true;

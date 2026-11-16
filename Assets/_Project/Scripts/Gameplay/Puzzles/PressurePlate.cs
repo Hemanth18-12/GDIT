@@ -16,8 +16,9 @@ namespace LegacyOfTemples.Gameplay.Puzzles
         void Refresh() { weights.RemoveWhere(o => o == null); if (!locked) SetState(weights.Count > 0 ? 1 : 0, false); }
 
         static bool Heavy(Collider c) => c.GetComponentInParent<CharacterController>() != null || c.attachedRigidbody != null || c.GetComponentInParent<PushableBlock>() != null;
-        void OnTriggerEnter(Collider c) { if (Heavy(c)) Press(c.transform.root.gameObject); }
-        void OnTriggerExit(Collider c) { Release(c.transform.root.gameObject); }
+        static Object Who(Collider c) => c.attachedRigidbody != null ? c.attachedRigidbody.gameObject : c.gameObject;   // each block or person counts once
+        void OnTriggerEnter(Collider c) { if (Heavy(c)) Press(Who(c)); }
+        void OnTriggerExit(Collider c) { Release(Who(c)); }
 
         public override void ResetState() { weights.Clear(); base.ResetState(); }
         protected override void Apply(int state, bool instant)

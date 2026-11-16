@@ -34,7 +34,7 @@ namespace LegacyOfTemples.Gameplay.Puzzles
                     if (socket != null) { socket.Touch(); LastSocket = socket; break; }
                     var mirror = h.collider.GetComponentInParent<LightMirror>();
                     if (mirror == null) break;
-                    Vector3 n = mirror.Normal; if (Vector3.Dot(n, d) > 0f) break;      // the back of a mirror does not reflect
+                    Vector3 n = mirror.Normal; if (Vector3.Dot(n, d) > -0.08f) break;   // the back or the thin edge of a mirror does not reflect
                     d = PuzzleLogic.Reflect(d, n); p = h.point + d * 0.02f;
                 }
             }

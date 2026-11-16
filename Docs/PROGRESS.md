@@ -16,6 +16,11 @@ Say "Continue from Docs/PROGRESS.md" to resume. Last update: 2026-11-16.
 - Main menu now shows the real temple (`MenuTempleBackdrop.cs`).
 - Not done in zone 2: the lookout fight, the journal evidence board, art polish (walls are textured boxes), old objective panel still shows the old story.
 
+## Zones 3, 4, 5 (2026-11-16)
+- Sun Wall (`SunWallPuzzle.cs`), Stepwell (`StepwellPuzzle.cs`) and Vaults (`VaultPuzzle.cs`) are built in the Courtyard scene around the temple and were each played end to end by the bot with real key presses: `Docs/QA/v3/zones_run/audit.md` (4 zones, 14,000 points, grade A, 0 exceptions), pictures `Docs/QA/v3/zones_sheet.png`.
+- Evidence board on B (`EvidenceBoard.cs`): lists only found evidence, lets the player name the inside man once. Logic test written; the panel has not been looked at in the running game.
+- Not done in these zones: fights (lookout, guards, knife man, Kishore), vault patrol stealth and lantern battery, art polish, sound.
+
 ## In progress
 - Phase 1D core systems (see the list at the bottom of this file for what exists).
 

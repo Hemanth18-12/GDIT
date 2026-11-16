@@ -19,8 +19,9 @@ namespace LegacyOfTemples.Gameplay.Puzzles
         public List<Transform> floating = new List<Transform>();
         float baseY, y; bool baseSet; readonly List<float> floatOffsets = new List<float>();
 
-        void Start()
+        protected override void Start()
         {
+            base.Start();
             foreach (var v in inflows) if (v != null) { v.Restore(); v.Changed += _ => Recompute(); }
             if (drain != null) { drain.Restore(); drain.Changed += _ => Recompute(); }
             Recompute();

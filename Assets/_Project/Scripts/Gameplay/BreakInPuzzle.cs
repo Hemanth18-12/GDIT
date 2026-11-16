@@ -158,7 +158,13 @@ namespace LegacyOfTemples.Gameplay
             // ---- the zone's look (dawn-gold grade) around the site
             var lookGo = new GameObject("ZoneLook_Courtyard"); lookGo.transform.SetParent(root, false); lookGo.transform.localPosition = new Vector3(0f, 10f, 3f);
             var look = lookGo.AddComponent<ZoneLook>(); look.zone = ZoneLook.Zone.Courtyard; look.size = new Vector3(70f, 40f, 70f); look.blendDistance = 14f; look.Build();
-            Physics.SyncTransforms(); Built = true; Refresh();
+            Physics.SyncTransforms(); Built = true;
+            if (PuzzleSave.Get("solved.z2_breakin") == 1)
+            {   // loading a save where this puzzle is already solved: show the solved scene, not a half-reset one
+                for (int i = 0; i < 3; i++) if (Sockets[i] != null && Shards[i] != null) Sockets[i].Place(Shards[i]);
+                Lantern.transform.position = Stain.position + Vector3.up * 0.05f; LampSpot.Check();
+            }
+            Refresh();
             Debug.Log($"[BreakIn] zone 2 puzzle built at {at:0.0}");
         }
 

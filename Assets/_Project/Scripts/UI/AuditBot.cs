@@ -40,6 +40,7 @@ namespace LegacyOfTemples.UI
             if (index < 0 || index + 1 >= args.Length) return;
             requested = true;
             Application.runInBackground = true;
+            foreach (var arg in args) if (arg.StartsWith("-v3Zone")) { LegacyOfTemples.Gameplay.ZoneKit.NewGame(); LegacyOfTemples.Gameplay.ScoreSystem.ResetAll(); break; }   // zone checks start from a clean save
             InputSystem.settings.backgroundBehavior = InputSettings.BackgroundBehavior.IgnoreFocus; // the bot must work when the window is not in front
             var go = new GameObject("AuditBot");
             DontDestroyOnLoad(go);
@@ -171,7 +172,6 @@ namespace LegacyOfTemples.UI
             var z = LegacyOfTemples.Gameplay.BreakInPuzzle.Instance; var pc = FindAnyObjectByType<PlayerController>();
             Line($"\n## V3 zone 2 break-in puzzle: present={(z != null)}, built={(z != null && z.Built)}");
             if (z == null || !z.Built || pc == null) yield break;
-            LegacyOfTemples.Gameplay.Puzzles.PuzzleSave.Clear(); LegacyOfTemples.Gameplay.ScoreSystem.ResetAll();
             MonoBehaviour orbit = null; foreach (var mb in FindObjectsByType<MonoBehaviour>()) if (mb != null && mb.GetType().Name == "OrbitCamera") orbit = mb;
             Transform r = z.transform; var cam = Camera.main;
             System.Func<Vector3, Vector3, IEnumerator> view = (from, at) => V3View(orbit, cam, r.TransformPoint(from), r.TransformPoint(at));
@@ -215,6 +215,103 @@ namespace LegacyOfTemples.UI
             Line($"  checkpoint: {LegacyOfTemples.Gameplay.Checkpoints.Current.zone}/{LegacyOfTemples.Gameplay.Checkpoints.Current.label}");
             yield return new WaitForSecondsRealtime(0.5f); yield return Shot("v3z2-08-recovered-banner.png");
         }
+        private MonoBehaviour V3Orbit() { MonoBehaviour o = null; foreach (var mb in FindObjectsByType<MonoBehaviour>()) if (mb != null && mb.GetType().Name == "OrbitCamera") o = mb; return o; }
+        private void V3Score(string zone)
+        {
+            var zs = LegacyOfTemples.Gameplay.ScoreSystem.Zone(zone);
+            Line($"  score {zone}: puzzle solved={zs.puzzleSolved}, hints={zs.hintsUsed}, items={zs.items}, points={LegacyOfTemples.Gameplay.ScoreSystem.Points(zs)}, grade={LegacyOfTemples.Gameplay.ScoreSystem.Grade(zs)}");
+        }
+
+        private IEnumerator V3Zone5Check()
+        {
+            var z = LegacyOfTemples.Gameplay.SunWallPuzzle.Instance; var pc = FindAnyObjectByType<PlayerController>();
+            Line($"\n## V3 zone 5 Sun Wall: present={(z != null)}, built={(z != null && z.Built)}");
+            if (z == null || !z.Built || pc == null) yield break;
+            Transform r = z.transform; var cam = Camera.main; var orbit = V3Orbit();
+            pc.Teleport(r.TransformPoint(new Vector3(-4f, 0f, -9f)), Quaternion.LookRotation(r.forward)); yield return new WaitForSecondsRealtime(3.5f);
+            yield return Shot("v3z5-01-arrive-gameplay-camera.png");
+            yield return V3View(orbit, cam, r.TransformPoint(new Vector3(-11f, 7f, -17f)), r.TransformPoint(new Vector3(1f, 1.5f, 6f))); yield return Shot("v3z5-02-plaza-before.png"); V3ViewEnd(orbit);
+            Line($"  start: sockets lit {z.Sockets[0].State} {z.Sockets[1].State}, wheel stop {z.Wheel.State}, door item usable={z.Case.enabled}");
+            for (int m = 0; m < 4; m++)
+            {
+                Vector3 mp = z.Mirrors[m].transform.position; Vector3 stand = mp - r.forward * 1.3f + r.right * (m == 1 || m == 2 ? 1.1f : -1.1f); stand.y = pc.transform.position.y;
+                yield return V3Use(pc, stand, mp, $"mirror {m + 1} turn 1"); yield return V3Use(pc, stand, mp, $"mirror {m + 1} turn 2");
+            }
+            yield return new WaitForSecondsRealtime(0.6f);
+            Line($"  four mirrors set, wheel not moved: sockets lit {z.Sockets[0].State} {z.Sockets[1].State} (the right one must still be dark: a spoke blocks its beam)");
+            yield return V3View(orbit, cam, r.TransformPoint(new Vector3(-11f, 7f, -17f)), r.TransformPoint(new Vector3(1f, 1.5f, 6f))); yield return Shot("v3z5-03-mirrors-set-spoke-blocks.png"); V3ViewEnd(orbit);
+            Vector3 wp = z.Wheel.transform.position; wp.y = pc.transform.position.y;
+            yield return V3Use(pc, wp - r.forward * 2.6f + r.right * 1.6f, wp, "push the wheel"); yield return new WaitForSecondsRealtime(2.2f);
+            Line($"  wheel stop {z.Wheel.State}: sockets lit {z.Sockets[0].State} {z.Sockets[1].State}, solved={z.Group.Solved}");
+            yield return V3View(orbit, cam, r.TransformPoint(new Vector3(-11f, 7f, -17f)), r.TransformPoint(new Vector3(1f, 1.5f, 6f))); yield return Shot("v3z5-04-both-beams-reach-the-wall.png");
+            yield return new WaitForSecondsRealtime(2.5f);
+            yield return V3View(orbit, cam, r.TransformPoint(new Vector3(-5f, 2.4f, 7f)), r.TransformPoint(new Vector3(0.5f, 1.2f, 15.5f))); yield return Shot("v3z5-05-hidden-door-open.png"); V3ViewEnd(orbit);
+            yield return V3Use(pc, r.TransformPoint(new Vector3(0f, 0f, 15.9f)), z.Case.transform.position, "take the case");
+            Line($"  case taken={z.Case.Taken}"); V3Score(LegacyOfTemples.Gameplay.SunWallPuzzle.ZoneId);
+        }
+
+        private IEnumerator V3Zone4Check()
+        {
+            var z = LegacyOfTemples.Gameplay.StepwellPuzzle.Instance; var pc = FindAnyObjectByType<PlayerController>();
+            Line($"\n## V3 zone 4 Stepwell: present={(z != null)}, built={(z != null && z.Built)}");
+            if (z == null || !z.Built || pc == null) yield break;
+            Transform r = z.transform; var cam = Camera.main; var orbit = V3Orbit(); float rim = LegacyOfTemples.Gameplay.StepwellPuzzle.Rim;
+            pc.Teleport(r.TransformPoint(new Vector3(7f, 0f, -11f)), Quaternion.LookRotation(r.forward - r.right)); yield return new WaitForSecondsRealtime(3.5f);
+            yield return Shot("v3z4-01-arrive-gameplay-camera.png");
+            yield return V3View(orbit, cam, r.TransformPoint(new Vector3(-9f, 11f, -13f)), r.TransformPoint(new Vector3(2f, 2f, 0f))); yield return Shot("v3z4-02-tank-empty.png"); V3ViewEnd(orbit);
+            Line($"  start: water level {z.Basin.State}, panel locked={z.Panel.locked}");
+            z.Panel.Interact(); Line($"  panel tried early: state={z.Panel.State} (0 = shut)");
+            yield return V3Use(pc, r.TransformPoint(new Vector3(-3.7f, rim + 0.05f, -6.8f)), z.SluiceA.transform.position, "south sluice wheel");
+            yield return V3Use(pc, r.TransformPoint(new Vector3(3.7f, rim + 0.05f, 6.8f)), z.SluiceB.transform.position, "north sluice wheel");
+            yield return new WaitForSecondsRealtime(6.5f);
+            Line($"  both sluices open: water level {z.Basin.State}, raft top at {r.InverseTransformPoint(z.Raft.position).y + 0.125f:0.00} m (rim {rim:0.0}), panel locked={z.Panel.locked}");
+            yield return V3View(orbit, cam, r.TransformPoint(new Vector3(-9f, 11f, -13f)), r.TransformPoint(new Vector3(2f, 3f, 0f))); yield return Shot("v3z4-03-tank-full-panel-under-water.png"); V3ViewEnd(orbit);
+            pc.Teleport(z.Raft.position + Vector3.up * 0.2f + r.right * 0.3f, Quaternion.LookRotation(-r.right)); yield return new WaitForSecondsRealtime(0.8f);
+            yield return V3Use(pc, z.Raft.position + Vector3.up * 0.2f + r.right * 0.3f, z.Drain.transform.position, "drain chain 1");
+            yield return new WaitForSecondsRealtime(1.6f);
+            yield return V3Use(pc, pc.transform.position, z.Drain.transform.position, "drain chain 2");
+            yield return new WaitForSecondsRealtime(2.2f);
+            Line($"  drained twice: water level {z.Basin.State}, player height above the tank floor {r.InverseTransformPoint(pc.transform.position).y:0.00} m (rode the raft down), panel locked={z.Panel.locked}");
+            yield return V3View(orbit, cam, r.TransformPoint(new Vector3(-4f, 6.5f, -4f)), r.TransformPoint(new Vector3(6f, 3.2f, 0f))); yield return Shot("v3z4-04-water-on-the-long-mark.png"); V3ViewEnd(orbit);
+            yield return V3Use(pc, pc.transform.position, z.Panel.transform.position, "push the panel"); yield return new WaitForSecondsRealtime(0.6f);
+            Line($"  panel state={z.Panel.State}, solved={z.Group.Solved}, evidence key ring={LegacyOfTemples.Gameplay.Puzzles.PuzzleSave.Get("evidence.key_ring")}");
+            yield return V3View(orbit, cam, r.TransformPoint(new Vector3(3.2f, 4.6f, -1.2f)), r.TransformPoint(new Vector3(9.6f, 3f, 0.2f))); yield return Shot("v3z4-05-chamber-vessel.png"); V3ViewEnd(orbit);
+            yield return V3Use(pc, r.TransformPoint(new Vector3(8.6f, 2.7f, 0.2f)), z.Vessel.transform.position, "take the vessel");
+            Line($"  vessel taken={z.Vessel.Taken}"); V3Score(LegacyOfTemples.Gameplay.StepwellPuzzle.ZoneId);
+        }
+
+        private IEnumerator V3Zone3Check()
+        {
+            var z = LegacyOfTemples.Gameplay.VaultPuzzle.Instance; var pc = FindAnyObjectByType<PlayerController>();
+            Line($"\n## V3 zone 3 Vaults: present={(z != null)}, built={(z != null && z.Built)}");
+            if (z == null || !z.Built || pc == null) yield break;
+            Transform r = z.transform; var cam = Camera.main; var orbit = V3Orbit();
+            pc.Teleport(r.TransformPoint(new Vector3(-10.5f, 0f, 0f)), Quaternion.LookRotation(r.right)); yield return new WaitForSecondsRealtime(3.5f);
+            yield return Shot("v3z3-01-arrive-gameplay-camera.png");
+            Line($"  start: gate open={z.GateOpen}, plates {z.Plates[0].State} {z.Plates[1].State}");
+            // a wrong push first: block B west into the wall corner, then the reset lever
+            Vector3 b = z.BlockB.transform.position; b.y = pc.transform.position.y;
+            for (int i = 0; i < 4; i++) yield return V3Use(pc, z.BlockB.transform.position + r.right * 1.1f - Vector3.up * 0.45f, z.BlockB.transform.position, "block B pushed the wrong way (west)");
+            Line($"  block B after wrong pushes at {r.InverseTransformPoint(z.BlockB.transform.position):0.0}");
+            yield return V3Use(pc, r.TransformPoint(new Vector3(-10.6f, 0f, -2.2f)), z.ResetLever.transform.position, "reset lever"); yield return new WaitForSecondsRealtime(0.5f);
+            Line($"  after the lever: block A at {r.InverseTransformPoint(z.BlockA.transform.position):0.0}, block B at {r.InverseTransformPoint(z.BlockB.transform.position):0.0}");
+            for (int i = 0; i < 4; i++) yield return V3Use(pc, z.BlockA.transform.position - r.right * 1.1f - Vector3.up * 0.45f, z.BlockA.transform.position, "block A east");
+            for (int i = 0; i < 2; i++) yield return V3Use(pc, z.BlockB.transform.position + r.forward * 1.1f - Vector3.up * 0.45f, z.BlockB.transform.position, "block B south (round the pillar)");
+            for (int i = 0; i < 2; i++) yield return V3Use(pc, z.BlockB.transform.position - r.right * 1.1f - Vector3.up * 0.45f, z.BlockB.transform.position, "block B east");
+            yield return new WaitForSecondsRealtime(1.8f);
+            Line($"  blocks placed: A at {r.InverseTransformPoint(z.BlockA.transform.position):0.0}, B at {r.InverseTransformPoint(z.BlockB.transform.position):0.0}, plates {z.Plates[0].State} {z.Plates[1].State}, gate open={z.GateOpen}");
+            yield return V3View(orbit, cam, r.TransformPoint(new Vector3(-10.8f, 3.2f, -3.8f)), r.TransformPoint(new Vector3(-2f, 0.8f, 0.5f))); yield return Shot("v3z3-02-blocks-on-plates-gate-open.png");
+            yield return V3View(orbit, cam, r.TransformPoint(new Vector3(1.2f, 3.4f, -3.6f)), r.TransformPoint(new Vector3(8f, 0.6f, 0.6f))); yield return Shot("v3z3-03-light-pattern-and-discs.png"); V3ViewEnd(orbit);
+            int[] turns = LegacyOfTemples.Gameplay.VaultPuzzle.Answer;
+            for (int d = 0; d < 3; d++) for (int k = 0; k < turns[d]; k++)
+            { Vector3 dp = z.Discs[d].transform.position; Vector3 st = dp - r.right * 1.3f; st.y = pc.transform.position.y; if (k == 0) st.y = r.position.y; yield return V3Use(pc, st, dp, $"disc {d + 1} turn {k + 1}"); }
+            yield return new WaitForSecondsRealtime(2.2f);
+            Line($"  discs at {z.Discs[0].State} {z.Discs[1].State} {z.Discs[2].State} (answer {turns[0]} {turns[1]} {turns[2]}), solved={z.Group.Solved}, evidence ledger={LegacyOfTemples.Gameplay.Puzzles.PuzzleSave.Get("evidence.ledger")}");
+            yield return V3View(orbit, cam, r.TransformPoint(new Vector3(5.5f, 2.6f, -3.4f)), r.TransformPoint(new Vector3(10.5f, 1.2f, 0.4f))); yield return Shot("v3z3-04-discs-solved-chest-open.png"); V3ViewEnd(orbit);
+            yield return V3Use(pc, r.TransformPoint(new Vector3(7.8f, 0f, 0.9f)), z.Rosette.transform.position, "take the rosette");
+            Line($"  rosette taken={z.Rosette.Taken}"); V3Score(LegacyOfTemples.Gameplay.VaultPuzzle.ZoneId);
+        }
+
         private IEnumerator V3View(MonoBehaviour orbit, Camera cam, Vector3 from, Vector3 at)
         {
             if (orbit != null) orbit.enabled = false;
@@ -577,6 +674,14 @@ namespace LegacyOfTemples.UI
             {   // V3 zone 2 only: play the break-in puzzle with real key presses and take a picture of every step
                 yield return new WaitForSecondsRealtime(6f);
                 yield return V3Zone2Check();
+                File.WriteAllText(Path.Combine(output, "audit.md"), report.ToString());
+                Debug.Log("[AuditBot] DONE " + output); yield return new WaitForSecondsRealtime(1f); Application.Quit(); yield break;
+            }
+            if (Array.IndexOf(Environment.GetCommandLineArgs(), "-v3Zones") >= 0)
+            {   // V3 zones 2, 5, 4 and 3: play each puzzle with real key presses, a picture of every stage
+                yield return new WaitForSecondsRealtime(6f);
+                yield return V3Zone2Check(); yield return V3Zone5Check(); yield return V3Zone4Check(); yield return V3Zone3Check();
+                Line($"\n## V3 run total: {LegacyOfTemples.Gameplay.ScoreSystem.Total} points, overall grade for 4 zones {LegacyOfTemples.Gameplay.ScoreSystem.OverallGrade(4)}");
                 File.WriteAllText(Path.Combine(output, "audit.md"), report.ToString());
                 Debug.Log("[AuditBot] DONE " + output); yield return new WaitForSecondsRealtime(1f); Application.Quit(); yield break;
             }
