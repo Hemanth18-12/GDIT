@@ -62,6 +62,10 @@ namespace LegacyOfTemples.Gameplay
             var cloth = new[] { new Color(0.85f, 0.55f, 0.1f), new Color(0.2f, 0.3f, 0.7f), new Color(0.7f, 0.12f, 0.15f) };
             for (int i = 0; i < 3; i++) ZoneKit.Part(y, "DyedCloth_" + i, new Vector3(-3f + i * 3f, 2.1f, 3.5f), new Vector3(2.2f, 1.6f, 0.03f), ZoneKit.Tinted("clay_plaster", cloth[i], 0.1f), false);
             for (int i = 0; i < 3; i++) ArtUpgrade.Place(y, i == 1 ? "Barrel_01" : "ceramic_pot", y.TransformPoint(new Vector3(-4.6f + i * 0.9f, 0f, 4.8f)), 1.2f, i * 40f);
+            // art pass: coping on the yard walls, a lamp stand, and market stalls along the courier's road
+            ZoneDress.Trim(y, "Yard_"); ZoneDress.Lamp(y, new Vector3(4.6f, 0.06f, 4.6f), 7f, 3f);
+            var stalls = new[] { "WoodenTable_01", "brass_pot_01", "folding_wooden_stool", "Barrel_01", "brass_pot_02", "planter_box_01", "wooden_bowl_02", "antique_ceramic_vase_01" };
+            for (int i = 0; i < 12; i++) ArtUpgrade.Place(transform, stalls[i % stalls.Length], Road(i % 2 == 0 ? 7.5f : -8.5f, z0 + 30f + i * 5.5f), 1.15f, i * 37f);
 
             // the route: from the tea stall along the road, three look-back stops, then into the yard
             Route.Clear(); stops.Clear();

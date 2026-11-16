@@ -121,6 +121,11 @@ namespace LegacyOfTemples.Gameplay
             ArtUpgrade.Place(root, "vintage_oil_lamp", root.TransformPoint(new Vector3(-10.5f, 0f, 4.2f)), 1.4f, 0f, false);
             var el = new GameObject("EntryLamp"); el.transform.SetParent(root, false); el.transform.localPosition = new Vector3(-10.5f, 0.9f, 4.2f); var ell = el.AddComponent<Light>(); ell.type = LightType.Point; ell.color = new Color(1f, 0.62f, 0.3f); ell.range = 9f; ell.intensity = 5f; el.AddComponent<LightFlicker>();
 
+            // art pass: plinths and coping inside, the plain pillar becomes a carved one, an arch over the entrance, lamp stands
+            ZoneDress.Trim(root, "Vault_N", "Vault_S", "Vault_E", "Vault_W_N", "Vault_W_S", "Vault_Mid_N", "Vault_Mid_S");
+            ZoneDress.PillarOver(root.Find("Pillar"));
+            ZoneDress.Prop(root, "SM_V3_Arch", new Vector3(-12.95f, 0f, 0f), 90f, new Vector3(0.62f, 0.75f, 1f));
+            ZoneDress.Lamp(root, new Vector3(-9.5f, 0.04f, -4.3f), 7f, 3.5f); ZoneDress.Lamp(root, new Vector3(10.8f, 0.04f, 4.3f), 6f, 2.5f);
             var gg = new GameObject("Puzzle_Vaults"); gg.transform.SetParent(root, false); gg.transform.localPosition = Vector3.zero;
             Group = gg.AddComponent<PuzzleGroup>(); Group.puzzleId = "z3_vaults"; Group.zoneId = ZoneId; Group.hintRadius = 16f;
             Group.hints = new[] { "Two floor plates hold the gate. Stone is heavier than a man.", "The light from the roof draws three rings on the floor. Each ring has one bright mark.", "Push a block onto each plate (one must go round the pillar; the lever puts them back). Then turn the small, middle and large discs until their notches sit where the bright marks are." };

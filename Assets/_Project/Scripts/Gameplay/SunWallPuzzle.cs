@@ -85,6 +85,11 @@ namespace LegacyOfTemples.Gameplay
             ArtUpgrade.Place(root, "lion_head", root.TransformPoint(new Vector3(1.9f, 3.3f, 14.4f)), 1.4f, 180f, false);
             Village.Box(root, "Sundial", new Vector3(-10.5f, 1.1f, 9f), new Vector3(0.5f, 2.2f, 0.5f), "sandstone_blocks_08", 1.2f);
 
+            // art pass: coping on the wall, carved pillars along its face, an arch framing the hidden door, lamp stands
+            ZoneDress.Trim(root, "SunWall_L", "SunWall_R", "Chamber_");
+            foreach (float x in new[] { -9.6f, -4.6f, 4.6f, 9.6f }) ZoneDress.Prop(root, "SM_V3_Pillar", new Vector3(x, 0f, 14.1f), 0f, new Vector3(1f, 1.9f, 1f));
+            ZoneDress.Prop(root, "SM_V3_Arch", new Vector3(0f, 0f, 14.25f), 0f, new Vector3(0.62f, 0.7f, 0.6f));
+            ZoneDress.Lamp(root, new Vector3(-11.5f, 0.06f, 12f), 7f, 2.5f); ZoneDress.Lamp(root, new Vector3(11.5f, 0.06f, 12f), 7f, 2.5f);
             Sockets = new[] { Socket(root, "socket_right", new Vector3(8f, 1.6f, 14.45f)), Socket(root, "socket_left", new Vector3(-2f, 1.6f, 14.45f)) };
             Beams = new[] { Beam(root, "beam_west", new Vector3(-8f, 1.6f, -13f)), Beam(root, "beam_east", new Vector3(8f, 1.6f, -13f)) };
             Mirrors = new[] { Mirror(root, "mirror_1", new Vector3(-8f, 1.6f, 0f), 90f, bronze), Mirror(root, "mirror_2", new Vector3(8f, 1.6f, 0f), 270f, bronze),

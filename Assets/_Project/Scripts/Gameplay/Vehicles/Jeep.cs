@@ -426,6 +426,7 @@ namespace LegacyOfTemples.Gameplay.Vehicles
             if (Time.time - lastHitTime < 0.5f) { if (dv <= lastHitDv) return; amount -= Mathf.Pow(lastHitDv - 2.2f, 1.3f) * 3.5f; }
             else lastHitDv = 0f;
             lastHitTime = Time.time; lastHitDv = Mathf.Max(lastHitDv, dv); LastImpact = lastHitDv;
+            Debug.Log($"[Jeep] hit '{c.collider.name}' (parent '{(c.collider.transform.parent != null ? c.collider.transform.parent.name : "-")}') at {dv:0.0} m/s, damage {amount:0}");
             ApplyDamage(transform.InverseTransformPoint(cp.point), amount, cp.point, cp.normal);   // one hard wall crash (~40 km/h) leaves it Wrecked, not Destroyed
         }
 

@@ -158,6 +158,10 @@ namespace LegacyOfTemples.Gameplay
             // ---- the zone's look (dawn-gold grade) around the site
             var lookGo = new GameObject("ZoneLook_Courtyard"); lookGo.transform.SetParent(root, false); lookGo.transform.localPosition = new Vector3(0f, 10f, 3f);
             var look = lookGo.AddComponent<ZoneLook>(); look.zone = ZoneLook.Zone.Courtyard; look.size = new Vector3(70f, 40f, 70f); look.blendDistance = 14f; look.Build();
+            // art pass: carved coping and plinths, pillars at the door, brass lamp stands at the corners
+            ZoneDress.Trim(root, "Store_");
+            ZoneDress.Prop(root, "SM_V3_Pillar", new Vector3(-1.55f, 0f, 0.45f)); ZoneDress.Prop(root, "SM_V3_Pillar", new Vector3(1.55f, 0f, 0.45f));
+            ZoneDress.Lamp(root, new Vector3(-4.9f, 0.06f, 1.2f), 7f, 4f); ZoneDress.Lamp(root, new Vector3(4.9f, 0.06f, 1.2f), 7f, 4f);
             Physics.SyncTransforms(); Built = true;
             if (PuzzleSave.Get("solved.z2_breakin") == 1)
             {   // loading a save where this puzzle is already solved: show the solved scene, not a half-reset one

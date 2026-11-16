@@ -574,6 +574,34 @@
    "tier": "calm",
    "t": "Five.",
    "trigger": "done:obj_v3_jungle"
+  },
+  {
+   "id": "v3_mad_04",
+   "s": "madhav",
+   "tier": "calm",
+   "t": "Tea, sir? You look tired.",
+   "trigger": "v3:madhav_tea"
+  },
+  {
+   "id": "v3_mad_05",
+   "s": "madhav",
+   "tier": "calm",
+   "t": "I locked up myself. As always.",
+   "trigger": "v3:madhav_lock"
+  },
+  {
+   "id": "v3_mad_06",
+   "s": "madhav",
+   "tier": "calm",
+   "t": "Take my lantern. It is dark below.",
+   "trigger": "v3:madhav_lantern"
+  },
+  {
+   "id": "v3_bha_03",
+   "s": "bhaskar",
+   "tier": "shout",
+   "t": "Then come and take it.",
+   "trigger": "v3:jungle_phase3"
   }
  ],
  "clues": [

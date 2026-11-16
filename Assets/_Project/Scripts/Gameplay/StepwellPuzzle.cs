@@ -117,6 +117,10 @@ namespace LegacyOfTemples.Gameplay
             var pr = rg.GetComponent<ParticleSystemRenderer>(); pr.renderMode = ParticleSystemRenderMode.Stretch; pr.lengthScale = 6f; pr.velocityScale = 0.06f; var rm = Fx.Res("Rain"); if (rm != null) pr.sharedMaterial = rm;
             ps.Play();
 
+            // art pass: coping along the tank, the twin pillars at the corners, lamp stands on the rim
+            ZoneDress.Trim(root, "Tank_N", "Tank_S", "Tank_W", "Chamber_");
+            foreach (var c in new[] { new Vector3(-7.2f, Rim, -7.2f), new Vector3(7.2f, Rim, 7.2f), new Vector3(-7.2f, Rim, 7.2f) }) ZoneDress.Prop(root, "SM_V3_Pillar", c, 45f, new Vector3(1.1f, 1.25f, 1.1f));
+            ZoneDress.Lamp(root, new Vector3(-6.8f, Rim, 1.5f), 8f, 4f);
             var gg = new GameObject("Puzzle_Stepwell"); gg.transform.SetParent(root, false); gg.transform.localPosition = new Vector3(0f, Rim, 0f);
             Group = gg.AddComponent<PuzzleGroup>(); Group.puzzleId = "z4_stepwell"; Group.zoneId = ZoneId; Group.hintRadius = 26f; Group.lockWhenSolved = false;
             Group.hints = new[] { "The east wall has old water marks. One is longer than the others.", "Too much water hides the carved panel. The raft carries a drain chain.", "Open both sluice wheels on the rim, step onto the raft, then work the drain chain twice so the water rests on the long mark, and push the panel." };

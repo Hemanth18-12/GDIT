@@ -64,14 +64,14 @@ namespace LegacyOfTemples.Gameplay
             var ground = Village.Box(root, "Jungle_Ground", Vector3.zero, new Vector3(140f, 0.2f, 280f), "brown_mud_leaves_01", 5f); ground.transform.position = new Vector3(x0, top - 0.14f, zWall - 125f);
             for (int i = 0; i < Road.Count - 1; i++)
             {
-                Vector3 a = Road[i], c = Road[i + 1], mid = (a + c) * 0.5f; var seg = Village.Box(root, "JungleRoad", Vector3.zero, new Vector3(9f, 0.2f, Vector3.Distance(a, c) + 1.5f), "stony_dirt_path", 4f);
-                seg.transform.position = mid + Vector3.down * 0.06f; seg.transform.rotation = Quaternion.LookRotation(c - a);
+                Vector3 a = Road[i], c = Road[i + 1], mid = (a + c) * 0.5f; var seg = Village.Box(root, "JungleRoad", Vector3.zero, new Vector3(9f, 0.2f, Vector3.Distance(a, c) + 1.5f), "stony_dirt_path", 4f, false);   // visual only: overlapping segment edges would catch the wheels
+                seg.transform.position = mid + Vector3.down * 0.125f; seg.transform.rotation = Quaternion.LookRotation(c - a);
             }
             var rng = new System.Random(606); float R(float lo, float hi) => lo + (float)rng.NextDouble() * (hi - lo);
             for (int i = 1; i < Road.Count - 4; i++)
                 for (int k = 0; k < 3; k++) foreach (float side in new[] { -1f, 1f })
                 {
-                    Vector3 p = Road[i] + new Vector3(side * R(8f, 26f), 0f, R(-5f, 5f));
+                    Vector3 p = Road[i] + new Vector3(side * R(10f, 26f), 0f, R(-5f, 5f));
                     ArtUpgrade.Tree(root, p, R(9f, 15f), rng.Next());
                     if (k == 0 && i % 2 == 0) ArtUpgrade.Place(root, rng.NextDouble() > 0.5 ? "fern_02" : "rock_moss_set_01", p + new Vector3(-side * 3f, 0f, 1f), R(1.2f, 2.2f), R(0f, 360f));
                 }
@@ -98,6 +98,12 @@ namespace LegacyOfTemples.Gameplay
                 var lg = new GameObject("Torch"); lg.transform.SetParent(court, false); lg.transform.localPosition = p + Vector3.up * 2.4f;
                 var l = lg.AddComponent<Light>(); l.type = LightType.Point; l.color = new Color(1f, 0.55f, 0.22f); l.range = 12f; l.intensity = 9f; l.shadows = LightShadows.None; lg.AddComponent<LightFlicker>().Configure(7f, 11f, 12f);
             }
+            // art pass: coping on the court walls, carved (broken) pillars, a stone arch at the entrance, lamp stands at the ghat
+            ZoneDress.Trim(court, "Court_");
+            foreach (var t in court.GetComponentsInChildren<Transform>()) if (t.name == "BrokenPillar") ZoneDress.PillarOver(t);
+            foreach (var t in new[] { "Arch_Top", "Arch_L", "Arch_R" }) { var a = court.Find(t); if (a != null) a.GetComponent<MeshRenderer>().enabled = false; }
+            ZoneDress.Prop(court, "SM_V3_Arch", new Vector3(0f, 0f, 15f), 0f, new Vector3(1.45f, 0.95f, 1.6f), null);
+            ZoneDress.Lamp(court, new Vector3(-6f, 0.08f, -15.9f), 9f, 4f); ZoneDress.Lamp(court, new Vector3(6f, 0.08f, -15.9f), 9f, 4f);
             // the finial, in Bhaskar's satchel until he is beaten
             var fin = ArtUpgrade.Place(court, "brass_vase_03", court.TransformPoint(new Vector3(0f, 0f, -6f)), 1.3f, 0f);
             if (fin == null) fin = ZoneKit.Round(court, "Finial", new Vector3(0f, 0.3f, -6f), new Vector3(0.3f, 0.3f, 0.3f), ZoneKit.Tinted("clay_plaster", new Color(0.85f, 0.65f, 0.25f), 0.9f));
@@ -134,7 +140,7 @@ namespace LegacyOfTemples.Gameplay
                     if (!StoryWantsMe()) return;
                     var jeep = Jeep.Instance;   // the jeep is waiting at the road start (Meera brought it round)
                     if (jeep != null && !jeep.Occupied && Vector3.Distance(jeep.transform.position, RoadStart) > 20f)
-                    { var rb = jeep.GetComponent<Rigidbody>(); jeep.transform.SetPositionAndRotation(RoadStart + Vector3.up * 0.05f + Vector3.right * 4f, Quaternion.LookRotation(Road[2] - Road[1])); if (rb != null) { rb.linearVelocity = Vector3.zero; rb.angularVelocity = Vector3.zero; } Physics.SyncTransforms(); }
+                    { var rb = jeep.GetComponent<Rigidbody>(); jeep.transform.SetPositionAndRotation(RoadStart + Vector3.up * 0.05f, Quaternion.LookRotation(Road[2] - Road[1])); /* in the middle of the road, clear of the trees */ if (rb != null) { rb.linearVelocity = Vector3.zero; rb.angularVelocity = Vector3.zero; } Physics.SyncTransforms(); }
                     if (Vector3.Distance(who.position, RoadStart) < 22f)
                     { Now = Phase.Chase; StoryDialogueSystem.Instance?.Say("v3:jungle_run"); Checkpoints.Save(ZoneId, "road", ZoneKit.Player.transform.position, 180f, DawnClock.Instance != null ? DawnClock.Instance.Minutes * 60f : 0f); Debug.Log("[Jungle] Bhaskar runs"); }
                     break;
@@ -175,7 +181,9 @@ namespace LegacyOfTemples.Gameplay
         {
             yield return new WaitForSeconds(2.5f);
             Now = Phase.Boss; StoryDialogueSystem.Instance?.Say("v3:jungle_boss");
-            Brawl.Begin(ZoneId, Court.position, 10f, new[] { Brawl.Robber("Bhaskar", 1, BrawlType.Boss, 1.15f, new Color(0.85f, 0.45f, 0.4f)) }, _ => Done(), ZoneId + "_boss");
+            var boss = Brawl.Robber("Bhaskar", 1, BrawlType.Boss, 1.15f, new Color(0.85f, 0.45f, 0.4f)); boss.threePhases = true;
+            var f = Brawl.Begin(ZoneId, Court.position, 10f, new[] { boss }, _ => Done(), ZoneId + "_boss");
+            if (f != null) f.OnBossPhase = (e, n) => { if (n == 3) { StoryDialogueSystem.Instance?.Say("v3:jungle_phase3"); ObjectiveBanner.Show("HIS SWORD IS GONE", "He fights with his hands now.", 2.2f); } };
         }
 
         void Done()
@@ -193,6 +201,7 @@ namespace LegacyOfTemples.Gameplay
             Vector3 at = Court.TransformPoint(new Vector3(named ? -2f : 9f, 0f, named ? 13.5f : -12f));
             var g = Instantiate(pf, at, Quaternion.LookRotation(Court.position - at)); g.name = "Madhav";
             foreach (var mb in g.GetComponentsInChildren<MonoBehaviour>()) mb.enabled = false; foreach (var cd in g.GetComponentsInChildren<Collider>()) Destroy(cd);
+            var mpb = new MaterialPropertyBlock(); foreach (var r in g.GetComponentsInChildren<Renderer>()) { r.GetPropertyBlock(mpb); mpb.SetColor("_BaseColor", new Color(0.42f, 0.48f, 0.78f)); r.SetPropertyBlock(mpb); }   // same indigo kurta as his earlier appearances
             madhav = g.transform;
             StoryDialogueSystem.Instance?.Say(named ? "v3:madhav_named" : "v3:madhav_ambush");
         }

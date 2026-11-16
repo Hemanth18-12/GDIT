@@ -20,6 +20,7 @@ namespace LegacyOfTemples.Gameplay
         public State Now { get; private set; }
         public int Phase { get; private set; } = 1;
         public bool Alive => Now != State.Down;
+        public bool bossThirdPhase;
         internal Brawl fight; float t, nextTry, circleDir = 1f, guardUntil, recentAt; int recent;
         public bool Guarding => Time.time < guardUntil && Now != State.Staggered; Animator anim; readonly HashSet<string> ps = new HashSet<string>(); Renderer[] rends; MaterialPropertyBlock mpb;
 
@@ -33,7 +34,7 @@ namespace LegacyOfTemples.Gameplay
                 case BrawlType.Boss: maxHealth = 320f; damage = 16f; telegraph = 0.7f; speed = 2.8f; reach = 2.8f; break;
                 default: maxHealth = 90f; damage = 12f; telegraph = 0.7f; speed = 2.6f; reach = 2.3f; break;
             }
-            damage *= difficulty; Health = maxHealth; Now = State.Approach; nextTry = Time.time + UnityEngine.Random.Range(0.5f, 1.3f); guardUntil = 0f; recent = 0; circleDir = UnityEngine.Random.value > 0.5f ? 1f : -1f;
+            damage *= difficulty; Health = maxHealth; Now = State.Approach; Phase = 1; nextTry = Time.time + UnityEngine.Random.Range(0.5f, 1.3f); guardUntil = 0f; recent = 0; circleDir = UnityEngine.Random.value > 0.5f ? 1f : -1f;
             anim = GetComponentInChildren<Animator>(); if (anim != null) { anim.applyRootMotion = false; foreach (var p in anim.parameters) ps.Add(p.name); }
             rends = GetComponentsInChildren<Renderer>(); mpb = new MaterialPropertyBlock();
         }
@@ -52,7 +53,7 @@ namespace LegacyOfTemples.Gameplay
             t += Time.deltaTime;
             Vector3 to = player.position - transform.position; to.y = 0f; float dist = to.magnitude; Vector3 dir = dist > 0.01f ? to / dist : transform.forward;
             if (Now != State.Staggered) transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * 9f);
-            float moved = 0f; float sp = speed * (Phase > 1 ? 1.25f : 1f);
+            float moved = 0f; float sp = speed * (Phase == 2 ? 1.25f : 1f);
             switch (Now)
             {
                 case State.Approach:
@@ -99,11 +100,16 @@ namespace LegacyOfTemples.Gameplay
         public bool Hurt(float amount, bool stagger, Vector3 from)
         {
             if (Now == State.Down) return false;
-            if (Guarding && !stagger) { Health -= amount * 0.15f; Trig("Block"); if (Health > 0f) return false; }   // a robber who has just been hit three times guards: only a heavy blow or a finisher gets through
+            if (Guarding && !stagger && Phase < 3) { Health -= amount * 0.15f; Trig("Block"); if (Health > 0f) return false; }   // a robber who has just been hit three times guards: only a heavy blow or a finisher gets through
             if (Time.time - recentAt > 2.5f) recent = 0; recent++; recentAt = Time.time;
             if (recent >= 3 && !stagger) { recent = 0; guardUntil = Time.time + 1.2f; }
             Health -= amount; Glow(0f); fight.ReturnToken(this);
-            if (type == BrawlType.Boss && Phase == 1 && Health <= maxHealth * 0.5f) { Phase = 2; Debug.Log($"[Brawl] {name} enters phase 2"); }
+            if (type == BrawlType.Boss && Phase == 1 && Health <= maxHealth * 0.6f) { Phase = 2; Debug.Log($"[Brawl] {name} enters phase 2"); }
+            if (type == BrawlType.Boss && Phase == 2 && Health <= maxHealth * 0.3f && bossThirdPhase)
+            {   // phase 3: the weapon is gone; bare-handed and desperate: faster, shorter warnings, never guards
+                Phase = 3; telegraph *= 0.65f; damage *= 1.25f; speed *= 1.2f; reach = 1.9f; guardUntil = 0f; Trig("Hit");
+                Debug.Log($"[Brawl] {name} enters phase 3"); fight.OnBossPhase?.Invoke(this, 3);
+            }
             if (Health <= 0f) { Go(State.Down); Flag("Down", true); foreach (var c in GetComponentsInChildren<Collider>()) c.enabled = false; return true; }
             Trig("Hit"); Vector3 push = transform.position - from; push.y = 0f; Move(push.normalized * (stagger ? 14f : 6f));
             if (stagger || Now == State.Telegraph) Go(State.Staggered);
@@ -134,6 +140,7 @@ namespace LegacyOfTemples.Gameplay
         public float DamageTaken { get; private set; }
         public float Seconds { get; private set; }
         public event Action<Brawl> OnWon;
+        public Action<BrawlEnemy, int> OnBossPhase;
         public const int MaxAttackers = 2;
 
         PlayerController player; Animator heroAnim; readonly HashSet<string> heroParams = new HashSet<string>(); CharacterController cc;
@@ -142,7 +149,7 @@ namespace LegacyOfTemples.Gameplay
         float busyUntil, dodgeUntil, blockStart = -10f, lastHitTime = -10f, strikeAt = -1f; bool strikeHeavy, blocking; int chain, combo; Vector3 dodgeDir;
         float shake; Camera cam; float baseFov = -1f, punch;
 
-        public struct Spec { public string prefab; public BrawlType type; public float scale; public Color tint; public string name; }
+        public struct Spec { public string prefab; public BrawlType type; public float scale; public Color tint; public string name; public bool threePhases; }
         public static Spec Robber(string name, int model, BrawlType type, float scale, Color tint) => new Spec { prefab = model == 2 ? "NPC/Robber2_Cine" : "NPC/Robber1_Cine", type = type, scale = scale, tint = tint, name = name };
 
         /// <summary>Start a fight around a point. Enemies are the existing robber models, resized and tinted.</summary>
@@ -164,7 +171,7 @@ namespace LegacyOfTemples.Gameplay
                 foreach (var mb in g.GetComponentsInChildren<MonoBehaviour>()) if (!(mb is BrawlEnemy)) mb.enabled = false;   // cinematic helpers off
                 foreach (var cdr in g.GetComponentsInChildren<Collider>()) Destroy(cdr);
                 var mpb = new MaterialPropertyBlock(); foreach (var r in g.GetComponentsInChildren<Renderer>()) { r.GetPropertyBlock(mpb); mpb.SetColor("_BaseColor", specs[i].tint); r.SetPropertyBlock(mpb); }
-                var e = g.AddComponent<BrawlEnemy>(); e.fight = b; e.Setup(specs[i].type, diff); b.Enemies.Add(e); b.starts.Add((pos, g.transform.rotation));
+                var e = g.AddComponent<BrawlEnemy>(); e.fight = b; e.bossThirdPhase = specs[i].threePhases; e.Setup(specs[i].type, diff); b.Enemies.Add(e); b.starts.Add((pos, g.transform.rotation));
             }
             Active = b; Checkpoints.Save(zone, "before_fight", b.playerStart, b.player.transform.eulerAngles.y, DawnClock.Instance != null ? DawnClock.Instance.Minutes * 60f : 0f);
             ObjectiveBanner.Show("FIGHT", specs.Count == 1 ? specs[0].name : specs.Count + " robbers", 2.5f);

@@ -1,54 +1,51 @@
-# Runtime audit (2026-11-16 18:48, Standalone, 1600x900)
+# Runtime audit (2026-11-16 19:40, Standalone, 1600x900)
 
 ## UI: MainMenu
 
-#### UI table: MainMenu @ requested 1280x720 (actual 1280x720); TMP texts=9; active IMGUI(OnGUI) scripts not measurable=0
+#### UI table: MainMenu @ requested 1280x720 (actual 1280x720); TMP texts=8; active IMGUI(OnGUI) scripts not measurable=0
 | text | px@1080p | min | contrast(worst) | issues |
 |---|---|---|---|---|
-| BtnKeyHint: SETTINGS | 31 | 18 | 16.2 |  |
-| BtnKeyHint: CREDITS | 31 | 18 | 16.2 |  |
-| BtnKeyHint: QUIT | 31 | 18 | 16.2 |  |
-| BtnKeyHint: CONTROLS | 31 | 18 | 16.2 |  |
 | MenuSubtitle: A heritage mystery | 29 | 26 | 13.8 |  |
-| BtnKeyHint: NEW GAME | 31 | 18 | 16.2 |  |
+| BtnKeyHint: CONTROLS | 31 | 18 | 16.2 |  |
+| BtnKeyHint: CREDITS | 31 | 18 | 16.2 |  |
 | BtnKeyHint: SHOWCASE TOUR | 31 | 18 | 16.2 |  |
 | MenuTitle: LEGACY OF THE TEMPLE | 58 | 48 | 9.8 |  |
-| BtnKeyHint: CONTINUE | 31 | 18 | 16.2 |  |
+| BtnKeyHint: SETTINGS | 31 | 18 | 16.2 |  |
+| BtnKeyHint: NEW GAME | 31 | 18 | 16.2 |  |
+| BtnKeyHint: QUIT | 31 | 18 | 16.2 |  |
 Problems in this view: 0
 
-#### UI table: MainMenu @ requested 1920x1080 (actual 1920x1080); TMP texts=9; active IMGUI(OnGUI) scripts not measurable=0
+#### UI table: MainMenu @ requested 1920x1080 (actual 1920x1080); TMP texts=8; active IMGUI(OnGUI) scripts not measurable=0
 | text | px@1080p | min | contrast(worst) | issues |
 |---|---|---|---|---|
-| BtnKeyHint: SETTINGS | 31 | 18 | 16.2 |  |
-| BtnKeyHint: CREDITS | 31 | 18 | 16.2 |  |
-| BtnKeyHint: QUIT | 31 | 18 | 16.2 |  |
-| BtnKeyHint: CONTROLS | 31 | 18 | 16.2 |  |
 | MenuSubtitle: A heritage mystery | 29 | 26 | 13.8 |  |
-| BtnKeyHint: NEW GAME | 31 | 18 | 16.2 |  |
+| BtnKeyHint: CONTROLS | 31 | 18 | 16.2 |  |
+| BtnKeyHint: CREDITS | 31 | 18 | 16.2 |  |
 | BtnKeyHint: SHOWCASE TOUR | 31 | 18 | 16.2 |  |
 | MenuTitle: LEGACY OF THE TEMPLE | 58 | 48 | 9.8 |  |
-| BtnKeyHint: CONTINUE | 31 | 18 | 16.2 |  |
+| BtnKeyHint: SETTINGS | 31 | 18 | 16.2 |  |
+| BtnKeyHint: NEW GAME | 31 | 18 | 16.2 |  |
+| BtnKeyHint: QUIT | 31 | 18 | 16.2 |  |
 Problems in this view: 0
 
-#### UI table: MainMenu @ requested 2560x1440 (actual 2560x1440); TMP texts=9; active IMGUI(OnGUI) scripts not measurable=0
+#### UI table: MainMenu @ requested 2560x1440 (actual 2560x1440); TMP texts=8; active IMGUI(OnGUI) scripts not measurable=0
 | text | px@1080p | min | contrast(worst) | issues |
 |---|---|---|---|---|
-| BtnKeyHint: SETTINGS | 31 | 18 | 16.2 |  |
-| BtnKeyHint: CREDITS | 31 | 18 | 16.2 |  |
-| BtnKeyHint: QUIT | 31 | 18 | 16.2 |  |
-| BtnKeyHint: CONTROLS | 31 | 18 | 16.2 |  |
 | MenuSubtitle: A heritage mystery | 29 | 26 | 13.8 |  |
-| BtnKeyHint: NEW GAME | 31 | 18 | 16.2 |  |
+| BtnKeyHint: CONTROLS | 31 | 18 | 16.2 |  |
+| BtnKeyHint: CREDITS | 31 | 18 | 16.2 |  |
 | BtnKeyHint: SHOWCASE TOUR | 31 | 18 | 16.2 |  |
 | MenuTitle: LEGACY OF THE TEMPLE | 58 | 48 | 9.8 |  |
-| BtnKeyHint: CONTINUE | 31 | 18 | 16.2 |  |
+| BtnKeyHint: SETTINGS | 31 | 18 | 16.2 |  |
+| BtnKeyHint: NEW GAME | 31 | 18 | 16.2 |  |
+| BtnKeyHint: QUIT | 31 | 18 | 16.2 |  |
 Problems in this view: 0
 
 ## Play-through from New Game (bot uses the Guide target for every objective)
-  loading bar: 30% at 0.70 s (image loading_c_investigator)
-  loading bar: 60% at 1.23 s (image loading_c_investigator)
-  loading bar: 100% at 2.05 s (image loading_c_investigator)
-  loading screen 1: image=loading_c_investigator, bar=1.00
+  loading bar: 31% at 0.70 s (image loading_e_robbery)
+  loading bar: 60% at 1.23 s (image loading_e_robbery)
+  loading bar: 100% at 2.05 s (image loading_e_robbery)
+  loading screen 1: image=loading_e_robbery, bar=1.00
 
 ## Intro: playing=True
   intro skipped: finished=True, player enabled=True, banner='OBJECTIVE: REACH JAGANNATH TEMPLE', objective=obj_c0_reach, clock hold=False
@@ -64,11 +61,12 @@ Problems in this view: 0
   stood 6 m behind him in the open while he looked back: spotted 1
   tail finished: phase Arrived, spotted 1 time(s), 76 s
   fight begins: 2 enemy(ies): the courier (Knife, 70 hp), his helper (Brawler, 90 hp)
-  fight result: won=True in 11s, health left 91, damage taken 9, max combo 8, parries 0, finishers 2, retries 0; most attackers at once 1 (limit 2); telegraph seen=True; boss phase 2 seen=False
+  fight result: won=True in 10s, health left 79, damage taken 21, max combo 10, parries 0, finishers 1, retries 0; most attackers at once 1 (limit 2); telegraph seen=True; boss phase 2 seen=False, highest phase 1
   take the Dawn Bell: prompt 'Take the Dawn Bell'
   bell taken=True, evidence list=1
-  score bazaar: puzzle solved=True, hints=0, items=1, points=3705, grade=S
+  score bazaar: puzzle solved=True, hints=0, items=1, points=3745, grade=S
   after the bazaar: objective obj_v3_storeroom (The storeroom)
+  Madhav at the storeroom: on stage (obj_v3_storeroom)
 
 ## V3 zone 2 break-in puzzle: present=True, built=True
   start: lantern usable=False, flagstone locked=True, treasure usable=False
@@ -92,11 +90,12 @@ Problems in this view: 0
   lift the flagstone: prompt 'Lift flagstone'
   flagstone state=1, puzzle solved=True, treasure usable=False
   fight begins: 1 enemy(ies): the lookout (Knife, 70 hp)
-  fight result: won=True in 5s, health left 100, damage taken 0, max combo 6, parries 0, finishers 0, retries 0; most attackers at once 0 (limit 2); telegraph seen=False; boss phase 2 seen=False
+  fight result: won=True in 5s, health left 100, damage taken 0, max combo 6, parries 0, finishers 0, retries 0; most attackers at once 0 (limit 2); telegraph seen=False; boss phase 2 seen=False, highest phase 1
   take the Chronicle: prompt 'Take the Palm-Leaf Chronicle'
   treasure taken=True; score: puzzle solved=True, hints=0, items=1, points=3800, grade=S
   checkpoint: courtyard/before_fight
   after the storeroom: objective obj_v3_vaults (The vaults)
+  Madhav at the vaults: on stage (obj_v3_vaults)
 
 ## V3 zone 3 Vaults: present=True, built=True
   start: gate open=False, plates 0 0
@@ -128,11 +127,12 @@ Problems in this view: 0
   disc 3 turn 3: prompt 'Turn the stone disc'
   discs at 2 5 3 (answer 2 5 3), solved=True, evidence ledger=1
   fight begins: 2 enemy(ies): the heavy guard (Heavy, 160 hp), the vault guard (Brawler, 90 hp)
-  fight result: won=True in 15s, health left 68, damage taken 32, max combo 17, parries 0, finishers 2, retries 0; most attackers at once 1 (limit 2); telegraph seen=True; boss phase 2 seen=False
+  fight result: won=True in 16s, health left 48, damage taken 52, max combo 7, parries 0, finishers 2, retries 0; most attackers at once 1 (limit 2); telegraph seen=True; boss phase 2 seen=False, highest phase 1
   take the rosette: prompt 'Take the Sun Rosette'
   rosette taken=True
-  score vaults: puzzle solved=True, hints=0, items=1, points=3840, grade=S
+  score vaults: puzzle solved=True, hints=0, items=1, points=3590, grade=A
   after the vaults: objective obj_v3_stepwell (The stepwell)
+  Madhav at the stepwell: on stage (obj_v3_stepwell)
 
 ## V3 zone 4 Stepwell: present=True, built=True
   start: water level 0, panel locked=True
@@ -148,9 +148,10 @@ Problems in this view: 0
   take the vessel: prompt 'Take the Monsoon Vessel'
   vessel taken=True
   fight begins: 2 enemy(ies): the knife man (Knife, 70 hp), his helper (Brawler, 90 hp)
-  fight result: won=True in 10s, health left 82, damage taken 18, max combo 6, parries 0, finishers 1, retries 0; most attackers at once 1 (limit 2); telegraph seen=True; boss phase 2 seen=False
-  score stepwell: puzzle solved=True, hints=0, items=1, points=3710, grade=S
+  fight result: won=True in 9s, health left 70, damage taken 30, max combo 8, parries 0, finishers 1, retries 0; most attackers at once 1 (limit 2); telegraph seen=True; boss phase 2 seen=False, highest phase 1
+  score stepwell: puzzle solved=True, hints=0, items=1, points=3750, grade=S
   after the stepwell: objective obj_v3_sunwall (The Sun Wall)
+  Madhav at the sunwall: on stage (obj_v3_sunwall)
 
 ## V3 zone 5 Sun Wall: present=True, built=True
   start: sockets lit 0 0, wheel stop 0, door item usable=False
@@ -166,7 +167,7 @@ Problems in this view: 0
   push the wheel: prompt 'Push the wheel'
   wheel stop 1: sockets lit 1 1, solved=True
   fight begins: 1 enemy(ies): Kishore (Boss, 320 hp)
-  fight result: won=True in 18s, health left 100, damage taken 0, max combo 21, parries 0, finishers 1, retries 0; most attackers at once 1 (limit 2); telegraph seen=True; boss phase 2 seen=True
+  fight result: won=True in 18s, health left 100, damage taken 0, max combo 21, parries 0, finishers 1, retries 0; most attackers at once 1 (limit 2); telegraph seen=True; boss phase 2 seen=True, highest phase 2
   take the case: prompt 'Take the finial's empty case and a boat receipt'
   case taken=True
   score sunwall: puzzle solved=True, hints=0, items=1, points=4000, grade=S
@@ -174,20 +175,21 @@ Problems in this view: 0
   evidence found 4 of 4; naming Madhav: True
 
 ## V3 zone 6 Jungle road: present=True, built=True, runner=True
-  jeep at the road start: 4.0 m
+  jeep at the road start: 0.0 m
   in the jeep: True; chase phase Chase
-  chase over in 38 s: phase Court, closest gap 4.7 m, caught up=True, jeep damage state Wrecked
+  chase over in 32 s: phase Court, closest gap 9.9 m, caught up=False, jeep damage state Normal (total damage 0)
   fight begins: 3 enemy(ies): a brawler (Brawler, 90 hp), a knife man (Knife, 70 hp), a brawler (Brawler, 90 hp)
-  fight result: won=True in 17s, health left 43, damage taken 57, max combo 7, parries 0, finishers 3, retries 0; most attackers at once 2 (limit 2); telegraph seen=True; boss phase 2 seen=False
+  fight result: won=True in 21s, health left 43, damage taken 57, max combo 5, parries 0, finishers 3, retries 0; most attackers at once 1 (limit 2); telegraph seen=True; boss phase 2 seen=False, highest phase 1
   wave 2 (inside man named correctly=True):
   fight begins: 1 enemy(ies): a heavy (Heavy, 160 hp)
-  fight result: won=True in 8s, health left 100, damage taken 0, max combo 11, parries 0, finishers 1, retries 0; most attackers at once 0 (limit 2); telegraph seen=False; boss phase 2 seen=False
+  fight result: won=True in 9s, health left 100, damage taken 0, max combo 11, parries 0, finishers 1, retries 0; most attackers at once 0 (limit 2); telegraph seen=False; boss phase 2 seen=False, highest phase 1
   Bhaskar:
   fight begins: 1 enemy(ies): Bhaskar (Boss, 320 hp)
-  fight result: won=True in 14s, health left 84, damage taken 16, max combo 21, parries 0, finishers 1, retries 0; most attackers at once 1 (limit 2); telegraph seen=True; boss phase 2 seen=True
+  fight result: won=True in 14s, health left 84, damage taken 16, max combo 21, parries 0, finishers 1, retries 0; most attackers at once 1 (limit 2); telegraph seen=True; boss phase 2 seen=True, highest phase 3
   take the Chariot Finial: prompt 'Take the Chariot Finial'
   finial taken=True, phase Done
   score jungle: puzzle solved=True, hints=0, items=1, points=3635, grade=S
   after the river road: objective obj_return (Return the treasures)
+  art pass props placed so far: 91; Madhav on stage at 
   priest-return: prompt 'Talk to Pujari Ananda', objective now (story complete)
-  story complete=True; total 22690 points, grade S
+  story complete=True; total 22520 points, grade S
