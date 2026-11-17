@@ -1,0 +1,115 @@
+# Asset attribution and source audit
+
+Updated 7 November 2026. Two OFL fonts (Cinzel, Noto Sans) were downloaded on 7 Nov 2026; earlier sessions downloaded no external asset packs. Proposed downloads and inspected licenses are in ASSET_SHOPPING_LIST.md; proposals are not imported assets.
+
+| Title | Author | URL / source | License / status |
+|---|---|---|---|
+| Courtyard, menu and jungle horizon meshes; horizon material | Original project work created in this session | Assets/_Project/Scripts/World/Editor/CinematicLookTools.cs | Original project work; no third-party asset used |
+| Existing temple architecture and bells | User supplied; S20240010236 file prefix, authorship not independently established | Heritage Mystery Project/S20240010236JagannathTemple.blend; Assets/_Project/Models/Environment/Temple_Jagannath.fbx | Original license/ownership evidence not supplied; retained existing project asset, not asserted CC0 |
+| Existing Jagannath background shrine | User supplied; author not established | Heritage Mystery Project/S20240010236God.blend; Assets/_Project/Models/Environment/Idol_Jagannath.fbx | Original license evidence not supplied; respectful non-interactable background only |
+| Existing noir detective / Gumshoe / Jonesy model and textures | Original rights holder not established from local files | Heritage Mystery Project/noir-detective/source/Noir.glb; detective meshes in assets.blend | Identity and license review pending. Do not infer ownership or CC0 from local availability |
+| Existing saree villager and Catwalk Idle | Original model/animation creators not established | Heritage Mystery Project/indian-woman-in-saree/source/Catwalk Idle.fbx | Original license evidence not supplied. No new download; existing Meera model retained |
+| Existing priest sculpt | Original creator not established | Heritage Mystery Project/24568fb5-86ea-4016-a801-fba755733263_0/ | Original license evidence not supplied; rigging of an approved copy pending |
+| Existing armoured king and winged-boss exports used as robbers | Original creators not established | Heritage Mystery Project/corrupted-king-in-black-armor-with-bone-crown/ and corrupted-archangel-six-wings-boss/ | Requested cast mismatch. License evidence missing. No new substitutions or exports made |
+| Existing procedural stone textures | Not established from checked local provenance | Assets/_Project/Models/Environment/Textures/ | Existing files retained; do not label them photographs or verified CC0 |
+| Existing audio | See existing project audio ledger | Assets/_Project/Audio/ATTRIBUTION.md | Existing ledger retained; no new audio created in this session |
+| Cinzel (title font) | Natanael Gama, The Cinzel Project Authors | https://fonts.google.com/specimen/Cinzel ; file https://github.com/google/fonts/tree/main/ofl/cinzel | SIL Open Font License 1.1 (licence text: Assets/_Project/Resources/Fonts/OFL-Cinzel.txt). Downloaded 7 Nov 2026, unmodified; TMP SDF asset generated at runtime |
+| Noto Sans (body font) | The Noto Project Authors (Google) | https://fonts.google.com/noto/specimen/Noto+Sans ; file https://github.com/google/fonts/tree/main/ofl/notosans | SIL Open Font License 1.1 (licence text: Assets/_Project/Resources/Fonts/OFL-NotoSans.txt). Downloaded 7 Nov 2026, unmodified; TMP SDF asset generated at runtime |
+| Mixamo animations (Idle, Walking, Running, Crouch, Jump; staging folder) | Adobe Mixamo | https://www.mixamo.com | Mixamo terms: free for personal and commercial use in projects, no redistribution of the raw files as a standalone library |
+| Character voices (41 dialogue lines) | Synthesized with macOS `say` (voices Aman, Rishi, Tara, Rocko, Reed, Grandpa) on 7 Nov 2026 | Assets/_Project/Resources/Voice/ | PLACEHOLDER synthetic speech for development only. Replace with real recorded voice-over (with performer consent and license) before any public release. |
+| Liberation Sans (existing TMP font dependency) | Ascender / Liberation contributors; see bundled license | Assets/TextMesh Pro/Fonts/LiberationSans - OFL.txt | Bundled SIL Open Font License; existing dependency, no font downloaded |
+
+Unity, URP and the built-in procedural sky shader are existing engine/package dependencies, not new third-party art imports. The lighting profiles are project configuration. The old generated investigator `.anim` clips are disabled, and their generator no longer creates substitute animation; they are not credited as motion capture.
+
+Before adding an approved external asset, record its exact title, artist, asset URL, license/version and any modifications here. Missing evidence above remains missing; this file does not grant rights or certify publication clearance.
+
+## v2 thriller update (2026-11-11)
+
+| File(s) in project | Title | Author | Source | Licence | Notes |
+|---|---|---|---|---|---|
+| Assets/_Project/Audio/Resources/Audio/fs_*, sfx_*, amb_*, mus_* (69 files) | Core sound effects, ambience loops and five adaptive music stems | Project (generated by Tools/audio/build_audio.py) | Own work, synthesised with numpy | Own work (CC0) | Nothing downloaded. No Sonniss or third-party audio is in the repository. |
+| Assets/_Project/Resources/Voice/*/*_tts.wav (113 files) | Placeholder voices for every script line | macOS `say` voices (Aman, Rishi, Tara, Rocko, Reed, Grandpa) via Tools/story/build_story.py | Generated on this Mac | Placeholder: Apple system voices. **Replace with recorded voices before any public release.** | Recorded files named `<line_id>.wav` override them automatically. |
+| Assets/_Project/UI/Loading/loading_01..04 (4 images) | Loading screen pictures | Supplied by the project owner (AI-generated images) | Provided in chat, 2026-11-11 | Owner's responsibility: check the image generator's terms before public release | A faint generator watermark is visible in the top-right corner. |
+| Assets/_Project/Art/FX/*.png, Resources/FX/*.mat | Particle textures and materials (rain, mist, glow, sparks) | Project (generated by FxAssetTools) | Own work | Own work (CC0) | |
+| Assets/_Project/Audio/Resources/Audio/LotMixer.mixer | Audio mixer | Project (generated by MixerTools) | Own work | Own work | |
+| Prefabs/Characters/Robber1, Robber2 | Stand-in robbers | Copies of the project's own detective model with simple props | Own project asset | Same as the detective model | Temporary stand-ins: see Docs/BLOCKED.md |
+
+## Art upgrade: Poly Haven models and textures (2026-11-14)
+
+All from polyhaven.com, licence CC0 1.0 (public domain), downloaded with Tools/assets/fetch_polyhaven.py. Textures were converted to URP materials (Resources/Mats) and models to prefabs (Resources/Props) by PolyHavenTools.
+
+| File(s) in project | Title | Author | Source | Licence |
+|---|---|---|---|---|
+| Assets/_Project/Art/PolyHaven/Models/brass_diya_lantern/ | Brass Diya Lantern | Bhargav Kubal | https://polyhaven.com/a/brass_diya_lantern | CC0 1.0 |
+| Assets/_Project/Art/PolyHaven/Models/brass_pot_01/ | Brass Pot 01 | Rico Cilliers | https://polyhaven.com/a/brass_pot_01 | CC0 1.0 |
+| Assets/_Project/Art/PolyHaven/Models/brass_pot_02/ | Brass Pot 02 | Rico Cilliers | https://polyhaven.com/a/brass_pot_02 | CC0 1.0 |
+| Assets/_Project/Art/PolyHaven/Models/brass_vase_03/ | Brass Vase 03 | Rico Cilliers | https://polyhaven.com/a/brass_vase_03 | CC0 1.0 |
+| Assets/_Project/Art/PolyHaven/Models/brass_goblets/ | Brass Goblets | Tina | https://polyhaven.com/a/brass_goblets | CC0 1.0 |
+| Assets/_Project/Art/PolyHaven/Models/vintage_oil_lamp/ | Vintage Oil Lamp | Monsta3D | https://polyhaven.com/a/vintage_oil_lamp | CC0 1.0 |
+| Assets/_Project/Art/PolyHaven/Models/wooden_lantern_01/ | Wooden Lantern 01 | James Ray Cock | https://polyhaven.com/a/wooden_lantern_01 | CC0 1.0 |
+| Assets/_Project/Art/PolyHaven/Models/lion_head/ | Lion Head | Tina | https://polyhaven.com/a/lion_head | CC0 1.0 |
+| Assets/_Project/Art/PolyHaven/Models/carved_wooden_elephant/ | Carved Wooden Elephant | Greg Zaal | https://polyhaven.com/a/carved_wooden_elephant | CC0 1.0 |
+| Assets/_Project/Art/PolyHaven/Models/carved_wooden_plate/ | Carved Wooden Plate | Jan Martens | https://polyhaven.com/a/carved_wooden_plate | CC0 1.0 |
+| Assets/_Project/Art/PolyHaven/Models/fern_02/ | Fern 02 | Rob Tuytel, Rico Cilliers | https://polyhaven.com/a/fern_02 | CC0 1.0 |
+| Assets/_Project/Art/PolyHaven/Models/nettle_plant/ | Nettle Plant | Rob Tuytel, Rico Cilliers | https://polyhaven.com/a/nettle_plant | CC0 1.0 |
+| Assets/_Project/Art/PolyHaven/Models/periwinkle_plant/ | Periwinkle Plant | Amal Kumar | https://polyhaven.com/a/periwinkle_plant | CC0 1.0 |
+| Assets/_Project/Art/PolyHaven/Models/rock_07/ | Rock 07 | Jenelle van Heerden | https://polyhaven.com/a/rock_07 | CC0 1.0 |
+| Assets/_Project/Art/PolyHaven/Models/rock_09/ | Rock 09 | Jenelle van Heerden | https://polyhaven.com/a/rock_09 | CC0 1.0 |
+| Assets/_Project/Art/PolyHaven/Models/rock_moss_set_01/ | Rock Moss Set 01 | Kless Gyzen | https://polyhaven.com/a/rock_moss_set_01 | CC0 1.0 |
+| Assets/_Project/Art/PolyHaven/Models/rock_moss_set_02/ | Rock Moss Set 02 | Kless Gyzen | https://polyhaven.com/a/rock_moss_set_02 | CC0 1.0 |
+| Assets/_Project/Art/PolyHaven/Models/tree_stump_01/ | Tree Stump 01 | Rob Tuytel | https://polyhaven.com/a/tree_stump_01 | CC0 1.0 |
+| Assets/_Project/Art/PolyHaven/Models/Barrel_01/ | Barrel_01 | Jorge Camacho | https://polyhaven.com/a/Barrel_01 | CC0 1.0 |
+| Assets/_Project/Art/PolyHaven/Models/ceramic_vase_01/ | Ceramic Vase 01 | James Ray Cock | https://polyhaven.com/a/ceramic_vase_01 | CC0 1.0 |
+| Assets/_Project/Art/PolyHaven/Models/antique_ceramic_vase_01/ | Antique Ceramic Vase 01 | James Ray Cock | https://polyhaven.com/a/antique_ceramic_vase_01 | CC0 1.0 |
+| Assets/_Project/Art/PolyHaven/Models/stone_fire_pit/ | Stone Fire Pit | Sebastian Platen | https://polyhaven.com/a/stone_fire_pit | CC0 1.0 |
+| Assets/_Project/Art/PolyHaven/Models/large_castle_door/ | Large Castle Door | Tina | https://polyhaven.com/a/large_castle_door | CC0 1.0 |
+| Assets/_Project/Art/PolyHaven/Models/WoodenTable_01/ | Wooden Table 01 | Ethan Place | https://polyhaven.com/a/WoodenTable_01 | CC0 1.0 |
+| Assets/_Project/Art/PolyHaven/Models/folding_wooden_stool/ | Folding Wooden Stool | Ulan Cabanilla | https://polyhaven.com/a/folding_wooden_stool | CC0 1.0 |
+| Assets/_Project/Art/PolyHaven/Models/wooden_bowl_02/ | Wooden Bowl 02 | Kuutti Siitonen | https://polyhaven.com/a/wooden_bowl_02 | CC0 1.0 |
+| Assets/_Project/Art/PolyHaven/Models/calathea_orbifolia_01/ | Calathea Orbifolia 01 | Rob Tuytel, Rico Cilliers | https://polyhaven.com/a/calathea_orbifolia_01 | CC0 1.0 |
+| Assets/_Project/Art/PolyHaven/Models/dry_branches_medium_01/ | Dry Branches Medium 01 | Rico Cilliers | https://polyhaven.com/a/dry_branches_medium_01 | CC0 1.0 |
+| Assets/_Project/Art/PolyHaven/Models/ceramic_pot/ | Ceramic Pot | Aron Łyczek | https://polyhaven.com/a/ceramic_pot | CC0 1.0 |
+| Assets/_Project/Art/PolyHaven/Models/planter_box_01/ | Planter Box 01 | James Ray Cock | https://polyhaven.com/a/planter_box_01 | CC0 1.0 |
+| Assets/_Project/Art/PolyHaven/Textures/red_sandstone_pavement/ | Red Sandstone Pavement | Amal Kumar | https://polyhaven.com/a/red_sandstone_pavement | CC0 1.0 |
+| Assets/_Project/Art/PolyHaven/Textures/red_sandstone_wall/ | Red Sandstone Wall | Amal Kumar | https://polyhaven.com/a/red_sandstone_wall | CC0 1.0 |
+| Assets/_Project/Art/PolyHaven/Textures/sandstone_blocks_08/ | Sandstone Blocks 08 | Rob Tuytel | https://polyhaven.com/a/sandstone_blocks_08 | CC0 1.0 |
+| Assets/_Project/Art/PolyHaven/Textures/mossy_sandstone/ | Mossy Sandstone | Dimitrios Savva | https://polyhaven.com/a/mossy_sandstone | CC0 1.0 |
+| Assets/_Project/Art/PolyHaven/Textures/clay_plaster/ | Clay Plaster | Amal Kumar | https://polyhaven.com/a/clay_plaster | CC0 1.0 |
+| Assets/_Project/Art/PolyHaven/Textures/yellow_plaster/ | Yellow Plaster | Rob Tuytel | https://polyhaven.com/a/yellow_plaster | CC0 1.0 |
+| Assets/_Project/Art/PolyHaven/Textures/white_plaster_rough_01/ | White Plaster Rough 01 | Rob Tuytel | https://polyhaven.com/a/white_plaster_rough_01 | CC0 1.0 |
+| Assets/_Project/Art/PolyHaven/Textures/thatch_roof_angled/ | Thatch Roof Angled | Rob Tuytel, Dimitrios Savva | https://polyhaven.com/a/thatch_roof_angled | CC0 1.0 |
+| Assets/_Project/Art/PolyHaven/Textures/clay_roof_tiles_02/ | Clay Roof Tiles 02 | Amal Kumar | https://polyhaven.com/a/clay_roof_tiles_02 | CC0 1.0 |
+| Assets/_Project/Art/PolyHaven/Textures/red_laterite_soil_stones/ | Red Laterite Soil Stones | Amal Kumar | https://polyhaven.com/a/red_laterite_soil_stones | CC0 1.0 |
+| Assets/_Project/Art/PolyHaven/Textures/forest_leaves_02/ | Forest Leaves 02 | Rob Tuytel | https://polyhaven.com/a/forest_leaves_02 | CC0 1.0 |
+| Assets/_Project/Art/PolyHaven/Textures/brown_mud_leaves_01/ | Brown Mud Leaves 01 | Rob Tuytel | https://polyhaven.com/a/brown_mud_leaves_01 | CC0 1.0 |
+| Assets/_Project/Art/PolyHaven/Textures/weathered_planks/ | Weathered Planks | Dario Barresi, Dimitrios Savva | https://polyhaven.com/a/weathered_planks | CC0 1.0 |
+| Assets/_Project/Art/PolyHaven/Textures/stony_dirt_path/ | Stony Dirt Path | eye-candy.xyz | https://polyhaven.com/a/stony_dirt_path | CC0 1.0 |
+| Assets/_Project/Art/PolyHaven/Textures/bark_brown_02/ | Bark Brown 02 | Rob Tuytel | https://polyhaven.com/a/bark_brown_02 | CC0 1.0 |
+| Assets/_Project/Art/PolyHaven/Textures/medieval_wood/ | Medieval Wood | Rob Tuytel | https://polyhaven.com/a/medieval_wood | CC0 1.0 |
+| Assets/_Project/Resources/Mats/window_glow.mat | Lit-window material for village houses | Project | Own work | Own work (CC0) |
+
+## Part 2 (2026-11-15): car controller, jeep, village tree, tools
+
+| File(s) in project | Title | Author | Source | Licence | Notes |
+|---|---|---|---|---|---|
+| Assets/_Project/Scripts/Gameplay/Vehicles/CarController.cs, CarLights.cs, CarAudio.cs, CarFollowCamera.cs (and the speed panel in Jeep.cs) | Modular Car Controller (ported) | Ilisescu Adrian Corneliu | https://github.com/ilisescu03/Unity---Car-Controller | MIT | Ported and changed: namespace, input only while driving, four-wheel drive, Z/X indicators, gamepad and on-screen controls, MaterialPropertyBlock lamp glow. No demo terrain, sample scene or car mesh was copied. |
+| Assets/_Project/Resources/Audio/Car/Engine.mp3, Signal.mp3, Hit.mp3 | Engine, turn-signal and hit sounds | Ilisescu Adrian Corneliu | https://github.com/ilisescu03/Unity---Car-Controller | MIT (repository licence) | Unchanged |
+| Assets/_Project/Art/MedievalVillageKit/Tree/SM_Tree_Oak.fbx and T_Bark_*, T_Leaves_Atlas, T_Tree_Impostor_* | Oak tree with LODs and impostor | Daniel Gruginski | https://github.com/danielgruginski/MedievalVillageKit | CC0 1.0 | Only the tree was taken; the kit's buildings are medieval European and generated by its own Blender code, so they were not used for an Indian village. |
+| Assets/_Project/Scripts/World/Editor/ThirdParty/QuaterniusUtils.cs | Quaternius Utility Library for Unity | firstkindgamer | https://github.com/firstkindgamer/QuaterniusUnityUtils | Public domain (Unlicense) | One `#pragma warning disable 0162` line added to keep the build warning-free. |
+| Tools/blender/build_jeep_v2.py, Tools/blender/make_jeep_textures.py → Art_Source/Jeep/*, Assets/_Project/Models/Vehicles/Jeep/* (model, T_Jeep_Plate.png, T_Jeep_Emblem.png, T_Jeep_PaintDirt.png) | Investigator's jeep, version 2 (olive SUV), its number plate, original temple emblem and dirt texture | Project (own work) | Built from the owner's reference sheet Docs/References/jeep_3d_design_reference.png; no brand names or logos; plate number is fictional | Own work |
+| Assets/_Project/Audio/Resources/Audio/sfx_door_open, sfx_door_close, sfx_glass, sfx_metal_hit, sfx_phone_ring, amb_village, amb_birds, mus_intro | Jeep, village and intro sounds | Project (Tools/audio/build_audio_extra.py) | Own work, synthesised | Own work (CC0) | |
+| Assets/_Project/Resources/Voice/*/intro_*_tts.wav | Four intro lines | macOS `say` voices | Generated on this Mac | Placeholder (Apple system voices) | Replace with recorded voices before release. |
+| Assets/_Project/Resources/UI/Loading/loading_new_01..03.png | Loading screen pictures | Supplied by the project owner (AI-generated images) | Provided in chat, 2026-11-15 | Owner's responsibility | |
+| Art_Source/Temple/temple.fbx → Assets/_Project/Models/Temple/Temple_Game.fbx | Jagannath temple model | Supplied by the project owner | Added to Assets by the owner, 2026-11-15 | Owner's responsibility: source and licence not stated | Original kept unchanged; the game copy is reduced in Blender (Tools/blender/optimize_temple.py). |
+| Assets/_Project/Animations/Clips/Hero/Punch_Jab.anim, Punch_Cross.anim, Hit_Chest.anim, Driving_Loop.anim, Sitting_Enter.anim, Sitting_Exit.anim, Idle_Talking_Loop.anim | Universal Animation Library | Quaternius | https://quaternius.itch.io/universal-animation-library / https://github.com/J-Ponzo/gltf-universal-animation-library | CC0 1.0 (Public Domain) | Unarmed punches, hit reactions, driving and NPC idle-talking clips extracted and retargeted to Humanoid. |
+| github.com/GrokCodeReliant/OpenKit3D | Open Kit 3D | GrokCodeReliant | https://github.com/GrokCodeReliant/OpenKit3D | CC0 1.0 | Checked; nothing imported (its clips are Generic for its own rig). |
+
+## V3 (2026-11-16): tools
+| Files | Asset | Author | Source | Licence |
+|---|---|---|---|---|
+| .claude/skills/* (94 skill folders, references) | blender-skills pack (instructions for Blender work; no art assets) | blender-skills contributors | https://github.com/arjun988/blender-skills (commit 904f095) | MIT (copy at .claude/skills/BLENDER_SKILLS_LICENSE.txt) |
+| Tools/blender/build_breakin_pot.py, build_v3_props.py → Resources/Props/V3/* | Break-in pot and shards; carved pillar, coping, plinth, brass lamp stand, stone arch | Project (own work) | Modelled in Blender 5.2 by script | Own work |
+| Tools/blender/temple_lods.py, temple_lod3.py → Models/Temple/Temple_Game_LOD2/LOD3.fbx | Lighter versions of the game temple (made from the project's own optimised copy; the user's temple.fbx was not opened) | Project | Blender decimation | Same as the temple |
+| Tools/audio/build_v3_voices.py → Resources/Voice/*/v3_*_tts.wav | The 29 V3 spoken lines | Generated with macOS built-in text-to-speech voices (Rishi, Aman, Tara) | macOS `say` | Apple system voices; used here for a non-commercial student project. Replace with recorded voices before any commercial use. |
+| BazaarTail.cs (courier bell), Jeep.cs (horn) | Bell and horn sounds | Project (own work) | Synthesised in code | Own work |
+

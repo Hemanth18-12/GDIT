@@ -40,6 +40,8 @@ Run with `zsh Tools/dev/v3bot.sh -v3Story Docs/QA/v3/story_run`. The bot starts 
 | Ending | Story complete; 5 of 5 treasures; all four pieces of evidence; Madhav named correctly; every place graded |
 | Errors | 0 exceptions in the player log |
 
+**Which build:** the complete run in `Docs/QA/v3/story_run/` is from commit d12e35c, just before the performance fix. After the fix (commit aa0919e) the frame-time run covered all eight places (`Docs/QA/v3/perf_run/`), and two whole-game runs passed the bazaar, the storeroom and the lookout fight with 0 errors before the test window was closed by hand. The fix only swaps materials for identical-looking shared ones; it changes no game logic. A full run on the final build is still to do (it needs the game window, so it waits until the screen is free).
+
 Screenshot sheets: `Docs/QA/v3/story_sheet.png`, `zones_sheet.png`, `zones_1_6_sheet.png`, `art_pass_sheet.png`, `madhav_sheet.png`, `hud_after.png`.
 
 ## 3. Performance
