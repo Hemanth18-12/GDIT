@@ -273,13 +273,7 @@ namespace LegacyOfTemples.UI
             yield return new WaitForSecondsRealtime(9f); yield return Shot("v3s-03-goal-card-faded.png");
             var ui = FindAnyObjectByType<UIManager>(); Line($"  goal card alpha 9 s after the goal changed: {(ui != null ? ui.ObjectiveAlpha : -1f):0.00}");
             yield return V3Zone1Check(); Line($"  after the bazaar: objective {V3Obj()}"); File.WriteAllText(auditPath, report.ToString());
-            { var z = LegacyOfTemples.Gameplay.BreakInPuzzle.Instance; if (z != null) yield return V3Perf("storeroom", z.transform.TransformPoint(new Vector3(0f, 0f, 9f)), z.transform.position); }
-            { var z = LegacyOfTemples.Gameplay.VaultPuzzle.Instance; if (z != null) yield return V3Perf("vaults", z.transform.TransformPoint(new Vector3(-9f, 0f, 0f)), z.transform.position); }
-            { var z = LegacyOfTemples.Gameplay.StepwellPuzzle.Instance; if (z != null) yield return V3Perf("stepwell", z.transform.TransformPoint(new Vector3(-4f, LegacyOfTemples.Gameplay.StepwellPuzzle.Rim, -8.5f)), z.transform.position); }
-            { var z = LegacyOfTemples.Gameplay.SunWallPuzzle.Instance; if (z != null) yield return V3Perf("sunwall", z.transform.TransformPoint(new Vector3(0f, 0f, -10f)), z.transform.TransformPoint(new Vector3(0f, 0f, 14f))); }
-            { var z = LegacyOfTemples.Gameplay.JungleChase.Instance; if (z != null) yield return V3Perf("river road", z.RoadStart, z.Road[4]); if (z != null) yield return V3Perf("ruin court", z.Court.TransformPoint(new Vector3(0f, 0f, 10f)), z.Court.position); }
-            { var vl = LegacyOfTemples.Gameplay.VillageLife.Instance; if (vl != null) yield return V3Perf("bazaar", vl.TeaStallStand + Vector3.forward * 4f, vl.TeaStallStand + Vector3.forward * 40f); }
-            { var ts = LegacyOfTemples.Gameplay.TempleSite.Instance; if (ts != null) yield return V3Perf("temple front", LegacyOfTemples.World.Village.GatePos + Vector3.back * 8f, ts.TowerTop); }
+            yield return V3PerfAll();
             yield return V3MadhavShot("storeroom");
             yield return V3Zone2Check(); Line($"  after the storeroom: objective {V3Obj()}"); File.WriteAllText(auditPath, report.ToString());
             yield return V3MadhavShot("vaults");
@@ -303,11 +297,30 @@ namespace LegacyOfTemples.UI
             var pc = FindAnyObjectByType<PlayerController>(); if (pc == null) yield break;
             Vector3 d = look - at; d.y = 0f; pc.Teleport(at, Quaternion.LookRotation(d.sqrMagnitude > 0.01f ? d : Vector3.forward));
             yield return new WaitForSecondsRealtime(1.5f);
-            var ms = new List<float>(); float t0 = Time.realtimeSinceStartup;
-            while (Time.realtimeSinceStartup - t0 < 4f) { yield return null; ms.Add(Time.unscaledDeltaTime * 1000f); }
+            var ms = new List<float>(); float t0 = Time.realtimeSinceStartup; int vs = QualitySettings.vSyncCount, tf = Application.targetFrameRate;
+            QualitySettings.vSyncCount = 0; Application.targetFrameRate = -1;   // measure the real cost, not the vsync step
+            double cpuMain = 0, cpuRender = 0, gpu = 0; int timed = 0; var ft = new FrameTiming[1];
+            while (Time.realtimeSinceStartup - t0 < 4f)
+            {
+                yield return null; ms.Add(Time.unscaledDeltaTime * 1000f);
+                FrameTimingManager.CaptureFrameTimings(); if (FrameTimingManager.GetLatestTimings(1, ft) > 0) { cpuMain += ft[0].cpuMainThreadFrameTime; cpuRender += ft[0].cpuRenderThreadFrameTime; gpu += ft[0].gpuFrameTime; timed++; }
+            }
+            QualitySettings.vSyncCount = vs; Application.targetFrameRate = tf;
+            string split = timed > 0 ? $", CPU main {cpuMain / timed:0.0} ms, CPU render {cpuRender / timed:0.0} ms, GPU {gpu / timed:0.0} ms" : ", (no frame timing data)";
             ms.Sort(); float avg = 0f; foreach (var m in ms) avg += m; avg /= Mathf.Max(1, ms.Count);
             float p99 = ms[Mathf.Clamp(Mathf.RoundToInt(ms.Count * 0.99f), 0, ms.Count - 1)], worst = ms[ms.Count - 1];
-            Line($"  PERF {where}: {ms.Count} frames, average {avg:0.0} ms ({1000f / avg:0} fps), 99% {p99:0.0} ms, worst {worst:0.0} ms, graphics {LegacyOfTemples.Gameplay.GraphicsPresets.Current.name}");
+            Line($"  PERF {where}: {ms.Count} frames, average {avg:0.0} ms ({1000f / avg:0} fps), 99% {p99:0.0} ms, worst {worst:0.0} ms{split}, graphics {LegacyOfTemples.Gameplay.GraphicsPresets.Current.name}, draw-visible villagers {LegacyOfTemples.Gameplay.CrowdCulling.Visible}");
+        }
+
+        private IEnumerator V3PerfAll()
+        {
+            { var z = LegacyOfTemples.Gameplay.BreakInPuzzle.Instance; if (z != null) yield return V3Perf("storeroom", z.transform.TransformPoint(new Vector3(0f, 0f, 9f)), z.transform.position); }
+            { var z = LegacyOfTemples.Gameplay.VaultPuzzle.Instance; if (z != null) yield return V3Perf("vaults", z.transform.TransformPoint(new Vector3(-9f, 0f, 0f)), z.transform.position); }
+            { var z = LegacyOfTemples.Gameplay.StepwellPuzzle.Instance; if (z != null) yield return V3Perf("stepwell", z.transform.TransformPoint(new Vector3(-4f, LegacyOfTemples.Gameplay.StepwellPuzzle.Rim, -8.5f)), z.transform.position); }
+            { var z = LegacyOfTemples.Gameplay.SunWallPuzzle.Instance; if (z != null) yield return V3Perf("sunwall", z.transform.TransformPoint(new Vector3(0f, 0f, -10f)), z.transform.TransformPoint(new Vector3(0f, 0f, 14f))); }
+            { var z = LegacyOfTemples.Gameplay.JungleChase.Instance; if (z != null) yield return V3Perf("river road", z.RoadStart, z.Road[4]); if (z != null) yield return V3Perf("ruin court", z.Court.TransformPoint(new Vector3(0f, 0f, 10f)), z.Court.position); }
+            { var vl = LegacyOfTemples.Gameplay.VillageLife.Instance; if (vl != null) yield return V3Perf("bazaar", vl.TeaStallStand + Vector3.forward * 4f, vl.TeaStallStand + Vector3.forward * 40f); }
+            { var ts = LegacyOfTemples.Gameplay.TempleSite.Instance; if (ts != null) yield return V3Perf("temple front", LegacyOfTemples.World.Village.GatePos + Vector3.back * 8f, ts.TowerTop); }
         }
 
         private IEnumerator V3MadhavShot(string where)
@@ -875,6 +888,19 @@ namespace LegacyOfTemples.UI
             {   // V3 zone 2 only: play the break-in puzzle with real key presses and take a picture of every step
                 yield return new WaitForSecondsRealtime(6f);
                 yield return V3Zone2Check();
+                File.WriteAllText(Path.Combine(output, "audit.md"), report.ToString());
+                Debug.Log("[AuditBot] DONE " + output); yield return new WaitForSecondsRealtime(1f); Application.Quit(); yield break;
+            }
+            if (Array.IndexOf(Environment.GetCommandLineArgs(), "-v3Perf") >= 0)
+            {   // frame time at every place, once per graphics preset
+                yield return new WaitForSecondsRealtime(6f);
+                var pc0 = FindAnyObjectByType<PlayerController>(); pc0.Teleport(LegacyOfTemples.World.Village.GatePos + Vector3.back * 2f, Quaternion.LookRotation(Vector3.back)); yield return new WaitForSecondsRealtime(10f);
+                foreach (int preset in new[] { 2, 0 })
+                {
+                    GameOptions.Graphics = preset; Line($"\n## Preset {LegacyOfTemples.Gameplay.GraphicsPresets.Current.name}"); yield return new WaitForSecondsRealtime(1f);
+                    yield return V3PerfAll();
+                }
+                GameOptions.Graphics = 2;
                 File.WriteAllText(Path.Combine(output, "audit.md"), report.ToString());
                 Debug.Log("[AuditBot] DONE " + output); yield return new WaitForSecondsRealtime(1f); Application.Quit(); yield break;
             }

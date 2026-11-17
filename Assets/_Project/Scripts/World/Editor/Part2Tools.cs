@@ -249,7 +249,8 @@ namespace LegacyOfTemples.World.Editor
                 n.StartsWith("Roof_01_01") ? roof : n.StartsWith("Roof_01_02") ? saffron : n.StartsWith("Roof_01_03") ? white :
                 n.StartsWith("Metal") ? gold : n.StartsWith("Glass") ? glass : n.StartsWith("Wood") ? wood : cloth;
             string lod1 = TempleDir + "/Temple_Game_LOD1.fbx";
-            foreach (var f in new[] { fbx, lod1 })
+            string lod2 = TempleDir + "/Temple_Game_LOD2.fbx", lod3 = TempleDir + "/Temple_Game_LOD3.fbx";   // 20 % and about 2 % (Tools/blender/temple_lods.py, temple_lod3.py)
+            foreach (var f in new[] { fbx, lod1, lod2, lod3 })
             {
                 if (!File.Exists(f)) continue;
                 Remap(f, pick);
@@ -267,10 +268,21 @@ namespace LegacyOfTemples.World.Editor
                 var c = new GameObject("COL_" + mf.name); c.transform.SetParent(colRoot.transform, false); c.transform.SetPositionAndRotation(mf.transform.position, mf.transform.rotation); c.transform.localScale = mf.transform.lossyScale;
                 c.AddComponent<MeshCollider>().sharedMesh = mf.sharedMesh; c.isStatic = true; cols++;
             }
-            if (l1 != null)
-            {
-                foreach (var r in l1.GetComponentsInChildren<Renderer>()) r.gameObject.isStatic = true;
-                root.AddComponent<LODGroup>().SetLODs(new[] { new LOD(0.18f, l0.GetComponentsInChildren<Renderer>()), new LOD(0.015f, l1.GetComponentsInChildren<Renderer>()) });
+            if (l1 != null) Object.DestroyImmediate(l1);   // LOD1 (74 %) is only the collision source now; it is no longer drawn
+            if (File.Exists(lod2) && File.Exists(lod3))
+            {   // one LOD group per area (9 areas, about 86 m each), so the near part of the temple stays detailed and the far parts get lighter
+                GameObject Inst(string f, string n) { var g = (GameObject)PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>(f)); PrefabUtility.UnpackPrefabInstance(g, PrefabUnpackMode.Completely, InteractionMode.AutomatedAction); g.name = n; g.transform.SetParent(root.transform, false); g.transform.localPosition = l0.transform.localPosition; g.transform.localRotation = l0.transform.localRotation; g.transform.localScale = l0.transform.localScale; return g; }
+                var g2 = Inst(lod2, "LOD2"); var g3 = Inst(lod3, "LOD3"); int groups = 0;
+                foreach (var r0 in l0.GetComponentsInChildren<MeshRenderer>())
+                {
+                    string area = r0.name.Substring(r0.name.LastIndexOf("Area_"));
+                    Renderer Find(GameObject g) { foreach (var r in g.GetComponentsInChildren<MeshRenderer>()) if (r.name.EndsWith(area)) return r; return null; }
+                    var r2 = Find(g2); var r3 = Find(g3); if (r2 == null || r3 == null) continue;
+                    r2.gameObject.isStatic = r3.gameObject.isStatic = true;
+                    var holder = new GameObject("LODGroup_" + area); holder.transform.SetParent(root.transform, false); holder.transform.position = r0.bounds.center;
+                    var lg = holder.AddComponent<LODGroup>(); lg.SetLODs(new[] { new LOD(0.9f, new Renderer[] { r0 }), new LOD(0.25f, new Renderer[] { r2 }), new LOD(0.006f, new Renderer[] { r3 }) }); lg.RecalculateBounds(); groups++;
+                }
+                Debug.Log($"[Batch] temple LOD groups: {groups} areas, each LOD0 / LOD2 20% / LOD3 2%");
             }
             Directory.CreateDirectory("Assets/_Project/Resources/Temple");
             PrefabUtility.SaveAsPrefabAsset(root, "Assets/_Project/Resources/Temple/Temple.prefab"); Object.DestroyImmediate(root);

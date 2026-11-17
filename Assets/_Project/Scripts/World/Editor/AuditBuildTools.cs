@@ -29,7 +29,7 @@ namespace LegacyOfTemples.World.Editor
             try
             {
                 UnityEditor.EngineDiagnostics.EngineDiagnosticsSettings.enabled = false;
-                PlayerSettings.runInBackground = true;
+                PlayerSettings.runInBackground = true; PlayerSettings.enableFrameTimingStats = true;   // CPU/GPU split in the frame-time report
                 report = BuildPipeline.BuildPlayer(new BuildPlayerOptions
                 {
                     scenes = Scenes, locationPathName = app, target = BuildTarget.StandaloneOSX, options = BuildOptions.Development

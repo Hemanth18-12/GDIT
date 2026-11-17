@@ -17,7 +17,7 @@ namespace LegacyOfTemples.Gameplay
         {
             new Preset { name = "Low",    renderScale = 0.75f, shadowDistance = 35f,  lodBias = 0.7f, cascades = 1, msaa = 1, pixelLights = 2, softShadows = false, ambientOcclusion = false, depthOfField = false, motionBlur = false, effectScale = 0.4f },
             new Preset { name = "Medium", renderScale = 0.9f,  shadowDistance = 60f,  lodBias = 1.0f, cascades = 2, msaa = 2, pixelLights = 4, softShadows = true,  ambientOcclusion = false, depthOfField = false, motionBlur = false, effectScale = 0.7f },
-            new Preset { name = "High",   renderScale = 1.0f,  shadowDistance = 90f,  lodBias = 1.5f, cascades = 4, msaa = 4, pixelLights = 6, softShadows = true,  ambientOcclusion = true,  depthOfField = true,  motionBlur = false, effectScale = 1.0f },
+            new Preset { name = "High",   renderScale = 1.0f,  shadowDistance = 70f,  lodBias = 1.2f, cascades = 2, msaa = 4, pixelLights = 6, softShadows = true,  ambientOcclusion = true,  depthOfField = true,  motionBlur = false, effectScale = 1.0f },
             new Preset { name = "Ultra",  renderScale = 1.0f,  shadowDistance = 140f, lodBias = 2.0f, cascades = 4, msaa = 8, pixelLights = 8, softShadows = true,  ambientOcclusion = true,  depthOfField = true,  motionBlur = true,  effectScale = 1.0f },
         };
 
