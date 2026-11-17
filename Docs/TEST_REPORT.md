@@ -40,8 +40,9 @@ Run with `zsh Tools/dev/v3bot.sh -v3Story Docs/QA/v3/story_run`. The bot starts 
 | Ending | Story complete; 5 of 5 treasures; all four pieces of evidence; Madhav named correctly; every place graded |
 | Errors | 0 exceptions in the player log |
 
-**Which build:** the complete run in `Docs/QA/v3/story_run/` is from commit d12e35c, just before the performance fix. After the fix (commit aa0919e) the frame-time run covered all eight places (`Docs/QA/v3/perf_run/`), and two whole-game runs passed the bazaar, the storeroom and the lookout fight with 0 errors before the test window was closed by hand. The fix only swaps materials for identical-looking shared ones; it changes no game logic. A full run on the final build is still to do (it needs the game window, so it waits until the screen is free).
+**Which build:** the final build (commits after aa0919e) passed the whole game twice with no window: `Docs/QA/v3/story_final/audit.md` (story complete, grade S, 0 exceptions, jeep chase without damage, Bhaskar phase 3, Madhav at four places) and the recording run `Docs/QA/v3/story_rec/audit.md` (same result, plus the bell, 8 lamp stands and 6 reflection probes placed). Windowless runs use `-batchmode`; their screenshots are rendered from the camera and do not show the HUD.
 
+Gameplay video: `Docs/QA/full_run.mov` (4 min 31 s, the whole game played by the bot, shown 1.7 times faster, no HUD). Beauty shots: `Docs/QA/v3/beauty_sheet.png` (22 pictures).
 Screenshot sheets: `Docs/QA/v3/story_sheet.png`, `zones_sheet.png`, `zones_1_6_sheet.png`, `art_pass_sheet.png`, `madhav_sheet.png`, `hud_after.png`.
 
 ## 3. Performance
@@ -67,4 +68,5 @@ See `Docs/TECHNICAL_REPORT.md` section 6. After the batching fix every place run
 - No kick, grab or knockdown animations exist in the project.
 - Places are textured blocks with hero props, not fully modelled environments.
 - One loading image shows a carried idol; it is the owner's artwork and was left in place (decision D-07).
-- The test window must not be closed during a bot run; closing it ends the run early (seen twice).
+- Windowless screenshots and the gameplay video do not show the HUD (the camera is rendered off screen).
+- Two beauty shots are poorly framed (`beauty-stepwell-wet-stone.png`, `beauty-temple-low.png`).

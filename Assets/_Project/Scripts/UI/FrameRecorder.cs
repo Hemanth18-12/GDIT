@@ -29,11 +29,14 @@ namespace LegacyOfTemples.UI
         {
             bool introOnly = System.Array.IndexOf(Environment.GetCommandLineArgs(), "-recordIntroOnly") >= 0;
             if (introOnly) { while (!LegacyOfTemples.Gameplay.IntroCinematic.Rolling) yield return null; }   // record only while the intro plays
-            Time.captureFramerate = 24;
+            bool realTime = Application.isBatchMode;   // windowless: sample at real time so the game (and the test bot) run at normal speed
+            if (!realTime) Time.captureFramerate = 24;
+            float nextAt = Time.realtimeSinceStartup;
             while (frames < max && (!introOnly || LegacyOfTemples.Gameplay.IntroCinematic.Rolling))
             {
                 yield return new WaitForEndOfFrame();
-                var tex = ScreenCapture.CaptureScreenshotAsTexture();
+                if (realTime) { if (Time.realtimeSinceStartup < nextAt) continue; nextAt += 1f / 24f; }
+                var tex = Application.isBatchMode ? WindowlessShot.Grab() : ScreenCapture.CaptureScreenshotAsTexture();   // no window: render the camera instead
                 var bytes = tex.EncodeToJPG(82); Destroy(tex);
                 string path = Path.Combine(dir, $"f{frames:00000}.jpg"); frames++;
                 System.Threading.Tasks.Task.Run(() => File.WriteAllBytes(path, bytes));

@@ -48,6 +48,9 @@ Each place gives a grade (S, A, B or C) for solving its puzzle without hints, st
 ## Settings
 Graphics preset (Low, Medium, High, Ultra; High is the default), fullscreen, mouse speed, invert look, difficulty (Easy, Normal, Hard), master, music, effects and voice volume, subtitles, text size, high contrast.
 
+## Video
+`Docs/QA/full_run.mov`: the whole game, played by the test bot (shown 1.7 times faster, without the HUD).
+
 ## More documents
 - `Docs/GAME_DESIGN_DOCUMENT.md`: design, story, zones, puzzles, combat.
 - `Docs/TECHNICAL_REPORT.md`: how it is built, systems, performance.

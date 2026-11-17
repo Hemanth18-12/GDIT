@@ -31,10 +31,16 @@ Say "Continue from Docs/PROGRESS.md" to resume. Last update: 2026-11-16.
 
 - Phase 1D core systems (see the list at the bottom of this file for what exists).
 
-## Next (in order)
-1. When the screen is free (not while studying): one full whole-game run on the final build (`zsh Tools/dev/v3bot.sh -v3Story Docs/QA/v3/story_run`) and the gameplay video (`zsh Tools/dev/v3bot.sh -v3Story <folder> -recordFrames <frames folder> -recordSeconds 290`, then ffmpeg to `Docs/QA/full_run.mov`). Both open a game window.
-2. Then tag `release-v3` and push the tag.
-3. Optional: more environment art (the places are still textured blocks with hero props).
+## Finished (2026-11-17)
+- Final whole-game run on the final build, windowless: `Docs/QA/v3/story_final/` and `Docs/QA/v3/story_rec/`.
+- Gameplay video `Docs/QA/full_run.mov`; beauty shots `Docs/QA/v3/beauty_sheet.png`.
+- Temple life (bell, lamp stands), reflection probes, wet stone, villager routines.
+- Tag `release-v3`.
+
+## Next (optional)
+- Better models for the robbers and face rigs for the Pujari, villagers and robbers (needs your files or a decision).
+- Kick, grab and knockdown animation clips (needs Mixamo downloads).
+- More modelled environment art.
 
 ## Known bugs and open questions
 - Robber models are fantasy sculpts (D-04). Needs your decision.

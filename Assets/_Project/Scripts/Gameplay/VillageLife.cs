@@ -264,7 +264,16 @@ namespace LegacyOfTemples.Gameplay
             Spawn(P(4.6f, z0 + 33.2f), 80f, false);                 // female shopper
             Spawn(P(-5.6f, z0 + 54f), 270f, false);                 // woman at the well
             Spawn(P(-4.2f, z0 + 40.5f), 270f, true);                // man at the tailor
-            foreach (var n in Npcs) if (n.GetComponent<RoadWalker>() == null) n.gameObject.AddComponent<IdleLook>();
+            // V3 routines: two men sit on stools at the tea stall; the pairs at the stall and the shop talk in turns
+            for (int i = 0; i < 2; i++)
+            {
+                Vector3 stool = ts + new Vector3(-1.4f - i * 1.1f, 0f, 1.6f + i * 0.4f);
+                ArtUpgrade.Place(root, "folding_wooden_stool", stool, 1.1f, 20f + i * 50f);
+                var sitter = Spawn(stool + Vector3.up * 0.05f, 140f + i * 30f, true); sitter.gameObject.AddComponent<VillagerRoutine>().mode = VillagerRoutine.Mode.Sit;
+            }
+            for (int i = 0; i < Npcs.Count; i++)
+                if (Npcs[i].GetComponent<RoadWalker>() == null && Npcs[i].GetComponent<VillagerRoutine>() == null && i % 2 == 0) { var r = Npcs[i].gameObject.AddComponent<VillagerRoutine>(); r.mode = VillagerRoutine.Mode.Talk; r.offset = i * 1.7f; }
+            foreach (var n in Npcs) if (n.GetComponent<RoadWalker>() == null && n.GetComponent<VillagerRoutine>() == null) n.gameObject.AddComponent<IdleLook>();
         }
 
         private static void Ambience()
@@ -276,6 +285,27 @@ namespace LegacyOfTemples.Gameplay
                 var s = new GameObject("Ambience_" + clip).AddComponent<AudioSource>(); s.clip = c; s.loop = true; s.volume = vol; s.spatialBlend = 0f; s.Play();
                 AudioManager.Route(s, "Ambience");
             }
+        }
+    }
+
+    /// <summary>A villager's small routine: sitting at the tea stall, or talking (gesturing) for a while, then listening.</summary>
+    public sealed class VillagerRoutine : MonoBehaviour
+    {
+        public enum Mode { Sit, Talk }
+        public Mode mode; public float offset;
+        private Animator anim; private bool hasSit, hasTalk;
+        public bool Talking { get; private set; }
+        private void Start()
+        {
+            anim = GetComponentInChildren<Animator>();
+            if (anim != null) foreach (var p in anim.parameters) { if (p.name == "Sitting") hasSit = true; if (p.name == "Talking") hasTalk = true; }
+            if (anim != null && mode == Mode.Sit && hasSit) anim.SetBool("Sitting", true);
+        }
+        private void Update()
+        {
+            if (anim == null || mode != Mode.Talk || !hasTalk) return;
+            bool talk = Mathf.Repeat(Time.time + offset, 10f) < 6f;   // six seconds talking, four listening
+            if (talk != Talking) { Talking = talk; anim.SetBool("Talking", talk); }
         }
     }
 

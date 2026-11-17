@@ -312,6 +312,45 @@ namespace LegacyOfTemples.UI
             Line($"  PERF {where}: {ms.Count} frames, average {avg:0.0} ms ({1000f / avg:0} fps), 99% {p99:0.0} ms, worst {worst:0.0} ms{split}, graphics {LegacyOfTemples.Gameplay.GraphicsPresets.Current.name}, draw-visible villagers {LegacyOfTemples.Gameplay.CrowdCulling.Visible}");
         }
 
+        private IEnumerator V3Beauty()
+        {
+            var orbit = V3Orbit(); var cam = Camera.main; if (orbit != null) orbit.enabled = false;
+            var pc = FindAnyObjectByType<PlayerController>(); if (pc != null) pc.Teleport(new Vector3(9000f, 0f, 9000f), Quaternion.identity);   // the hero out of frame
+            System.Func<Transform, Vector3, Vector3, string, IEnumerator> shot = (t, from, at, name) => BeautyShot(cam, t, from, at, name);
+            var b = LegacyOfTemples.Gameplay.TempleSite.Footprint; var tl = LegacyOfTemples.Gameplay.TempleLife.Instance; var vl = LegacyOfTemples.Gameplay.VillageLife.Instance;
+            var ts = LegacyOfTemples.Gameplay.TempleSite.Instance;
+            if (ts != null)
+            {
+                yield return shot(null, new Vector3(b.center.x + 70f, 30f, b.max.z + 110f), new Vector3(b.center.x, 25f, b.center.z), "temple-aerial");
+                yield return shot(null, LegacyOfTemples.World.Village.GatePos + new Vector3(3f, 2f, 4f), ts.TowerTop, "temple-from-the-gate");
+                yield return shot(null, new Vector3(b.center.x - 40f, 3f, b.max.z + 40f), new Vector3(b.center.x, 18f, b.center.z), "temple-low");
+            }
+            if (tl != null && tl.Bell != null) yield return shot(null, tl.Bell.position + new Vector3(2.5f, -1.2f, 3.5f), tl.Bell.position + Vector3.down * 0.6f, "temple-bell");
+            if (vl != null)
+            {
+                yield return shot(null, vl.TeaStallStand + new Vector3(4f, 1.8f, -5f), vl.TeaStallStand + new Vector3(-2f, 0.9f, 1f), "bazaar-tea-stall");
+                yield return shot(null, vl.TeaStallStand + new Vector3(2f, 3f, 30f), vl.TeaStallStand + new Vector3(0f, 1f, 0f), "bazaar-road");
+            }
+            var z1 = LegacyOfTemples.Gameplay.BazaarTail.Instance; if (z1 != null && z1.Yard != null) yield return shot(z1.Yard, new Vector3(5f, 4f, -11f), new Vector3(0f, 1f, 2f), "bazaar-yard");
+            var z2 = LegacyOfTemples.Gameplay.BreakInPuzzle.Instance;
+            if (z2 != null) { yield return shot(z2.transform, new Vector3(6f, 3.2f, 9f), new Vector3(0f, 1.4f, 0.5f), "storeroom-wide"); yield return shot(z2.transform, new Vector3(-2.5f, 1.4f, 4.5f), new Vector3(-3.2f, 0.9f, 1.3f), "storeroom-plinth"); yield return shot(z2.transform, new Vector3(2.5f, 1.6f, 3.5f), new Vector3(0f, 1.6f, 0f), "storeroom-grille"); }
+            var z3 = LegacyOfTemples.Gameplay.VaultPuzzle.Instance;
+            if (z3 != null) { yield return shot(z3.transform, new Vector3(-10.5f, 3f, -4f), new Vector3(0f, 1f, 1f), "vaults-hall"); yield return shot(z3.transform, new Vector3(1.5f, 3.4f, -3.6f), new Vector3(7f, 0.4f, 0.4f), "vaults-light-pattern"); yield return shot(z3.transform, new Vector3(6f, 2f, 3.8f), new Vector3(11.8f, 1.7f, 0f), "vaults-discs"); }
+            var z4 = LegacyOfTemples.Gameplay.StepwellPuzzle.Instance;
+            if (z4 != null) { yield return shot(z4.transform, new Vector3(-12f, 12f, -15f), new Vector3(1f, 2f, 0f), "stepwell-aerial"); yield return shot(z4.transform, new Vector3(-9f, 6.5f, -9f), new Vector3(3f, 3f, 3f), "stepwell-rim"); yield return shot(z4.transform, new Vector3(-14f, 1.7f, -6f), new Vector3(0f, 2f, 0f), "stepwell-wet-stone"); }
+            var z5 = LegacyOfTemples.Gameplay.SunWallPuzzle.Instance;
+            if (z5 != null) { yield return shot(z5.transform, new Vector3(-12f, 8f, -18f), new Vector3(0f, 2f, 6f), "sunwall-plaza"); yield return shot(z5.transform, new Vector3(4f, 2.2f, 4f), new Vector3(0f, 3f, 0f), "sunwall-wheel"); yield return shot(z5.transform, new Vector3(0f, 2f, 8f), new Vector3(0f, 2.4f, 14.5f), "sunwall-carved-wall"); }
+            var z6 = LegacyOfTemples.Gameplay.JungleChase.Instance;
+            if (z6 != null) { yield return shot(null, z6.Road[2] + new Vector3(-6f, 5f, 8f), z6.Road[8], "river-road"); yield return shot(z6.Court, new Vector3(12f, 10f, 24f), new Vector3(0f, 1f, 0f), "ruins-court"); yield return shot(z6.Court, new Vector3(0f, 1.8f, 22f), new Vector3(0f, 3f, 14f), "ruins-arch"); }
+            if (orbit != null) orbit.enabled = true;
+        }
+        private IEnumerator BeautyShot(Camera cam, Transform t, Vector3 from, Vector3 at, string name)
+        {
+            if (cam == null) yield break;
+            cam.transform.position = t != null ? t.TransformPoint(from) : from; cam.transform.LookAt(t != null ? t.TransformPoint(at) : at);
+            yield return new WaitForSecondsRealtime(2.8f); yield return Shot($"beauty-{name}.png"); Line($"  beauty shot {name}");
+        }
+
         private IEnumerator V3PerfAll()
         {
             { var z = LegacyOfTemples.Gameplay.BreakInPuzzle.Instance; if (z != null) yield return V3Perf("storeroom", z.transform.TransformPoint(new Vector3(0f, 0f, 9f)), z.transform.position); }
@@ -888,6 +927,14 @@ namespace LegacyOfTemples.UI
             {   // V3 zone 2 only: play the break-in puzzle with real key presses and take a picture of every step
                 yield return new WaitForSecondsRealtime(6f);
                 yield return V3Zone2Check();
+                File.WriteAllText(Path.Combine(output, "audit.md"), report.ToString());
+                Debug.Log("[AuditBot] DONE " + output); yield return new WaitForSecondsRealtime(1f); Application.Quit(); yield break;
+            }
+            if (Array.IndexOf(Environment.GetCommandLineArgs(), "-v3Beauty") >= 0)
+            {   // three framed pictures of every place, the temple, the bell and the tea stall (camera only, no HUD in windowless mode)
+                yield return new WaitForSecondsRealtime(6f);
+                var pcb = FindAnyObjectByType<PlayerController>(); pcb.Teleport(LegacyOfTemples.World.Village.GatePos + Vector3.back * 2f, Quaternion.LookRotation(Vector3.back)); yield return new WaitForSecondsRealtime(12f);
+                yield return V3Beauty();
                 File.WriteAllText(Path.Combine(output, "audit.md"), report.ToString());
                 Debug.Log("[AuditBot] DONE " + output); yield return new WaitForSecondsRealtime(1f); Application.Quit(); yield break;
             }
@@ -1730,6 +1777,7 @@ namespace LegacyOfTemples.UI
         private IEnumerator Shot(string file)
         {
             yield return new WaitForEndOfFrame();
+            if (Application.isBatchMode) { WindowlessShot.Save(System.IO.Path.Combine(output, file)); yield break; }   // no window: render the camera to an image (no on-screen HUD)
             ScreenCapture.CaptureScreenshot(System.IO.Path.Combine(output, file));
             yield return null;
         }

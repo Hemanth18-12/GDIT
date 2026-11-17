@@ -121,6 +121,19 @@ namespace LegacyOfTemples.Gameplay
             ZoneDress.Trim(root, "Tank_N", "Tank_S", "Tank_W", "Chamber_");
             foreach (var c in new[] { new Vector3(-7.2f, Rim, -7.2f), new Vector3(7.2f, Rim, 7.2f), new Vector3(-7.2f, Rim, 7.2f) }) ZoneDress.Prop(root, "SM_V3_Pillar", c, 45f, new Vector3(1.1f, 1.25f, 1.1f));
             ZoneDress.Lamp(root, new Vector3(-6.8f, Rim, 1.5f), 8f, 4f);
+            // rain-soaked stone: darker and glossy, with puddles around the tank (the reflection probe gives them something to reflect)
+            var wet = ZoneKit.Tinted("mossy_sandstone", new Color(0.55f, 0.56f, 0.6f), 0.82f);
+            foreach (var t in root.GetComponentsInChildren<MeshRenderer>())
+                if (t.name.StartsWith("Tank_") || t.name.StartsWith("Ramp_") || t.name.StartsWith("Chamber_") || t.name == "SM_V3_Coping" || t.name == "SM_V3_Plinth") t.sharedMaterial = wet;
+            var puddle = Fx.Res("Puddle");
+            if (puddle != null)
+                for (int i = 0; i < 9; i++)
+                {
+                    var q = GameObject.CreatePrimitive(PrimitiveType.Quad); Destroy(q.GetComponent<Collider>()); q.name = "Puddle"; q.transform.SetParent(root, false);
+                    float a = i * 40f * Mathf.Deg2Rad; q.transform.localPosition = new Vector3(Mathf.Cos(a) * (10.5f + (i % 3)), 0.02f, Mathf.Sin(a) * (10f + (i % 2) * 2f));
+                    q.transform.localRotation = Quaternion.Euler(90f, i * 37f, 0f); q.transform.localScale = new Vector3(1.6f + (i % 3) * 0.7f, 1.1f + (i % 2) * 0.6f, 1f);
+                    q.GetComponent<Renderer>().sharedMaterial = puddle;
+                }
             var gg = new GameObject("Puzzle_Stepwell"); gg.transform.SetParent(root, false); gg.transform.localPosition = new Vector3(0f, Rim, 0f);
             Group = gg.AddComponent<PuzzleGroup>(); Group.puzzleId = "z4_stepwell"; Group.zoneId = ZoneId; Group.hintRadius = 26f; Group.lockWhenSolved = false;
             Group.hints = new[] { "The east wall has old water marks. One is longer than the others.", "Too much water hides the carved panel. The raft carries a drain chain.", "Open both sluice wheels on the rim, step onto the raft, then work the drain chain twice so the water rests on the long mark, and push the panel." };
