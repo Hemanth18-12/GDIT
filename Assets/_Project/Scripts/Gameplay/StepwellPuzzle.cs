@@ -80,7 +80,7 @@ namespace LegacyOfTemples.Gameplay
             Village.Box(root, "Chamber_Roof", new Vector3(9.1f, 5.15f, 0f), new Vector3(3.6f, 0.2f, 3.8f), wall, 2f, false);
             var hinge = new GameObject("PanelHinge").transform; hinge.SetParent(root, false); hinge.localPosition = new Vector3(6.05f, 3.75f, -1.5f);
             var panel = Village.Box(hinge, "CarvedPanel", new Vector3(0f, 0f, 1.5f), new Vector3(0.16f, 2.3f, 3f), "sandstone_blocks_08", 1.5f); ZoneKit.Reach(panel, 2.2f);
-            Panel = panel.AddComponent<PuzzleLever>(); Panel.elementId = "z4.panel"; Panel.handle = hinge; Panel.pulledEuler = new Vector3(0f, 82f, 0f); Panel.verb = "Push the carved panel"; Panel.radius = 3.2f; Panel.locked = true;
+            Panel = panel.AddComponent<PuzzleLever>(); Panel.elementId = "z4.panel"; Panel.sound = "sfx_door_stone"; Panel.handle = hinge; Panel.pulledEuler = new Vector3(0f, 82f, 0f); Panel.verb = "Push the carved panel"; Panel.radius = 3.2f; Panel.locked = true;
 
             // water, raft, sluices and the drain
             var water = ZoneKit.Part(root, "Water", new Vector3(0f, 0.3f, 0f), new Vector3(12f, 0.05f, 12f), ZoneKit.Glass(new Color(0.07f, 0.17f, 0.22f, 0.78f), 0.96f), false);

@@ -45,10 +45,18 @@ Run with `zsh Tools/dev/v3bot.sh -v3Story Docs/QA/v3/story_run`. The bot starts 
 Gameplay video: `Docs/QA/full_run.mov` (4 min 31 s, the whole game played by the bot, shown 1.7 times faster, no HUD). Beauty shots: `Docs/QA/v3/beauty_sheet.png` (22 pictures).
 Screenshot sheets: `Docs/QA/v3/story_sheet.png`, `zones_sheet.png`, `zones_1_6_sheet.png`, `art_pass_sheet.png`, `madhav_sheet.png`, `hud_after.png`.
 
-## 3. Performance
+## 3. Sound effects (2026-11-17)
+The windowless whole-game run counted every 3D sound effect that played: 1,238 plays of 29 different clips, 0 missing clips (`Docs/QA/v3/story_final/audit.md`).
+- Fights: swings (quick 110, wide 25), hits (light 68, heavy 58), grunts (robbers 105, Bhaskar 21, Aryan 13), staggers 54, body falls 13, blocks and parries, dodges, cloth rustle.
+- Footsteps of robbers, the courier, Bhaskar and walking villagers, by surface (mud 470, gravel 105, stone 69).
+- Puzzles and doors: stone grinding (discs, blocks, wheel) 25, clicks (mirrors, valves, plates) 14, brass set 4, stone doors and gates 4, water 4, lantern lighting, the Sun Wall opening, the bell.
+- Talking villagers play indistinct chatter while they gesture (heard within about 11 m).
+Windowless runs count the sounds but cannot listen to them; loudness was not judged by ear.
+
+## 4. Performance
 See `Docs/TECHNICAL_REPORT.md` section 6. After the batching fix every place runs well above 60 fps on High (slowest place 8.5 ms average, 11.2 ms for the slowest 1 % of frames).
 
-## 4. Problems found by testing and fixed
+## 5. Problems found by testing and fixed
 | Found | Fixed by |
 |---|---|
 | Skipping the intro threw the jeep into the air | Taking the driver out of the seat before collision returns |
@@ -62,7 +70,7 @@ See `Docs/TECHNICAL_REPORT.md` section 6. After the batching fix every place run
 | The jeep struck a fallen log in the chase | The bot keeps to the free side; the road is visual only |
 | 17 to 40 ms render-thread cost | Baked materials (section 3) |
 
-## 5. Known issues (not fixed)
+## 6. Known issues (not fixed)
 - Robber models are fantasy sculpts (the only robber models in the originals).
 - The Pujari, villagers and robbers have no face rig, so their mouths do not move.
 - No kick, grab or knockdown animations exist in the project.

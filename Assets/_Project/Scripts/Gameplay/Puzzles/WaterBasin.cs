@@ -33,6 +33,7 @@ namespace LegacyOfTemples.Gameplay.Puzzles
             SetState(PuzzleLogic.WaterLevel(states, inflowGains, drain != null ? drain.State : 0, maxLevel), false);
         }
 
+        protected override string DefaultSound(int state) => "sfx_drip";
         public float SurfaceY => y;
         protected override void Apply(int state, bool instant)
         {

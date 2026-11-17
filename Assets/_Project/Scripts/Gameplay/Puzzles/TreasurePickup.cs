@@ -23,7 +23,7 @@ namespace LegacyOfTemples.Gameplay.Puzzles
         {
             if (Taken || !isActiveAndEnabled) return; Taken = true;
             PuzzleSave.Set(Id, 1); ScoreSystem.ItemRecovered(zoneId);
-            ObjectiveBanner.Show("RECOVERED", treasureName, 4f);
+            ObjectiveBanner.Show("RECOVERED", treasureName, 4f); AudioManager.Instance?.PlaySFX("sfx_clue_found", 0.9f);
             Debug.Log($"[Treasure] recovered {treasureName} in {zoneId}; zone points now {ScoreSystem.Points(ScoreSystem.Zone(zoneId))}");
             OnTaken?.Invoke(this);
             StoryDialogueSystem.Instance?.CompleteMinigame(StoryId);

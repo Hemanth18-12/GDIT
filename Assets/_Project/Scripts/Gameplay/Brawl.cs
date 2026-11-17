@@ -20,7 +20,7 @@ namespace LegacyOfTemples.Gameplay
         public State Now { get; private set; }
         public int Phase { get; private set; } = 1;
         public bool Alive => Now != State.Down;
-        public bool bossThirdPhase;
+        public bool bossThirdPhase; float stepT;
         internal Brawl fight; float t, nextTry, circleDir = 1f, guardUntil, recentAt; int recent;
         public bool Guarding => Time.time < guardUntil && Now != State.Staggered; Animator anim; readonly HashSet<string> ps = new HashSet<string>(); Renderer[] rends; MaterialPropertyBlock mpb;
 
@@ -64,14 +64,14 @@ namespace LegacyOfTemples.Gameplay
                         Vector3 side = Vector3.Cross(Vector3.up, dir) * circleDir; float want = reach + 0.4f + (index % 2) * 0.7f;
                         Vector3 v = side * (sp * 0.55f) + dir * Mathf.Clamp(dist - want, -1f, 1f) * sp; Move(v); moved = v.magnitude;
                         if (dist > reach + 2.2f) Go(State.Approach);
-                        else if (Time.time >= nextTry && dist <= reach + 0.6f && fight.TakeToken(this)) { Go(State.Telegraph); Trig(type == BrawlType.Knife ? "Thrust" : type == BrawlType.Heavy || type == BrawlType.Boss ? "Combo" : "Slash"); }
+                        else if (Time.time >= nextTry && dist <= reach + 0.6f && fight.TakeToken(this)) { Go(State.Telegraph); GameSfx.At("sfx_cloth", transform.position + Vector3.up, 0.5f); Trig(type == BrawlType.Knife ? "Thrust" : type == BrawlType.Heavy || type == BrawlType.Boss ? "Combo" : "Slash"); }
                         if (t > 2.5f) { circleDir = -circleDir; t = 0f; }
                     }
                     break;
                 case State.Telegraph:
                     Glow(Mathf.Clamp01(t / telegraph) * (unblockable ? 2.2f : 1.2f));
                     if (dist > reach * 0.8f) Move(dir * sp * 0.6f);
-                    if (t >= telegraph / (Phase > 1 ? 1.2f : 1f)) { Glow(0f); Go(State.Strike); fight.EnemyStrikes(this, dist <= reach + 0.25f); }
+                    if (t >= telegraph / (Phase > 1 ? 1.2f : 1f)) { Glow(0f); Go(State.Strike); GameSfx.At(type == BrawlType.Heavy || type == BrawlType.Boss ? "sfx_swish_wide" : "sfx_swish_quick", transform.position + Vector3.up * 1.2f, 0.8f); fight.EnemyStrikes(this, dist <= reach + 0.25f); }
                     break;
                 case State.Strike:
                     if (t >= 0.25f) Go(State.Recover);
@@ -85,6 +85,7 @@ namespace LegacyOfTemples.Gameplay
                     break;
             }
             Num("Speed", moved); Flag("IsMoving", moved > 0.3f);
+            if (moved > 0.4f) { stepT -= Time.deltaTime * moved; if (stepT <= 0f) { stepT = 1.15f; GameSfx.Footstep(transform.position, type == BrawlType.Heavy ? 0.55f : 0.4f); } }
         }
 
         void Move(Vector3 v)
@@ -100,7 +101,7 @@ namespace LegacyOfTemples.Gameplay
         public bool Hurt(float amount, bool stagger, Vector3 from)
         {
             if (Now == State.Down) return false;
-            if (Guarding && !stagger && Phase < 3) { Health -= amount * 0.15f; Trig("Block"); if (Health > 0f) return false; }   // a robber who has just been hit three times guards: only a heavy blow or a finisher gets through
+            if (Guarding && !stagger && Phase < 3) { Health -= amount * 0.15f; Trig("Block"); GameSfx.At(type == BrawlType.Knife ? "sfx_blade_block" : "sfx_block", transform.position + Vector3.up * 1.2f, 0.8f); if (Health > 0f) return false; }   // a robber who has just been hit three times guards: only a heavy blow or a finisher gets through
             if (Time.time - recentAt > 2.5f) recent = 0; recent++; recentAt = Time.time;
             if (recent >= 3 && !stagger) { recent = 0; guardUntil = Time.time + 1.2f; }
             Health -= amount; Glow(0f); fight.ReturnToken(this);
@@ -110,9 +111,10 @@ namespace LegacyOfTemples.Gameplay
                 Phase = 3; telegraph *= 0.65f; damage *= 1.25f; speed *= 1.2f; reach = 1.9f; guardUntil = 0f; Trig("Hit");
                 Debug.Log($"[Brawl] {name} enters phase 3"); fight.OnBossPhase?.Invoke(this, 3);
             }
-            if (Health <= 0f) { Go(State.Down); Flag("Down", true); foreach (var c in GetComponentsInChildren<Collider>()) c.enabled = false; return true; }
-            Trig("Hit"); Vector3 push = transform.position - from; push.y = 0f; Move(push.normalized * (stagger ? 14f : 6f));
-            if (stagger || Now == State.Telegraph) Go(State.Staggered);
+            if (Health <= 0f) { Go(State.Down); Flag("Down", true); GameSfx.At("sfx_body_fall", transform.position, 1f); GameSfx.At(name == "Bhaskar" ? "sfx_grunt_bhaskar" : "sfx_grunt_pain", transform.position + Vector3.up * 1.6f, 0.9f, 0.1f, 32f, 0.85f); foreach (var c in GetComponentsInChildren<Collider>()) c.enabled = false; return true; }
+            Trig("Hit"); GameSfx.At(name == "Bhaskar" ? "sfx_grunt_bhaskar" : "sfx_grunt_pain", transform.position + Vector3.up * 1.6f, 0.6f, 0.15f, 28f, type == BrawlType.Heavy ? 0.85f : type == BrawlType.Knife ? 1.12f : 1f);
+            Vector3 push = transform.position - from; push.y = 0f; Move(push.normalized * (stagger ? 14f : 6f));
+            if (stagger || Now == State.Telegraph) { Go(State.Staggered); GameSfx.At("sfx_stagger", transform.position + Vector3.up, 0.7f); }
             return false;
         }
         public void Stagger() { if (Now != State.Down) { Glow(0f); fight.ReturnToken(this); Trig("Hit"); Go(State.Staggered); } }
@@ -213,13 +215,13 @@ namespace LegacyOfTemples.Gameplay
             bool dodge = (kb != null && kb.vKey.wasPressedThisFrame) || (gp != null && gp.buttonEast.wasPressedThisFrame) || VirtualInput.Down("dodge");
             bool finish = (kb != null && kb.fKey.wasPressedThisFrame) || (gp != null && gp.rightShoulder.wasPressedThisFrame) || VirtualInput.Down("finisher");
             bool block = (kb != null && kb.qKey.isPressed) || (gp != null && gp.leftShoulder.isPressed) || VirtualInput.Block;
-            if (block && !blocking) blockStart = Time.time;
+            if (block && !blocking) { blockStart = Time.time; GameSfx.At("sfx_cloth", player.transform.position + Vector3.up, 0.35f); }
             blocking = block && Stamina > 1f && Time.time >= busyUntil; HeroFlag("Block", blocking);
             if (Time.time < busyUntil) return;
             if (finish) { var e = Nearest(2.8f, 100f, true); if (e != null) { StartCoroutine(Finisher(e)); return; } }
             if (dodge && Stamina >= 25f) { Stamina -= 25f; Vector3 f = player.transform.forward; Vector2 mv = VirtualInput.Move; if (kb != null) { if (kb.sKey.isPressed) mv.y -= 1f; if (kb.aKey.isPressed) mv.x -= 1f; if (kb.dKey.isPressed) mv.x += 1f; }
                 dodgeDir = mv.sqrMagnitude > 0.1f && cam != null ? (Vector3.ProjectOnPlane(cam.transform.right, Vector3.up).normalized * mv.x + Vector3.ProjectOnPlane(cam.transform.forward, Vector3.up).normalized * mv.y).normalized : -f;
-                dodgeUntil = Time.time + 0.34f; busyUntil = Time.time + 0.42f; Hero("Roll"); return; }
+                dodgeUntil = Time.time + 0.34f; busyUntil = Time.time + 0.42f; Hero("Roll"); GameSfx.At("sfx_dodge", player.transform.position, 0.8f); GameSfx.At("sfx_cloth", player.transform.position + Vector3.up, 0.5f); return; }
             if (heavy && Stamina >= 20f) { Stamina -= 20f; Swing(true); }
             else if (light) Swing(false);
         }
@@ -227,6 +229,7 @@ namespace LegacyOfTemples.Gameplay
         {
             var e = Nearest(3.2f, 90f, false); if (e != null) player.FaceTowards(e.transform.position);
             Hero(heavy ? "Heavy" : "Attack" + (1 + (chain++ % 3)));
+            GameSfx.At(heavy ? "sfx_swish_wide" : "sfx_swish_quick", player.transform.position + Vector3.up * 1.2f, heavy ? 0.9f : 0.7f, 0.08f);
             strikeHeavy = heavy; strikeAt = Time.time + (heavy ? 0.42f : 0.16f); busyUntil = Time.time + (heavy ? 0.8f : 0.34f);
         }
         void Land(bool heavy)
@@ -237,7 +240,7 @@ namespace LegacyOfTemples.Gameplay
             bool down = e.Hurt(dmg, heavy || third, player.transform.position);
             Vector3 hp = e.transform.position + Vector3.up * 1.2f;
             Fx.Burst("Spark", hp, heavy ? 22 : 10, 3.5f, 0.07f, 0.4f, new Color(1f, 0.8f, 0.45f, 1f), 1.2f); Fx.Burst("Dust", hp, 6, 1.2f, 0.3f, 0.8f, new Color(0.7f, 0.65f, 0.6f, 0.5f), 0.2f);
-            AudioManager.Instance?.PlaySFX(heavy ? "sfx_metal_hit" : "sfx_hit_taken", heavy ? 0.9f : 0.6f);
+            GameSfx.At(heavy || third ? "sfx_hit_heavy" : "sfx_hit_light", hp, heavy ? 1f : 0.85f, 0.1f);
             StartCoroutine(HitStop(heavy ? 0.09f : 0.045f)); shake = Mathf.Max(shake, heavy ? 0.22f : 0.1f);
             if (down) Debug.Log($"[Brawl] {e.name} is down ({Standing} left)");
         }
@@ -250,7 +253,7 @@ namespace LegacyOfTemples.Gameplay
             busyUntil = Time.time + 1f; player.FaceTowards(e.transform.position); Hero("Heavy"); Finishers++;
             Time.timeScale = 0.3f; punch = 1f;
             yield return new WaitForSecondsRealtime(0.45f);
-            e.Hurt(9999f, true, player.transform.position); Fx.Burst("Spark", e.transform.position + Vector3.up * 1.3f, 30, 4f, 0.08f, 0.5f, new Color(1f, 0.85f, 0.5f, 1f), 1.2f); AudioManager.Instance?.PlaySFX("sfx_metal_hit", 1f); shake = 0.3f;
+            e.Hurt(9999f, true, player.transform.position); Fx.Burst("Spark", e.transform.position + Vector3.up * 1.3f, 30, 4f, 0.08f, 0.5f, new Color(1f, 0.85f, 0.5f, 1f), 1.2f); GameSfx.At("sfx_hit_heavy", e.transform.position + Vector3.up * 1.3f, 1f, 0.02f, 40f, 0.85f); shake = 0.3f;
             yield return new WaitForSecondsRealtime(0.45f);
             Time.timeScale = 1f; combo++; lastHitTime = Time.time; if (combo > MaxCombo) { MaxCombo = combo; ScoreSystem.Combo(zoneId, MaxCombo); }
             Debug.Log($"[Brawl] finisher on {e.name} ({Standing} left)");
@@ -276,15 +279,15 @@ namespace LegacyOfTemples.Gameplay
             bool facing = Vector3.Angle(player.transform.forward, e.transform.position - player.transform.position) < 100f;
             if (blocking && facing && !e.unblockable)
             {
-                if (Time.time - blockStart <= GameOptions.CounterWindow) { Parries++; e.Stagger(); Fx.Burst("Spark", player.transform.position + Vector3.up * 1.3f + player.transform.forward * 0.5f, 18, 3f, 0.06f, 0.35f, new Color(0.8f, 0.9f, 1f, 1f), 1f); AudioManager.Instance?.PlaySFX("sfx_metal_hit", 0.8f); StartCoroutine(HitStop(0.07f)); return; }
-                Stamina = Mathf.Max(0f, Stamina - 18f); Take(e.damage * 0.2f, e); return;
+                if (Time.time - blockStart <= GameOptions.CounterWindow) { Parries++; e.Stagger(); Fx.Burst("Spark", player.transform.position + Vector3.up * 1.3f + player.transform.forward * 0.5f, 18, 3f, 0.06f, 0.35f, new Color(0.8f, 0.9f, 1f, 1f), 1f); GameSfx.At("sfx_blade_block", player.transform.position + Vector3.up * 1.3f, 1f, 0.05f); GameSfx.At("sfx_stagger", e.transform.position + Vector3.up, 0.7f); StartCoroutine(HitStop(0.07f)); return; }
+                Stamina = Mathf.Max(0f, Stamina - 18f); GameSfx.At("sfx_block", player.transform.position + Vector3.up * 1.2f, 0.9f); Take(e.damage * 0.2f, e); return;
             }
             Take(e.damage, e);
         }
         void Take(float dmg, BrawlEnemy from)
         {
             Health -= dmg; DamageTaken += dmg; ScoreSystem.AddDamage(zoneId, dmg); combo = 0; chain = 0; Hero("Hit"); shake = Mathf.Max(shake, 0.16f);
-            AudioManager.Instance?.PlaySFX("sfx_hit_taken", 0.8f);
+            GameSfx.At("sfx_hit_taken", player.transform.position + Vector3.up * 1.2f, 0.9f); GameSfx.At("sfx_grunt_aryan", player.transform.position + Vector3.up * 1.6f, 0.75f, 0.08f);
             if (Health <= 0f) StartCoroutine(Retry());
         }
 
@@ -303,7 +306,7 @@ namespace LegacyOfTemples.Gameplay
         {
             Won = true; Time.timeScale = 1f; HeroFlag("Block", false); PuzzleSave.Set("fight." + fightId, 1);
             ScoreSystem.FinishZone(zoneId); if (Active == this) Active = null;
-            ObjectiveBanner.Show("THE ROBBERS ARE DOWN", "", 2.5f);
+            ObjectiveBanner.Show("THE ROBBERS ARE DOWN", "", 2.5f); AudioManager.Instance?.PlaySFX("sfx_puzzle_success", 0.8f);
             Debug.Log($"[Brawl] {zoneId}: won in {Seconds:0.0}s, damage taken {DamageTaken:0}, max combo {MaxCombo}, parries {Parries}, finishers {Finishers}, retries {Retries}");
             OnWon?.Invoke(this);
             StartCoroutine(Clear());

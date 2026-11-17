@@ -117,7 +117,7 @@ namespace LegacyOfTemples.Gameplay
                 var g = Instantiate(pf, Road[3], Quaternion.LookRotation(Road[4] - Road[3])); g.name = "Bhaskar_Runner";
                 foreach (var mb in g.GetComponentsInChildren<MonoBehaviour>()) mb.enabled = false; foreach (var cd in g.GetComponentsInChildren<Collider>()) Destroy(cd);
                 var mpb = new MaterialPropertyBlock(); foreach (var r in g.GetComponentsInChildren<Renderer>()) { r.GetPropertyBlock(mpb); mpb.SetColor("_BaseColor", new Color(0.85f, 0.45f, 0.4f)); r.SetPropertyBlock(mpb); }
-                g.transform.localScale *= 1.12f; g.AddComponent<NpcAnimDriver>(); Runner = g.transform; leg = 4;
+                g.transform.localScale *= 1.12f; g.AddComponent<NpcAnimDriver>(); var fs = g.AddComponent<NpcFootsteps>(); fs.volume = 0.7f; fs.stride = 1.4f; Runner = g.transform; leg = 4;
             }
             var lookGo = new GameObject("ZoneLook_Jungle"); lookGo.transform.SetParent(root, false); lookGo.transform.position = new Vector3(x0, top + 10f, zWall - 125f);
             var look = lookGo.AddComponent<ZoneLook>(); look.zone = ZoneLook.Zone.Jungle; look.size = new Vector3(140f, 40f, 260f); look.blendDistance = 14f; look.Build();

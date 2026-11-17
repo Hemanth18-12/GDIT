@@ -31,7 +31,7 @@ namespace LegacyOfTemples.Gameplay.Puzzles
         public void PickUp(Transform by)
         {
             if (InSocket != null) InSocket.Remove();
-            carrier = by; Held = this;
+            carrier = by; Held = this; GameSfx.At("sfx_cloth", transform.position, 0.6f);
             foreach (var c in GetComponentsInChildren<Collider>()) if (!c.isTrigger) c.enabled = false;   // the trigger stays on so E can still reach the held thing
             var rb = GetComponent<Rigidbody>(); if (rb != null) rb.isKinematic = true;
         }
@@ -40,7 +40,7 @@ namespace LegacyOfTemples.Gameplay.Puzzles
             if (Held != this) return;
             Vector3 p = transform.position;
             if (Physics.Raycast(p + Vector3.up * 0.3f, Vector3.down, out RaycastHit h, 4f, ~0, QueryTriggerInteraction.Ignore)) p = h.point;
-            Release(); transform.position = p;
+            Release(); transform.position = p; GameSfx.At("sfx_brass_set", p, 0.55f);
         }
         internal void Release()
         {

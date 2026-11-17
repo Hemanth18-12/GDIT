@@ -104,7 +104,7 @@ namespace LegacyOfTemples.Gameplay
             for (int k = 0; k < 24; k++) { var pivot = new GameObject("RimPivot" + k).transform; pivot.SetParent(wg.transform, false); pivot.localRotation = Quaternion.Euler(k * 15f, 0f, 0f); ZoneKit.Part(pivot, "Rim", new Vector3(0f, -2.95f, 0f), new Vector3(0.42f, 0.3f, 0.82f), stone, false); }
             ZoneKit.Round(wg.transform, "Hub", Vector3.zero, new Vector3(0.9f, 0.3f, 0.9f), stone).transform.localRotation = Quaternion.Euler(0f, 0f, 90f);
             var reach = new GameObject("WheelReach"); reach.transform.SetParent(wg.transform, false); reach.transform.localPosition = new Vector3(0f, -2.2f, 0f); ZoneKit.Reach(reach, 2.2f);
-            Wheel = wg.AddComponent<RotatingDisc>(); Wheel.elementId = "z5.wheel"; Wheel.steps = 8; Wheel.axis = Vector3.right; Wheel.verb = "Push the wheel"; Wheel.radius = 5f; Wheel.turnSeconds = 1.1f;
+            Wheel = wg.AddComponent<RotatingDisc>(); Wheel.elementId = "z5.wheel"; Wheel.soundVolume = 1f; Wheel.steps = 8; Wheel.axis = Vector3.right; Wheel.verb = "Push the wheel"; Wheel.radius = 5f; Wheel.turnSeconds = 1.1f;
 
             // behind the door: the finial's empty case and the boat receipt
             var caseGo = Village.Box(root, "FinialCase", new Vector3(0f, 0.3f, 17.3f), new Vector3(0.8f, 0.5f, 0.55f), "medieval_wood", 0.8f, false); ZoneKit.Reach(caseGo, 2.4f);
@@ -115,7 +115,7 @@ namespace LegacyOfTemples.Gameplay
             Group = gg.AddComponent<PuzzleGroup>(); Group.puzzleId = "z5_sunwall"; Group.zoneId = ZoneId; Group.hintRadius = 24f;
             Group.hints = new[] { "Light has to reach two carvings on the wall.", "One beam must pass between the spokes of the great wheel.", "Turn each mirror two stops so the beams bend toward the wall, then push the wheel one stop so no spoke hangs straight down." };
             foreach (var s in Sockets) Group.conditions.Add(new PuzzleGroup.Condition { element = s, state = 1 });
-            Group.OnSolved += _ => { foreach (var m in Mirrors) m.locked = true; Wheel.locked = true; ObjectiveBanner.Show("THE WALL OPENS", "", 3f); };
+            Group.OnSolved += _ => { foreach (var m in Mirrors) m.locked = true; Wheel.locked = true; ObjectiveBanner.Show("THE WALL OPENS", "", 3f); if (door != null) GameSfx.At("sfx_wall_open", door.position, 1f, 0.02f, 50f); };
 
             var lookGo = new GameObject("ZoneLook_SunWall"); lookGo.transform.SetParent(root, false); lookGo.transform.localPosition = new Vector3(0f, 10f, 2f);
             var look = lookGo.AddComponent<ZoneLook>(); look.zone = ZoneLook.Zone.SunWall; look.size = new Vector3(27f, 30f, 38f); look.blendDistance = 6f; look.Build();

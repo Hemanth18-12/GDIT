@@ -13,6 +13,7 @@ namespace LegacyOfTemples.Gameplay.Puzzles
         public float radius = 2f;
         Quaternion rest; bool restSet; float pulledAt;
 
+        protected override string DefaultSound(int state) => "sfx_rope";
         public string Id => SaveId;
         public string Prompt => locked ? "" : verb;
         public Transform Anchor => transform;

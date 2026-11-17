@@ -11,6 +11,7 @@ namespace LegacyOfTemples.Gameplay.Puzzles
         readonly HashSet<Object> weights = new HashSet<Object>();
         Vector3 rest; bool restSet;
 
+        protected override string DefaultSound(int state) => state == 1 ? "sfx_gear_click" : null;
         public void Press(Object who) { if (who == null) return; weights.Add(who); Refresh(); }
         public void Release(Object who) { weights.Remove(who); Refresh(); }
         void Refresh() { weights.RemoveWhere(o => o == null); if (!locked) SetState(weights.Count > 0 ? 1 : 0, false); }

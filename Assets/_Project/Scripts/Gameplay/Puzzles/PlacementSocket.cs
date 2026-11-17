@@ -13,6 +13,7 @@ namespace LegacyOfTemples.Gameplay.Puzzles
         public float radius = 2f;
         public Carryable Item { get; private set; }
 
+        protected override string DefaultSound(int state) => state != 0 ? "sfx_brass_set" : null;
         public string Id => SaveId;
         public string Prompt => locked ? "" : Item == null && Carryable.Held != null && Fits(Carryable.Held) ? "Place " + Carryable.Held.displayName : Item != null && Carryable.Held == null ? "Take " + Item.displayName : "";
         public Transform Anchor => transform;

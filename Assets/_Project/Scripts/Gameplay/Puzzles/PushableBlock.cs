@@ -13,6 +13,7 @@ namespace LegacyOfTemples.Gameplay.Puzzles
         public float radius = 1.8f;
         Vector3 origin, from, to; bool originSet; float t = 1f;
 
+        protected override string DefaultSound(int state) => "sfx_stone_grind";
         public string Id => SaveId;
         public string Prompt => locked ? "" : "Push";
         public Transform Anchor => transform;

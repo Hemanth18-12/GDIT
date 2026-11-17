@@ -274,6 +274,7 @@ namespace LegacyOfTemples.Gameplay
             for (int i = 0; i < Npcs.Count; i++)
                 if (Npcs[i].GetComponent<RoadWalker>() == null && Npcs[i].GetComponent<VillagerRoutine>() == null && i % 2 == 0) { var r = Npcs[i].gameObject.AddComponent<VillagerRoutine>(); r.mode = VillagerRoutine.Mode.Talk; r.offset = i * 1.7f; }
             foreach (var n in Npcs) if (n.GetComponent<RoadWalker>() == null && n.GetComponent<VillagerRoutine>() == null) n.gameObject.AddComponent<IdleLook>();
+            foreach (var n in Npcs) if (n.GetComponent<RoadWalker>() != null) n.gameObject.AddComponent<NpcFootsteps>().volume = 0.25f;   // walkers' feet on the road
         }
 
         private static void Ambience()
@@ -293,19 +294,30 @@ namespace LegacyOfTemples.Gameplay
     {
         public enum Mode { Sit, Talk }
         public Mode mode; public float offset;
-        private Animator anim; private bool hasSit, hasTalk;
+        private Animator anim; private bool hasSit, hasTalk; private AudioSource voice;
         public bool Talking { get; private set; }
         private void Start()
         {
             anim = GetComponentInChildren<Animator>();
             if (anim != null) foreach (var p in anim.parameters) { if (p.name == "Sitting") hasSit = true; if (p.name == "Talking") hasTalk = true; }
             if (anim != null && mode == Mode.Sit && hasSit) anim.SetBool("Sitting", true);
+            if (mode == Mode.Talk)
+            {   // indistinct chatter heard only close by (Tools/audio/build_v3_chatter.py)
+                var am = LegacyOfTemples.Core.AudioManager.Instance; var clip = am != null ? am.GetClip("talk_murmur_" + (1 + Mathf.Abs(name.GetHashCode()) % 3)) : null;
+                if (clip != null)
+                {
+                    voice = gameObject.AddComponent<AudioSource>(); voice.clip = clip; voice.loop = true; voice.spatialBlend = 1f; voice.minDistance = 1.5f; voice.maxDistance = 11f;
+                    voice.rolloffMode = AudioRolloffMode.Linear; voice.volume = 0f; voice.playOnAwake = false; voice.time = Random.Range(0f, clip.length * 0.8f);
+                    LegacyOfTemples.Core.AudioManager.Route(voice, "Ambience"); voice.Play();
+                }
+            }
         }
         private void Update()
         {
             if (anim == null || mode != Mode.Talk || !hasTalk) return;
             bool talk = Mathf.Repeat(Time.time + offset, 10f) < 6f;   // six seconds talking, four listening
             if (talk != Talking) { Talking = talk; anim.SetBool("Talking", talk); }
+            if (voice != null) voice.volume = Mathf.MoveTowards(voice.volume, Talking ? 0.32f : 0f, Time.deltaTime * 0.8f);   // talk while gesturing, quiet while listening
         }
     }
 

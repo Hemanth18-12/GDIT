@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using LegacyOfTemples.Core;
 
 namespace LegacyOfTemples.Gameplay.Puzzles
 {
@@ -15,6 +16,11 @@ namespace LegacyOfTemples.Gameplay.Puzzles
         public int startState;
         [Tooltip("Locked parts ignore the player (used once a puzzle is solved).")]
         public bool locked;
+        [Tooltip("Sound when the part moves (a clip name in the audio library). Empty = the part's usual sound.")]
+        public string sound;
+        public float soundVolume = 0.8f;
+        /// <summary>The part's usual sound for a new state (null = silent).</summary>
+        protected virtual string DefaultSound(int state) => null;
 
         public int State { get; private set; }
         public event Action<PuzzleElement> Changed;
@@ -40,6 +46,7 @@ namespace LegacyOfTemples.Gameplay.Puzzles
             State = value;
             if (save) PuzzleSave.Set(SaveId, State);
             if (started) Apply(State, instant);
+            if (started && !instant) { string snd = string.IsNullOrEmpty(sound) ? DefaultSound(State) : sound; if (!string.IsNullOrEmpty(snd)) GameSfx.At(snd, transform.position, soundVolume); }
             Changed?.Invoke(this);
         }
 

@@ -83,7 +83,7 @@ namespace LegacyOfTemples.Gameplay
                 var mpb = new MaterialPropertyBlock(); foreach (var r in g.GetComponentsInChildren<Renderer>()) { r.GetPropertyBlock(mpb); mpb.SetColor("_BaseColor", new Color(0.72f, 0.6f, 0.45f)); r.SetPropertyBlock(mpb); }
                 var bag = ZoneKit.Part(g.transform, "BellBag", new Vector3(0.28f, 0.95f, -0.12f), new Vector3(0.28f, 0.34f, 0.18f), ZoneKit.Tinted("clay_plaster", new Color(0.55f, 0.45f, 0.3f), 0.1f), false);
                 ZoneKit.Part(bag.transform, "RedThread", new Vector3(0f, 0.45f, 0f), new Vector3(1.05f, 0.08f, 1.05f), ZoneKit.Tinted("clay_plaster", new Color(0.8f, 0.05f, 0.05f), 0.2f, new Color(0.4f, 0f, 0f)), false);
-                g.AddComponent<NpcAnimDriver>();
+                g.AddComponent<NpcAnimDriver>(); g.AddComponent<NpcFootsteps>().volume = 0.5f;
                 ring = g.AddComponent<AudioSource>(); ring.clip = BellClip(); ring.spatialBlend = 1f; ring.minDistance = 3f; ring.maxDistance = 45f; ring.rolloffMode = AudioRolloffMode.Linear; ring.playOnAwake = false;
                 AudioManager.Route(ring, "SFX");
                 Courier = g.transform;

@@ -20,6 +20,7 @@ namespace LegacyOfTemples.Gameplay.Puzzles
                 if (required.Count > 0 && index == required[0]) history.Add(index);
             }
         }
+        protected override string DefaultSound(int state) => state == 1 ? "sfx_wall_open" : null;
         public override void ResetState() { history.Clear(); base.ResetState(); }
         protected override void Apply(int state, bool instant) { }
     }

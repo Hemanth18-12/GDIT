@@ -112,4 +112,4 @@ All from polyhaven.com, licence CC0 1.0 (public domain), downloaded with Tools/a
 | Tools/blender/temple_lods.py, temple_lod3.py → Models/Temple/Temple_Game_LOD2/LOD3.fbx | Lighter versions of the game temple (made from the project's own optimised copy; the user's temple.fbx was not opened) | Project | Blender decimation | Same as the temple |
 | Tools/audio/build_v3_voices.py → Resources/Voice/*/v3_*_tts.wav | The 29 V3 spoken lines | Generated with macOS built-in text-to-speech voices (Rishi, Aman, Tara) | macOS `say` | Apple system voices; used here for a non-commercial student project. Replace with recorded voices before any commercial use. |
 | BazaarTail.cs (courier bell), Jeep.cs (horn) | Bell and horn sounds | Project (own work) | Synthesised in code | Own work |
-
+| Assets/_Project/Audio/Resources/Audio/talk_murmur_1..3.wav | Indistinct village chatter loops | Generated with macOS built-in voices, mixed and low-passed (Tools/audio/build_v3_chatter.py) | macOS `say` | Apple system voices; non-commercial student use |

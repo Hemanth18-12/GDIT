@@ -288,6 +288,7 @@ namespace LegacyOfTemples.UI
             yield return V3TalkToPriest(pc, "priest-return");
             yield return new WaitForSecondsRealtime(4f); yield return Shot("v3s-09-ending.png");
             var st = LegacyOfTemples.Gameplay.StoryDialogueSystem.Instance;
+            { var parts = new List<string>(); foreach (var kv in GameSfx.Counts) parts.Add($"{kv.Key} x{kv.Value}"); parts.Sort(); Line($"  3D sound effects played: {GameSfx.Played} ({GameSfx.Counts.Count} different): {string.Join(", ", parts)}"); }
             Line($"  story complete={(st != null && st.IsComplete)}; total {LegacyOfTemples.Gameplay.ScoreSystem.Total} points, grade {LegacyOfTemples.Gameplay.ScoreSystem.OverallGrade(6)}");
         }
 

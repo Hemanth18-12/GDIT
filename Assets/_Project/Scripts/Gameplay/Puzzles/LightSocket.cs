@@ -10,6 +10,7 @@ namespace LegacyOfTemples.Gameplay.Puzzles
         public Color litColor = new Color(1f, 0.82f, 0.4f) * 3f;
         float lastHit = -10f, litSince = -1f; MaterialPropertyBlock mpb;
 
+        protected override string DefaultSound(int state) => state == 1 ? "sfx_token" : null;
         /// <summary>Called by a beam every frame it touches this socket.</summary>
         public void Touch() { lastHit = Time.time; if (litSince < 0f) litSince = Time.time; }
         void LateUpdate()

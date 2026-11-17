@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using LegacyOfTemples.Core;
 
 namespace LegacyOfTemples.Gameplay.Puzzles
 {
@@ -57,6 +58,7 @@ namespace LegacyOfTemples.Gameplay.Puzzles
             LockParts(true);
             ScoreSystem.PuzzleSolved(zoneId, HintsUsed, SecondsSpent);
             Debug.Log($"[Puzzle] {puzzleId} solved in {SecondsSpent:0.0}s with {HintsUsed} hint(s)");
+            AudioManager.Instance?.PlaySFX("sfx_puzzle_success", 0.85f);
             OnSolved?.Invoke(this);
         }
 

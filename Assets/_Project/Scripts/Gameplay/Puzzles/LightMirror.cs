@@ -6,6 +6,7 @@ namespace LegacyOfTemples.Gameplay.Puzzles
     public class LightMirror : RotatingDisc
     {
         void Reset() { steps = 16; verb = "Turn mirror"; }
+        protected override string DefaultSound(int state) => "sfx_gear_click";
         public Vector3 Normal => (visual != null ? visual : transform).forward;
     }
 }

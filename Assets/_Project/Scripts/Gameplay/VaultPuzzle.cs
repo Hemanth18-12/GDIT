@@ -130,7 +130,7 @@ namespace LegacyOfTemples.Gameplay
             Group = gg.AddComponent<PuzzleGroup>(); Group.puzzleId = "z3_vaults"; Group.zoneId = ZoneId; Group.hintRadius = 16f;
             Group.hints = new[] { "Two floor plates hold the gate. Stone is heavier than a man.", "The light from the roof draws three rings on the floor. Each ring has one bright mark.", "Push a block onto each plate (one must go round the pillar; the lever puts them back). Then turn the small, middle and large discs until their notches sit where the bright marks are." };
             for (int i = 0; i < 3; i++) Group.conditions.Add(new PuzzleGroup.Condition { element = Discs[i], state = Answer[i] });
-            Group.OnSolved += _ => { if (PuzzleSave.Get("evidence.ledger") == 0) { PuzzleSave.Set("evidence.ledger", 1); ObjectiveBanner.Show("NOTED", "The vault duty ledger. Signed \"M.\"", 4f); } };
+            Group.OnSolved += _ => { GameSfx.At("sfx_door_stone", lid.position, 0.8f, 0.05f, 32f, 1.2f); if (PuzzleSave.Get("evidence.ledger") == 0) { PuzzleSave.Set("evidence.ledger", 1); ObjectiveBanner.Show("NOTED", "The vault duty ledger. Signed \"M.\"", 4f); } };
 
             var lookGo = new GameObject("ZoneLook_Vaults"); lookGo.transform.SetParent(root, false); lookGo.transform.localPosition = new Vector3(0f, 2.2f, 0f);
             var look = lookGo.AddComponent<ZoneLook>(); look.zone = ZoneLook.Zone.Vaults; look.size = new Vector3(24.4f, 4.4f, 10.4f); look.blendDistance = 2f; look.Build();
@@ -142,8 +142,10 @@ namespace LegacyOfTemples.Gameplay
         void Update()
         {
             if (!Built) return;
+            bool wasOpen = GateOpen;
             GateOpen = Group.Solved || (Plates[0].State == 1 && Plates[1].State == 1) || PuzzleSave.Get("z3.gate_passed") == 1;
             if (GateOpen && !Group.Solved && PuzzleSave.Get("z3.gate_passed") == 0) { var pc = ZoneKit.Player; if (pc != null && transform.InverseTransformPoint(pc.transform.position).x > 0.5f) PuzzleSave.Set("z3.gate_passed", 1); }   // once through, it never shuts the player in
+            if (GateOpen != wasOpen && Time.timeSinceLevelLoad > 5f) GameSfx.At("sfx_door_stone", gate.position + Vector3.up * 1.5f, 1f);
             gateT = Mathf.MoveTowards(gateT, GateOpen ? 1f : 0f, Time.deltaTime * 0.7f); gate.localPosition = new Vector3(-1f, 3.1f * Mathf.SmoothStep(0f, 1f, gateT), 0f);
             bool open = Group.Solved;
             if (open && !Rosette.enabled && !Rosette.Taken)

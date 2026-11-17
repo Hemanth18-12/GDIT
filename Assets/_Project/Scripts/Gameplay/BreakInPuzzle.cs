@@ -141,7 +141,7 @@ namespace LegacyOfTemples.Gameplay
             var hinge = new GameObject("FlagstoneHinge").transform; hinge.SetParent(root, false); hinge.localPosition = new Vector3(0.95f, 0.07f, 3.85f);
             var slab = Village.Box(hinge, "Flagstone", new Vector3(0f, 0.02f, -0.55f), new Vector3(1.12f, 0.12f, 1.12f), "red_sandstone_pavement", 1.4f, false); Hit(slab, 0.6f);
             slab.GetComponent<Renderer>().sharedMaterial = Tinted("red_sandstone_pavement", new Color(0.86f, 0.8f, 0.76f), 0.3f);
-            Flagstone = slab.AddComponent<PuzzleLever>(); Flagstone.elementId = "z2.flagstone"; Flagstone.handle = hinge; Flagstone.pulledEuler = new Vector3(72f, 0f, 0f); Flagstone.verb = "Lift flagstone"; Flagstone.radius = 2f; Flagstone.locked = true;
+            Flagstone = slab.AddComponent<PuzzleLever>(); Flagstone.elementId = "z2.flagstone"; Flagstone.sound = "sfx_door_stone"; Flagstone.handle = hinge; Flagstone.pulledEuler = new Vector3(72f, 0f, 0f); Flagstone.verb = "Lift flagstone"; Flagstone.radius = 2f; Flagstone.locked = true;
             var rope = GameObject.CreatePrimitive(PrimitiveType.Cylinder); Destroy(rope.GetComponent<Collider>()); rope.name = "RopeCoil"; rope.transform.SetParent(root, false); rope.transform.localPosition = new Vector3(0.75f, 0.03f, 3.15f); rope.transform.localScale = new Vector3(0.42f, 0.035f, 0.42f); rope.GetComponent<Renderer>().sharedMaterial = Tinted("thatch_roof_angled", new Color(0.7f, 0.6f, 0.4f), 0.1f);
             var book = Village.Box(root, "PalmLeafChronicle", new Vector3(1.15f, 0.09f, 3.4f), new Vector3(0.42f, 0.07f, 0.13f), "weathered_planks", 0.5f, false); Hit(book, 3.5f);
             book.GetComponent<Renderer>().sharedMaterial = Tinted("weathered_planks", new Color(0.78f, 0.66f, 0.4f), 0.2f);
@@ -182,7 +182,7 @@ namespace LegacyOfTemples.Gameplay
                 PotWhole = true; if (wholePot != null) wholePot.SetActive(true);
                 foreach (var sh in Shards) if (sh != null) { foreach (var r in sh.GetComponentsInChildren<Renderer>()) r.enabled = false; sh.enabled = false; }
                 foreach (var s in Sockets) s.locked = true;
-                Lantern.enabled = true; lanternLight.enabled = true;
+                Lantern.enabled = true; lanternLight.enabled = true; GameSfx.At("sfx_lamp_ignite", Lantern.transform.position, 0.9f);
                 ObjectiveBanner.Show("THE POT HOLDS OIL AGAIN", "The lantern is lit.", 3.5f);
             }
             Flagstone.locked = !(PotWhole && LampSpot.State == 1) && Flagstone.State == 0;

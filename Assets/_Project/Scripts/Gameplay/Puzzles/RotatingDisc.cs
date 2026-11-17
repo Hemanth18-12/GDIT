@@ -14,6 +14,7 @@ namespace LegacyOfTemples.Gameplay.Puzzles
         public float radius = 2.2f;
         Quaternion rest, from, to; float t = 1f; bool restSet;
 
+        protected override string DefaultSound(int state) => "sfx_stone_grind";
         public string Id => SaveId;
         public string Prompt => locked ? "" : verb;
         public Transform Anchor => transform;
