@@ -46,3 +46,12 @@
 - 4 of 4 pieces of evidence; Madhav named correctly.
 - 1,237 sound plays of 28 different clips.
 - Not re-run start to finish after today's fixes. Instead, the ending, speed, travel and demo checks ran on the new build (`viva_ending`, `viva_ground`).
+
+## Found while making the walkthrough (2026-11-19, windowed run `Docs/Walkthrough/raw/audit.md`)
+| # | Where | Problem and how to reproduce | Severity | Suggested fix |
+|---|---|---|---|---|
+| 24 | B key | B opens **two panels at once**: the old V2 "CODEX" (with "Trust (Meera)") and the V3 "WHAT I KNOW" evidence board. Pressing B again closes the codex but the board stays open and then overlaps the guide (H). Reproduce: New Game, press B, press B, press H. Picture: `Docs/Walkthrough/shots/L0_09b_evidence_board.png`, `L0_08_guide.png`. Cause: `StoryDialogueSystem.cs` line 328 and `EvidenceBoard.cs` line 49 both react to B. | Medium | Remove the old codex toggle from `StoryDialogueSystem` (V3 does not use it). |
+| 25 | Main menu | The temple behind the menu draws as **broken spiky shards**, not a temple. Picture: `L0_01_menu.png`, `L0_02_controls.png`. The same broken shapes show on the temple far away in some in-game views. | High (first impression) | Check the temple mesh or LOD used by `MenuTempleBackdrop.cs`; use the full model or a clean low-detail copy. |
+| 26 | Madhav | His **whole model is tinted indigo, skin included** (he looks blue), and his "shawl" is a **box floating** across his chest. Picture: `C_04_madhav.png`. | Medium | Tint only the clothing material; attach the shawl to the spine bone or remove it. |
+| 27 | Settings on this Mac | The pause menu shows **Volume: 0%**, so the game is silent here. This is a saved setting, not a code bug. Picture: `L0_09_pause.png`. | Note | Raise Volume in Pause > settings before the viva. |
+| 28 | Docs | `Docs/QA/v3_map_overview.png` is the design plan ("not to scale"); the real places differ (D-15). | Low | Use `Docs/Walkthrough/shots/map_plan_from_coordinates.png`, drawn from real coordinates. |

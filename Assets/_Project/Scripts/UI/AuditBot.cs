@@ -40,7 +40,8 @@ namespace LegacyOfTemples.UI
             if (index < 0 || index + 1 >= args.Length) return;
             requested = true;
             Application.runInBackground = true;
-            foreach (var arg in args) if (arg.StartsWith("-v3Zone") || arg == "-v3Story") { LegacyOfTemples.Gameplay.ZoneKit.NewGame(); LegacyOfTemples.Gameplay.ScoreSystem.ResetAll(); break; }   // zone checks start from a clean save
+            if (Array.IndexOf(args, "-walkthrough") >= 0) savedScores = PlayerPrefs.GetString("lot_v3_scores", "");   // given back at the end: the bot's run must not replace the player's best runs
+            foreach (var arg in args) if (arg.StartsWith("-v3Zone") || arg == "-v3Story" || arg == "-walkthrough") { LegacyOfTemples.Gameplay.ZoneKit.NewGame(); LegacyOfTemples.Gameplay.ScoreSystem.ResetAll(); break; }   // zone checks start from a clean save
             InputSystem.settings.backgroundBehavior = InputSettings.BackgroundBehavior.IgnoreFocus; // the bot must work when the window is not in front
             var go = new GameObject("AuditBot");
             DontDestroyOnLoad(go);
@@ -48,6 +49,8 @@ namespace LegacyOfTemples.UI
         }
 
         private void Line(string s) { report.AppendLine(s); Debug.Log("[AuditBot] " + s); }
+        private static string savedScores;
+        private static bool Walkthrough => Array.IndexOf(Environment.GetCommandLineArgs(), "-walkthrough") >= 0;
 
         private IEnumerator Start()
         {
@@ -70,7 +73,14 @@ namespace LegacyOfTemples.UI
             // ---------- Main menu UI ----------
             Line("\n## UI: MainMenu");
             yield return Shot("menu.png");
-            yield return UiAuditAllResolutions("MainMenu");
+            if (Walkthrough)
+            {   // the Controls screen of the main menu, then back
+                foreach (var b in FindObjectsByType<Button>()) if (b.name == "Btn_CONTROLS") { b.onClick.Invoke(); break; }
+                yield return new WaitForSecondsRealtime(0.8f); yield return Shot("w-menu-controls.png");
+                foreach (var b in FindObjectsByType<Button>()) if (b.name == "Btn_BACK") { b.onClick.Invoke(); break; }
+                yield return new WaitForSecondsRealtime(0.6f);
+            }
+            else yield return UiAuditAllResolutions("MainMenu");
 
             if (Array.IndexOf(Environment.GetCommandLineArgs(), "-skipPlaythrough") < 0)
                 yield return PlayThrough();
@@ -566,6 +576,34 @@ namespace LegacyOfTemples.UI
             Line($"  rosette taken={z.Rosette.Taken}"); V3Score(LegacyOfTemples.Gameplay.VaultPuzzle.ZoneId);
         }
 
+        /// <summary>Walkthrough pictures that the story run does not take: HUD, map, journal, evidence board, guide, pause, characters, jeep.</summary>
+        private IEnumerator WalkthroughExtras()
+        {
+            Line("\n## Walkthrough extras");
+            yield return new WaitForSecondsRealtime(7f);   // the temple reveal and the first goal card
+            yield return Shot("w-hud-goal.png");
+            foreach (var (key, file, what) in new[] { (Key.M, "w-map.png", "map"), (Key.J, "w-journal.png", "journal"), (Key.B, "w-evidence-board.png", "evidence board"), (Key.H, "w-guide.png", "guide") })
+            {
+                yield return Tap(key); yield return new WaitForSecondsRealtime(0.8f); yield return Shot(file);
+                yield return Tap(key); yield return new WaitForSecondsRealtime(0.5f);
+                if (Time.timeScale == 0f) { yield return Tap(Key.Escape); yield return new WaitForSecondsRealtime(0.4f); }
+                Line($"  {what}: captured {file}");
+            }
+            yield return Tap(Key.Escape); yield return new WaitForSecondsRealtime(0.8f); yield return Shot("w-pause.png");
+            yield return Tap(Key.Escape); yield return new WaitForSecondsRealtime(0.6f); if (Time.timeScale == 0f) { yield return Tap(Key.Escape); yield return new WaitForSecondsRealtime(0.4f); }
+            var orbit = V3Orbit(); var cam = Camera.main; var pc = FindAnyObjectByType<PlayerController>();
+            if (pc != null) { var t = pc.transform; yield return V3View(orbit, cam, t.position + t.forward * 2.6f + Vector3.up * 1.6f + t.right * 0.6f, t.position + Vector3.up * 1.3f); yield return Shot("w-char-aryan.png"); V3ViewEnd(orbit); }
+            foreach (var n in FindObjectsByType<NPCDialogueTrigger>())
+            {
+                string who = n.Id == "npc_priest" ? "pujari" : n.Id == "npc_villager" ? "meera" : null; if (who == null || !n.gameObject.activeInHierarchy) continue;
+                var t = n.transform; yield return V3View(orbit, cam, t.position + t.forward * 2.4f + Vector3.up * 1.6f + t.right * 0.5f, t.position + Vector3.up * 1.35f); yield return Shot($"w-char-{who}.png"); V3ViewEnd(orbit);
+                Line($"  character {who}: captured at {t.position:0.0}");
+            }
+            var j = LegacyOfTemples.Gameplay.Vehicles.Jeep.Instance;
+            if (j != null) { var t = j.transform; yield return V3View(orbit, cam, t.position + t.forward * 6f + t.right * 4f + Vector3.up * 2.2f, t.position + Vector3.up * 0.9f); yield return Shot("w-jeep.png"); V3ViewEnd(orbit); Line("  jeep: captured"); }
+            yield return new WaitForSecondsRealtime(0.5f);
+        }
+
         private IEnumerator V3View(MonoBehaviour orbit, Camera cam, Vector3 from, Vector3 at)
         {
             if (orbit != null) orbit.enabled = false;
@@ -876,6 +914,17 @@ namespace LegacyOfTemples.UI
             yield return IntroShots();
             yield return SkipIntro();
             if (Array.IndexOf(Environment.GetCommandLineArgs(), "-focusCheck") >= 0) { yield return FocusCheck(); yield break; }
+            if (Walkthrough)
+            {   // walkthrough capture: HUD panels and characters, then the whole V3 story with real key presses (windowed: the HUD is in the pictures)
+                string auditPath = Path.Combine(output, "audit.md");
+                yield return WalkthroughExtras();
+                File.WriteAllText(auditPath, report.ToString());
+                yield return V3StoryCheck(auditPath);
+                yield return new WaitForSecondsRealtime(2f); yield return Shot("w-ending-final.png");
+                File.WriteAllText(auditPath, report.ToString());
+                if (string.IsNullOrEmpty(savedScores)) PlayerPrefs.DeleteKey("lot_v3_scores"); else PlayerPrefs.SetString("lot_v3_scores", savedScores); PlayerPrefs.Save();
+                Debug.Log("[AuditBot] DONE " + output); yield return new WaitForSecondsRealtime(1f); Application.Quit(); yield break;
+            }
             if (Array.IndexOf(Environment.GetCommandLineArgs(), "-endingFocus") >= 0)
             {   // Task 4: finish the story quickly (one step per two frames), then check the ending id and the best-runs table
                 string savedTable = PlayerPrefs.GetString("lot_v3_scores", "");   // test runs must not leave a row in the player's best-runs table
