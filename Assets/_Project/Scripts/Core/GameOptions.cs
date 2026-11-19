@@ -38,6 +38,8 @@ namespace LegacyOfTemples.Core
 
         // ---- weather quality ----
         public static readonly string[] WeatherNames = { "Off", "Low", "High" };
+        /// <summary>Demo Mode: allows the F9 demo menu in a release build (it is always available in development builds).</summary>
+        public static bool DemoMode { get => Get("Settings_DemoMode", 0) == 1; set => Set("Settings_DemoMode", value ? 1 : 0); }
         public static int WeatherQuality { get => Mathf.Clamp(Get("Settings_Weather", 2), 0, 2); set => Set("Settings_Weather", Mathf.Clamp(value, 0, 2)); }
 
         // ---- on-screen controls ----

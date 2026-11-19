@@ -64,6 +64,8 @@ namespace LegacyOfTemples.Gameplay
         private VolumeProfile dawn, night;
         private AudioSource music, voice;
         private float t; private bool skipped; private float escHeld;
+        /// <summary>Demo menu hook: end the intro now (same safe hand-over as holding Esc).</summary>
+        public static bool SkipNow;
         private readonly HashSet<string> fired = new HashSet<string>();
         private string subtitle, speaker; private float subUntil; private UnityEngine.UI.Image fadeImg;
 
@@ -83,7 +85,7 @@ namespace LegacyOfTemples.Gameplay
                 var kb = Keyboard.current; var gp = Gamepad.current;
                 bool esc = (kb != null && kb.escapeKey.isPressed) || (gp != null && gp.startButton.isPressed);
                 escHeld = esc ? escHeld + Time.unscaledDeltaTime : 0f;
-                if (escHeld > 1.0f) skipped = true;
+                if (escHeld > 1.0f || SkipNow) { skipped = true; SkipNow = false; }
                 if (esc) EventBus.EscapeConsumedFrame = Time.frameCount;   // holding Esc must not open the pause menu
                 yield return null;
             }

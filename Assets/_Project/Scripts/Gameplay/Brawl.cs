@@ -134,6 +134,8 @@ namespace LegacyOfTemples.Gameplay
         public readonly List<BrawlEnemy> Enemies = new List<BrawlEnemy>();
         public float Health { get; private set; } = 100f;
         public float Stamina { get; private set; } = 100f;
+        /// <summary>Demo menu hook: refill the player's health and stamina in the current fight.</summary>
+        public static void DemoRestorePlayer() { if (Active != null) { Active.Health = 100f; Active.Stamina = 100f; } }
         public bool Won { get; private set; }
         public int Retries { get; private set; }
         public int MaxCombo { get; private set; }

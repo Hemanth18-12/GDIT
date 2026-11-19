@@ -73,9 +73,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60f4e9d1136442298108e81dffb52b20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: LOT.Characters::LegacyOfTemples.Characters.PlayerController
-  walkSpeed: 1.6
-  runSpeed: 4.2
-  crouchSpeed: 1.1
+  walkSpeed: 4
+  runSpeed: 7.5
+  crouchSpeed: 1.8
   rotationSpeed: 12
   jumpHeight: 0.7
   gravity: 11.4

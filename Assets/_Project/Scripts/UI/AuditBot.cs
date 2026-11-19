@@ -876,6 +876,56 @@ namespace LegacyOfTemples.UI
             yield return IntroShots();
             yield return SkipIntro();
             if (Array.IndexOf(Environment.GetCommandLineArgs(), "-focusCheck") >= 0) { yield return FocusCheck(); yield break; }
+            if (Array.IndexOf(Environment.GetCommandLineArgs(), "-speedFocus") >= 0)
+            {   // Task 1 evidence: real measured speeds, auto-run, travel times, fast travel, F9 demo jump to the fight
+                var pc = FindAnyObjectByType<PlayerController>(); var st = StoryDialogueSystem.Instance;
+                yield return new WaitForSecondsRealtime(4.5f);   // let the reveal finish
+                Line($"\n## Movement (speeds in the build: walk {pc.WalkSpeed} m/s, run {pc.RunSpeed} m/s)");
+                foreach (var mode in new[] { "walk", "run" })
+                {
+                    var cam = Camera.main.transform; cam.rotation = Quaternion.LookRotation(Vector3.back);
+                    pc.Teleport(LegacyOfTemples.World.Village.RoadPoint(LegacyOfTemples.World.Village.ZMax + 100f) + Vector3.up * 0.1f, Quaternion.LookRotation(Vector3.back));
+                    yield return new WaitForSecondsRealtime(0.8f);
+                    Vector3 a0 = pc.transform.position; if (mode == "run") Hold(Key.LeftShift, Key.W); else Hold(Key.W);
+                    float t0 = Time.time; yield return new WaitForSecondsRealtime(1.0f); Vector3 a1 = pc.transform.position; float t1 = Time.time;
+                    float travelled = 0f; Vector3 lastP = a1; float until = Time.realtimeSinceStartup + 3f;
+                    while (Time.realtimeSinceStartup < until) { yield return null; travelled += Vector3.Distance(Flat(lastP), Flat(pc.transform.position)); lastP = pc.transform.position; }
+                    Vector3 a2 = pc.transform.position; float t2 = Time.time;
+                    if (mode == "run") yield return Shot("t1-running.png");
+                    Release();
+                    float ss = travelled / (t2 - t1);
+                    Line($"  {mode}: steady speed {ss:0.00} m/s (measured over {t2 - t1:0.0} s), first second {Vector3.Distance(Flat(a0), Flat(a1)):0.0} m, anim speed x{pc.GetComponentInChildren<Animator>().speed:0.00}");
+                }
+                pc.Teleport(LegacyOfTemples.World.Village.RoadPoint(LegacyOfTemples.World.Village.ZMax + 100f) + Vector3.up * 0.1f, Quaternion.LookRotation(Vector3.back)); yield return new WaitForSecondsRealtime(0.6f);
+                Vector3 c0 = pc.transform.position; yield return Tap(Key.CapsLock); yield return new WaitForSecondsRealtime(3f);
+                Line($"  auto-run (Caps Lock, no keys held): on={pc.AutoRun}, moved {Vector3.Distance(Flat(c0), Flat(pc.transform.position)):0.0} m in 3 s");
+                yield return Tap(Key.CapsLock); yield return new WaitForSecondsRealtime(0.3f);
+                // straight-line distance from the arrival point (tea stall) to every place, and the time at old and new speeds
+                var vlf = LegacyOfTemples.Gameplay.VillageLife.Instance; Vector3 home = vlf != null ? vlf.TeaStallStand : pc.transform.position;
+                Line("\n| Place | Straight-line distance from the arrival (m) | Old walk 1.6 m/s | Old run 4.2 m/s | New walk 4.0 m/s | New run 7.5 m/s |\n|---|---|---|---|---|---|");
+                for (int i = 0; i < V3Places.Count; i++) { var pl = V3Places.Get(i); if (!pl.ok) { Line($"| {pl.name} | not built | | | | |"); continue; } float dd = Vector3.Distance(Flat(home), Flat(pl.at)); Line($"| {pl.name} | {dd:0} | {dd / 1.6f:0} s | {dd / 4.2f:0} s | {dd / 4f:0} s | {dd / 7.5f:0} s |"); }
+                // map fast travel: reach the storeroom step, open the map, press 3
+                int guard = 0; while (st != null && st.Current != null && st.Current.id != "obj_v3_storeroom" && guard++ < 10) { st.DebugCompleteCurrent(); yield return null; yield return null; }
+                yield return new WaitForSecondsRealtime(1f);
+                yield return Tap(Key.M); yield return new WaitForSecondsRealtime(0.5f); yield return Shot("t1-map-fast-travel.png");
+                float clock0 = DawnClock.Instance != null ? DawnClock.Instance.Minutes : 0f;
+                yield return Tap(Key.Digit3); yield return new WaitForSecondsRealtime(1.0f);
+                var sp = V3Places.Get(2);
+                Line($"\n  map fast travel (M, 3): now {Vector3.Distance(Flat(pc.transform.position), Flat(sp.at)):0.0} m from the storeroom point, map open={TempleMapOverlay.Instance != null && TempleMapOverlay.Instance.IsOpen}, clock moved {(DawnClock.Instance != null ? DawnClock.Instance.Minutes - clock0 : 0f):0.0} min");
+                yield return Shot("t1-after-travel.png");
+                yield return Tap(Key.M); yield return new WaitForSecondsRealtime(0.3f); yield return Tap(Key.Digit8); yield return new WaitForSecondsRealtime(0.5f);
+                Line($"  map: try the ruin court before the story reaches it -> still open={TempleMapOverlay.Instance.IsOpen}"); yield return Tap(Key.M); yield return new WaitForSecondsRealtime(0.3f);
+                // F9 demo menu: straight to the final fight
+                yield return Tap(Key.F9); yield return new WaitForSecondsRealtime(0.5f); yield return Shot("t1-demo-menu.png");
+                Line($"  F9 demo menu open={DemoMenu.Open}");
+                yield return Tap(Key.Digit8); float w = 0f;
+                while (w < 30f && LegacyOfTemples.Gameplay.Brawl.Active == null) { w += 0.5f; yield return new WaitForSecondsRealtime(0.5f); }
+                yield return new WaitForSecondsRealtime(1.5f); yield return Shot("t1-demo-fight.png");
+                var jc = LegacyOfTemples.Gameplay.JungleChase.Instance;
+                Line($"  F9 > 8 'ruin court (final fight)': objective {st?.Current?.id}, chase phase {(jc != null ? jc.Now.ToString() : "-")}, fight running={LegacyOfTemples.Gameplay.Brawl.Active != null} with {(LegacyOfTemples.Gameplay.Brawl.Active != null ? LegacyOfTemples.Gameplay.Brawl.Active.Enemies.Count : 0)} robbers, after {w:0.0} s");
+                File.WriteAllText(Path.Combine(output, "audit.md"), report.ToString());
+                Debug.Log("[AuditBot] DONE " + output); yield return new WaitForSecondsRealtime(1f); Application.Quit(); yield break;
+            }
             if (Array.IndexOf(Environment.GetCommandLineArgs(), "-chaseFocus") >= 0)
             {   // Level 1 runner chase in the jeep: real E to get in; the bot steers through the car's autopilot (it cannot see the road)
                 var st = StoryDialogueSystem.Instance; int guard = 0;
@@ -1273,6 +1323,7 @@ namespace LegacyOfTemples.UI
         }
 
         // ------------------------------------------------------------------ input injection
+        private static Vector3 Flat(Vector3 v) { v.y = 0f; return v; }
         private void Hold(params Key[] keys) { held.Clear(); foreach (var k in keys) held.Add(k); Push(); }
         private void Release() { held.Clear(); Push(); }
         private void Push()

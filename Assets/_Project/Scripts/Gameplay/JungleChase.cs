@@ -127,6 +127,14 @@ namespace LegacyOfTemples.Gameplay
             Debug.Log($"[Jungle] zone 6 built: road {Road.Count} points from {RoadStart:0.0}, court at {court.position:0.0}");
         }
 
+        /// <summary>Demo menu hook: end the chase now (Bhaskar is at the ruins); the court fight starts when the player walks in.</summary>
+        public void DemoSkipChase()
+        {
+            if (!Built || Now == Phase.Done || (int)Now >= (int)Phase.Court) return;
+            leg = Road.Count - 1; if (Runner != null) Runner.position = Road[leg]; Now = Phase.Court;
+            Debug.Log("[Jungle] demo: chase skipped, Bhaskar at the ruins");
+        }
+
         bool StoryWantsMe() { var st = StoryDialogueSystem.Instance; return st != null && st.Current != null && st.Current.id == "obj_v3_jungle"; }
         Transform Pursuer() { var j = Jeep.Instance; if (j != null && j.Occupied) return j.transform; var pc = ZoneKit.Player; return pc != null ? pc.transform : null; }
 

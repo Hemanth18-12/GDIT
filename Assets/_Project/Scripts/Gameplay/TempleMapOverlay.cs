@@ -54,7 +54,7 @@ namespace LegacyOfTemples.Gameplay
 
         public void ToggleMap()
         {
-            isOpen = !isOpen;
+            isOpen = !isOpen; travelMsg = "";
             EventBus.RaiseOverlayMenuToggled(isOpen);
             if (isOpen)
             {
@@ -63,31 +63,43 @@ namespace LegacyOfTemples.Gameplay
             }
         }
 
+        private string travelMsg = "";
+        /// <summary>Fast travel: only to places the story has reached, never during a fight; costs 2 minutes on the Dawn Clock (design: LEVEL_DESIGN_V3).</summary>
+        private void TravelTo(int i)
+        {
+            if (i < 0 || i >= V3Places.Count) return;
+            if (Brawl.Active != null) { travelMsg = "Not during a fight."; return; }
+            if (!V3Places.Unlocked(i)) { travelMsg = "Not discovered yet."; return; }
+            string why = V3Places.TeleportTo(i);
+            if (why != null) { travelMsg = why; return; }
+            DawnClock.Instance?.Penalty(2f, "fast travel");
+            travelMsg = ""; ToggleMap();
+        }
+
         private void LateUpdate()
         {
             if (!isOpen) return;
-            string cur = SceneManager.GetActiveScene().name;
-            string[,] route = {
-                { "Courtyard", "Courtyard", "Temple steps, the Pujari and Meera" },
-                { "Sanctum", "Storage Hall", "Empty stands, broken lock" },
-                { "ShrineCrime", "Outer Shrine", "Red silk, broken lamp" },
-                { "PuzzleWall", "Sun Wall", "Four symbols and the centre wheel" },
-                { "JunglePath", "Jungle Path", "Where the trail ends" } };
+            var kb = Keyboard.current;
+            if (kb != null)
+            {
+                Key[] keys = { Key.Digit1, Key.Digit2, Key.Digit3, Key.Digit4, Key.Digit5, Key.Digit6, Key.Digit7, Key.Digit8 };
+                for (int k = 0; k < keys.Length; k++) if (kb[keys[k]].wasPressedThisFrame) { TravelTo(k); if (!isOpen) return; }
+            }
             var sb = new System.Text.StringBuilder();
             var story = StoryDialogueSystem.Instance;
-            string goalScene = story != null && story.Current != null ? story.Current.scene : "";
-            for (int i = 0; i < route.GetLength(0); i++)
+            for (int i = 0; i < V3Places.Count; i++)
             {
-                bool here = route[i, 0] == cur;
-                string name = here ? $"<color={ScreenText.Gold}><b>{route[i, 1]}  (YOU ARE HERE)</b></color>" : $"<b>{route[i, 1]}</b>";
-                string goal = route[i, 0] == goalScene && story?.Current != null ? $"\n   <color={ScreenText.Cyan}>Goal: {story.Current.title}</color>" : "";
-                sb.Append(i + 1).Append(". ").Append(name).Append("\n   ").Append(route[i, 2]).Append(goal).Append('\n');
-                if (i < route.GetLength(0) - 1) sb.Append("   |\n");
+                bool open = V3Places.Unlocked(i);
+                bool goal = story != null && story.Current != null && story.Current.id == V3Places.Objectives[i] && i != 7;
+                string name = open ? $"{ScreenText.Key((i + 1).ToString())} <b>{V3Places.Names[i]}</b>" : $"<color=#8a8a8a>{i + 1}  {V3Places.Names[i]}  (not reached yet)</color>";
+                sb.Append(name);
+                if (goal) sb.Append($"   <color={ScreenText.Cyan}>Goal: {story.Current.title}</color>");
+                sb.Append('\n');
             }
-            ScreenText.Panel("map", "TEMPLE MAP", sb.ToString(), PanelAnchor.Center, 1000f,
-                ScreenText.Key("M") + " / " + ScreenText.Key("Esc") + " Close    " + ScreenText.Key("H") + " Guide", true, 60);
+            if (travelMsg != "") sb.Append($"\n<color={ScreenText.Coral}>{travelMsg}</color>");
+            ScreenText.Panel("map", "MAP: FAST TRAVEL", sb.ToString(), PanelAnchor.Center, 900f,
+                ScreenText.Key("1-8") + " Travel (2 min)    " + ScreenText.Key("M") + " / " + ScreenText.Key("Esc") + " Close", true, 60);
         }
-
     }
 }
 

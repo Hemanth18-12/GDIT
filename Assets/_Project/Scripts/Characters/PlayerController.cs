@@ -9,9 +9,14 @@ namespace LegacyOfTemples.Characters
     public class PlayerController : MonoBehaviour
     {
         [Header("Locomotion")]
-        [SerializeField] private float walkSpeed = 1.6f;
-        [SerializeField] private float runSpeed = 4.2f;
-        [SerializeField] private float crouchSpeed = 1.1f;
+        [SerializeField] private float walkSpeed = 4.0f;    // a brisk jog; was 1.6 (felt far too slow)
+        [SerializeField] private float runSpeed = 7.5f;     // Shift; was 4.2
+        [SerializeField] private float crouchSpeed = 1.8f;  // was 1.1
+        [SerializeField] private float acceleration = 28f;  // m/s per second: full run in about a quarter second
+        /// <summary>Caps Lock toggles auto-run (keeps moving forward without holding W).</summary>
+        public bool AutoRun { get; private set; }
+        public float CurrentSpeed { get; private set; }
+        public float WalkSpeed => walkSpeed; public float RunSpeed => runSpeed;
         [SerializeField] private float rotationSpeed = 12.0f;
         [SerializeField] private float jumpHeight = 0.7f; // ~0.7 s hop with gravity 11.4
         [SerializeField] private float gravity = 11.4f;
@@ -144,7 +149,10 @@ namespace LegacyOfTemples.Characters
             }
 
             horizontal += LegacyOfTemples.Core.VirtualInput.Move.x; vertical += LegacyOfTemples.Core.VirtualInput.Move.y; // on-screen joystick
-            if (LegacyOfTemples.Core.InputGate.GameplayBlocked) { horizontal = 0f; vertical = 0f; } // UI owns the keys
+            if (kb != null && kb.capsLockKey.wasPressedThisFrame) AutoRun = !AutoRun;
+            if (AutoRun && vertical < -0.1f) AutoRun = false;               // pulling back cancels auto-run
+            if (AutoRun) vertical = Mathf.Max(vertical, 1f);
+            if (LegacyOfTemples.Core.InputGate.GameplayBlocked) { horizontal = 0f; vertical = 0f; AutoRun = false; } // UI owns the keys
             Vector3 inputDir = new Vector3(horizontal, 0f, vertical).normalized;
 
             // Sprint (Shift)
@@ -236,7 +244,9 @@ namespace LegacyOfTemples.Characters
                 verticalVelocity -= gravity * Time.deltaTime;
             }
 
-            Vector3 finalMove = (moveDir * targetSpeed) + Vector3.up * verticalVelocity;
+            // quick acceleration instead of an instant jump to full speed; stopping is immediate
+            CurrentSpeed = IsMoving ? Mathf.MoveTowards(CurrentSpeed, targetSpeed, acceleration * Time.deltaTime) : 0f;
+            Vector3 finalMove = (moveDir * CurrentSpeed) + Vector3.up * verticalVelocity;
             if (Time.time < pushUntil) finalMove += new Vector3(pushVelocity.x, 0f, pushVelocity.z);
             Vector3 beforeMove = transform.position;
             characterController.Move(finalMove * Time.deltaTime);
@@ -271,16 +281,21 @@ namespace LegacyOfTemples.Characters
 
             if (animator != null)
             {
-                float animSpeed = IsMoving ? (IsCrouching ? crouchSpeed : (IsRunning ? runSpeed : walkSpeed)) : 0f;
-                animator.SetFloat("Speed", animSpeed);
+                // The Locomotion blend tree expects 0..1 (Idle 0, Walking 0.33, Running 0.67). It used to receive metres per
+                // second (1.6 / 4.2), which always picked the Running clip and played it in slow motion: the "moonwalk".
+                // Map the real speed onto the tree: 1.65 m/s = the Walking clip's own speed, 4.24 m/s = the Running clip's.
+                float s = IsMoving ? CurrentSpeed : 0f;
+                float blend = s <= 1.65f ? 0.33f * s / 1.65f : Mathf.Min(0.6667f, 0.33f + (s - 1.65f) / (4.24f - 1.65f) * 0.3367f);
+                animator.SetFloat("Speed", blend, 0.08f, Time.deltaTime);
                 // Match clip playback to real ground speed using the clip's own average root speed (less foot sliding).
                 float playRate = 1f;
                 if (IsMoving && isGrounded)
                 {
-                    float best = 0f; AnimationClip clip = null;
-                    foreach (var ci in animator.GetCurrentAnimatorClipInfo(0)) if (ci.weight > best) { best = ci.weight; clip = ci.clip; }
-                    float clipSpeed = clip != null ? new Vector2(clip.averageSpeed.x, clip.averageSpeed.z).magnitude : 0f;
-                    if (clipSpeed > 0.3f) playRate = Mathf.Clamp(targetSpeed / clipSpeed, 0.6f, 1.8f);
+                    // play the clips as fast as the feet really travel: weighted root speed of the blended clips
+                    float clipSpeed = 0f, wsum = 0f;
+                    foreach (var ci in animator.GetCurrentAnimatorClipInfo(0)) { clipSpeed += ci.weight * new Vector2(ci.clip.averageSpeed.x, ci.clip.averageSpeed.z).magnitude; wsum += ci.weight; }
+                    if (wsum > 0.01f) clipSpeed /= wsum;
+                    if (clipSpeed > 0.3f) playRate = Mathf.Clamp(CurrentSpeed / clipSpeed, 0.6f, 1.9f);
                 }
                 animator.speed = Mathf.MoveTowards(animator.speed, playRate, Time.deltaTime * 4f);
                 animator.SetBool("Grounded", isGrounded);
