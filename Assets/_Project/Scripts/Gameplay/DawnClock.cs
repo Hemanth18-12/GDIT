@@ -95,7 +95,9 @@ namespace LegacyOfTemples.Gameplay
         public static string EndingId()
         {
             if (StoryFlags.Get("lost_dawn") == 1) return "lost_dawn";
-            return StoryFlags.Get("late") == 0 && StoryFlags.Get("kishore_turned") == 1 ? "dawn_light" : "late_dawn";
+            // V3: on time = before dawn. (The old V2 rule also needed "kishore_turned", a flag only the old jungle fight sets,
+            // so every V3 run ended as LATE DAWN even when the player finished early.)
+            return StoryFlags.Get("late") == 0 ? "dawn_light" : "late_dawn";
         }
 
         private static bool IsGameplay(string s) => s == Constants.Courtyard || s == Constants.Sanctum || s == Constants.ShrineCrime || s == Constants.PuzzleWall || s == Constants.JunglePath;

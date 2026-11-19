@@ -71,7 +71,7 @@ namespace LegacyOfTemples.UI
                 ScreenTextRenderer.MakePanel(row, "EnemyRowPanel", out var rp); rp.anchorMin = Vector2.zero; rp.anchorMax = Vector2.one; rp.offsetMin = rp.offsetMax = Vector2.zero;
                 guardName[i] = ScreenTextRenderer.MakeText(row, "EnemyName" + i, 22, ScreenTextRenderer.Ivory, true, TextAlignmentOptions.Left);
                 guardName[i].raycastTarget = false; var gr = guardName[i].rectTransform; gr.anchorMin = new Vector2(0, 0); gr.anchorMax = new Vector2(0, 1); gr.pivot = new Vector2(0, 0.5f); gr.anchoredPosition = new Vector2(14, 0); gr.sizeDelta = new Vector2(330, 0);
-                guardName[i].textWrappingMode = TextWrappingModes.NoWrap; guardName[i].overflowMode = TextOverflowModes.Ellipsis;
+                guardName[i].textWrappingMode = TextWrappingModes.NoWrap; guardName[i].overflowMode = TextOverflowModes.Truncate;   // the runtime Noto Sans font has no ellipsis glyph (log warning)
                 guard[i] = Bar("GuardBar" + i, row, new Vector2(350, 18), new Color(1f, 0.71f, 0.66f), out _);
                 var gb = (RectTransform)guard[i].parent; gb.anchorMin = gb.anchorMax = gb.pivot = new Vector2(1, 0.5f); gb.anchoredPosition = new Vector2(-14, 0);
             }

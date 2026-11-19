@@ -38,7 +38,9 @@ namespace LegacyOfTemples.World
         /// <summary>Warm colour for each surface so stone reads as red / ochre sandstone, not pale cream.</summary>
         public static Color Tint(string mat) =>
             mat == "sandstone_blocks_08" ? new Color(1f, 0.74f, 0.55f) : mat == "red_sandstone_wall" ? new Color(1f, 0.78f, 0.62f) :
-            mat == "red_sandstone_pavement" ? new Color(0.92f, 0.78f, 0.7f) : Color.white;
+            mat == "red_sandstone_pavement" ? new Color(0.92f, 0.78f, 0.7f) :
+            mat == "red_laterite_soil_stones" ? new Color(1.3f, 1.15f, 1.0f) :   // the village ground texture is dark; at dawn it read as flat purple-black
+            Color.white;
 
         public static void Apply(string scene)
         {

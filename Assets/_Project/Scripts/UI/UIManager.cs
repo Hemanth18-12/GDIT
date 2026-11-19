@@ -545,7 +545,7 @@ namespace LegacyOfTemples.UI
             promptActionText.alignment = TextAlignmentOptions.MidlineLeft;
             promptActionText.color = ColorTextWarmIvory;
             promptActionText.textWrappingMode = TextWrappingModes.NoWrap;
-            promptActionText.overflowMode = TextOverflowModes.Ellipsis;
+            promptActionText.overflowMode = TextOverflowModes.Truncate;   // the runtime Noto Sans font has no ellipsis glyph (log warning)
             promptActionText.text = "Talk to Priest Ananda";
             RectTransform art = actionObj.GetComponent<RectTransform>();
             art.anchorMin = new Vector2(0f, 0f);

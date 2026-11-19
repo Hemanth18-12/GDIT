@@ -83,7 +83,7 @@ namespace LegacyOfTemples.UI
 
             EnsureEventSystem();
             SceneManager.sceneLoaded += (s, m) => { ClearWorldMarkers(); IsOpen = false; EnsureEventSystem(); };
-            EventBus.OnGameState += st => { if (st == GameState.Ending) { ending = true; endingTime = Time.unscaledTime; } };
+            EventBus.OnGameState += st => { if (st == GameState.Ending && !ending) { ending = true; endingTime = Time.unscaledTime; runRank = ScoreSystem.SubmitRun(6); Debug.Log($"[Ending] run saved to the high-score table: rank {runRank}"); } };
             StoryDialogueSystem.OnObjectiveChanged += o => { HintLevel = 0; if (WayShown && o == null) WayShown = false; };
         }
 
@@ -364,6 +364,7 @@ namespace LegacyOfTemples.UI
             ScreenText.Panel("puzzle", "THE SUN WALL", sb.ToString(), PanelAnchor.BottomCenter, 1100, ScreenText.Key("Esc") + " Step away", false, 40);
         }
 
+        private int runRank;
         private void DrawEnding(StoryDialogueSystem story)
         {
             var file = StoryData.File;
@@ -382,6 +383,7 @@ namespace LegacyOfTemples.UI
             float clock = DawnClock.Instance != null ? DawnClock.Instance.Minutes : 0f;
             sb.Append($"\n<color={ScreenText.Gold}><b>CLOCK</b></color>  {DawnClock.ClockText(clock)} (dawn 05:45)     <color={ScreenText.Gold}><b>PLAY TIME</b></color>  {t / 60:00}:{t % 60:00}     <color={ScreenText.Gold}><b>DIFFICULTY</b></color>  {GameOptions.DifficultyNames[GameOptions.Difficulty]}\n");
             sb.Append($"<color={ScreenText.Gold}><b>SCORE</b></color>  {ScoreSystem.Total}  (grade {ScoreSystem.OverallGrade(6)})     <color={ScreenText.Gold}><b>HINTS USED</b></color>  {story.HintsUsed}     <color={ScreenText.Gold}><b>RETRIES</b></color>  {(DawnClock.Instance != null ? DawnClock.Instance.Retries : 0)}");
+            if (runRank > 0) sb.Append($"\n<color={ScreenText.Cyan}>Best runs on this computer: this run is number {runRank}. See Credits in the main menu.</color>");
             ScreenText.Panel("ending", file.ending?.title ?? "MISSION COMPLETED", sb.ToString(), PanelAnchor.Center, 1400, ScreenText.Key("Enter") + " Return to main menu", true, 100);
             var kb = Keyboard.current; var gp = Gamepad.current;
             if (Time.unscaledTime - endingTime > 2f && ((kb != null && kb.enterKey.wasPressedThisFrame) || (gp != null && gp.buttonSouth.wasPressedThisFrame)))

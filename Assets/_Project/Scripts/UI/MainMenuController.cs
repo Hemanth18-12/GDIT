@@ -166,12 +166,15 @@ namespace LegacyOfTemples.UI
                     first = AddButton("BACK", () => Show(Screen.Main));
                     infoPanel.gameObject.SetActive(true);
                     infoText.fontSize = 30 * ScreenTextRenderer.Scale;
+                    var best = new System.Text.StringBuilder();
+                    int n = 0; foreach (var h in LegacyOfTemples.Gameplay.ScoreSystem.HighScores) { if (n++ >= 5) break; best.Append($"{n}. {h.total} points, grade {h.grade}, {h.items} of 5 treasures, {Mathf.RoundToInt(h.seconds) / 60}:{Mathf.RoundToInt(h.seconds) % 60:00}  ({h.date})\n"); }
                     infoText.text =
                         "<b>Legacy of the Temple</b>\nDirection, environments and characters: Hemanth\n" +
-                        "Characters: Investigator Aryan, Pujari Ananda, Meera, Bhaskar and Kishore\n" +
-                        "Animation: Mixamo (Adobe)    Fonts: Cinzel and Noto Sans (SIL Open Font License)\n" +
-                        "Audio and other assets: see ATTRIBUTION.md\n\n" +
-                        $"<color={ScreenText.Gold}>A note on the story</color>\nThe story and the three missing pieces (a brass ceremonial vessel, a carved sandstone rosette and a palm-leaf manuscript) are fictional. " +
+                        "Characters: Investigator Aryan, Pujari Ananda, Meera, Madhav, Bhaskar and Kishore\n" +
+                        "Animation: Mixamo (Adobe), Open Kit 3D    Fonts: Cinzel and Noto Sans (SIL Open Font License)\n" +
+                        "Audio, textures and other assets: see ATTRIBUTION.md\n\n" +
+                        $"<color={ScreenText.Gold}>Best runs on this computer</color>\n" + (n == 0 ? "No finished run yet.\n" : best.ToString()) + "\n" +
+                        $"<color={ScreenText.Gold}>A note on the story</color>\nThe village, the five treasures and every character are fictional. " +
                         "The temple shrine in the background is shown with respect and is never touched or taken in the game.";
                     break;
             }

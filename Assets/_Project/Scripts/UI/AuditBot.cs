@@ -876,6 +876,19 @@ namespace LegacyOfTemples.UI
             yield return IntroShots();
             yield return SkipIntro();
             if (Array.IndexOf(Environment.GetCommandLineArgs(), "-focusCheck") >= 0) { yield return FocusCheck(); yield break; }
+            if (Array.IndexOf(Environment.GetCommandLineArgs(), "-endingFocus") >= 0)
+            {   // Task 4: finish the story quickly (one step per two frames), then check the ending id and the best-runs table
+                string savedTable = PlayerPrefs.GetString("lot_v3_scores", "");   // test runs must not leave a row in the player's best-runs table
+                var st = StoryDialogueSystem.Instance; int before = LegacyOfTemples.Gameplay.ScoreSystem.HighScores.Count; int guard = 0;
+                yield return new WaitForSecondsRealtime(4f);
+                while (st != null && !st.IsComplete && guard++ < 30) { st.DebugCompleteCurrent(); yield return null; yield return null; if (DialogueActive()) yield return FinishDialogue("t4-talk.png"); }
+                float w = 0f; while (w < 20f && !st.IsComplete) { w += 0.5f; if (DialogueActive()) yield return FinishDialogue("t4-talk.png"); yield return new WaitForSecondsRealtime(0.5f); }
+                yield return new WaitForSecondsRealtime(3f); yield return Shot("t4-ending.png");
+                Line($"\n## Ending check: story complete={st.IsComplete}, clock {DawnClock.ClockText(DawnClock.Instance != null ? DawnClock.Instance.Minutes : 0f)}, late flag={StoryFlags.Get("late")}, ending id={DawnClock.EndingId()}, best-runs table {before} -> {LegacyOfTemples.Gameplay.ScoreSystem.HighScores.Count} rows");
+                File.WriteAllText(Path.Combine(output, "audit.md"), report.ToString());
+                if (savedTable == "") PlayerPrefs.DeleteKey("lot_v3_scores"); else PlayerPrefs.SetString("lot_v3_scores", savedTable); PlayerPrefs.Save();
+                Debug.Log("[AuditBot] DONE " + output); yield return new WaitForSecondsRealtime(1f); Application.Quit(); yield break;
+            }
             if (Array.IndexOf(Environment.GetCommandLineArgs(), "-speedFocus") >= 0)
             {   // Task 1 evidence: real measured speeds, auto-run, travel times, fast travel, F9 demo jump to the fight
                 var pc = FindAnyObjectByType<PlayerController>(); var st = StoryDialogueSystem.Instance;
