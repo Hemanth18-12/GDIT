@@ -1,0 +1,165 @@
+id,speaker,text,trigger,conditions,priority,cooldown,chance,once,subtitle,fx,clip,source,note
+v3_mee_00,meera,Two men. One carried a bell.,story,,4,0,1.0,0,1,none,Assets/_Project/Audio/Voice/Meera/v3_mee_00.wav,story.json bark,start:obj_v3_bazaar
+v3_mee_03,meera,It rang. He hid it fast.,story,,4,0,1.0,0,1,none,Assets/_Project/Audio/Voice/Meera/v3_mee_03.wav,story.json bark,v3:bazaar_begin
+v3_ary_06,aryan,He saw me. After him.,story,,4,0,1.0,0,1,none,Assets/_Project/Audio/Voice/Aryan/v3_ary_06.wav,story.json bark,v3:bazaar_run
+v3_cou_01,courier,You followed me? Clever.,story,,4,0,1.0,0,1,none,Assets/_Project/Audio/Voice/Courier/v3_cou_01.wav,story.json bark,v3:bazaar_cornered
+v3_ary_02,aryan,One. Four to go.,story,,4,0,1.0,0,1,none,Assets/_Project/Audio/Voice/Aryan/v3_ary_02.wav,story.json bark,done:obj_v3_bazaar
+v3_ary_01,aryan,Not forced. Opened.,story,,4,0,1.0,0,1,none,Assets/_Project/Audio/Voice/Aryan/v3_ary_01.wav,story.json bark,start:obj_v3_storeroom
+v3_ary_07,aryan,Two.,story,,4,0,1.0,0,1,none,Assets/_Project/Audio/Voice/Aryan/v3_ary_07.wav,story.json bark,done:obj_v3_storeroom
+v3_puj_03,pujari,The old vaults. Behind the temple.,story,,4,0,1.0,0,1,none,Assets/_Project/Audio/Voice/Pujari/v3_puj_03.wav,story.json bark,start:obj_v3_vaults
+v3_ary_03,aryan,Three.,story,,4,0,1.0,0,1,none,Assets/_Project/Audio/Voice/Aryan/v3_ary_03.wav,story.json bark,done:obj_v3_vaults
+v3_mee_01,meera,They went to the old well. In this rain.,story,,4,0,1.0,0,1,none,Assets/_Project/Audio/Voice/Meera/v3_mee_01.wav,story.json bark,start:obj_v3_stepwell
+v3_mee_02,meera,Only one man carries those keys.,story,,4,0,1.0,0,1,none,Assets/_Project/Audio/Voice/Meera/v3_mee_02.wav,story.json bark,done:obj_v3_stepwell
+v3_ary_04,aryan,Four. Now the Sun Wall.,story,,4,0,1.0,0,1,none,Assets/_Project/Audio/Voice/Aryan/v3_ary_04.wav,story.json bark,start:obj_v3_sunwall
+v3_ary_05,aryan,An empty case. The jungle road.,story,,4,0,1.0,0,1,none,Assets/_Project/Audio/Voice/Aryan/v3_ary_05.wav,story.json bark,done:obj_v3_sunwall
+v3_mee_04,meera,Your jeep waits on the north road.,story,,4,0,1.0,0,1,none,Assets/_Project/Audio/Voice/Meera/v3_mee_04.wav,story.json bark,start:obj_v3_jungle
+v3_bha_01,bhaskar,Keep moving. He is close.,story,,4,0,1.0,0,1,none,Assets/_Project/Audio/Voice/Bhaskar/v3_bha_01.wav,story.json bark,v3:jungle_run
+v3_bha_02,bhaskar,Do you know what this fetches?,story,,4,0,1.0,0,1,none,Assets/_Project/Audio/Voice/Bhaskar/v3_bha_02.wav,story.json bark,v3:jungle_court
+v3_ary_08,aryan,Its value is not money.,story,,4,0,1.0,0,1,none,Assets/_Project/Audio/Voice/Aryan/v3_ary_08.wav,story.json bark,v3:jungle_boss
+v3_mad_01,madhav,You knew?,story,,4,0,1.0,0,1,none,Assets/_Project/Audio/Voice/Madhav/v3_mad_01.wav,story.json bark,v3:madhav_named
+v3_mad_02,madhav,"I am sorry, sir.",story,,4,0,1.0,0,1,none,Assets/_Project/Audio/Voice/Madhav/v3_mad_02.wav,story.json bark,v3:madhav_ambush
+v3_mad_03,madhav,I only opened a door.,story,,4,0,1.0,0,1,none,Assets/_Project/Audio/Voice/Madhav/v3_mad_03.wav,story.json bark,v3:madhav_caught
+v3_ary_10,aryan,Five.,story,,4,0,1.0,0,1,none,Assets/_Project/Audio/Voice/Aryan/v3_ary_10.wav,story.json bark,done:obj_v3_jungle
+v3_mad_04,madhav,"Tea, sir? You look tired.",story,,4,0,1.0,0,1,none,Assets/_Project/Audio/Voice/Madhav/v3_mad_04.wav,story.json bark,v3:madhav_tea
+v3_mad_05,madhav,I locked up myself. As always.,story,,4,0,1.0,0,1,none,Assets/_Project/Audio/Voice/Madhav/v3_mad_05.wav,story.json bark,v3:madhav_lock
+v3_mad_06,madhav,Take my lantern. It is dark below.,story,,4,0,1.0,0,1,none,Assets/_Project/Audio/Voice/Madhav/v3_mad_06.wav,story.json bark,v3:madhav_lantern
+v3_bha_03,bhaskar,Then come and take it.,story,,4,0,1.0,0,1,none,Assets/_Project/Audio/Voice/Bhaskar/v3_bha_03.wav,story.json bark,v3:jungle_phase3
+v3_puj_01,pujari,Five treasures. Gone before sunrise.,story,,5,0,1.0,0,1,none,Assets/_Project/Audio/Voice/Pujari/v3_puj_01.wav,story.json conv_v3_pujari,conversation line
+v3_puj_02,pujari,The procession leaves at dawn.,story,,5,0,1.0,0,1,none,Assets/_Project/Audio/Voice/Pujari/v3_puj_02.wav,story.json conv_v3_pujari,conversation line
+v3_puj_09,pujari,You brought our memory home.,story,,5,0,1.0,0,1,none,Assets/_Project/Audio/Voice/Pujari/v3_puj_09.wav,story.json conv_v3_return,conversation line
+v3_ary_09,aryan,Every piece is home.,story,,5,0,1.0,0,1,none,Assets/_Project/Audio/Voice/Aryan/v3_ary_09.wav,story.json conv_v3_return,conversation line
+intro_puj_01,pujari,Something terrible has happened!,story,,5,0,1.0,0,1,none,Assets/_Project/Audio/Voice/Pujari/intro_puj_01.wav,IntroCinematic,intro cutscene
+intro_ary_01,aryan,"Excuse me, could you tell me the way to Jagannath Temple?",story,,5,0,1.0,0,1,none,Assets/_Project/Audio/Voice/Aryan/intro_ary_01.wav,IntroCinematic,intro cutscene
+intro_mee_01,meera,Go straight along this road and follow the old stone entrance. The temple is at the end.,story,,5,0,1.0,0,1,none,Assets/_Project/Audio/Voice/Meera/intro_mee_01.wav,IntroCinematic,intro cutscene
+intro_ary_02,aryan,Thank you.,story,,5,0,1.0,0,1,none,Assets/_Project/Audio/Voice/Aryan/intro_ary_02.wav,IntroCinematic,intro cutscene
+mv_first_01,aryan,Right. Let's find that temple.,move_first,objective=obj_c0_reach,2,0,1.0,1,1,none,Assets/_Project/Audio/Voice/Aryan/mv_first_01.wav,new,
+mv_run_01,aryan,No time to stroll.,run_long,nofight;nojeep,1,75,0.6,0,1,none,Assets/_Project/Audio/Voice/Aryan/mv_run_01.wav,new,
+mv_run_02,aryan,Dawn won't wait.,run_long,nofight;nojeep,1,75,0.6,0,1,none,Assets/_Project/Audio/Voice/Aryan/mv_run_02.wav,new,
+mv_tired_01,aryan,Need to catch my breath.,run_tired,nofight,1,180,0.8,0,1,none,Assets/_Project/Audio/Voice/Aryan/mv_tired_01.wav,new,
+mv_tired_02,aryan,Easy. Breathe.,run_tired,nofight,1,180,0.8,0,1,none,Assets/_Project/Audio/Voice/Aryan/mv_tired_02.wav,new,
+mv_jump_01,aryan,Up we go.,jump,nofight,1,40,0.2,0,1,none,Assets/_Project/Audio/Voice/Aryan/mv_jump_01.wav,new,
+mv_land_01,aryan,Oof. Careful.,land_hard,,1,25,0.8,0,1,none,Assets/_Project/Audio/Voice/Aryan/mv_land_01.wav,new,
+mv_land_02,aryan,That was a drop.,land_hard,,1,25,0.8,0,1,none,Assets/_Project/Audio/Voice/Aryan/mv_land_02.wav,new,
+mv_area_courtyard,aryan,The temple courtyard. Stay sharp.,area_enter,zone=Courtyard,2,5,1.0,1,1,none,Assets/_Project/Audio/Voice/Aryan/mv_area_courtyard.wav,new,
+mv_area_vaults,aryan,Dark down here. Watch your step.,area_enter,zone=Vaults,2,5,1.0,1,1,vault,Assets/_Project/Audio/Voice/Aryan/mv_area_vaults.wav,new,
+mv_area_stepwell,aryan,The old well. Listen to that rain.,area_enter,zone=Stepwell,2,5,1.0,1,1,none,Assets/_Project/Audio/Voice/Aryan/mv_area_stepwell.wav,new,
+mv_area_sunwall,aryan,No shade at all out here.,area_enter,zone=SunWall,2,5,1.0,1,1,none,Assets/_Project/Audio/Voice/Aryan/mv_area_sunwall.wav,new,
+mv_area_jungle,aryan,The river road. Trees everywhere.,area_enter,zone=Jungle,2,5,1.0,1,1,none,Assets/_Project/Audio/Voice/Aryan/mv_area_jungle.wav,new,
+mv_area_bazaar,aryan,Back to the bazaar. Listen.,area_enter,zone=Bazaar;objective=obj_v3_bazaar,2,5,1.0,1,1,none,Assets/_Project/Audio/Voice/Aryan/mv_area_bazaar.wav,new,
+mv_danger_01,aryan,Careful. That's a long drop.,danger_drop,nofight;nojeep,2,120,1.0,0,1,none,Assets/_Project/Audio/Voice/Aryan/mv_danger_01.wav,new,
+mv_danger_02,aryan,One wrong step here...,danger_drop,nofight;nojeep,2,120,1.0,0,1,none,Assets/_Project/Audio/Voice/Aryan/mv_danger_02.wav,new,
+mv_rain_01,aryan,This rain won't stop.,rain,nofight,1,240,0.6,0,1,none,Assets/_Project/Audio/Voice/Aryan/mv_rain_01.wav,new,
+mv_rain_02,aryan,Wet stone. Slippery.,rain,nofight,1,240,0.6,0,1,none,Assets/_Project/Audio/Voice/Aryan/mv_rain_02.wav,new,
+mv_lost_01,aryan,Think. Where would they go?,lost,nofight,2,150,1.0,0,1,none,Assets/_Project/Audio/Voice/Aryan/mv_lost_01.wav,new,
+mv_lost_02,aryan,I'm losing time. My notes might help.,lost,nofight,2,150,1.0,0,1,none,Assets/_Project/Audio/Voice/Aryan/mv_lost_02.wav,new,
+mv_lost_03,aryan,Retrace it. What did I miss?,lost,nofight,2,150,1.0,0,1,none,Assets/_Project/Audio/Voice/Aryan/mv_lost_03.wav,new,
+mv_deadend_01,aryan,Dead end.,dead_end,nofight;nojeep,1,60,0.7,0,1,none,Assets/_Project/Audio/Voice/Aryan/mv_deadend_01.wav,new,
+jp_approach_01,aryan,The jeep. Still in one piece.,jeep_approach,nojeep;nofight,1,180,0.5,0,1,none,Assets/_Project/Audio/Voice/Aryan/jp_approach_01.wav,new,
+jp_enter_01,aryan,Let's go.,jeep_enter,,2,40,1.0,0,1,cabin,Assets/_Project/Audio/Voice/Aryan/jp_enter_01.wav,new,
+jp_enter_02,aryan,Right. Drive.,jeep_enter,,2,40,1.0,0,1,cabin,Assets/_Project/Audio/Voice/Aryan/jp_enter_02.wav,new,
+jp_start_01,aryan,Good. She's running.,jeep_start,jeep,1,90,0.5,0,1,cabin,Assets/_Project/Audio/Voice/Aryan/jp_start_01.wav,new,
+jp_off_01,aryan,Here we go.,jeep_drive_off,jeep,1,90,0.5,0,1,cabin,Assets/_Project/Audio/Voice/Aryan/jp_off_01.wav,new,
+jp_fast_01,aryan,Faster. He's getting away.,jeep_fast,jeep;objective=obj_v3_jungle,2,45,1.0,0,1,cabin,Assets/_Project/Audio/Voice/Aryan/jp_fast_01.wav,new,
+jp_fast_02,aryan,Easy on this road.,jeep_fast,jeep;notobjective=obj_v3_jungle,1,60,0.8,0,1,cabin,Assets/_Project/Audio/Voice/Aryan/jp_fast_02.wav,new,
+jp_drift_01,aryan,"Whoa, hold it!",jeep_drift,jeep,2,45,1.0,0,1,cabin,Assets/_Project/Audio/Voice/Aryan/jp_drift_01.wav,new,
+jp_brake_01,aryan,Brakes!,jeep_handbrake,jeep,1,45,0.5,0,1,cabin,Assets/_Project/Audio/Voice/Aryan/jp_brake_01.wav,new,
+jp_near_01,aryan,That was close.,jeep_near_miss,jeep,2,30,1.0,0,1,cabin,Assets/_Project/Audio/Voice/Aryan/jp_near_01.wav,new,
+jp_crash1_01,aryan,Ugh. That'll leave a mark.,jeep_crash_light,jeep,2,20,1.0,0,1,cabin,Assets/_Project/Audio/Voice/Aryan/jp_crash1_01.wav,new,
+jp_crash1_02,aryan,Watch it!,jeep_crash_light,jeep,2,20,1.0,0,1,cabin,Assets/_Project/Audio/Voice/Aryan/jp_crash1_02.wav,new,
+jp_crash2_01,aryan,That hurt the jeep.,jeep_crash_heavy,jeep,3,30,1.0,0,1,cabin,Assets/_Project/Audio/Voice/Aryan/jp_crash2_01.wav,new,
+jp_crash2_02,aryan,She can't take much more.,jeep_crash_heavy,jeep,3,30,1.0,0,1,cabin,Assets/_Project/Audio/Voice/Aryan/jp_crash2_02.wav,new,
+jp_smoke_01,aryan,Smoke. Not good.,jeep_smoke,,3,120,1.0,0,1,cabin,Assets/_Project/Audio/Voice/Aryan/jp_smoke_01.wav,new,
+jp_dead_01,aryan,"Engine's gone. On foot, then.",jeep_engine_dead,,4,300,1.0,0,1,cabin,Assets/_Project/Audio/Voice/Aryan/jp_dead_01.wav,new,
+jp_stuck_01,aryan,We're stuck. Back up.,jeep_stuck,jeep,2,30,1.0,0,1,cabin,Assets/_Project/Audio/Voice/Aryan/jp_stuck_01.wav,new,
+jp_arrive_01,aryan,The ruins. This is it.,jeep_arrive,,3,0,1.0,1,1,cabin,Assets/_Project/Audio/Voice/Aryan/jp_arrive_01.wav,new,
+jp_exit_01,aryan,Right. On foot.,jeep_exit,,1,30,0.6,0,1,none,Assets/_Project/Audio/Voice/Aryan/jp_exit_01.wav,new,
+jp_park_01,aryan,Parked. Let's move.,jeep_park,,1,60,0.8,0,1,none,Assets/_Project/Audio/Voice/Aryan/jp_park_01.wav,new,
+ex_notice_01,aryan,What's this?,notice,nofight,1,40,0.6,0,1,none,Assets/_Project/Audio/Voice/Aryan/ex_notice_01.wav,new,
+ex_notice_02,aryan,Hm. Look at that.,notice,nofight,1,40,0.6,0,1,none,Assets/_Project/Audio/Voice/Aryan/ex_notice_02.wav,new,
+ex_clue_list,aryan,Neat writing. Somebody careful.,clue_found,evidence=list,3,3,1.0,1,1,none,Assets/_Project/Audio/Voice/Aryan/ex_clue_list.wav,new,
+ex_clue_lock,aryan,From the inside. Interesting.,clue_found,evidence=inside_lock,3,3,1.0,1,1,none,Assets/_Project/Audio/Voice/Aryan/ex_clue_lock.wav,new,
+ex_clue_ledger,aryan,Same ticks. Same hand.,clue_found,evidence=ledger,3,3,1.0,1,1,none,Assets/_Project/Audio/Voice/Aryan/ex_clue_ledger.wav,new,
+ex_clue_keys,aryan,Temple keys. All the way out here.,clue_found,evidence=key_ring,3,3,1.0,1,1,none,Assets/_Project/Audio/Voice/Aryan/ex_clue_keys.wav,new,
+ex_board_01,aryan,Enough to name someone. My notes.,board_ready,nofight,3,0,1.0,1,1,none,Assets/_Project/Audio/Voice/Aryan/ex_board_01.wav,new,
+ex_item_01,aryan,Got it.,item_found,,2,10,0.5,0,1,none,Assets/_Project/Audio/Voice/Aryan/ex_item_01.wav,new,
+ex_item_02,aryan,Safe now.,item_found,,2,10,0.5,0,1,none,Assets/_Project/Audio/Voice/Aryan/ex_item_02.wav,new,
+pz_start_01,aryan,Let's see how this works.,puzzle_start,nofight,2,45,1.0,0,1,none,Assets/_Project/Audio/Voice/Aryan/pz_start_01.wav,new,
+pz_start_02,aryan,There's a mechanism here.,puzzle_start,nofight,2,45,1.0,0,1,none,Assets/_Project/Audio/Voice/Aryan/pz_start_02.wav,new,
+pz_step_01,aryan,That's one.,puzzle_step,nofight,1,12,0.5,0,1,none,Assets/_Project/Audio/Voice/Aryan/pz_step_01.wav,new,
+pz_step_02,aryan,Good. That fits.,puzzle_step,nofight,1,12,0.5,0,1,none,Assets/_Project/Audio/Voice/Aryan/pz_step_02.wav,new,
+pz_wrong_01,aryan,No. Not like that.,puzzle_wrong,nofight,1,15,0.6,0,1,none,Assets/_Project/Audio/Voice/Aryan/pz_wrong_01.wav,new,
+pz_wrong_02,aryan,Hm. Wrong way.,puzzle_wrong,nofight,1,15,0.6,0,1,none,Assets/_Project/Audio/Voice/Aryan/pz_wrong_02.wav,new,
+pz_almost_01,aryan,Almost there.,puzzle_almost,nofight,2,60,1.0,0,1,none,Assets/_Project/Audio/Voice/Aryan/pz_almost_01.wav,new,
+pz_almost_02,aryan,One more.,puzzle_almost,nofight,2,60,1.0,0,1,none,Assets/_Project/Audio/Voice/Aryan/pz_almost_02.wav,new,
+pz_solved_01,aryan,There. Solved.,puzzle_solved,,3,5,1.0,0,1,none,Assets/_Project/Audio/Voice/Aryan/pz_solved_01.wav,new,
+pz_solved_03,aryan,Clever old builders.,puzzle_solved,,3,5,1.0,0,1,none,Assets/_Project/Audio/Voice/Aryan/pz_solved_03.wav,new,
+pz_hint1_01,aryan,Look around first.,hint_1,,3,3,1.0,0,1,none,Assets/_Project/Audio/Voice/Aryan/pz_hint1_01.wav,new,
+pz_hint2_01,aryan,Think about how it moves.,hint_2,,3,3,1.0,0,1,none,Assets/_Project/Audio/Voice/Aryan/pz_hint2_01.wav,new,
+pz_hint3_01,aryan,"Right. Step by step, then.",hint_3,,3,3,1.0,0,1,none,Assets/_Project/Audio/Voice/Aryan/pz_hint3_01.wav,new,
+pz_pot_shard_01,aryan,This piece fits.,pot_shard,,2,6,1.0,0,1,none,Assets/_Project/Audio/Voice/Aryan/pz_pot_shard_01.wav,new,
+pz_pot_shard_02,aryan,Another piece home.,pot_shard,,2,6,1.0,0,1,none,Assets/_Project/Audio/Voice/Aryan/pz_pot_shard_02.wav,new,
+pz_pot_whole_01,aryan,Whole again. And it holds oil.,pot_whole,,3,0,1.0,1,1,none,Assets/_Project/Audio/Voice/Aryan/pz_pot_whole_01.wav,new,
+pz_lantern_01,aryan,Now the light falls right.,lantern_stain,,3,0,1.0,1,1,none,Assets/_Project/Audio/Voice/Aryan/pz_lantern_01.wav,new,
+pz_flag_01,aryan,Something under this stone.,flagstone,,3,0,1.0,1,1,none,Assets/_Project/Audio/Voice/Aryan/pz_flag_01.wav,new,
+pz_vault_plate_01,aryan,Stone on the plate. Good.,vault_plate,,2,10,1.0,0,1,vault,Assets/_Project/Audio/Voice/Aryan/pz_vault_plate_01.wav,new,
+pz_vault_gate_01,aryan,The gate's open.,vault_gate,,3,0,1.0,1,1,vault,Assets/_Project/Audio/Voice/Aryan/pz_vault_gate_01.wav,new,
+pz_vault_rings_01,aryan,Three rings of light. Not by chance.,vault_rings,,3,0,1.0,1,1,vault,Assets/_Project/Audio/Voice/Aryan/pz_vault_rings_01.wav,new,
+pz_sluice_01,aryan,The water's coming in.,stepwell_sluice,,2,15,1.0,0,1,none,Assets/_Project/Audio/Voice/Aryan/pz_sluice_01.wav,new,
+pz_flood_01,aryan,Too much. The panel's under water.,stepwell_flood,,3,0,1.0,1,1,none,Assets/_Project/Audio/Voice/Aryan/pz_flood_01.wav,new,
+pz_level_01,aryan,Right on the mark.,stepwell_level,,3,0,1.0,1,1,none,Assets/_Project/Audio/Voice/Aryan/pz_level_01.wav,new,
+pz_mirror_01,aryan,Turn it toward the wall.,sunwall_mirror,,1,25,0.5,0,1,none,Assets/_Project/Audio/Voice/Aryan/pz_mirror_01.wav,new,
+pz_beam_01,aryan,One beam. The wheel blocks the other.,sunwall_socket,,3,0,1.0,1,1,none,Assets/_Project/Audio/Voice/Aryan/pz_beam_01.wav,new,
+pz_wall_01,aryan,The wall's opening.,sunwall_open,,3,0,1.0,1,1,none,Assets/_Project/Audio/Voice/Aryan/pz_wall_01.wav,new,
+bz_follow_01,aryan,There he is. Keep your distance.,bazaar_follow,,3,0,1.0,1,1,none,Assets/_Project/Audio/Voice/Aryan/bz_follow_01.wav,new,
+bz_look_01,aryan,Don't look round... good.,bazaar_lookback,,2,25,0.7,0,1,none,Assets/_Project/Audio/Voice/Aryan/bz_look_01.wav,new,
+bz_spot_01,aryan,He felt that.,bazaar_spotted,,3,5,1.0,0,1,none,Assets/_Project/Audio/Voice/Aryan/bz_spot_01.wav,new,
+bz_spot_02,aryan,Careful. He's suspicious.,bazaar_spotted,,3,5,1.0,0,1,none,Assets/_Project/Audio/Voice/Aryan/bz_spot_02.wav,new,
+bz_far_01,aryan,Don't lose him.,bazaar_far,,2,30,1.0,0,1,none,Assets/_Project/Audio/Voice/Aryan/bz_far_01.wav,new,
+bz_yard_01,aryan,A dead end. He's trapped.,bazaar_yard,,3,0,1.0,1,1,none,Assets/_Project/Audio/Voice/Aryan/bz_yard_01.wav,new,
+cb_start_01,aryan,Here they come.,fight_start,,3,20,1.0,0,1,none,Assets/_Project/Audio/Voice/Aryan/cb_start_01.wav,new,
+cb_start_02,aryan,Stay calm. Watch his hands.,fight_start,,3,20,1.0,0,1,none,Assets/_Project/Audio/Voice/Aryan/cb_start_02.wav,new,
+cb_combo_01,aryan,Got you.,fight_combo,fight,1,10,0.4,0,1,none,Assets/_Project/Audio/Voice/Aryan/cb_combo_01.wav,new,
+cb_hurt_01,aryan,Ugh!,fight_hurt,fight,1,7,0.35,0,1,none,Assets/_Project/Audio/Voice/Aryan/cb_hurt_01.wav,new,
+cb_hurt_02,aryan,Ah! Careful.,fight_hurt,fight,1,7,0.35,0,1,none,Assets/_Project/Audio/Voice/Aryan/cb_hurt_02.wav,new,
+cb_low_01,aryan,I can't take many more.,fight_low,fight,3,60,1.0,0,1,none,Assets/_Project/Audio/Voice/Aryan/cb_low_01.wav,new,
+cb_low_02,aryan,Block. Breathe. Block.,fight_low,fight,3,60,1.0,0,1,none,Assets/_Project/Audio/Voice/Aryan/cb_low_02.wav,new,
+cb_dodge_01,aryan,Too slow.,fight_dodge,fight,1,15,0.3,0,1,none,Assets/_Project/Audio/Voice/Aryan/cb_dodge_01.wav,new,
+cb_finish_01,aryan,Stay down.,fight_finish,fight,2,10,0.6,0,1,none,Assets/_Project/Audio/Voice/Aryan/cb_finish_01.wav,new,
+cb_finish_02,aryan,Enough.,fight_finish,fight,2,10,0.6,0,1,none,Assets/_Project/Audio/Voice/Aryan/cb_finish_02.wav,new,
+cb_won_01,aryan,It's over.,fight_won,,3,10,1.0,0,1,none,Assets/_Project/Audio/Voice/Aryan/cb_won_01.wav,new,
+cb_won_02,aryan,Nobody else needs to get hurt.,fight_won,,3,10,1.0,0,1,none,Assets/_Project/Audio/Voice/Aryan/cb_won_02.wav,new,
+cb_retry_01,aryan,Again. Focus.,fight_retry,,3,10,1.0,0,1,none,Assets/_Project/Audio/Voice/Aryan/cb_retry_01.wav,new,
+rb_spot_vault,robber,Light! Someone's here!,enemy_spotted,zone=Vaults,3,0,1.0,1,1,vault,Assets/_Project/Audio/Voice/Robber/rb_spot_vault.wav,new,
+rb_spot_well,robber,"Slippery, isn't it?",enemy_spotted,zone=Stepwell,3,0,1.0,1,1,none,Assets/_Project/Audio/Voice/Robber/rb_spot_well.wav,new,
+rb_spot_store,robber,You should have stayed in the village.,enemy_spotted,zone=Courtyard,3,0,1.0,1,1,none,Assets/_Project/Audio/Voice/Robber/rb_spot_store.wav,new,
+rb_taunt_01,robber,"Walk away, detective.",fight_taunt,enemy=robber,2,18,0.5,0,1,none,Assets/_Project/Audio/Voice/Robber/rb_taunt_01.wav,new,
+rb_taunt_02,robber,Two of us. One of you.,fight_taunt,enemy=robber,2,18,0.5,0,1,none,Assets/_Project/Audio/Voice/Robber/rb_taunt_02.wav,new,
+rb_taunt_well,robber,He promised us a boat!,fight_taunt,enemy=robber;zone=Stepwell,2,18,0.6,0,1,none,Assets/_Project/Audio/Voice/Robber/rb_taunt_well.wav,new,
+rb_taunt_vault,robber,He said nobody comes down here.,fight_taunt,enemy=robber;zone=Vaults,2,18,0.6,0,1,vault,Assets/_Project/Audio/Voice/Robber/rb_taunt_vault.wav,new,
+cr_taunt_01,courier,Back off! It's mine now.,fight_taunt,enemy=courier,2,18,0.6,0,1,none,Assets/_Project/Audio/Voice/Courier/cr_taunt_01.wav,new,
+cr_taunt_02,courier,You don't know who sent me.,fight_taunt,enemy=courier,2,18,0.6,0,1,none,Assets/_Project/Audio/Voice/Courier/cr_taunt_02.wav,new,
+ki_spot_01,kishore,You read the wall. Impressive.,enemy_spotted,enemy=kishore,3,0,1.0,1,1,none,Assets/_Project/Audio/Voice/Kishore/ki_spot_01.wav,new,
+ki_taunt_01,kishore,The finial is already moving.,fight_taunt,enemy=kishore,2,18,0.6,0,1,none,Assets/_Project/Audio/Voice/Kishore/ki_taunt_01.wav,new,
+ki_taunt_02,kishore,Bhaskar will not wait for me.,fight_taunt,enemy=kishore,2,18,0.6,0,1,none,Assets/_Project/Audio/Voice/Kishore/ki_taunt_02.wav,new,
+ki_down_01,kishore,The river. Before dawn.,enemy_down,enemy=kishore,4,0,1.0,1,1,none,Assets/_Project/Audio/Voice/Kishore/ki_down_01.wav,new,
+bh_taunt_01,bhaskar,"Go home, investigator.",fight_taunt,enemy=bhaskar,2,18,0.6,0,1,none,Assets/_Project/Audio/Voice/Bhaskar/bh_taunt_01.wav,new,
+bh_taunt_02,bhaskar,You fight like a clerk.,fight_taunt,enemy=bhaskar,2,18,0.6,0,1,none,Assets/_Project/Audio/Voice/Bhaskar/bh_taunt_02.wav,new,
+ck_half_01,aryan,Half the night is gone.,clock_half,,3,0,1.0,1,1,none,Assets/_Project/Audio/Voice/Aryan/ck_half_01.wav,new,
+ck_5_01,aryan,Five minutes to dawn.,clock_5,,4,0,1.0,1,1,none,Assets/_Project/Audio/Voice/Aryan/ck_5_01.wav,new,
+ck_1_01,aryan,One minute. Run!,clock_1,,4,0,1.0,1,1,none,Assets/_Project/Audio/Voice/Aryan/ck_1_01.wav,new,
+ck_pen_01,aryan,That cost me time.,clock_penalty,,1,45,0.5,0,1,none,Assets/_Project/Audio/Voice/Aryan/ck_pen_01.wav,new,
+ck_pen_02,aryan,Minutes I don't have.,clock_penalty,,1,45,0.5,0,1,none,Assets/_Project/Audio/Voice/Aryan/ck_pen_02.wav,new,
+np_puj_01,pujari,"Please hurry, sir.",npc_near,speaker=pujari;notobjective=obj_return,1,60,0.6,0,1,none,Assets/_Project/Audio/Voice/Pujari/np_puj_01.wav,new,
+np_puj_02,pujari,May you find them all.,npc_near,speaker=pujari;notobjective=obj_return,1,60,0.6,0,1,none,Assets/_Project/Audio/Voice/Pujari/np_puj_02.wav,new,
+np_puj_03,pujari,"You are back! Come, come.",npc_near,speaker=pujari;objective=obj_return,2,30,1.0,0,1,none,Assets/_Project/Audio/Voice/Pujari/np_puj_03.wav,new,
+np_mee_01,meera,"Be careful, sir.",npc_near,speaker=meera,1,60,0.6,0,1,none,Assets/_Project/Audio/Voice/Meera/np_mee_01.wav,new,
+np_mee_02,meera,The whole village is awake.,npc_near,speaker=meera,1,60,0.6,0,1,none,Assets/_Project/Audio/Voice/Meera/np_mee_02.wav,new,
+np_mad_01,madhav,"Long night, sir?",npc_near,speaker=madhav,1,90,0.6,0,1,none,Assets/_Project/Audio/Voice/Madhav/np_mad_01.wav,new,
+np_mad_02,madhav,"The keys? Safe with me, always.",npc_near,speaker=madhav,1,90,0.6,0,1,none,Assets/_Project/Audio/Voice/Madhav/np_mad_02.wav,new,
+vl_m_01,villager_m,"Up early, sir?",npc_near,speaker=villager_m,1,30,0.5,0,1,none,Assets/_Project/Audio/Voice/Villager/vl_m_01.wav,new,
+vl_m_02,villager_m,The temple bell is silent tonight.,npc_near,speaker=villager_m,1,30,0.5,0,1,none,Assets/_Project/Audio/Voice/Villager/vl_m_02.wav,new,
+vl_m_03,villager_m,Thieves? In Suryapur?,npc_near,speaker=villager_m,1,30,0.5,0,1,none,Assets/_Project/Audio/Voice/Villager/vl_m_03.wav,new,
+vl_f_01,villager_f,"You're up early, sir.",npc_near,speaker=villager_f,1,30,0.5,0,1,none,Assets/_Project/Audio/Voice/Villager/vl_f_01.wav,new,
+vl_f_02,villager_f,We are praying for the festival.,npc_near,speaker=villager_f,1,30,0.5,0,1,none,Assets/_Project/Audio/Voice/Villager/vl_f_02.wav,new,
+vl_f_03,villager_f,"Mind the cart, sir.",npc_near,speaker=villager_f,1,30,0.5,0,1,none,Assets/_Project/Audio/Voice/Villager/vl_f_03.wav,new,
+end_narr_01,narrator,Every temple holds a story. Every artifact carries a memory. Protecting heritage means protecting our history.,ending,,5,0,1.0,1,1,none,Assets/_Project/Audio/Voice/Narrator/end_narr_01.wav,new,

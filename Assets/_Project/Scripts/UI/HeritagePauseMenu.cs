@@ -81,6 +81,8 @@ namespace LegacyOfTemples.UI
             float vv = VoicePlayer.Volume;
             Button($"Voice: {Mathf.RoundToInt(vv * 100)}%", () => { VoicePlayer.Volume = vv >= 0.99f ? 0f : Mathf.Min(1f, vv + 0.25f); Rebuild(); });
             Button("Difficulty: " + GameOptions.DifficultyNames[GameOptions.Difficulty], () => { GameOptions.Difficulty = (GameOptions.Difficulty + 1) % 3; Rebuild(); });
+            Button("Voice lines: " + GameOptions.VoiceFrequencyNames[GameOptions.VoiceFrequency], () => { GameOptions.VoiceFrequency = (GameOptions.VoiceFrequency + 1) % 3; Rebuild(); });
+            Button("Subtitles: " + (GameOptions.Subtitles ? "ON" : "OFF"), () => { GameOptions.Subtitles = !GameOptions.Subtitles; Rebuild(); });
             Button("Demo mode (F9 menu): " + (GameOptions.DemoMode ? "On" : "Off"), () => { GameOptions.DemoMode = !GameOptions.DemoMode; Rebuild(); });
             Button("Weather effects: " + GameOptions.WeatherNames[GameOptions.WeatherQuality], () => { GameOptions.WeatherQuality = (GameOptions.WeatherQuality + 1) % 3; Rebuild(); });
             Button("Graphics: " + GameOptions.GraphicsNames[GameOptions.Graphics], () => { GameOptions.Graphics = (GameOptions.Graphics + 1) % 4; Rebuild(); });

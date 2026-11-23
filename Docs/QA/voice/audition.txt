@@ -1,0 +1,20 @@
+Voice audition, 2026-11-23 (Tools/tts/audition.py): 5 test lines per Kokoro voice, transcribed by Whisper base.en.
+WER = word error rate (0 = every word heard right). F0 = median pitch in Hz. Errors are mostly the names (Bhaskar, Suryapur).
+
+voice          WER     F0  worst transcript
+hm_omega      0.06    132  Basker will not wait for me.
+hm_psi        0.03    142  Buscar will not wait for me.
+hf_alpha      0.07    229  5 treasures gone before sunrise
+hf_beta       0.12    189  We are praying for the festival in Sir Yapo.
+am_michael    0.13    118  Bass car will not wait for me.
+am_fenrir     0.08    138  Baskar will not wait for me.
+am_onyx       0.08     90  Baskar will not wait for me.
+am_puck       0.15    122  You're praying for the festival in Suri-Apper.
+bm_george     0.08    149  Basko will not wait for me.
+bm_fable      0.08    126  We are praying for the festival in Surrey-Apper.
+bm_lewis      0.09    102  Bass guy will not wait for me.
+af_heart      0.10    202  We are praying for the festival in Suri-Apper.
+bf_emma       0.15    180  Bass goer will not wait for me.
+
+Chosen: the Indian (Hindi) voices speaking English for the Indian cast (lowest error, right accent), blended with English
+voices and shifted in speed and pitch so that each character sounds different (Tools/tts/voices.json).

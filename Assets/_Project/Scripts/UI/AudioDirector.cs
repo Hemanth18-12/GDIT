@@ -111,7 +111,7 @@ namespace LegacyOfTemples.UI
             }
 
             // ducking: music and ambience step back while a voice line plays
-            bool speaking = VoicePlayer.Instance != null && VoicePlayer.Instance.Source != null && VoicePlayer.Instance.Source.isPlaying;
+            bool speaking = VoiceManager.AnyPlaying;   // every voice: story lines and event lines, 2D and 3D
             DuckDb = Mathf.MoveTowards(DuckDb, speaking ? -6f : 0f, Time.unscaledDeltaTime * (speaking ? 40f : 10f));
             mixer.SetFloat("MusicVol", DuckDb);
             mixer.SetFloat("AmbienceVol", Db(am.MasterVolume * am.SFXVolume) + DuckDb * 0.66f);

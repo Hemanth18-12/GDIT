@@ -1,0 +1,165 @@
+id,speaker,source,take,seconds,peak_db,lufs,true_peak,f0,text,heard,wer,wer_strict
+v3_mee_00,meera,kokoro hf_alpha:1.0,take 1,1.81,-3.8,-16.0,-3.77,231,Two men. One carried a bell.,"Two men, one carry the bell.",0.2,0.33
+v3_mee_03,meera,kokoro hf_alpha:1.0,,1.74,-2.3,-15.99,-2.23,237,It rang. He hid it fast.,It rang he hid it fast.,0.0,0.0
+v3_ary_06,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.76,-1.8,-15.98,-1.82,119,He saw me. After him.,He saw me after him.,0.0,0.0
+v3_cou_01,courier,kokoro hm_omega:0.5+am_puck:0.5,,1.22,-1.7,-16.0,-1.72,144,You followed me? Clever.,You followed me clever.,0.0,0.0
+v3_ary_02,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.56,-1.7,-16.27,-1.69,114,One. Four to go.,"One, four, to go.",0.0,0.0
+v3_ary_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.67,-1.7,-16.02,-1.72,123,Not forced. Opened.,Not forced opened.,0.0,0.0
+v3_ary_07,aryan,kokoro hm_omega:0.75+am_onyx:0.25,take 1,0.78,-3.0,-15.98,-2.97,131,Two.,Dude.,1.0,1.0
+v3_puj_03,pujari,kokoro hm_psi:1.0,,2.36,-1.7,-16.06,-1.7,126,The old vaults. Behind the temple.,the old vaults behind the temple.,0.0,0.0
+v3_ary_03,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,0.81,-2.7,-15.98,-2.64,133,Three.,Three.,0.0,0.0
+v3_mee_01,meera,kokoro hf_alpha:1.0,,2.42,-1.9,-15.99,-1.91,218,They went to the old well. In this rain.,They went to the old well in this rain.,0.0,0.0
+v3_mee_02,meera,kokoro hf_alpha:1.0,,2.31,-2.0,-16.0,-2.04,236,Only one man carries those keys.,Only one man carries those keys.,0.0,0.0
+v3_ary_04,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.79,-1.7,-16.0,-1.7,118,Four. Now the Sun Wall.,4. Now the sun wall.,0.0,0.0
+v3_ary_05,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,2.4,-1.7,-16.37,-1.67,115,An empty case. The jungle road.,an empty case the jungle road.,0.0,0.0
+v3_mee_04,meera,kokoro hf_alpha:1.0,,2.2,-2.5,-16.02,-2.5,220,Your jeep waits on the north road.,Your jeep waits on the north road.,0.0,0.0
+v3_bha_01,bhaskar,kokoro hm_omega:0.5+am_onyx:0.5,take 1,1.86,-1.7,-16.45,-1.71,100,Keep moving. He is close.,"Keep moving, he is close.",0.0,0.0
+v3_bha_02,bhaskar,kokoro hm_omega:0.5+am_onyx:0.5,take 1,1.79,-1.7,-16.33,-1.71,105,Do you know what this fetches?,Do you know what this fetch is?,0.17,0.33
+v3_ary_08,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.96,-1.7,-16.05,-1.71,119,Its value is not money.,Its value is not money.,0.0,0.0
+v3_mad_01,madhav,kokoro hm_psi:0.6+bm_fable:0.4,take 1,0.94,-1.7,-16.11,-1.71,160,You knew?,You know.,0.5,0.5
+v3_mad_02,madhav,kokoro hm_psi:0.6+bm_fable:0.4,,1.52,-1.7,-16.0,-1.68,142,"I am sorry, sir.","I am sorry, sir.",0.0,0.0
+v3_mad_03,madhav,kokoro hm_psi:0.6+bm_fable:0.4,,1.93,-1.7,-16.2,-1.63,140,I only opened a door.,I only opened a door.,0.0,0.0
+v3_ary_10,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,0.89,-3.6,-15.99,-3.59,121,Five.,5.,0.0,0.0
+v3_mad_04,madhav,kokoro hm_psi:0.6+bm_fable:0.4,take 4 (pause at comma),2.01,-1.7,-16.13,-1.7,143,"Tea, sir? You look tired.","Steve, sir, you look tired.",0.2,0.2
+v3_mad_05,madhav,kokoro hm_psi:0.6+bm_fable:0.4,,2.53,-1.7,-16.24,-1.69,139,I locked up myself. As always.,I locked up myself as always.,0.0,0.0
+v3_mad_06,madhav,kokoro hm_psi:0.6+bm_fable:0.4,,2.65,-1.7,-16.41,-1.64,141,Take my lantern. It is dark below.,"Take my lantern, it is dark below.",0.0,0.0
+v3_bha_03,bhaskar,kokoro hm_omega:0.5+am_onyx:0.5,take 1,1.77,-1.7,-16.39,-1.71,106,Then come and take it.,Then come and take it.,0.0,0.0
+v3_puj_01,pujari,kokoro hm_psi:1.0,,2.71,-1.7,-16.19,-1.7,124,Five treasures. Gone before sunrise.,five treasures gone before sunrise.,0.0,0.0
+v3_puj_02,pujari,kokoro hm_psi:1.0,,2.21,-1.7,-16.3,-1.68,124,The procession leaves at dawn.,The procession leaves a dawn.,0.25,0.2
+v3_puj_09,pujari,kokoro hm_psi:1.0,,2.03,-1.7,-16.17,-1.71,127,You brought our memory home.,You brought out memory home.,0.2,0.2
+v3_ary_09,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.62,-1.7,-16.25,-1.66,126,Every piece is home.,Every piece is home.,0.0,0.0
+intro_puj_01,pujari,kokoro hm_psi:1.0,,2.11,-1.7,-16.26,-1.71,131,Something terrible has happened!,something terrible has happened.,0.0,0.0
+intro_ary_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,3.39,-1.7,-16.14,-1.69,109,"Excuse me, could you tell me the way to Jagannath Temple?","Excuse me, could you tell me the way to Jagannath Temple?",0.0,0.0
+intro_mee_01,meera,kokoro hf_alpha:1.0,,5.34,-1.7,-16.05,-1.69,204,Go straight along this road and follow the old stone entrance. The temple is at the end.,"Go straight along this road and follow the old stone entrance, the temple is at the end.",0.0,0.0
+intro_ary_02,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,0.99,-1.9,-16.01,-1.91,135,Thank you.,Thank you.,0.0,0.0
+mv_first_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.94,-1.7,-15.99,-1.71,113,Right. Let's find that temple.,"Right, let's find that temple.",0.0,0.0
+mv_run_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.64,-1.7,-16.06,-1.7,127,No time to stroll.,No time to stroll.,0.0,0.0
+mv_run_02,aryan,kokoro hm_omega:0.75+am_onyx:0.25,take 1,1.44,-1.7,-16.06,-1.72,118,Dawn won't wait.,Don won't wait.,0.33,0.33
+mv_tired_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.79,-1.7,-16.04,-1.69,120,Need to catch my breath.,Need to catch my breath.,0.0,0.0
+mv_tired_02,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.29,-2.5,-15.99,-2.46,132,Easy. Breathe.,Easy Breathe.,0.0,0.0
+mv_jump_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.12,-1.7,-16.0,-1.68,114,Up we go.,Up we go.,0.0,0.0
+mv_land_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.17,-1.7,-16.13,-1.68,120,Oof. Careful.,"(interjection, not checked)",,
+mv_land_02,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.5,-1.7,-16.17,-1.7,124,That was a drop.,That was a drop.,0.0,0.0
+mv_area_courtyard,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,2.26,-1.7,-16.2,-1.71,122,The temple courtyard. Stay sharp.,The temple courtyard stay sharp.,0.0,0.0
+mv_area_vaults,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,2.31,-1.7,-16.08,-1.7,123,Dark down here. Watch your step.,"Dark down here, watch your step.",0.0,0.0
+mv_area_stepwell,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,2.19,-1.7,-16.12,-1.69,122,The old well. Listen to that rain.,The old well listened to that rain.,0.17,0.14
+mv_area_sunwall,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.96,-1.7,-16.19,-1.7,112,No shade at all out here.,No shade at all out here.,0.0,0.0
+mv_area_jungle,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,2.05,-1.7,-16.27,-1.71,121,The river road. Trees everywhere.,The river road trees everywhere.,0.0,0.0
+mv_area_bazaar,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.98,-1.7,-16.1,-1.71,117,Back to the bazaar. Listen.,"Back to the Bazaar, listen.",0.0,0.0
+mv_danger_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.91,-1.7,-16.39,-1.69,113,Careful. That's a long drop.,"Careful, that's a long drop.",0.0,0.0
+mv_danger_02,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.55,-1.7,-16.1,-1.68,125,One wrong step here...,One wrong step here.,0.0,0.0
+mv_rain_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.73,-1.7,-16.18,-1.71,131,This rain won't stop.,This rain won't stop.,0.0,0.0
+mv_rain_02,aryan,kokoro hm_omega:0.75+am_onyx:0.25,take 1,1.56,-1.7,-16.45,-1.68,119,Wet stone. Slippery.,Wetstone Slippery,0.67,0.67
+mv_lost_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.71,-1.7,-16.08,-1.7,121,Think. Where would they go?,Think where would they go?,0.0,0.0
+mv_lost_02,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,2.64,-1.7,-16.16,-1.69,125,I'm losing time. My notes might help.,"I'm losing time, my notes might help.",0.0,0.0
+mv_lost_03,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,2.02,-1.7,-16.31,-1.71,113,Retrace it. What did I miss?,"Retrace it, what did I miss?",0.0,0.0
+mv_deadend_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.19,-1.7,-16.09,-1.66,109,Dead end.,Dead end.,0.0,0.0
+jp_approach_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.98,-1.7,-16.11,-1.72,117,The jeep. Still in one piece.,the Jeep still in one piece.,0.0,0.0
+jp_enter_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.13,-1.7,-16.35,-1.67,110,Let's go.,Let's go.,0.0,0.0
+jp_enter_02,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.25,-1.7,-16.44,-1.72,114,Right. Drive.,Right drive.,0.0,0.0
+jp_start_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.39,-1.7,-16.32,-1.72,107,Good. She's running.,"Good, she's running.",0.0,0.0
+jp_off_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.17,-1.7,-16.41,-1.7,143,Here we go.,Here we go.,0.0,0.0
+jp_fast_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.9,-1.7,-16.15,-1.7,130,Faster. He's getting away.,"Faster, he's getting away.",0.0,0.0
+jp_fast_02,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.6,-1.7,-16.49,-1.7,122,Easy on this road.,Easy on this road.,0.0,0.0
+jp_drift_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.32,-1.7,-16.4,-1.71,143,"Whoa, hold it!","Whoa, hold it.",0.0,0.0
+jp_brake_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,0.88,-1.7,-16.01,-1.72,134,Brakes!,Brakes.,0.0,0.0
+jp_near_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.38,-1.7,-16.37,-1.7,121,That was close.,That was close.,0.0,0.0
+jp_crash1_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.69,-1.7,-16.31,-1.7,119,Ugh. That'll leave a mark.,Ugg that'll leave a mark.,0.25,0.2
+jp_crash1_02,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.02,-1.7,-16.23,-1.71,137,Watch it!,Watch it.,0.0,0.0
+jp_crash2_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.55,-1.7,-16.41,-1.71,134,That hurt the jeep.,That hurt the jeep.,0.0,0.0
+jp_crash2_02,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.76,-1.7,-16.27,-1.71,140,She can't take much more.,She can't take much more.,0.0,0.0
+jp_smoke_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.47,-1.7,-16.35,-1.71,142,Smoke. Not good.,Smoke not good.,0.0,0.0
+jp_dead_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,2.1,-1.7,-16.23,-1.7,126,"Engine's gone. On foot, then.",Engine's gone on foot then.,0.0,0.0
+jp_stuck_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.52,-1.7,-16.33,-1.69,144,We're stuck. Back up.,We're stuck back up.,0.0,0.0
+jp_arrive_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.63,-1.7,-16.1,-1.71,146,The ruins. This is it.,"The ruins, this is it.",0.0,0.0
+jp_exit_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.35,-1.7,-15.98,-1.72,120,Right. On foot.,Right on foot.,0.0,0.0
+jp_park_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.36,-1.7,-16.07,-1.7,118,Parked. Let's move.,"Parked, let's move.",0.0,0.0
+ex_notice_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.07,-1.7,-16.13,-1.7,133,What's this?,What's this?,0.0,0.0
+ex_notice_02,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.59,-1.7,-16.28,-1.7,120,Hm. Look at that.,Hm look at that,0.0,0.0
+ex_clue_list,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,2.23,-1.7,-16.09,-1.7,124,Neat writing. Somebody careful.,Neat writing somebody careful.,0.0,0.0
+ex_clue_lock,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,2.07,-1.7,-16.03,-1.72,122,From the inside. Interesting.,from the inside interesting.,0.0,0.0
+ex_clue_ledger,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.9,-1.7,-16.34,-1.7,109,Same ticks. Same hand.,"Same tics, same hand.",0.25,0.25
+ex_clue_keys,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,2.21,-1.7,-16.22,-1.67,126,Temple keys. All the way out here.,Temple keys all the way out here.,0.0,0.0
+ex_board_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,2.32,-1.7,-16.1,-1.67,117,Enough to name someone. My notes.,Enough to name someone my notes.,0.0,0.0
+ex_item_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,take 1,0.93,-1.8,-15.98,-1.8,134,Got it.,God it.,0.5,0.5
+ex_item_02,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.05,-1.7,-16.0,-1.69,112,Safe now.,Safe now.,0.0,0.0
+pz_start_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.73,-1.7,-16.17,-1.69,112,Let's see how this works.,Let's see how this works.,0.0,0.0
+pz_start_02,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.75,-1.7,-16.16,-1.71,121,There's a mechanism here.,There's a mechanism here.,0.0,0.0
+pz_step_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.12,-1.7,-16.16,-1.71,107,That's one.,That's one.,0.0,0.0
+pz_step_02,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.34,-1.7,-16.01,-1.67,133,Good. That fits.,Good that fits.,0.0,0.0
+pz_wrong_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.51,-1.7,-16.14,-1.71,120,No. Not like that.,"No, not like that.",0.0,0.0
+pz_wrong_02,aryan,kokoro hm_omega:0.75+am_onyx:0.25,take 1,1.59,-1.7,-16.17,-1.71,104,Hm. Wrong way.,H.M. Wrong Way,0.67,0.67
+pz_almost_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.14,-1.7,-16.06,-1.7,126,Almost there.,Almost there.,0.0,0.0
+pz_almost_02,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.01,-1.8,-16.02,-1.75,130,One more.,One more.,0.0,0.0
+pz_solved_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,take 1,1.25,-1.7,-16.22,-1.68,109,There. Solved.,They're solved.,0.5,0.5
+pz_solved_03,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.69,-1.7,-16.08,-1.7,119,Clever old builders.,Clever old builders.,0.0,0.0
+pz_hint1_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.5,-1.7,-16.04,-1.69,121,Look around first.,Look around first.,0.0,0.0
+pz_hint2_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.76,-1.7,-16.05,-1.7,116,Think about how it moves.,Think about how it moves.,0.0,0.0
+pz_hint3_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.81,-1.7,-16.16,-1.7,107,"Right. Step by step, then.",Right step by step then.,0.0,0.0
+pz_pot_shard_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.37,-1.7,-16.15,-1.71,133,This piece fits.,This piece fits.,0.0,0.0
+pz_pot_shard_02,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.45,-1.7,-16.17,-1.7,123,Another piece home.,Another piece home.,0.0,0.0
+pz_pot_whole_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,2.04,-1.7,-16.25,-1.67,124,Whole again. And it holds oil.,Hole again and it holds oil.,0.17,0.17
+pz_lantern_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.78,-1.7,-16.17,-1.65,117,Now the light falls right.,Now the light falls right.,0.0,0.0
+pz_flag_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.87,-1.7,-16.26,-1.7,118,Something under this stone.,something under this stone.,0.0,0.0
+pz_vault_plate_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,2.01,-1.7,-16.23,-1.71,127,Stone on the plate. Good.,Stone on the plate good.,0.0,0.0
+pz_vault_gate_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,take 1,1.53,-1.7,-16.09,-1.72,127,The gate's open.,The gates open.,0.0,0.33
+pz_vault_rings_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,2.69,-1.7,-16.02,-1.71,124,Three rings of light. Not by chance.,"3 rings of life, not by chance.",0.14,0.14
+pz_sluice_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,take 1,1.58,-2.2,-16.0,-2.18,126,The water's coming in.,The water is coming in.,0.0,0.5
+pz_flood_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,take 2 (slower),2.42,-1.7,-16.18,-1.67,121,Too much. The panel's under water.,Too much the panels under water.,0.0,0.17
+pz_level_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.45,-1.7,-16.01,-1.7,113,Right on the mark.,Right on the mark.,0.0,0.0
+pz_mirror_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.54,-1.7,-16.11,-1.71,117,Turn it toward the wall.,Turn it toward the wall.,0.0,0.0
+pz_beam_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,2.28,-1.7,-16.09,-1.68,126,One beam. The wheel blocks the other.,"One beam, the wheel blocks the other.",0.0,0.0
+pz_wall_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,take 1,1.57,-2.9,-15.95,-2.85,126,The wall's opening.,The walls opening.,0.0,0.33
+bz_follow_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,2.05,-1.7,-16.24,-1.69,133,There he is. Keep your distance.,"There he is, keep your distance.",0.0,0.0
+bz_look_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.7,-1.7,-16.11,-1.71,118,Don't look round... good.,Don't look round good.,0.0,0.0
+bz_spot_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.15,-1.7,-16.02,-1.72,128,He felt that.,He felt that.,0.0,0.0
+bz_spot_02,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.65,-1.7,-16.15,-1.7,130,Careful. He's suspicious.,Careful he's suspicious.,0.0,0.0
+bz_far_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.22,-1.7,-16.19,-1.68,124,Don't lose him.,Don't lose him.,0.0,0.0
+bz_yard_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.82,-1.7,-16.18,-1.7,126,A dead end. He's trapped.,A dead end he's trapped.,0.0,0.0
+cb_start_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.19,-1.9,-15.98,-1.92,133,Here they come.,Here they come.,0.0,0.0
+cb_start_02,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,2.01,-1.7,-16.1,-1.71,122,Stay calm. Watch his hands.,"Stay calm, watch his hands.",0.0,0.0
+cb_combo_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,0.99,-1.7,-15.99,-1.72,110,Got you.,Got you!,0.0,0.0
+cb_hurt_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,0.69,-2.1,-16.0,-2.05,125,Ugh!,"(interjection, not checked)",,
+cb_hurt_02,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.19,-1.7,-16.07,-1.7,121,Ah! Careful.,"(interjection, not checked)",,
+cb_low_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.65,-1.7,-16.15,-1.7,109,I can't take many more.,I can't take many more.,0.0,0.0
+cb_low_02,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.67,-1.7,-16.05,-1.68,118,Block. Breathe. Block.,"Block, breathe, block.",0.0,0.0
+cb_dodge_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,take 3 (faster),0.93,-1.7,-16.08,-1.71,114,Too slow.,Too slow.,0.0,0.0
+cb_finish_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.1,-2.2,-15.99,-2.15,117,Stay down.,Stay down.,0.0,0.0
+cb_finish_02,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,0.85,-2.6,-15.96,-2.59,131,Enough.,Enough.,0.0,0.0
+cb_won_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.05,-1.7,-16.05,-1.71,110,It's over.,It's over.,0.0,0.0
+cb_won_02,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,2.2,-1.7,-16.43,-1.71,117,Nobody else needs to get hurt.,Nobody else needs to get hurt.,0.0,0.0
+cb_retry_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.4,-1.7,-16.11,-1.71,126,Again. Focus.,"Again, focus.",0.0,0.0
+rb_spot_vault,robber,kokoro hm_psi:0.6+am_onyx:0.4,take 1,1.68,-1.7,-16.26,-1.7,108,Light! Someone's here!,Like someone's here.,0.33,0.33
+rb_spot_well,robber,kokoro hm_psi:0.6+am_onyx:0.4,,1.47,-1.7,-16.19,-1.7,109,"Slippery, isn't it?",Slippery isn't it?,0.0,0.0
+rb_spot_store,robber,kokoro hm_psi:0.6+am_onyx:0.4,,1.91,-1.7,-16.33,-1.7,101,You should have stayed in the village.,You should have stayed in the village.,0.0,0.0
+rb_taunt_01,robber,kokoro hm_psi:0.6+am_onyx:0.4,,1.71,-1.7,-16.4,-1.69,109,"Walk away, detective.",walk away detective.,0.0,0.0
+rb_taunt_02,robber,kokoro hm_psi:0.6+am_onyx:0.4,,1.57,-1.7,-16.43,-1.7,108,Two of us. One of you.,"Two of us, one of you.",0.0,0.0
+rb_taunt_well,robber,kokoro hm_psi:0.6+am_onyx:0.4,,1.85,-1.7,-16.28,-1.7,102,He promised us a boat!,He promised us a boat.,0.0,0.0
+rb_taunt_vault,robber,kokoro hm_psi:0.6+am_onyx:0.4,,2.44,-1.7,-16.39,-1.71,101,He said nobody comes down here.,He said nobody comes down here.,0.0,0.0
+cr_taunt_01,courier,kokoro hm_omega:0.5+am_puck:0.5,,1.27,-1.7,-16.0,-1.63,133,Back off! It's mine now.,Back off it's mine now.,0.0,0.0
+cr_taunt_02,courier,kokoro hm_omega:0.5+am_puck:0.5,,1.3,-1.7,-15.98,-1.69,141,You don't know who sent me.,You don't know who sent me.,0.0,0.0
+ki_spot_01,kishore,kokoro hm_psi:0.55+bm_george:0.45,,1.92,-1.7,-16.25,-1.7,154,You read the wall. Impressive.,"You read the wall, impressive.",0.0,0.0
+ki_taunt_01,kishore,kokoro hm_psi:0.55+bm_george:0.45,,2.07,-1.7,-16.02,-1.68,141,The finial is already moving.,The finial is already moving.,0.0,0.0
+ki_taunt_02,kishore,kokoro hm_psi:0.55+bm_george:0.45,,1.88,-1.7,-16.02,-1.68,150,Bhaskar will not wait for me.,Baskar will not wait for me.,0.0,0.0
+ki_down_01,kishore,kokoro hm_psi:0.55+bm_george:0.45,,1.6,-1.7,-16.02,-1.68,149,The river. Before dawn.,the river before dawn.,0.0,0.0
+bh_taunt_01,bhaskar,kokoro hm_omega:0.5+am_onyx:0.5,take 1,2.04,-1.7,-16.39,-1.69,105,"Go home, investigator.","Go home, investigator.",0.0,0.0
+bh_taunt_02,bhaskar,kokoro hm_omega:0.5+am_onyx:0.5,take 1,1.81,-1.7,-16.23,-1.71,103,You fight like a clerk.,You fight like a clerk.,0.0,0.0
+ck_half_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.71,-1.7,-16.08,-1.67,120,Half the night is gone.,Half the night is gone.,0.0,0.0
+ck_5_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.54,-1.7,-16.04,-1.7,133,Five minutes to dawn.,5 minutes to dawn,0.0,0.0
+ck_1_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.36,-1.7,-16.08,-1.68,134,One minute. Run!,One minute run.,0.0,0.0
+ck_pen_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.55,-1.7,-16.19,-1.67,106,That cost me time.,That cost me time.,0.0,0.0
+ck_pen_02,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.55,-1.7,-16.06,-1.72,112,Minutes I don't have.,Minutes I don't have.,0.0,0.0
+np_puj_01,pujari,kokoro hm_psi:1.0,take 2 (slower),1.64,-1.7,-16.28,-1.7,122,"Please hurry, sir.","Please hurry, sir.",0.0,0.0
+np_puj_02,pujari,kokoro hm_psi:1.0,,1.53,-1.7,-16.2,-1.69,129,May you find them all.,May you find them all.,0.0,0.0
+np_puj_03,pujari,kokoro hm_psi:1.0,,1.61,-1.7,-16.44,-1.71,126,"You are back! Come, come.","You are back, come, come.",0.0,0.0
+np_mee_01,meera,kokoro hf_alpha:1.0,,1.23,-2.7,-15.99,-2.69,244,"Be careful, sir.",Be careful sir.,0.0,0.0
+np_mee_02,meera,kokoro hf_alpha:1.0,,1.9,-1.7,-15.99,-1.71,235,The whole village is awake.,The whole village is awake.,0.0,0.0
+np_mad_01,madhav,kokoro hm_psi:0.6+bm_fable:0.4,take 4 (pause at comma),1.48,-1.7,-16.09,-1.67,148,"Long night, sir?","Long night, sir.",0.0,0.0
+np_mad_02,madhav,kokoro hm_psi:0.6+bm_fable:0.4,,2.37,-1.7,-16.39,-1.7,131,"The keys? Safe with me, always.","The keys, safe with me always.",0.0,0.0
+vl_m_01,villager_m,kokoro hm_psi:1.0,take 2 (slower),1.21,-1.7,-16.33,-1.69,156,"Up early, sir?",Up early sir.,0.0,0.0
+vl_m_02,villager_m,kokoro hm_psi:1.0,,2.1,-1.7,-16.43,-1.67,157,The temple bell is silent tonight.,The temple bell is silent tonight.,0.0,0.0
+vl_m_03,villager_m,kokoro hm_psi:1.0,,1.57,-1.7,-16.12,-1.68,171,Thieves? In Suryapur?,Thieves in Sariyapur.,0.0,0.0
+vl_f_01,villager_f,kokoro hf_beta:1.0,,1.21,-1.8,-15.98,-1.78,189,"You're up early, sir.","You're up early, sir.",0.0,0.0
+vl_f_02,villager_f,kokoro hf_beta:1.0,,1.76,-1.7,-16.2,-1.66,199,We are praying for the festival.,We are praying for the festival.,0.0,0.0
+vl_f_03,villager_f,kokoro hf_beta:1.0,take 1,1.27,-1.7,-16.08,-1.7,197,"Mind the cart, sir.",Mind the card say.,0.67,0.5
+end_narr_01,narrator,kokoro hf_beta:0.5+bf_emma:0.5,,6.84,-1.7,-16.2,-1.59,176,Every temple holds a story. Every artifact carries a memory. Protecting heritage means protecting our history.,Every temple holds a story. Every artifact carries a memory.  Protecting heritage means protecting our history.,0.0,0.0

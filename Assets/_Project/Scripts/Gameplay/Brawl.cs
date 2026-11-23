@@ -138,6 +138,7 @@ namespace LegacyOfTemples.Gameplay
         public static void DemoRestorePlayer() { if (Active != null) { Active.Health = 100f; Active.Stamina = 100f; } }
         public bool Won { get; private set; }
         public int Retries { get; private set; }
+        public int Dodges { get; private set; }
         public int MaxCombo { get; private set; }
         public int Parries { get; private set; }
         public int Finishers { get; private set; }
@@ -223,7 +224,7 @@ namespace LegacyOfTemples.Gameplay
             if (finish) { var e = Nearest(2.8f, 100f, true); if (e != null) { StartCoroutine(Finisher(e)); return; } }
             if (dodge && Stamina >= 25f) { Stamina -= 25f; Vector3 f = player.transform.forward; Vector2 mv = VirtualInput.Move; if (kb != null) { if (kb.sKey.isPressed) mv.y -= 1f; if (kb.aKey.isPressed) mv.x -= 1f; if (kb.dKey.isPressed) mv.x += 1f; }
                 dodgeDir = mv.sqrMagnitude > 0.1f && cam != null ? (Vector3.ProjectOnPlane(cam.transform.right, Vector3.up).normalized * mv.x + Vector3.ProjectOnPlane(cam.transform.forward, Vector3.up).normalized * mv.y).normalized : -f;
-                dodgeUntil = Time.time + 0.34f; busyUntil = Time.time + 0.42f; Hero("Roll"); GameSfx.At("sfx_dodge", player.transform.position, 0.8f); GameSfx.At("sfx_cloth", player.transform.position + Vector3.up, 0.5f); return; }
+                dodgeUntil = Time.time + 0.34f; busyUntil = Time.time + 0.42f; Dodges++; Hero("Roll"); GameSfx.At("sfx_dodge", player.transform.position, 0.8f); GameSfx.At("sfx_cloth", player.transform.position + Vector3.up, 0.5f); return; }
             if (heavy && Stamina >= 20f) { Stamina -= 20f; Swing(true); }
             else if (light) Swing(false);
         }

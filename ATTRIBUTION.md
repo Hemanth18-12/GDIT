@@ -113,3 +113,13 @@ All from polyhaven.com, licence CC0 1.0 (public domain), downloaded with Tools/a
 | Tools/audio/build_v3_voices.py → Resources/Voice/*/v3_*_tts.wav | The 29 V3 spoken lines | Generated with macOS built-in text-to-speech voices (Rishi, Aman, Tara) | macOS `say` | Apple system voices; used here for a non-commercial student project. Replace with recorded voices before any commercial use. |
 | BazaarTail.cs (courier bell), Jeep.cs (horn) | Bell and horn sounds | Project (own work) | Synthesised in code | Own work |
 | Assets/_Project/Audio/Resources/Audio/talk_murmur_1..3.wav | Indistinct village chatter loops | Generated with macOS built-in voices, mixed and low-passed (Tools/audio/build_v3_chatter.py) | macOS `say` | Apple system voices; non-commercial student use |
+
+## Voice-over (2026-11-23)
+| Title | Author | URL / source | Licence | Notes |
+|---|---|---|---|---|
+| Kokoro-82M (text-to-speech model, voices) | hexgrad | https://huggingface.co/hexgrad/Kokoro-82M ; ONNX files https://github.com/thewh1teagle/kokoro-onnx/releases/tag/model-files-v1.0 | Apache-2.0 | Made all 164 voice clips (offline). The model is not shipped with the game; the clips are. |
+| kokoro-onnx | thewh1teagle | https://github.com/thewh1teagle/kokoro-onnx | MIT | Runs Kokoro in Python. Build tool only. |
+| espeak-ng (through espeakng-loader) | espeak-ng contributors | https://github.com/espeak-ng/espeak-ng | GPL-3.0 | Turns text into phonemes for Kokoro. Build tool only, not shipped. |
+| faster-whisper with Whisper base.en | SYSTRAN / OpenAI | https://github.com/SYSTRAN/faster-whisper | MIT | Quality check only (transcribes each clip). Not shipped. |
+| Voice clips in Assets/_Project/Audio/Voice/ | Project (generated with Kokoro) | Docs/VOICE_LINES.csv, Tools/tts/generate_voices.py | Own work | Lines written for this project. |
+

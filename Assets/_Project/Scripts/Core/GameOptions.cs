@@ -40,6 +40,10 @@ namespace LegacyOfTemples.Core
         public static readonly string[] WeatherNames = { "Off", "Low", "High" };
         /// <summary>Demo Mode: allows the F9 demo menu in a release build (it is always available in development builds).</summary>
         public static bool DemoMode { get => Get("Settings_DemoMode", 0) == 1; set => Set("Settings_DemoMode", value ? 1 : 0); }
+        /// <summary>How often the game speaks event lines: 0 Low, 1 Normal (default), 2 High. Story lines always play.</summary>
+        public static readonly string[] VoiceFrequencyNames = { "Low", "Normal", "High" };
+        public static int VoiceFrequency { get => Mathf.Clamp(Get("Settings_VoiceFreq", 1), 0, 2); set => Set("Settings_VoiceFreq", Mathf.Clamp(value, 0, 2)); }
+        public static bool Subtitles { get => PlayerPrefs.GetInt("Settings_Subtitles", 1) == 1; set { PlayerPrefs.SetInt("Settings_Subtitles", value ? 1 : 0); PlayerPrefs.Save(); } }
         public static int WeatherQuality { get => Mathf.Clamp(Get("Settings_Weather", 2), 0, 2); set => Set("Settings_Weather", Mathf.Clamp(value, 0, 2)); }
 
         // ---- on-screen controls ----

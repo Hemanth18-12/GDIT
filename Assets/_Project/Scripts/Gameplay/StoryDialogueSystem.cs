@@ -28,6 +28,8 @@ namespace LegacyOfTemples.Gameplay
         private readonly HashSet<string> minigames = new HashSet<string>();
         private readonly Queue<StoryLine> barkQueue = new Queue<StoryLine>();
         private StoryLine barkNow; private float barkUntil;
+        /// <summary>A story bark is on screen (the voice manager waits for it before starting another line).</summary>
+        public bool BarkShowing => barkNow != null;
         private bool codexOpen; private float codexToast; private string codexToastTitle;
 
         // ---- runtime ----
@@ -310,6 +312,7 @@ namespace LegacyOfTemples.Gameplay
             if (barkNow == null) return;
             if (Time.unscaledTime > barkUntil || talking) { barkNow = null; return; }
             var sp = StoryData.Speaker(barkNow.s);
+            if (!GameOptions.Subtitles) return;
             ScreenText.Panel("bark", null, $"<color={(sp != null ? sp.color : ScreenText.Gold)}><b>{(sp != null ? sp.name : barkNow.s)}</b></color>  {barkNow.t}", PanelAnchor.BottomCenter, 1100f, null, false, 3);
         }
 

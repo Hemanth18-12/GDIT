@@ -1,0 +1,98 @@
+{
+ "_comment": "Kokoro-82M voice for each speaker: a blend of voice styles (weights add to 1), speed (1 = normal) and pitch in semitones (applied after synthesis). Picked from an audition (Docs/QA/voice/audition.txt): the Indian (Hindi) Kokoro voices speaking English gave the lowest word error rate.",
+ "aryan": {
+  "blend": {
+   "hm_omega": 0.75,
+   "am_onyx": 0.25
+  },
+  "speed": 0.98,
+  "pitch": 0.0,
+  "group": "VoiceAryan"
+ },
+ "pujari": {
+  "blend": {
+   "hm_psi": 1.0
+  },
+  "speed": 0.88,
+  "pitch": -2.0,
+  "group": "VoiceNPC"
+ },
+ "meera": {
+  "blend": {
+   "hf_alpha": 1.0
+  },
+  "speed": 1.04,
+  "pitch": 0.0,
+  "group": "VoiceNPC"
+ },
+ "madhav": {
+  "blend": {
+   "hm_psi": 0.6,
+   "bm_fable": 0.4
+  },
+  "speed": 1.0,
+  "pitch": 1.0,
+  "group": "VoiceNPC"
+ },
+ "bhaskar": {
+  "blend": {
+   "hm_omega": 0.5,
+   "am_onyx": 0.5
+  },
+  "speed": 0.94,
+  "pitch": -2.5,
+  "group": "VoiceNPC"
+ },
+ "kishore": {
+  "blend": {
+   "hm_psi": 0.55,
+   "bm_george": 0.45
+  },
+  "speed": 1.08,
+  "pitch": 0.5,
+  "group": "VoiceNPC"
+ },
+ "courier": {
+  "blend": {
+   "hm_omega": 0.5,
+   "am_puck": 0.5
+  },
+  "speed": 1.12,
+  "pitch": 1.5,
+  "group": "VoiceNPC"
+ },
+ "robber": {
+  "blend": {
+   "hm_psi": 0.6,
+   "am_onyx": 0.4
+  },
+  "speed": 0.96,
+  "pitch": -1.5,
+  "group": "VoiceNPC"
+ },
+ "villager_m": {
+  "blend": {
+   "hm_psi": 1.0
+  },
+  "speed": 1.04,
+  "pitch": 2.0,
+  "group": "VoiceNPC"
+ },
+ "villager_f": {
+  "blend": {
+   "hf_beta": 1.0
+  },
+  "speed": 1.0,
+  "pitch": 0.0,
+  "group": "VoiceNPC"
+ },
+ "narrator": {
+  "blend": {
+   "hf_beta": 0.5,
+   "bf_emma": 0.5
+  },
+  "speed": 0.9,
+  "pitch": -0.5,
+  "group": "VoiceNPC"
+ }
+}

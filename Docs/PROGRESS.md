@@ -1,4 +1,17 @@
-# V3 progress (resume file)
+# Progress (resume file)
+
+## Voice-over system (started 2026-11-23) - resume here
+Say "continue the voice-over from Docs/PROGRESS.md".
+- [x] Tag `backup-voice`. Audit: `Docs/VOICE_AUDIT.md`.
+- [x] 164 lines in `Docs/VOICE_LINES.csv` (131 new event lines + 33 story and intro lines), 73 event triggers.
+- [x] Clips made with Kokoro-82M (`Tools/tts/generate_voices.py`), levelled to -16 LUFS, checked by Whisper (`Docs/QA/voice/summary.txt`).
+- [x] `VoiceDatabase` asset (`Tools > Voice > Build database from CSV`), `VoiceManager` (queue, priorities, cooldowns, subtitles, lip sync, 3D, pause), `VoiceWatchers` (all triggers), settings (Voice lines Low/Normal/High, Subtitles), `VoiceTestScene`.
+- [x] Play-mode tests `VoiceSystemTests`: 6 of 6 pass.
+- [ ] Bot run of the whole game with the trigger log (`Docs/QA/voice_trigger_log.txt`).
+- [ ] Demo video with voice and subtitles (`Docs/QA/voice_demo.mov`).
+- [ ] `Docs/VOICE_GUIDE.md`, EXPLAINED note, final build.
+
+## V3 progress (earlier)
 
 Say "Continue from Docs/PROGRESS.md" to resume. Last update: 2026-11-16.
 

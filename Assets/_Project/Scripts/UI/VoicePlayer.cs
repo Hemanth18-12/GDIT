@@ -9,16 +9,16 @@ using LegacyOfTemples.Gameplay;
 namespace LegacyOfTemples.UI
 {
     /// <summary>
-    /// Plays a voice clip for every dialogue line while it types out. Clips are synthesized placeholders
-    /// (macOS `say`) in Resources/Voice/&lt;speakerId&gt;/&lt;md5(text)[0..12]&gt;.wav. Lines without a clip get soft
-    /// per-character "talk blips". Volume: PlayerPrefs "Settings_VoiceVol".
+    /// Plays a voice clip for every dialogue line and story bark. The clip comes from the voice database first
+    /// (Docs/VOICE_LINES.csv, same id as the story line), then the older Resources/Voice files, then soft "talk blips".
+    /// Playback goes through the VoiceManager queue, so story lines never overlap other voices. Volume: "Settings_VoiceVol".
     /// </summary>
     public sealed class VoicePlayer : MonoBehaviour
     {
         public static VoicePlayer Instance { get; private set; }
         public string LastPlayed { get; private set; } = "";
         private AudioSource source;
-        public AudioSource Source => source;
+        public AudioSource Source => VoiceManager.Instance != null ? VoiceManager.Instance.Source2D : source;
         private readonly Dictionary<string, AudioClip> blips = new Dictionary<string, AudioClip>();
 
         public static float Volume
@@ -42,7 +42,7 @@ namespace LegacyOfTemples.UI
             source.playOnAwake = false; source.spatialBlend = 0f; source.priority = 0;
             UIManager.OnSubtitleLine += OnLine;
             StoryDialogueSystem.OnBark += OnBark;
-            EventBus.OnDialogueEnd += _ => source.Stop();
+            EventBus.OnDialogueEnd += _ => VoiceManager.StopStory();
         }
 
         private void OnDestroy() { UIManager.OnSubtitleLine -= OnLine; StoryDialogueSystem.OnBark -= OnBark; }
@@ -70,30 +70,31 @@ namespace LegacyOfTemples.UI
 
         private void OnLine(string speaker, string text)
         {
-            source.Stop();
+            VoiceManager.StopStory();
             if (text.StartsWith("(")) return; // a prompt, not speech
             var line = StoryData.LineByText(text);
-            Play(line != null ? line.s : SpeakerId(speaker) ?? speaker, line, text);
+            Play(line != null ? line.s : SpeakerId(speaker) ?? speaker, line, text, true);
         }
 
-        private void OnBark(StoryLine line) { Play(line.s, line, line.t); }
+        private void OnBark(StoryLine line) { Play(line.s, line, line.t, false); }
 
         /// <summary>Recorded file "<id>.wav" wins, then the "<id>_tts.wav" placeholder, then the old text hash, then blips.</summary>
-        private void Play(string id, StoryLine line, string text)
+        private void Play(string id, StoryLine line, string text, bool dialogue)
         {
             AudioClip clip = null;
             if (line != null && !string.IsNullOrEmpty(line.id))
             {
-                clip = Resources.Load<AudioClip>($"Voice/{id}/{line.id}");
+                clip = VoiceLibrary.Clip(line.id);   // the current voice set (Docs/VOICE_LINES.csv)
+                if (clip == null) clip = Resources.Load<AudioClip>($"Voice/{id}/{line.id}");
                 if (clip == null) clip = Resources.Load<AudioClip>($"Voice/{id}/{line.id}_tts");
             }
             if (clip == null) clip = Resources.Load<AudioClip>($"Voice/{id}/{Hash(text)}");
             if (clip == null) clip = Blip(id, text.Length);
             LastTier = line != null && !string.IsNullOrEmpty(line.tier) ? line.tier : "calm";
             OnVoice?.Invoke(id, LastTier);
-            source.clip = clip;
-            source.volume = Volume * (LastTier == "shout" ? 1f : LastTier == "firm" ? 0.9f : 0.8f);
-            source.Play();
+            float tierVol = LastTier == "shout" ? 1f : LastTier == "firm" ? 0.9f : 0.8f;
+            if (VoiceManager.Instance != null) VoiceManager.PlayStory(line != null ? line.id : "", id, text, clip, LastTier, dialogue, tierVol);
+            else { source.clip = clip; source.volume = Volume * tierVol; source.Play(); }
             LastPlayed = id + ":" + clip.name;
         }
 

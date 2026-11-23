@@ -244,7 +244,9 @@ namespace LegacyOfTemples.Gameplay
         private void Say(string speakerName, string line, string clip, float seconds)
         {
             subtitle = line; speaker = speakerName; subUntil = t + seconds;
-            var c = Resources.Load<AudioClip>("Voice/" + clip); if (c != null) { voice.Stop(); voice.clip = c; voice.Play(); }
+            string lineId = clip.Substring(clip.LastIndexOf('/') + 1).Replace("_tts", "");
+            var c = VoiceLibrary.Clip(lineId); if (c == null) c = Resources.Load<AudioClip>("Voice/" + clip);   // current voice set first, then the old file
+            if (c != null) { voice.Stop(); voice.clip = c; voice.Play(); }
             LastVoice = clip + (c != null ? $" ({c.length:0.0}s, playing={voice.isPlaying}, listener volume {AudioListener.volume:0.00})" : " MISSING"); Debug.Log("[Intro] voice " + LastVoice);
             if (music != null) music.volume = 0.22f;   // the music ducks under the voice
         }

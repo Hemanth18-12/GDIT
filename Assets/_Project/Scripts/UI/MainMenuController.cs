@@ -144,6 +144,7 @@ namespace LegacyOfTemples.UI
                 case Screen.Gameplay:
                     AddText("MenuTitle", "GAMEPLAY", 64, ScreenTextRenderer.Gold, true, TextAlignmentOptions.Center);
                     first = AddButton("Difficulty: " + GameOptions.DifficultyNames[GameOptions.Difficulty], () => { GameOptions.Difficulty = (GameOptions.Difficulty + 1) % 3; Show(Screen.Gameplay); });
+                    AddButton("Voice lines: " + GameOptions.VoiceFrequencyNames[GameOptions.VoiceFrequency], () => { GameOptions.VoiceFrequency = (GameOptions.VoiceFrequency + 1) % 3; Show(Screen.Gameplay); });
                     AddButton("Weather effects: " + GameOptions.WeatherNames[GameOptions.WeatherQuality], () => { GameOptions.WeatherQuality = (GameOptions.WeatherQuality + 1) % 3; Show(Screen.Gameplay); });
                     AddButton("Graphics: " + GameOptions.GraphicsNames[GameOptions.Graphics], () => { GameOptions.Graphics = (GameOptions.Graphics + 1) % 4; Show(Screen.Gameplay); });
                     AddButton("Fullscreen: " + (GameOptions.Fullscreen ? "ON" : "OFF"), () => { GameOptions.Fullscreen = !GameOptions.Fullscreen; Show(Screen.Gameplay); });

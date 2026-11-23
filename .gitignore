@@ -86,3 +86,7 @@ Art_Source/Robbers/*.png
 # walkthrough raw captures (duplicates of Docs/Walkthrough/shots); keep only the run report
 Docs/Walkthrough/raw/*
 !Docs/Walkthrough/raw/audit.md
+
+# local TTS engine and model files (re-downloadable, see Docs/VOICE_GUIDE.md)
+Tools/tts/.venv/
+Tools/tts/.models/

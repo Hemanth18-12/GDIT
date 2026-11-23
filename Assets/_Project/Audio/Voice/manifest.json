@@ -1,0 +1,2811 @@
+{
+ "bh_taunt_01": {
+  "key": "6271bf62a4f5b4e8",
+  "qa": {
+   "f0": 105,
+   "heard": "Go home, investigator.",
+   "id": "bh_taunt_01",
+   "lufs": -16.39,
+   "peak_db": -1.7,
+   "seconds": 2.04,
+   "source": "kokoro hm_omega:0.5+am_onyx:0.5",
+   "speaker": "bhaskar",
+   "take": "take 1",
+   "text": "Go home, investigator.",
+   "true_peak": -1.69,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "bh_taunt_02": {
+  "key": "d69b939e0db35300",
+  "qa": {
+   "f0": 103,
+   "heard": "You fight like a clerk.",
+   "id": "bh_taunt_02",
+   "lufs": -16.23,
+   "peak_db": -1.7,
+   "seconds": 1.81,
+   "source": "kokoro hm_omega:0.5+am_onyx:0.5",
+   "speaker": "bhaskar",
+   "take": "take 1",
+   "text": "You fight like a clerk.",
+   "true_peak": -1.71,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "bz_far_01": {
+  "key": "d5b3e57e8358b197",
+  "qa": {
+   "f0": 124,
+   "heard": "Don't lose him.",
+   "id": "bz_far_01",
+   "lufs": -16.19,
+   "peak_db": -1.7,
+   "seconds": 1.22,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Don't lose him.",
+   "true_peak": -1.68,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "bz_follow_01": {
+  "key": "387a803e745aa990",
+  "qa": {
+   "f0": 133,
+   "heard": "There he is, keep your distance.",
+   "id": "bz_follow_01",
+   "lufs": -16.24,
+   "peak_db": -1.7,
+   "seconds": 2.05,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "There he is. Keep your distance.",
+   "true_peak": -1.69,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "bz_look_01": {
+  "key": "7a4f5fb9f00ac9af",
+  "qa": {
+   "f0": 118,
+   "heard": "Don't look round good.",
+   "id": "bz_look_01",
+   "lufs": -16.11,
+   "peak_db": -1.7,
+   "seconds": 1.7,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Don't look round... good.",
+   "true_peak": -1.71,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "bz_spot_01": {
+  "key": "8c16368d146c9a2b",
+  "qa": {
+   "f0": 128,
+   "heard": "He felt that.",
+   "id": "bz_spot_01",
+   "lufs": -16.02,
+   "peak_db": -1.7,
+   "seconds": 1.15,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "He felt that.",
+   "true_peak": -1.72,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "bz_spot_02": {
+  "key": "bc3c6add78f4c9f7",
+  "qa": {
+   "f0": 130,
+   "heard": "Careful he's suspicious.",
+   "id": "bz_spot_02",
+   "lufs": -16.15,
+   "peak_db": -1.7,
+   "seconds": 1.65,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Careful. He's suspicious.",
+   "true_peak": -1.7,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "bz_yard_01": {
+  "key": "9152f9477909adee",
+  "qa": {
+   "f0": 126,
+   "heard": "A dead end he's trapped.",
+   "id": "bz_yard_01",
+   "lufs": -16.18,
+   "peak_db": -1.7,
+   "seconds": 1.82,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "A dead end. He's trapped.",
+   "true_peak": -1.7,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "cb_combo_01": {
+  "key": "4b71d99a0e60c5e7",
+  "qa": {
+   "f0": 110,
+   "heard": "Got you!",
+   "id": "cb_combo_01",
+   "lufs": -15.99,
+   "peak_db": -1.7,
+   "seconds": 0.99,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Got you.",
+   "true_peak": -1.72,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "cb_dodge_01": {
+  "key": "a60c77477ef11fd4",
+  "qa": {
+   "f0": 114,
+   "heard": "Too slow.",
+   "id": "cb_dodge_01",
+   "lufs": -16.08,
+   "peak_db": -1.7,
+   "seconds": 0.93,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "take": "take 3 (faster)",
+   "text": "Too slow.",
+   "true_peak": -1.71,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "cb_finish_01": {
+  "key": "048adb67735639ae",
+  "qa": {
+   "f0": 117,
+   "heard": "Stay down.",
+   "id": "cb_finish_01",
+   "lufs": -15.99,
+   "peak_db": -2.2,
+   "seconds": 1.1,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Stay down.",
+   "true_peak": -2.15,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "cb_finish_02": {
+  "key": "f97033d84411dca2",
+  "qa": {
+   "f0": 131,
+   "heard": "Enough.",
+   "id": "cb_finish_02",
+   "lufs": -15.96,
+   "peak_db": -2.6,
+   "seconds": 0.85,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Enough.",
+   "true_peak": -2.59,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "cb_hurt_01": {
+  "key": "031224ce19c6c84c",
+  "qa": {
+   "f0": 125,
+   "heard": "(interjection, not checked)",
+   "id": "cb_hurt_01",
+   "lufs": -16.0,
+   "peak_db": -2.1,
+   "seconds": 0.69,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Ugh!",
+   "true_peak": -2.05,
+   "wer": ""
+  }
+ },
+ "cb_hurt_02": {
+  "key": "8ae1d08b2b8b3c0b",
+  "qa": {
+   "f0": 121,
+   "heard": "(interjection, not checked)",
+   "id": "cb_hurt_02",
+   "lufs": -16.07,
+   "peak_db": -1.7,
+   "seconds": 1.19,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Ah! Careful.",
+   "true_peak": -1.7,
+   "wer": ""
+  }
+ },
+ "cb_low_01": {
+  "key": "aa0f9045292cc008",
+  "qa": {
+   "f0": 109,
+   "heard": "I can't take many more.",
+   "id": "cb_low_01",
+   "lufs": -16.15,
+   "peak_db": -1.7,
+   "seconds": 1.65,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "I can't take many more.",
+   "true_peak": -1.7,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "cb_low_02": {
+  "key": "5a669adf6bce9398",
+  "qa": {
+   "f0": 118,
+   "heard": "Block, breathe, block.",
+   "id": "cb_low_02",
+   "lufs": -16.05,
+   "peak_db": -1.7,
+   "seconds": 1.67,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Block. Breathe. Block.",
+   "true_peak": -1.68,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "cb_retry_01": {
+  "key": "239a79776683186b",
+  "qa": {
+   "f0": 126,
+   "heard": "Again, focus.",
+   "id": "cb_retry_01",
+   "lufs": -16.11,
+   "peak_db": -1.7,
+   "seconds": 1.4,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Again. Focus.",
+   "true_peak": -1.71,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "cb_start_01": {
+  "key": "7f16f2fa89ead9b7",
+  "qa": {
+   "f0": 133,
+   "heard": "Here they come.",
+   "id": "cb_start_01",
+   "lufs": -15.98,
+   "peak_db": -1.9,
+   "seconds": 1.19,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Here they come.",
+   "true_peak": -1.92,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "cb_start_02": {
+  "key": "c3696c2d55652a5b",
+  "qa": {
+   "f0": 122,
+   "heard": "Stay calm, watch his hands.",
+   "id": "cb_start_02",
+   "lufs": -16.1,
+   "peak_db": -1.7,
+   "seconds": 2.01,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Stay calm. Watch his hands.",
+   "true_peak": -1.71,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "cb_won_01": {
+  "key": "e88a7613f8240983",
+  "qa": {
+   "f0": 110,
+   "heard": "It's over.",
+   "id": "cb_won_01",
+   "lufs": -16.05,
+   "peak_db": -1.7,
+   "seconds": 1.05,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "It's over.",
+   "true_peak": -1.71,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "cb_won_02": {
+  "key": "52afe62eba6bcd84",
+  "qa": {
+   "f0": 117,
+   "heard": "Nobody else needs to get hurt.",
+   "id": "cb_won_02",
+   "lufs": -16.43,
+   "peak_db": -1.7,
+   "seconds": 2.2,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Nobody else needs to get hurt.",
+   "true_peak": -1.71,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "ck_1_01": {
+  "key": "01693837fefe587b",
+  "qa": {
+   "f0": 134,
+   "heard": "One minute run.",
+   "id": "ck_1_01",
+   "lufs": -16.08,
+   "peak_db": -1.7,
+   "seconds": 1.36,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "One minute. Run!",
+   "true_peak": -1.68,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "ck_5_01": {
+  "key": "06225be4d6fa28d4",
+  "qa": {
+   "f0": 133,
+   "heard": "5 minutes to dawn",
+   "id": "ck_5_01",
+   "lufs": -16.04,
+   "peak_db": -1.7,
+   "seconds": 1.54,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Five minutes to dawn.",
+   "true_peak": -1.7,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "ck_half_01": {
+  "key": "f21e548334371bb3",
+  "qa": {
+   "f0": 120,
+   "heard": "Half the night is gone.",
+   "id": "ck_half_01",
+   "lufs": -16.08,
+   "peak_db": -1.7,
+   "seconds": 1.71,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Half the night is gone.",
+   "true_peak": -1.67,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "ck_pen_01": {
+  "key": "4c47a14da02eefd8",
+  "qa": {
+   "f0": 106,
+   "heard": "That cost me time.",
+   "id": "ck_pen_01",
+   "lufs": -16.19,
+   "peak_db": -1.7,
+   "seconds": 1.55,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "That cost me time.",
+   "true_peak": -1.67,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "ck_pen_02": {
+  "key": "9d14f9bb598ff868",
+  "qa": {
+   "f0": 112,
+   "heard": "Minutes I don't have.",
+   "id": "ck_pen_02",
+   "lufs": -16.06,
+   "peak_db": -1.7,
+   "seconds": 1.55,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Minutes I don't have.",
+   "true_peak": -1.72,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "cr_taunt_01": {
+  "key": "86fcbdab0b321115",
+  "qa": {
+   "f0": 133,
+   "heard": "Back off it's mine now.",
+   "id": "cr_taunt_01",
+   "lufs": -16.0,
+   "peak_db": -1.7,
+   "seconds": 1.27,
+   "source": "kokoro hm_omega:0.5+am_puck:0.5",
+   "speaker": "courier",
+   "text": "Back off! It's mine now.",
+   "true_peak": -1.63,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "cr_taunt_02": {
+  "key": "1723ddd4f183dc29",
+  "qa": {
+   "f0": 141,
+   "heard": "You don't know who sent me.",
+   "id": "cr_taunt_02",
+   "lufs": -15.98,
+   "peak_db": -1.7,
+   "seconds": 1.3,
+   "source": "kokoro hm_omega:0.5+am_puck:0.5",
+   "speaker": "courier",
+   "text": "You don't know who sent me.",
+   "true_peak": -1.69,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "end_narr_01": {
+  "key": "9e8ea8c935457603",
+  "qa": {
+   "f0": 176,
+   "heard": "Every temple holds a story. Every artifact carries a memory.  Protecting heritage means protecting our history.",
+   "id": "end_narr_01",
+   "lufs": -16.2,
+   "peak_db": -1.7,
+   "seconds": 6.84,
+   "source": "kokoro hf_beta:0.5+bf_emma:0.5",
+   "speaker": "narrator",
+   "text": "Every temple holds a story. Every artifact carries a memory. Protecting heritage means protecting our history.",
+   "true_peak": -1.59,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "ex_board_01": {
+  "key": "aeabf1c2f42d29c1",
+  "qa": {
+   "f0": 117,
+   "heard": "Enough to name someone my notes.",
+   "id": "ex_board_01",
+   "lufs": -16.1,
+   "peak_db": -1.7,
+   "seconds": 2.32,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Enough to name someone. My notes.",
+   "true_peak": -1.67,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "ex_clue_keys": {
+  "key": "4c82aa58d5d3b7fc",
+  "qa": {
+   "f0": 126,
+   "heard": "Temple keys all the way out here.",
+   "id": "ex_clue_keys",
+   "lufs": -16.22,
+   "peak_db": -1.7,
+   "seconds": 2.21,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Temple keys. All the way out here.",
+   "true_peak": -1.67,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "ex_clue_ledger": {
+  "key": "727edddd1f3ac890",
+  "qa": {
+   "f0": 109,
+   "heard": "Same tics, same hand.",
+   "id": "ex_clue_ledger",
+   "lufs": -16.34,
+   "peak_db": -1.7,
+   "seconds": 1.9,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Same ticks. Same hand.",
+   "true_peak": -1.7,
+   "wer": 0.25,
+   "wer_strict": 0.25
+  }
+ },
+ "ex_clue_list": {
+  "key": "60160023ac9692cd",
+  "qa": {
+   "f0": 124,
+   "heard": "Neat writing somebody careful.",
+   "id": "ex_clue_list",
+   "lufs": -16.09,
+   "peak_db": -1.7,
+   "seconds": 2.23,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Neat writing. Somebody careful.",
+   "true_peak": -1.7,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "ex_clue_lock": {
+  "key": "9ab228b3f2c6e9ba",
+  "qa": {
+   "f0": 122,
+   "heard": "from the inside interesting.",
+   "id": "ex_clue_lock",
+   "lufs": -16.03,
+   "peak_db": -1.7,
+   "seconds": 2.07,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "From the inside. Interesting.",
+   "true_peak": -1.72,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "ex_item_01": {
+  "key": "00733311a47a8fab",
+  "qa": {
+   "f0": 134,
+   "heard": "God it.",
+   "id": "ex_item_01",
+   "lufs": -15.98,
+   "peak_db": -1.8,
+   "seconds": 0.93,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "take": "take 1",
+   "text": "Got it.",
+   "true_peak": -1.8,
+   "wer": 0.5,
+   "wer_strict": 0.5
+  }
+ },
+ "ex_item_02": {
+  "key": "f09c83b0f94b2e09",
+  "qa": {
+   "f0": 112,
+   "heard": "Safe now.",
+   "id": "ex_item_02",
+   "lufs": -16.0,
+   "peak_db": -1.7,
+   "seconds": 1.05,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Safe now.",
+   "true_peak": -1.69,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "ex_notice_01": {
+  "key": "2197239a667f5889",
+  "qa": {
+   "f0": 133,
+   "heard": "What's this?",
+   "id": "ex_notice_01",
+   "lufs": -16.13,
+   "peak_db": -1.7,
+   "seconds": 1.07,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "What's this?",
+   "true_peak": -1.7,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "ex_notice_02": {
+  "key": "8c2be9faa559fd63",
+  "qa": {
+   "f0": 120,
+   "heard": "Hm look at that",
+   "id": "ex_notice_02",
+   "lufs": -16.28,
+   "peak_db": -1.7,
+   "seconds": 1.59,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Hm. Look at that.",
+   "true_peak": -1.7,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "intro_ary_01": {
+  "key": "ae4a0586457ad06f",
+  "qa": {
+   "f0": 109,
+   "heard": "Excuse me, could you tell me the way to Jagannath Temple?",
+   "id": "intro_ary_01",
+   "lufs": -16.14,
+   "peak_db": -1.7,
+   "seconds": 3.39,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Excuse me, could you tell me the way to Jagannath Temple?",
+   "true_peak": -1.69,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "intro_ary_02": {
+  "key": "f70f575d2d3aab4b",
+  "qa": {
+   "f0": 135,
+   "heard": "Thank you.",
+   "id": "intro_ary_02",
+   "lufs": -16.01,
+   "peak_db": -1.9,
+   "seconds": 0.99,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Thank you.",
+   "true_peak": -1.91,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "intro_mee_01": {
+  "key": "6366691aa262d17e",
+  "qa": {
+   "f0": 204,
+   "heard": "Go straight along this road and follow the old stone entrance, the temple is at the end.",
+   "id": "intro_mee_01",
+   "lufs": -16.05,
+   "peak_db": -1.7,
+   "seconds": 5.34,
+   "source": "kokoro hf_alpha:1.0",
+   "speaker": "meera",
+   "text": "Go straight along this road and follow the old stone entrance. The temple is at the end.",
+   "true_peak": -1.69,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "intro_puj_01": {
+  "key": "021bec1d14df4361",
+  "qa": {
+   "f0": 131,
+   "heard": "something terrible has happened.",
+   "id": "intro_puj_01",
+   "lufs": -16.26,
+   "peak_db": -1.7,
+   "seconds": 2.11,
+   "source": "kokoro hm_psi:1.0",
+   "speaker": "pujari",
+   "text": "Something terrible has happened!",
+   "true_peak": -1.71,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "jp_approach_01": {
+  "key": "b2cb0284aa599de2",
+  "qa": {
+   "f0": 117,
+   "heard": "the Jeep still in one piece.",
+   "id": "jp_approach_01",
+   "lufs": -16.11,
+   "peak_db": -1.7,
+   "seconds": 1.98,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "The jeep. Still in one piece.",
+   "true_peak": -1.72,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "jp_arrive_01": {
+  "key": "cd07d105e4df39b2",
+  "qa": {
+   "f0": 146,
+   "heard": "The ruins, this is it.",
+   "id": "jp_arrive_01",
+   "lufs": -16.1,
+   "peak_db": -1.7,
+   "seconds": 1.63,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "The ruins. This is it.",
+   "true_peak": -1.71,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "jp_brake_01": {
+  "key": "16fd80f7f0ff9c85",
+  "qa": {
+   "f0": 134,
+   "heard": "Brakes.",
+   "id": "jp_brake_01",
+   "lufs": -16.01,
+   "peak_db": -1.7,
+   "seconds": 0.88,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Brakes!",
+   "true_peak": -1.72,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "jp_crash1_01": {
+  "key": "87c2a909ce67537e",
+  "qa": {
+   "f0": 119,
+   "heard": "Ugg that'll leave a mark.",
+   "id": "jp_crash1_01",
+   "lufs": -16.31,
+   "peak_db": -1.7,
+   "seconds": 1.69,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Ugh. That'll leave a mark.",
+   "true_peak": -1.7,
+   "wer": 0.25,
+   "wer_strict": 0.2
+  }
+ },
+ "jp_crash1_02": {
+  "key": "7bd6732cfedcbfce",
+  "qa": {
+   "f0": 137,
+   "heard": "Watch it.",
+   "id": "jp_crash1_02",
+   "lufs": -16.23,
+   "peak_db": -1.7,
+   "seconds": 1.02,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Watch it!",
+   "true_peak": -1.71,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "jp_crash2_01": {
+  "key": "f3b1ce7addb58866",
+  "qa": {
+   "f0": 134,
+   "heard": "That hurt the jeep.",
+   "id": "jp_crash2_01",
+   "lufs": -16.41,
+   "peak_db": -1.7,
+   "seconds": 1.55,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "That hurt the jeep.",
+   "true_peak": -1.71,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "jp_crash2_02": {
+  "key": "31ccc4cc797be3b8",
+  "qa": {
+   "f0": 140,
+   "heard": "She can't take much more.",
+   "id": "jp_crash2_02",
+   "lufs": -16.27,
+   "peak_db": -1.7,
+   "seconds": 1.76,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "She can't take much more.",
+   "true_peak": -1.71,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "jp_dead_01": {
+  "key": "335a20d62472dc20",
+  "qa": {
+   "f0": 126,
+   "heard": "Engine's gone on foot then.",
+   "id": "jp_dead_01",
+   "lufs": -16.23,
+   "peak_db": -1.7,
+   "seconds": 2.1,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Engine's gone. On foot, then.",
+   "true_peak": -1.7,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "jp_drift_01": {
+  "key": "c905186ffbf80931",
+  "qa": {
+   "f0": 143,
+   "heard": "Whoa, hold it.",
+   "id": "jp_drift_01",
+   "lufs": -16.4,
+   "peak_db": -1.7,
+   "seconds": 1.32,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Whoa, hold it!",
+   "true_peak": -1.71,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "jp_enter_01": {
+  "key": "8a8374d1b41cd1d8",
+  "qa": {
+   "f0": 110,
+   "heard": "Let's go.",
+   "id": "jp_enter_01",
+   "lufs": -16.35,
+   "peak_db": -1.7,
+   "seconds": 1.13,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Let's go.",
+   "true_peak": -1.67,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "jp_enter_02": {
+  "key": "1aff357595c75bb8",
+  "qa": {
+   "f0": 114,
+   "heard": "Right drive.",
+   "id": "jp_enter_02",
+   "lufs": -16.44,
+   "peak_db": -1.7,
+   "seconds": 1.25,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Right. Drive.",
+   "true_peak": -1.72,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "jp_exit_01": {
+  "key": "e871a6e9d09d215d",
+  "qa": {
+   "f0": 120,
+   "heard": "Right on foot.",
+   "id": "jp_exit_01",
+   "lufs": -15.98,
+   "peak_db": -1.7,
+   "seconds": 1.35,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Right. On foot.",
+   "true_peak": -1.72,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "jp_fast_01": {
+  "key": "098d74ee88b5f539",
+  "qa": {
+   "f0": 130,
+   "heard": "Faster, he's getting away.",
+   "id": "jp_fast_01",
+   "lufs": -16.15,
+   "peak_db": -1.7,
+   "seconds": 1.9,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Faster. He's getting away.",
+   "true_peak": -1.7,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "jp_fast_02": {
+  "key": "b4cc8578357cc82f",
+  "qa": {
+   "f0": 122,
+   "heard": "Easy on this road.",
+   "id": "jp_fast_02",
+   "lufs": -16.49,
+   "peak_db": -1.7,
+   "seconds": 1.6,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Easy on this road.",
+   "true_peak": -1.7,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "jp_near_01": {
+  "key": "b059c5d43aac2d22",
+  "qa": {
+   "f0": 121,
+   "heard": "That was close.",
+   "id": "jp_near_01",
+   "lufs": -16.37,
+   "peak_db": -1.7,
+   "seconds": 1.38,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "That was close.",
+   "true_peak": -1.7,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "jp_off_01": {
+  "key": "4f3e9262a1361b27",
+  "qa": {
+   "f0": 143,
+   "heard": "Here we go.",
+   "id": "jp_off_01",
+   "lufs": -16.41,
+   "peak_db": -1.7,
+   "seconds": 1.17,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Here we go.",
+   "true_peak": -1.7,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "jp_park_01": {
+  "key": "b8d22df0fe25ca33",
+  "qa": {
+   "f0": 118,
+   "heard": "Parked, let's move.",
+   "id": "jp_park_01",
+   "lufs": -16.07,
+   "peak_db": -1.7,
+   "seconds": 1.36,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Parked. Let's move.",
+   "true_peak": -1.7,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "jp_smoke_01": {
+  "key": "bc0d343bd956b3b1",
+  "qa": {
+   "f0": 142,
+   "heard": "Smoke not good.",
+   "id": "jp_smoke_01",
+   "lufs": -16.35,
+   "peak_db": -1.7,
+   "seconds": 1.47,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Smoke. Not good.",
+   "true_peak": -1.71,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "jp_start_01": {
+  "key": "745efa179071ccf8",
+  "qa": {
+   "f0": 107,
+   "heard": "Good, she's running.",
+   "id": "jp_start_01",
+   "lufs": -16.32,
+   "peak_db": -1.7,
+   "seconds": 1.39,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Good. She's running.",
+   "true_peak": -1.72,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "jp_stuck_01": {
+  "key": "c801e47ffde76220",
+  "qa": {
+   "f0": 144,
+   "heard": "We're stuck back up.",
+   "id": "jp_stuck_01",
+   "lufs": -16.33,
+   "peak_db": -1.7,
+   "seconds": 1.52,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "We're stuck. Back up.",
+   "true_peak": -1.69,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "ki_down_01": {
+  "key": "5db27923a3af821e",
+  "qa": {
+   "f0": 149,
+   "heard": "the river before dawn.",
+   "id": "ki_down_01",
+   "lufs": -16.02,
+   "peak_db": -1.7,
+   "seconds": 1.6,
+   "source": "kokoro hm_psi:0.55+bm_george:0.45",
+   "speaker": "kishore",
+   "text": "The river. Before dawn.",
+   "true_peak": -1.68,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "ki_spot_01": {
+  "key": "f7e12751fde3fb02",
+  "qa": {
+   "f0": 154,
+   "heard": "You read the wall, impressive.",
+   "id": "ki_spot_01",
+   "lufs": -16.25,
+   "peak_db": -1.7,
+   "seconds": 1.92,
+   "source": "kokoro hm_psi:0.55+bm_george:0.45",
+   "speaker": "kishore",
+   "text": "You read the wall. Impressive.",
+   "true_peak": -1.7,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "ki_taunt_01": {
+  "key": "d7963b12de3e354f",
+  "qa": {
+   "f0": 141,
+   "heard": "The finial is already moving.",
+   "id": "ki_taunt_01",
+   "lufs": -16.02,
+   "peak_db": -1.7,
+   "seconds": 2.07,
+   "source": "kokoro hm_psi:0.55+bm_george:0.45",
+   "speaker": "kishore",
+   "text": "The finial is already moving.",
+   "true_peak": -1.68,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "ki_taunt_02": {
+  "key": "1f6d6ae15e62ef3c",
+  "qa": {
+   "f0": 150,
+   "heard": "Baskar will not wait for me.",
+   "id": "ki_taunt_02",
+   "lufs": -16.02,
+   "peak_db": -1.7,
+   "seconds": 1.88,
+   "source": "kokoro hm_psi:0.55+bm_george:0.45",
+   "speaker": "kishore",
+   "text": "Bhaskar will not wait for me.",
+   "true_peak": -1.68,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "mv_area_bazaar": {
+  "key": "b294c2464325aecf",
+  "qa": {
+   "f0": 117,
+   "heard": "Back to the Bazaar, listen.",
+   "id": "mv_area_bazaar",
+   "lufs": -16.1,
+   "peak_db": -1.7,
+   "seconds": 1.98,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Back to the bazaar. Listen.",
+   "true_peak": -1.71,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "mv_area_courtyard": {
+  "key": "b81ba770f6516f9c",
+  "qa": {
+   "f0": 122,
+   "heard": "The temple courtyard stay sharp.",
+   "id": "mv_area_courtyard",
+   "lufs": -16.2,
+   "peak_db": -1.7,
+   "seconds": 2.26,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "The temple courtyard. Stay sharp.",
+   "true_peak": -1.71,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "mv_area_jungle": {
+  "key": "47d746e056ad496e",
+  "qa": {
+   "f0": 121,
+   "heard": "The river road trees everywhere.",
+   "id": "mv_area_jungle",
+   "lufs": -16.27,
+   "peak_db": -1.7,
+   "seconds": 2.05,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "The river road. Trees everywhere.",
+   "true_peak": -1.71,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "mv_area_stepwell": {
+  "key": "b18f837d294a02a5",
+  "qa": {
+   "f0": 122,
+   "heard": "The old well listened to that rain.",
+   "id": "mv_area_stepwell",
+   "lufs": -16.12,
+   "peak_db": -1.7,
+   "seconds": 2.19,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "The old well. Listen to that rain.",
+   "true_peak": -1.69,
+   "wer": 0.17,
+   "wer_strict": 0.14
+  }
+ },
+ "mv_area_sunwall": {
+  "key": "c122602796dfcfe1",
+  "qa": {
+   "f0": 112,
+   "heard": "No shade at all out here.",
+   "id": "mv_area_sunwall",
+   "lufs": -16.19,
+   "peak_db": -1.7,
+   "seconds": 1.96,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "No shade at all out here.",
+   "true_peak": -1.7,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "mv_area_vaults": {
+  "key": "9ddc49bdab929be2",
+  "qa": {
+   "f0": 123,
+   "heard": "Dark down here, watch your step.",
+   "id": "mv_area_vaults",
+   "lufs": -16.08,
+   "peak_db": -1.7,
+   "seconds": 2.31,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Dark down here. Watch your step.",
+   "true_peak": -1.7,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "mv_danger_01": {
+  "key": "dfe096237df70478",
+  "qa": {
+   "f0": 113,
+   "heard": "Careful, that's a long drop.",
+   "id": "mv_danger_01",
+   "lufs": -16.39,
+   "peak_db": -1.7,
+   "seconds": 1.91,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Careful. That's a long drop.",
+   "true_peak": -1.69,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "mv_danger_02": {
+  "key": "f0f27b52801c3df7",
+  "qa": {
+   "f0": 125,
+   "heard": "One wrong step here.",
+   "id": "mv_danger_02",
+   "lufs": -16.1,
+   "peak_db": -1.7,
+   "seconds": 1.55,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "One wrong step here...",
+   "true_peak": -1.68,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "mv_deadend_01": {
+  "key": "7c731c81daaf9fd9",
+  "qa": {
+   "f0": 109,
+   "heard": "Dead end.",
+   "id": "mv_deadend_01",
+   "lufs": -16.09,
+   "peak_db": -1.7,
+   "seconds": 1.19,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Dead end.",
+   "true_peak": -1.66,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "mv_first_01": {
+  "key": "953849c317bc4f65",
+  "qa": {
+   "f0": 113,
+   "heard": "Right, let's find that temple.",
+   "id": "mv_first_01",
+   "lufs": -15.99,
+   "peak_db": -1.7,
+   "seconds": 1.94,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Right. Let's find that temple.",
+   "true_peak": -1.71,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "mv_jump_01": {
+  "key": "341d355d1c86106e",
+  "qa": {
+   "f0": 114,
+   "heard": "Up we go.",
+   "id": "mv_jump_01",
+   "lufs": -16.0,
+   "peak_db": -1.7,
+   "seconds": 1.12,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Up we go.",
+   "true_peak": -1.68,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "mv_land_01": {
+  "key": "50af457fd97600d7",
+  "qa": {
+   "f0": 120,
+   "heard": "(interjection, not checked)",
+   "id": "mv_land_01",
+   "lufs": -16.13,
+   "peak_db": -1.7,
+   "seconds": 1.17,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Oof. Careful.",
+   "true_peak": -1.68,
+   "wer": ""
+  }
+ },
+ "mv_land_02": {
+  "key": "071569d727b79885",
+  "qa": {
+   "f0": 124,
+   "heard": "That was a drop.",
+   "id": "mv_land_02",
+   "lufs": -16.17,
+   "peak_db": -1.7,
+   "seconds": 1.5,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "That was a drop.",
+   "true_peak": -1.7,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "mv_lost_01": {
+  "key": "2a9dbfb68d72aea6",
+  "qa": {
+   "f0": 121,
+   "heard": "Think where would they go?",
+   "id": "mv_lost_01",
+   "lufs": -16.08,
+   "peak_db": -1.7,
+   "seconds": 1.71,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Think. Where would they go?",
+   "true_peak": -1.7,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "mv_lost_02": {
+  "key": "47ef04753c6af774",
+  "qa": {
+   "f0": 125,
+   "heard": "I'm losing time, my notes might help.",
+   "id": "mv_lost_02",
+   "lufs": -16.16,
+   "peak_db": -1.7,
+   "seconds": 2.64,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "I'm losing time. My notes might help.",
+   "true_peak": -1.69,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "mv_lost_03": {
+  "key": "1e1d676950c96a77",
+  "qa": {
+   "f0": 113,
+   "heard": "Retrace it, what did I miss?",
+   "id": "mv_lost_03",
+   "lufs": -16.31,
+   "peak_db": -1.7,
+   "seconds": 2.02,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Retrace it. What did I miss?",
+   "true_peak": -1.71,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "mv_rain_01": {
+  "key": "5a946cc0397eb382",
+  "qa": {
+   "f0": 131,
+   "heard": "This rain won't stop.",
+   "id": "mv_rain_01",
+   "lufs": -16.18,
+   "peak_db": -1.7,
+   "seconds": 1.73,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "This rain won't stop.",
+   "true_peak": -1.71,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "mv_rain_02": {
+  "key": "8355acb6e4cb18f1",
+  "qa": {
+   "f0": 119,
+   "heard": "Wetstone Slippery",
+   "id": "mv_rain_02",
+   "lufs": -16.45,
+   "peak_db": -1.7,
+   "seconds": 1.56,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "take": "take 1",
+   "text": "Wet stone. Slippery.",
+   "true_peak": -1.68,
+   "wer": 0.67,
+   "wer_strict": 0.67
+  }
+ },
+ "mv_run_01": {
+  "key": "66c1030e28d84909",
+  "qa": {
+   "f0": 127,
+   "heard": "No time to stroll.",
+   "id": "mv_run_01",
+   "lufs": -16.06,
+   "peak_db": -1.7,
+   "seconds": 1.64,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "No time to stroll.",
+   "true_peak": -1.7,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "mv_run_02": {
+  "key": "4f82497241d38fbb",
+  "qa": {
+   "f0": 118,
+   "heard": "Don won't wait.",
+   "id": "mv_run_02",
+   "lufs": -16.06,
+   "peak_db": -1.7,
+   "seconds": 1.44,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "take": "take 1",
+   "text": "Dawn won't wait.",
+   "true_peak": -1.72,
+   "wer": 0.33,
+   "wer_strict": 0.33
+  }
+ },
+ "mv_tired_01": {
+  "key": "62c4dae267853cc4",
+  "qa": {
+   "f0": 120,
+   "heard": "Need to catch my breath.",
+   "id": "mv_tired_01",
+   "lufs": -16.04,
+   "peak_db": -1.7,
+   "seconds": 1.79,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Need to catch my breath.",
+   "true_peak": -1.69,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "mv_tired_02": {
+  "key": "8e8a0322e4512387",
+  "qa": {
+   "f0": 132,
+   "heard": "Easy Breathe.",
+   "id": "mv_tired_02",
+   "lufs": -15.99,
+   "peak_db": -2.5,
+   "seconds": 1.29,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Easy. Breathe.",
+   "true_peak": -2.46,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "np_mad_01": {
+  "key": "d4d2c4d27eef984c",
+  "qa": {
+   "f0": 148,
+   "heard": "Long night, sir.",
+   "id": "np_mad_01",
+   "lufs": -16.09,
+   "peak_db": -1.7,
+   "seconds": 1.48,
+   "source": "kokoro hm_psi:0.6+bm_fable:0.4",
+   "speaker": "madhav",
+   "take": "take 4 (pause at comma)",
+   "text": "Long night, sir?",
+   "true_peak": -1.67,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "np_mad_02": {
+  "key": "2667bb2cde177f18",
+  "qa": {
+   "f0": 131,
+   "heard": "The keys, safe with me always.",
+   "id": "np_mad_02",
+   "lufs": -16.39,
+   "peak_db": -1.7,
+   "seconds": 2.37,
+   "source": "kokoro hm_psi:0.6+bm_fable:0.4",
+   "speaker": "madhav",
+   "text": "The keys? Safe with me, always.",
+   "true_peak": -1.7,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "np_mee_01": {
+  "key": "467806370deea042",
+  "qa": {
+   "f0": 244,
+   "heard": "Be careful sir.",
+   "id": "np_mee_01",
+   "lufs": -15.99,
+   "peak_db": -2.7,
+   "seconds": 1.23,
+   "source": "kokoro hf_alpha:1.0",
+   "speaker": "meera",
+   "text": "Be careful, sir.",
+   "true_peak": -2.69,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "np_mee_02": {
+  "key": "199f466b43b2cb74",
+  "qa": {
+   "f0": 235,
+   "heard": "The whole village is awake.",
+   "id": "np_mee_02",
+   "lufs": -15.99,
+   "peak_db": -1.7,
+   "seconds": 1.9,
+   "source": "kokoro hf_alpha:1.0",
+   "speaker": "meera",
+   "text": "The whole village is awake.",
+   "true_peak": -1.71,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "np_puj_01": {
+  "key": "4828aa9961bfa663",
+  "qa": {
+   "f0": 122,
+   "heard": "Please hurry, sir.",
+   "id": "np_puj_01",
+   "lufs": -16.28,
+   "peak_db": -1.7,
+   "seconds": 1.64,
+   "source": "kokoro hm_psi:1.0",
+   "speaker": "pujari",
+   "take": "take 2 (slower)",
+   "text": "Please hurry, sir.",
+   "true_peak": -1.7,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "np_puj_02": {
+  "key": "ba7a9306ed0e3f05",
+  "qa": {
+   "f0": 129,
+   "heard": "May you find them all.",
+   "id": "np_puj_02",
+   "lufs": -16.2,
+   "peak_db": -1.7,
+   "seconds": 1.53,
+   "source": "kokoro hm_psi:1.0",
+   "speaker": "pujari",
+   "text": "May you find them all.",
+   "true_peak": -1.69,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "np_puj_03": {
+  "key": "45960e6ba5aef2d3",
+  "qa": {
+   "f0": 126,
+   "heard": "You are back, come, come.",
+   "id": "np_puj_03",
+   "lufs": -16.44,
+   "peak_db": -1.7,
+   "seconds": 1.61,
+   "source": "kokoro hm_psi:1.0",
+   "speaker": "pujari",
+   "text": "You are back! Come, come.",
+   "true_peak": -1.71,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "pz_almost_01": {
+  "key": "4d267589069c576c",
+  "qa": {
+   "f0": 126,
+   "heard": "Almost there.",
+   "id": "pz_almost_01",
+   "lufs": -16.06,
+   "peak_db": -1.7,
+   "seconds": 1.14,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Almost there.",
+   "true_peak": -1.7,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "pz_almost_02": {
+  "key": "e01a9e043f0eef9e",
+  "qa": {
+   "f0": 130,
+   "heard": "One more.",
+   "id": "pz_almost_02",
+   "lufs": -16.02,
+   "peak_db": -1.8,
+   "seconds": 1.01,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "One more.",
+   "true_peak": -1.75,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "pz_beam_01": {
+  "key": "e125e930f3bd5798",
+  "qa": {
+   "f0": 126,
+   "heard": "One beam, the wheel blocks the other.",
+   "id": "pz_beam_01",
+   "lufs": -16.09,
+   "peak_db": -1.7,
+   "seconds": 2.28,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "One beam. The wheel blocks the other.",
+   "true_peak": -1.68,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "pz_flag_01": {
+  "key": "a365e73d865df7f7",
+  "qa": {
+   "f0": 118,
+   "heard": "something under this stone.",
+   "id": "pz_flag_01",
+   "lufs": -16.26,
+   "peak_db": -1.7,
+   "seconds": 1.87,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Something under this stone.",
+   "true_peak": -1.7,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "pz_flood_01": {
+  "key": "9dc59ccefd95cbc0",
+  "qa": {
+   "f0": 121,
+   "heard": "Too much the panels under water.",
+   "id": "pz_flood_01",
+   "lufs": -16.18,
+   "peak_db": -1.7,
+   "seconds": 2.42,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "take": "take 2 (slower)",
+   "text": "Too much. The panel's under water.",
+   "true_peak": -1.67,
+   "wer": 0.0,
+   "wer_strict": 0.17
+  }
+ },
+ "pz_hint1_01": {
+  "key": "329848954afacbc7",
+  "qa": {
+   "f0": 121,
+   "heard": "Look around first.",
+   "id": "pz_hint1_01",
+   "lufs": -16.04,
+   "peak_db": -1.7,
+   "seconds": 1.5,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Look around first.",
+   "true_peak": -1.69,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "pz_hint2_01": {
+  "key": "ca581c4ab886f314",
+  "qa": {
+   "f0": 116,
+   "heard": "Think about how it moves.",
+   "id": "pz_hint2_01",
+   "lufs": -16.05,
+   "peak_db": -1.7,
+   "seconds": 1.76,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Think about how it moves.",
+   "true_peak": -1.7,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "pz_hint3_01": {
+  "key": "f1eaf1cec749a474",
+  "qa": {
+   "f0": 107,
+   "heard": "Right step by step then.",
+   "id": "pz_hint3_01",
+   "lufs": -16.16,
+   "peak_db": -1.7,
+   "seconds": 1.81,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Right. Step by step, then.",
+   "true_peak": -1.7,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "pz_lantern_01": {
+  "key": "18749daf3e0cf42f",
+  "qa": {
+   "f0": 117,
+   "heard": "Now the light falls right.",
+   "id": "pz_lantern_01",
+   "lufs": -16.17,
+   "peak_db": -1.7,
+   "seconds": 1.78,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Now the light falls right.",
+   "true_peak": -1.65,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "pz_level_01": {
+  "key": "eca50eb3291f1421",
+  "qa": {
+   "f0": 113,
+   "heard": "Right on the mark.",
+   "id": "pz_level_01",
+   "lufs": -16.01,
+   "peak_db": -1.7,
+   "seconds": 1.45,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Right on the mark.",
+   "true_peak": -1.7,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "pz_mirror_01": {
+  "key": "ecf89cdac20a2149",
+  "qa": {
+   "f0": 117,
+   "heard": "Turn it toward the wall.",
+   "id": "pz_mirror_01",
+   "lufs": -16.11,
+   "peak_db": -1.7,
+   "seconds": 1.54,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Turn it toward the wall.",
+   "true_peak": -1.71,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "pz_pot_shard_01": {
+  "key": "6489be848da74bae",
+  "qa": {
+   "f0": 133,
+   "heard": "This piece fits.",
+   "id": "pz_pot_shard_01",
+   "lufs": -16.15,
+   "peak_db": -1.7,
+   "seconds": 1.37,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "This piece fits.",
+   "true_peak": -1.71,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "pz_pot_shard_02": {
+  "key": "1e7b8e19a8b4f932",
+  "qa": {
+   "f0": 123,
+   "heard": "Another piece home.",
+   "id": "pz_pot_shard_02",
+   "lufs": -16.17,
+   "peak_db": -1.7,
+   "seconds": 1.45,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Another piece home.",
+   "true_peak": -1.7,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "pz_pot_whole_01": {
+  "key": "244ef4041564737a",
+  "qa": {
+   "f0": 124,
+   "heard": "Hole again and it holds oil.",
+   "id": "pz_pot_whole_01",
+   "lufs": -16.25,
+   "peak_db": -1.7,
+   "seconds": 2.04,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Whole again. And it holds oil.",
+   "true_peak": -1.67,
+   "wer": 0.17,
+   "wer_strict": 0.17
+  }
+ },
+ "pz_sluice_01": {
+  "key": "2cc578096eae5b0f",
+  "qa": {
+   "f0": 126,
+   "heard": "The water is coming in.",
+   "id": "pz_sluice_01",
+   "lufs": -16.0,
+   "peak_db": -2.2,
+   "seconds": 1.58,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "take": "take 1",
+   "text": "The water's coming in.",
+   "true_peak": -2.18,
+   "wer": 0.0,
+   "wer_strict": 0.5
+  }
+ },
+ "pz_solved_01": {
+  "key": "b07a51fbeae7ed56",
+  "qa": {
+   "f0": 109,
+   "heard": "They're solved.",
+   "id": "pz_solved_01",
+   "lufs": -16.22,
+   "peak_db": -1.7,
+   "seconds": 1.25,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "take": "take 1",
+   "text": "There. Solved.",
+   "true_peak": -1.68,
+   "wer": 0.5,
+   "wer_strict": 0.5
+  }
+ },
+ "pz_solved_03": {
+  "key": "65ca55b2abd11d36",
+  "qa": {
+   "f0": 119,
+   "heard": "Clever old builders.",
+   "id": "pz_solved_03",
+   "lufs": -16.08,
+   "peak_db": -1.7,
+   "seconds": 1.69,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Clever old builders.",
+   "true_peak": -1.7,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "pz_start_01": {
+  "key": "0d98548e80aae1b1",
+  "qa": {
+   "f0": 112,
+   "heard": "Let's see how this works.",
+   "id": "pz_start_01",
+   "lufs": -16.17,
+   "peak_db": -1.7,
+   "seconds": 1.73,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Let's see how this works.",
+   "true_peak": -1.69,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "pz_start_02": {
+  "key": "66b8f9586c18a59a",
+  "qa": {
+   "f0": 121,
+   "heard": "There's a mechanism here.",
+   "id": "pz_start_02",
+   "lufs": -16.16,
+   "peak_db": -1.7,
+   "seconds": 1.75,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "There's a mechanism here.",
+   "true_peak": -1.71,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "pz_step_01": {
+  "key": "23552b3e88aff2d8",
+  "qa": {
+   "f0": 107,
+   "heard": "That's one.",
+   "id": "pz_step_01",
+   "lufs": -16.16,
+   "peak_db": -1.7,
+   "seconds": 1.12,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "That's one.",
+   "true_peak": -1.71,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "pz_step_02": {
+  "key": "0c1c99de96b8915f",
+  "qa": {
+   "f0": 133,
+   "heard": "Good that fits.",
+   "id": "pz_step_02",
+   "lufs": -16.01,
+   "peak_db": -1.7,
+   "seconds": 1.34,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Good. That fits.",
+   "true_peak": -1.67,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "pz_vault_gate_01": {
+  "key": "e737e81e7131c727",
+  "qa": {
+   "f0": 127,
+   "heard": "The gates open.",
+   "id": "pz_vault_gate_01",
+   "lufs": -16.09,
+   "peak_db": -1.7,
+   "seconds": 1.53,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "take": "take 1",
+   "text": "The gate's open.",
+   "true_peak": -1.72,
+   "wer": 0.0,
+   "wer_strict": 0.33
+  }
+ },
+ "pz_vault_plate_01": {
+  "key": "6135e09e4e882bae",
+  "qa": {
+   "f0": 127,
+   "heard": "Stone on the plate good.",
+   "id": "pz_vault_plate_01",
+   "lufs": -16.23,
+   "peak_db": -1.7,
+   "seconds": 2.01,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Stone on the plate. Good.",
+   "true_peak": -1.71,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "pz_vault_rings_01": {
+  "key": "e989d01d9a601af4",
+  "qa": {
+   "f0": 124,
+   "heard": "3 rings of life, not by chance.",
+   "id": "pz_vault_rings_01",
+   "lufs": -16.02,
+   "peak_db": -1.7,
+   "seconds": 2.69,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Three rings of light. Not by chance.",
+   "true_peak": -1.71,
+   "wer": 0.14,
+   "wer_strict": 0.14
+  }
+ },
+ "pz_wall_01": {
+  "key": "40de1eee12f999d2",
+  "qa": {
+   "f0": 126,
+   "heard": "The walls opening.",
+   "id": "pz_wall_01",
+   "lufs": -15.95,
+   "peak_db": -2.9,
+   "seconds": 1.57,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "take": "take 1",
+   "text": "The wall's opening.",
+   "true_peak": -2.85,
+   "wer": 0.0,
+   "wer_strict": 0.33
+  }
+ },
+ "pz_wrong_01": {
+  "key": "53aec3c0e15436c8",
+  "qa": {
+   "f0": 120,
+   "heard": "No, not like that.",
+   "id": "pz_wrong_01",
+   "lufs": -16.14,
+   "peak_db": -1.7,
+   "seconds": 1.51,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "No. Not like that.",
+   "true_peak": -1.71,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "pz_wrong_02": {
+  "key": "d99823f25a7ae348",
+  "qa": {
+   "f0": 104,
+   "heard": "H.M. Wrong Way",
+   "id": "pz_wrong_02",
+   "lufs": -16.17,
+   "peak_db": -1.7,
+   "seconds": 1.59,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "take": "take 1",
+   "text": "Hm. Wrong way.",
+   "true_peak": -1.71,
+   "wer": 0.67,
+   "wer_strict": 0.67
+  }
+ },
+ "rb_spot_store": {
+  "key": "b3f036c74685e3a0",
+  "qa": {
+   "f0": 101,
+   "heard": "You should have stayed in the village.",
+   "id": "rb_spot_store",
+   "lufs": -16.33,
+   "peak_db": -1.7,
+   "seconds": 1.91,
+   "source": "kokoro hm_psi:0.6+am_onyx:0.4",
+   "speaker": "robber",
+   "text": "You should have stayed in the village.",
+   "true_peak": -1.7,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "rb_spot_vault": {
+  "key": "cd0b003254095b56",
+  "qa": {
+   "f0": 108,
+   "heard": "Like someone's here.",
+   "id": "rb_spot_vault",
+   "lufs": -16.26,
+   "peak_db": -1.7,
+   "seconds": 1.68,
+   "source": "kokoro hm_psi:0.6+am_onyx:0.4",
+   "speaker": "robber",
+   "take": "take 1",
+   "text": "Light! Someone's here!",
+   "true_peak": -1.7,
+   "wer": 0.33,
+   "wer_strict": 0.33
+  }
+ },
+ "rb_spot_well": {
+  "key": "b7a4664b3d94ae86",
+  "qa": {
+   "f0": 109,
+   "heard": "Slippery isn't it?",
+   "id": "rb_spot_well",
+   "lufs": -16.19,
+   "peak_db": -1.7,
+   "seconds": 1.47,
+   "source": "kokoro hm_psi:0.6+am_onyx:0.4",
+   "speaker": "robber",
+   "text": "Slippery, isn't it?",
+   "true_peak": -1.7,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "rb_taunt_01": {
+  "key": "b4257ab5679ff0ae",
+  "qa": {
+   "f0": 109,
+   "heard": "walk away detective.",
+   "id": "rb_taunt_01",
+   "lufs": -16.4,
+   "peak_db": -1.7,
+   "seconds": 1.71,
+   "source": "kokoro hm_psi:0.6+am_onyx:0.4",
+   "speaker": "robber",
+   "text": "Walk away, detective.",
+   "true_peak": -1.69,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "rb_taunt_02": {
+  "key": "a9368a95b36f9d74",
+  "qa": {
+   "f0": 108,
+   "heard": "Two of us, one of you.",
+   "id": "rb_taunt_02",
+   "lufs": -16.43,
+   "peak_db": -1.7,
+   "seconds": 1.57,
+   "source": "kokoro hm_psi:0.6+am_onyx:0.4",
+   "speaker": "robber",
+   "text": "Two of us. One of you.",
+   "true_peak": -1.7,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "rb_taunt_vault": {
+  "key": "628d696654779827",
+  "qa": {
+   "f0": 101,
+   "heard": "He said nobody comes down here.",
+   "id": "rb_taunt_vault",
+   "lufs": -16.39,
+   "peak_db": -1.7,
+   "seconds": 2.44,
+   "source": "kokoro hm_psi:0.6+am_onyx:0.4",
+   "speaker": "robber",
+   "text": "He said nobody comes down here.",
+   "true_peak": -1.71,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "rb_taunt_well": {
+  "key": "e5b87197048362e5",
+  "qa": {
+   "f0": 102,
+   "heard": "He promised us a boat.",
+   "id": "rb_taunt_well",
+   "lufs": -16.28,
+   "peak_db": -1.7,
+   "seconds": 1.85,
+   "source": "kokoro hm_psi:0.6+am_onyx:0.4",
+   "speaker": "robber",
+   "text": "He promised us a boat!",
+   "true_peak": -1.7,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "v3_ary_01": {
+  "key": "a520d6a98f5b6c52",
+  "qa": {
+   "f0": 123,
+   "heard": "Not forced opened.",
+   "id": "v3_ary_01",
+   "lufs": -16.02,
+   "peak_db": -1.7,
+   "seconds": 1.67,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Not forced. Opened.",
+   "true_peak": -1.72,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "v3_ary_02": {
+  "key": "62c5a2325d94e4a2",
+  "qa": {
+   "f0": 114,
+   "heard": "One, four, to go.",
+   "id": "v3_ary_02",
+   "lufs": -16.27,
+   "peak_db": -1.7,
+   "seconds": 1.56,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "One. Four to go.",
+   "true_peak": -1.69,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "v3_ary_03": {
+  "key": "582319e0a1133bcc",
+  "qa": {
+   "f0": 133,
+   "heard": "Three.",
+   "id": "v3_ary_03",
+   "lufs": -15.98,
+   "peak_db": -2.7,
+   "seconds": 0.81,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Three.",
+   "true_peak": -2.64,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "v3_ary_04": {
+  "key": "9d5d461cc868e7ca",
+  "qa": {
+   "f0": 118,
+   "heard": "4. Now the sun wall.",
+   "id": "v3_ary_04",
+   "lufs": -16.0,
+   "peak_db": -1.7,
+   "seconds": 1.79,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Four. Now the Sun Wall.",
+   "true_peak": -1.7,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "v3_ary_05": {
+  "key": "e90b86cbcaeaeecd",
+  "qa": {
+   "f0": 115,
+   "heard": "an empty case the jungle road.",
+   "id": "v3_ary_05",
+   "lufs": -16.37,
+   "peak_db": -1.7,
+   "seconds": 2.4,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "An empty case. The jungle road.",
+   "true_peak": -1.67,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "v3_ary_06": {
+  "key": "b1d50c4c0c7b8b72",
+  "qa": {
+   "f0": 119,
+   "heard": "He saw me after him.",
+   "id": "v3_ary_06",
+   "lufs": -15.98,
+   "peak_db": -1.8,
+   "seconds": 1.76,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "He saw me. After him.",
+   "true_peak": -1.82,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "v3_ary_07": {
+  "key": "21ada1972a03e364",
+  "qa": {
+   "f0": 131,
+   "heard": "Dude.",
+   "id": "v3_ary_07",
+   "lufs": -15.98,
+   "peak_db": -3.0,
+   "seconds": 0.78,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "take": "take 1",
+   "text": "Two.",
+   "true_peak": -2.97,
+   "wer": 1.0,
+   "wer_strict": 1.0
+  }
+ },
+ "v3_ary_08": {
+  "key": "cd6ef66e19f6a05c",
+  "qa": {
+   "f0": 119,
+   "heard": "Its value is not money.",
+   "id": "v3_ary_08",
+   "lufs": -16.05,
+   "peak_db": -1.7,
+   "seconds": 1.96,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Its value is not money.",
+   "true_peak": -1.71,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "v3_ary_09": {
+  "key": "28b97cf3ebacf1ad",
+  "qa": {
+   "f0": 126,
+   "heard": "Every piece is home.",
+   "id": "v3_ary_09",
+   "lufs": -16.25,
+   "peak_db": -1.7,
+   "seconds": 1.62,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Every piece is home.",
+   "true_peak": -1.66,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "v3_ary_10": {
+  "key": "c1e23cd3777f93f1",
+  "qa": {
+   "f0": 121,
+   "heard": "5.",
+   "id": "v3_ary_10",
+   "lufs": -15.99,
+   "peak_db": -3.6,
+   "seconds": 0.89,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "text": "Five.",
+   "true_peak": -3.59,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "v3_bha_01": {
+  "key": "02b359494f6392e2",
+  "qa": {
+   "f0": 100,
+   "heard": "Keep moving, he is close.",
+   "id": "v3_bha_01",
+   "lufs": -16.45,
+   "peak_db": -1.7,
+   "seconds": 1.86,
+   "source": "kokoro hm_omega:0.5+am_onyx:0.5",
+   "speaker": "bhaskar",
+   "take": "take 1",
+   "text": "Keep moving. He is close.",
+   "true_peak": -1.71,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "v3_bha_02": {
+  "key": "5a5a2da77c2f8cb1",
+  "qa": {
+   "f0": 105,
+   "heard": "Do you know what this fetch is?",
+   "id": "v3_bha_02",
+   "lufs": -16.33,
+   "peak_db": -1.7,
+   "seconds": 1.79,
+   "source": "kokoro hm_omega:0.5+am_onyx:0.5",
+   "speaker": "bhaskar",
+   "take": "take 1",
+   "text": "Do you know what this fetches?",
+   "true_peak": -1.71,
+   "wer": 0.17,
+   "wer_strict": 0.33
+  }
+ },
+ "v3_bha_03": {
+  "key": "77197bce6b2c5580",
+  "qa": {
+   "f0": 106,
+   "heard": "Then come and take it.",
+   "id": "v3_bha_03",
+   "lufs": -16.39,
+   "peak_db": -1.7,
+   "seconds": 1.77,
+   "source": "kokoro hm_omega:0.5+am_onyx:0.5",
+   "speaker": "bhaskar",
+   "take": "take 1",
+   "text": "Then come and take it.",
+   "true_peak": -1.71,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "v3_cou_01": {
+  "key": "9ad47e53033fb9b5",
+  "qa": {
+   "f0": 144,
+   "heard": "You followed me clever.",
+   "id": "v3_cou_01",
+   "lufs": -16.0,
+   "peak_db": -1.7,
+   "seconds": 1.22,
+   "source": "kokoro hm_omega:0.5+am_puck:0.5",
+   "speaker": "courier",
+   "text": "You followed me? Clever.",
+   "true_peak": -1.72,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "v3_mad_01": {
+  "key": "a216f786f3a824ea",
+  "qa": {
+   "f0": 160,
+   "heard": "You know.",
+   "id": "v3_mad_01",
+   "lufs": -16.11,
+   "peak_db": -1.7,
+   "seconds": 0.94,
+   "source": "kokoro hm_psi:0.6+bm_fable:0.4",
+   "speaker": "madhav",
+   "take": "take 1",
+   "text": "You knew?",
+   "true_peak": -1.71,
+   "wer": 0.5,
+   "wer_strict": 0.5
+  }
+ },
+ "v3_mad_02": {
+  "key": "8bdb9bf7b7846a6f",
+  "qa": {
+   "f0": 142,
+   "heard": "I am sorry, sir.",
+   "id": "v3_mad_02",
+   "lufs": -16.0,
+   "peak_db": -1.7,
+   "seconds": 1.52,
+   "source": "kokoro hm_psi:0.6+bm_fable:0.4",
+   "speaker": "madhav",
+   "text": "I am sorry, sir.",
+   "true_peak": -1.68,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "v3_mad_03": {
+  "key": "215d362f38200605",
+  "qa": {
+   "f0": 140,
+   "heard": "I only opened a door.",
+   "id": "v3_mad_03",
+   "lufs": -16.2,
+   "peak_db": -1.7,
+   "seconds": 1.93,
+   "source": "kokoro hm_psi:0.6+bm_fable:0.4",
+   "speaker": "madhav",
+   "text": "I only opened a door.",
+   "true_peak": -1.63,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "v3_mad_04": {
+  "key": "96dbff51de35bc76",
+  "qa": {
+   "f0": 143,
+   "heard": "Steve, sir, you look tired.",
+   "id": "v3_mad_04",
+   "lufs": -16.13,
+   "peak_db": -1.7,
+   "seconds": 2.01,
+   "source": "kokoro hm_psi:0.6+bm_fable:0.4",
+   "speaker": "madhav",
+   "take": "take 4 (pause at comma)",
+   "text": "Tea, sir? You look tired.",
+   "true_peak": -1.7,
+   "wer": 0.2,
+   "wer_strict": 0.2
+  }
+ },
+ "v3_mad_05": {
+  "key": "64b0045b5daba5d3",
+  "qa": {
+   "f0": 139,
+   "heard": "I locked up myself as always.",
+   "id": "v3_mad_05",
+   "lufs": -16.24,
+   "peak_db": -1.7,
+   "seconds": 2.53,
+   "source": "kokoro hm_psi:0.6+bm_fable:0.4",
+   "speaker": "madhav",
+   "text": "I locked up myself. As always.",
+   "true_peak": -1.69,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "v3_mad_06": {
+  "key": "9f245642783163ab",
+  "qa": {
+   "f0": 141,
+   "heard": "Take my lantern, it is dark below.",
+   "id": "v3_mad_06",
+   "lufs": -16.41,
+   "peak_db": -1.7,
+   "seconds": 2.65,
+   "source": "kokoro hm_psi:0.6+bm_fable:0.4",
+   "speaker": "madhav",
+   "text": "Take my lantern. It is dark below.",
+   "true_peak": -1.64,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "v3_mee_00": {
+  "key": "71a6f542de251deb",
+  "qa": {
+   "f0": 231,
+   "heard": "Two men, one carry the bell.",
+   "id": "v3_mee_00",
+   "lufs": -16.0,
+   "peak_db": -3.8,
+   "seconds": 1.81,
+   "source": "kokoro hf_alpha:1.0",
+   "speaker": "meera",
+   "take": "take 1",
+   "text": "Two men. One carried a bell.",
+   "true_peak": -3.77,
+   "wer": 0.2,
+   "wer_strict": 0.33
+  }
+ },
+ "v3_mee_01": {
+  "key": "cae8785b1ccd8d62",
+  "qa": {
+   "f0": 218,
+   "heard": "They went to the old well in this rain.",
+   "id": "v3_mee_01",
+   "lufs": -15.99,
+   "peak_db": -1.9,
+   "seconds": 2.42,
+   "source": "kokoro hf_alpha:1.0",
+   "speaker": "meera",
+   "text": "They went to the old well. In this rain.",
+   "true_peak": -1.91,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "v3_mee_02": {
+  "key": "b516c10a1db32373",
+  "qa": {
+   "f0": 236,
+   "heard": "Only one man carries those keys.",
+   "id": "v3_mee_02",
+   "lufs": -16.0,
+   "peak_db": -2.0,
+   "seconds": 2.31,
+   "source": "kokoro hf_alpha:1.0",
+   "speaker": "meera",
+   "text": "Only one man carries those keys.",
+   "true_peak": -2.04,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "v3_mee_03": {
+  "key": "5653fc1244f98106",
+  "qa": {
+   "f0": 237,
+   "heard": "It rang he hid it fast.",
+   "id": "v3_mee_03",
+   "lufs": -15.99,
+   "peak_db": -2.3,
+   "seconds": 1.74,
+   "source": "kokoro hf_alpha:1.0",
+   "speaker": "meera",
+   "text": "It rang. He hid it fast.",
+   "true_peak": -2.23,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "v3_mee_04": {
+  "key": "9ee0726acbea5f70",
+  "qa": {
+   "f0": 220,
+   "heard": "Your jeep waits on the north road.",
+   "id": "v3_mee_04",
+   "lufs": -16.02,
+   "peak_db": -2.5,
+   "seconds": 2.2,
+   "source": "kokoro hf_alpha:1.0",
+   "speaker": "meera",
+   "text": "Your jeep waits on the north road.",
+   "true_peak": -2.5,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "v3_puj_01": {
+  "key": "f6816cb7ed532af7",
+  "qa": {
+   "f0": 124,
+   "heard": "five treasures gone before sunrise.",
+   "id": "v3_puj_01",
+   "lufs": -16.19,
+   "peak_db": -1.7,
+   "seconds": 2.71,
+   "source": "kokoro hm_psi:1.0",
+   "speaker": "pujari",
+   "text": "Five treasures. Gone before sunrise.",
+   "true_peak": -1.7,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "v3_puj_02": {
+  "key": "b706969b91953c09",
+  "qa": {
+   "f0": 124,
+   "heard": "The procession leaves a dawn.",
+   "id": "v3_puj_02",
+   "lufs": -16.3,
+   "peak_db": -1.7,
+   "seconds": 2.21,
+   "source": "kokoro hm_psi:1.0",
+   "speaker": "pujari",
+   "text": "The procession leaves at dawn.",
+   "true_peak": -1.68,
+   "wer": 0.25,
+   "wer_strict": 0.2
+  }
+ },
+ "v3_puj_03": {
+  "key": "c8aa4d60785dc2fe",
+  "qa": {
+   "f0": 126,
+   "heard": "the old vaults behind the temple.",
+   "id": "v3_puj_03",
+   "lufs": -16.06,
+   "peak_db": -1.7,
+   "seconds": 2.36,
+   "source": "kokoro hm_psi:1.0",
+   "speaker": "pujari",
+   "text": "The old vaults. Behind the temple.",
+   "true_peak": -1.7,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "v3_puj_09": {
+  "key": "ee9ad6518678d55c",
+  "qa": {
+   "f0": 127,
+   "heard": "You brought out memory home.",
+   "id": "v3_puj_09",
+   "lufs": -16.17,
+   "peak_db": -1.7,
+   "seconds": 2.03,
+   "source": "kokoro hm_psi:1.0",
+   "speaker": "pujari",
+   "text": "You brought our memory home.",
+   "true_peak": -1.71,
+   "wer": 0.2,
+   "wer_strict": 0.2
+  }
+ },
+ "vl_f_01": {
+  "key": "09baa3b751200835",
+  "qa": {
+   "f0": 189,
+   "heard": "You're up early, sir.",
+   "id": "vl_f_01",
+   "lufs": -15.98,
+   "peak_db": -1.8,
+   "seconds": 1.21,
+   "source": "kokoro hf_beta:1.0",
+   "speaker": "villager_f",
+   "text": "You're up early, sir.",
+   "true_peak": -1.78,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "vl_f_02": {
+  "key": "ced58fd3e85d92d2",
+  "qa": {
+   "f0": 199,
+   "heard": "We are praying for the festival.",
+   "id": "vl_f_02",
+   "lufs": -16.2,
+   "peak_db": -1.7,
+   "seconds": 1.76,
+   "source": "kokoro hf_beta:1.0",
+   "speaker": "villager_f",
+   "text": "We are praying for the festival.",
+   "true_peak": -1.66,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "vl_f_03": {
+  "key": "f689f90bba1f2e1c",
+  "qa": {
+   "f0": 197,
+   "heard": "Mind the card say.",
+   "id": "vl_f_03",
+   "lufs": -16.08,
+   "peak_db": -1.7,
+   "seconds": 1.27,
+   "source": "kokoro hf_beta:1.0",
+   "speaker": "villager_f",
+   "take": "take 1",
+   "text": "Mind the cart, sir.",
+   "true_peak": -1.7,
+   "wer": 0.67,
+   "wer_strict": 0.5
+  }
+ },
+ "vl_m_01": {
+  "key": "a25225f825f6c425",
+  "qa": {
+   "f0": 156,
+   "heard": "Up early sir.",
+   "id": "vl_m_01",
+   "lufs": -16.33,
+   "peak_db": -1.7,
+   "seconds": 1.21,
+   "source": "kokoro hm_psi:1.0",
+   "speaker": "villager_m",
+   "take": "take 2 (slower)",
+   "text": "Up early, sir?",
+   "true_peak": -1.69,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "vl_m_02": {
+  "key": "b26815fadacf0df6",
+  "qa": {
+   "f0": 157,
+   "heard": "The temple bell is silent tonight.",
+   "id": "vl_m_02",
+   "lufs": -16.43,
+   "peak_db": -1.7,
+   "seconds": 2.1,
+   "source": "kokoro hm_psi:1.0",
+   "speaker": "villager_m",
+   "text": "The temple bell is silent tonight.",
+   "true_peak": -1.67,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "vl_m_03": {
+  "key": "c851e569c94b9b49",
+  "qa": {
+   "f0": 171,
+   "heard": "Thieves in Sariyapur.",
+   "id": "vl_m_03",
+   "lufs": -16.12,
+   "peak_db": -1.7,
+   "seconds": 1.57,
+   "source": "kokoro hm_psi:1.0",
+   "speaker": "villager_m",
+   "text": "Thieves? In Suryapur?",
+   "true_peak": -1.68,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ }
+}
