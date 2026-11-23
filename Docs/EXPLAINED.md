@@ -314,3 +314,4 @@ Open `Builds/LegacyOfTheTemple.app` (or open Unity → MainMenu → Play). Scree
 - **How to see and hear it:**
   - In the game, first raise **Volume** in Pause > settings: on this Mac it is saved at 0 %, so the game is silent.
   - To hear every line on demand, open `Assets/_Project/Scenes/Dev/VoiceTestScene.unity` in Unity, press Play and click any button.
+- **Proof:** `Docs/QA/voice_demo.mov` (64 s video with the game's own sound and subtitles; Whisper heard 8 of its 10 lines). 8 of 8 voice play-mode tests pass. The whole-game bot run on the build before the last small fixes played 69 event lines and 27 story lines with 0 moments of two voices at once and 0 errors.

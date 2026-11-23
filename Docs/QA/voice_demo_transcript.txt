@@ -1,0 +1,20 @@
+Whisper (base.en, offline) on the demo's recorded game sound
+
+Heard (seconds into the video):
+    1.2- 17.0  Hm, look at that. Let's see how this works. Another piece home. Pull again and it holds
+   17.0- 39.8  on. Now the light falls right. The jeep's still in one bit. Let's go. Easy on this
+   39.8- 41.8  road.
+
+Lines the voice manager played while recording, and whether Whisper heard their words:
+    1.6  notice             ex_notice_02         "Hm. Look at that."  heard (100% of its words)
+    4.3  puzzle_start       pz_start_01          "Let's see how this works."  heard (100% of its words)
+    9.8  pot_shard          pz_pot_shard_02      "Another piece home."  heard (100% of its words)
+   15.6  pot_whole          pz_pot_whole_01      "Whole again. And it holds oil."  heard (60% of its words)
+   23.6  lantern_stain      pz_lantern_01        "Now the light falls right."  heard (100% of its words)
+   29.1  jeep_approach      jp_approach_01       "The jeep. Still in one piece."  heard (80% of its words)
+   30.6  jeep_enter         jp_enter_01          "Let's go."  heard (100% of its words)
+   38.9  jeep_fast          jp_fast_02           "Easy on this road."  heard (100% of its words)
+   49.3  npc_near           vl_m_03              "Thieves? In Suryapur?"  NOT clearly heard (0% of its words)
+   59.3  run_long           mv_run_02            "Dawn won't wait."  NOT clearly heard (0% of its words)
+
+8 of 10 played lines were heard in the recording.

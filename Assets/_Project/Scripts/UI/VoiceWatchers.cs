@@ -200,8 +200,9 @@ namespace LegacyOfTemples.UI
             var bi = BreakInPuzzle.Instance;
             if (bi != null && g == bi.Group)
             {
-                bool shard = false; foreach (var so in bi.Sockets) if (so == e) shard = true;
-                if (shard && e.State == 1) Fire("pot_shard");
+                bool shard = false; int placed = 0; foreach (var so in bi.Sockets) { if (so == e) shard = true; if (so != null && so.State == 1) placed++; }
+                if (shard && e.State == 1 && placed < bi.Sockets.Length) Fire("pot_shard");   // the last piece: "pot whole" speaks instead
+
                 met[g] = Count(g); return;
             }
             var sw = SunWallPuzzle.Instance; var sp = StepwellPuzzle.Instance;
@@ -258,17 +259,19 @@ namespace LegacyOfTemples.UI
         {
             var bt = BazaarTail.Instance; if (bt == null || bt.Courier == null) return;
             var now = bt.Now;
+            // only while following him is the goal: if the step is skipped (F9 demo menu), the courier keeps walking, but nobody comments on him
+            var st = StoryDialogueSystem.Instance; bool step = st != null && st.Current != null && st.Current.id == "obj_v3_bazaar";
             if (now != tail)
             {
-                if (now == BazaarTail.Phase.Walking && tail == BazaarTail.Phase.Waiting) Fire("bazaar_follow");
-                if (tail == BazaarTail.Phase.LookingBack && now == BazaarTail.Phase.Walking && bt.Spotted == spotted) Fire("bazaar_lookback");
-                if (now == BazaarTail.Phase.Arrived) Fire("bazaar_yard");
+                if (step && now == BazaarTail.Phase.Walking && tail == BazaarTail.Phase.Waiting) Fire("bazaar_follow");
+                if (step && tail == BazaarTail.Phase.LookingBack && now == BazaarTail.Phase.Walking && bt.Spotted == spotted) Fire("bazaar_lookback");
+                if (step && now == BazaarTail.Phase.Arrived) Fire("bazaar_yard");
                 tail = now;
             }
-            if (bt.Spotted > spotted) { spotted = bt.Spotted; if (spotted < 3) Fire("bazaar_spotted"); }
-            // falling far behind: said once when the gap opens (again only after closing to 20 m), and only while following him is the goal
-            var pc = VoiceManager.Player; var st = StoryDialogueSystem.Instance;
-            bool tailing = now == BazaarTail.Phase.Walking && pc != null && st != null && st.Current != null && st.Current.id == "obj_v3_bazaar";
+            if (bt.Spotted > spotted) { spotted = bt.Spotted; if (step && spotted < 3) Fire("bazaar_spotted"); }
+            // falling far behind: said once when the gap opens (again only after closing to 20 m)
+            var pc = VoiceManager.Player;
+            bool tailing = step && now == BazaarTail.Phase.Walking && pc != null;
             float gap = tailing ? Vector3.Distance(pc.transform.position, bt.Courier.position) : 0f;
             if (tailing && gap > 28f && !farSaid) { farSaid = true; Fire("bazaar_far"); }
             else if (!tailing || gap < 20f) farSaid = false;

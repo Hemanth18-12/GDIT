@@ -8,8 +8,8 @@ Say "continue the voice-over from Docs/PROGRESS.md".
 - [x] `VoiceDatabase` asset (`Tools > Voice > Build database from CSV`), `VoiceManager` (queue, priorities, cooldowns, repeat gap, subtitles, lip sync, 3D, pause, recording-aware clock), `VoiceWatchers` (all triggers), helpers `VoiceTrigger` and `VoiceOnEvent`, settings (Voice lines Low/Normal/High, Subtitles), `VoiceTestScene`.
 - [x] Play-mode tests `VoiceSystemTests`: 8 of 8 pass.
 - [x] Bot runs of the whole game found watcher bugs (D-53, D-57), all fixed.
-- [ ] Final whole-game run with the trigger log (`Docs/QA/voice_trigger_log.txt`).
-- [ ] Demo video with voice and subtitles (`Docs/QA/voice_demo.mov`), checked with Whisper.
+- [ ] Final whole-game run with the trigger log (`Docs/QA/voice_trigger_log.txt`) on the final build. (The run on the previous build: 69 event + 27 story lines, 42 of 73 triggers spoke, 0 overlap frames, 0 missing clips, 0 exceptions, story complete grade S; its file was overwritten by the restarted run, which was stopped.)
+- [x] Demo video `Docs/QA/voice_demo.mov` (64 s, 1280x720, the game's own sound, -21 LUFS, no clipping); Whisper heard 8 of the 10 lines in it (`Docs/QA/voice_demo_transcript.txt`).
 - [x] `Docs/VOICE_GUIDE.md` (with viva answers), EXPLAINED note, KNOWN_ISSUES 29-33, DECISIONS D-41 to D-58.
 - [ ] Final build, commit, push.
 
