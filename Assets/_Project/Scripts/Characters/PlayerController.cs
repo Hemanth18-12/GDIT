@@ -35,17 +35,17 @@ namespace LegacyOfTemples.Characters
 
         private CharacterController characterController;
         private CharacterGrounding grounding;
+        private CharacterTraversal traversal;
         private Vector3 moveVelocity;
         private float verticalVelocity;
         private float footstepTimer = 0f;
+        private bool wasAirborne;
         private IInteractable nearestInteractable;
         private GUIStyle promptBoxStyle;
         private GUIStyle promptTextStyle;
 
         /// <summary>Current objective target (set by the story director); interaction prefers it.</summary>
         public static Transform ObjectiveFocus;
-        [SerializeField] private float maxClimbAboveStart = 1.0f; // temple tiers are a landmark, not a climb // stops walking up temple towers / walls
-        private float startHeight = float.NaN;
         public bool IsMoving { get; private set; }
         public bool IsRunning { get; private set; }
         public bool IsCrouching { get; private set; }
@@ -56,6 +56,8 @@ namespace LegacyOfTemples.Characters
             characterController = GetComponent<CharacterController>();
             grounding = GetComponent<CharacterGrounding>();
             if (grounding == null) grounding = gameObject.AddComponent<CharacterGrounding>();
+            traversal = GetComponent<CharacterTraversal>();
+            if (traversal == null) traversal = gameObject.AddComponent<CharacterTraversal>();
             if (animator == null)
             {
                 animator = GetComponentInChildren<Animator>();
@@ -124,6 +126,7 @@ namespace LegacyOfTemples.Characters
         private void HandleMovement()
         {
             if (characterController == null) return;
+            if (traversal.TickClimb()) { CurrentSpeed = 0f; IsMoving = false; return; }
 
             float horizontal = 0f;
             float vertical = 0f;
@@ -225,11 +228,13 @@ namespace LegacyOfTemples.Characters
             bool canJump = isGrounded || (verticalVelocity <= 0f && Time.time - lastGroundedTime < CoyoteTime); // short coyote time vs. flicker
             if (jumpPressed && canJump && !IsCrouching)
             {
+                if (isGrounded && traversal.TryClimb(moveDir)) { verticalVelocity = 0f; return; }
                 verticalVelocity = Mathf.Sqrt(2f * jumpHeight * gravity); // once per press, never in the air
                 grounding?.ClearSupport();
                 lastGroundedTime = -1f;
                 isGrounded = false;
                 JumpCount++;
+                AudioManager.Instance?.PlaySFX("sfx_cloth", 0.35f);
             }
             if (isGrounded)
             {
@@ -248,21 +253,20 @@ namespace LegacyOfTemples.Characters
             CurrentSpeed = IsMoving ? Mathf.MoveTowards(CurrentSpeed, targetSpeed, acceleration * Time.deltaTime) : 0f;
             Vector3 finalMove = (moveDir * CurrentSpeed) + Vector3.up * verticalVelocity;
             if (Time.time < pushUntil) finalMove += new Vector3(pushVelocity.x, 0f, pushVelocity.z);
+            // The capsule's slope and step limits decide what is walkable. A height
+            // limit measured from spawn also blocked legitimate stairs and platforms.
             Vector3 beforeMove = transform.position;
-            characterController.Move(finalMove * Time.deltaTime);
-            if (float.IsNaN(startHeight)) startHeight = beforeMove.y;
-            if (transform.position.y > startHeight + maxClimbAboveStart && transform.position.y > beforeMove.y)
-            {
-                // Too high above the level's walkable floor: undo the horizontal climb (invisible boundary).
-                characterController.enabled = false;
-                transform.position = new Vector3(beforeMove.x, Mathf.Min(beforeMove.y, transform.position.y), beforeMove.z);
-                characterController.enabled = true;
-            }
+            CollisionFlags collisions = characterController.Move(finalMove * Time.deltaTime);
+            if ((collisions & CollisionFlags.Above) != 0 && verticalVelocity > 0f)
+                verticalVelocity = 0f;
             if (verticalVelocity <= 0f && grounding.SnapToGround())
             {
                 verticalVelocity = -2f;
                 isGrounded = true;
             }
+            traversal.Observe(beforeMove, moveDir, isGrounded);
+            if (isGrounded && wasAirborne) GameSfx.Footstep(transform.position, 0.65f);
+            wasAirborne = !isGrounded;
 
             // Footsteps
             if (isGrounded && IsMoving)
@@ -378,11 +382,10 @@ namespace LegacyOfTemples.Characters
         {
             characterController.enabled = false;
             transform.SetPositionAndRotation(position, rotation);
-            verticalVelocity = 0f;
+            verticalVelocity = 0f; wasAirborne = false;
             characterController.enabled = true;
             Physics.SyncTransforms();
             grounding.SnapToGround(true);
-            startHeight = transform.position.y;
         }
 
 

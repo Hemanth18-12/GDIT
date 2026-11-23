@@ -34,9 +34,10 @@ namespace LegacyOfTemples.Characters
             controller.minMoveDistance = 0f;
             controller.height = bounds.size.y;
             controller.radius = 0.3f;
-            controller.slopeLimit = 40f;
+            controller.slopeLimit = 50f;
             controller.center = new Vector3(0f, bounds.center.y + controller.skinWidth + footClearance, 0f);
-            controller.stepOffset = 0.3f; // < CC height + 2*radius rule; climb guard in PlayerController blocks tier-climbing
+            // Authored courtyard treads rise 24 cm; the ruined jungle steps rise 35 cm.
+            controller.stepOffset = Mathf.Min(0.4f, controller.height * 0.3f);
             calibrated = true;
         }
 

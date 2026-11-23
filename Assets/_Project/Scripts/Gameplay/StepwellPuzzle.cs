@@ -70,6 +70,9 @@ namespace LegacyOfTemples.Gameplay
             var ramp = Village.Box(root, "Ramp_Out", new Vector3(1f, 2.5f, -8.5f), new Vector3(10.4f, 0.25f, 1.8f), "red_sandstone_pavement", 2f); ramp.transform.localRotation = Quaternion.Euler(0f, 0f, -30f);
             Village.Box(root, "Ramp_Landing", new Vector3(-5.3f, 5.08f, -8.5f), new Vector3(3.6f, 0.25f, 1.8f), "red_sandstone_pavement", 2f);
             var inner = Village.Box(root, "Ramp_In", new Vector3(-5.25f, 2.5f, 0.6f), new Vector3(1.4f, 0.25f, 10.4f), "red_sandstone_pavement", 2f); inner.transform.localRotation = Quaternion.Euler(30f, 0f, 0f);
+            // The ramp's high end stops at z=-3.9, while the rim starts at z=-6.
+            // Join them with a visible walkable landing instead of an invisible jump gap.
+            Village.Box(root, "Ramp_RimBridge", new Vector3(-5.25f, 5.08f, -5f), new Vector3(1.4f, 0.25f, 2.25f), "red_sandstone_pavement", 2f);
             // carved water-line marks on the west wall (what the player reads)
             for (int i = 1; i <= 4; i++) ZoneKit.Part(root, "WaterMark_" + i, new Vector3(5.97f, 0.3f + i * 1.2f, -4.2f), new Vector3(0.05f, i == 2 ? 0.12f : 0.05f, i == 2 ? 2.2f : 1.2f), ZoneKit.Tinted("clay_plaster", i == 2 ? new Color(0.95f, 0.85f, 0.6f) : new Color(0.35f, 0.33f, 0.3f), 0.2f), false);
             // the hidden chamber behind the east wall

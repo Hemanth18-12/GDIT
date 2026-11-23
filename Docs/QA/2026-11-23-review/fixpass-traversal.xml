@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="6" result="Passed" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-23 18:27:40Z" end-time="2026-11-23 18:28:59Z" duration="78.9660064">
+  <test-suite type="TestSuite" id="1066" name="My project" fullname="My project" runstate="Runnable" testcasecount="49" result="Passed" start-time="2026-11-23 18:27:40Z" end-time="2026-11-23 18:28:59Z" duration="78.966006" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1126" name="LOT.Grounding.PlayModeTests.dll" fullname="/Users/hemanth/Desktop/GDIT/My project/Library/ScriptAssemblies/LOT.Grounding.PlayModeTests.dll" runstate="Runnable" testcasecount="49" result="Passed" start-time="2026-11-23 18:27:40Z" end-time="2026-11-23 18:28:59Z" duration="78.962405" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="18981" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+      <test-suite type="TestSuite" id="1127" name="LegacyOfTemples" fullname="LegacyOfTemples" runstate="Runnable" testcasecount="41" result="Passed" start-time="2026-11-23 18:27:40Z" end-time="2026-11-23 18:28:59Z" duration="78.945830" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+        <test-suite type="TestSuite" id="1128" name="Tests" fullname="LegacyOfTemples.Tests" runstate="Runnable" testcasecount="41" result="Passed" start-time="2026-11-23 18:27:40Z" end-time="2026-11-23 18:28:59Z" duration="78.929031" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+          <test-suite type="TestFixture" id="1110" name="ReviewRegressionTests" fullname="LegacyOfTemples.Tests.ReviewRegressionTests" classname="LegacyOfTemples.Tests.ReviewRegressionTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-11-23 18:27:40Z" end-time="2026-11-23 18:28:59Z" duration="78.911860" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+            <test-case id="1111" name="Courtyard_AuthoredSteps_ClimbAboveOneMetre_AndJump" fullname="LegacyOfTemples.Tests.ReviewRegressionTests.Courtyard_AuthoredSteps_ClimbAboveOneMetre_AndJump" methodname="Courtyard_AuthoredSteps_ClimbAboveOneMetre_AndJump" classname="LegacyOfTemples.Tests.ReviewRegressionTests" runstate="Runnable" seed="1181397663" result="Passed" start-time="2026-11-23 18:27:40Z" end-time="2026-11-23 18:27:53Z" duration="12.529591" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+[Weather] scene Courtyard: target=0.00, interior=False, quality=2
+[CharacterManager] Player placed in Courtyard: spawn=Spawn_player_start (0.00, 0.05, 15.00) -> player (0.00, 0.00, 15.00)
+[CharacterManager] Player placed in Courtyard: spawn=Spawn_player_start (0.00, 0.05, 15.00) -> player (0.00, 0.00, 15.00)
+[Voice] npc_near: played np_puj_02 (p1 3D speaker=pujari)
+[BatchFriendly] baked 222 renderers into 203 shared materials (total 222)
+[TempleSite] temple placed: 1867721 triangles, footprint 247 x 108 m, height 61 m, tower top (-111.34, 61.05, -149.14)
+[VillageLife] built: 13 villagers, jeep parked
+[BatchFriendly] baked 1045 renderers into 569 shared materials (total 1267)
+[BreakIn] zone 2 puzzle built at (-17.0, 0.0, -74.0)
+[Stepwell] zone 4 puzzle built at (137.1, 0.0, -134.0)
+[SunWall] zone 5 puzzle built at (-137.6, 0.0, -135.0)
+[Vaults] zone 3 puzzle built at (0.0, 0.0, -202.5)
+[Bazaar] zone 1 built: yard at (21.0, 0.0, 145.0), route 7 points
+[Jungle] zone 6 built: road 24 points from (30.5, 0.0, -221.0), court at (39.5, 0.0, -457.0)
+[TempleLife] bell, 8 lamp stands, 6 reflection probes
+[BatchFriendly] baked 2542 renderers into 1990 shared materials (total 3809)
+[Review] Courtyard actual steps: startFeet=0.005, topFeet=1.205, z=-0.364, enabled=True, cc=True, keyW=False, moving=False, blocked=False
+Reduced additional punctual light shadows resolution by 4 to make 25 shadow maps fit in the 2048x2048 shadow atlas. To avoid this, increase shadow atlas size, decrease big shadow resolutions, or reduce the number of shadow maps active in the same frame
+[Review] Jump on upper tread: rise=0.667, landingError=0.000
+]]></output>
+            </test-case>
+            <test-case id="1113" name="Dialogue_PlainNpcLine_UsesRecordedVoice" fullname="LegacyOfTemples.Tests.ReviewRegressionTests.Dialogue_PlainNpcLine_UsesRecordedVoice" methodname="Dialogue_PlainNpcLine_UsesRecordedVoice" classname="LegacyOfTemples.Tests.ReviewRegressionTests" runstate="Runnable" seed="1941177403" result="Passed" start-time="2026-11-23 18:27:53Z" end-time="2026-11-23 18:28:01Z" duration="8.273288" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Weather] scene Sanctum: target=0.00, interior=True, quality=2
+[CharacterManager] Player placed in Sanctum: spawn=Spawn_player_start (0.00, 0.05, 5.00) -> player (0.00, 0.00, 5.00)
+[CharacterManager] Player placed in Sanctum: spawn=Spawn_player_start (0.00, 0.05, 5.00) -> player (0.00, 0.00, 5.00)
+[BatchFriendly] baked 54 renderers into 2044 shared materials (total 3863)
+[Voice] story:dialogue: played v3_puj_01 (story line)
+[Review] Plain NPC dialogue triggered Pujari recording v3_puj_01
+]]></output>
+            </test-case>
+            <test-case id="1116" name="Jeep_BlockedDriverSide_UsesClearExit_AndKeepsHeroGrounded" fullname="LegacyOfTemples.Tests.ReviewRegressionTests.Jeep_BlockedDriverSide_UsesClearExit_AndKeepsHeroGrounded" methodname="Jeep_BlockedDriverSide_UsesClearExit_AndKeepsHeroGrounded" classname="LegacyOfTemples.Tests.ReviewRegressionTests" runstate="Runnable" seed="1376889857" result="Passed" start-time="2026-11-23 18:28:01Z" end-time="2026-11-23 18:28:16Z" duration="15.373783" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Voice] dialogue: stopped v3_puj_01 (scene change)
+[Weather] scene Courtyard: target=0.00, interior=False, quality=2
+[CharacterManager] Player placed in Courtyard: spawn=Spawn_player_start (0.00, 0.05, 15.00) -> player (0.00, 0.00, 15.00)
+[CharacterManager] Player placed in Courtyard: spawn=Spawn_player_start (0.00, 0.05, 15.00) -> player (0.00, 0.00, 15.00)
+[BreakIn] zone 2 puzzle built at (17.0, 0.0, -74.0)
+[Stepwell] zone 4 puzzle built at (137.1, 0.0, -134.0)
+[SunWall] zone 5 puzzle built at (-137.6, 0.0, -135.0)
+[Vaults] zone 3 puzzle built at (0.0, 0.0, -202.5)
+[Bazaar] zone 1 built: yard at (20.9, 0.0, 129.0), route 7 points
+[Jungle] zone 6 built: road 24 points from (30.5, 0.0, -221.0), court at (39.5, 0.0, -457.0)
+[TempleSite] temple placed: 1867721 triangles, footprint 247 x 108 m, height 61 m, tower top (-111.34, 61.05, -149.14)
+[VillageLife] built: 13 villagers, jeep parked
+[BatchFriendly] baked 3808 renderers into 2313 shared materials (total 7671)
+[TempleLife] bell, 8 lamp stands, 6 reflection probes
+[Voice] jeep_enter: played jp_enter_01 (p2 2D )
+[SeatedPose] seat=(800.40, 0.84, 799.85) hips=(800.40, 0.84, 799.85) root=(800.40, -0.06, 799.59) head=(800.40, 1.47, 799.74)
+[Review] Jeep blocked-door exit: old=(801.750, 0.061, 800.050), actual=(798.250, 0.005, 800.050), feet=0.005, enabled=True
+]]></output>
+            </test-case>
+            <test-case id="1112" name="Jungle_Authored35cmSteps_ClimbAndDescend" fullname="LegacyOfTemples.Tests.ReviewRegressionTests.Jungle_Authored35cmSteps_ClimbAndDescend" methodname="Jungle_Authored35cmSteps_ClimbAndDescend" classname="LegacyOfTemples.Tests.ReviewRegressionTests" runstate="Runnable" seed="1806900302" result="Passed" start-time="2026-11-23 18:28:16Z" end-time="2026-11-23 18:28:30Z" duration="13.433962" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Weather] scene JunglePath: target=0.00, interior=False, quality=2
+[CharacterManager] Player placed in JunglePath: spawn=Spawn_player_start (0.00, 0.00, 18.00) -> player (0.00, 0.00, 18.00)
+[CharacterManager] Player placed in JunglePath: spawn=Spawn_player_start (0.00, 0.00, 18.00) -> player (0.00, 0.00, 18.00)
+[BatchFriendly] baked 76 renderers into 2351 shared materials (total 7747)
+[BatchFriendly] baked 306 renderers into 2477 shared materials (total 8053)
+[Review] Jungle actual steps: startFeet=0.005, topFeet=2.455, targetTop=2.450, z=-10.646, enabled=True, cc=True, moving=False, blocked=False
+Reduced additional punctual light shadows resolution by 4 to make 18 shadow maps fit in the 2048x2048 shadow atlas. To avoid this, increase shadow atlas size, decrease big shadow resolutions, or reduce the number of shadow maps active in the same frame
+]]></output>
+            </test-case>
+            <test-case id="1115" name="LedgeHop_OneMetre_AndBlockedWallRecovery" fullname="LegacyOfTemples.Tests.ReviewRegressionTests.LedgeHop_OneMetre_AndBlockedWallRecovery" methodname="LedgeHop_OneMetre_AndBlockedWallRecovery" classname="LegacyOfTemples.Tests.ReviewRegressionTests" runstate="Runnable" seed="383325540" result="Passed" start-time="2026-11-23 18:28:30Z" end-time="2026-11-23 18:28:44Z" duration="14.117555" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Weather] scene Sanctum: target=0.00, interior=True, quality=2
+[CharacterManager] Player placed in Sanctum: spawn=Spawn_player_start (0.00, 0.05, 5.00) -> player (0.00, 0.00, 5.00)
+[CharacterManager] Player placed in Sanctum: spawn=Spawn_player_start (0.00, 0.05, 5.00) -> player (0.00, 0.00, 5.00)
+[BatchFriendly] baked 54 renderers into 2530 shared materials (total 8107)
+[Traversal] ledge hop 1.00 m from (900.000, 0.005, 899.550) to (900.000, 1.005, 900.480)
+[Review] Ledge hop landed with feet=1.005
+[Voice] dead_end: played mv_deadend_01 (p1 2D )
+[Traversal] stuck recovery to (900.750, 0.005, 901.170)
+[Review] Blocked-wall recoveries=1, position=(900.750, 0.005, 901.170)
+]]></output>
+            </test-case>
+            <test-case id="1114" name="Stepwell_BothAuthoredRamps_ReachFiveMetreRim" fullname="LegacyOfTemples.Tests.ReviewRegressionTests.Stepwell_BothAuthoredRamps_ReachFiveMetreRim" methodname="Stepwell_BothAuthoredRamps_ReachFiveMetreRim" classname="LegacyOfTemples.Tests.ReviewRegressionTests" runstate="Runnable" seed="1603003937" result="Passed" start-time="2026-11-23 18:28:44Z" end-time="2026-11-23 18:28:59Z" duration="15.160864" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Weather] scene Courtyard: target=0.00, interior=False, quality=2
+[CharacterManager] Player placed in Courtyard: spawn=Spawn_player_start (0.00, 0.05, 15.00) -> player (0.00, 0.00, 15.00)
+[CharacterManager] Player placed in Courtyard: spawn=Spawn_player_start (0.00, 0.05, 15.00) -> player (0.00, 0.00, 15.00)
+[BreakIn] zone 2 puzzle built at (17.0, 0.0, -74.0)
+[Stepwell] zone 4 puzzle built at (137.1, 0.0, -134.0)
+[SunWall] zone 5 puzzle built at (-137.6, 0.0, -135.0)
+[Vaults] zone 3 puzzle built at (0.0, 0.0, -202.5)
+[Bazaar] zone 1 built: yard at (20.9, 0.0, 129.0), route 7 points
+[Jungle] zone 6 built: road 24 points from (30.5, 0.0, -221.0), court at (39.5, 0.0, -457.0)
+[TempleSite] temple placed: 1867721 triangles, footprint 247 x 108 m, height 61 m, tower top (-111.34, 61.05, -149.14)
+[VillageLife] built: 13 villagers, jeep parked
+[BatchFriendly] baked 3808 renderers into 2788 shared materials (total 11915)
+[TempleLife] bell, 8 lamp stands, 6 reflection probes
+[Voice] area_enter: played mv_area_stepwell (p2 2D zone=Stepwell)
+[Review] Stepwell outer ramp: local=(-4.813, 5.210, -8.500), feet=5.210
+[Review] Stepwell inner ramp: local=(-5.250, 5.210, -4.413), feet=5.210
+Saving results to: /Users/hemanth/Library/Application Support/DefaultCompany/My project/TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

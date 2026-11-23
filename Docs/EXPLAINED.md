@@ -315,3 +315,16 @@ Open `Builds/LegacyOfTheTemple.app` (or open Unity → MainMenu → Play). Scree
   - In the game, first raise **Volume** in Pause > settings: on this Mac it is saved at 0 %, so the game is silent.
   - To hear every line on demand, open `Assets/_Project/Scenes/Dev/VoiceTestScene.unity` in Unity, press Play and click any button.
 - **Proof:** `Docs/QA/voice_demo.mov` (64 s video with the game's own sound and subtitles; Whisper heard 8 of its 10 lines). 8 of 8 voice play-mode tests pass. The whole-game bot run on the build before the last small fixes played 69 event lines and 27 story lines with 0 moments of two voices at once and 0 errors.
+
+## Evaluation pack for the playtest study (2026-11-23)
+- **What you asked:** documents like the reference pack (comparison study, information sheet, consent form) but for our game, with our game pictures, in a new folder, and a Google Form like the "After you play" form.
+- **What I made:** the folder `Evaluation/` with three PDFs, 10 real game screenshots, and a script that creates two Google Forms (before playing, with knowledge check Set A; after playing, with Set B, the same "how you learn" questions and questions about the game). The six knowledge topics are the ideas the game uses: shadows, mirrors, water levels, reasoning from clues, planning moves on a dial, and why heritage matters.
+- **What you must do:** put your team names, roll numbers and guide name in the two HTML files and rebuild the PDFs; run the script once in script.google.com while signed in as hemanth.t24@iiits.in (steps in `Evaluation/README.md`). I could not create the form directly in your Google account.
+
+
+## Targeted movement repair — 23 November 2026
+- The hero used to be stopped whenever he climbed more than one metre above where he started. Removed that invisible height limit. The capsule now allows 40 cm steps and slopes up to 50 degrees.
+- Added `CharacterTraversal.cs`: Space while moving into a ledge up to 1.2 m uses the existing real jump animation and collision-checked movement. After three seconds pushing against an obstacle, it searches nearby clear floor without moving through a wall. There is no new hand-contact climb animation.
+- Joined the stepwell's inner ramp to its rim with a small visible landing (`StepwellPuzzle.cs`). It previously stopped short of the walkway. Kept the tested courtyard/jungle treads rather than covering them with an unnecessary invisible ramp.
+- Play Mode evidence: `Docs/QA/2026-11-23-review/fixpass-traversal.xml` and `editor/`. Actual feet reached 1.205 m on the courtyard stairs, 2.455 m on the jungle stairs, and 5.210 m on each stepwell ramp. A one-metre ledge hop and a three-second blocked-wall recovery passed too.
+- To try it: open My project, enter the Courtyard, walk up the temple steps or the stepwell ramps. Move toward a low ledge and press Space. The final app is still pending under the new brief.
