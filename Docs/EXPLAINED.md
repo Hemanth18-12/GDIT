@@ -328,3 +328,10 @@ Open `Builds/LegacyOfTheTemple.app` (or open Unity → MainMenu → Play). Scree
 - Joined the stepwell's inner ramp to its rim with a small visible landing (`StepwellPuzzle.cs`). It previously stopped short of the walkway. Kept the tested courtyard/jungle treads rather than covering them with an unnecessary invisible ramp.
 - Play Mode evidence: `Docs/QA/2026-11-23-review/fixpass-traversal.xml` and `editor/`. Actual feet reached 1.205 m on the courtyard stairs, 2.455 m on the jungle stairs, and 5.210 m on each stepwell ramp. A one-metre ledge hop and a three-second blocked-wall recovery passed too.
 - To try it: open My project, enter the Courtyard, walk up the temple steps or the stepwell ramps. Move toward a low ledge and press Space. The final app is still pending under the new brief.
+
+
+## Jeep safety repair — targeted Task 2
+- `Jeep.cs` now walks to the door through the capsule controller, locks overlapping entry/exit requests, checks the exit floor and full capsule, and tries nearby/opposite-side space if the door is blocked. The right-hand seated pose and working driving are retained.
+- `CharacterTraversal.cs` moves a hero standing on the Jeep roof to checked nearby ground, so his capsule cannot push down the suspension while he stands there. It never permits a ledge hop onto the Jeep.
+- The focused Play Mode test passed: entry, a short drive, braking, blocked driver-side exit, and roof contact. Hero/car heights throughout all phases are in `Docs/QA/2026-11-23-review/editor/vehicle-heights.csv`; assertions in `fixpass-jeep.xml`. Exit feet were 0.005 m above the floor.
+- To try it, park beside a wall and press E; he uses a clear alternative side. If every exit is blocked, park in open space. The final app check remains pending.

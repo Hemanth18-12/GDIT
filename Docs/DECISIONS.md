@@ -74,3 +74,5 @@ Each line: what was planned, what went wrong or was unclear, what I chose, and w
 - F-06: Unknown report identity details will have blank lines. Prior screenshots may illustrate unchanged puzzle solutions but will be dated and never presented as a fresh test.
 
 - F-07: Both authored stair sets already pass with real tread colliders; keep them instead of adding redundant hidden ramps. The stepwell needed a visible 2.25 m joining landing, which was added and traversed in Play Mode.
+
+- F-08: Retain collision-checked walking to the door, then disable collision only while seated. This avoids walking through a wall during entry. Roof standing is disallowed via a validated nearby-ground recovery; unsafe exits leave the driver seated until the Jeep is parked in clear space.

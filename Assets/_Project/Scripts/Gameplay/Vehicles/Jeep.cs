@@ -25,6 +25,7 @@ namespace LegacyOfTemples.Gameplay.Vehicles
         public CarLights Lights { get; private set; }
         public CarAudio Audio { get; private set; }
         public bool Occupied { get; private set; }
+        public bool Transitioning { get; private set; }
         public int DamageState { get; private set; }
         public float TotalDamage { get; private set; }
         public readonly Dictionary<string, float> ZoneDamage = new Dictionary<string, float> { { "front", 0f }, { "rear", 0f }, { "left", 0f }, { "right", 0f }, { "top", 0f } };
@@ -278,24 +279,34 @@ namespace LegacyOfTemples.Gameplay.Vehicles
 
         public void Interact()
         {
-            if (Occupied || DamageState >= 3) return;
+            if (Occupied || Transitioning || DamageState >= 3) return;
             var pc = FindAnyObjectByType<PlayerController>(); if (pc == null) return;
             StartCoroutine(GetIn(pc));
         }
 
         private IEnumerator GetIn(PlayerController pc)
         {
-            Occupied = true; enteredFrame = Time.frameCount; player = pc;
+            Transitioning = true; Occupied = true; enteredFrame = Time.frameCount; player = pc;
             pc.enabled = false;
             LegacyOfTemples.Core.EventBus.RaiseHidePrompt();
-            var drv = pc.GetComponent<NpcAnimDriver>(); if (drv == null) drv = pc.gameObject.AddComponent<NpcAnimDriver>();
+            var drv = pc.GetComponent<NpcAnimDriver>(); bool addedDriver = drv == null;
+            if (addedDriver) drv = pc.gameObject.AddComponent<NpcAnimDriver>();
+            var capsule = pc.GetComponent<CharacterController>();
+            var grounding = pc.GetComponent<CharacterGrounding>();
             Vector3 door = DriverExitPoint;
-            for (float t = 0f; t < 1.2f && Vector3.Distance(Flat(pc.transform.position), Flat(door)) > 0.15f; t += Time.deltaTime)
+            for (float t = 0f; t < 2f && Vector3.Distance(Flat(pc.transform.position), Flat(door)) > 0.15f; t += Time.deltaTime)
             {   // walk to the door
                 Vector3 d = Flat(door - pc.transform.position); pc.transform.rotation = Quaternion.Slerp(pc.transform.rotation, Quaternion.LookRotation(d), Time.deltaTime * 8f);
-                pc.transform.position += d.normalized * Mathf.Min(1.5f * Time.deltaTime, d.magnitude); yield return null;
+                capsule.Move(d.normalized * Mathf.Min(1.5f * Time.deltaTime, d.magnitude) + Vector3.down * (2f * Time.deltaTime));
+                grounding?.SnapToGround(); yield return null;
             }
-            Destroy(drv);
+            if (addedDriver) Destroy(drv);
+            if (Vector3.Distance(Flat(pc.transform.position), Flat(door)) > 0.4f)
+            {
+                pc.enabled = true; Occupied = false; Transitioning = false; player = null;
+                ScreenText.Panel("jeep_access", null, "Walk around the obstacle to reach the driver's door.", PanelAnchor.TopCenter, 500f, null, false, 3);
+                yield break;
+            }
             yield return DriverDoor(true, 0.45f);
             SeatPlayer(true);
             yield return DriverDoor(false, 0.4f);
@@ -303,22 +314,80 @@ namespace LegacyOfTemples.Gameplay.Vehicles
             var cam = Camera.main;
             if (cam != null) { follow = cam.GetComponent<CarFollowCamera>(); if (follow == null) follow = cam.gameObject.AddComponent<CarFollowCamera>(); follow.target = transform; follow.car = Car; follow.enabled = true; follow.Snap(); }
             Car.Driven = true; Lights.SetHeadLights(true); Audio.engineLevel = 1f;
+            Transitioning = false;
         }
 
         public IEnumerator GetOut()
         {
-            if (!Occupied || player == null) yield break;
+            if (!Occupied || player == null || Transitioning) yield break;
+            if (!TryFindSafeExit(player, out Vector3 p))
+            {
+                ScreenText.Panel("jeep_access", null, "There is no clear place to get out. Park away from the wall or edge.", PanelAnchor.TopCenter, 560f, null, false, 3);
+                yield break;
+            }
+            Transitioning = true;
             Car.Driven = false; Lights.SignalsOff();
+            // Let the parking brakes settle the vehicle before enabling the player's capsule.
+            for (float t = 0f; t < 1.5f && Car.CurrentSpeed > 0.4f; t += Time.deltaTime) yield return null;
             yield return DriverDoor(true, 0.45f);
-            Vector3 p = DriverExitPoint;
-            if (Physics.Raycast(p + Vector3.up * 2f, Vector3.down, out RaycastHit h, 6f, ~0, QueryTriggerInteraction.Ignore) && !h.collider.transform.IsChildOf(transform)) p.y = h.point.y + 0.02f;
+            // Recheck after the car and door have moved.
+            if (!TryFindSafeExit(player, out p))
+            {
+                yield return DriverDoor(false, 0.4f);
+                Car.Driven = DamageState < 3; Transitioning = false;
+                yield break;
+            }
             if (player != null) SeatDriver(player.transform, false, p);
             player.Teleport(p, Quaternion.LookRotation(Vector3.ProjectOnPlane(transform.forward, Vector3.up)));
             player.enabled = true;
             if (follow != null) follow.enabled = false;
             if (orbit != null) { orbit.enabled = true; orbit.SetTarget(player.transform); }
             yield return DriverDoor(false, 0.4f);
-            Occupied = false; player = null;
+            Occupied = false; player = null; Transitioning = false;
+        }
+
+        /// <summary>Find walkable ground and enough room for the real character capsule.
+        /// Try nearby spots first, then the passenger side and rear; never place a driver inside a wall.</summary>
+        public bool TryFindSafeExit(PlayerController pc, out Vector3 position)
+        {
+            position = default;
+            if (pc == null) return false;
+            var cc = pc.GetComponent<CharacterController>();
+            var grounding = pc.GetComponent<CharacterGrounding>();
+            if (cc == null || grounding == null) return false;
+            Vector3 door = DriverExitPoint;
+            Vector3 side = Vector3.ProjectOnPlane(transform.right * driverSide, Vector3.up).normalized;
+            Vector3 forward = Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized;
+            Vector3[] candidates = { door, door + forward * 1.4f, door - forward * 1.4f,
+                door + side * 0.65f, door - side * 3.5f, door - side * 3.5f + forward * 1.4f,
+                door - side * 3.5f - forward * 1.4f, transform.position - forward * 3.3f };
+            Quaternion face = Quaternion.LookRotation(forward.sqrMagnitude > 0.01f ? forward : Vector3.forward);
+            Vector3 scale = pc.transform.lossyScale;
+            float radius = cc.radius * Mathf.Max(Mathf.Abs(scale.x), Mathf.Abs(scale.z));
+            float halfHeight = Mathf.Max(radius, cc.height * Mathf.Abs(scale.y) * 0.5f);
+            foreach (Vector3 candidate in candidates)
+            {
+                var hits = Physics.RaycastAll(new Vector3(candidate.x, transform.position.y + 1.5f, candidate.z), Vector3.down, 3.5f, ~0, QueryTriggerInteraction.Ignore);
+                System.Array.Sort(hits, (a, b) => a.distance.CompareTo(b.distance));
+                foreach (var hit in hits)
+                {
+                    if (hit.collider.transform.IsChildOf(transform) || hit.collider.transform.IsChildOf(pc.transform) ||
+                        hit.collider.GetComponentInParent<CharacterController>() != null || hit.normal.y < Mathf.Cos(cc.slopeLimit * Mathf.Deg2Rad)) continue;
+                    Vector3 root = new Vector3(candidate.x, hit.point.y + 0.005f - grounding.FootOffset * scale.y, candidate.z);
+                    Vector3 centre = root + face * Vector3.Scale(cc.center, scale);
+                    Vector3 offset = Vector3.up * (halfHeight - radius);
+                    bool blocked = false;
+                    foreach (var obstacle in Physics.OverlapCapsule(centre - offset, centre + offset, radius, ~0, QueryTriggerInteraction.Ignore))
+                    {
+                        if (obstacle.transform.IsChildOf(pc.transform)) continue;
+                        blocked = true; break;
+                    }
+                    if (!blocked) { position = root; return true; }
+                    // A solid upper surface prevents exiting through it onto a hidden lower floor.
+                    break;
+                }
+            }
+            return false;
         }
 
         /// <summary>The investigator sits in the right-hand driver's seat, visible through the windows, hands on the wheel.</summary>
@@ -368,7 +437,7 @@ namespace LegacyOfTemples.Gameplay.Vehicles
 
         private void Update()
         {
-            if (Occupied && Car.Driven && Time.frameCount > enteredFrame + 2 && !InputGate.GameplayBlocked)
+            if (Occupied && !Transitioning && Car.Driven && Time.frameCount > enteredFrame + 2 && !InputGate.GameplayBlocked)
             {
                 var kb = Keyboard.current; var gp = Gamepad.current;
                 bool exit = (kb != null && kb.eKey.wasPressedThisFrame) || (gp != null && gp.buttonWest.wasPressedThisFrame) || VirtualInput.Down("interact");

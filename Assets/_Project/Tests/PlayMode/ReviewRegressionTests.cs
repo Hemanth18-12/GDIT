@@ -51,6 +51,17 @@ namespace LegacyOfTemples.Tests
             Debug.Log("[Review] " + text);
         }
 
+        IEnumerator VehicleHeights(Jeep jeep, PlayerController pc, string phase, float seconds)
+        {
+            string file = Path.Combine(Evidence, "vehicle-heights.csv");
+            if (!File.Exists(file)) File.WriteAllText(file,"phase,time,heroY,carY,occupied,transitioning,capsule\n");
+            for(float t=0;t<seconds;t+=0.15f)
+            {
+                File.AppendAllText(file,$"{phase},{t:F2},{pc.transform.position.y:F4},{jeep.transform.position.y:F4},{jeep.Occupied},{jeep.Transitioning},{pc.GetComponent<CharacterController>().enabled}\n");
+                yield return new WaitForSecondsRealtime(0.15f);
+            }
+        }
+
         IEnumerator Load(string scene)
         {
             PlayerPrefs.SetInt("OpeningCinematicActive", 0);
@@ -212,21 +223,34 @@ namespace LegacyOfTemples.Tests
             var j = Jeep.Spawn(new Vector3(800f, 0f, 800f), Quaternion.identity); Assert.NotNull(j);
             yield return new WaitForSeconds(2f);
             pc.Teleport(j.DriverExitPoint, Quaternion.identity); j.Interact();
-            yield return new WaitForSeconds(3f);
+            yield return VehicleHeights(j, pc, "enter", 3f);
             Assert.IsTrue(j.Occupied && j.Car.Driven, "Entry must finish");
             Assert.IsFalse(pc.GetComponent<CharacterController>().enabled, "Seated capsule must be disabled");
+            j.Car.autopilot=true; j.Car.autoThrottle=0.4f;
+            yield return VehicleHeights(j,pc,"drive",1f);
+            Assert.Greater(j.Car.CurrentSpeed,0.5f,"Vehicle must move with the visible seated driver");
+            j.Car.autoThrottle=0f; j.Car.autoBrake=true;
+            yield return VehicleHeights(j,pc,"brake",1f);
+            j.Car.autopilot=false;
             Vector3 original = j.DriverExitPoint;
             wall = GameObject.CreatePrimitive(PrimitiveType.Cube); wall.name = "Review wall beside driver door";
             wall.transform.position = original + Vector3.up; wall.transform.localScale = new Vector3(1.2f, 2.5f, 5f);
             Physics.SyncTransforms();
             Assert.IsTrue(j.TryFindSafeExit(pc, out var clear), "Passenger side or rear should remain clear");
             Assert.Greater(Vector3.Distance(clear, original), 1f);
-            yield return j.GetOut(); yield return new WaitForSeconds(0.5f);
+            j.StartCoroutine(j.GetOut()); yield return VehicleHeights(j,pc,"exit",2f);
             Note($"Jeep blocked-door exit: old={original:F3}, actual={pc.transform.position:F3}, feet={pc.GetComponent<CharacterGrounding>().FeetY:F3}, enabled={pc.enabled}");
             yield return Screenshot("jeep-blocked-door-exit", pc);
             Assert.IsFalse(j.Occupied); Assert.IsTrue(pc.enabled);
             Assert.IsNull(pc.transform.parent);
             Assert.That(pc.GetComponent<CharacterGrounding>().FeetY, Is.EqualTo(0.005f).Within(0.06f));
+            j.GetComponent<Rigidbody>().isKinematic=true;
+            int recoveries=pc.GetComponent<CharacterTraversal>().Recoveries;
+            pc.Teleport(j.transform.position+Vector3.up*3f,Quaternion.identity);
+            yield return VehicleHeights(j,pc,"roof",0.8f);
+            Assert.Greater(pc.GetComponent<CharacterTraversal>().Recoveries,recoveries,"Roof contact must place the hero on nearby safe ground");
+            Assert.That(pc.GetComponent<CharacterGrounding>().FeetY,Is.EqualTo(0.005f).Within(0.06f));
+            Note("Jeep roof contact recovered to clear ground without moving the parked car.");
             UnityEngine.Object.Destroy(j.gameObject); UnityEngine.Object.Destroy(ground);
         }
     }
