@@ -71,7 +71,7 @@ namespace LegacyOfTemples.Gameplay
                 case State.Telegraph:
                     Glow(Mathf.Clamp01(t / telegraph) * (unblockable ? 2.2f : 1.2f));
                     if (dist > reach * 0.8f) Move(dir * sp * 0.6f);
-                    if (t >= telegraph / (Phase > 1 ? 1.2f : 1f)) { Glow(0f); Go(State.Strike); GameSfx.At(type == BrawlType.Heavy || type == BrawlType.Boss ? "sfx_swish_wide" : "sfx_swish_quick", transform.position + Vector3.up * 1.2f, 0.8f); fight.EnemyStrikes(this, dist <= reach + 0.25f); }
+                    if (t >= telegraph / (Phase > 1 ? 1.2f : 1f)) { Glow(0f); Go(State.Strike); CombatFeedback.Swing(transform, type == BrawlType.Heavy || type == BrawlType.Boss); GameSfx.At(type == BrawlType.Heavy || type == BrawlType.Boss ? "sfx_swish_wide" : "sfx_swish_quick", transform.position + Vector3.up * 1.2f, 0.8f); fight.EnemyStrikes(this, dist <= reach + 0.25f); }
                     break;
                 case State.Strike:
                     if (t >= 0.25f) Go(State.Recover);
@@ -105,6 +105,7 @@ namespace LegacyOfTemples.Gameplay
             if (Time.time - recentAt > 2.5f) recent = 0; recent++; recentAt = Time.time;
             if (recent >= 3 && !stagger) { recent = 0; guardUntil = Time.time + 1.2f; }
             Health -= amount; Glow(0f); fight.ReturnToken(this);
+            CombatFeedback.Flash(transform, new Color(1.35f, 1.08f, 0.8f));
             if (type == BrawlType.Boss && Phase == 1 && Health <= maxHealth * 0.6f) { Phase = 2; Debug.Log($"[Brawl] {name} enters phase 2"); }
             if (type == BrawlType.Boss && Phase == 2 && Health <= maxHealth * 0.3f && bossThirdPhase)
             {   // phase 3: the weapon is gone; bare-handed and desperate: faster, shorter warnings, never guards
@@ -232,6 +233,7 @@ namespace LegacyOfTemples.Gameplay
         {
             var e = Nearest(3.2f, 90f, false); if (e != null) player.FaceTowards(e.transform.position);
             Hero(heavy ? "Heavy" : "Attack" + (1 + (chain++ % 3)));
+            CombatFeedback.Swing(player.transform, heavy);
             GameSfx.At(heavy ? "sfx_swish_wide" : "sfx_swish_quick", player.transform.position + Vector3.up * 1.2f, heavy ? 0.9f : 0.7f, 0.08f);
             strikeHeavy = heavy; strikeAt = Time.time + (heavy ? 0.42f : 0.16f); busyUntil = Time.time + (heavy ? 0.8f : 0.34f);
         }
@@ -242,13 +244,13 @@ namespace LegacyOfTemples.Gameplay
             bool third = !heavy && combo % 3 == 0; float dmg = heavy ? 22f : third ? 12f : 8f;
             bool down = e.Hurt(dmg, heavy || third, player.transform.position);
             Vector3 hp = e.transform.position + Vector3.up * 1.2f;
-            Fx.Burst("Spark", hp, heavy ? 22 : 10, 3.5f, 0.07f, 0.4f, new Color(1f, 0.8f, 0.45f, 1f), 1.2f); Fx.Burst("Dust", hp, 6, 1.2f, 0.3f, 0.8f, new Color(0.7f, 0.65f, 0.6f, 0.5f), 0.2f);
+            Fx.Burst("Spark", hp, heavy ? 22 : 10, 3.5f, 0.07f, 0.4f, new Color(1f, 0.8f, 0.45f, 1f), 1.2f); Fx.Burst(GameSfx.Surface(e.transform.position) == "wet" ? "Splash" : "Dust", e.transform.position + Vector3.up * 0.08f, 6, 1.2f, 0.22f, 0.6f, new Color(0.7f, 0.68f, 0.62f, 0.5f), 0.5f);
             GameSfx.At(heavy || third ? "sfx_hit_heavy" : "sfx_hit_light", hp, heavy ? 1f : 0.85f, 0.1f);
             StartCoroutine(HitStop(heavy ? 0.09f : 0.045f)); shake = Mathf.Max(shake, heavy ? 0.22f : 0.1f);
             if (down) Debug.Log($"[Brawl] {e.name} is down ({Standing} left)");
         }
 
-        IEnumerator HitStop(float seconds) { float keep = Time.timeScale; Time.timeScale = 0.05f; yield return new WaitForSecondsRealtime(seconds); if (Time.timeScale < 0.5f) Time.timeScale = 1f; }
+        IEnumerator HitStop(float seconds) { float keep = Time.timeScale; Time.timeScale = Mathf.Min(keep, 0.05f); yield return new WaitForSecondsRealtime(seconds); if (Time.timeScale > 0f && Time.timeScale <= 0.05f) Time.timeScale = keep; }
 
         IEnumerator Finisher(BrawlEnemy e)
         {
@@ -290,6 +292,8 @@ namespace LegacyOfTemples.Gameplay
         void Take(float dmg, BrawlEnemy from)
         {
             Health -= dmg; DamageTaken += dmg; ScoreSystem.AddDamage(zoneId, dmg); combo = 0; chain = 0; Hero("Hit"); shake = Mathf.Max(shake, 0.16f);
+            CombatFeedback.Flash(player.transform, new Color(1.3f, 0.55f, 0.4f)); CombatFeedback.Hurt();
+            if (from != null) player.Push(Vector3.ProjectOnPlane(player.transform.position - from.transform.position, Vector3.up).normalized * 2.5f, 0.12f);
             GameSfx.At("sfx_hit_taken", player.transform.position + Vector3.up * 1.2f, 0.9f); GameSfx.At("sfx_grunt_aryan", player.transform.position + Vector3.up * 1.6f, 0.75f, 0.08f);
             if (Health <= 0f) StartCoroutine(Retry());
         }

@@ -55,11 +55,22 @@ namespace LegacyOfTemples.Gameplay
             return p;
         }
 
-        /// <summary>One-shot particle burst (sparks, embers, dust).</summary>
+        static readonly Dictionary<string, List<ParticleSystem>> burstPools = new Dictionary<string, List<ParticleSystem>>();
+        public static int BurstSystemsCreated { get; private set; }
+        /// <summary>Bounded reusable bursts: at most eight systems per existing effect material.</summary>
         public static void Burst(string mat, Vector3 pos, int count, float speed, float size, float life, Color color, float gravity = 0.6f)
         {
-            var go = new GameObject("FxBurst"); go.transform.position = pos;
-            var ps = go.AddComponent<ParticleSystem>(); ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+            if (!burstPools.TryGetValue(mat, out var pool)) burstPools[mat] = pool = new List<ParticleSystem>();
+            pool.RemoveAll(p => p == null);
+            ParticleSystem ps = null;
+            foreach (var candidate in pool) if (!candidate.IsAlive()) { ps = candidate; break; }
+            if (ps == null && pool.Count < 8)
+            {
+                var go = new GameObject("PooledFx_" + mat); Object.DontDestroyOnLoad(go);
+                ps = go.AddComponent<ParticleSystem>(); pool.Add(ps); BurstSystemsCreated++;
+            }
+            if (ps == null) { ps = pool[0]; pool.RemoveAt(0); pool.Add(ps); }
+            ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear); ps.transform.position = pos;
             var main = ps.main; main.loop = false; main.playOnAwake = false; main.startLifetime = new ParticleSystem.MinMaxCurve(life * 0.5f, life);
             main.startSpeed = new ParticleSystem.MinMaxCurve(speed * 0.3f, speed); main.startSize = new ParticleSystem.MinMaxCurve(size * 0.5f, size);
             main.startColor = color; main.gravityModifier = gravity; main.maxParticles = count; main.simulationSpace = ParticleSystemSimulationSpace.World;
@@ -68,9 +79,8 @@ namespace LegacyOfTemples.Gameplay
             var col = ps.colorOverLifetime; col.enabled = true;
             var g = new Gradient(); g.SetKeys(new[] { new GradientColorKey(Color.white, 0), new GradientColorKey(Color.white, 1) }, new[] { new GradientAlphaKey(1, 0), new GradientAlphaKey(0, 1) });
             col.color = g;
-            var r = go.GetComponent<ParticleSystemRenderer>(); r.sharedMaterial = Res(mat); r.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            var r = ps.GetComponent<ParticleSystemRenderer>(); r.sharedMaterial = Res(mat); r.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
             ps.Emit(count);
-            Object.Destroy(go, life + 0.5f);
         }
 
         public static string Bar(float v, int width = 24) { int n = Mathf.Clamp(Mathf.RoundToInt(v * width), 0, width); return "<mspace=0.55em>[<color=" + ScreenText.Gold + ">" + new string('|', n) + "</color>" + new string('.', width - n) + "]</mspace>"; }

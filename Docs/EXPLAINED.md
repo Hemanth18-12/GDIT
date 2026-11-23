@@ -335,3 +335,10 @@ Open `Builds/LegacyOfTheTemple.app` (or open Unity → MainMenu → Play). Scree
 - `CharacterTraversal.cs` moves a hero standing on the Jeep roof to checked nearby ground, so his capsule cannot push down the suspension while he stands there. It never permits a ledge hop onto the Jeep.
 - The focused Play Mode test passed: entry, a short drive, braking, blocked driver-side exit, and roof contact. Hero/car heights throughout all phases are in `Docs/QA/2026-11-23-review/editor/vehicle-heights.csv`; assertions in `fixpass-jeep.xml`. Exit feet were 0.005 m above the floor.
 - To try it, park beside a wall and press E; he uses a clear alternative side. If every exit is blocked, park in open space. The final app check remains pending.
+
+
+## Fight feedback — targeted Task 3
+- Kept the working health/stamina bars, existing real attack clips, hit-stop, reactions, knockdowns and finisher slow motion. Added short swing traces, reversible player/enemy colour flashes, a brief hurt vignette, directional player recoil, and ground dust/splashes.
+- `Chapters.cs` now reuses a bounded pool of particle systems instead of creating and destroying one for each hit. `CombatFeedback.cs` bounds swing traces at eight. `Brawl.cs` calls the shared feedback in every current encounter; hit-stop respects a paused game.
+- Focused Play Mode test (`fixpass-fight-voice.xml`): real attack inputs changed enemy HP from 90 to 60; enemy damage changed hero HP 100 to 88; three flashes/swings triggered; particle allocation stayed bounded. The screenshot is an isolated test-floor view, not a finished environment beauty shot. Final in-game effect capture remains pending.
+- To see it: enter any current Brawl encounter, use mouse/R to strike and Q/V to block/dodge.

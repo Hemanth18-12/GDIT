@@ -5,7 +5,7 @@ Resume here; older entries below are historical. New brief: targeted checks only
 - Backup: `backup-fixpass` created. Existing user changes and CarFootball project preserved.
 - Task 1 VERIFIED: removed the 1 m climb clamp; 40 cm steps; actual courtyard/jungle stairs passed Play Mode and courtyard passed standalone keyboard check. Evidence: `Docs/QA/2026-11-23-review/playmode-round3.xml`, `editor/`, `app-look/audit.md`. Both stepwell ramps, one-metre ledge hop and blocked-wall recovery also passed: `fixpass-traversal.xml`. Final standalone screenshots of the added bridge remain for the final build.
 - Task 2 VERIFIED: blocked-driver-door exit passed with feet at y=0.005 m; capsule-based entry and safe exit search added. Entry/drive/brake/exit height samples and roof recovery passed in `fixpass-jeep.xml` and `editor/vehicle-heights.csv`.
-- Task 3 PENDING: existing hit-stop/slow motion/damage reactions retained; add reusable impact/trail/flash feedback and test a representative encounter.
+- Task 3 VERIFIED IN PLAY MODE: existing combat retained; bounded particle/trail pools, flashes, recoil and hurt vignette added. Representative real-input encounter passed in `fixpass-fight-voice.xml`; final app capture pending.
 - Task 4 PARTIAL: plain NPC voice hook fixed; missing clips are subtitle-only. Eight existing voice tests and new hook test pass.
 - Tasks 5–6: existing sound/mixer/music and lighting corrections present; targeted evidence/mix checks remaining.
 - Task 7: puzzle framework checks passed; targeted six-zone puzzle checks pending.

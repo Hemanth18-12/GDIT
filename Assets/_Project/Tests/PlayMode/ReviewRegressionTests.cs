@@ -187,6 +187,34 @@ namespace LegacyOfTemples.Tests
             }
         }
 
+        [UnityTest] public IEnumerator Fight_RealInputs_ImpactPool_Music_AndHurtFeedback()
+        {
+            yield return Load("Courtyard");
+            var pc=UnityEngine.Object.FindAnyObjectByType<PlayerController>(); pc.enabled=true;
+            var ground=GameObject.CreatePrimitive(PrimitiveType.Cube);ground.transform.position=new Vector3(950f,-0.5f,950f);ground.transform.localScale=new Vector3(40f,1f,40f);
+            pc.Teleport(new Vector3(950f,0.005f,950f),Quaternion.identity);
+            var fight=Brawl.Begin("fixpass",pc.transform.position,7f,new[]{Brawl.Robber("Bhaskar",1,BrawlType.Brawler,1f,Color.white)},null,"fixpass");
+            Assert.NotNull(fight); var enemy=fight.Enemies[0];
+            enemy.transform.position=pc.transform.position+Vector3.forward*1.6f;
+            float before=enemy.Health;int flashes=CombatFeedback.Impacts,swings=CombatFeedback.Swings;
+            for(int n=0;n<3;n++){ pc.FaceTowards(enemy.transform.position);VirtualInput.Press(n==2?"heavy":"light");yield return new WaitForSecondsRealtime(n==2?0.9f:0.5f); }
+            Assert.Less(enemy.Health,before,"Actual attack input must cause damage");
+            Assert.Greater(CombatFeedback.Impacts,flashes);Assert.Greater(CombatFeedback.Swings,swings);
+            yield return new WaitForSecondsRealtime(0.4f);
+            Assert.AreEqual("Combat",AudioDirector.Instance.Snapshot,"New Brawl fights must select combat music");
+            float heroHealth=fight.Health;
+            typeof(Brawl).GetMethod("EnemyStrikes",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic).Invoke(fight,new object[]{enemy,true});yield return new WaitForSecondsRealtime(0.15f);
+            Assert.Less(fight.Health,heroHealth);
+            int systems=Fx.BurstSystemsCreated;
+            for(int n=0;n<30;n++)Fx.Burst("Spark",enemy.transform.position+Vector3.up,10,2f,0.04f,0.3f,Color.yellow);
+            Assert.LessOrEqual(Fx.BurstSystemsCreated-systems,8,"Impact bursts must remain bounded when hits arrive together");
+            Note($"Fight inputs: enemyHP={before:F0}->{enemy.Health:F0}, heroHP={heroHealth:F0}->{fight.Health:F0}, flashes={CombatFeedback.Impacts-flashes}, swings={CombatFeedback.Swings-swings}, music={AudioDirector.Instance.Snapshot}");
+            CombatFeedback.Hurt();
+            yield return Screenshot("fight-impact-feedback",pc);
+            foreach(var e in fight.Enemies)if(e!=null)UnityEngine.Object.Destroy(e.gameObject);
+            UnityEngine.Object.Destroy(fight.gameObject);UnityEngine.Object.Destroy(ground);Time.timeScale=1f;
+        }
+
         [UnityTest] public IEnumerator LedgeHop_OneMetre_AndBlockedWallRecovery()
         {
             yield return Load("Sanctum");
