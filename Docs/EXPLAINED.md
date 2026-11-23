@@ -287,3 +287,30 @@ Open `Builds/LegacyOfTheTemple.app` (or open Unity → MainMenu → Play). Scree
 - **Why:** the sounds already existed in the project, but the new fights, people and puzzles were not using them.
 - **Files:** `Scripts/Core/GameSfx.cs` (plays a sound at a place in the world), `Gameplay/Brawl.cs`, `Gameplay/NpcFootsteps.cs`, `Gameplay/VillageLife.cs`, the puzzle parts in `Gameplay/Puzzles/`, `Tools/audio/build_v3_chatter.py`.
 - **How to hear it:** turn your Mac's sound on, start a New Game and walk to the tea stall, then play through a fight.
+
+## Voice-over for the whole game (2026-11-23)
+- **What you asked:** professional voices for every moment: walking, running, jumping, the jeep, exploring, puzzles, fights, items, the Dawn Clock, the people and the ending. Short lines, never two voices at once, no spam, subtitles, lip sync, a setting for how often Aryan talks.
+- **What I made:**
+  - **166 spoken lines** in one spreadsheet, `Docs/VOICE_LINES.csv`: 133 new short lines for game moments, plus the 33 story and intro lines.
+  - **A voice for each character:** Aryan, the Pujari, Meera, Madhav, Bhaskar, Kishore, the courier, robbers, villagers and a narrator.
+  - **Where the audio comes from:** made on this Mac with Kokoro, a free offline text-to-speech model (Apache-2.0, no account, no payment). Every clip was cleaned and set to the same loudness. Whisper, an offline speech recogniser, then listened to each clip and checked it says the right words.
+- **How it works in the game:**
+  - **Who decides:** one new "voice manager" chooses what to say and when.
+  - **Noticing what happens:** a "watcher" notices events, for example the jeep crashing, a puzzle piece clicking into place, a hit in a fight or the clock passing half time.
+  - **Rules:**
+    - Each line has a priority, so important lines win and interrupt small ones.
+    - A cooldown and a chance stop the same moment talking every time.
+    - Small lines keep a quiet gap between them, and the same line is not repeated within 45 s.
+  - **Subtitles:** every line shows one, with the speaker's name in their colour.
+  - **Faces and heads:** Meera's lips and Aryan's jaw move; characters without a face rig nod with the voice; people nearby turn their head to Aryan.
+  - **Where the sound comes from:** voices of people nearby come from where they stand.
+  - **Music:** it gets quieter while someone talks.
+- **Settings:** Pause > settings has **Voice lines: Low / Normal / High** and **Subtitles: ON / OFF**.
+- **Files:**
+  - `Scripts/UI/VoiceManager.cs` (decides and plays), `Scripts/UI/VoiceWatchers.cs` (notices events), `Scripts/Core/VoiceData.cs` and `VoiceDatabase.cs` (the line data).
+  - Helpers `VoiceTrigger.cs` and `VoiceOnEvent.cs`.
+  - Clips in `Assets/_Project/Audio/Voice/<character>/`; the voice maker in `Tools/tts/`.
+  - The full guide (with viva answers) is `Docs/VOICE_GUIDE.md`.
+- **How to see and hear it:**
+  - In the game, first raise **Volume** in Pause > settings: on this Mac it is saved at 0 %, so the game is silent.
+  - To hear every line on demand, open `Assets/_Project/Scenes/Dev/VoiceTestScene.unity` in Unity, press Play and click any button.

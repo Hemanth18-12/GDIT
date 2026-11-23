@@ -3,13 +3,15 @@
 ## Voice-over system (started 2026-11-23) - resume here
 Say "continue the voice-over from Docs/PROGRESS.md".
 - [x] Tag `backup-voice`. Audit: `Docs/VOICE_AUDIT.md`.
-- [x] 164 lines in `Docs/VOICE_LINES.csv` (131 new event lines + 33 story and intro lines), 73 event triggers.
+- [x] 166 lines in `Docs/VOICE_LINES.csv` (133 new event lines + 33 story and intro lines), 73 event triggers.
 - [x] Clips made with Kokoro-82M (`Tools/tts/generate_voices.py`), levelled to -16 LUFS, checked by Whisper (`Docs/QA/voice/summary.txt`).
-- [x] `VoiceDatabase` asset (`Tools > Voice > Build database from CSV`), `VoiceManager` (queue, priorities, cooldowns, subtitles, lip sync, 3D, pause), `VoiceWatchers` (all triggers), settings (Voice lines Low/Normal/High, Subtitles), `VoiceTestScene`.
-- [x] Play-mode tests `VoiceSystemTests`: 6 of 6 pass.
-- [ ] Bot run of the whole game with the trigger log (`Docs/QA/voice_trigger_log.txt`).
-- [ ] Demo video with voice and subtitles (`Docs/QA/voice_demo.mov`).
-- [ ] `Docs/VOICE_GUIDE.md`, EXPLAINED note, final build.
+- [x] `VoiceDatabase` asset (`Tools > Voice > Build database from CSV`), `VoiceManager` (queue, priorities, cooldowns, repeat gap, subtitles, lip sync, 3D, pause, recording-aware clock), `VoiceWatchers` (all triggers), helpers `VoiceTrigger` and `VoiceOnEvent`, settings (Voice lines Low/Normal/High, Subtitles), `VoiceTestScene`.
+- [x] Play-mode tests `VoiceSystemTests`: 8 of 8 pass.
+- [x] Bot runs of the whole game found watcher bugs (D-53, D-57), all fixed.
+- [ ] Final whole-game run with the trigger log (`Docs/QA/voice_trigger_log.txt`).
+- [ ] Demo video with voice and subtitles (`Docs/QA/voice_demo.mov`), checked with Whisper.
+- [x] `Docs/VOICE_GUIDE.md` (with viva answers), EXPLAINED note, KNOWN_ISSUES 29-33, DECISIONS D-41 to D-58.
+- [ ] Final build, commit, push.
 
 ## V3 progress (earlier)
 

@@ -154,6 +154,42 @@
    "wer_strict": 0.0
   }
  },
+ "cb_combo_02": {
+  "key": "cbbb61d7936788b9",
+  "qa": {
+   "f0": 114,
+   "heard": "Back off.",
+   "id": "cb_combo_02",
+   "lufs": -15.99,
+   "peak_db": -2.2,
+   "seconds": 0.99,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "take": "take 1",
+   "text": "Back off.",
+   "true_peak": -2.21,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
+ "cb_combo_03": {
+  "key": "97214346bfbb352a",
+  "qa": {
+   "f0": 112,
+   "heard": "Not today.",
+   "id": "cb_combo_03",
+   "lufs": -16.03,
+   "peak_db": -1.7,
+   "seconds": 1.19,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "take": "take 1",
+   "text": "Not today.",
+   "true_peak": -1.69,
+   "wer": 0.0,
+   "wer_strict": 0.0
+  }
+ },
  "cb_dodge_01": {
   "key": "a60c77477ef11fd4",
   "qa": {

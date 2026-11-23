@@ -55,3 +55,12 @@
 | 26 | Madhav | His **whole model is tinted indigo, skin included** (he looks blue), and his "shawl" is a **box floating** across his chest. Picture: `C_04_madhav.png`. | Medium | Tint only the clothing material; attach the shawl to the spine bone or remove it. |
 | 27 | Settings on this Mac | The pause menu shows **Volume: 0%**, so the game is silent here. This is a saved setting, not a code bug. Picture: `L0_09_pause.png`. | Note | Raise Volume in Pause > settings before the viva. |
 | 28 | Docs | `Docs/QA/v3_map_overview.png` is the design plan ("not to scale"); the real places differ (D-15). | Low | Use `Docs/Walkthrough/shots/map_plan_from_coordinates.png`, drawn from real coordinates. |
+
+## Voice-over (2026-11-23)
+| # | Where | Problem | Severity | Suggested fix |
+|---|---|---|---|---|
+| 29 | 9 clips | Whisper heard 9 clips slightly differently from the script (accent sounds and homophones, for example "Two." heard as "Dude.", "Got it." as "God it."). They may sound fine; nobody has listened yet. List: `Docs/QA/voice/summary.txt`. | Low | Listen in `VoiceTestScene`; if one sounds wrong, put a recording named `<line id>.wav` in `Assets/_Project/Audio/Voice/Recorded/` and run the generator. |
+| 30 | Synthetic voices | All 166 clips are text-to-speech (Kokoro). They are clear and levelled, but not acted. | Note | For a public release, record real voice actors (with their consent); the CSV and the Recorded folder are ready for it. |
+| 31 | Triggers the bot never reaches | A clean bot run never asks for hints, never runs low on the Dawn Clock, never loses a fight, never makes a wrong puzzle move and never drives near a wall at speed, so `hint_1-3`, `clock_5`, `clock_1`, `clock_penalty`, `fight_retry`, `puzzle_wrong`, `jeep_near_miss`, `danger_drop`, `run_tired` and `bazaar_far` did not fire there. The rain remark needs 20 s at the stepwell; the bot stays less. `jeep_engine_dead` needs a destroyed jeep, and the bot keeps it drivable for the story. | Note | All of them speak in the play-mode test `Every_Trigger_Can_Speak` and in `VoiceTestScene`; a human play-test should also hear them. |
+| 32 | Faces | Only Meera has mouth shapes and only Aryan a jaw bone; the Pujari, Madhav, robbers and villagers only nod while they talk (their models have no face rig, so no mouth and no blinking). | Low | Add blend shapes or a jaw bone to those models in Blender. |
+| 33 | Startup video | The rendered intro video keeps its old baked voices (D-50). | Low | Re-render the video with the new clips. |

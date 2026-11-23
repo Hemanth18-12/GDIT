@@ -1453,6 +1453,30 @@ MonoBehaviour:
     subtitle: 1
     fx: none
     clip: {fileID: 8300000, guid: 664e4a6fb69ac4530a95b6bee142480e, type: 3}
+  - id: cb_combo_02
+    speaker: aryan
+    text: Back off.
+    trigger: fight_combo
+    conditions: fight
+    priority: 1
+    cooldown: 10
+    chance: 0.4
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: dbafe092ff3a943c9a8922ea32c98563, type: 3}
+  - id: cb_combo_03
+    speaker: aryan
+    text: Not today.
+    trigger: fight_combo
+    conditions: fight
+    priority: 1
+    cooldown: 10
+    chance: 0.4
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 47a6f55745ac0454690bcc2a7e8ec6c6, type: 3}
   - id: cb_hurt_01
     speaker: aryan
     text: Ugh!
@@ -1460,7 +1484,7 @@ MonoBehaviour:
     conditions: fight
     priority: 1
     cooldown: 7
-    chance: 0.35
+    chance: 0.5
     once: 0
     subtitle: 1
     fx: none
@@ -1472,7 +1496,7 @@ MonoBehaviour:
     conditions: fight
     priority: 1
     cooldown: 7
-    chance: 0.35
+    chance: 0.5
     once: 0
     subtitle: 1
     fx: none
@@ -1982,4 +2006,4 @@ MonoBehaviour:
     fx: none
     clip: {fileID: 8300000, guid: 87c84e754681248ceac53af48be5a478, type: 3}
   builtFrom: Docs/VOICE_LINES.csv
-  builtAt: 2026-11-23 11:52
+  builtAt: 2026-11-23 12:43

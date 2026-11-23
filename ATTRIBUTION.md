@@ -117,9 +117,10 @@ All from polyhaven.com, licence CC0 1.0 (public domain), downloaded with Tools/a
 ## Voice-over (2026-11-23)
 | Title | Author | URL / source | Licence | Notes |
 |---|---|---|---|---|
-| Kokoro-82M (text-to-speech model, voices) | hexgrad | https://huggingface.co/hexgrad/Kokoro-82M ; ONNX files https://github.com/thewh1teagle/kokoro-onnx/releases/tag/model-files-v1.0 | Apache-2.0 | Made all 164 voice clips (offline). The model is not shipped with the game; the clips are. |
+| Kokoro-82M (text-to-speech model, voices) | hexgrad | https://huggingface.co/hexgrad/Kokoro-82M ; ONNX files https://github.com/thewh1teagle/kokoro-onnx/releases/tag/model-files-v1.0 | Apache-2.0 | Made all 166 voice clips (offline). The model is not shipped with the game; the clips are. |
 | kokoro-onnx | thewh1teagle | https://github.com/thewh1teagle/kokoro-onnx | MIT | Runs Kokoro in Python. Build tool only. |
 | espeak-ng (through espeakng-loader) | espeak-ng contributors | https://github.com/espeak-ng/espeak-ng | GPL-3.0 | Turns text into phonemes for Kokoro. Build tool only, not shipped. |
 | faster-whisper with Whisper base.en | SYSTRAN / OpenAI | https://github.com/SYSTRAN/faster-whisper | MIT | Quality check only (transcribes each clip). Not shipped. |
 | Voice clips in Assets/_Project/Audio/Voice/ | Project (generated with Kokoro) | Docs/VOICE_LINES.csv, Tools/tts/generate_voices.py | Own work | Lines written for this project. |
+| Older voice clips in Assets/_Project/Resources/Voice/ | macOS `say` (see the table above) | - | Placeholder | Kept unchanged as a fallback only; the game now plays the Kokoro clips above. |
 

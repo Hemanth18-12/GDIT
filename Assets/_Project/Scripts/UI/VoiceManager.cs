@@ -45,9 +45,20 @@ namespace LegacyOfTemples.UI
         readonly Dictionary<string, List<VoiceLine>> byTrigger = new Dictionary<string, List<VoiceLine>>();
         readonly Dictionary<string, float> triggerReady = new Dictionary<string, float>();
         readonly Dictionary<string, string> lastLine = new Dictionary<string, string>();
+        /// <summary>When each line last played (unscaled seconds): chatter and reactions are not repeated within RepeatGap.</summary>
+        readonly Dictionary<string, float> linePlayedAt = new Dictionary<string, float>();
+        /// <summary>A priority 1-2 line is not said again within this many seconds (45 s on Normal), even when it is the trigger's only line.</summary>
+        public static float RepeatGap => 45f * CooldownMul;
+        static float clock; static int clockFrame = -1;
+        /// <summary>The voice timers' clock (cooldowns, gaps, line ends, the log): real time, not slowed by slow motion, but while the game records
+        /// a video (Time.captureDeltaTime) it steps by the recording's fixed frame time, so a recording keeps the real pacing of the voices.</summary>
+        public static float Now { get { Tick(); return clock; } }
+        static float Dt => Time.captureDeltaTime > 0f ? Time.captureDeltaTime : Time.unscaledDeltaTime;
+        static void Tick() { if (Time.frameCount != clockFrame) { clockFrame = Time.frameCount; clock += Dt; } }
         readonly HashSet<string> once = new HashSet<string>();
         readonly List<Item> queue = new List<Item>();
-        float currentEnd, lowGapUntil, fade = -1f; Item next; bool paused, overlay; GameObject speakerGo; Animator talkAnim; Transform headBone; float headW;
+        // lowGapUntil: no chatter (priority 1) before this; reactGapUntil: no reaction (priority 2) before this (a third of the gap, set only by reactions)
+        float currentEnd, lowGapUntil, reactGapUntil, fade = -1f; Item next; bool paused, overlay; GameObject speakerGo; Animator talkAnim; Transform headBone; float headW;
         const string OnceKey = "lot_voice_once";
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
@@ -67,7 +78,7 @@ namespace LegacyOfTemples.UI
             if (db != null) foreach (var l in db.lines) { if (l == null || l.trigger == "story") continue; if (!byTrigger.TryGetValue(l.trigger, out var list)) byTrigger[l.trigger] = list = new List<VoiceLine>(); list.Add(l); }
             foreach (var id in PlayerPrefs.GetString(OnceKey, "").Split(',')) if (id.Length > 0) once.Add(id);
             VoiceEvents.OnFire += (t, at, ctx) => Fire(t, at, ctx);
-            StoryDialogueSystem.OnNewGame += () => { once.Clear(); PlayerPrefs.DeleteKey(OnceKey); triggerReady.Clear(); lastLine.Clear(); };
+            StoryDialogueSystem.OnNewGame += () => { once.Clear(); PlayerPrefs.DeleteKey(OnceKey); triggerReady.Clear(); lastLine.Clear(); linePlayedAt.Clear(); };
             SceneManager.activeSceneChanged += (a, b) => StopAll("scene change");
             EventBus.OnGameState += st => { if (st == GameState.Ending) Fire("ending"); };
             gameObject.AddComponent<VoiceWatchers>();
@@ -113,10 +124,12 @@ namespace LegacyOfTemples.UI
         public static void ResetForTests()
         {
             var vm = Instance; if (vm == null) return;
-            StopAll("test reset"); vm.triggerReady.Clear(); vm.once.Clear(); vm.lowGapUntil = 0f; vm.lastLine.Clear(); PlayerPrefs.DeleteKey(OnceKey);
+            StopAll("test reset"); vm.triggerReady.Clear(); vm.once.Clear(); vm.lowGapUntil = vm.reactGapUntil = 0f; vm.lastLine.Clear(); vm.linePlayedAt.Clear(); PlayerPrefs.DeleteKey(OnceKey);
         }
         /// <summary>Tests: just the cooldowns and the chatter gap (keeps once-only and last-line memory).</summary>
-        public static void ResetCooldownsForTests() { var vm = Instance; if (vm == null) return; vm.triggerReady.Clear(); vm.lowGapUntil = 0f; }
+        public static void ResetCooldownsForTests() { var vm = Instance; if (vm == null) return; vm.triggerReady.Clear(); vm.lowGapUntil = vm.reactGapUntil = 0f; vm.linePlayedAt.Clear(); }
+        /// <summary>Ends the trigger cooldowns and the chatter gap, but remembers which lines were just said (tests the repeat gap).</summary>
+        public static void EndCooldownsForTests() { var vm = Instance; if (vm == null) return; vm.triggerReady.Clear(); vm.lowGapUntil = vm.reactGapUntil = 0f; }
         /// <summary>The chance a line really has with the current Voice Frequency setting.</summary>
         public static float EffectiveChance(VoiceLine l) => Mathf.Clamp01(l.chance * ChanceMul(l.priority));
         /// <summary>The trigger cooldown in seconds with the current Voice Frequency setting.</summary>
@@ -136,7 +149,7 @@ namespace LegacyOfTemples.UI
         string DoFire(string trigger, Transform at, string context)
         {
             if (!byTrigger.TryGetValue(trigger, out var lines)) { Record_(trigger, "no lines", "", "trigger not in the database"); return null; }
-            float now = Time.unscaledTime;
+            float now = Now;
             string block = Blocked(trigger);
             if (block != null) { Record_(trigger, "blocked", "", block); return null; }
             if (triggerReady.TryGetValue(trigger, out var ready) && now < ready) { Record_(trigger, "cooldown", "", $"{ready - now:0}s left"); return null; }
@@ -146,6 +159,7 @@ namespace LegacyOfTemples.UI
             {
                 if (l.clip == null) { why = "clip missing"; continue; }
                 if (l.once && once.Contains(l.id)) { why = "once-only used"; continue; }
+                if (!TestMode && l.priority <= 2 && linePlayedAt.TryGetValue(l.id, out float said) && now - said < RepeatGap) { why = $"said {now - said:0}s ago"; continue; }
                 if (!TestMode && !ConditionsMet(l, ctx, out string cw)) { why = cw; continue; }
                 pool.Add(l);
             }
@@ -153,7 +167,8 @@ namespace LegacyOfTemples.UI
             if (pool.Count > 1 && lastLine.TryGetValue(trigger, out var last)) pool.RemoveAll(l => l.id == last && pool.Count > 1);   // never the same line twice in a row
             var line = pool[UnityEngine.Random.Range(0, pool.Count)];
             if (!TestMode && UnityEngine.Random.value > Mathf.Clamp01(line.chance * ChanceMul(line.priority))) { Record_(trigger, "chance", line.id, $"p={line.chance * ChanceMul(line.priority):0.00}"); return null; }
-            if (line.priority <= 2 && now < lowGapUntil) { Record_(trigger, "chatter gap", line.id, $"{lowGapUntil - now:0}s"); return null; }
+            float gapEnd = line.priority == 1 ? lowGapUntil : line.priority == 2 ? reactGapUntil : 0f;   // chatter waits the full gap after any small line; a reaction only a third of it after another reaction
+            if (now < gapEnd) { Record_(trigger, "chatter gap", line.id, $"{gapEnd - now:0}s"); return null; }
             var it = new Item
             {
                 id = line.id, speaker = line.speaker, text = line.text, trigger = trigger, context = context, clip = line.clip, priority = line.priority,
@@ -186,6 +201,8 @@ namespace LegacyOfTemples.UI
 
         public static string CurrentZone => ZoneAtmosphere.Instance != null && ZoneAtmosphere.Instance.Current != null ? ZoneAtmosphere.Instance.Current.zone.ToString() : "";
         public static bool InJeep => Gameplay.Vehicles.Jeep.Instance != null && Gameplay.Vehicles.Jeep.Instance.Occupied;
+        /// <summary>World rain (off everywhere since the player asked) or the stepwell's own rain over the tank.</summary>
+        public static bool Raining => (World.WeatherManager.Instance != null && World.WeatherManager.Instance.Intensity > 0.3f) || CurrentZone == "Stepwell";
 
         static bool ConditionsMet(VoiceLine l, Dictionary<string, string> ctx, out string why)
         {
@@ -204,7 +221,7 @@ namespace LegacyOfTemples.UI
                         case "nojeep": ok = !InJeep; break;
                         case "fight": ok = Brawl.Active != null; break;
                         case "nofight": ok = Brawl.Active == null; break;
-                        case "rain": ok = World.WeatherManager.Instance != null && World.WeatherManager.Instance.Intensity > 0.3f; break;
+                        case "rain": ok = Raining; break;
                         default: ok = true; break;
                     }
                 }
@@ -242,12 +259,13 @@ namespace LegacyOfTemples.UI
             if (src == Source3D) Source3D.transform.position = HeadPos(it.at);
             AudioManager.Route(src, it.speaker == "aryan" ? "VoiceAryan" : "VoiceNPC");
             src.clip = it.clip; src.volume = VoicePlayer.Volume * it.volume; src.pitch = 1f; src.Play();
-            Current = it; currentEnd = Time.unscaledTime + it.clip.length + 0.05f; Played++;
+            Current = it; currentEnd = Now + it.clip.length + 0.05f; Played++;
             if (!it.story)
             {
-                triggerReady[it.trigger] = Time.unscaledTime + it.cooldown * CooldownMul;
-                lastLine[it.trigger] = it.id;
-                if (it.priority <= 2) lowGapUntil = Time.unscaledTime + it.clip.length + ChatterGap;
+                triggerReady[it.trigger] = Now + it.cooldown * CooldownMul;
+                lastLine[it.trigger] = it.id; linePlayedAt[it.id] = Now;
+                if (it.priority <= 2) lowGapUntil = Now + it.clip.length + ChatterGap;
+                if (it.priority == 2) reactGapUntil = Now + it.clip.length + ChatterGap / 3f;
                 if (it.once && once.Add(it.id)) { PlayerPrefs.SetString(OnceKey, string.Join(",", once)); PlayerPrefs.Save(); }
                 Record_(it.trigger, "played", it.id, $"p{it.priority} {(src == Source3D ? "3D" : "2D")} {it.context}");
             }
@@ -272,7 +290,7 @@ namespace LegacyOfTemples.UI
 
         void Update()
         {
-            float dt = Time.unscaledDeltaTime;
+            Tick(); float dt = Dt;
             // pause menu: hold the voice where it is
             bool pause = UIManager.Instance != null && UIManager.Instance.IsPauseOpen;
             if (pause != paused)
@@ -289,11 +307,11 @@ namespace LegacyOfTemples.UI
                 if (fade <= 0f) { var n = next; Record_(Current.trigger, "cut", Current.id, "faded for " + (n != null ? n.id : "")); Stop("faded"); if (n != null) Begin(n); }
             }
             if (Current != null && Current.spatial && Current.at != null) Source3D.transform.position = HeadPos(Current.at);
-            if (Current != null && Time.unscaledTime >= currentEnd && !(Current.spatial ? Source3D : Source2D).isPlaying) Stop("finished");
+            if (Current != null && Now >= currentEnd && !(Current.spatial ? Source3D : Source2D).isPlaying) Stop("finished");
             // queue: drop what expired, then play the most important waiting line
             if (queue.Count > 0)
             {
-                for (int i = queue.Count - 1; i >= 0; i--) if (Time.unscaledTime > queue[i].expires) { Record_(queue[i].trigger, "expired", queue[i].id, "waited too long"); queue.RemoveAt(i); }
+                for (int i = queue.Count - 1; i >= 0; i--) if (Now > queue[i].expires) { Record_(queue[i].trigger, "expired", queue[i].id, "waited too long"); queue.RemoveAt(i); }
                 bool barkShowing = StoryDialogueSystem.Instance != null && StoryDialogueSystem.Instance.BarkShowing;
                 if (Current == null && next == null && queue.Count > 0 && !barkShowing && Blocked(queue[0].trigger) == null)
                 {
@@ -365,7 +383,7 @@ namespace LegacyOfTemples.UI
 
         void Record_(string trigger, string result, string line, string reason)
         {
-            Log.Add(new Record { time = Time.realtimeSinceStartup, trigger = trigger, result = result, line = line, reason = reason });
+            Log.Add(new Record { time = Now, trigger = trigger, result = result, line = line, reason = reason });
             if (Log.Count > 4000) Log.RemoveRange(0, 1000);
             if (result == "played" || result == "interrupts" || result == "queued" || result == "no lines" || result == "stopped" || result == "expired")
                 Debug.Log($"[Voice] {trigger}: {result} {line} ({reason})");

@@ -1,7 +1,7 @@
-Voice clip QA summary (Tools/tts/generate_voices.py, 164 clips)
+Voice clip QA summary (Tools/tts/generate_voices.py, 166 clips)
 Loudness: -16.5 to -15.9 LUFS (target -16), true peak at most -1.6 dB (target -1.5).
-Length: 0.69 to 6.84 s, 282 s in total.
-Words checked by Whisper: 161 clips; 142 heard perfectly, 152 within 25 %, 9 flagged (3 interjections not checked).
+Length: 0.69 to 6.84 s, 284 s in total.
+Words checked by Whisper: 163 clips; 144 heard perfectly, 154 within 25 %, 9 flagged (3 interjections not checked).
 
 Flagged lines to check by ear (accent sounds or homophones; replace with a recording if you prefer):
   v3_ary_07        "Two." heard as "Dude."

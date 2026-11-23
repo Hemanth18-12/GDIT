@@ -84,6 +84,32 @@ public class VoiceSystemTests
     }
 
     [UnityTest]
+    public IEnumerator VoiceOnEvent_Helper_Asks_The_Manager()
+    {
+        var go = new GameObject("VoiceOnEventTest"); var h = go.AddComponent<VoiceOnEvent>(); h.trigger = "jeep_enter";
+        h.Fire(); yield return null;
+        Assert.NotNull(VoiceManager.Instance.Current, "the helper's request was played");
+        Assert.AreEqual("jeep_enter", VoiceManager.Instance.Current.trigger);
+        VoiceManager.StopAll("test"); VoiceManager.ResetCooldownsForTests();
+        h.FireTrigger("fight_start"); yield return null;
+        Assert.AreEqual("fight_start", VoiceManager.Instance.Current.trigger, "FireTrigger(name) asks for another trigger");
+        Object.Destroy(go);
+    }
+
+    [UnityTest]
+    public IEnumerator Chatter_Line_Is_Not_Said_Again_Within_The_Repeat_Gap()
+    {
+        // vault_plate has one line (priority 2, no conditions, chance 1): after its 10 s cooldown it must still stay quiet for RepeatGap (45 s on Normal)
+        VoiceManager.TestMode = false;
+        Assert.AreEqual("pz_vault_plate_01", VoiceManager.Fire("vault_plate")); VoiceManager.StopAll("test");
+        VoiceManager.EndCooldownsForTests();   // cooldown and chatter gap over, but the line was said just now
+        Assert.IsNull(VoiceManager.Fire("vault_plate"), "the only line of a chatter trigger is not repeated within the repeat gap");
+        StringAssert.StartsWith("said ", VoiceManager.Log[VoiceManager.Log.Count - 1].reason);
+        Debug.Log($"[VoiceTest] repeat gap {VoiceManager.RepeatGap:0} s on Normal; second vault_plate: {VoiceManager.Log[VoiceManager.Log.Count - 1].result} ({VoiceManager.Log[VoiceManager.Log.Count - 1].reason})");
+        yield return null;
+    }
+
+    [UnityTest]
     public IEnumerator Frequency_Setting_Scales_Chance_Cooldown_And_Gap()
     {
         VoiceLine chatter = null; foreach (var l in VoiceLibrary.Db.lines) if (l.trigger == "run_long") chatter = l;

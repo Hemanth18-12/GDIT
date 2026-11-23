@@ -925,6 +925,27 @@ namespace LegacyOfTemples.UI
                 if (string.IsNullOrEmpty(savedScores)) PlayerPrefs.DeleteKey("lot_v3_scores"); else PlayerPrefs.SetString("lot_v3_scores", savedScores); PlayerPrefs.Save();
                 Debug.Log("[AuditBot] DONE " + output); yield return new WaitForSecondsRealtime(1f); Application.Quit(); yield break;
             }
+            if (Array.IndexOf(Environment.GetCommandLineArgs(), "-voiceFocus") >= 0)
+            {   // voice-over proof: movement, pause and the jeep, then the whole story; writes the trigger log
+                string savedTable = PlayerPrefs.GetString("lot_v3_scores", "");
+                StartCoroutine(VoiceOverlapWatch());
+                yield return VoiceFocus();
+                string auditPath = Path.Combine(output, "audit.md"); File.WriteAllText(auditPath, report.ToString());
+                if (Array.IndexOf(Environment.GetCommandLineArgs(), "-voiceQuick") < 0)   // -voiceQuick: only the movement, pause and jeep part
+                {
+                    yield return V3StoryCheck(auditPath);
+                    yield return new WaitForSecondsRealtime(9f);   // the ending narration
+                }
+                WriteVoiceLog(Path.Combine(output, "voice_trigger_log.txt"));
+                File.WriteAllText(auditPath, report.ToString());
+                if (savedTable == "") PlayerPrefs.DeleteKey("lot_v3_scores"); else PlayerPrefs.SetString("lot_v3_scores", savedTable); PlayerPrefs.Save();
+                Debug.Log("[AuditBot] DONE " + output); yield return new WaitForSecondsRealtime(1f); Application.Quit(); yield break;
+            }
+            if (Array.IndexOf(Environment.GetCommandLineArgs(), "-voiceDemo") >= 0)
+            {   // the scripted demo for Docs/QA/voice_demo.mov (frames and audio by FrameRecorder): walking, the jeep and the pot puzzle
+                yield return VoiceDemo();
+                Debug.Log("[AuditBot] DONE " + output); yield return new WaitForSecondsRealtime(1f); Application.Quit(); yield break;
+            }
             if (Array.IndexOf(Environment.GetCommandLineArgs(), "-endingFocus") >= 0)
             {   // Task 4: finish the story quickly (one step per two frames), then check the ending id and the best-runs table
                 string savedTable = PlayerPrefs.GetString("lot_v3_scores", "");   // test runs must not leave a row in the player's best-runs table
@@ -1386,6 +1407,232 @@ namespace LegacyOfTemples.UI
 
         // ------------------------------------------------------------------ input injection
         private static Vector3 Flat(Vector3 v) { v.y = 0f; return v; }
+
+        // ------------------------------------------------------------------ voice-over proof
+        int voiceFrames, overlapFrames;
+        private IEnumerator VoiceOverlapWatch()
+        {
+            while (true)
+            {
+                var vm = VoiceManager.Instance;
+                if (vm != null) { bool a = vm.Source2D.isPlaying, b = vm.Source3D.isPlaying; if (a || b || VoiceManager.AnyPlaying) voiceFrames++; if (a && b) overlapFrames++; }
+                yield return null;
+            }
+        }
+
+        private IEnumerator VoiceFocus()
+        {
+            var pc = FindAnyObjectByType<PlayerController>(); var vm = VoiceManager.Instance;
+            Line($"\n## Voice focus (frequency {GameOptions.VoiceFrequencyNames[GameOptions.VoiceFrequency]}, subtitles {(GameOptions.Subtitles ? "on" : "off")})");
+            if (pc == null || vm == null) { Line("  no player or no voice manager"); yield break; }
+            yield return new WaitForSecondsRealtime(6f);
+            // 1. walk and run down the approach road (W moves where the camera looks, so the camera is put behind the player and the bot steers along the road)
+            var orbit = FindAnyObjectByType<OrbitCamera>(); float z0 = LegacyOfTemples.World.Village.ZMax + 100f;
+            pc.Teleport(LegacyOfTemples.World.Village.RoadPoint(z0) + Vector3.up * 0.1f, Quaternion.LookRotation(Vector3.back)); if (orbit != null) orbit.SetTarget(pc.transform);
+            yield return new WaitForSecondsRealtime(1f);
+            yield return WalkRoad(pc, orbit, 2f, false);
+            yield return Tap(Key.Space); yield return WalkRoad(pc, orbit, 1f, false);   // a jump while walking
+            yield return WalkRoad(pc, orbit, 10.6f, true); Release(); yield return new WaitForSecondsRealtime(1.5f);
+            Line($"  walked 3 s with a jump, ran 10.6 s down the road ({z0 - pc.transform.position.z:0} m): voice lines played so far {VoiceManager.Played}");
+            // pause while a line is playing: the voice must hold and then carry on
+            VoiceManager.ResetCooldownsForTests(); string id = VoiceManager.Fire("fight_start"); yield return new WaitForSecondsRealtime(0.3f);
+            yield return Tap(Key.Escape); yield return new WaitForSecondsRealtime(0.6f);
+            bool heldWhilePaused = vm.Current != null && !vm.Source2D.isPlaying; float before = vm.Source2D.time;
+            yield return new WaitForSecondsRealtime(0.8f); bool frozen = Mathf.Approximately(before, vm.Source2D.time);
+            yield return Tap(Key.Escape); yield return new WaitForSecondsRealtime(0.3f); if (Time.timeScale == 0f) { yield return Tap(Key.Escape); yield return new WaitForSecondsRealtime(0.3f); }
+            Line($"  pause test: line {id}, held in the pause menu={heldWhilePaused} (position frozen={frozen}), still the current line after resume={(vm.Current != null && vm.Current.id == id)}");
+            yield return new WaitForSecondsRealtime(3f);
+            // 2. the first goal (reach the temple) before the jeep: near the gate that moment takes the player out of the jeep
+            pc.Teleport(LegacyOfTemples.World.Village.GatePos + Vector3.back * 2f, Quaternion.LookRotation(Vector3.back)); yield return new WaitForSecondsRealtime(8f);
+            Line($"  arrived at the temple: objective {V3Obj()}");
+            // a real fall (a teleport snaps to the ground, so it cannot fake one): stand on the courtyard wall and walk off its inner side
+            var wr = GameObject.Find("Wall_South_R");
+            if (wr != null)
+            {
+                Bounds b = wr.GetComponent<Renderer>().bounds;
+                pc.Teleport(new Vector3(b.center.x, b.max.y + 0.4f, b.center.z), Quaternion.LookRotation(Vector3.back)); if (orbit != null) orbit.SetTarget(pc.transform);
+                yield return new WaitForSecondsRealtime(1.2f); float stood = pc.transform.position.y;
+                Hold(Key.W); yield return new WaitForSecondsRealtime(2.5f); Release(); yield return new WaitForSecondsRealtime(2f);
+                Line($"  walked off the courtyard wall (wall {b.size.y:0.0} m high, {b.size.z:0.0} m thick): stood at y {stood:0.0}, landed at y {pc.transform.position.y:0.0}");
+            }
+            // 3. the jeep (bot staging: parked on the open road north of the village, facing the village): approach, get in, drive off fast, handbrake
+            var j = LegacyOfTemples.Gameplay.Vehicles.Jeep.Instance;
+            if (j == null) { Line("  no jeep"); yield break; }
+            yield return ParkJeepOnRoad(j, LegacyOfTemples.World.Village.ZMax + 125f);
+            Vector3 door = j.DriverExitPoint, away = (door - j.transform.position); away.y = 0f;
+            pc.Teleport(door + away.normalized * 6f, Quaternion.LookRotation(-away)); yield return new WaitForSecondsRealtime(0.8f);
+            pc.Teleport(door, Quaternion.LookRotation(j.transform.position - door)); yield return new WaitForSecondsRealtime(1.5f);
+            yield return Tap(Key.E); yield return new WaitForSecondsRealtime(3f);
+            Line($"  in the jeep: {j.Occupied}, driven {j.Car.Driven}");
+            float w = 0f; while (w < 11f && j.Car.CurrentSpeed < j.Car.maxForwardSpeed * 0.97f && j.transform.position.z > LegacyOfTemples.World.Village.ZMax + 32f) { SteerRoad(j, true); w += Time.unscaledDeltaTime; yield return null; }
+            float top = j.Car.CurrentSpeed; for (float k = 0f; k < 0.6f; k += Time.unscaledDeltaTime) { SteerRoad(j, true); yield return null; }
+            Line($"  drove {w:0.0} s down the road: {top * 3.6f:0} km/h");
+            held.Clear(); held.Add(Key.Space); Push(); yield return new WaitForSecondsRealtime(3f); Release();   // handbrake at speed, then held to a stop
+            Line($"  after the handbrake: {j.Car.CurrentSpeed * 3.6f:0} km/h");
+            // 4. crashes (the jeep test's spot outside the courtyard wall; the oak there takes the hit): a light one, then a hard one (Wrecked, still drivable for the story's chase);
+            //    then the jeep nose-to-wall inside the courtyard, pressing on (stuck) without a crash
+            var wall = GameObject.Find("Wall_South_L");
+            if (wall != null)
+            {
+                foreach (var (speed, throttle) in new[] { (6.5f, 0.3f), (11f, 1f) })
+                {
+                    var rb = j.GetComponent<Rigidbody>(); Vector3 wp = wall.GetComponent<Renderer>().bounds.center; wp.y = j.transform.position.y + 0.2f;
+                    rb.position = wp + Vector3.forward * 16f; rb.rotation = Quaternion.LookRotation(Vector3.back); j.transform.SetPositionAndRotation(rb.position, rb.rotation);
+                    rb.linearVelocity = Vector3.back * speed; rb.angularVelocity = Vector3.zero; float dmg0 = j.TotalDamage;
+                    j.Car.autopilot = true; j.Car.autoThrottle = throttle; j.Car.autoBrake = false; j.Car.autoSteer = 0f;
+                    float c = 0f; while (c < 4f && j.TotalDamage <= dmg0) { c += Time.unscaledDeltaTime; yield return null; }
+                    j.Car.autopilot = false; yield return new WaitForSecondsRealtime(2.5f);
+                    Line($"  crash at {speed * 3.6f:0} km/h: impact {j.LastImpact:0.0} m/s, state {j.StateName}, damage {j.TotalDamage:0}");
+                }
+                {
+                    var rb = j.GetComponent<Rigidbody>(); Bounds wb = wall.GetComponent<Renderer>().bounds;
+                    Vector3 p = new Vector3(wb.center.x, j.transform.position.y + 0.2f, wb.min.z - 2.7f);   // the inner face; the jeep is about 4.2 m long
+                    rb.linearVelocity = Vector3.zero; rb.angularVelocity = Vector3.zero; rb.position = p; rb.rotation = Quaternion.LookRotation(Vector3.forward); j.transform.SetPositionAndRotation(p, rb.rotation);
+                    yield return new WaitForSecondsRealtime(1.2f); float dmg0 = j.TotalDamage;
+                    Hold(Key.W); yield return new WaitForSecondsRealtime(4.5f); Release();
+                    Line($"  pressing against the inside of the wall for 4.5 s: {j.Car.CurrentSpeed * 3.6f:0} km/h, new damage {j.TotalDamage - dmg0:0}, state {j.StateName}");
+                }
+            }
+            float t0 = 0f; while (t0 < 4f && j.Car.CurrentSpeed > 2.5f) { t0 += Time.unscaledDeltaTime; yield return null; }
+            yield return Tap(Key.E); yield return new WaitForSecondsRealtime(3f);
+            Line($"  out of the jeep: {!j.Occupied}; voice lines played so far {VoiceManager.Played}");
+        }
+
+        /// <summary>Holds W (and Shift to run) for the given time, turning the player and the camera toward the road a few metres ahead.</summary>
+        private IEnumerator WalkRoad(PlayerController pc, OrbitCamera orbit, float seconds, bool run)
+        {
+            if (run) Hold(Key.LeftShift, Key.W); else Hold(Key.W);
+            float lane = Mathf.Clamp(pc.transform.position.x - LegacyOfTemples.World.Village.RoadPoint(pc.transform.position.z).x, -2.6f, 2.6f);   // keep to his side of the road
+            for (float t = 0f, next = 0f; t < seconds; t += Time.deltaTime)
+            {
+                if (t >= next)
+                {
+                    next = t + 0.4f; Vector3 aim = LegacyOfTemples.World.Village.RoadPoint(pc.transform.position.z - 12f) + Vector3.right * lane - pc.transform.position; aim.y = 0f;
+                    if (aim.sqrMagnitude > 0.01f) { pc.transform.rotation = Quaternion.LookRotation(aim); if (orbit != null) orbit.SetTarget(pc.transform); }
+                }
+                yield return null;
+            }
+        }
+        /// <summary>Bot staging: puts the jeep on the approach road at this z, facing the village (south), and lets it settle on its wheels.</summary>
+        private IEnumerator ParkJeepOnRoad(LegacyOfTemples.Gameplay.Vehicles.Jeep j, float z)
+        {
+            var rb = j.GetComponent<Rigidbody>();
+            Vector3 p = LegacyOfTemples.World.Village.RoadPoint(z) + Vector3.up * 0.6f, d = LegacyOfTemples.World.Village.RoadPoint(z - 12f) - LegacyOfTemples.World.Village.RoadPoint(z); d.y = 0f;
+            rb.linearVelocity = Vector3.zero; rb.angularVelocity = Vector3.zero; rb.position = p; rb.rotation = Quaternion.LookRotation(d); j.transform.SetPositionAndRotation(p, rb.rotation);
+            yield return new WaitForSecondsRealtime(1.5f);
+        }
+        /// <summary>Holds W (when asked) and A or D to keep the jeep on the approach road, driving south.</summary>
+        private void SteerRoad(LegacyOfTemples.Gameplay.Vehicles.Jeep j, bool gas)
+        {
+            Vector3 aim = LegacyOfTemples.World.Village.RoadPoint(j.transform.position.z - 16f) - j.transform.position; aim.y = 0f;
+            float ang = Vector3.SignedAngle(Vector3.ProjectOnPlane(j.transform.forward, Vector3.up), aim, Vector3.up);
+            held.Clear(); if (gas) held.Add(Key.W); if (ang > 3f) held.Add(Key.D); else if (ang < -3f) held.Add(Key.A); Push();
+        }
+
+        private void WriteVoiceLog(string path)
+        {
+            var log = VoiceManager.Log; var sb = new StringBuilder();
+            var fired = new SortedDictionary<string, int>(); var played = new SortedDictionary<string, List<string>>(); var reasons = new SortedDictionary<string, SortedDictionary<string, int>>();
+            var lastPlay = new Dictionary<string, float>(); float minGap = 1e9f; string minGapLine = ""; int missing = 0, storyPlayed = 0;
+            foreach (var r in log)
+            {
+                if (r.trigger.StartsWith("story:")) { if (r.result == "played") storyPlayed++; continue; }
+                if (r.result == "dequeued" || r.result == "cut" || r.result == "stopped" || r.result == "expired" || r.result == "dropped") { }
+                else fired[r.trigger] = (fired.TryGetValue(r.trigger, out var n) ? n : 0) + 1;
+                if (r.result == "played") { if (!played.TryGetValue(r.trigger, out var l)) played[r.trigger] = l = new List<string>(); l.Add(r.line); if (lastPlay.TryGetValue(r.line, out var lt) && r.time - lt < minGap) { minGap = r.time - lt; minGapLine = r.line; } lastPlay[r.line] = r.time; }
+                else { if (!reasons.TryGetValue(r.trigger, out var d)) reasons[r.trigger] = d = new SortedDictionary<string, int>(); d[r.result] = (d.TryGetValue(r.result, out var c) ? c : 0) + 1; }
+                if (r.reason == "clip missing") missing++;
+            }
+            var db = VoiceLibrary.Db; var all = new SortedSet<string>(); if (db != null) foreach (var l in db.lines) if (l.trigger != "story") all.Add(l.trigger);
+            int playedLines = 0; foreach (var kv in played) playedLines += kv.Value.Count;
+            sb.AppendLine($"Voice trigger log - {DateTime.Now:yyyy-MM-dd HH:mm}, built game, frequency {GameOptions.VoiceFrequencyNames[GameOptions.VoiceFrequency]}, subtitles {(GameOptions.Subtitles ? "on" : "off")}");
+            sb.AppendLine($"Event lines played: {playedLines} ({played.Count} of {all.Count} triggers spoke at least once). Story lines played through the same queue: {storyPlayed}.");
+            sb.AppendLine($"Frames with a voice: {voiceFrames}; frames with two voices at once: {overlapFrames}. Missing clips: {missing}.");
+            sb.AppendLine($"Shortest gap between two plays of the same line: {(minGap < 1e8f ? $"{minGap:0} s ({minGapLine})" : "no line played twice")}.");
+            sb.AppendLine(); sb.AppendLine("Per trigger: fired / lines played / other results");
+            foreach (var t in all)
+            {
+                fired.TryGetValue(t, out int f); played.TryGetValue(t, out var pl); reasons.TryGetValue(t, out var rs);
+                string other = rs == null ? "" : string.Join(", ", System.Linq.Enumerable.Select(rs, x => $"{x.Key} {x.Value}"));
+                sb.AppendLine($"  {t,-18} fired {f,3}  played {(pl != null ? pl.Count : 0),2}  {(pl != null ? string.Join(" ", pl) : "-")}  {(other.Length > 0 ? "[" + other + "]" : "")}");
+            }
+            sb.AppendLine(); sb.AppendLine("Every decision (time is seconds since the game started):"); sb.Append(VoiceManager.LogText());
+            File.WriteAllText(path, sb.ToString());
+            Line($"\n## Voice log: {playedLines} event lines, {storyPlayed} story lines, overlap frames {overlapFrames}, missing clips {missing} -> {path}");
+        }
+
+        private IEnumerator VoiceDemo()
+        {
+            // Waits here are in game time (WaitForSeconds): with -recordFrames the game runs at exactly 24 frames per game second, so the video keeps the real pace of the voices.
+            var pc = FindAnyObjectByType<PlayerController>(); var j = LegacyOfTemples.Gameplay.Vehicles.Jeep.Instance; var orbit = FindAnyObjectByType<OrbitCamera>();
+            int freqBefore = GameOptions.VoiceFrequency; GameOptions.VoiceFrequency = 2;   // High, so the short demo hears more of the event lines (stated in the video notes)
+            // the player's saved Master volume is 0 %: raise it for the recording only, put it back at the end
+            float masterBefore = PlayerPrefs.GetFloat("Volume_Master", 1f), settingBefore = PlayerPrefs.GetFloat("Settings_MasterVol", 1f);
+            AudioManager.Instance?.SetMasterVolume(1f);
+            yield return new WaitForSecondsRealtime(5.5f);
+            var notes = new StringBuilder(); System.Action<string> note = s => { notes.AppendLine($"{VoiceManager.Now - startT:0.0}\t{s}"); };
+            // staging before the recording starts (not in the video): the story moved on to the storeroom step (its spoken lines are left to finish),
+            // the jeep parked at the north end of the approach road, the investigator in the storeroom
+            var st = StoryDialogueSystem.Instance; int guard = 0;
+            while (st != null && st.Current != null && st.Current.id != "obj_v3_storeroom" && guard++ < 10) { st.DebugCompleteCurrent(); yield return null; yield return null; }
+            for (float t = 0f; t < 25f && (st.BarkShowing || VoiceManager.AnyPlaying || UIManager.Instance.IsDialogueActive); t += 0.25f) { if (DialogueActive()) yield return FinishDialogue(null); yield return new WaitForSecondsRealtime(0.25f); }
+            if (j != null) yield return ParkJeepOnRoad(j, LegacyOfTemples.World.Village.ZMax + 125f);
+            V3Places.TeleportTo(2); yield return new WaitForSecondsRealtime(3f);
+            var z = BreakInPuzzle.Instance;
+            FrameRecorder.BotReady = true; yield return null; startT = VoiceManager.Now;
+            note($"recording starts; objective {V3Obj()}; voice lines High");
+            yield return new WaitForSeconds(1.5f);
+            // 1. the storeroom: the three pot pieces onto the plinth, then the lantern on the stain
+            if (z != null && pc != null)
+            {
+                var r = z.transform;
+                for (int i = 0; i < z.Shards.Length; i++)
+                {
+                    var sh = z.Shards[i]; if (sh == null) continue; Vector3 sp = sh.transform.position;   // the same standing spots as the storeroom test
+                    note($"pick shard {i + 1}"); yield return DemoUse(pc, orbit, sp + r.forward * 0.9f, sp); yield return new WaitForSeconds(0.8f);
+                    note($"place shard {i + 1}"); yield return DemoUse(pc, orbit, z.Plinth.position + r.forward * 1.3f, z.Plinth.position); yield return new WaitForSeconds(2.2f);
+                }
+                yield return new WaitForSeconds(2.5f);
+                Vector3 lp = z.Lantern.transform.position;
+                note("pick lantern"); yield return DemoUse(pc, orbit, lp + r.forward * 1.0f, lp); yield return new WaitForSeconds(0.8f);
+                Vector3 stand = z.Stain.position + r.forward * 0.6f - r.right * -0.25f; stand.y = pc.transform.position.y;
+                note("place lantern on the stain"); yield return DemoUse(pc, orbit, stand, z.Stain.position - r.forward * 3f); yield return new WaitForSeconds(5f);
+            }
+            // 2. the jeep (cut to the approach road): in, engine, down the road fast, handbrake, stop, out
+            if (j != null && pc != null)
+            {
+                Vector3 door = j.DriverExitPoint; pc.Teleport(door, Quaternion.LookRotation(j.transform.position - door)); if (orbit != null) orbit.SetTarget(pc.transform);
+                note("at the jeep"); yield return new WaitForSeconds(1.5f);
+                note("get in (E)"); yield return Tap(Key.E); yield return new WaitForSeconds(3.2f);
+                note("drive (W, steering along the road)"); float w = 0f; while (w < 11f && j.Car.CurrentSpeed < j.Car.maxForwardSpeed * 0.97f && j.transform.position.z > LegacyOfTemples.World.Village.ZMax + 34f) { SteerRoad(j, true); w += Time.deltaTime; yield return null; }
+                for (float k = 0f; k < 0.5f; k += Time.deltaTime) { SteerRoad(j, true); yield return null; }
+                note($"handbrake (Space) at {j.Car.CurrentSpeed * 3.6f:0} km/h"); held.Clear(); held.Add(Key.Space); Push();
+                for (float k = 0f; k < 4f && j.Car.CurrentSpeed > 0.5f; k += Time.deltaTime) yield return null;
+                Release(); yield return new WaitForSeconds(1f);
+                note("get out (E)"); yield return Tap(Key.E); yield return new WaitForSeconds(3.5f);
+            }
+            // 3. on foot down the road towards the village: walk, then run (in his own lane, beside the jeep)
+            if (orbit != null) orbit.SetTarget(pc.transform);
+            note("walk (W)"); yield return WalkRoad(pc, orbit, 3f, false);
+            note("run (Shift+W)"); yield return WalkRoad(pc, orbit, 11f, true); Release();
+            yield return new WaitForSeconds(4f);
+            note("end"); FrameRecorder.StopRequested = true;
+            float wait = 0f; while (FrameRecorder.Recording && !FrameRecorder.Finished && wait < 30f) { wait += Time.unscaledDeltaTime; yield return null; }   // the audio file is written when the recording ends
+            yield return new WaitForSecondsRealtime(2f);   // the last frames are saved on worker threads
+            GameOptions.VoiceFrequency = freqBefore;
+            AudioManager.Instance?.SetMasterVolume(masterBefore); PlayerPrefs.SetFloat("Settings_MasterVol", settingBefore); PlayerPrefs.Save();
+            note($"master volume {masterBefore:0.##} raised to 1 for the recording and restored");
+            File.WriteAllText(Path.Combine(output, "voice_demo_log.txt"), "Bot steps (seconds into the video):\n" + notes + "\nVoice decisions (voice clock; the video starts at " + $"{startT:0.0}" + "):\n" + VoiceManager.LogText());
+        }
+        float startT;
+        /// <summary>Demo version of V3Use: stand there, camera behind the player, press E (game-time waits).</summary>
+        private IEnumerator DemoUse(PlayerController pc, OrbitCamera orbit, Vector3 stand, Vector3 look)
+        {
+            Vector3 d = look - stand; d.y = 0f;
+            pc.Teleport(stand, Quaternion.LookRotation(d.sqrMagnitude > 0.001f ? d : Vector3.forward)); if (orbit != null) orbit.SetTarget(pc.transform);
+            yield return new WaitForSeconds(0.6f);
+            yield return Tap(Key.E); yield return new WaitForSeconds(0.5f);
+        }
         private void Hold(params Key[] keys) { held.Clear(); foreach (var k in keys) held.Add(k); Push(); }
         private void Release() { held.Clear(); Push(); }
         private void Push()

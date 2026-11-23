@@ -119,6 +119,8 @@ bz_yard_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.82,-1.7,-16.18,-1.7,126,A 
 cb_start_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.19,-1.9,-15.98,-1.92,133,Here they come.,Here they come.,0.0,0.0
 cb_start_02,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,2.01,-1.7,-16.1,-1.71,122,Stay calm. Watch his hands.,"Stay calm, watch his hands.",0.0,0.0
 cb_combo_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,0.99,-1.7,-15.99,-1.72,110,Got you.,Got you!,0.0,0.0
+cb_combo_02,aryan,kokoro hm_omega:0.75+am_onyx:0.25,take 1,0.99,-2.2,-15.99,-2.21,114,Back off.,Back off.,0.0,0.0
+cb_combo_03,aryan,kokoro hm_omega:0.75+am_onyx:0.25,take 1,1.19,-1.7,-16.03,-1.69,112,Not today.,Not today.,0.0,0.0
 cb_hurt_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,0.69,-2.1,-16.0,-2.05,125,Ugh!,"(interjection, not checked)",,
 cb_hurt_02,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.19,-1.7,-16.07,-1.7,121,Ah! Careful.,"(interjection, not checked)",,
 cb_low_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.65,-1.7,-16.15,-1.7,109,I can't take many more.,I can't take many more.,0.0,0.0

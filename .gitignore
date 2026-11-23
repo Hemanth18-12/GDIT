@@ -90,3 +90,6 @@ Docs/Walkthrough/raw/*
 # local TTS engine and model files (re-downloadable, see Docs/VOICE_GUIDE.md)
 Tools/tts/.venv/
 Tools/tts/.models/
+
+# Python caches
+__pycache__/

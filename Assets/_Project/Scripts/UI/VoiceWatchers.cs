@@ -23,9 +23,9 @@ namespace LegacyOfTemples.UI
         float slow; string scene = "";
 
         // movement
-        bool wasMoving, airborne; float runFor, runWindow, airTop, stuckFor, lostFor; int jumps = -1; Vector3 lastPos; string zone = "";
+        bool wasMoving, airborne; float runFor, runWindow, airTop, airTopT, airStart, stuckFor, lostFor; int jumps = -1; Vector3 lastPos; string zone = "";
         // jeep
-        bool wasIn, wasNear, offSaid, fastArmed = true, driftArmed = true; float inFor, startAt = -1f, stuckJeep, nearArmT = -1f; int dmgState = -1; float dmgTotal = -1f, lastImpact = 0f;
+        bool wasIn, wasNear, offSaid, inCourt, fastArmed = true, driftArmed = true; float inFor, startAt = -1f, stuckJeep, nearArmT = -1f; int dmgState = -1; float dmgTotal = -1f, lastImpact = 0f;
         // puzzles
         readonly HashSet<PuzzleElement> hooked = new HashSet<PuzzleElement>(); readonly HashSet<PuzzleGroup> groups = new HashSet<PuzzleGroup>();
         readonly Dictionary<PuzzleGroup, int> met = new Dictionary<PuzzleGroup, int>(); readonly HashSet<PuzzleGroup> started = new HashSet<PuzzleGroup>(), almost = new HashSet<PuzzleGroup>(), noticed = new HashSet<PuzzleGroup>();
@@ -33,8 +33,8 @@ namespace LegacyOfTemples.UI
         bool potWhole, lampOn, flagUp, gateOpen, flooded, levelled, socketLit, wallOpen, ringsSeen;
         // world, fights, clock, NPCs
         readonly Dictionary<string, int> evidence = new Dictionary<string, int>(); bool boardReady; readonly Dictionary<TreasurePickup, bool> items = new Dictionary<TreasurePickup, bool>();
-        Brawl fight; readonly HashSet<Brawl> finished = new HashSet<Brawl>(); float hurtSeen, tauntAt; int combo, finishers, dodges, retries; bool lowSaid; readonly HashSet<BrawlEnemy> downSeen = new HashSet<BrawlEnemy>();
-        BazaarTail.Phase tail = BazaarTail.Phase.Waiting; int spotted; float lastClock = -1f; bool rainOn;
+        Brawl fight; readonly HashSet<Brawl> finished = new HashSet<Brawl>(); float hurtSeen, tauntAt; int finishers, dodges, retries; bool lowSaid; readonly HashSet<BrawlEnemy> downSeen = new HashSet<BrawlEnemy>();
+        BazaarTail.Phase tail = BazaarTail.Phase.Waiting; int spotted; float lastClock = -1f, rainFor; bool farSaid, atEdge; int nextCombo = 3;
         readonly Dictionary<Transform, float> npcSaid = new Dictionary<Transform, float>();
 
         void Awake()
@@ -49,6 +49,7 @@ namespace LegacyOfTemples.UI
             hooked.Clear(); groups.Clear(); finished.Clear(); met.Clear(); started.Clear(); almost.Clear(); noticed.Clear(); hints.Clear(); items.Clear(); npcSaid.Clear(); downSeen.Clear();
             jumps = -1; dmgState = -1; dmgTotal = -1f; wasIn = wasNear = false; fight = null; lastClock = -1f; zone = ""; evidence.Clear();
             potWhole = lampOn = flagUp = gateOpen = flooded = levelled = socketLit = wallOpen = ringsSeen = false; tail = BazaarTail.Phase.Waiting; spotted = 0;
+            farSaid = atEdge = inCourt = false; rainFor = 0f; nextCombo = 3;
         }
 
         void Update()
@@ -68,7 +69,9 @@ namespace LegacyOfTemples.UI
         // ------------------------------------------------------------------ walking, running, jumping, areas
         void Movement(PlayerController pc, float dt)
         {
-            var cc = pc.GetComponent<CharacterController>(); bool grounded = cc == null || cc.isGrounded;
+            // the player's own ground test: CharacterController.isGrounded is nearly always false here, because the game snaps the player to the ground itself
+            var cc = pc.GetComponent<CharacterController>(); var gr = pc.GetComponent<LegacyOfTemples.Characters.CharacterGrounding>();
+            bool grounded = cc == null || cc.isGrounded || (gr != null && gr.HasSupport);
             bool moving = pc.enabled && pc.IsMoving && !VoiceManager.InJeep;
             if (moving && !wasMoving) Fire("move_first");
             wasMoving = moving;
@@ -80,8 +83,12 @@ namespace LegacyOfTemples.UI
             if (jumps < 0) jumps = pc.JumpCount;
             if (pc.JumpCount > jumps) { jumps = pc.JumpCount; Fire("jump"); }
             float y = pc.transform.position.y;
-            if (!grounded) { if (!airborne) { airborne = true; airTop = y; } airTop = Mathf.Max(airTop, y); }
-            else if (airborne) { airborne = false; if (airTop - y > 2.5f && pc.enabled) Fire("land_hard"); }
+            if (!pc.enabled || VoiceManager.InJeep) { airborne = false; grounded = true; airTop = y; airTopT = Time.time; }   // seated in the jeep (no character collision) is not a fall
+            // a hard landing: in the air for at least 0.35 s and at least 2.5 m below the highest point of the last 1.5 s
+            // (measured from where he stood, because stepping off an edge slides down its corner a little before the fall starts)
+            if (!grounded) { if (!airborne) { airborne = true; airStart = Time.time; } }
+            else if (airborne) { airborne = false; if (Time.time - airStart >= 0.35f && airTop - y > 2.5f && pc.enabled) Fire("land_hard"); }
+            if (y > airTop || (grounded && Time.time - airTopT > 1.5f)) { airTop = y; airTopT = Time.time; }   // never lowered while in the air
             // pushing into something: wants to move but hardly moves (dead end)
             float speed = (pc.transform.position - lastPos).magnitude / dt; lastPos = pc.transform.position;
             stuckFor = moving && speed < 0.3f && Brawl.Active == null ? stuckFor + dt : 0f;
@@ -93,16 +100,20 @@ namespace LegacyOfTemples.UI
         {
             string z = VoiceManager.CurrentZone;
             if (z != zone) { zone = z; if (z.Length > 0) Fire("area_enter", null, "zone=" + z); }
-            var w = LegacyOfTemples.World.WeatherManager.Instance; bool rain = w != null && w.Intensity > 0.3f;
-            if (rain && !rainOn) Fire("rain"); rainOn = rain;
-            // a long drop just ahead of the player
+            // rain: the world weather is dry everywhere now; only the stepwell has its own rain over the tank. A remark after 20 s in it.
+            rainFor = VoiceManager.Raining ? rainFor + 0.25f : 0f;
+            if (rainFor >= 20f && rainFor - 0.25f < 20f) Fire("rain");
+            // a long drop just ahead of the player: said when he walks up to the edge, not again until he has stepped away from it
+            bool edge = false;
             if (pc.enabled && pc.IsMoving && !VoiceManager.InJeep)
             {
                 Vector3 ahead = pc.transform.position + pc.transform.forward * 1.3f + Vector3.up * 0.6f;
                 bool hit = Physics.Raycast(ahead, Vector3.down, out RaycastHit h, 12f, ~0, QueryTriggerInteraction.Ignore);
                 float drop = hit ? pc.transform.position.y - h.point.y : 12f;
-                if (drop > 3.2f && Physics.Raycast(pc.transform.position + Vector3.up * 0.3f, Vector3.down, 1.0f, ~0, QueryTriggerInteraction.Ignore)) Fire("danger_drop");
+                edge = drop > 3.2f && Physics.Raycast(pc.transform.position + Vector3.up * 0.3f, Vector3.down, 1.0f, ~0, QueryTriggerInteraction.Ignore);
             }
+            if (edge && !atEdge) Fire("danger_drop");
+            atEdge = edge;
         }
 
         // ------------------------------------------------------------------ the jeep
@@ -131,7 +142,8 @@ namespace LegacyOfTemples.UI
             if (startAt > 0f && Time.time >= startAt) { startAt = -1f; Fire("jeep_start"); }
             float v = j.Car.CurrentSpeed;
             if (!offSaid && v > 4f) { offSaid = true; Fire("jeep_drive_off"); }
-            if (fastArmed && v > 16.7f) { fastArmed = false; Fire("jeep_fast"); } else if (v < 11f) fastArmed = true;
+            float vmax = j.Car.maxForwardSpeed;   // 16 m/s (about 58 km/h) on the village roads
+            if (fastArmed && v > vmax * 0.94f) { fastArmed = false; Fire("jeep_fast"); } else if (v < vmax * 0.65f) fastArmed = true;
             var rb = j.GetComponent<Rigidbody>();
             float side = rb != null ? Mathf.Abs(Vector3.Dot(rb.linearVelocity, j.transform.right)) : 0f;
             if (driftArmed && v > 7f && side > 4.5f) { driftArmed = false; Fire("jeep_drift"); } else if (side < 1.5f) driftArmed = true;
@@ -144,7 +156,9 @@ namespace LegacyOfTemples.UI
             if (nearArmT < 0f && v > 12f && rb != null && Physics.SphereCast(j.transform.position + Vector3.up * 0.9f, 0.9f, rb.linearVelocity.normalized, out RaycastHit h, 6f, ~0, QueryTriggerInteraction.Ignore) && !h.collider.transform.IsChildOf(j.transform) && h.normal.y < 0.6f)
             { nearArmT = Time.time + 1.1f; lastImpact = j.LastImpact; }
             if (nearArmT > 0f && Time.time >= nearArmT) { nearArmT = -1f; if (Mathf.Approximately(j.LastImpact, lastImpact) && j.DamageState == dmgState) Fire("jeep_near_miss"); }
-            if (JungleChase.Instance != null && JungleChase.Instance.Now == JungleChase.Phase.Court && JungleChase.Instance.Built) Fire("jeep_arrive");
+            bool court = JungleChase.Instance != null && JungleChase.Instance.Now == JungleChase.Phase.Court && JungleChase.Instance.Built;
+            if (court && !inCourt) Fire("jeep_arrive");   // once when the chase reaches the ruin court, not every frame while it is there
+            inCourt = court;
         }
 
         // ------------------------------------------------------------------ puzzles (all) and hints
@@ -252,8 +266,12 @@ namespace LegacyOfTemples.UI
                 tail = now;
             }
             if (bt.Spotted > spotted) { spotted = bt.Spotted; if (spotted < 3) Fire("bazaar_spotted"); }
-            var pc = VoiceManager.Player;
-            if (now == BazaarTail.Phase.Walking && pc != null && Vector3.Distance(pc.transform.position, bt.Courier.position) > 28f) Fire("bazaar_far");
+            // falling far behind: said once when the gap opens (again only after closing to 20 m), and only while following him is the goal
+            var pc = VoiceManager.Player; var st = StoryDialogueSystem.Instance;
+            bool tailing = now == BazaarTail.Phase.Walking && pc != null && st != null && st.Current != null && st.Current.id == "obj_v3_bazaar";
+            float gap = tailing ? Vector3.Distance(pc.transform.position, bt.Courier.position) : 0f;
+            if (tailing && gap > 28f && !farSaid) { farSaid = true; Fire("bazaar_far"); }
+            else if (!tailing || gap < 20f) farSaid = false;
         }
 
         // ------------------------------------------------------------------ clues, the evidence board, treasures
@@ -285,7 +303,7 @@ namespace LegacyOfTemples.UI
                 fight = b;
                 if (b != null && !b.Won)
                 {
-                    lostFor = 0f; hurtSeen = b.DamageTaken; combo = b.MaxCombo; finishers = b.Finishers; dodges = b.Dodges; retries = b.Retries; lowSaid = false; downSeen.Clear();
+                    lostFor = 0f; hurtSeen = b.DamageTaken; nextCombo = Mathf.Max(3, b.MaxCombo + 3); finishers = b.Finishers; dodges = b.Dodges; retries = b.Retries; lowSaid = false; downSeen.Clear();
                     var e = FirstEnemy(b); Fire("enemy_spotted", e != null ? e.transform : null, "enemy=" + Kind(e)); Fire("fight_start");
                     tauntAt = Time.time + Random.Range(7f, 12f);
                 }
@@ -294,7 +312,7 @@ namespace LegacyOfTemples.UI
             if (b.Won) { if (finished.Add(b)) Fire("fight_won"); return; }
             if (b.DamageTaken > hurtSeen + 0.5f) { hurtSeen = b.DamageTaken; Fire("fight_hurt"); }
             if (!lowSaid && b.Health < 30f) { lowSaid = true; Fire("fight_low"); }
-            if (b.MaxCombo >= 3 && b.MaxCombo > combo) { combo = b.MaxCombo; Fire("fight_combo"); }
+            if (b.MaxCombo >= nextCombo) { nextCombo = b.MaxCombo + 3; Fire("fight_combo"); }   // a remark at a 3-hit combo, then every 3 more hits, not on every hit
             if (b.Finishers > finishers) { finishers = b.Finishers; Fire("fight_finish"); }
             if (b.Dodges > dodges) { dodges = b.Dodges; Fire("fight_dodge"); }
             if (b.Retries > retries) { retries = b.Retries; Fire("fight_retry"); }
