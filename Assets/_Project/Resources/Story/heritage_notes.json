@@ -1,0 +1,76 @@
+{
+  "notes": [
+    {
+      "id": "architecture",
+      "title": "Look at the building",
+      "place": 0,
+      "fact": "Architectural works, sculpture and inscriptions can form part of cultural heritage.",
+      "connection": "Notice the temple-inspired gateways and carved surfaces. This environment is fictional, not a surveyed reconstruction.",
+      "source": "UNESCO, World Heritage Convention, Article 1",
+      "url": "https://whc.unesco.org/en/conventiontext/"
+    },
+    {
+      "id": "pottery",
+      "title": "Repair needs knowledge",
+      "place": 2,
+      "fact": "Unsuitable repairs can damage ceramics. Real pottery repair requires knowledge of the material and suitable techniques.",
+      "connection": "Joining the game's pot fragments is a simplified observation puzzle. It is not a guide to repairing real objects.",
+      "source": "Canadian Conservation Institute, Care of Ceramics and Glass, Notes 5/1",
+      "url": "https://www.canada.ca/en/conservation-institute/services/conservation-preservation-publications/canadian-conservation-institute-notes/care-ceramics-glass.html"
+    },
+    {
+      "id": "inventory",
+      "title": "Keep a record",
+      "place": 3,
+      "fact": "A professional inventory helps protect museum collections and prevent illicit trafficking.",
+      "connection": "Compare the vault ledger and the objects you recover. Recording what belongs in a collection matters.",
+      "source": "UNESCO, Museums and Collections Recommendation (2015), paragraph 8",
+      "url": "https://www.unesco.org/en/legal-affairs/recommendation-concerning-protection-and-promotion-museums-and-collections-their-diversity-and-their"
+    },
+    {
+      "id": "water",
+      "title": "Water changes materials",
+      "place": 4,
+      "fact": "Excavated objects can change after removal from the ground; salts and environmental conditions can damage archaeological materials.",
+      "connection": "The stepwell uses water as a game mechanism. Real excavated objects need specialist care, not a quick rinse.",
+      "source": "Canadian Conservation Institute, Caring for archaeological collections",
+      "url": "https://www.canada.ca/en/conservation-institute/services/preventive-conservation/guidelines-collections/archaeological-collections.html"
+    },
+    {
+      "id": "light",
+      "title": "Seeing and preserving",
+      "place": 5,
+      "fact": "Light helps us see collections, but it can fade sensitive colours. Both brightness and exposure time matter.",
+      "connection": "The Sun Wall lets you observe light paths. Its mechanism is fictional; museum lighting also considers protection.",
+      "source": "Canadian Conservation Institute, Agent of Deterioration: Light, Ultraviolet and Infrared",
+      "url": "https://www.canada.ca/en/conservation-institute/services/agents-deterioration/light.html"
+    },
+    {
+      "id": "community",
+      "title": "Pass heritage forward",
+      "place": 7,
+      "fact": "Museums support education and cultural transmission, and citizens share responsibility for caring for heritage.",
+      "connection": "Return the fictional objects to their community. The recovery story is an invented adventure, not a historical event.",
+      "source": "UNESCO, Museums and Collections Recommendation (2015), paragraph 2",
+      "url": "https://www.unesco.org/en/legal-affairs/recommendation-concerning-protection-and-promotion-museums-and-collections-their-diversity-and-their"
+    },
+    {
+      "id": "market_craft",
+      "title": "Craft is also knowledge",
+      "place": 1,
+      "fact": "Traditional craftsmanship includes the skills and knowledge used to make objects, not just the finished products.",
+      "connection": "The fictional market places dyers, potters and brass workers beside their tools. Observe the people and processes as well as the goods.",
+      "source": "UNESCO, Traditional craftsmanship",
+      "url": "https://ich.unesco.org/en/traditional-craftsmanship-00057"
+    },
+    {
+      "id": "market_transmission",
+      "title": "Skills pass between people",
+      "place": 1,
+      "fact": "Living heritage depends on people passing knowledge and skills from person to person and between generations.",
+      "connection": "Tea-lane neighbours share a working space. This invented market illustrates a living community rather than a collection of treasures.",
+      "source": "UNESCO, Transmission",
+      "url": "https://ich.unesco.org/en/transmission-00078"
+    }
+  ]
+}

@@ -1350,9 +1350,10 @@ namespace LegacyOfTemples.UI
                 dialogueSpeakerText.text = who;
                 if (dialoguePortraitInitial != null) dialoguePortraitInitial.text = who.Substring(0, 1).ToUpperInvariant();
                 EventBus.RaiseDialogueLine(who);
-                OnSubtitleLine?.Invoke(who, activeFullLine);
             }
             else EventBus.RaiseDialogueLine(dialogueSpeakerText.text);
+            // Plain NPC lines use the speaker already displayed in the dialogue box.
+            OnSubtitleLine?.Invoke(dialogueSpeakerText.text, activeFullLine);
             dialogueChoicesContainer.SetActive(false);
 
             if (typewriterCoroutine != null) StopCoroutine(typewriterCoroutine);

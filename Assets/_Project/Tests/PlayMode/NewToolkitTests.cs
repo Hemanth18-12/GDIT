@@ -46,6 +46,21 @@ namespace LegacyOfTemples.Tests
             Assert.AreSame(item, restored.Item); Assert.AreEqual(1, restored.State);
             restored.ResetState(); Assert.AreEqual(0, restored.State); Assert.IsNull(restored.Item);
         }
+        [UnityTest] public IEnumerator Rope_Crosses_AndBlockedLandingReturnsSafely()
+        {
+            LogAssert.Expect(LogType.Error, "Cannot calibrate player feet: no readable mesh vertices.");
+            var floor = GameObject.CreatePrimitive(PrimitiveType.Cube); floor.transform.SetParent(root.transform); floor.transform.position = new Vector3(800f, -0.5f, 800f); floor.transform.localScale = new Vector3(20f, 1f, 20f);
+            var hero = Make<PlayerController>("rope rider"); hero.transform.position = new Vector3(800f, 0.05f, 800f);
+            var capsule = hero.GetComponent<CharacterController>(); capsule.height = 1.8f; capsule.radius = 0.3f; capsule.center = Vector3.up * 0.9f;
+            var rope = Make<RopeSwing>("nztest.rope"); rope.actor = hero; rope.seconds = 0.08f; rope.landing = Make<Transform>("landing"); rope.landing.position = new Vector3(804f, 0.05f, 800f);
+            yield return null; hero.Teleport(new Vector3(800f, 0.05f, 800f), Quaternion.identity); rope.Interact();
+            yield return new WaitForSeconds(0.18f);
+            Assert.AreEqual(1, rope.State); Assert.IsTrue(hero.enabled); Assert.IsTrue(capsule.enabled); Assert.Less(Vector3.Distance(hero.transform.position, rope.landing.position), 0.2f);
+            rope.ResetState(); hero.Teleport(new Vector3(800f, 0.05f, 800f), Quaternion.identity);
+            var wall = GameObject.CreatePrimitive(PrimitiveType.Cube); wall.transform.SetParent(root.transform); wall.transform.position = rope.landing.position + Vector3.up; wall.transform.localScale = Vector3.one * 2f; Physics.SyncTransforms();
+            rope.Interact(); yield return new WaitForSeconds(0.18f);
+            Assert.AreEqual(0, rope.State); Assert.Less(Vector3.Distance(hero.transform.position, new Vector3(800f, 0.05f, 800f)), 0.2f); Assert.IsTrue(capsule.enabled);
+        }
         [UnityTest] public IEnumerator Brace_RequiresRelease_RestoresAndResetsGeometry()
         {
             var latch = Make<PuzzleLever>("nztest.latch"); var wall = Make<DestructibleWall>("nztest.wall"); wall.release = latch;

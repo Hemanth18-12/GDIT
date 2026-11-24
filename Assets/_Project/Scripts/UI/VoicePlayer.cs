@@ -10,7 +10,7 @@ namespace LegacyOfTemples.UI
 {
     /// <summary>
     /// Plays a voice clip for every dialogue line and story bark. The clip comes from the voice database first
-    /// (Docs/VOICE_LINES.csv, same id as the story line), then the older Resources/Voice files, then soft "talk blips".
+    /// (Docs/VOICE_LINES.csv, same id as the story line), then the older Resources/Voice files, then a labelled missing-recording slot (subtitles remain available).
     /// Playback goes through the VoiceManager queue, so story lines never overlap other voices. Volume: "Settings_VoiceVol".
     /// </summary>
     public sealed class VoicePlayer : MonoBehaviour
@@ -19,7 +19,7 @@ namespace LegacyOfTemples.UI
         public string LastPlayed { get; private set; } = "";
         private AudioSource source;
         public AudioSource Source => VoiceManager.Instance != null ? VoiceManager.Instance.Source2D : source;
-        private readonly Dictionary<string, AudioClip> blips = new Dictionary<string, AudioClip>();
+        private readonly HashSet<string> missing = new HashSet<string>();
 
         public static float Volume
         {
@@ -78,10 +78,15 @@ namespace LegacyOfTemples.UI
 
         private void OnBark(StoryLine line) { Play(line.s, line, line.t, false); }
 
-        /// <summary>Recorded file "<id>.wav" wins, then the "<id>_tts.wav" placeholder, then the old text hash, then blips.</summary>
+        /// <summary>Recorded file "<id>.wav" wins, then the "<id>_tts.wav" placeholder, then the old text hash, then a silent missing-recording slot.</summary>
         private void Play(string id, StoryLine line, string text, bool dialogue)
         {
             AudioClip clip = null;
+            if (line == null)
+            {
+                var recorded = VoiceLibrary.FindText(text, id);
+                if (recorded != null) line = new StoryLine { id = recorded.id, s = id, t = text };
+            }
             if (line != null && !string.IsNullOrEmpty(line.id))
             {
                 clip = VoiceLibrary.Clip(line.id);   // the current voice set (Docs/VOICE_LINES.csv)
@@ -89,7 +94,14 @@ namespace LegacyOfTemples.UI
                 if (clip == null) clip = Resources.Load<AudioClip>($"Voice/{id}/{line.id}_tts");
             }
             if (clip == null) clip = Resources.Load<AudioClip>($"Voice/{id}/{Hash(text)}");
-            if (clip == null) clip = Blip(id, text.Length);
+            if (clip == null)
+            {
+                string slot = line != null && !string.IsNullOrEmpty(line.id) ? line.id : Hash(text);
+                LastPlayed = "MISSING RECORDING: " + id + "/" + slot;
+                if (missing.Add(LastPlayed)) Debug.Log("[Voice] " + LastPlayed + ". Subtitles only: " + text);
+                source.Stop();
+                return;
+            }
             LastTier = line != null && !string.IsNullOrEmpty(line.tier) ? line.tier : "calm";
             OnVoice?.Invoke(id, LastTier);
             float tierVol = LastTier == "shout" ? 1f : LastTier == "firm" ? 0.9f : 0.8f;
@@ -98,30 +110,5 @@ namespace LegacyOfTemples.UI
             LastPlayed = id + ":" + clip.name;
         }
 
-        /// <summary>Fallback talk blips with a different pitch per character.</summary>
-        private AudioClip Blip(string who, int chars)
-        {
-            int count = Mathf.Clamp(chars / 6, 3, 14);
-            string key = who + count;
-            if (blips.TryGetValue(key, out var c)) return c;
-            float pitch = who == "pujari" ? 150f : who == "meera" ? 330f : who == "aryan" ? 200f : who == "bhaskar" ? 120f : who == "kishore" ? 170f : 240f;
-            const int rate = 22050;
-            int per = rate / 9;
-            var data = new float[per * count];
-            var rng = new System.Random(key.GetHashCode());
-            for (int k = 0; k < count; k++)
-            {
-                float f = pitch * (0.9f + 0.2f * (float)rng.NextDouble());
-                for (int i = 0; i < per * 0.6f; i++)
-                {
-                    float env = Mathf.Sin(Mathf.PI * i / (per * 0.6f));
-                    data[k * per + i] = 0.18f * env * Mathf.Sin(2f * Mathf.PI * f * i / rate);
-                }
-            }
-            c = AudioClip.Create("blip_" + key, data.Length, 1, rate, false);
-            c.SetData(data, 0);
-            blips[key] = c;
-            return c;
-        }
     }
 }

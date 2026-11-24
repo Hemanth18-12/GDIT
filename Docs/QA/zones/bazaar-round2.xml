@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Failed(Child)" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-24 04:22:24Z" end-time="2026-11-24 04:25:02Z" duration="158.2774517">
+  <test-suite type="TestSuite" id="1076" name="My project" fullname="My project" runstate="Runnable" testcasecount="57" result="Failed" site="Child" start-time="2026-11-24 04:22:24Z" end-time="2026-11-24 04:25:02Z" duration="158.277452" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1146" name="LOT.Grounding.PlayModeTests.dll" fullname="/Users/hemanth/Desktop/GDIT/My project/Library/ScriptAssemblies/LOT.Grounding.PlayModeTests.dll" runstate="Runnable" testcasecount="57" result="Failed" site="Child" start-time="2026-11-24 04:22:24Z" end-time="2026-11-24 04:25:02Z" duration="158.272329" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="3151" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+      <test-suite type="TestSuite" id="1147" name="LegacyOfTemples" fullname="LegacyOfTemples" runstate="Runnable" testcasecount="49" result="Failed" site="Child" start-time="2026-11-24 04:22:24Z" end-time="2026-11-24 04:25:02Z" duration="158.256166" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+        <test-suite type="TestSuite" id="1148" name="Tests" fullname="LegacyOfTemples.Tests" runstate="Runnable" testcasecount="49" result="Failed" site="Child" start-time="2026-11-24 04:22:24Z" end-time="2026-11-24 04:25:02Z" duration="158.239449" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+          <test-suite type="TestFixture" id="1108" name="NewBazaarPlayTests" fullname="LegacyOfTemples.Tests.NewBazaarPlayTests" classname="LegacyOfTemples.Tests.NewBazaarPlayTests" runstate="Runnable" testcasecount="1" result="Failed" site="Child" start-time="2026-11-24 04:22:24Z" end-time="2026-11-24 04:25:02Z" duration="158.222589" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+            <test-case id="1109" name="Bazaar_ContinuousWalk_PhysicalLock_RealFight_Recovery" fullname="LegacyOfTemples.Tests.NewBazaarPlayTests.Bazaar_ContinuousWalk_PhysicalLock_RealFight_Recovery" methodname="Bazaar_ContinuousWalk_PhysicalLock_RealFight_Recovery" classname="LegacyOfTemples.Tests.NewBazaarPlayTests" runstate="Runnable" seed="1524183863" result="Failed" start-time="2026-11-24 04:22:24Z" end-time="2026-11-24 04:25:02Z" duration="158.203438" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="360000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[  Walk reached (32.0, 0.0, 40.0); feet (32.16, 0.00, 33.08)
+  Expected: True
+  But was:  False
+]]></message>
+                <stack-trace><![CDATA[at LegacyOfTemples.Tests.NewBazaarPlayTests+<Bazaar_ContinuousWalk_PhysicalLock_RealFight_Recovery>d__0.MoveNext () [0x000a5] in /Users/hemanth/Desktop/GDIT/My project/Assets/_Project/Tests/PlayMode/NewBazaarPlayTests.cs:20
+at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in ./Library/PackageCache/com.unity.test-framework@ee3fe9477490/UnityEngine.TestRunner/NUnitExtensions/Attributes/TestEnumerator.cs:52
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+[V3] new game: puzzles, run score and checkpoint cleared
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+[NewBazaar] built: T market, 3 loop links, 16 villagers, tail / seal / sequence / street fight
+[Checkpoint] new_bazaar / Banyan arrival at (0.0, 0.1, -35.0)
+[BatchFriendly] baked 265 renderers into 28 shared materials (total 265)
+[NewZonesQA] PASS Bag ring clip loaded
+[Voice] move_first: played mv_first_01 (p2 2D )
+[Voice] bazaar_follow: played bz_follow_01 (p3 2D )
+[Heritage] discovered market_craft
+[NewZonesQA] PASS Walk reached (-18.0, 0.0, -1.0); feet (-17.86, 0.00, -1.63)
+[NewBazaar] tail completed
+[NewZonesQA] PASS Sound-led tail completed along the real looping lanes
+[Heritage] discovered market_transmission
+[NewZonesQA] PASS Walk reached (32.0, 0.0, 17.0); feet (31.96, 0.01, 17.64)
+[NewZonesQA] PASS Walk reached (-22.0, 0.0, 17.0); feet (-21.37, 0.00, 17.01)
+[NewZonesQA] PASS Walk reached (-22.0, 0.0, 16.5); feet (-21.53, 0.00, 16.88)
+[PlayerController] Interacting with: carry.Dropped red cloth strip (Pick up red bag tie)
+[NewZonesQA] E interaction: carry.Dropped red cloth strip
+[NewZonesQA] PASS Dropped bag tie picked up with production E input
+[Voice] lost: played mv_lost_01 (p2 2D )
+[NewZonesQA] PASS Walk reached (0.0, 0.0, 16.0); feet (-0.60, 0.00, 16.02)
+[NewZonesQA] PASS Walk reached (32.0, 0.0, 16.0); feet (31.40, 0.00, 16.00)
+[NewZonesQA] PASS Walk reached (30.0, 0.0, 32.0); feet (30.05, 0.00, 31.41)
+[NewZonesQA] PASS Walk reached (29.5, 0.0, 33.0); feet (29.70, 0.00, 32.42)
+[PlayerController] Interacting with: el.nz1.seal (Place red bag tie)
+[Voice] puzzle_start: played pz_start_02 (p2 2D )
+[NewZonesQA] E interaction: el.nz1.seal
+[NewZonesQA] PASS Bag tie fitted into cart latch
+[NewZonesQA] PASS Walk reached (31.0, 0.0, 31.7); feet (30.47, 0.00, 31.99)
+[PlayerController] Interacting with: key.CUP lock peg (Press cup peg)
+[NewZonesQA] E interaction: key.CUP lock peg
+[NewZonesQA] PASS Walk reached (32.0, 0.0, 31.7); feet (31.40, 0.00, 31.81)
+[PlayerController] Interacting with: key.THREAD lock peg (Press thread peg)
+[NewZonesQA] E interaction: key.THREAD lock peg
+[NewZonesQA] PASS Wrong cart order softly resets
+[NewZonesQA] PASS Walk reached (31.0, 0.0, 31.7); feet (31.40, 0.00, 31.81)
+[PlayerController] Interacting with: key.CUP lock peg (Press cup peg)
+[NewZonesQA] E interaction: key.CUP lock peg
+[NewZonesQA] PASS Walk reached (33.0, 0.0, 31.7); feet (32.41, 0.00, 31.74)
+[PlayerController] Interacting with: key.BELL lock peg (Press bell peg)
+[NewZonesQA] E interaction: key.BELL lock peg
+[NewZonesQA] PASS Walk reached (32.0, 0.0, 31.7); feet (32.41, 0.00, 31.74)
+[PlayerController] Interacting with: key.THREAD lock peg (Press thread peg)
+[Puzzle] nz1.market solved in 128.8s with 0 hint(s)
+[Voice] puzzle_solved: played pz_solved_01 (p3 2D )
+[Checkpoint] new_bazaar / before_fight at (32.4, 0.0, 31.7)
+[Brawl] new_bazaar: fight begins against 2
+[Voice] fight_start: queued cb_start_01 (behind p3)
+[NewZonesQA] E interaction: key.THREAD lock peg
+[NewZonesQA] PASS Market receipt order opens cart: CUP, BELL, THREAD
+[Voice] fight_start: played cb_start_01 (p3 2D )
+[NewZonesQA] FAIL Walk reached (32.0, 0.0, 40.0); feet (32.16, 0.00, 33.08)
+[Voice] fight_finish: played cb_finish_01 (p2 2D )
+[Brawl] finisher on Courier — red scarf (1 left)
+[Brawl] new_bazaar: won in 19.0s, damage taken 39, max combo 6, parries 0, finishers 2, retries 0
+[Voice] item_recovered: no lines  (trigger not in the database)
+[Voice] fight_won: played cb_won_02 (p3 2D )
+[NewZonesQA] Fight: won=True, seconds=19.0, damage=39.0, retries=0, combo=6, finishers=2
+[Brawl] finisher on Dyer yard lookout (0 left)
+[NewZonesQA] PASS Street fight won using attacks, blocks and dodge inputs
+[NewZonesQA] PASS Walk reached (32.0, 0.0, 40.7); feet (31.70, 0.00, 40.16)
+[PlayerController] Interacting with: treasure.Dawn Bell (new bazaar) (Take Dawn Bell (new bazaar))
+[Treasure] recovered Dawn Bell (new bazaar) in new_bazaar; zone points now 3655
+[NewBazaar] COMPLETE: bell + list, score=3655 grade=S
+[Voice] clue_found: played ex_clue_list (p3 2D evidence=list)
+[NewZonesQA] E interaction: treasure.Dawn Bell (new bazaar)
+[NewZonesQA] PASS Dawn Bell recovered only after defeating the robbers
+[NewZonesQA] PASS Inside-man list added to existing evidence board
+[NewZonesQA] Frame sample: 60.0 fps mean, 17.3 ms maximum; 640×480, editor=True, graphics=Apple M5. This is a measured sample, not a guaranteed 60 fps claim.
+[NewZonesQA] Score 3655, grade S, spotted 0.
+[NewZonesQA] RESULT: FAIL: Walk reached (32.0, 0.0, 40.0); feet (32.16, 0.00, 33.08)
+Saving results to: /Users/hemanth/Library/Application Support/DefaultCompany/My project/TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

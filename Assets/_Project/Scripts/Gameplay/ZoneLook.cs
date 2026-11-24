@@ -29,12 +29,12 @@ namespace LegacyOfTemples.Gameplay
         {
             switch (z)
             {
-                case Zone.Bazaar:    return new Look { exposure = 0f,    temperature = 15f,  contrast = 12f, saturation = 10f,  bloom = 0.5f, bloomThreshold = 1.0f, vignette = 0.22f, grain = 0.12f, shadows = new Color(0.92f, 0.95f, 1.05f), fog = new Color(0.78f, 0.62f, 0.45f), fogDensity = 0.004f, sunIntensity = 1.3f, sun = new Color(1f, 0.78f, 0.55f) };
-                case Zone.Courtyard: return new Look { exposure = 0.2f,  temperature = 8f,   contrast = 14f, saturation = -8f,  bloom = 0.5f, bloomThreshold = 1.0f, vignette = 0.2f,  grain = 0.1f,  shadows = new Color(0.85f, 0.92f, 1.12f), fog = new Color(0.9f, 0.75f, 0.55f),  fogDensity = 0.006f, sunIntensity = 1.5f, sun = new Color(1f, 0.82f, 0.56f) };
-                case Zone.Vaults:    return new Look { exposure = -1.5f, temperature = -10f, contrast = 28f, saturation = -15f, bloom = 0.25f, bloomThreshold = 1.1f, vignette = 0.42f, grain = 0.25f, shadows = new Color(0.9f, 1.0f, 1.08f),  fog = new Color(0.05f, 0.06f, 0.07f), fogDensity = 0.045f, sunIntensity = 0f,   sun = Color.black };
-                case Zone.Stepwell:  return new Look { exposure = -1.0f, temperature = -25f, contrast = 26f, saturation = -20f, bloom = 0.8f, bloomThreshold = 0.9f, vignette = 0.35f, grain = 0.2f,  shadows = new Color(0.82f, 0.92f, 1.15f), fog = new Color(0.1f, 0.13f, 0.18f),  fogDensity = 0.02f,  sunIntensity = 0.25f, sun = new Color(0.6f, 0.72f, 1f) };
-                case Zone.SunWall:   return new Look { exposure = 0.7f,  temperature = 0f,   contrast = 35f, saturation = -5f,  bloom = 0.25f, bloomThreshold = 1.2f, vignette = 0.15f, grain = 0.08f, shadows = new Color(0.95f, 0.97f, 1.05f), fog = new Color(0.9f, 0.88f, 0.8f),   fogDensity = 0f,     sunIntensity = 2.2f, sun = new Color(1f, 0.97f, 0.9f) };
-                default:             return new Look { exposure = -0.3f, temperature = 10f,  contrast = 14f, saturation = 5f,   bloom = 0.5f, bloomThreshold = 1.0f, vignette = 0.3f,  grain = 0.15f, shadows = new Color(1.02f, 0.9f, 1.12f),  fog = new Color(0.32f, 0.27f, 0.36f), fogDensity = 0.018f, sunIntensity = 0.9f, sun = new Color(1f, 0.6f, 0.4f) };
+                case Zone.Bazaar:    return new Look { exposure = 0.7f, temperature = 6f, contrast = 6f, saturation = 2f, bloom = 0.18f, bloomThreshold = 1.2f, vignette = 0.12f, grain = 0.025f, shadows = new Color(0.99f, 1f, 1.01f), fog = new Color(0.68f, 0.62f, 0.54f), fogDensity = 0.003f, sunIntensity = 1.3f, sun = new Color(1f, 0.88f, 0.72f) };
+                case Zone.Courtyard: return new Look { exposure = 0.65f, temperature = 3f, contrast = 5f, saturation = 0f, bloom = 0.18f, bloomThreshold = 1.2f, vignette = 0.12f, grain = 0.025f, shadows = new Color(0.99f, 1f, 1.02f), fog = new Color(0.72f, 0.69f, 0.62f), fogDensity = 0.003f, sunIntensity = 1.5f, sun = new Color(1f, 0.9f, 0.76f) };
+                case Zone.Vaults:    return new Look { exposure = 0.1f, temperature = 0f, contrast = 8f, saturation = -4f, bloom = 0.15f, bloomThreshold = 1.2f, vignette = 0.18f, grain = 0.03f, shadows = Color.white, fog = new Color(0.12f, 0.11f, 0.10f), fogDensity = 0.008f, sunIntensity = 0f, sun = Color.black };
+                case Zone.Stepwell:  return new Look { exposure = 0.35f, temperature = -5f, contrast = 7f, saturation = -3f, bloom = 0.2f, bloomThreshold = 1.2f, vignette = 0.16f, grain = 0.03f, shadows = new Color(0.99f, 1f, 1.02f), fog = new Color(0.17f, 0.19f, 0.22f), fogDensity = 0.008f, sunIntensity = 0.65f, sun = new Color(0.88f, 0.93f, 1f) };
+                case Zone.SunWall:   return new Look { exposure = 0.5f, temperature = 0f, contrast = 8f, saturation = 0f, bloom = 0.15f, bloomThreshold = 1.3f, vignette = 0.1f, grain = 0.02f, shadows = Color.white, fog = new Color(0.9f, 0.88f, 0.8f), fogDensity = 0f, sunIntensity = 1.6f, sun = new Color(1f, 0.97f, 0.9f) };
+                default:             return new Look { exposure = 0.5f, temperature = 4f, contrast = 6f, saturation = 2f, bloom = 0.18f, bloomThreshold = 1.2f, vignette = 0.14f, grain = 0.025f, shadows = new Color(1f, 1f, 1.01f), fog = new Color(0.30f, 0.32f, 0.33f), fogDensity = 0.01f, sunIntensity = 1.0f, sun = new Color(1f, 0.84f, 0.68f) };
             }
         }
 
@@ -60,7 +60,7 @@ namespace LegacyOfTemples.Gameplay
                 var box = gameObject.GetComponent<BoxCollider>(); if (box == null) box = gameObject.AddComponent<BoxCollider>();
                 box.isTrigger = true; box.size = size;
             }
-            Volume.isGlobal = false; Volume.blendDistance = blendDistance; Volume.priority = 10f; Volume.sharedProfile = Profile;
+            Volume.isGlobal = false; Volume.blendDistance = blendDistance; Volume.priority = 110f; Volume.sharedProfile = Profile;
         }
 
         T Get<T>() where T : VolumeComponent { if (!Profile.TryGet(out T c)) c = Profile.Add<T>(true); c.active = true; return c; }

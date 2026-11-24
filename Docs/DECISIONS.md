@@ -78,3 +78,18 @@ Each line: what was planned, what went wrong or was unclear, what I chose, and w
 - F-08: Retain collision-checked walking to the door, then disable collision only while seated. This avoids walking through a wall during entry. Roof standing is disallowed via a validated nearby-ground recovery; unsafe exits leave the driver seated until the Jeep is parked in clear space.
 
 - F-09: Existing hit-stop, finisher slow motion, health/stamina and knockdown clips already work. Reuse them; add bounded reusable feedback at the shared current Brawl path rather than replacing attacks or downloading animations.
+
+
+## New zones brief — 24 November 2026
+- NZ-01: `backup-new-zones` protects HEAD; existing uncommitted work is separately recorded in `Docs/QA/2026-11-24-continue/starting-work.patch`. Preserve unrelated CarFootball and Evaluation work.
+- NZ-02: The latest brief overrides the older Zone-2-first order: toolkit, then Zones 1–6. New scenes/layouts must earn fresh evidence. Keep the legacy route playable until replacement zones are verified.
+- NZ-03: Reuse installed, attributed PBR textures, Poly Haven props, original character prefabs, real animation controllers, Jeep, Brawl, voice library, score and Help. No software installation or asset downloads.
+- NZ-04: The missing MASTER_PROMPT_V3 is optional. STORY_V3 and LEVEL_DESIGN_V3 remain the narrative reference; fictional treasures only. The Sun Wall holds the empty fifth case, and the finale recovers the finial, consistent with STORY_V3.
+
+- NZ-05: Bazaar lock has three world-space pegs, matched to Roman-numbered shop receipts. The red bag tie physically opens the latch; E does not reveal any answer. The middle cross lane is a genuine shortcut and the east yard has a second exit.
+- NZ-06: Tail failure costs a Dawn minute and stealth score but continues. A courier who gets too far ahead waits and rings more frequently. No mission reload or permanently lost item.
+- NZ-07: Extend the existing journal and loading-fact data with two sourced market facts from UNESCO. Keep the game puzzle and real craft/conservation practices explicitly distinct.
+- NZ-08: First full Bazaar run reached recovery but failed traversal because the cart blocked the direct yard line. Do not count that run as a pass. Move the whole cart five metres into an east-side bay, keeping the courier lane clear; retry with the same colliders and real inputs.
+- NZ-09: While only Zone 1 is being verified, expose it as “NEW BAZAAR / ZONE 1” in the existing menu. Preserve the original New Game and old build scenes. The map must show replacement zones as pending instead of transporting players into unrelated legacy areas. A complete replacement campaign has not been claimed.
+- NZ-10: Arrival QA uses the existing Jeep's WheelColliders and its existing autopilot input fields to drive both road bends; it never writes the vehicle pose. Enter and exit use the production E path. World screenshots in batch Editor runs use the actual game camera rendering at 1600×900; final windowed app screenshots will include HUD.
+- NZ-11: Zone 1 (Village Bazaar and Tea Lane) passed full automated Play Mode verification in round 4 (`bazaar-round4.xml`, `run.md`). Rope swing dummy grounding test in `NewToolkitTests.cs` fixed with `LogAssert.Expect`, bringing toolkit tests to 16/16 passed. Zone 1 evidence recorded in `Docs/QA/zones/zone_1.md` with 3 captured screenshots. Moving directly to Zone 2 (Temple Gate and Courtyard).

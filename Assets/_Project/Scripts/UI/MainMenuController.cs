@@ -114,10 +114,11 @@ namespace LegacyOfTemples.UI
                 case Screen.Main:
                     AddText("MenuTitle", "LEGACY OF THE TEMPLE", 64, ScreenTextRenderer.Gold, true, TextAlignmentOptions.Center);
                     AddText("MenuSubtitle", "A heritage mystery", 32, ScreenTextRenderer.Ivory, false, TextAlignmentOptions.Center);
-                    bool hasSave = PlayerPrefs.HasKey("LastPlayedScene") && PlayerPrefs.GetInt("Story_Objective", 0) > 0;
+                    bool hasSave = PlayerPrefs.HasKey("LastPlayedScene") && (PlayerPrefs.GetInt("Story_Objective", 0) > 0 || PlayerPrefs.GetString("LastPlayedScene") == Constants.TempleRing);
                     first = hasSave ? AddButton("CONTINUE", Continue) : null;
                     var ng = AddButton("NEW GAME", NewGame);
                     if (first == null) first = ng;
+                    AddButton("NEW BAZAAR / ZONE 1", NewBazaarPreview);
                     AddButton("SHOWCASE TOUR", () => { PlayerPrefs.SetInt("ShowcaseTourActive", 1); PlayerPrefs.Save(); SceneManager.LoadScene(Constants.Courtyard); });
                     AddButton("SETTINGS", () => Show(Screen.Settings));
                     AddButton("CONTROLS", () => Show(Screen.Controls));
@@ -214,6 +215,13 @@ namespace LegacyOfTemples.UI
             PlayerPrefs.SetInt("Force_Tutorial_On_Start", 1);
             PlayerPrefs.Save();
             SceneLoader.Load(Constants.Courtyard);
+        }
+
+        private static void NewBazaarPreview()
+        {
+            StoryDialogueSystem.ResetForNewGame();
+            PlayerPrefs.SetInt("OpeningCinematicActive", 0); PlayerPrefs.SetInt("ShowcaseTourActive", 0);
+            PlayerPrefs.SetInt("Force_Tutorial_On_Start", 0); PlayerPrefs.Save(); SceneLoader.Load(Constants.TempleRing);
         }
 
         private static void Continue()

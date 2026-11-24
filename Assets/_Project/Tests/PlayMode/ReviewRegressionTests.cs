@@ -161,6 +161,74 @@ namespace LegacyOfTemples.Tests
             UIManager.Instance.EndDialogue();
         }
 
+        [UnityTest] public IEnumerator NpcReminder_UsesObjectiveRecording_WithoutAdvancingStory()
+        {
+            yield return Load("Courtyard");
+            var story = StoryDialogueSystem.Instance;
+            string saved = story.Snapshot();
+            try
+            {
+                story.Restore("0||||");
+                var pc = UnityEngine.Object.FindAnyObjectByType<PlayerController>();
+                NPCDialogueTrigger priest = null;
+                foreach (var npc in UnityEngine.Object.FindObjectsByType<NPCDialogueTrigger>())
+                    if (npc.CharacterId == Constants.Priest) { priest = npc; break; }
+                Assert.NotNull(priest);
+                pc.Teleport(priest.transform.position + priest.transform.forward * 1.5f, Quaternion.identity);
+                int objective = story.ObjectiveIndex;
+                priest.Interact();
+                yield return null;
+                var expected = VoiceLibrary.Line("rem_pujari_" + story.Current.id);
+                Assert.NotNull(expected);
+                Assert.NotNull(expected.clip);
+                Assert.NotNull(VoiceManager.Instance.Current);
+                Assert.AreEqual(expected.id, VoiceManager.Instance.Current.id);
+                Assert.AreEqual(expected.clip, VoiceManager.Instance.Source2D.clip);
+                Assert.IsTrue(VoiceManager.Instance.Source2D.isPlaying, "A matched file alone is not proof of playback");
+                Assert.AreEqual(objective, story.ObjectiveIndex, "A reminder must not complete the task");
+                Note("Objective reminder playing: " + expected.id);
+            }
+            finally
+            {
+                UIManager.Instance.EndDialogue();
+                story.Restore(saved);
+            }
+        }
+
+        [UnityTest] public IEnumerator HeritageNotes_DiscoverAtPlace_BrowseAndReset()
+        {
+            yield return Load("Courtyard");
+            var saved = new System.Collections.Generic.Dictionary<string, int>();
+            foreach (var note in HeritageNotes.All) saved[note.id] = PlayerPrefs.GetInt("heritage." + note.id, 0);
+            try
+            {
+                HeritageNotes.ResetNotes();
+                var note = HeritageNotes.All[0];
+                var place = V3Places.Get(note.place);
+                Assert.IsTrue(place.ok, "Use the real built place, not a fabricated discovery flag");
+                var pc = UnityEngine.Object.FindAnyObjectByType<PlayerController>();
+                pc.Teleport(place.at, Quaternion.identity);
+                yield return new WaitForSecondsRealtime(0.8f);
+                Assert.IsTrue(HeritageNotes.Known(note), "Walking near the place must discover its note");
+                HeritageNotes.Page = 0;
+                StringAssert.Contains(note.fact, HeritageNotes.JournalText());
+                StringAssert.Contains(note.source, HeritageNotes.JournalText());
+                StringAssert.Contains(note.fact, HeritageNotes.LearnedSummary());
+                HeritageNotes.Page = -1;
+                StringAssert.Contains("not discovered", HeritageNotes.JournalText());
+                Assert.AreEqual(HeritageNotes.All.Length - 1, HeritageNotes.Page);
+                HeritageNotes.ResetNotes();
+                Assert.Zero(HeritageNotes.Discovered);
+                StringAssert.DoesNotContain(note.fact, HeritageNotes.LearnedSummary());
+                Note("Place discovery, source display, backward page wrap and New Game note reset passed.");
+            }
+            finally
+            {
+                foreach (var pair in saved) PlayerPrefs.SetInt("heritage." + pair.Key, pair.Value);
+                HeritageNotes.Page = 0;
+            }
+        }
+
         [UnityTest] public IEnumerator Stepwell_BothAuthoredRamps_ReachFiveMetreRim()
         {
             yield return Load("Courtyard");

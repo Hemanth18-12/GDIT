@@ -1,0 +1,1 @@
+{"name":"LOT.Gameplay.Editor","references":["LOT.Core","LOT.Gameplay","LOT.World","LOT.Characters","Unity.RenderPipelines.Universal.Runtime","Unity.RenderPipelines.Core.Runtime"],"includePlatforms":["Editor"]}

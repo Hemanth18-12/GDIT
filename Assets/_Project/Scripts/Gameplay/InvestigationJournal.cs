@@ -227,6 +227,9 @@ namespace LegacyOfTemples.Gameplay
                 if (kb.digit2Key.wasPressedThisFrame) SwitchTab(1);
                 if (kb.digit3Key.wasPressedThisFrame) SwitchTab(2);
                 if (kb.digit4Key.wasPressedThisFrame) SwitchTab(3);
+                if (kb.digit5Key.wasPressedThisFrame) SwitchTab(4);
+                if (currentTab == 4 && kb.leftArrowKey.wasPressedThisFrame) HeritageNotes.Page--;
+                if (currentTab == 4 && kb.rightArrowKey.wasPressedThisFrame) HeritageNotes.Page++;
                 if (kb.escapeKey.wasPressedThisFrame) { EventBus.EscapeConsumedFrame = Time.frameCount; ToggleJournal(); }
             }
         }
@@ -332,7 +335,7 @@ namespace LegacyOfTemples.Gameplay
         private void LateUpdate()
         {
             if (!isOpen) return;
-            string[] tabs = { "Goals", "Clues", "People", "Pieces" };
+            string[] tabs = { "Goals", "Clues", "People", "Pieces", "Heritage Notes" };
             var head = new System.Text.StringBuilder();
             for (int i = 0; i < tabs.Length; i++)
                 head.Append(i == currentTab ? $"<color={ScreenText.Gold}><b><u>[{i + 1}] {tabs[i]}</u></b></color>   " : $"[{i + 1}] {tabs[i]}   ");
@@ -340,7 +343,14 @@ namespace LegacyOfTemples.Gameplay
             var sb = new System.Text.StringBuilder(head.ToString());
             switch (currentTab)
             {
+                case 4: sb.Append(HeritageNotes.JournalText()); break;
                 case 0:
+                    if (V3Places.NewWorld)
+                    {
+                        sb.Append("<b>Village bazaar and tea lane</b>\n").Append(NewBazaar.Instance != null ? NewBazaar.Instance.Now.ToString() : "Explore").Append("\n\nThe bell bag, a dropped red tie, and numbered shop receipts form the trail.\n");
+                        if (Puzzles.PuzzleSave.Get("nz1.complete") == 1) sb.Append("<color=#8ddfa3>Dawn Bell recovered. Handwritten list saved as evidence.</color>\n");
+                        break;
+                    }
                     var story = StoryDialogueSystem.Instance;
                     var objs = StoryData.Objectives;
                     for (int i = 0; i < objs.Length; i++)
@@ -353,7 +363,7 @@ namespace LegacyOfTemples.Gameplay
                     }
                     break;
                 case 1:
-                    if (discoveredClues.Count == 0) sb.Append("No clues yet. Look for glowing objects and press [F].\n");
+                    if (discoveredClues.Count == 0) sb.Append(V3Places.NewWorld ? (Puzzles.PuzzleSave.Get("evidence.list") == 1 ? "Courier list: five items, paired handwriting ticks. See evidence board (B).\n" : "No evidence recovered yet. Watch and listen.\n") : "No clues yet. Look for glowing objects and press [F].\n");
                     foreach (var c in discoveredClues)
                         sb.Append($"<color={ScreenText.Cyan}><b>{c.title}</b></color>\n{c.description}\n<color={ScreenText.Gold}>Note:</color> {c.detectiveNote}\n\n");
                     break;
@@ -367,7 +377,7 @@ namespace LegacyOfTemples.Gameplay
                     break;
             }
             ScreenText.Panel("journal", "CASE JOURNAL", sb.ToString(), PanelAnchor.Center, 1300f,
-                ScreenText.Key("1-4") + " Tabs    " + ScreenText.Key("J") + " / " + ScreenText.Key("Esc") + " Close", true, 60);
+                ScreenText.Key("1-5") + " Tabs    " + ScreenText.Key("J") + " / " + ScreenText.Key("Esc") + " Close", true, 60);
         }
 
     }

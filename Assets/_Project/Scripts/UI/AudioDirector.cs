@@ -73,16 +73,18 @@ namespace LegacyOfTemples.UI
             a.volume = Mathf.MoveTowards(a.volume, target, Time.unscaledDeltaTime * 0.6f);
             if (a.volume > 0.004f && !a.isPlaying) a.Play(); else if (a.volume <= 0.004f && a.isPlaying) a.Stop();
         }
-        private static bool Gameplay(string s) => s == Constants.Courtyard || s == Constants.Sanctum || s == Constants.ShrineCrime || s == Constants.PuzzleWall || s == Constants.JunglePath;
+        private static bool Gameplay(string s) => Constants.IsNewWorld(s) || s == Constants.Courtyard || s == Constants.Sanctum || s == Constants.ShrineCrime || s == Constants.PuzzleWall || s == Constants.JunglePath;
 
         private string PickState(string scene)
         {
             var story = StoryDialogueSystem.Instance; var fight = FightDirector.Instance; var ch = ChapterDirector.Instance; var clock = DawnClock.Instance;
             if (story != null && (story.IsComplete || (story.Chapter != null && story.Chapter.id == "ch6"))) return "Resolve";
-            if (CombatState.InCombat || (ch != null && ch.ChaseRunning)) return "Combat";
+            if (CombatState.InCombat || Brawl.Active != null || (ch != null && ch.ChaseRunning)) return "Combat";
             if (fight != null && fight.StealthRunning) return "Stealth";
             var wall = ChakraPuzzleController.Active;
             bool tense = (clock != null && clock.ChapterLeft < 5f) || (wall != null && wall.ResetLeft > 0f && wall.ResetLeft < 30f) || (ch != null && ch.ActiveTrap != null) || (clock != null && clock.OutOfTime);
+            var zone = ZoneAtmosphere.Instance != null ? ZoneAtmosphere.Instance.Current : null;
+            if (zone != null && (zone.zone == ZoneLook.Zone.Vaults || zone.zone == ZoneLook.Zone.Stepwell || zone.zone == ZoneLook.Zone.SunWall)) tense = true;
             return tense ? "Tension" : "Calm";
         }
 

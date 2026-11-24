@@ -2,6 +2,8 @@ namespace LegacyOfTemples.Core
 {
     public static class Constants
     {
+        public const string TempleRing = "TempleRing";
+        public static bool IsNewWorld(string scene) => scene == TempleRing;
         // Scene IDs
         public const string Courtyard = "Courtyard";
         public const string Sanctum = "Sanctum";

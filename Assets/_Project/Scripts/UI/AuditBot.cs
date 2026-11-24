@@ -57,6 +57,13 @@ namespace LegacyOfTemples.UI
             Directory.CreateDirectory(output);
             Line("# Runtime audit (" + DateTime.Now.ToString("yyyy-MM-dd HH:mm") + ", " + (Application.isEditor ? "Editor" : "Standalone") + ", " + Screen.width + "x" + Screen.height + ")");
             yield return new WaitForSecondsRealtime(1.5f);
+            if (Array.IndexOf(Environment.GetCommandLineArgs(), "-reviewLook") >= 0)
+            {
+                yield return ReviewLooksAndStairs();
+                File.WriteAllText(Path.Combine(output, "audit.md"), report.ToString());
+                Line("Review capture complete; inspect measurements and images before judging.");
+                Application.Quit(); yield break;
+            }
             if (StartupIntroVideo.Playing)
             {   // the intro video at start-up: a few frames as evidence, then let it finish
                 Line("## Intro video at start-up: playing");
@@ -2133,6 +2140,44 @@ namespace LegacyOfTemples.UI
                 if (r.width <= 0 || r.height <= 0) return new Rect();
             }
             return r;
+        }
+
+        private IEnumerator ReviewLooksAndStairs()
+        {
+            foreach (string map in new[] { "Courtyard", "Sanctum", "ShrineCrime", "PuzzleWall", "JunglePath" })
+            {
+                PlayerPrefs.SetInt("OpeningCinematicActive", 0);
+                yield return SceneManager.LoadSceneAsync(map);
+                yield return new WaitForSecondsRealtime(3f);
+                yield return SkipIntro();
+                yield return new WaitForSecondsRealtime(4f);
+                Time.timeScale = 1f;
+                var pc = FindAnyObjectByType<PlayerController>();
+                Line($"Review {map}: player={pc != null}, sun={RenderSettings.sun?.intensity:0.00}, fog={RenderSettings.fogDensity:0.000}");
+                yield return Shot("review-" + map + ".png");
+                if (pc != null && (map == "Courtyard" || map == "JunglePath"))
+                {
+                    string firstName = map == "Courtyard" ? "Step_5" : "RuinedStep_1";
+                    string lastName = map == "Courtyard" ? "Step_1" : "RuinedStep_7";
+                    var first = GameObject.Find(firstName).GetComponent<Collider>().bounds;
+                    var last = GameObject.Find(lastName).GetComponent<Collider>().bounds;
+                    pc.Teleport(new Vector3(first.center.x, first.min.y + 0.1f, first.max.z + 1f), Quaternion.Euler(0f, 180f, 0f));
+                    yield return new WaitForSecondsRealtime(4f);
+                    var direction = new GameObject("Review input direction"); direction.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+                    pc.SetCameraTransform(direction.transform);
+                    float start = pc.GetComponent<CharacterGrounding>().FeetY;
+                    for (float t = 0f; t < 6f && pc.transform.position.z > last.center.z; t += Time.unscaledDeltaTime)
+                    { Hold(Key.W); yield return null; }
+                    Release(); yield return new WaitForSecondsRealtime(0.4f);
+                    Line($"Review {map} stairs: startFeet={start:0.000}, endFeet={pc.GetComponent<CharacterGrounding>().FeetY:0.000}, expectedTop={last.max.y:0.000}, z={pc.transform.position.z:0.000}, enabled={pc.enabled}, inputBlocked={InputGate.GameplayBlocked}");
+                    var cam = Camera.main; var orbit = cam.GetComponent<OrbitCamera>();
+                    Vector3 from = pc.transform.position + new Vector3(4f, 2.5f, 5f);
+                    orbit.SetCutsceneOverride(from, Quaternion.LookRotation(pc.transform.position + Vector3.up - from));
+                    yield return null; yield return Shot("review-" + map + "-stairs.png");
+                    orbit.ClearCutsceneOverride(); pc.SetCameraTransform(cam.transform); Destroy(direction);
+                }
+                File.WriteAllText(Path.Combine(output, "audit.md"), report.ToString());
+            }
         }
 
         private IEnumerator Shot(string file)

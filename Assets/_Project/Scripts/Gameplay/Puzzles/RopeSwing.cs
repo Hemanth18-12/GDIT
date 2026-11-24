@@ -8,6 +8,7 @@ namespace LegacyOfTemples.Gameplay.Puzzles
     public sealed class RopeSwing : PuzzleElement, IInteractable
     {
         public Transform landing, rope;
+        public PlayerController actor;
         public float seconds = 1.4f, arcHeight = 2f;
         PlayerController rider;
         CharacterController capsule;
@@ -21,7 +22,7 @@ namespace LegacyOfTemples.Gameplay.Puzzles
         public void Interact()
         {
             if (locked || rider != null || landing == null) return;
-            rider = FindAnyObjectByType<PlayerController>(); if (rider == null) return;
+            rider = actor != null ? actor : FindAnyObjectByType<PlayerController>(); if (rider == null) return;
             origin = rider.transform.position; capsule = rider.GetComponent<CharacterController>();
             capsule.enabled = false; rider.enabled = false; elapsed = 0f;
             GameSfx.At("sfx_rope", transform.position, 0.7f);

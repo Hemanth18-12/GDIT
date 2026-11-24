@@ -10,7 +10,7 @@ namespace LegacyOfTemples.World.Editor
     public static class AuditBuildTools
     {
         public static readonly string[] Scenes = {
-            "Assets/_Project/Scenes/Dev/MainMenu.unity", "Assets/_Project/Scenes/Environments/Courtyard.unity",
+            "Assets/_Project/Scenes/Dev/MainMenu.unity", "Assets/_Project/Scenes/NewWorld/TempleRing.unity", "Assets/_Project/Scenes/Environments/Courtyard.unity",
             "Assets/_Project/Scenes/Environments/Sanctum.unity", "Assets/_Project/Scenes/Environments/PuzzleWall.unity",
             "Assets/_Project/Scenes/Environments/ShrineCrime.unity", "Assets/_Project/Scenes/Environments/JunglePath.unity" };
 

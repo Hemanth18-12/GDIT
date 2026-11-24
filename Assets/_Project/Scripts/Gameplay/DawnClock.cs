@@ -100,7 +100,7 @@ namespace LegacyOfTemples.Gameplay
             return StoryFlags.Get("late") == 0 ? "dawn_light" : "late_dawn";
         }
 
-        private static bool IsGameplay(string s) => s == Constants.Courtyard || s == Constants.Sanctum || s == Constants.ShrineCrime || s == Constants.PuzzleWall || s == Constants.JunglePath;
+        private static bool IsGameplay(string s) => Constants.IsNewWorld(s) || s == Constants.Courtyard || s == Constants.Sanctum || s == Constants.ShrineCrime || s == Constants.PuzzleWall || s == Constants.JunglePath;
 
         public void Retry()
         {
@@ -122,7 +122,7 @@ namespace LegacyOfTemples.Gameplay
         {
             string scene = SceneManager.GetActiveScene().name;
             var story = StoryDialogueSystem.Instance;
-            if (!IsGameplay(scene) || story == null || story.IsComplete || SceneLoader.IsLoading || Hold) return;
+            if (!IsGameplay(scene) || story == null || (story.IsComplete && !Constants.IsNewWorld(scene)) || SceneLoader.IsLoading || Hold) return;
             var ch = story.Chapter; int ci = ChapterIndex(ch);
 
             if (OutOfTime)
@@ -140,11 +140,11 @@ namespace LegacyOfTemples.Gameplay
             if (ci < 5 && Time.timeScale > 0f && !ui)
                 Minutes += Time.deltaTime / GameOptions.SecondsPerStoryMinute;
 
-            if (ci < 4 && Minutes > Deadline[ci]) { OutOfTime = true; FailReason = ""; return; }
+            if (!Constants.IsNewWorld(scene) && ci < 4 && Minutes > Deadline[ci]) { OutOfTime = true; FailReason = ""; return; }
 
             if (ci < 5 && Time.timeScale > 0f)   // hidden while the game is paused, so it never draws over the pause screen
             {
-                float left = ChapterLeft;
+                float left = Constants.IsNewWorld(scene) ? DawnMinute - Minutes : ChapterLeft;
                 string col = left < 5f ? ScreenText.Coral : ScreenText.Ivory;
                 string body = $"<color={ScreenText.Gold}><b>{DawnIn}</b></color>   <color={col}>{ClockText(Minutes)}  •  {(left >= 0f ? Mathf.CeilToInt(left) + " min left" : "past first light")}</color>";
                 if (Time.unscaledTime < toastUntil) body += $"\n<color={ScreenText.Coral}>{toast}</color>";

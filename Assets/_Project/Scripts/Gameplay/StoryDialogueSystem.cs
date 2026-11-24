@@ -439,7 +439,8 @@ namespace LegacyOfTemples.Gameplay
                 // Not this NPC's turn: give a short, useful reminder instead of repeating old lines.
                 var sp = SpeakerForNpc(npc);
                 string text = cur != null ? (cur.hints != null && cur.hints.Length > 0 ? cur.hints[0] + " " : "") + "(" + cur.title + ")" : "Thank you for everything, Aryan.";
-                conv = new StoryConversation { id = "", scene = scene, npc = npc, lines = new[] { new StoryLine { s = sp, t = text } } };
+                var reminder = VoiceLibrary.Line("rem_" + sp + "_" + (cur != null ? cur.id : "end"));
+                conv = new StoryConversation { id = "", scene = scene, npc = npc, lines = new[] { new StoryLine { id = reminder?.id, s = sp, t = reminder != null ? reminder.text : text } } };
             }
             PlayConversation(conv, trigger);
             return true;

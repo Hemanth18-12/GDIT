@@ -37,6 +37,12 @@ namespace LegacyOfTemples.Core
         }
         public static VoiceLine Line(string id) { if (Db == null || string.IsNullOrEmpty(id)) return null; byId.TryGetValue(id, out var l); return l; }
         public static AudioClip Clip(string id) => Line(id)?.clip;
+        public static VoiceLine FindText(string text, string speaker)
+        {
+            if (Db == null) return null;
+            foreach (var line in Db.lines) if (line.text == text && line.speaker == speaker) return line;
+            return null;
+        }
     }
 
     /// <summary>Gameplay asks for a voice line here (any assembly can call it); the voice manager decides if and what to say.</summary>

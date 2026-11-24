@@ -23,6 +23,7 @@ namespace LegacyOfTemples.UI
 
         private CanvasGroup group; private RawImage image; private RectTransform barFill, track, glow, tipPill; private Image glowImg; private TMP_Text tipText, pctText, titleText, loadingText;
         private Texture2D[] images; private Texture2D fallback; private string[] tips; private int tipIndex; private float tipAt;
+        private bool showHeritageFirst;
 
 
 
@@ -64,7 +65,8 @@ namespace LegacyOfTemples.UI
             tipText.fontStyle = FontStyles.Italic; tipText.textWrappingMode = TextWrappingModes.NoWrap; tipText.enableAutoSizing = true; tipText.fontSizeMax = 26; tipText.fontSizeMin = 16; tipText.raycastTarget = false;
             pctText = ScreenTextRenderer.MakeText(transform, "LoadingPercent", 28, ScreenTextRenderer.Gold, true, TextAlignmentOptions.Right); pctText.raycastTarget = false; pctText.textWrappingMode = TextWrappingModes.NoWrap;
 
-            images = Resources.LoadAll<Texture2D>("UI/Loading");
+            var candidates = Resources.LoadAll<Texture2D>("UI/Loading");
+            images = System.Array.FindAll(candidates, picture => picture.name != "loading_b_thieves"); // depicts a real deity being carried; preserve the source but do not display it
             System.Array.Sort(images, (a, b) => string.CompareOrdinal(a.name, b.name));
             SceneLoader.Handler = scene => StartCoroutine(Run(scene));
         }
@@ -99,7 +101,7 @@ namespace LegacyOfTemples.UI
             LastImage = tex != null ? tex.name : "(gradient fallback)";
             image.texture = tex != null ? tex : fallback;
             tips = StoryData.File.tips ?? new string[0];
-            tipIndex = PlayerPrefs.GetInt("Loading_TipIndex", 0); PlayerPrefs.SetInt("Loading_TipIndex", tipIndex + 2); NextTip();
+            tipIndex = PlayerPrefs.GetInt("Loading_TipIndex", 0); PlayerPrefs.SetInt("Loading_TipIndex", tipIndex + 2); showHeritageFirst = true; NextTip();
             SetBar(0f); group.blocksRaycasts = true;
             float aspect = tex != null ? (float)tex.width / tex.height : 16f / 9f;
 
@@ -133,6 +135,7 @@ namespace LegacyOfTemples.UI
         private void NextTip()
         {
             tipAt = Time.unscaledTime + 1.6f;
+            if (showHeritageFirst) { showHeritageFirst = false; tipText.text = "Heritage: " + HeritageNotes.LoadingFact(tipIndex++); return; }
             tipText.text = tips != null && tips.Length > 0 ? "Tip: " + tips[tipIndex++ % tips.Length] : "";
         }
 

@@ -2240,6 +2240,346 @@
    "wer_strict": 0.0
   }
  },
+ "rem_meera_end": {
+  "key": "517bfad8ae38acfd",
+  "qa": {
+   "f0": 222,
+   "heard": "",
+   "id": "rem_meera_end",
+   "lufs": -16.0,
+   "peak_db": -1.7,
+   "seconds": 2.21,
+   "source": "kokoro hf_alpha:1.0",
+   "speaker": "meera",
+   "take": "take 1",
+   "text": "Our village will remember your help.",
+   "true_peak": -1.72,
+   "wer": ""
+  }
+ },
+ "rem_meera_obj_c0_reach": {
+  "key": "77f8c01c191fa4b0",
+  "qa": {
+   "f0": 223,
+   "heard": "",
+   "id": "rem_meera_obj_c0_reach",
+   "lufs": -16.03,
+   "peak_db": -1.7,
+   "seconds": 2.18,
+   "source": "kokoro hf_alpha:1.0",
+   "speaker": "meera",
+   "take": "take 1",
+   "text": "Follow the road towards the temple.",
+   "true_peak": -1.72,
+   "wer": ""
+  }
+ },
+ "rem_meera_obj_return": {
+  "key": "5917efdad3152de9",
+  "qa": {
+   "f0": 214,
+   "heard": "",
+   "id": "rem_meera_obj_return",
+   "lufs": -16.0,
+   "peak_db": -1.7,
+   "seconds": 2.05,
+   "source": "kokoro hf_alpha:1.0",
+   "speaker": "meera",
+   "take": "take 1",
+   "text": "Bring the treasures back to Ananda.",
+   "true_peak": -1.72,
+   "wer": ""
+  }
+ },
+ "rem_meera_obj_v3_bazaar": {
+  "key": "aca90b1f2db1266d",
+  "qa": {
+   "f0": 240,
+   "heard": "",
+   "id": "rem_meera_obj_v3_bazaar",
+   "lufs": -15.99,
+   "peak_db": -1.7,
+   "seconds": 1.77,
+   "source": "kokoro hf_alpha:1.0",
+   "speaker": "meera",
+   "take": "take 1",
+   "text": "Follow the man with the bell.",
+   "true_peak": -1.71,
+   "wer": ""
+  }
+ },
+ "rem_meera_obj_v3_jungle": {
+  "key": "9ee0726acbea5f70",
+  "qa": {
+   "f0": 220,
+   "heard": "",
+   "id": "rem_meera_obj_v3_jungle",
+   "lufs": -16.02,
+   "peak_db": -2.5,
+   "seconds": 2.2,
+   "source": "kokoro hf_alpha:1.0",
+   "speaker": "meera",
+   "take": "take 1",
+   "text": "Your jeep waits on the north road.",
+   "true_peak": -2.5,
+   "wer": ""
+  }
+ },
+ "rem_meera_obj_v3_pujari": {
+  "key": "fb5d7831b13ff306",
+  "qa": {
+   "f0": 224,
+   "heard": "",
+   "id": "rem_meera_obj_v3_pujari",
+   "lufs": -15.98,
+   "peak_db": -1.7,
+   "seconds": 1.88,
+   "source": "kokoro hf_alpha:1.0",
+   "speaker": "meera",
+   "take": "take 1",
+   "text": "The priest waits by the steps.",
+   "true_peak": -1.71,
+   "wer": ""
+  }
+ },
+ "rem_meera_obj_v3_stepwell": {
+  "key": "f2bf36c617230598",
+  "qa": {
+   "f0": 237,
+   "heard": "",
+   "id": "rem_meera_obj_v3_stepwell",
+   "lufs": -16.0,
+   "peak_db": -1.7,
+   "seconds": 1.89,
+   "source": "kokoro hf_alpha:1.0",
+   "speaker": "meera",
+   "take": "take 1",
+   "text": "They went towards the old well.",
+   "true_peak": -1.71,
+   "wer": ""
+  }
+ },
+ "rem_meera_obj_v3_storeroom": {
+  "key": "9dba3b8c3c039073",
+  "qa": {
+   "f0": 226,
+   "heard": "",
+   "id": "rem_meera_obj_v3_storeroom",
+   "lufs": -16.02,
+   "peak_db": -1.7,
+   "seconds": 2.12,
+   "source": "kokoro hf_alpha:1.0",
+   "speaker": "meera",
+   "take": "take 1",
+   "text": "The storeroom may hold more clues.",
+   "true_peak": -1.71,
+   "wer": ""
+  }
+ },
+ "rem_meera_obj_v3_sunwall": {
+  "key": "96327596be7dfbc5",
+  "qa": {
+   "f0": 240,
+   "heard": "",
+   "id": "rem_meera_obj_v3_sunwall",
+   "lufs": -15.98,
+   "peak_db": -2.4,
+   "seconds": 1.87,
+   "source": "kokoro hf_alpha:1.0",
+   "speaker": "meera",
+   "take": "take 1",
+   "text": "The light may reveal the way.",
+   "true_peak": -2.39,
+   "wer": ""
+  }
+ },
+ "rem_meera_obj_v3_vaults": {
+  "key": "9f96e2b49ecb5d76",
+  "qa": {
+   "f0": 215,
+   "heard": "",
+   "id": "rem_meera_obj_v3_vaults",
+   "lufs": -16.02,
+   "peak_db": -1.7,
+   "seconds": 2.01,
+   "source": "kokoro hf_alpha:1.0",
+   "speaker": "meera",
+   "take": "take 1",
+   "text": "Try the vaults behind the temple.",
+   "true_peak": -1.7,
+   "wer": ""
+  }
+ },
+ "rem_pujari_end": {
+  "key": "83130da3b3c2697e",
+  "qa": {
+   "f0": 123,
+   "heard": "",
+   "id": "rem_pujari_end",
+   "lufs": -16.33,
+   "peak_db": -1.7,
+   "seconds": 2.73,
+   "source": "kokoro hm_psi:1.0",
+   "speaker": "pujari",
+   "take": "take 1",
+   "text": "Thank you for protecting our heritage.",
+   "true_peak": -1.69,
+   "wer": ""
+  }
+ },
+ "rem_pujari_obj_c0_reach": {
+  "key": "ce3196ea3b9ecbc1",
+  "qa": {
+   "f0": 122,
+   "heard": "",
+   "id": "rem_pujari_obj_c0_reach",
+   "lufs": -16.0,
+   "peak_db": -1.9,
+   "seconds": 1.99,
+   "source": "kokoro hm_psi:1.0",
+   "speaker": "pujari",
+   "take": "take 1",
+   "text": "Follow the road to our temple.",
+   "true_peak": -1.89,
+   "wer": ""
+  }
+ },
+ "rem_pujari_obj_return": {
+  "key": "0b88fbb5dba76f48",
+  "qa": {
+   "f0": 132,
+   "heard": "",
+   "id": "rem_pujari_obj_return",
+   "lufs": -16.08,
+   "peak_db": -1.7,
+   "seconds": 2.07,
+   "source": "kokoro hm_psi:1.0",
+   "speaker": "pujari",
+   "take": "take 1",
+   "text": "You brought our memories home.",
+   "true_peak": -1.68,
+   "wer": ""
+  }
+ },
+ "rem_pujari_obj_v3_bazaar": {
+  "key": "12c21184502c4ea3",
+  "qa": {
+   "f0": 119,
+   "heard": "",
+   "id": "rem_pujari_obj_v3_bazaar",
+   "lufs": -16.18,
+   "peak_db": -1.7,
+   "seconds": 1.7,
+   "source": "kokoro hm_psi:1.0",
+   "speaker": "pujari",
+   "take": "take 1",
+   "text": "Ask around the bazaar.",
+   "true_peak": -1.7,
+   "wer": ""
+  }
+ },
+ "rem_pujari_obj_v3_jungle": {
+  "key": "a7c102c55b9b19b2",
+  "qa": {
+   "f0": 120,
+   "heard": "",
+   "id": "rem_pujari_obj_v3_jungle",
+   "lufs": -16.12,
+   "peak_db": -1.7,
+   "seconds": 2.27,
+   "source": "kokoro hm_psi:1.0",
+   "speaker": "pujari",
+   "take": "take 1",
+   "text": "Follow the north road carefully.",
+   "true_peak": -1.71,
+   "wer": ""
+  }
+ },
+ "rem_pujari_obj_v3_pujari": {
+  "key": "2fa897a583664d7d",
+  "qa": {
+   "f0": 129,
+   "heard": "",
+   "id": "rem_pujari_obj_v3_pujari",
+   "lufs": -16.04,
+   "peak_db": -1.7,
+   "seconds": 1.99,
+   "source": "kokoro hm_psi:1.0",
+   "speaker": "pujari",
+   "take": "take 1",
+   "text": "Please, meet me by the steps.",
+   "true_peak": -1.7,
+   "wer": ""
+  }
+ },
+ "rem_pujari_obj_v3_stepwell": {
+  "key": "2a4e98f4dd82bc2b",
+  "qa": {
+   "f0": 123,
+   "heard": "",
+   "id": "rem_pujari_obj_v3_stepwell",
+   "lufs": -16.15,
+   "peak_db": -1.7,
+   "seconds": 2.1,
+   "source": "kokoro hm_psi:1.0",
+   "speaker": "pujari",
+   "take": "take 1",
+   "text": "Follow the marks by the stepwell.",
+   "true_peak": -1.7,
+   "wer": ""
+  }
+ },
+ "rem_pujari_obj_v3_storeroom": {
+  "key": "fb8ac9cf6a380ea6",
+  "qa": {
+   "f0": 125,
+   "heard": "",
+   "id": "rem_pujari_obj_v3_storeroom",
+   "lufs": -16.46,
+   "peak_db": -1.7,
+   "seconds": 2.8,
+   "source": "kokoro hm_psi:1.0",
+   "speaker": "pujari",
+   "take": "take 1",
+   "text": "Look closely around the broken storeroom.",
+   "true_peak": -1.7,
+   "wer": ""
+  }
+ },
+ "rem_pujari_obj_v3_sunwall": {
+  "key": "0f212e29333d0c83",
+  "qa": {
+   "f0": 127,
+   "heard": "",
+   "id": "rem_pujari_obj_v3_sunwall",
+   "lufs": -16.4,
+   "peak_db": -1.7,
+   "seconds": 2.23,
+   "source": "kokoro hm_psi:1.0",
+   "speaker": "pujari",
+   "take": "take 1",
+   "text": "Study the symbols on the wall.",
+   "true_peak": -1.69,
+   "wer": ""
+  }
+ },
+ "rem_pujari_obj_v3_vaults": {
+  "key": "56ba256bd516fddc",
+  "qa": {
+   "f0": 123,
+   "heard": "",
+   "id": "rem_pujari_obj_v3_vaults",
+   "lufs": -16.29,
+   "peak_db": -1.7,
+   "seconds": 2.35,
+   "source": "kokoro hm_psi:1.0",
+   "speaker": "pujari",
+   "take": "take 1",
+   "text": "The old vaults lie behind us.",
+   "true_peak": -1.71,
+   "wer": ""
+  }
+ },
  "v3_ary_01": {
   "key": "a520d6a98f5b6c52",
   "qa": {

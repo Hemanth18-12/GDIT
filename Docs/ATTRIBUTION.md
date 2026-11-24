@@ -124,3 +124,15 @@ All from polyhaven.com, licence CC0 1.0 (public domain), downloaded with Tools/a
 | Voice clips in Assets/_Project/Audio/Voice/ | Project (generated with Kokoro) | Docs/VOICE_LINES.csv, Tools/tts/generate_voices.py | Own work | Lines written for this project. |
 | Older voice clips in Assets/_Project/Resources/Voice/ | macOS `say` (see the table above) | - | Placeholder | Kept unchanged as a fallback only; the game now plays the Kokoro clips above. |
 
+
+
+## Targeted fix pass additions
+| Asset/content | Author | Source | Licence/use |
+|---|---|---|---|
+| 20 short Pujari/Meera reminder clips (`rem_*`) | Project writing; generated offline with existing Kokoro voice settings | `Docs/VOICE_LINES.csv`; https://huggingface.co/hexgrad/Kokoro-82M | Original text/audio output; existing model Apache-2.0 and runner MIT. No model distributed; no download in this pass. |
+| Heritage note text and feedback effects | Project | `Docs/HERITAGE_SOURCES.md`; `HeritageNotes.cs`; `CombatFeedback.cs` | Original paraphrases and code. Source pages are references, not imported media. Existing licensed effect materials/sounds reused. |
+
+## New zones rebuild — 24 November 2026
+- **Original market geometry and physical toolkit extensions** — project work, authored in this repository; `Assets/_Project/Scripts/Gameplay/NewZones/MarketArt.cs` and `Puzzles/`; no external asset download.
+- The market reuses the existing licensed Poly Haven PBR textures and props listed above, and the user's confirmed original character/animation assets. No new third-party art introduced.
+- Heritage text references: UNESCO, *Traditional craftsmanship*, https://ich.unesco.org/en/traditional-craftsmanship-00057 ; UNESCO, *Transmission*, https://ich.unesco.org/en/transmission-00078 . Short original factual paraphrases with source links; no source images or article copies imported.

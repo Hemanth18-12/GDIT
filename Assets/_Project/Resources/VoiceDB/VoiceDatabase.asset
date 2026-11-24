@@ -2005,5 +2005,245 @@ MonoBehaviour:
     subtitle: 1
     fx: none
     clip: {fileID: 8300000, guid: 87c84e754681248ceac53af48be5a478, type: 3}
+  - id: rem_pujari_obj_c0_reach
+    speaker: pujari
+    text: Follow the road to our temple.
+    trigger: story
+    conditions: 
+    priority: 5
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: b53fbed494f5a4a84b75b5ca571c92e1, type: 3}
+  - id: rem_meera_obj_c0_reach
+    speaker: meera
+    text: Follow the road towards the temple.
+    trigger: story
+    conditions: 
+    priority: 5
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 2b3118f6ab53341d79a3fa21033836d5, type: 3}
+  - id: rem_pujari_obj_v3_pujari
+    speaker: pujari
+    text: Please, meet me by the steps.
+    trigger: story
+    conditions: 
+    priority: 5
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 41a27fa85831a4baa8f9f6c9e8c37ebf, type: 3}
+  - id: rem_meera_obj_v3_pujari
+    speaker: meera
+    text: The priest waits by the steps.
+    trigger: story
+    conditions: 
+    priority: 5
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 091a189f58de14f5dab50df92b65a69f, type: 3}
+  - id: rem_pujari_obj_v3_bazaar
+    speaker: pujari
+    text: Ask around the bazaar.
+    trigger: story
+    conditions: 
+    priority: 5
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: de138992e013846709a3b8f594f7e677, type: 3}
+  - id: rem_meera_obj_v3_bazaar
+    speaker: meera
+    text: Follow the man with the bell.
+    trigger: story
+    conditions: 
+    priority: 5
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 713cff0b144a64e4f8298b3d4fd01664, type: 3}
+  - id: rem_pujari_obj_v3_storeroom
+    speaker: pujari
+    text: Look closely around the broken storeroom.
+    trigger: story
+    conditions: 
+    priority: 5
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: a0c226eafbab5494280ae76639a2e601, type: 3}
+  - id: rem_meera_obj_v3_storeroom
+    speaker: meera
+    text: The storeroom may hold more clues.
+    trigger: story
+    conditions: 
+    priority: 5
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: c25b9bbe5db05429aa1108b5b2b112bd, type: 3}
+  - id: rem_pujari_obj_v3_vaults
+    speaker: pujari
+    text: The old vaults lie behind us.
+    trigger: story
+    conditions: 
+    priority: 5
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 5bdf02e4a2d474982931ea1b406a9056, type: 3}
+  - id: rem_meera_obj_v3_vaults
+    speaker: meera
+    text: Try the vaults behind the temple.
+    trigger: story
+    conditions: 
+    priority: 5
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 7fc30e3f405f049f180850df43f796c1, type: 3}
+  - id: rem_pujari_obj_v3_stepwell
+    speaker: pujari
+    text: Follow the marks by the stepwell.
+    trigger: story
+    conditions: 
+    priority: 5
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 52bdfdd6037e147be8e7718edabcf50e, type: 3}
+  - id: rem_meera_obj_v3_stepwell
+    speaker: meera
+    text: They went towards the old well.
+    trigger: story
+    conditions: 
+    priority: 5
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: d3a3f486769824e45ab59e23691fe010, type: 3}
+  - id: rem_pujari_obj_v3_sunwall
+    speaker: pujari
+    text: Study the symbols on the wall.
+    trigger: story
+    conditions: 
+    priority: 5
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 8558d0d59cf0b4973b93e7e8af9dcd0e, type: 3}
+  - id: rem_meera_obj_v3_sunwall
+    speaker: meera
+    text: The light may reveal the way.
+    trigger: story
+    conditions: 
+    priority: 5
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 3e677ca9864164ea5ba3bd11ef01c731, type: 3}
+  - id: rem_pujari_obj_v3_jungle
+    speaker: pujari
+    text: Follow the north road carefully.
+    trigger: story
+    conditions: 
+    priority: 5
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 135c25bf36e45464f9c497cfd4f6b937, type: 3}
+  - id: rem_meera_obj_v3_jungle
+    speaker: meera
+    text: Your jeep waits on the north road.
+    trigger: story
+    conditions: 
+    priority: 5
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 78f25d64cbe3e4f32ae76119ac637645, type: 3}
+  - id: rem_pujari_obj_return
+    speaker: pujari
+    text: You brought our memories home.
+    trigger: story
+    conditions: 
+    priority: 5
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: f453bdd613bca4432b267783cad5707f, type: 3}
+  - id: rem_meera_obj_return
+    speaker: meera
+    text: Bring the treasures back to Ananda.
+    trigger: story
+    conditions: 
+    priority: 5
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: f4a14f38e9ec6438fa41c7371e3b4090, type: 3}
+  - id: rem_pujari_end
+    speaker: pujari
+    text: Thank you for protecting our heritage.
+    trigger: story
+    conditions: 
+    priority: 5
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 903e4843522684e92bc7bfa772709d63, type: 3}
+  - id: rem_meera_end
+    speaker: meera
+    text: Our village will remember your help.
+    trigger: story
+    conditions: 
+    priority: 5
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 37606d81256df48aa88ef1ebfb92eefc, type: 3}
   builtFrom: Docs/VOICE_LINES.csv
-  builtAt: 2026-11-23 12:43
+  builtAt: 2026-11-24 00:04

@@ -36,10 +36,11 @@ namespace LegacyOfTemples.UI
         private LineRenderer line;
         private string hintObjectiveId;
         private bool ending;
+        private bool learnedSummary;
         private float endingTime;
 
         private static readonly HashSet<string> GameplayScenes = new HashSet<string> {
-            Constants.Courtyard, Constants.Sanctum, Constants.ShrineCrime, Constants.PuzzleWall, Constants.JunglePath };
+            Constants.TempleRing, Constants.Courtyard, Constants.Sanctum, Constants.ShrineCrime, Constants.PuzzleWall, Constants.JunglePath };
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void Bootstrap()
@@ -148,7 +149,7 @@ namespace LegacyOfTemples.UI
             bool talking = UIManager.Instance != null && UIManager.Instance.IsDialogueActive;
             if (talking) IsOpen = false; // never draw the guide on top of a conversation
             if (IsOpen) DrawPanel(story, player, target);
-            if (WayShown && !IsOpen && !talking && target != null && player != null) DrawWay(player.transform, target);
+            if (!Constants.IsNewWorld(scene) && WayShown && !IsOpen && !talking && target != null && player != null) DrawWay(player.transform, target);
             else { arrowRt.gameObject.SetActive(false); ClearWorldMarkers(); if (diamondRt != null) { diamondRt.gameObject.SetActive(false); distanceText.gameObject.SetActive(false); } }
 
             DrawPuzzle();
@@ -156,6 +157,13 @@ namespace LegacyOfTemples.UI
 
         private void DrawPanel(StoryDialogueSystem story, PlayerController player, Transform target)
         {
+            if (Constants.IsNewWorld(SceneManager.GetActiveScene().name))
+            {
+                var z = NewBazaar.Instance; var puzzle = NearPuzzle(); var text = new StringBuilder("Listen, watch and use the connected lanes. E only handles physical objects.\n\n");
+                if (puzzle != null) for (int i = 0; i < 3; i++) text.Append(puzzle.HintsUsed > i ? $"{i + 1}. {puzzle.hints[i]}\n\n" : $"[{i + 1}] Reveal hint {i + 1} (score and 1 Dawn minute)\n\n");
+                else text.Append(z != null && z.Now == NewBazaar.Stage.Complete ? "Bell recovered. The remaining replacement zones are under construction." : "Block a telegraphed strike; dodge, then attack. Recover the item after the fight.");
+                ScreenText.Panel("guide", "BAZAAR / " + (z != null ? z.Now.ToString().ToUpperInvariant() : "EXPLORE"), text.ToString(), PanelAnchor.Center, 1100f, "H / Tab  Close", true, 50); return;
+            }
             var o = story.Current;
             var sb = new StringBuilder();
             if (o == null) { ScreenText.Panel("guide", "CASE CLOSED", "All three pieces are home.", PanelAnchor.Center, 1100, ScreenText.Key("H") + " Close", true, 50); return; }
@@ -367,6 +375,13 @@ namespace LegacyOfTemples.UI
         private int runRank;
         private void DrawEnding(StoryDialogueSystem story)
         {
+            if (Keyboard.current != null && Keyboard.current.hKey.wasPressedThisFrame) learnedSummary = !learnedSummary;
+            if (learnedSummary)
+            {
+                ScreenText.Panel("ending", "WHAT YOU LEARNED", HeritageNotes.LearnedSummary(), PanelAnchor.Center, 1400,
+                    ScreenText.Key("H") + " Back to results", true, 100);
+                return;
+            }
             var file = StoryData.File;
             var end = StoryData.Ending(DawnClock.EndingId());
             var sb = new StringBuilder();
@@ -384,7 +399,7 @@ namespace LegacyOfTemples.UI
             sb.Append($"\n<color={ScreenText.Gold}><b>CLOCK</b></color>  {DawnClock.ClockText(clock)} (dawn 05:45)     <color={ScreenText.Gold}><b>PLAY TIME</b></color>  {t / 60:00}:{t % 60:00}     <color={ScreenText.Gold}><b>DIFFICULTY</b></color>  {GameOptions.DifficultyNames[GameOptions.Difficulty]}\n");
             sb.Append($"<color={ScreenText.Gold}><b>SCORE</b></color>  {ScoreSystem.Total}  (grade {ScoreSystem.OverallGrade(6)})     <color={ScreenText.Gold}><b>HINTS USED</b></color>  {story.HintsUsed}     <color={ScreenText.Gold}><b>RETRIES</b></color>  {(DawnClock.Instance != null ? DawnClock.Instance.Retries : 0)}");
             if (runRank > 0) sb.Append($"\n<color={ScreenText.Cyan}>Best runs on this computer: this run is number {runRank}. See Credits in the main menu.</color>");
-            ScreenText.Panel("ending", file.ending?.title ?? "MISSION COMPLETED", sb.ToString(), PanelAnchor.Center, 1400, ScreenText.Key("Enter") + " Return to main menu", true, 100);
+            ScreenText.Panel("ending", file.ending?.title ?? "MISSION COMPLETED", sb.ToString(), PanelAnchor.Center, 1400, ScreenText.Key("H") + " What you learned    " + ScreenText.Key("Enter") + " Return to main menu", true, 100);
             var kb = Keyboard.current; var gp = Gamepad.current;
             if (Time.unscaledTime - endingTime > 2f && ((kb != null && kb.enterKey.wasPressedThisFrame) || (gp != null && gp.buttonSouth.wasPressedThisFrame)))
             {

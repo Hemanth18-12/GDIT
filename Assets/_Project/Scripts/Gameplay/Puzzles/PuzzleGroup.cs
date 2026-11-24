@@ -69,7 +69,7 @@ namespace LegacyOfTemples.Gameplay.Puzzles
         {
             if (hints == null || hints.Length == 0) return "";
             int tier = Mathf.Clamp(HintsUsed, 0, hints.Length - 1);
-            if (HintsUsed < hints.Length) { HintsUsed++; PuzzleSave.Set(HintKey, HintsUsed); ScoreSystem.AddHint(zoneId); }
+            if (HintsUsed < hints.Length) { HintsUsed++; PuzzleSave.Set(HintKey, HintsUsed); ScoreSystem.AddHint(zoneId); DawnClock.Instance?.Penalty(1f, "puzzle hint"); }
             return hints[tier] ?? "";
         }
 

@@ -10,13 +10,22 @@ namespace LegacyOfTemples.Gameplay
     public static class V3Places
     {
         public struct Place { public string name, objective; public bool ok; public Vector3 at, look; }
-        public static readonly string[] Names = { "Temple gate", "Bazaar and tea lane", "Storeroom", "Vaults", "Stepwell", "Sun Wall", "River road (jeep chase)", "Ruin court (final fight)" };
-        public static readonly string[] Objectives = { "obj_v3_pujari", "obj_v3_bazaar", "obj_v3_storeroom", "obj_v3_vaults", "obj_v3_stepwell", "obj_v3_sunwall", "obj_v3_jungle", "obj_v3_jungle" };
+        public static readonly string[] LegacyNames = { "Temple gate", "Bazaar and tea lane", "Storeroom", "Vaults", "Stepwell", "Sun Wall", "River road (jeep chase)", "Ruin court (final fight)" };
+        static readonly string[] LegacyObjectives = { "obj_v3_pujari", "obj_v3_bazaar", "obj_v3_storeroom", "obj_v3_vaults", "obj_v3_stepwell", "obj_v3_sunwall", "obj_v3_jungle", "obj_v3_jungle" };
+        static readonly string[] NewNames = { "Village bazaar and tea lane", "Temple gate and courtyard (pending)", "Underground vaults (pending)", "Stepwell (pending)", "Sun Wall (pending)", "Jungle road and ruins (pending)" };
+        public static bool NewWorld => UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == Core.Constants.TempleRing;
+        public static string[] Names => NewWorld ? NewNames : LegacyNames;
+        public static string[] Objectives => NewWorld ? new[] { "nz1", "nz2", "nz3", "nz4", "nz5", "nz6" } : LegacyObjectives;
         public static int Count => Names.Length;
 
         public static Place Get(int i)
         {
             var p = new Place { name = Names[i], objective = Objectives[i] };
+            if (NewWorld)
+            {
+                if (i == 0 && NewBazaar.Instance != null) { p.ok = true; p.at = new Vector3(0f, 0.05f, -8f); p.look = new Vector3(0f, 2f, 20f); }
+                return p;
+            }
             switch (i)
             {
                 case 0: { var ts = TempleSite.Instance; if (World.Village.GatePos != Vector3.zero) { p.ok = true; p.at = World.Village.GatePos + Vector3.back * 8f; p.look = ts != null ? ts.TowerTop : p.at + Vector3.back * 10f; } break; }
@@ -34,6 +43,7 @@ namespace LegacyOfTemples.Gameplay
         /// <summary>The story has reached this place's step (or the game is finished).</summary>
         public static bool Unlocked(int i)
         {
+            if (NewWorld) return i == 0 && Puzzles.PuzzleSave.Get("nz1.visited") == 1;
             var story = StoryDialogueSystem.Instance; if (story == null) return false;
             if (story.IsComplete) return true;
             for (int k = 0; k < StoryData.Objectives.Length; k++) if (StoryData.Objectives[k].id == Objectives[i]) return k <= story.ObjectiveIndex;
