@@ -25,16 +25,16 @@ namespace LegacyOfTemples.Gameplay.Puzzles
         public int State { get; private set; }
         public event Action<PuzzleElement> Changed;
         public string SaveId => "el." + (string.IsNullOrEmpty(elementId) ? name : elementId);
-        bool restored, started;
+        bool restored, started; string restoredId;
 
-        protected virtual void Awake() { Restore(); }
+        protected virtual void Awake() { }
         /// <summary>Visuals are first shown here, after whoever created the part has set its fields (steps, handle, surface ...).</summary>
-        protected virtual void Start() { started = true; Apply(State, true); }
+        protected virtual void Start() { Restore(); started = true; Apply(State, true); }
 
         /// <summary>Load the saved state (or the start state) once. Safe to call early from a group.</summary>
         public void Restore()
         {
-            if (restored) return; restored = true;
+            if (restored && restoredId == SaveId) return; restored = true; restoredId = SaveId;
             State = PuzzleSave.Get(SaveId, startState);
             if (started) Apply(State, true);
         }

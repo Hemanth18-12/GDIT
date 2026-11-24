@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using LegacyOfTemples.Core;
 
@@ -27,15 +28,23 @@ namespace LegacyOfTemples.Gameplay.Puzzles
             else if (Item != null && Carryable.Held == null) { var it = Item; var pc = FindAnyObjectByType<LegacyOfTemples.Characters.PlayerController>(); if (pc != null) it.PickUp(pc.transform); }
         }
 
+        protected override void Start() { base.Start(); StartCoroutine(RestoreItem()); }
+        IEnumerator RestoreItem()
+        {
+            yield return null;
+            foreach (var c in FindObjectsByType<Carryable>())
+                if (PuzzleSave.Get("socket." + SaveId + "." + c.itemKey) == 1 && Item == null && Fits(c)) { Place(c); break; }
+        }
         public void Place(Carryable c)
         {
             if (c == null || Item != null) return;
             c.Release(); c.InSocket = this; Item = c;
             var s = seat != null ? seat : transform; c.transform.SetPositionAndRotation(s.position, s.rotation);
-            SetState(c.itemKey == acceptsKey ? 1 : 2, false);
+            SetState(c.itemKey == acceptsKey ? 1 : 2);
+            PuzzleSave.Set("socket." + SaveId + "." + c.itemKey, 1);
         }
-        internal void Remove() { if (Item != null) Item.InSocket = null; Item = null; SetState(0, false); }
-        public override void ResetState() { if (Item != null) { Item.InSocket = null; Item = null; } base.ResetState(); }
+        internal void Remove() { if (Item != null) { PuzzleSave.Set("socket." + SaveId + "." + Item.itemKey, 0); Item.InSocket = null; } Item = null; SetState(0); }
+        public override void ResetState() { Remove(); base.ResetState(); }
         protected override void Apply(int state, bool instant) { }
     }
 }

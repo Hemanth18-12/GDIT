@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="15" result="Passed" total="15" passed="15" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-24 04:20:47Z" end-time="2026-11-24 04:20:49Z" duration="1.9528939">
+  <test-suite type="TestSuite" id="1074" name="My project" fullname="My project" runstate="Runnable" testcasecount="56" result="Passed" start-time="2026-11-24 04:20:47Z" end-time="2026-11-24 04:20:49Z" duration="1.952894" total="15" passed="15" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1142" name="LOT.Grounding.PlayModeTests.dll" fullname="/Users/hemanth/Desktop/GDIT/My project/Library/ScriptAssemblies/LOT.Grounding.PlayModeTests.dll" runstate="Runnable" testcasecount="56" result="Passed" start-time="2026-11-24 04:20:47Z" end-time="2026-11-24 04:20:49Z" duration="1.949594" total="15" passed="15" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="2963" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+      <test-suite type="TestSuite" id="1143" name="LegacyOfTemples" fullname="LegacyOfTemples" runstate="Runnable" testcasecount="48" result="Passed" start-time="2026-11-24 04:20:47Z" end-time="2026-11-24 04:20:49Z" duration="1.933392" total="15" passed="15" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+        <test-suite type="TestSuite" id="1144" name="Tests" fullname="LegacyOfTemples.Tests" runstate="Runnable" testcasecount="48" result="Passed" start-time="2026-11-24 04:20:47Z" end-time="2026-11-24 04:20:49Z" duration="1.916563" total="15" passed="15" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+          <test-suite type="TestFixture" id="1106" name="NewToolkitTests" fullname="LegacyOfTemples.Tests.NewToolkitTests" classname="LegacyOfTemples.Tests.NewToolkitTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-11-24 04:20:47Z" end-time="2026-11-24 04:20:48Z" duration="0.468687" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+            <test-case id="1110" name="Brace_RequiresRelease_RestoresAndResetsGeometry" fullname="LegacyOfTemples.Tests.NewToolkitTests.Brace_RequiresRelease_RestoresAndResetsGeometry" methodname="Brace_RequiresRelease_RestoresAndResetsGeometry" classname="LegacyOfTemples.Tests.NewToolkitTests" runstate="Runnable" seed="1632651455" result="Passed" start-time="2026-11-24 04:20:47Z" end-time="2026-11-24 04:20:47Z" duration="0.057478" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+            </test-case>
+            <test-case id="1108" name="GearTrain_TransmitsOnlyThroughCorrectSeats_AndResets" fullname="LegacyOfTemples.Tests.NewToolkitTests.GearTrain_TransmitsOnlyThroughCorrectSeats_AndResets" methodname="GearTrain_TransmitsOnlyThroughCorrectSeats_AndResets" classname="LegacyOfTemples.Tests.NewToolkitTests" runstate="Runnable" seed="1150044152" result="Passed" start-time="2026-11-24 04:20:47Z" end-time="2026-11-24 04:20:48Z" duration="0.223475" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+            </test-case>
+            <test-case id="1107" name="RuntimeIds_Restore_AfterConfiguration" fullname="LegacyOfTemples.Tests.NewToolkitTests.RuntimeIds_Restore_AfterConfiguration" methodname="RuntimeIds_Restore_AfterConfiguration" classname="LegacyOfTemples.Tests.NewToolkitTests" runstate="Runnable" seed="1622270026" result="Passed" start-time="2026-11-24 04:20:48Z" end-time="2026-11-24 04:20:48Z" duration="0.050956" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+            </test-case>
+            <test-case id="1109" name="Socket_RestoresActualItem_NotOnlySolvedFlag" fullname="LegacyOfTemples.Tests.NewToolkitTests.Socket_RestoresActualItem_NotOnlySolvedFlag" methodname="Socket_RestoresActualItem_NotOnlySolvedFlag" classname="LegacyOfTemples.Tests.NewToolkitTests" runstate="Runnable" seed="476522458" result="Passed" start-time="2026-11-24 04:20:48Z" end-time="2026-11-24 04:20:48Z" duration="0.117151" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1111" name="PuzzleFrameworkTests" fullname="LegacyOfTemples.Tests.PuzzleFrameworkTests" classname="LegacyOfTemples.Tests.PuzzleFrameworkTests" runstate="Runnable" testcasecount="11" result="Passed" start-time="2026-11-24 04:20:48Z" end-time="2026-11-24 04:20:49Z" duration="1.430753" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+            <test-case id="1118" name="Carry_Place_And_Shadow_Match" fullname="LegacyOfTemples.Tests.PuzzleFrameworkTests.Carry_Place_And_Shadow_Match" methodname="Carry_Place_And_Shadow_Match" classname="LegacyOfTemples.Tests.PuzzleFrameworkTests" runstate="Runnable" seed="685421365" result="Passed" start-time="2026-11-24 04:20:48Z" end-time="2026-11-24 04:20:48Z" duration="0.086067" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+[Puzzle] evidence solved in 0.0s with 0 hint(s)
+]]></output>
+            </test-case>
+            <test-case id="1122" name="Checkpoint_Save_And_Restore" fullname="LegacyOfTemples.Tests.PuzzleFrameworkTests.Checkpoint_Save_And_Restore" methodname="Checkpoint_Save_And_Restore" classname="LegacyOfTemples.Tests.PuzzleFrameworkTests" runstate="Runnable" seed="1661114376" result="Passed" start-time="2026-11-24 04:20:48Z" end-time="2026-11-24 04:20:48Z" duration="0.004353" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Checkpoint] vaults / before_fight at (5.0, -6.0, 7.0)
+]]></output>
+            </test-case>
+            <test-case id="1113" name="Discs_Solve_Lock_Reset_And_Save" fullname="LegacyOfTemples.Tests.PuzzleFrameworkTests.Discs_Solve_Lock_Reset_And_Save" methodname="Discs_Solve_Lock_Reset_And_Save" classname="LegacyOfTemples.Tests.PuzzleFrameworkTests" runstate="Runnable" seed="1964006861" result="Passed" start-time="2026-11-24 04:20:48Z" end-time="2026-11-24 04:20:48Z" duration="0.425871" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+[Puzzle] discs solved in 0.3s with 0 hint(s)
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+            </test-case>
+            <test-case id="1121" name="Evidence_Board_Shows_Only_What_Was_Found_And_Names_Once" fullname="LegacyOfTemples.Tests.PuzzleFrameworkTests.Evidence_Board_Shows_Only_What_Was_Found_And_Names_Once" methodname="Evidence_Board_Shows_Only_What_Was_Found_And_Names_Once" classname="LegacyOfTemples.Tests.PuzzleFrameworkTests" runstate="Runnable" seed="1751749074" result="Passed" start-time="2026-11-24 04:20:48Z" end-time="2026-11-24 04:20:48Z" duration="0.004162" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Evidence] the player named Madhav, the key-keeper (correct=True) with 3 pieces
+]]></output>
+            </test-case>
+            <test-case id="1114" name="Hints_Three_Tiers_Cost_Score" fullname="LegacyOfTemples.Tests.PuzzleFrameworkTests.Hints_Three_Tiers_Cost_Score" methodname="Hints_Three_Tiers_Cost_Score" classname="LegacyOfTemples.Tests.PuzzleFrameworkTests" runstate="Runnable" seed="2004571202" result="Passed" start-time="2026-11-24 04:20:48Z" end-time="2026-11-24 04:20:48Z" duration="0.062735" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+[Puzzle] hinted solved in 0.0s with 3 hint(s)
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+            </test-case>
+            <test-case id="1119" name="Light_Beam_Bounces_Off_Mirrors_To_A_Socket_And_Is_Blocked" fullname="LegacyOfTemples.Tests.PuzzleFrameworkTests.Light_Beam_Bounces_Off_Mirrors_To_A_Socket_And_Is_Blocked" methodname="Light_Beam_Bounces_Off_Mirrors_To_A_Socket_And_Is_Blocked" classname="LegacyOfTemples.Tests.PuzzleFrameworkTests" runstate="Runnable" seed="25234354" result="Passed" start-time="2026-11-24 04:20:48Z" end-time="2026-11-24 04:20:49Z" duration="0.199539" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+[Puzzle] light solved in 0.1s with 0 hint(s)
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+            </test-case>
+            <test-case id="1112" name="Logic_Rules" fullname="LegacyOfTemples.Tests.PuzzleFrameworkTests.Logic_Rules" methodname="Logic_Rules" classname="LegacyOfTemples.Tests.PuzzleFrameworkTests" runstate="Runnable" seed="1297969504" result="Passed" start-time="2026-11-24 04:20:49Z" end-time="2026-11-24 04:20:49Z" duration="0.001420" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1115" name="Plate_And_Block" fullname="LegacyOfTemples.Tests.PuzzleFrameworkTests.Plate_And_Block" methodname="Plate_And_Block" classname="LegacyOfTemples.Tests.PuzzleFrameworkTests" runstate="Runnable" seed="1316111098" result="Passed" start-time="2026-11-24 04:20:49Z" end-time="2026-11-24 04:20:49Z" duration="0.315136" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+[Puzzle] plate solved in 0.3s with 0 hint(s)
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+            </test-case>
+            <test-case id="1120" name="Score_Grades_And_High_Scores" fullname="LegacyOfTemples.Tests.PuzzleFrameworkTests.Score_Grades_And_High_Scores" methodname="Score_Grades_And_High_Scores" classname="LegacyOfTemples.Tests.PuzzleFrameworkTests" runstate="Runnable" seed="1461992285" result="Passed" start-time="2026-11-24 04:20:49Z" end-time="2026-11-24 04:20:49Z" duration="0.003258" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1117" name="Sound_Lock_Wrong_Order_Restarts_Quietly" fullname="LegacyOfTemples.Tests.PuzzleFrameworkTests.Sound_Lock_Wrong_Order_Restarts_Quietly" methodname="Sound_Lock_Wrong_Order_Restarts_Quietly" classname="LegacyOfTemples.Tests.PuzzleFrameworkTests" runstate="Runnable" seed="875617152" result="Passed" start-time="2026-11-24 04:20:49Z" end-time="2026-11-24 04:20:49Z" duration="0.051754" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+[Puzzle] bells solved in 0.0s with 0 hint(s)
+]]></output>
+            </test-case>
+            <test-case id="1116" name="Water_Level_Puzzle_Has_An_Aha_And_No_Lockup" fullname="LegacyOfTemples.Tests.PuzzleFrameworkTests.Water_Level_Puzzle_Has_An_Aha_And_No_Lockup" methodname="Water_Level_Puzzle_Has_An_Aha_And_No_Lockup" classname="LegacyOfTemples.Tests.PuzzleFrameworkTests" runstate="Runnable" seed="1872996824" result="Passed" start-time="2026-11-24 04:20:49Z" end-time="2026-11-24 04:20:49Z" duration="0.261411" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+[Puzzle] water solved in 0.2s with 0 hint(s)
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+Saving results to: /Users/hemanth/Library/Application Support/DefaultCompany/My project/TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>
