@@ -294,6 +294,8 @@ namespace LegacyOfTemples.UI
         static IEnumerator ArrivalDrive()
         {
             var jeep = Jeep.Instance; Check(jeep != null, "Jeep parked on two-bend arrival road"); if (jeep == null) yield break;
+            var pc = UnityEngine.Object.FindAnyObjectByType<PlayerController>();
+            if (pc != null) { pc.Teleport(jeep.DriverExitPoint + Vector3.back * 1.5f, Quaternion.identity); yield return null; }
             yield return Interact(jeep, jeep.DriverExitPoint);
             yield return new WaitForSeconds(2f); Check(jeep.Occupied, "Physical Jeep entry succeeded");
             if (!jeep.Occupied) { Fail("Jeep entry failed"); yield break; }
@@ -313,7 +315,7 @@ namespace LegacyOfTemples.UI
             car.autoThrottle = 0f; car.autoSteer = 0f; car.autoBrake = true;
             yield return new WaitForSeconds(2f); VirtualInput.Press("interact"); yield return null; yield return new WaitForSeconds(2.5f);
             car.autopilot = false; car.autoBrake = false; Check(!jeep.Occupied, "Parked Jeep exit succeeded");
-            var pc = UnityEngine.Object.FindAnyObjectByType<PlayerController>(); Check(pc.transform.position.y < 0.5f, "Feet on road after Jeep exit");
+            pc = UnityEngine.Object.FindAnyObjectByType<PlayerController>(); Check(pc.transform.position.y < 0.5f, "Feet on road after Jeep exit");
         }
         public static IEnumerator Walk(Vector3 target, float timeout)
         {
