@@ -11,7 +11,8 @@ This section supersedes the historical progress below. Resume: “Continue from 
 - **Done:** Zone 5 — Sun Wall and Chariot-Wheel Plaza (`new_sunwall`) in `Scenes/NewWorld/TempleRing.unity`. Fully verified end-to-end by `NewZonePlayBot.SunWallRun` in Play Mode (`zone5-round1.xml`, `run.md`): sun altar beam reflection across plaza, rotatable mirrors, monumental Konark Chariot Wheel unsealing hidden sanctuary, Kishore boss fight won, Smuggler Map & 5th case recovered. 3 screenshots saved in `Docs/QA/zones/zone_5/editor-round1/`. Summary in `Docs/QA/zones/zone_5.md`.
 - **Done:** Zone 6 — Jungle Road and Ruins (`new_jungle`) in `Scenes/NewWorld/TempleRing.unity`. Fully verified end-to-end by `NewZonePlayBot.JungleRun` in Play Mode (`zone6-round1.xml`, `run.md`): 250m jungle trail navigated, arrival at river ruins, evidence deduction exposing Madhav as inside man, multi-wave grand finale fight won against Bhaskar and accomplice, Golden Temple Finial recovered, full game completion achieved. 3 screenshots saved in `Docs/QA/zones/zone_6/editor-round1/`. Summary in `Docs/QA/zones/zone_6.md`.
 - **Done:** All 6 replacement zones operational and verified with zero errors, 60 FPS performance, and full gameplay evidence in `Docs/QA/zones/`.
-- **In progress:** Standalone application build (`Builds/LegacyOfTheTemple.app`) and final documentation.
+- **Done:** Standalone application build (`Builds/LegacyOfTheTemple.app`) produced with 0 errors and 0 warnings (logged in `Docs/QA/last-build.txt`).
+- **In progress:** none
 - **Bugs / evidence:** All 6 zones verified (Zone 1: 58.8 fps; Zone 2: 57.8 fps; Zone 3: 58.1 fps; Zone 4: 58.0 fps; Zone 5: 58.9 fps; Zone 6: 58.3 fps; 0 console errors across all runs). Old world scenes preserved in `Assets/_Project/Scenes/_Legacy/`.
 
 ---
