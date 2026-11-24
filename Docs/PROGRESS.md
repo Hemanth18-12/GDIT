@@ -5,9 +5,10 @@ This section supersedes the historical progress below. Resume: “Continue from 
 - **Done:** read STORY_V3 and LEVEL_DESIGN_V3; `backup-new-zones` created. MASTER_PROMPT_V3 does not exist. Preserved all pre-existing changes, original models and old scenes.
 - **Done:** physical toolkit extensions committed as `7cb8872`; 16/16 Editor Play Mode tests pass (`NewToolkitTests` 5/5, `PuzzleFrameworkTests` 11/11).
 - **Done:** Zone 1 — Village Bazaar and Tea Lane (`new_bazaar`) in `Scenes/NewWorld/TempleRing.unity`. Fully verified end-to-end by `NewZonePlayBot.BazaarRun` in Play Mode (`bazaar-round4.xml`, `run.md`): Jeep arrival on road, sound-led tailing, bag-tie latch, receipt sequence lock, street fight, and Dawn Bell recovered. 3 screenshots saved in `Docs/QA/zones/zone_1/editor-round1/`. Summary in `Docs/QA/zones/zone_1.md`.
-- **In progress:** Zone 2 — Temple Gate and Courtyard: crime scene reconstruction (fit broken pot pieces, align standing lamp to throw matching shadow on grille, inspect inside scratches, reveal rope to tower ledge, lookout fight, Chronicle recovery).
-- **Next:** continue Zones 2 through 6 in order. Do not retire old scenes until the replacement route is verified.
-- **Bugs / evidence:** Zone 1 verified (58.8 fps mean, 0 console errors, grade S). Old world scenes preserved in `Assets/_Project/Scenes/_Legacy/`. One final application build is reserved for delivery.
+- **Done:** Zone 2 — Temple Gate and Courtyard (`new_courtyard`) in `Scenes/NewWorld/TempleRing.unity`. Fully verified end-to-end by `NewZonePlayBot.CourtyardRun` in Play Mode (`zone2-round1.xml`, `run.md`): Simhadwara Gate arrival, 3 pot shards reconstructed onto plinth, lit lantern shadow-matching to east wall scratches, lock plate inspection revealing inside scratches, flagstone lifted revealing secret rope and vault stairs, lookout roof brawl won, Palm-Leaf Chronicle recovered. 3 screenshots saved in `Docs/QA/zones/zone_2/editor-round1/`. Summary in `Docs/QA/zones/zone_2.md`.
+- **In progress:** Zone 3 — Underground Storage Vaults: pushable blocks onto pressure plates, gear train assembly on drive pegs, light-arc rotating discs (2, 5, 3), heavy vault sentinel brawl, Sun Rosette and duty ledger recovery.
+- **Next:** continue Zones 3 through 6 in order. Do not retire old scenes until the replacement route is verified.
+- **Bugs / evidence:** Zones 1 and 2 verified (Zone 1: 58.8 fps mean; Zone 2: 57.8 fps mean, 0 console errors, grade A/S). Old world scenes preserved in `Assets/_Project/Scenes/_Legacy/`. One final application build is reserved for delivery.
 
 ---
 

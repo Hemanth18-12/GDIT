@@ -30,6 +30,12 @@ namespace LegacyOfTemples.Gameplay.Editor
             var orbit = cam.GetComponent<OrbitCamera>();
             var so = new SerializedObject(orbit); so.FindProperty("target").objectReferenceValue = actor.transform; so.ApplyModifiedPropertiesWithoutUndo();
             new GameObject("New Bazaar — runtime layout").AddComponent<NewBazaar>();
+            new GameObject("New Courtyard — runtime layout").AddComponent<NewCourtyard>();
+            new GameObject("New Vaults — runtime layout").AddComponent<NewVaults>();
+            new GameObject("New Stepwell — runtime layout").AddComponent<NewStepwell>();
+            new GameObject("New SunWall — runtime layout").AddComponent<NewSunWall>();
+            new GameObject("New Jungle — runtime layout").AddComponent<NewJungleChase>();
+            new GameObject("NewWorld_Director").AddComponent<NewWorldDirector>();
             var spawn = new GameObject("Arrival").AddComponent<SpawnPoint>(); spawn.transform.position = actor.transform.position;
             var sunlight = new GameObject("Late afternoon sun").AddComponent<Light>(); sunlight.type = LightType.Directional;
             sunlight.intensity = 1.5f; sunlight.color = new Color(1f, 0.86f, 0.68f); sunlight.shadows = LightShadows.Soft;

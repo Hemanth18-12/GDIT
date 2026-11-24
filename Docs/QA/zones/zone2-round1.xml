@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Passed" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-24 05:34:13Z" end-time="2026-11-24 05:34:58Z" duration="45.4222533">
+  <test-suite type="TestSuite" id="1082" name="My project" fullname="My project" runstate="Runnable" testcasecount="63" result="Passed" start-time="2026-11-24 05:34:13Z" end-time="2026-11-24 05:34:58Z" duration="45.422253" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1158" name="LOT.Grounding.PlayModeTests.dll" fullname="/Users/hemanth/Desktop/GDIT/My project/Library/ScriptAssemblies/LOT.Grounding.PlayModeTests.dll" runstate="Runnable" testcasecount="63" result="Passed" start-time="2026-11-24 05:34:13Z" end-time="2026-11-24 05:34:58Z" duration="45.418810" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="7086" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+      <test-suite type="TestSuite" id="1159" name="LegacyOfTemples" fullname="LegacyOfTemples" runstate="Runnable" testcasecount="55" result="Passed" start-time="2026-11-24 05:34:13Z" end-time="2026-11-24 05:34:58Z" duration="45.402536" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+        <test-suite type="TestSuite" id="1160" name="Tests" fullname="LegacyOfTemples.Tests" runstate="Runnable" testcasecount="55" result="Passed" start-time="2026-11-24 05:34:13Z" end-time="2026-11-24 05:34:58Z" duration="45.385814" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+          <test-suite type="TestFixture" id="1114" name="NewBazaarPlayTests" fullname="LegacyOfTemples.Tests.NewBazaarPlayTests" classname="LegacyOfTemples.Tests.NewBazaarPlayTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-11-24 05:34:13Z" end-time="2026-11-24 05:34:58Z" duration="45.368872" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+            <test-case id="1116" name="Zone2_Courtyard_Reconstruct_Shadow_Lookout_Chronicle" fullname="LegacyOfTemples.Tests.NewBazaarPlayTests.Zone2_Courtyard_Reconstruct_Shadow_Lookout_Chronicle" methodname="Zone2_Courtyard_Reconstruct_Shadow_Lookout_Chronicle" classname="LegacyOfTemples.Tests.NewBazaarPlayTests" runstate="Runnable" seed="1607195459" result="Passed" start-time="2026-11-24 05:34:13Z" end-time="2026-11-24 05:34:58Z" duration="45.348976" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="540000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+[V3] new game: puzzles, run score and checkpoint cleared
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+[NewStepwell] built: multi-tier tank, sluice valves, rising raft, monsoon shrine & wet-stone brawl
+[NewVaults] built: underground hall, pressure plates, gear train, light-arc discs & heavy guard fight
+[NewCourtyard] built: Lion Gate, flagstone courtyard, storage hall crime scene, shadow-matching & lookout fight
+[NewWorldDirector] All 6 zones initialized and linked across TempleRing.unity!
+[NewBazaar] built: T market, 3 loop links, 16 villagers, tail / seal / sequence / street fight
+[NewJungleChase] built: 250m jungle trail, river ruins court, inside man deduction & Bhaskar boss fight
+[NewSunWall] built: Sun Wall monument, rotatable mirrors, Konark Chariot Wheel & Kishore fight
+[NewWorldDirector] All 6 zones initialized and linked across TempleRing.unity!
+[Checkpoint] new_bazaar / Banyan arrival at (-52.0, 0.1, -90.0)
+[BatchFriendly] baked 386 renderers into 88 shared materials (total 386)
+[Voice] jeep_approach: played jp_approach_01 (p1 2D )
+[NewWorldDirector] All 6 zones initialized and linked across TempleRing.unity!
+[Heritage] discovered market_craft
+[Voice] move_first: played mv_first_01 (p2 2D )
+[NewZonesQA] PASS Walk reached (0.0, 0.0, 65.0); feet (0.00, 0.11, 64.41)
+[NewZonesQA] PASS Walk reached (10.0, 0.1, 81.2); feet (10.00, 0.11, 80.57)
+[PlayerController] Interacting with: carry.Base shard (Pick up Base shard)
+[NewZonesQA] E interaction: carry.Base shard
+[NewZonesQA] PASS Walk reached (23.0, 0.5, 107.8); feet (23.00, 0.31, 107.20)
+[PlayerController] Interacting with: el.nz2.socket.0 (Place Base shard)
+[NewZonesQA] E interaction: el.nz2.socket.0
+[NewZonesQA] PASS Walk reached (-12.0, 0.1, 97.2); feet (-12.00, 0.45, 96.58)
+[Voice] area_enter: played mv_area_stepwell (p2 2D zone=Stepwell)
+[PlayerController] Interacting with: carry.Handle shard (Pick up Handle shard)
+[NewZonesQA] E interaction: carry.Handle shard
+[NewZonesQA] PASS Walk reached (23.0, 0.5, 107.8); feet (23.00, 0.31, 107.20)
+[PlayerController] Interacting with: el.nz2.socket.1 (Place Handle shard)
+[NewZonesQA] E interaction: el.nz2.socket.1
+[NewZonesQA] PASS Walk reached (28.0, 0.1, 75.2); feet (28.00, 0.11, 74.58)
+[PlayerController] Interacting with: carry.Spout shard (Pick up Spout shard)
+[NewZonesQA] E interaction: carry.Spout shard
+[NewZonesQA] PASS Walk reached (23.0, 0.5, 107.8); feet (23.00, 0.31, 107.20)
+[PlayerController] Interacting with: el.nz2.socket.2 (Place Spout shard)
+[GameSfx] missing clip sfx_bell_ring
+[NewZonesQA] E interaction: el.nz2.socket.2
+[NewZonesQA] PASS All 3 pot shards reconstructed onto plinth
+[NewZonesQA] PASS Walk reached (21.0, 0.1, 100.2); feet (21.00, 0.31, 99.58)
+[PlayerController] Interacting with: carry.Standing Brass Lantern (Pick up Lit Brass Lantern)
+[NewZonesQA] E interaction: carry.Standing Brass Lantern
+[NewZonesQA] PASS Walk reached (26.0, 0.2, 109.2); feet (26.00, 0.31, 108.58)
+[NewZonesQA] PASS Walk reached (16.1, 1.6, 105.4); feet (16.67, 0.46, 105.18)
+[PlayerController] Interacting with: el.nz2.lock_plate (Turn)
+[Voice] clue_found: played ex_clue_lock (p3 2D evidence=inside_lock)
+[NewZonesQA] E interaction: el.nz2.lock_plate
+[NewZonesQA] PASS Lock plate inspected: inside scratches revealed
+[NewZonesQA] PASS Walk reached (30.0, 0.2, 109.2); feet (30.00, 0.31, 108.58)
+[PlayerController] Interacting with: el.nz2.flagstone (Lift flagstone)
+[Puzzle] nz2.reconstruct solved in 16.4s with 0 hint(s)
+[Voice] puzzle_solved: queued pz_solved_03 (behind p3)
+[Checkpoint] new_courtyard / before_fight at (30.0, 0.3, 108.6)
+[Brawl] new_courtyard: fight begins against 1
+[Voice] enemy_spotted: queued rb_spot_vault (behind p3)
+[Voice] fight_start: queued cb_start_01 (behind p3)
+[NewZonesQA] E interaction: el.nz2.flagstone
+[NewZonesQA] PASS Flagstone lifted: lookout escape rope exposed
+[Voice] puzzle_solved: played pz_solved_03 (p3 2D )
+[Voice] enemy_spotted: played rb_spot_vault (p3 3D enemy=robber)
+[Voice] fight_start: played cb_start_01 (p3 2D )
+[Voice] fight_hurt: played cb_hurt_02 (p1 2D )
+[BatchFriendly] baked 1 renderers into 89 shared materials (total 387)
+[Brawl] new_courtyard: won in 20.1s, damage taken 60, max combo 2, parries 0, finishers 1, retries 0
+[GameSfx] missing clip sfx_item_recovered
+[Voice] fight_won: played cb_won_01 (p3 2D )
+[NewZonesQA] Fight: won=True, seconds=20.1, damage=60.0, retries=0, combo=2, finishers=1
+[Brawl] finisher on Lookout — temple roof (0 left)
+[NewZonesQA] PASS Lookout mini-brawl won
+[NewZonesQA] PASS Walk reached (15.0, 0.1, 98.8); feet (15.00, 0.45, 98.50)
+[PlayerController] Interacting with: treasure.Palm-Leaf Chronicle (courtyard) (Take Palm-Leaf Chronicle (courtyard))
+[Treasure] recovered Palm-Leaf Chronicle (courtyard) in new_courtyard; zone points now 3350
+[Voice] item_found: played ex_item_02 (p2 2D )
+[NewCourtyard] COMPLETE: Palm-Leaf Chronicle recovered! Score=3350
+[NewZonesQA] E interaction: treasure.Palm-Leaf Chronicle (courtyard)
+[NewZonesQA] PASS Palm-Leaf Chronicle recovered
+[NewZonesQA] Frame sample: 57.8 fps mean, 134.4 ms maximum; 640×480, editor=True.
+[NewZonesQA] Score 3350, grade A.
+[NewZonesQA] RESULT: PASS
+Saving results to: /Users/hemanth/Library/Application Support/DefaultCompany/My project/TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>
