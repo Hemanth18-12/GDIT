@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Passed" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-24 05:36:56Z" end-time="2026-11-24 05:37:43Z" duration="47.0422371">
+  <test-suite type="TestSuite" id="1082" name="My project" fullname="My project" runstate="Runnable" testcasecount="63" result="Passed" start-time="2026-11-24 05:36:56Z" end-time="2026-11-24 05:37:43Z" duration="47.042237" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1158" name="LOT.Grounding.PlayModeTests.dll" fullname="/Users/hemanth/Desktop/GDIT/My project/Library/ScriptAssemblies/LOT.Grounding.PlayModeTests.dll" runstate="Runnable" testcasecount="63" result="Passed" start-time="2026-11-24 05:36:56Z" end-time="2026-11-24 05:37:43Z" duration="47.038673" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="7291" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+      <test-suite type="TestSuite" id="1159" name="LegacyOfTemples" fullname="LegacyOfTemples" runstate="Runnable" testcasecount="55" result="Passed" start-time="2026-11-24 05:36:56Z" end-time="2026-11-24 05:37:43Z" duration="47.022912" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+        <test-suite type="TestSuite" id="1160" name="Tests" fullname="LegacyOfTemples.Tests" runstate="Runnable" testcasecount="55" result="Passed" start-time="2026-11-24 05:36:56Z" end-time="2026-11-24 05:37:43Z" duration="47.006220" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+          <test-suite type="TestFixture" id="1114" name="NewBazaarPlayTests" fullname="LegacyOfTemples.Tests.NewBazaarPlayTests" classname="LegacyOfTemples.Tests.NewBazaarPlayTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-11-24 05:36:56Z" end-time="2026-11-24 05:37:43Z" duration="46.989281" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+            <test-case id="1117" name="Zone3_Vaults_Plates_Gears_Discs_Rosette" fullname="LegacyOfTemples.Tests.NewBazaarPlayTests.Zone3_Vaults_Plates_Gears_Discs_Rosette" methodname="Zone3_Vaults_Plates_Gears_Discs_Rosette" classname="LegacyOfTemples.Tests.NewBazaarPlayTests" runstate="Runnable" seed="1043268312" result="Passed" start-time="2026-11-24 05:36:56Z" end-time="2026-11-24 05:37:43Z" duration="46.969443" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="540000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+[V3] new game: puzzles, run score and checkpoint cleared
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+[NewStepwell] built: multi-tier tank, sluice valves, rising raft, monsoon shrine & wet-stone brawl
+[NewVaults] built: underground hall, pressure plates, gear train, light-arc discs & heavy guard fight
+[NewCourtyard] built: Lion Gate, flagstone courtyard, storage hall crime scene, shadow-matching & lookout fight
+[NewWorldDirector] All 6 zones initialized and linked across TempleRing.unity!
+[NewBazaar] built: T market, 3 loop links, 16 villagers, tail / seal / sequence / street fight
+[NewJungleChase] built: 250m jungle trail, river ruins court, inside man deduction & Bhaskar boss fight
+[NewSunWall] built: Sun Wall monument, rotatable mirrors, Konark Chariot Wheel & Kishore fight
+[NewWorldDirector] All 6 zones initialized and linked across TempleRing.unity!
+[Checkpoint] new_bazaar / Banyan arrival at (-52.0, 0.1, -90.0)
+[BatchFriendly] baked 386 renderers into 88 shared materials (total 386)
+[Voice] jeep_approach: played jp_approach_01 (p1 2D )
+[NewWorldDirector] All 6 zones initialized and linked across TempleRing.unity!
+[Heritage] discovered market_craft
+[Voice] area_enter: played mv_area_vaults (p2 2D zone=Vaults)
+[NewZonesQA] PASS Walk reached (-6.0, -5.3, 97.8); feet (-5.42, -5.80, 98.00)
+[PlayerController] Interacting with: el.nz3.BlockA (Push)
+[NewZonesQA] E interaction: el.nz3.BlockA
+[NewZonesQA] PASS Walk reached (10.0, -5.3, 99.8); feet (9.36, -5.80, 99.73)
+[PlayerController] Interacting with: el.nz3.BlockB (Push)
+[NewZonesQA] E interaction: el.nz3.BlockB
+[Voice] puzzle_start: played pz_start_02 (p2 2D )
+[NewZonesQA] PASS Pushable blocks depressed both floor plates
+[NewZonesQA] PASS Walk reached (-12.0, -5.6, 118.2); feet (-12.00, -5.80, 117.58)
+[PlayerController] Interacting with: carry.LooseGear_0 (Pick up Bronze Gear 1)
+[NewZonesQA] E interaction: carry.LooseGear_0
+[NewZonesQA] PASS Walk reached (-16.0, -4.4, 122.0); feet (-16.00, -5.80, 121.50)
+[PlayerController] Interacting with: el.nz3.peg.0 (Place Bronze Gear 1)
+[NewZonesQA] E interaction: el.nz3.peg.0
+[NewZonesQA] PASS Walk reached (-8.0, -5.6, 118.2); feet (-8.00, -5.80, 117.58)
+[PlayerController] Interacting with: carry.LooseGear_1 (Pick up Bronze Gear 2)
+[NewZonesQA] E interaction: carry.LooseGear_1
+[NewZonesQA] PASS Walk reached (-4.0, -4.4, 122.0); feet (-4.00, -5.80, 121.50)
+[PlayerController] Interacting with: el.nz3.peg.1 (Place Bronze Gear 2)
+[NewZonesQA] E interaction: el.nz3.peg.1
+[NewZonesQA] PASS Walk reached (-7.0, -4.8, 122.2); feet (-7.00, -5.80, 121.58)
+[PlayerController] Interacting with: el.nz3.crank (Turn)
+[NewZonesQA] E interaction: el.nz3.crank
+[NewZonesQA] PASS Gear train connected and crank rotated
+[NewZonesQA] PASS Walk reached (-4.0, -5.8, 129.8); feet (-4.00, -5.80, 129.50)
+[PlayerController] Interacting with: el.nz3.disc.0 (Turn)
+[NewZonesQA] E interaction: el.nz3.disc.0
+[NewZonesQA] PASS Walk reached (-4.0, -5.8, 129.8); feet (-4.00, -5.80, 129.50)
+[PlayerController] Interacting with: el.nz3.disc.0 (Turn)
+[NewZonesQA] E interaction: el.nz3.disc.0
+[NewZonesQA] PASS Walk reached (0.0, -5.8, 129.8); feet (0.00, -5.80, 129.50)
+[PlayerController] Interacting with: el.nz3.disc.1 (Turn)
+[NewZonesQA] E interaction: el.nz3.disc.1
+[NewZonesQA] PASS Walk reached (0.0, -5.8, 129.8); feet (0.00, -5.80, 129.50)
+[PlayerController] Interacting with: el.nz3.disc.1 (Turn)
+[NewZonesQA] E interaction: el.nz3.disc.1
+[NewZonesQA] PASS Walk reached (0.0, -5.8, 129.8); feet (0.00, -5.80, 129.50)
+[PlayerController] Interacting with: el.nz3.disc.1 (Turn)
+[NewZonesQA] E interaction: el.nz3.disc.1
+[NewZonesQA] PASS Walk reached (0.0, -5.8, 129.8); feet (0.00, -5.80, 129.50)
+[PlayerController] Interacting with: el.nz3.disc.1 (Turn)
+[NewZonesQA] E interaction: el.nz3.disc.1
+[NewZonesQA] PASS Walk reached (0.0, -5.8, 129.8); feet (0.00, -5.80, 129.50)
+[PlayerController] Interacting with: el.nz3.disc.1 (Turn)
+[Voice] puzzle_almost: played pz_almost_01 (p2 2D )
+[NewZonesQA] E interaction: el.nz3.disc.1
+[NewZonesQA] PASS Walk reached (4.0, -5.8, 129.8); feet (4.00, -5.80, 129.50)
+[PlayerController] Interacting with: el.nz3.disc.2 (Turn)
+[NewZonesQA] E interaction: el.nz3.disc.2
+[NewZonesQA] PASS Walk reached (4.0, -5.8, 129.8); feet (4.00, -5.80, 129.50)
+[PlayerController] Interacting with: el.nz3.disc.2 (Turn)
+[NewZonesQA] E interaction: el.nz3.disc.2
+[NewZonesQA] PASS Walk reached (4.0, -5.8, 129.8); feet (4.00, -5.80, 129.50)
+[PlayerController] Interacting with: el.nz3.disc.2 (Turn)
+[Puzzle] nz3.vault_puzzles solved in 24.4s with 0 hint(s)
+[Voice] puzzle_solved: played pz_solved_03 (p3 2D )
+[Checkpoint] new_vaults / before_fight at (4.0, -5.8, 129.5)
+[Brawl] new_vaults: fight begins against 2
+[Voice] enemy_spotted: queued rb_spot_vault (behind p3)
+[Voice] fight_start: queued cb_start_01 (behind p3)
+[NewZonesQA] E interaction: el.nz3.disc.2
+[NewZonesQA] PASS Three stone discs aligned to roof light pattern (2, 5, 3)
+[Voice] enemy_spotted: played rb_spot_vault (p3 3D enemy=robber)
+[Voice] fight_start: played cb_start_01 (p3 2D )
+[Voice] move_first: played mv_first_01 (p2 2D )
+[Brawl] finisher on Corridor Enforcer (1 left)
+[Voice] fight_finish: played cb_finish_02 (p2 2D )
+[Brawl] new_vaults: won in 12.5s, damage taken 20, max combo 11, parries 0, finishers 2, retries 0
+[GameSfx] missing clip sfx_item_recovered
+[Voice] fight_won: interrupts cb_won_01 (over cb_finish_02 (p2))
+[Voice] fight_won: played cb_won_01 (p3 2D )
+[NewZonesQA] Fight: won=True, seconds=12.5, damage=20.0, retries=0, combo=11, finishers=2
+[Brawl] finisher on Heavy Vault Sentinel (0 left)
+[NewZonesQA] PASS Heavy vault guard defeated
+[NewZonesQA] PASS Walk reached (0.0, -5.2, 135.8); feet (0.00, -5.80, 135.50)
+[PlayerController] Interacting with: treasure.Sun Rosette (vaults) (Take Sun Rosette (vaults))
+[Treasure] recovered Sun Rosette (vaults) in new_vaults; zone points now 3900
+[NewVaults] COMPLETE: Sun Rosette + Ledger recovered! Score=3900
+[Voice] clue_found: played ex_clue_ledger (p3 2D evidence=ledger)
+[NewZonesQA] E interaction: treasure.Sun Rosette (vaults)
+[NewZonesQA] PASS Sun Rosette and duty ledger recovered
+[NewZonesQA] Frame sample: 58.1 fps mean, 115.7 ms maximum; 640×480, editor=True.
+[NewZonesQA] Score 3900, grade S.
+[NewZonesQA] RESULT: PASS
+Saving results to: /Users/hemanth/Library/Application Support/DefaultCompany/My project/TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>
