@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="2" result="Passed" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-24 19:22:56Z" end-time="2026-11-24 19:23:04Z" duration="7.4724795">
+  <test-suite type="TestSuite" id="1085" name="My project" fullname="My project" runstate="Runnable" testcasecount="65" result="Passed" start-time="2026-11-24 19:22:56Z" end-time="2026-11-24 19:23:04Z" duration="7.472480" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1164" name="LOT.Grounding.PlayModeTests.dll" fullname="/Users/hemanth/Desktop/GDIT/My project/Library/ScriptAssemblies/LOT.Grounding.PlayModeTests.dll" runstate="Runnable" testcasecount="65" result="Passed" start-time="2026-11-24 19:22:56Z" end-time="2026-11-24 19:23:04Z" duration="7.467930" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="13642" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+      <test-suite type="TestSuite" id="1165" name="LegacyOfTemples" fullname="LegacyOfTemples" runstate="Runnable" testcasecount="57" result="Passed" start-time="2026-11-24 19:22:56Z" end-time="2026-11-24 19:23:04Z" duration="7.452663" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+        <test-suite type="TestSuite" id="1166" name="Tests" fullname="LegacyOfTemples.Tests" runstate="Runnable" testcasecount="57" result="Passed" start-time="2026-11-24 19:22:56Z" end-time="2026-11-24 19:23:04Z" duration="7.435825" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+          <test-suite type="TestFixture" id="1154" name="UpgradeVerificationTests" fullname="LegacyOfTemples.Tests.UpgradeVerificationTests" classname="LegacyOfTemples.Tests.UpgradeVerificationTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-11-24 19:22:56Z" end-time="2026-11-24 19:23:04Z" duration="7.418878" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+            <test-case id="1155" name="Courtyard_BlackGateSealed_NoRawTempleMesh" fullname="LegacyOfTemples.Tests.UpgradeVerificationTests.Courtyard_BlackGateSealed_NoRawTempleMesh" methodname="Courtyard_BlackGateSealed_NoRawTempleMesh" classname="LegacyOfTemples.Tests.UpgradeVerificationTests" runstate="Runnable" seed="1544364499" result="Passed" start-time="2026-11-24 19:22:56Z" end-time="2026-11-24 19:23:00Z" duration="3.307874" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="60000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+[V3] new game: puzzles, run score and checkpoint cleared
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+[Weather] scene Courtyard: target=0.00, interior=False, quality=2
+[CharacterManager] Player placed in Courtyard: spawn=Spawn_player_start (0.00, 0.05, 15.00) -> player (0.00, 0.00, 15.00)
+[CharacterManager] Player placed in Courtyard: spawn=Spawn_player_start (0.00, 0.05, 15.00) -> player (0.00, 0.00, 15.00)
+[Voice] npc_near: played np_mee_02 (p1 3D speaker=meera)
+[Heritage] discovered pottery
+[Heritage] discovered inventory
+[Heritage] discovered market_craft
+[Heritage] discovered market_transmission
+[TempleSite] grounded Kalinga temple built: 420 triangles, footprint 24 x 25 m, tower top (0.00, 28.65, -91.20)
+[VillageLife] built: 13 villagers, jeep parked
+[BreakIn] zone 2 puzzle built at (17.0, 0.0, -76.0)
+[Stepwell] zone 4 puzzle built at (25.5, 0.0, -94.6)
+[SunWall] zone 5 puzzle built at (-26.0, 0.0, -95.6)
+[Vaults] zone 3 puzzle built at (0.0, 0.0, -121.7)
+[BatchFriendly] baked 1428 renderers into 681 shared materials (total 1428)
+[Heritage] discovered architecture
+[Bazaar] zone 1 built: yard at (21.0, 0.0, 145.0), route 7 points
+[Jungle] zone 6 built: road 24 points from (30.5, 0.0, -140.2), court at (39.5, 0.0, -376.2)
+[BatchFriendly] baked 2438 renderers into 2036 shared materials (total 3866)
+]]></output>
+            </test-case>
+            <test-case id="1156" name="TempleRing_Minimap_JeepReset_OnSpotRetry_AudioChannels" fullname="LegacyOfTemples.Tests.UpgradeVerificationTests.TempleRing_Minimap_JeepReset_OnSpotRetry_AudioChannels" methodname="TempleRing_Minimap_JeepReset_OnSpotRetry_AudioChannels" classname="LegacyOfTemples.Tests.UpgradeVerificationTests" runstate="Runnable" seed="1216511031" result="Passed" start-time="2026-11-24 19:23:00Z" end-time="2026-11-24 19:23:04Z" duration="4.091420" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="90000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[V3] new game: puzzles, run score and checkpoint cleared
+[NewStepwell] built: multi-tier tank, sluice valves, rising raft, monsoon shrine & wet-stone brawl
+[NewVaults] built: underground hall, pressure plates, gear train, light-arc discs & heavy guard fight
+[NewCourtyard] built: Lion Gate, flagstone courtyard, storage hall crime scene, shadow-matching & lookout fight
+[NewWorldDirector] All 6 zones and grounded Kalinga central temple linked cleanly across TempleRing.unity!
+[NewBazaar] built: T market, 3 loop links, 16 villagers, tail / seal / sequence / street fight
+[NewJungleChase] built: 250m jungle trail, river ruins court, inside man deduction & Bhaskar boss fight
+[NewSunWall] built: Sun Wall monument, rotatable mirrors, Konark Chariot Wheel & Kishore fight
+[NewWorldDirector] All 6 zones and grounded Kalinga central temple linked cleanly across TempleRing.unity!
+[Checkpoint] new_bazaar / Banyan arrival at (-52.0, 0.1, -90.0)
+[BatchFriendly] baked 479 renderers into 2134 shared materials (total 4345)
+[NewWorldDirector] All 6 zones and grounded Kalinga central temple linked cleanly across TempleRing.unity!
+[Jeep] Repaired and reset to road at (-52.00, 0.15, -20.00)
+[Checkpoint] zone2 / Courtyard Gate at (0.0, 0.2, 92.0)
+[Checkpoint] zone3 / Underground storage vaults at (0.0, 0.2, 92.0)
+[Voice] area_enter: played mv_area_vaults (p2 2D zone=Vaults)
+[Heritage] discovered market_craft
+Saving results to: /Users/hemanth/Library/Application Support/DefaultCompany/My project/TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

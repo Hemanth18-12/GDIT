@@ -39,12 +39,13 @@ namespace LegacyOfTemples.Gameplay
                 ArtUpgrade.Place(root, new[] { "ceramic_pot", "Barrel_01", "wooden_bowl_02" }[(i + variant) % 3], root.TransformPoint(new Vector3(-2.5f + i * 2.4f, 0f, -4.8f)), 1.1f, i * 53f);
             ArtUpgrade.Place(root, "WoodenTable_01", root.TransformPoint(new Vector3(0f, 0f, -5.5f)), 1.1f, yaw, true);
         }
-        public static void Road(Transform p, Vector3[] points, float width)
+        public static void Road(Transform p, Vector3[] points, float width, bool solid = true)
         {
             for (int i = 1; i < points.Length; i++)
             {
-                Vector3 d = points[i] - points[i - 1]; var r = Box(p, "Gravel road", (points[i] + points[i - 1]) * 0.5f + Vector3.up * 0.025f, new Vector3(width, 0.05f, d.magnitude + 0.4f), "stony_dirt_path", false);
+                Vector3 d = points[i] - points[i - 1]; var r = Box(p, "Gravel road", (points[i] + points[i - 1]) * 0.5f + Vector3.up * 0.01f, new Vector3(width, 0.06f, d.magnitude + 0.4f), "stony_dirt_path", solid);
                 r.transform.localRotation = Quaternion.LookRotation(d);
+                if (solid && width >= 6f) r.AddComponent<DriveableRoad>();
             }
         }
     }

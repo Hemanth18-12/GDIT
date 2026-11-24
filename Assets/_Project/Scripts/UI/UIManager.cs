@@ -919,7 +919,7 @@ namespace LegacyOfTemples.UI
             rt.anchorMax = new Vector2(0.5f, 0.5f);
             rt.pivot = new Vector2(0.5f, 0.5f);
             rt.anchoredPosition = Vector2.zero;
-            rt.sizeDelta = new Vector2(980f, 740f);
+            rt.sizeDelta = new Vector2(980f, 830f);
 
             pausePanelBg = pausePanel.AddComponent<Image>();
             pausePanelBg.sprite = CreateColorSprite(ColorPanelBgNormal);
@@ -952,6 +952,11 @@ namespace LegacyOfTemples.UI
                 TogglePause();
                 HintTutorial.Restart();
             });
+            CreateMenuButton(pausePanel.transform, "Retry Section Here", new Vector2(0f, startY - 110f), () =>
+            {
+                TogglePause();
+                DawnClock.Instance?.RetryOnSpot(false);
+            });
             CreateMenuButton(pausePanel.transform, "Investigation Journal [J]", new Vector2(0f, startY - 165f), () =>
             {
                 TogglePause();
@@ -970,8 +975,8 @@ namespace LegacyOfTemples.UI
             srt.anchorMin = new Vector2(0.5f, 0f);
             srt.anchorMax = new Vector2(0.5f, 0f);
             srt.pivot = new Vector2(0.5f, 0f);
-            srt.anchoredPosition = new Vector2(0f, 25f);
-            srt.sizeDelta = new Vector2(900f, 310f);
+            srt.anchoredPosition = new Vector2(0f, 20f);
+            srt.sizeDelta = new Vector2(900f, 405f);
             Image sbg = settingsBox.AddComponent<Image>();
             sbg.color = new Color(0.10f, 0.12f, 0.16f, 0.92f);
 
@@ -1059,10 +1064,12 @@ namespace LegacyOfTemples.UI
             hcbtrt.sizeDelta = Vector2.zero;
             allTextElements.Add(hcbt);
 
-            // Volume Sliders (Master, Music, SFX)
-            CreateVolumeSliderRow(settingsBox.transform, "Master Volume", new Vector2(30f, -125f), AudioManager.Instance.MasterVolume, (v) => AudioManager.Instance.SetMasterVolume(v));
-            CreateVolumeSliderRow(settingsBox.transform, "Music Volume", new Vector2(30f, -180f), AudioManager.Instance.MusicVolume, (v) => AudioManager.Instance.SetMusicVolume(v));
-            CreateVolumeSliderRow(settingsBox.transform, "SFX Volume", new Vector2(30f, -235f), AudioManager.Instance.SFXVolume, (v) => AudioManager.Instance.SetSFXVolume(v));
+            // Volume Sliders (Master, Music, Ambience, SFX, Voice)
+            CreateVolumeSliderRow(settingsBox.transform, "Master Volume", new Vector2(30f, -125f), AudioManager.Instance.MasterVolume, v => { PlayerPrefs.SetFloat("Settings_MasterVol", v); AudioManager.Instance.SetMasterVolume(v); });
+            CreateVolumeSliderRow(settingsBox.transform, "Music Volume", new Vector2(30f, -173f), AudioManager.Instance.MusicVolume, v => { PlayerPrefs.SetFloat("Settings_MusicVol", v); AudioManager.Instance.SetMusicVolume(v); });
+            CreateVolumeSliderRow(settingsBox.transform, "Ambience Volume", new Vector2(30f, -221f), AudioManager.Instance.AmbienceVolume, v => AudioManager.Instance.SetAmbienceVolume(v));
+            CreateVolumeSliderRow(settingsBox.transform, "SFX Volume", new Vector2(30f, -269f), AudioManager.Instance.SFXVolume, v => { PlayerPrefs.SetFloat("Settings_SfxVol", v); AudioManager.Instance.SetSFXVolume(v); });
+            CreateVolumeSliderRow(settingsBox.transform, "Voice Volume", new Vector2(30f, -317f), VoicePlayer.Volume, v => { VoicePlayer.Volume = v; AudioManager.Instance.SetVoiceVolume(v); });
 
             pausePanel.SetActive(false);
         }

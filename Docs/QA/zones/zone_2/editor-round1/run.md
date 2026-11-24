@@ -1,8 +1,8 @@
 # New Courtyard — fresh gameplay run
 
-PASS Walk reached (0.0, 0.0, 65.0); feet (0.00, 0.11, 64.41)
+PASS Walk reached (0.0, 0.0, 65.0); feet (0.00, 0.10, 64.41)
 
-PASS Walk reached (10.0, 0.1, 81.2); feet (10.00, 0.11, 80.57)
+PASS Walk reached (10.0, 0.1, 81.2); feet (10.00, 0.11, 80.58)
 
 E interaction: carry.Base shard
 
@@ -10,7 +10,7 @@ PASS Walk reached (23.0, 0.5, 107.8); feet (23.00, 0.31, 107.20)
 
 E interaction: el.nz2.socket.0
 
-PASS Walk reached (-12.0, 0.1, 97.2); feet (-12.00, 0.45, 96.58)
+PASS Walk reached (-12.0, 0.1, 97.2); feet (-12.00, 0.11, 96.58)
 
 E interaction: carry.Handle shard
 
@@ -34,7 +34,7 @@ E interaction: carry.Standing Brass Lantern
 
 PASS Walk reached (26.0, 0.2, 109.2); feet (26.00, 0.31, 108.58)
 
-PASS Walk reached (16.1, 1.6, 105.4); feet (16.67, 0.46, 105.18)
+PASS Walk reached (16.1, 1.6, 105.4); feet (16.67, 0.31, 105.18)
 
 E interaction: el.nz2.lock_plate
 
@@ -46,19 +46,19 @@ E interaction: el.nz2.flagstone
 
 PASS Flagstone lifted: lookout escape rope exposed
 
-Fight: won=True, seconds=20.1, damage=60.0, retries=0, combo=2, finishers=1
+Fight: won=True, seconds=5.7, damage=12.0, retries=0, combo=4, finishers=1
 
 PASS Lookout mini-brawl won
 
-PASS Walk reached (15.0, 0.1, 98.8); feet (15.00, 0.45, 98.50)
+PASS Walk reached (15.0, 0.1, 98.8); feet (15.00, 0.11, 98.50)
 
 E interaction: treasure.Palm-Leaf Chronicle (courtyard)
 
 PASS Palm-Leaf Chronicle recovered
 
-Frame sample: 57.8 fps mean, 134.4 ms maximum; 640×480, editor=True.
+Frame sample: 38.9 fps mean, 1650.5 ms maximum; 640×480, editor=True.
 
-Score 3350, grade A.
+Score 3690, grade S.
 
 RESULT: PASS
 

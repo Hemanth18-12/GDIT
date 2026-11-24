@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="17" result="Passed" total="17" passed="17" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-24 04:12:24Z" end-time="2026-11-24 04:14:20Z" duration="115.6068565">
+  <test-suite type="TestSuite" id="1069" name="My project" fullname="My project" runstate="Runnable" testcasecount="52" result="Passed" start-time="2026-11-24 04:12:24Z" end-time="2026-11-24 04:14:20Z" duration="115.606857" total="17" passed="17" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1132" name="LOT.Grounding.PlayModeTests.dll" fullname="/Users/hemanth/Desktop/GDIT/My project/Library/ScriptAssemblies/LOT.Grounding.PlayModeTests.dll" runstate="Runnable" testcasecount="52" result="Passed" start-time="2026-11-24 04:12:24Z" end-time="2026-11-24 04:14:20Z" duration="115.603177" total="17" passed="17" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="2335" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+      <test-suite type="TestSuite" id="1133" name="LegacyOfTemples" fullname="LegacyOfTemples" runstate="Runnable" testcasecount="44" result="Passed" start-time="2026-11-24 04:12:24Z" end-time="2026-11-24 04:14:16Z" duration="111.839712" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+        <test-suite type="TestSuite" id="1134" name="Tests" fullname="LegacyOfTemples.Tests" runstate="Runnable" testcasecount="44" result="Passed" start-time="2026-11-24 04:12:24Z" end-time="2026-11-24 04:14:16Z" duration="111.822842" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+          <test-suite type="TestFixture" id="1113" name="ReviewRegressionTests" fullname="LegacyOfTemples.Tests.ReviewRegressionTests" classname="LegacyOfTemples.Tests.ReviewRegressionTests" runstate="Runnable" testcasecount="9" result="Passed" start-time="2026-11-24 04:12:24Z" end-time="2026-11-24 04:14:16Z" duration="111.805686" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+            <test-case id="1114" name="Courtyard_AuthoredSteps_ClimbAboveOneMetre_AndJump" fullname="LegacyOfTemples.Tests.ReviewRegressionTests.Courtyard_AuthoredSteps_ClimbAboveOneMetre_AndJump" methodname="Courtyard_AuthoredSteps_ClimbAboveOneMetre_AndJump" classname="LegacyOfTemples.Tests.ReviewRegressionTests" runstate="Runnable" seed="1138569738" result="Passed" start-time="2026-11-24 04:12:24Z" end-time="2026-11-24 04:12:37Z" duration="12.417116" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+[Weather] scene Courtyard: target=0.00, interior=False, quality=2
+[CharacterManager] Player placed in Courtyard: spawn=Spawn_player_start (0.00, 0.05, 15.00) -> player (0.00, 0.00, 15.00)
+[CharacterManager] Player placed in Courtyard: spawn=Spawn_player_start (0.00, 0.05, 15.00) -> player (0.00, 0.00, 15.00)
+[Voice] npc_near: played np_puj_02 (p1 3D speaker=pujari)
+[BatchFriendly] baked 222 renderers into 203 shared materials (total 222)
+[TempleSite] temple placed: 1867721 triangles, footprint 247 x 108 m, height 61 m, tower top (-111.34, 61.05, -149.14)
+[VillageLife] built: 13 villagers, jeep parked
+[BatchFriendly] baked 1045 renderers into 569 shared materials (total 1267)
+[BreakIn] zone 2 puzzle built at (-17.0, 0.0, -74.0)
+[Stepwell] zone 4 puzzle built at (137.1, 0.0, -134.0)
+[SunWall] zone 5 puzzle built at (-137.6, 0.0, -135.0)
+[Vaults] zone 3 puzzle built at (0.0, 0.0, -202.5)
+[Bazaar] zone 1 built: yard at (21.0, 0.0, 145.0), route 7 points
+[Jungle] zone 6 built: road 24 points from (30.5, 0.0, -221.0), court at (39.5, 0.0, -457.0)
+[TempleLife] bell, 8 lamp stands, 6 reflection probes
+[BatchFriendly] baked 2542 renderers into 1990 shared materials (total 3809)
+[Review] Courtyard actual steps: startFeet=0.005, topFeet=1.205, z=-0.363, enabled=True, cc=True, keyW=False, moving=False, blocked=False
+[Review] Jump on upper tread: rise=0.667, landingError=0.000
+]]></output>
+            </test-case>
+            <test-case id="1116" name="Dialogue_PlainNpcLine_UsesRecordedVoice" fullname="LegacyOfTemples.Tests.ReviewRegressionTests.Dialogue_PlainNpcLine_UsesRecordedVoice" methodname="Dialogue_PlainNpcLine_UsesRecordedVoice" classname="LegacyOfTemples.Tests.ReviewRegressionTests" runstate="Runnable" seed="1318976825" result="Passed" start-time="2026-11-24 04:12:37Z" end-time="2026-11-24 04:12:45Z" duration="8.216269" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Weather] scene Sanctum: target=0.00, interior=True, quality=2
+[CharacterManager] Player placed in Sanctum: spawn=Spawn_player_start (0.00, 0.05, 5.00) -> player (0.00, 0.00, 5.00)
+[CharacterManager] Player placed in Sanctum: spawn=Spawn_player_start (0.00, 0.05, 5.00) -> player (0.00, 0.00, 5.00)
+[BatchFriendly] baked 54 renderers into 2044 shared materials (total 3863)
+[Voice] story:dialogue: played v3_puj_01 (story line)
+[Review] Plain NPC dialogue triggered Pujari recording v3_puj_01
+]]></output>
+            </test-case>
+            <test-case id="1120" name="Fight_RealInputs_ImpactPool_Music_AndHurtFeedback" fullname="LegacyOfTemples.Tests.ReviewRegressionTests.Fight_RealInputs_ImpactPool_Music_AndHurtFeedback" methodname="Fight_RealInputs_ImpactPool_Music_AndHurtFeedback" classname="LegacyOfTemples.Tests.ReviewRegressionTests" runstate="Runnable" seed="1566807608" result="Passed" start-time="2026-11-24 04:12:45Z" end-time="2026-11-24 04:12:56Z" duration="11.285641" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Voice] dialogue: stopped v3_puj_01 (scene change)
+[Weather] scene Courtyard: target=0.00, interior=False, quality=2
+[CharacterManager] Player placed in Courtyard: spawn=Spawn_player_start (0.00, 0.05, 15.00) -> player (0.00, 0.00, 15.00)
+[CharacterManager] Player placed in Courtyard: spawn=Spawn_player_start (0.00, 0.05, 15.00) -> player (0.00, 0.00, 15.00)
+[BreakIn] zone 2 puzzle built at (17.0, 0.0, -74.0)
+[Stepwell] zone 4 puzzle built at (137.1, 0.0, -134.0)
+[SunWall] zone 5 puzzle built at (-137.6, 0.0, -135.0)
+[Vaults] zone 3 puzzle built at (0.0, 0.0, -202.5)
+[Bazaar] zone 1 built: yard at (20.9, 0.0, 129.0), route 7 points
+[Jungle] zone 6 built: road 24 points from (30.5, 0.0, -221.0), court at (39.5, 0.0, -457.0)
+[TempleSite] temple placed: 1867721 triangles, footprint 247 x 108 m, height 61 m, tower top (-111.34, 61.05, -149.14)
+[VillageLife] built: 13 villagers, jeep parked
+[BatchFriendly] baked 3808 renderers into 2313 shared materials (total 7671)
+[TempleLife] bell, 8 lamp stands, 6 reflection probes
+[Checkpoint] fixpass / before_fight at (950.0, 0.0, 950.0)
+[Brawl] fixpass: fight begins against 1
+[Voice] fight_start: played cb_start_02 (p3 2D )
+[Review] Fight inputs: enemyHP=90->60, heroHP=100->88, flashes=3, swings=3, music=Combat
+]]></output>
+            </test-case>
+            <test-case id="1118" name="HeritageNotes_DiscoverAtPlace_BrowseAndReset" fullname="LegacyOfTemples.Tests.ReviewRegressionTests.HeritageNotes_DiscoverAtPlace_BrowseAndReset" methodname="HeritageNotes_DiscoverAtPlace_BrowseAndReset" classname="LegacyOfTemples.Tests.ReviewRegressionTests" runstate="Runnable" seed="1800968126" result="Passed" start-time="2026-11-24 04:12:56Z" end-time="2026-11-24 04:13:06Z" duration="9.418761" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Weather] scene Courtyard: target=0.00, interior=False, quality=2
+[CharacterManager] Player placed in Courtyard: spawn=Spawn_player_start (0.00, 0.05, 15.00) -> player (0.00, 0.00, 15.00)
+[CharacterManager] Player placed in Courtyard: spawn=Spawn_player_start (0.00, 0.05, 15.00) -> player (0.00, 0.00, 15.00)
+[BreakIn] zone 2 puzzle built at (17.0, 0.0, -74.0)
+[Stepwell] zone 4 puzzle built at (137.1, 0.0, -134.0)
+[SunWall] zone 5 puzzle built at (-137.6, 0.0, -135.0)
+[Vaults] zone 3 puzzle built at (0.0, 0.0, -202.5)
+[Bazaar] zone 1 built: yard at (20.9, 0.0, 129.0), route 7 points
+[Jungle] zone 6 built: road 24 points from (30.5, 0.0, -221.0), court at (39.5, 0.0, -457.0)
+[TempleSite] temple placed: 1867721 triangles, footprint 247 x 108 m, height 61 m, tower top (-111.34, 61.05, -149.14)
+[VillageLife] built: 13 villagers, jeep parked
+[BatchFriendly] baked 3808 renderers into 2561 shared materials (total 11479)
+[TempleLife] bell, 8 lamp stands, 6 reflection probes
+[Heritage] discovered architecture
+[Review] Place discovery, source display, backward page wrap and New Game note reset passed.
+]]></output>
+            </test-case>
+            <test-case id="1122" name="Jeep_BlockedDriverSide_UsesClearExit_AndKeepsHeroGrounded" fullname="LegacyOfTemples.Tests.ReviewRegressionTests.Jeep_BlockedDriverSide_UsesClearExit_AndKeepsHeroGrounded" methodname="Jeep_BlockedDriverSide_UsesClearExit_AndKeepsHeroGrounded" classname="LegacyOfTemples.Tests.ReviewRegressionTests" runstate="Runnable" seed="471576853" result="Passed" start-time="2026-11-24 04:13:06Z" end-time="2026-11-24 04:13:25Z" duration="19.523516" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Weather] scene Courtyard: target=0.00, interior=False, quality=2
+[CharacterManager] Player placed in Courtyard: spawn=Spawn_player_start (0.00, 0.05, 15.00) -> player (0.00, 0.00, 15.00)
+[CharacterManager] Player placed in Courtyard: spawn=Spawn_player_start (0.00, 0.05, 15.00) -> player (0.00, 0.00, 15.00)
+[BreakIn] zone 2 puzzle built at (17.0, 0.0, -74.0)
+[Stepwell] zone 4 puzzle built at (137.1, 0.0, -134.0)
+[SunWall] zone 5 puzzle built at (-137.6, 0.0, -135.0)
+[Vaults] zone 3 puzzle built at (0.0, 0.0, -202.5)
+[Bazaar] zone 1 built: yard at (20.9, 0.0, 129.0), route 7 points
+[Jungle] zone 6 built: road 24 points from (30.5, 0.0, -221.0), court at (39.5, 0.0, -457.0)
+[TempleSite] temple placed: 1867721 triangles, footprint 247 x 108 m, height 61 m, tower top (-111.34, 61.05, -149.14)
+[VillageLife] built: 13 villagers, jeep parked
+[BatchFriendly] baked 3808 renderers into 2808 shared materials (total 15287)
+[TempleLife] bell, 8 lamp stands, 6 reflection probes
+[Voice] jeep_enter: played jp_enter_02 (p2 2D )
+[SeatedPose] seat=(800.40, 0.84, 799.85) hips=(800.40, 0.84, 799.85) root=(800.40, -0.06, 799.59) head=(800.40, 1.47, 799.74)
+[Review] Jeep blocked-door exit: old=(801.750, 0.061, 801.214), actual=(798.250, 0.005, 801.212), feet=0.005, enabled=True
+[Traversal] vehicle roof recovery to (802.800, 0.005, 801.163)
+[Review] Jeep roof contact recovered to clear ground without moving the parked car.
+]]></output>
+            </test-case>
+            <test-case id="1115" name="Jungle_Authored35cmSteps_ClimbAndDescend" fullname="LegacyOfTemples.Tests.ReviewRegressionTests.Jungle_Authored35cmSteps_ClimbAndDescend" methodname="Jungle_Authored35cmSteps_ClimbAndDescend" classname="LegacyOfTemples.Tests.ReviewRegressionTests" runstate="Runnable" seed="1635925354" result="Passed" start-time="2026-11-24 04:13:25Z" end-time="2026-11-24 04:13:39Z" duration="13.365220" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Weather] scene JunglePath: target=0.00, interior=False, quality=2
+[CharacterManager] Player placed in JunglePath: spawn=Spawn_player_start (0.00, 0.00, 18.00) -> player (0.00, 0.00, 18.00)
+[CharacterManager] Player placed in JunglePath: spawn=Spawn_player_start (0.00, 0.00, 18.00) -> player (0.00, 0.00, 18.00)
+[BatchFriendly] baked 382 renderers into 2992 shared materials (total 15669)
+[Review] Jungle actual steps: startFeet=0.005, topFeet=2.455, targetTop=2.450, z=-10.646, enabled=True, cc=True, moving=False, blocked=False
+]]></output>
+            </test-case>
+            <test-case id="1121" name="LedgeHop_OneMetre_AndBlockedWallRecovery" fullname="LegacyOfTemples.Tests.ReviewRegressionTests.LedgeHop_OneMetre_AndBlockedWallRecovery" methodname="LedgeHop_OneMetre_AndBlockedWallRecovery" classname="LegacyOfTemples.Tests.ReviewRegressionTests" runstate="Runnable" seed="1127985892" result="Passed" start-time="2026-11-24 04:13:39Z" end-time="2026-11-24 04:13:53Z" duration="14.034668" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Weather] scene Sanctum: target=0.00, interior=True, quality=2
+[CharacterManager] Player placed in Sanctum: spawn=Spawn_player_start (0.00, 0.05, 5.00) -> player (0.00, 0.00, 5.00)
+[CharacterManager] Player placed in Sanctum: spawn=Spawn_player_start (0.00, 0.05, 5.00) -> player (0.00, 0.00, 5.00)
+[Voice] npc_near: played np_mee_01 (p1 3D speaker=meera)
+[BatchFriendly] baked 54 renderers into 3045 shared materials (total 15723)
+[Traversal] ledge hop 1.00 m from (900.000, 0.005, 899.550) to (900.000, 1.005, 900.480)
+[Review] Ledge hop landed with feet=1.005
+[Traversal] stuck recovery to (900.750, 0.005, 901.170)
+[Review] Blocked-wall recoveries=1, position=(900.750, 0.005, 901.170)
+]]></output>
+            </test-case>
+            <test-case id="1117" name="NpcReminder_UsesObjectiveRecording_WithoutAdvancingStory" fullname="LegacyOfTemples.Tests.ReviewRegressionTests.NpcReminder_UsesObjectiveRecording_WithoutAdvancingStory" methodname="NpcReminder_UsesObjectiveRecording_WithoutAdvancingStory" classname="LegacyOfTemples.Tests.ReviewRegressionTests" runstate="Runnable" seed="174326649" result="Passed" start-time="2026-11-24 04:13:53Z" end-time="2026-11-24 04:14:01Z" duration="8.644582" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Weather] scene Courtyard: target=0.00, interior=False, quality=2
+[CharacterManager] Player placed in Courtyard: spawn=Spawn_player_start (0.00, 0.05, 15.00) -> player (0.00, 0.00, 15.00)
+[CharacterManager] Player placed in Courtyard: spawn=Spawn_player_start (0.00, 0.05, 15.00) -> player (0.00, 0.00, 15.00)
+[BreakIn] zone 2 puzzle built at (17.0, 0.0, -74.0)
+[Stepwell] zone 4 puzzle built at (137.1, 0.0, -134.0)
+[SunWall] zone 5 puzzle built at (-137.6, 0.0, -135.0)
+[Vaults] zone 3 puzzle built at (0.0, 0.0, -202.5)
+[Bazaar] zone 1 built: yard at (20.9, 0.0, 129.0), route 7 points
+[Jungle] zone 6 built: road 24 points from (30.5, 0.0, -221.0), court at (39.5, 0.0, -457.0)
+[TempleSite] temple placed: 1867721 triangles, footprint 247 x 108 m, height 61 m, tower top (-111.34, 61.05, -149.14)
+[VillageLife] built: 13 villagers, jeep parked
+[BatchFriendly] baked 3808 renderers into 3290 shared materials (total 19531)
+[TempleLife] bell, 8 lamp stands, 6 reflection probes
+[Story] Conversation start: '' with priest
+[Voice] story:dialogue: played rem_pujari_obj_c0_reach (story line)
+[Review] Objective reminder playing: rem_pujari_obj_c0_reach
+[Story] Conversation finished: ''
+[NPCDialogueTrigger] Dialogue ended with Pujari Ananda.
+]]></output>
+            </test-case>
+            <test-case id="1119" name="Stepwell_BothAuthoredRamps_ReachFiveMetreRim" fullname="LegacyOfTemples.Tests.ReviewRegressionTests.Stepwell_BothAuthoredRamps_ReachFiveMetreRim" methodname="Stepwell_BothAuthoredRamps_ReachFiveMetreRim" classname="LegacyOfTemples.Tests.ReviewRegressionTests" runstate="Runnable" seed="332162569" result="Passed" start-time="2026-11-24 04:14:01Z" end-time="2026-11-24 04:14:16Z" duration="14.878396" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Weather] scene Courtyard: target=0.00, interior=False, quality=2
+[CharacterManager] Player placed in Courtyard: spawn=Spawn_player_start (0.00, 0.05, 15.00) -> player (0.00, 0.00, 15.00)
+[CharacterManager] Player placed in Courtyard: spawn=Spawn_player_start (0.00, 0.05, 15.00) -> player (0.00, 0.00, 15.00)
+[BreakIn] zone 2 puzzle built at (17.0, 0.0, -74.0)
+[Stepwell] zone 4 puzzle built at (137.1, 0.0, -134.0)
+[SunWall] zone 5 puzzle built at (-137.6, 0.0, -135.0)
+[Vaults] zone 3 puzzle built at (0.0, 0.0, -202.5)
+[Bazaar] zone 1 built: yard at (20.9, 0.0, 129.0), route 7 points
+[Jungle] zone 6 built: road 24 points from (30.5, 0.0, -221.0), court at (39.5, 0.0, -457.0)
+[TempleSite] temple placed: 1867721 triangles, footprint 247 x 108 m, height 61 m, tower top (-111.34, 61.05, -149.14)
+[VillageLife] built: 13 villagers, jeep parked
+[BatchFriendly] baked 3808 renderers into 3537 shared materials (total 23339)
+[TempleLife] bell, 8 lamp stands, 6 reflection probes
+[Voice] area_enter: played mv_area_stepwell (p2 2D zone=Stepwell)
+[Review] Stepwell outer ramp: local=(-4.813, 5.210, -8.500), feet=5.210
+[Review] Stepwell inner ramp: local=(-5.250, 5.210, -4.413), feet=5.210
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+      <test-suite type="TestFixture" id="1070" name="VoiceSystemTests" fullname="VoiceSystemTests" classname="VoiceSystemTests" runstate="Runnable" testcasecount="8" result="Passed" start-time="2026-11-24 04:14:16Z" end-time="2026-11-24 04:14:20Z" duration="3.748030" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-case id="1076" name="Chatter_Line_Is_Not_Said_Again_Within_The_Repeat_Gap" fullname="VoiceSystemTests.Chatter_Line_Is_Not_Said_Again_Within_The_Repeat_Gap" methodname="Chatter_Line_Is_Not_Said_Again_Within_The_Repeat_Gap" classname="VoiceSystemTests" runstate="Runnable" seed="1225374355" result="Passed" start-time="2026-11-24 04:14:16Z" end-time="2026-11-24 04:14:16Z" duration="0.083276" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[[Voice] vault_plate: played pz_vault_plate_01 (p2 2D )
+[Voice] vault_plate: stopped pz_vault_plate_01 (test)
+[VoiceTest] repeat gap 45 s on Normal; second vault_plate: no candidate (said 0s ago)
+]]></output>
+        </test-case>
+        <test-case id="1074" name="Cooldown_OnceOnly_And_No_Immediate_Repeat" fullname="VoiceSystemTests.Cooldown_OnceOnly_And_No_Immediate_Repeat" methodname="Cooldown_OnceOnly_And_No_Immediate_Repeat" classname="VoiceSystemTests" runstate="Runnable" seed="1965172365" result="Passed" start-time="2026-11-24 04:14:16Z" end-time="2026-11-24 04:14:16Z" duration="0.083242" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[[Voice] fight_start: played cb_start_02 (p3 2D )
+[Voice] fight_start: stopped cb_start_02 (test)
+[Voice] fight_start: played cb_start_01 (p3 2D )
+[Voice] fight_start: stopped cb_start_01 (test)
+[Voice] fight_start: played cb_start_02 (p3 2D )
+[Voice] fight_start: stopped cb_start_02 (test)
+[Voice] clock_half: played ck_half_01 (p3 2D )
+[Voice] clock_half: stopped ck_half_01 (test)
+]]></output>
+        </test-case>
+        <test-case id="1071" name="Database_Has_Every_Line_With_A_Mono_Clip" fullname="VoiceSystemTests.Database_Has_Every_Line_With_A_Mono_Clip" methodname="Database_Has_Every_Line_With_A_Mono_Clip" classname="VoiceSystemTests" runstate="Runnable" seed="499541371" result="Passed" start-time="2026-11-24 04:14:16Z" end-time="2026-11-24 04:14:17Z" duration="0.083121" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-case id="1072" name="Every_Trigger_Can_Speak" fullname="VoiceSystemTests.Every_Trigger_Can_Speak" methodname="Every_Trigger_Can_Speak" classname="VoiceSystemTests" runstate="Runnable" seed="1464715207" result="Passed" start-time="2026-11-24 04:14:17Z" end-time="2026-11-24 04:14:18Z" duration="1.283137" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[[Voice] move_first: played mv_first_01 (p2 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] move_first: stopped mv_first_01 (test reset)
+[Voice] run_long: played mv_run_01 (p1 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] run_long: stopped mv_run_01 (test reset)
+[Voice] run_tired: played mv_tired_01 (p1 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] run_tired: stopped mv_tired_01 (test reset)
+[Voice] jump: played mv_jump_01 (p1 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] jump: stopped mv_jump_01 (test reset)
+[Voice] land_hard: played mv_land_02 (p1 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] land_hard: stopped mv_land_02 (test reset)
+[Voice] area_enter: played mv_area_vaults (p2 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] area_enter: stopped mv_area_vaults (test reset)
+[Voice] danger_drop: played mv_danger_02 (p2 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] danger_drop: stopped mv_danger_02 (test reset)
+[Voice] rain: played mv_rain_02 (p1 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] rain: stopped mv_rain_02 (test reset)
+[Voice] lost: played mv_lost_02 (p2 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] lost: stopped mv_lost_02 (test reset)
+[Voice] dead_end: played mv_deadend_01 (p1 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] dead_end: stopped mv_deadend_01 (test reset)
+[Voice] jeep_approach: played jp_approach_01 (p1 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] jeep_approach: stopped jp_approach_01 (test reset)
+[Voice] jeep_enter: played jp_enter_01 (p2 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] jeep_enter: stopped jp_enter_01 (test reset)
+[Voice] jeep_start: played jp_start_01 (p1 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] jeep_start: stopped jp_start_01 (test reset)
+[Voice] jeep_drive_off: played jp_off_01 (p1 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] jeep_drive_off: stopped jp_off_01 (test reset)
+[Voice] jeep_fast: played jp_fast_02 (p1 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] jeep_fast: stopped jp_fast_02 (test reset)
+[Voice] jeep_drift: played jp_drift_01 (p2 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] jeep_drift: stopped jp_drift_01 (test reset)
+[Voice] jeep_handbrake: played jp_brake_01 (p1 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] jeep_handbrake: stopped jp_brake_01 (test reset)
+[Voice] jeep_near_miss: played jp_near_01 (p2 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] jeep_near_miss: stopped jp_near_01 (test reset)
+[Voice] jeep_crash_light: played jp_crash1_02 (p2 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] jeep_crash_light: stopped jp_crash1_02 (test reset)
+[Voice] jeep_crash_heavy: played jp_crash2_01 (p3 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] jeep_crash_heavy: stopped jp_crash2_01 (test reset)
+[Voice] jeep_smoke: played jp_smoke_01 (p3 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] jeep_smoke: stopped jp_smoke_01 (test reset)
+[Voice] jeep_engine_dead: played jp_dead_01 (p4 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] jeep_engine_dead: stopped jp_dead_01 (test reset)
+[Voice] jeep_stuck: played jp_stuck_01 (p2 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] jeep_stuck: stopped jp_stuck_01 (test reset)
+[Voice] jeep_arrive: played jp_arrive_01 (p3 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] jeep_arrive: stopped jp_arrive_01 (test reset)
+[Voice] jeep_exit: played jp_exit_01 (p1 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] jeep_exit: stopped jp_exit_01 (test reset)
+[Voice] jeep_park: played jp_park_01 (p1 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] jeep_park: stopped jp_park_01 (test reset)
+[Voice] notice: played ex_notice_01 (p1 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] notice: stopped ex_notice_01 (test reset)
+[Voice] clue_found: played ex_clue_lock (p3 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] clue_found: stopped ex_clue_lock (test reset)
+[Voice] board_ready: played ex_board_01 (p3 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] board_ready: stopped ex_board_01 (test reset)
+[Voice] item_found: played ex_item_02 (p2 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] item_found: stopped ex_item_02 (test reset)
+[Voice] puzzle_start: played pz_start_01 (p2 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] puzzle_start: stopped pz_start_01 (test reset)
+[Voice] puzzle_step: played pz_step_02 (p1 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] puzzle_step: stopped pz_step_02 (test reset)
+[Voice] puzzle_wrong: played pz_wrong_01 (p1 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] puzzle_wrong: stopped pz_wrong_01 (test reset)
+[Voice] puzzle_almost: played pz_almost_02 (p2 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] puzzle_almost: stopped pz_almost_02 (test reset)
+[Voice] puzzle_solved: played pz_solved_01 (p3 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] puzzle_solved: stopped pz_solved_01 (test reset)
+[Voice] hint_1: played pz_hint1_01 (p3 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] hint_1: stopped pz_hint1_01 (test reset)
+[Voice] hint_2: played pz_hint2_01 (p3 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] hint_2: stopped pz_hint2_01 (test reset)
+[Voice] hint_3: played pz_hint3_01 (p3 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] hint_3: stopped pz_hint3_01 (test reset)
+[Voice] pot_shard: played pz_pot_shard_01 (p2 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] pot_shard: stopped pz_pot_shard_01 (test reset)
+[Voice] pot_whole: played pz_pot_whole_01 (p3 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] pot_whole: stopped pz_pot_whole_01 (test reset)
+[Voice] lantern_stain: played pz_lantern_01 (p3 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] lantern_stain: stopped pz_lantern_01 (test reset)
+[Voice] flagstone: played pz_flag_01 (p3 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] flagstone: stopped pz_flag_01 (test reset)
+[Voice] vault_plate: played pz_vault_plate_01 (p2 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] vault_plate: stopped pz_vault_plate_01 (test reset)
+[Voice] vault_gate: played pz_vault_gate_01 (p3 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] vault_gate: stopped pz_vault_gate_01 (test reset)
+[Voice] vault_rings: played pz_vault_rings_01 (p3 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] vault_rings: stopped pz_vault_rings_01 (test reset)
+[Voice] stepwell_sluice: played pz_sluice_01 (p2 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] stepwell_sluice: stopped pz_sluice_01 (test reset)
+[Voice] stepwell_flood: played pz_flood_01 (p3 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] stepwell_flood: stopped pz_flood_01 (test reset)
+[Voice] stepwell_level: played pz_level_01 (p3 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] stepwell_level: stopped pz_level_01 (test reset)
+[Voice] sunwall_mirror: played pz_mirror_01 (p1 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] sunwall_mirror: stopped pz_mirror_01 (test reset)
+[Voice] sunwall_socket: played pz_beam_01 (p3 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] sunwall_socket: stopped pz_beam_01 (test reset)
+[Voice] sunwall_open: played pz_wall_01 (p3 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] sunwall_open: stopped pz_wall_01 (test reset)
+[Voice] bazaar_follow: played bz_follow_01 (p3 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] bazaar_follow: stopped bz_follow_01 (test reset)
+[Voice] bazaar_lookback: played bz_look_01 (p2 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] bazaar_lookback: stopped bz_look_01 (test reset)
+[Voice] bazaar_spotted: played bz_spot_01 (p3 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] bazaar_spotted: stopped bz_spot_01 (test reset)
+[Voice] bazaar_far: played bz_far_01 (p2 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] bazaar_far: stopped bz_far_01 (test reset)
+[Voice] bazaar_yard: played bz_yard_01 (p3 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] bazaar_yard: stopped bz_yard_01 (test reset)
+[Voice] fight_start: played cb_start_02 (p3 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] fight_start: stopped cb_start_02 (test reset)
+[Voice] fight_combo: played cb_combo_01 (p1 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] fight_combo: stopped cb_combo_01 (test reset)
+[Voice] fight_hurt: played cb_hurt_02 (p1 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] fight_hurt: stopped cb_hurt_02 (test reset)
+[Voice] fight_low: played cb_low_02 (p3 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] fight_low: stopped cb_low_02 (test reset)
+[Voice] fight_dodge: played cb_dodge_01 (p1 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] fight_dodge: stopped cb_dodge_01 (test reset)
+[Voice] fight_finish: played cb_finish_02 (p2 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] fight_finish: stopped cb_finish_02 (test reset)
+[Voice] fight_won: played cb_won_01 (p3 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] fight_won: stopped cb_won_01 (test reset)
+[Voice] fight_retry: played cb_retry_01 (p3 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] fight_retry: stopped cb_retry_01 (test reset)
+[Voice] enemy_spotted: played rb_spot_well (p3 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] enemy_spotted: stopped rb_spot_well (test reset)
+[Voice] fight_taunt: played rb_taunt_02 (p2 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] fight_taunt: stopped rb_taunt_02 (test reset)
+[Voice] enemy_down: played ki_down_01 (p4 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] enemy_down: stopped ki_down_01 (test reset)
+[Voice] clock_half: played ck_half_01 (p3 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] clock_half: stopped ck_half_01 (test reset)
+[Voice] clock_5: played ck_5_01 (p4 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] clock_5: stopped ck_5_01 (test reset)
+[Voice] clock_1: played ck_1_01 (p4 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] clock_1: stopped ck_1_01 (test reset)
+[Voice] clock_penalty: played ck_pen_01 (p1 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] clock_penalty: stopped ck_pen_01 (test reset)
+[Voice] npc_near: played vl_f_03 (p1 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] npc_near: stopped vl_f_03 (test reset)
+[Voice] ending: played end_narr_01 (p5 2D enemy=robber;evidence=list;speaker=villager_f)
+[VoiceTest] 73 triggers all speak
+[Voice] ending: stopped end_narr_01 (test reset)
+]]></output>
+        </test-case>
+        <test-case id="1077" name="Frequency_Setting_Scales_Chance_Cooldown_And_Gap" fullname="VoiceSystemTests.Frequency_Setting_Scales_Chance_Cooldown_And_Gap" methodname="Frequency_Setting_Scales_Chance_Cooldown_And_Gap" classname="VoiceSystemTests" runstate="Runnable" seed="1585913488" result="Passed" start-time="2026-11-24 04:14:18Z" end-time="2026-11-24 04:14:18Z" duration="0.083295" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[[VoiceTest] run_long chance 0.30/0.60/0.84, cooldown 120/75/53 s, chatter gap 30/12/6 s (Low/Normal/High)
+]]></output>
+        </test-case>
+        <test-case id="1073" name="Higher_Priority_Interrupts_And_Voices_Never_Overlap" fullname="VoiceSystemTests.Higher_Priority_Interrupts_And_Voices_Never_Overlap" methodname="Higher_Priority_Interrupts_And_Voices_Never_Overlap" classname="VoiceSystemTests" runstate="Runnable" seed="1830447750" result="Passed" start-time="2026-11-24 04:14:18Z" end-time="2026-11-24 04:14:20Z" duration="1.916411" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[[Voice] jump: played mv_jump_01 (p1 2D )
+[Voice] puzzle_solved: interrupts pz_solved_03 (over mv_jump_01 (p1))
+[Voice] puzzle_solved: played pz_solved_03 (p3 2D )
+[Voice] fight_start: queued cb_start_02 (behind p3)
+[Voice] fight_start: played cb_start_02 (p3 2D )
+[Voice] fight_start: stopped cb_start_02 (test reset)
+]]></output>
+        </test-case>
+        <test-case id="1078" name="Story_Line_Uses_The_New_Voice_And_Wins_Over_Event_Lines" fullname="VoiceSystemTests.Story_Line_Uses_The_New_Voice_And_Wins_Over_Event_Lines" methodname="Story_Line_Uses_The_New_Voice_And_Wins_Over_Event_Lines" classname="VoiceSystemTests" runstate="Runnable" seed="1359536440" result="Passed" start-time="2026-11-24 04:14:20Z" end-time="2026-11-24 04:14:20Z" duration="0.099909" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[[Voice] puzzle_solved: played pz_solved_01 (p3 2D )
+[Voice] story:dialogue: played v3_puj_01 (story line)
+[Voice] dialogue: stopped v3_puj_01 (test reset)
+]]></output>
+        </test-case>
+        <test-case id="1075" name="VoiceOnEvent_Helper_Asks_The_Manager" fullname="VoiceSystemTests.VoiceOnEvent_Helper_Asks_The_Manager" methodname="VoiceOnEvent_Helper_Asks_The_Manager" classname="VoiceSystemTests" runstate="Runnable" seed="233311186" result="Passed" start-time="2026-11-24 04:14:20Z" end-time="2026-11-24 04:14:20Z" duration="0.100004" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[[Voice] jeep_enter: played jp_enter_01 (p2 2D )
+[Voice] jeep_enter: stopped jp_enter_01 (test)
+[Voice] fight_start: played cb_start_02 (p3 2D )
+[Voice] fight_start: stopped cb_start_02 (test reset)
+Saving results to: /Users/hemanth/Library/Application Support/DefaultCompany/My project/TestResults.xml
+]]></output>
+        </test-case>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

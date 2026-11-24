@@ -57,6 +57,12 @@ namespace LegacyOfTemples.UI
             Directory.CreateDirectory(output);
             Line("# Runtime audit (" + DateTime.Now.ToString("yyyy-MM-dd HH:mm") + ", " + (Application.isEditor ? "Editor" : "Standalone") + ", " + Screen.width + "x" + Screen.height + ")");
             yield return new WaitForSecondsRealtime(1.5f);
+            if (Array.IndexOf(Environment.GetCommandLineArgs(), "-reviewUpgrades") >= 0)
+            {
+                yield return ReviewUpgrades();
+                File.WriteAllText(Path.Combine(output, "audit.md"), report.ToString());
+                Application.Quit(); yield break;
+            }
             if (Array.IndexOf(Environment.GetCommandLineArgs(), "-reviewLook") >= 0)
             {
                 yield return ReviewLooksAndStairs();
@@ -2140,6 +2146,74 @@ namespace LegacyOfTemples.UI
                 if (r.width <= 0 || r.height <= 0) return new Rect();
             }
             return r;
+        }
+
+        private IEnumerator ReviewUpgrades()
+        {
+            StoryDialogueSystem.ResetForNewGame();
+            yield return SceneManager.LoadSceneAsync(Constants.Courtyard);
+            yield return new WaitForSecondsRealtime(7f);
+            yield return SkipIntro();
+            Time.timeScale = 1f;
+            yield return new WaitForSecondsRealtime(1f);
+            yield return Shot("01-courtyard-sealed-hud.png");
+            Line($"Courtyard minimap visible={MinimapHud.Visible}, raw temple={GameObject.Find("Temple_Game") != null}");
+
+            StoryDialogueSystem.ResetForNewGame();
+            yield return SceneManager.LoadSceneAsync(Constants.TempleRing);
+            yield return new WaitForSecondsRealtime(4f);
+            yield return SkipIntro();
+            Time.timeScale = 1f;
+            yield return new WaitForSecondsRealtime(1f);
+            var pc = FindAnyObjectByType<PlayerController>();
+            var orbit = FindAnyObjectByType<OrbitCamera>();
+            pc.Teleport(new Vector3(0f, 0.15f, 70f), Quaternion.identity);
+            Vector3 from = new Vector3(-10f, 6f, 57f);
+            orbit.SetCutsceneOverride(from, Quaternion.LookRotation(new Vector3(0f, 5f, 145f) - from));
+            yield return new WaitForSecondsRealtime(1f);
+            yield return Shot("02-temple-ring-minimap.png");
+            Line($"TempleRing minimap visible={MinimapHud.Visible}, roads={FindObjectsByType<DriveableRoad>().Length}");
+
+            var jeep = LegacyOfTemples.Gameplay.Vehicles.Jeep.Instance;
+            Vector3 crash = new Vector3(33f, 0.4f, 250f);
+            jeep.transform.SetPositionAndRotation(crash, Quaternion.Euler(0f, 40f, 75f));
+            var body = jeep.GetComponent<Rigidbody>(); body.position = crash; body.rotation = jeep.transform.rotation;
+            body.linearVelocity = Vector3.zero; body.angularVelocity = Vector3.zero;
+            pc.Teleport(crash + Vector3.right * 4f, Quaternion.identity);
+            Physics.SyncTransforms();
+            yield return new WaitForSecondsRealtime(0.2f);
+            yield return Tap(Key.R);
+            yield return new WaitForSecondsRealtime(0.5f);
+            from = jeep.transform.position + new Vector3(8f, 5f, -8f);
+            orbit.SetCutsceneOverride(from, Quaternion.LookRotation(jeep.transform.position + Vector3.up - from));
+            yield return Shot("03-jeep-r-road-reset.png");
+            Line($"R recovery: position={jeep.transform.position}, tilt={Vector3.Angle(jeep.transform.up, Vector3.up):0.0}, damage={jeep.DamageState}");
+
+            Checkpoints.Save("zone6", "Jungle road review", pc.transform.position, pc.transform.eulerAngles.y, 0f);
+            Vector3 checkpoint = pc.transform.position;
+            pc.Teleport(checkpoint + Vector3.right * 12f, Quaternion.identity);
+            DawnClock.Instance.RetryOnSpot(false);
+            yield return new WaitForSecondsRealtime(0.4f);
+            Line($"Retry: scene={SceneManager.GetActiveScene().name}, checkpoint distance={Vector3.Distance(pc.transform.position, checkpoint):0.00}");
+            yield return Shot("04-local-checkpoint-retry.png");
+
+            var zone = NewSunWall.Instance;
+            pc.Teleport(new Vector3(55f, 0.15f, 125f), Quaternion.identity);
+            zone.MirrorA.Interact(); yield return new WaitForSecondsRealtime(0.6f);
+            zone.MirrorB.Interact(); yield return new WaitForSecondsRealtime(0.6f);
+            zone.MirrorB.Interact(); yield return new WaitForSecondsRealtime(1f);
+            from = new Vector3(62f, 8f, 105f);
+            orbit.SetCutsceneOverride(from, Quaternion.LookRotation(new Vector3(68f, 2.8f, 134f) - from));
+            Line($"Sun Wall: receiver={zone.WheelSocket.State}, ray reached receiver={zone.Emitter.LastSocket == zone.WheelSocket}, beam points={zone.Emitter.Points.Count}");
+            foreach (var hit in Physics.RaycastAll(new Vector3(58f, 5f, 120f), Vector3.up, 30f))
+                Line($"Sun Wall overhead: {hit.transform.name}, bounds={hit.collider.bounds}");
+            yield return Shot("05-sunwall-real-reflection.png");
+            orbit.ClearCutsceneOverride();
+            yield return Tap(Key.Escape);
+            yield return new WaitForSecondsRealtime(0.4f);
+            yield return Shot("06-pause-audio-controls.png");
+            var am = AudioManager.Instance;
+            Line($"Audio: master={am.MasterVolume:0.00}, music={am.MusicVolume:0.00}, ambience={am.AmbienceVolume:0.00}, effects={am.SFXVolume:0.00}, voice={VoicePlayer.Volume:0.00}");
         }
 
         private IEnumerator ReviewLooksAndStairs()

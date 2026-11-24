@@ -1,0 +1,74 @@
+Courtyard actual steps: startFeet=0.005, topFeet=0.005, z=3.850
+Jeep blocked-door exit: old=(801.750, 0.061, 800.050), actual=(798.250, 0.005, 800.050), feet=0.005, enabled=True
+Jungle actual steps: startFeet=0.005, topFeet=0.005, targetTop=2.450, z=-2.450
+Courtyard actual steps: startFeet=0.005, topFeet=0.005, z=3.850, enabled=True, cc=True, keyW=False, moving=False, blocked=False
+Jeep blocked-door exit: old=(801.750, 0.061, 800.050), actual=(798.250, 0.005, 800.050), feet=0.005, enabled=True
+Jungle actual steps: startFeet=0.005, topFeet=0.005, targetTop=2.450, z=-2.450, enabled=True, cc=True, moving=False, blocked=False
+Courtyard actual steps: startFeet=0.005, topFeet=1.205, z=-0.363, enabled=True, cc=True, keyW=False, moving=False, blocked=False
+Jump on upper tread: rise=0.667, landingError=0.000
+Jeep blocked-door exit: old=(801.750, 0.061, 800.050), actual=(798.250, 0.005, 800.050), feet=0.005, enabled=True
+Jungle actual steps: startFeet=0.005, topFeet=2.455, targetTop=2.450, z=-10.646, enabled=True, cc=True, moving=False, blocked=False
+Plain NPC dialogue triggered Pujari recording v3_puj_01
+Courtyard actual steps: startFeet=0.005, topFeet=1.205, z=-0.364, enabled=True, cc=True, keyW=False, moving=False, blocked=False
+Jump on upper tread: rise=0.667, landingError=0.000
+Plain NPC dialogue triggered Pujari recording v3_puj_01
+Jeep blocked-door exit: old=(801.750, 0.061, 800.050), actual=(798.250, 0.005, 800.050), feet=0.005, enabled=True
+Jungle actual steps: startFeet=0.005, topFeet=2.455, targetTop=2.450, z=-10.646, enabled=True, cc=True, moving=False, blocked=False
+Ledge hop landed with feet=1.005
+Blocked-wall recoveries=1, position=(900.750, 0.005, 901.170)
+Stepwell outer ramp: local=(-4.813, 5.210, -8.500), feet=5.210
+Stepwell inner ramp: local=(-5.250, 5.210, -4.413), feet=5.210
+Jeep blocked-door exit: old=(801.750, 0.061, 801.172), actual=(798.250, 0.005, 801.172), feet=0.005, enabled=True
+Jeep roof contact recovered to clear ground without moving the parked car.
+Plain NPC dialogue triggered Pujari recording v3_puj_01
+Fight inputs: enemyHP=90->60, heroHP=100->88, flashes=3, swings=3, music=Combat
+Courtyard actual steps: startFeet=0.005, topFeet=1.205, z=-0.364, enabled=True, cc=True, keyW=False, moving=False, blocked=False
+Jump on upper tread: rise=0.667, landingError=0.000
+Plain NPC dialogue triggered Pujari recording v3_puj_01
+Fight inputs: enemyHP=90->60, heroHP=100->88, flashes=3, swings=3, music=Combat
+Jeep blocked-door exit: old=(801.750, 0.061, 801.210), actual=(798.250, 0.005, 801.210), feet=0.005, enabled=True
+Jeep roof contact recovered to clear ground without moving the parked car.
+Jungle actual steps: startFeet=0.005, topFeet=2.455, targetTop=2.450, z=-10.646, enabled=True, cc=True, moving=False, blocked=False
+Ledge hop landed with feet=1.005
+Blocked-wall recoveries=1, position=(900.750, 0.005, 901.170)
+Stepwell outer ramp: local=(-4.814, 5.210, -8.500), feet=5.210
+Stepwell inner ramp: local=(-5.250, 5.210, -4.413), feet=5.210
+Courtyard actual steps: startFeet=0.005, topFeet=1.205, z=-0.363, enabled=True, cc=True, keyW=False, moving=False, blocked=False
+Jump on upper tread: rise=0.667, landingError=0.000
+Plain NPC dialogue triggered Pujari recording v3_puj_01
+Fight inputs: enemyHP=90->60, heroHP=100->88, flashes=3, swings=3, music=Combat
+Place discovery, source display, backward page wrap and New Game note reset passed.
+Jeep blocked-door exit: old=(801.750, 0.061, 801.214), actual=(798.250, 0.005, 801.212), feet=0.005, enabled=True
+Jeep roof contact recovered to clear ground without moving the parked car.
+Jungle actual steps: startFeet=0.005, topFeet=2.455, targetTop=2.450, z=-10.646, enabled=True, cc=True, moving=False, blocked=False
+Ledge hop landed with feet=1.005
+Blocked-wall recoveries=1, position=(900.750, 0.005, 901.170)
+Objective reminder playing: rem_pujari_obj_c0_reach
+Stepwell outer ramp: local=(-4.813, 5.210, -8.500), feet=5.210
+Stepwell inner ramp: local=(-5.250, 5.210, -4.413), feet=5.210
+Courtyard actual steps: startFeet=0.005, topFeet=1.205, z=-0.364, enabled=True, cc=True, keyW=False, moving=False, blocked=False
+Jump on upper tread: rise=0.667, landingError=0.000
+Plain NPC dialogue triggered Pujari recording v3_puj_01
+Fight inputs: enemyHP=90->60, heroHP=100->88, flashes=3, swings=3, music=Combat
+Place discovery, source display, backward page wrap and New Game note reset passed.
+Jeep blocked-door exit: old=(801.750, 0.061, 801.172), actual=(798.250, 0.005, 801.172), feet=0.005, enabled=True
+Jeep roof contact recovered to clear ground without moving the parked car.
+Jungle actual steps: startFeet=0.005, topFeet=2.455, targetTop=2.450, z=-10.646, enabled=True, cc=True, moving=False, blocked=False
+Ledge hop landed with feet=1.005
+Blocked-wall recoveries=1, position=(900.750, 0.005, 901.170)
+Objective reminder playing: rem_pujari_obj_c0_reach
+Stepwell outer ramp: local=(-4.813, 5.210, -8.500), feet=5.210
+Stepwell inner ramp: local=(-5.250, 5.210, -4.413), feet=5.210
+Courtyard actual steps: startFeet=0.005, topFeet=1.205, z=-0.363, enabled=True, cc=True, keyW=False, moving=False, blocked=False
+Jump on upper tread: rise=0.667, landingError=0.000
+Plain NPC dialogue triggered Pujari recording v3_puj_01
+Fight inputs: enemyHP=90->60, heroHP=100->88, flashes=3, swings=3, music=Combat
+Place discovery, source display, backward page wrap and New Game note reset passed.
+Jeep blocked-door exit: old=(801.749, 0.061, 801.211), actual=(798.249, 0.005, 801.207), feet=0.005, enabled=True
+Jeep roof contact recovered to clear ground without moving the parked car.
+Jungle actual steps: startFeet=0.005, topFeet=2.455, targetTop=2.450, z=-10.646, enabled=True, cc=True, moving=False, blocked=False
+Ledge hop landed with feet=1.005
+Blocked-wall recoveries=1, position=(900.750, 0.005, 901.170)
+Objective reminder playing: rem_pujari_obj_c0_reach
+Stepwell outer ramp: local=(-4.813, 5.210, -8.500), feet=5.210
+Stepwell inner ramp: local=(-5.250, 5.210, -4.413), feet=5.210

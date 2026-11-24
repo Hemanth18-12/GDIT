@@ -1,0 +1,2009 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad235ba6726444e7685186798f153ccb, type: 3}
+  m_Name: VoiceDatabase
+  m_EditorClassIdentifier: LOT.Core::LegacyOfTemples.Core.VoiceDatabase
+  lines:
+  - id: v3_mee_00
+    speaker: meera
+    text: Two men. One carried a bell.
+    trigger: story
+    conditions: 
+    priority: 4
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 146a322f6c701460fa8f574f833f7d13, type: 3}
+  - id: v3_mee_03
+    speaker: meera
+    text: It rang. He hid it fast.
+    trigger: story
+    conditions: 
+    priority: 4
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 813560b1efe6945d3b119411792ab97d, type: 3}
+  - id: v3_ary_06
+    speaker: aryan
+    text: He saw me. After him.
+    trigger: story
+    conditions: 
+    priority: 4
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: a12e96008096a4390ac30a627e1ddd2b, type: 3}
+  - id: v3_cou_01
+    speaker: courier
+    text: You followed me? Clever.
+    trigger: story
+    conditions: 
+    priority: 4
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: e3de0ebc7c6034b9397adbc6b1686cc5, type: 3}
+  - id: v3_ary_02
+    speaker: aryan
+    text: One. Four to go.
+    trigger: story
+    conditions: 
+    priority: 4
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: e2207237f426f41f69af9d0fd6ed0abe, type: 3}
+  - id: v3_ary_01
+    speaker: aryan
+    text: Not forced. Opened.
+    trigger: story
+    conditions: 
+    priority: 4
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 24e4217d822734056a5878c6d71a5816, type: 3}
+  - id: v3_ary_07
+    speaker: aryan
+    text: Two.
+    trigger: story
+    conditions: 
+    priority: 4
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 08a6bc6be8de843729bc79f670dcde7c, type: 3}
+  - id: v3_puj_03
+    speaker: pujari
+    text: The old vaults. Behind the temple.
+    trigger: story
+    conditions: 
+    priority: 4
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 12a7a780626b84ac38a681c9507919c4, type: 3}
+  - id: v3_ary_03
+    speaker: aryan
+    text: Three.
+    trigger: story
+    conditions: 
+    priority: 4
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: d4461a2a019ca4053b63a91cd9575f2a, type: 3}
+  - id: v3_mee_01
+    speaker: meera
+    text: They went to the old well. In this rain.
+    trigger: story
+    conditions: 
+    priority: 4
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 224741bbc0a3d47c8921d39a57a3f703, type: 3}
+  - id: v3_mee_02
+    speaker: meera
+    text: Only one man carries those keys.
+    trigger: story
+    conditions: 
+    priority: 4
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 903a0df4f0e824b3680e7a81afcdfe5c, type: 3}
+  - id: v3_ary_04
+    speaker: aryan
+    text: Four. Now the Sun Wall.
+    trigger: story
+    conditions: 
+    priority: 4
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 28821b3894cbb44aa846873a12603f8b, type: 3}
+  - id: v3_ary_05
+    speaker: aryan
+    text: An empty case. The jungle road.
+    trigger: story
+    conditions: 
+    priority: 4
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 2e0803eb56416414fb70a20d053a665b, type: 3}
+  - id: v3_mee_04
+    speaker: meera
+    text: Your jeep waits on the north road.
+    trigger: story
+    conditions: 
+    priority: 4
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: a03b4239bfeac4e90a513ae42d80eb61, type: 3}
+  - id: v3_bha_01
+    speaker: bhaskar
+    text: Keep moving. He is close.
+    trigger: story
+    conditions: 
+    priority: 4
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 5b31019670ff34ac28166c67d1b4a8fe, type: 3}
+  - id: v3_bha_02
+    speaker: bhaskar
+    text: Do you know what this fetches?
+    trigger: story
+    conditions: 
+    priority: 4
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 49958963b6acb48cf91ca918af1883db, type: 3}
+  - id: v3_ary_08
+    speaker: aryan
+    text: Its value is not money.
+    trigger: story
+    conditions: 
+    priority: 4
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: b8251185b7edb4ac8b9176e71f2e8b77, type: 3}
+  - id: v3_mad_01
+    speaker: madhav
+    text: You knew?
+    trigger: story
+    conditions: 
+    priority: 4
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 9a2fe4a879fc442e0a29ea5c92ac68fd, type: 3}
+  - id: v3_mad_02
+    speaker: madhav
+    text: I am sorry, sir.
+    trigger: story
+    conditions: 
+    priority: 4
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 4bdd6d0c894f24454a72ad8481e23daf, type: 3}
+  - id: v3_mad_03
+    speaker: madhav
+    text: I only opened a door.
+    trigger: story
+    conditions: 
+    priority: 4
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: fe5e5ceec03a349f3b86f4ad56289b34, type: 3}
+  - id: v3_ary_10
+    speaker: aryan
+    text: Five.
+    trigger: story
+    conditions: 
+    priority: 4
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 49b51c7765b6b4b5e9571717bd8d71c3, type: 3}
+  - id: v3_mad_04
+    speaker: madhav
+    text: Tea, sir? You look tired.
+    trigger: story
+    conditions: 
+    priority: 4
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 4fa01f15d775145e0b55a81e1b119d1a, type: 3}
+  - id: v3_mad_05
+    speaker: madhav
+    text: I locked up myself. As always.
+    trigger: story
+    conditions: 
+    priority: 4
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 36de05c176bbd4997b7081aa6106a185, type: 3}
+  - id: v3_mad_06
+    speaker: madhav
+    text: Take my lantern. It is dark below.
+    trigger: story
+    conditions: 
+    priority: 4
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 71cb233790a1640b99eff5ccf6f5266f, type: 3}
+  - id: v3_bha_03
+    speaker: bhaskar
+    text: Then come and take it.
+    trigger: story
+    conditions: 
+    priority: 4
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: a026dee16a9fc46588f4d22d4e2568b2, type: 3}
+  - id: v3_puj_01
+    speaker: pujari
+    text: Five treasures. Gone before sunrise.
+    trigger: story
+    conditions: 
+    priority: 5
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 747795312fe8142e2988c9e93390cc25, type: 3}
+  - id: v3_puj_02
+    speaker: pujari
+    text: The procession leaves at dawn.
+    trigger: story
+    conditions: 
+    priority: 5
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 0fad0d3860f7c4972bf2652d229f3db0, type: 3}
+  - id: v3_puj_09
+    speaker: pujari
+    text: You brought our memory home.
+    trigger: story
+    conditions: 
+    priority: 5
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 2a205a603f6514303b69aeac67c891b0, type: 3}
+  - id: v3_ary_09
+    speaker: aryan
+    text: Every piece is home.
+    trigger: story
+    conditions: 
+    priority: 5
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 00a2fadc4e6d34443ad61bf304bd9df2, type: 3}
+  - id: intro_puj_01
+    speaker: pujari
+    text: Something terrible has happened!
+    trigger: story
+    conditions: 
+    priority: 5
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 93f0b95f933b74ef69438332e2440087, type: 3}
+  - id: intro_ary_01
+    speaker: aryan
+    text: Excuse me, could you tell me the way to Jagannath Temple?
+    trigger: story
+    conditions: 
+    priority: 5
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 25561e0a39c134189a652041e78598d5, type: 3}
+  - id: intro_mee_01
+    speaker: meera
+    text: Go straight along this road and follow the old stone entrance. The temple is at the end.
+    trigger: story
+    conditions: 
+    priority: 5
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 887701324167444b0a8af0d8a8c7169d, type: 3}
+  - id: intro_ary_02
+    speaker: aryan
+    text: Thank you.
+    trigger: story
+    conditions: 
+    priority: 5
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 2f84e570a43e9451fa1a0d5d38134c88, type: 3}
+  - id: mv_first_01
+    speaker: aryan
+    text: Right. Let's find that temple.
+    trigger: move_first
+    conditions: objective=obj_c0_reach
+    priority: 2
+    cooldown: 0
+    chance: 1
+    once: 1
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: f61d3b74fc2bf43d38d9126fe5815e5b, type: 3}
+  - id: mv_run_01
+    speaker: aryan
+    text: No time to stroll.
+    trigger: run_long
+    conditions: nofight;nojeep
+    priority: 1
+    cooldown: 75
+    chance: 0.6
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: f408ef989978046368ab10bd5cf8d119, type: 3}
+  - id: mv_run_02
+    speaker: aryan
+    text: Dawn won't wait.
+    trigger: run_long
+    conditions: nofight;nojeep
+    priority: 1
+    cooldown: 75
+    chance: 0.6
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 236861644f70842eb96e3fdbe5cc9fa7, type: 3}
+  - id: mv_tired_01
+    speaker: aryan
+    text: Need to catch my breath.
+    trigger: run_tired
+    conditions: nofight
+    priority: 1
+    cooldown: 180
+    chance: 0.8
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 709faa3a5ff7e4dba859ba9c20626672, type: 3}
+  - id: mv_tired_02
+    speaker: aryan
+    text: Easy. Breathe.
+    trigger: run_tired
+    conditions: nofight
+    priority: 1
+    cooldown: 180
+    chance: 0.8
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: e87d8fdf95f704dadbefcb31e93fc1b4, type: 3}
+  - id: mv_jump_01
+    speaker: aryan
+    text: Up we go.
+    trigger: jump
+    conditions: nofight
+    priority: 1
+    cooldown: 40
+    chance: 0.2
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: a3dc6ca5a3e784c8a9cc9c9bf35f12ee, type: 3}
+  - id: mv_land_01
+    speaker: aryan
+    text: Oof. Careful.
+    trigger: land_hard
+    conditions: 
+    priority: 1
+    cooldown: 25
+    chance: 0.8
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: c6e1e48afa6c84bae8237f6b4a794422, type: 3}
+  - id: mv_land_02
+    speaker: aryan
+    text: That was a drop.
+    trigger: land_hard
+    conditions: 
+    priority: 1
+    cooldown: 25
+    chance: 0.8
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 4e16d52bcc9fe450fb2f4f22fc8ef5cf, type: 3}
+  - id: mv_area_courtyard
+    speaker: aryan
+    text: The temple courtyard. Stay sharp.
+    trigger: area_enter
+    conditions: zone=Courtyard
+    priority: 2
+    cooldown: 5
+    chance: 1
+    once: 1
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 1e47eddd62960484b8520420b1c29cc6, type: 3}
+  - id: mv_area_vaults
+    speaker: aryan
+    text: Dark down here. Watch your step.
+    trigger: area_enter
+    conditions: zone=Vaults
+    priority: 2
+    cooldown: 5
+    chance: 1
+    once: 1
+    subtitle: 1
+    fx: vault
+    clip: {fileID: 8300000, guid: 51610f168890c46b787caa6ac3851f43, type: 3}
+  - id: mv_area_stepwell
+    speaker: aryan
+    text: The old well. Listen to that rain.
+    trigger: area_enter
+    conditions: zone=Stepwell
+    priority: 2
+    cooldown: 5
+    chance: 1
+    once: 1
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 328bfcee486d843df997f9896c881bf2, type: 3}
+  - id: mv_area_sunwall
+    speaker: aryan
+    text: No shade at all out here.
+    trigger: area_enter
+    conditions: zone=SunWall
+    priority: 2
+    cooldown: 5
+    chance: 1
+    once: 1
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: e2d20be9858a144ee8d6c660bbb6c534, type: 3}
+  - id: mv_area_jungle
+    speaker: aryan
+    text: The river road. Trees everywhere.
+    trigger: area_enter
+    conditions: zone=Jungle
+    priority: 2
+    cooldown: 5
+    chance: 1
+    once: 1
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 4c49670d9535b4f6c8ad3212000f0d25, type: 3}
+  - id: mv_area_bazaar
+    speaker: aryan
+    text: Back to the bazaar. Listen.
+    trigger: area_enter
+    conditions: zone=Bazaar;objective=obj_v3_bazaar
+    priority: 2
+    cooldown: 5
+    chance: 1
+    once: 1
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 643b20d90a484461f8dbe2c31387cda6, type: 3}
+  - id: mv_danger_01
+    speaker: aryan
+    text: Careful. That's a long drop.
+    trigger: danger_drop
+    conditions: nofight;nojeep
+    priority: 2
+    cooldown: 120
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 1b88431699d8f4ac7a898b522aec2f86, type: 3}
+  - id: mv_danger_02
+    speaker: aryan
+    text: One wrong step here...
+    trigger: danger_drop
+    conditions: nofight;nojeep
+    priority: 2
+    cooldown: 120
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: cbe31a0ad488844f1a6576480acf7c38, type: 3}
+  - id: mv_rain_01
+    speaker: aryan
+    text: This rain won't stop.
+    trigger: rain
+    conditions: nofight
+    priority: 1
+    cooldown: 240
+    chance: 0.6
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 5939696a958bd455c81641681ef1d0f8, type: 3}
+  - id: mv_rain_02
+    speaker: aryan
+    text: Wet stone. Slippery.
+    trigger: rain
+    conditions: nofight
+    priority: 1
+    cooldown: 240
+    chance: 0.6
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 3d277314adbf84e34a1ceedfa6b3bdaf, type: 3}
+  - id: mv_lost_01
+    speaker: aryan
+    text: Think. Where would they go?
+    trigger: lost
+    conditions: nofight
+    priority: 2
+    cooldown: 150
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 6735f0afa67cb411889895d4455865e7, type: 3}
+  - id: mv_lost_02
+    speaker: aryan
+    text: I'm losing time. My notes might help.
+    trigger: lost
+    conditions: nofight
+    priority: 2
+    cooldown: 150
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 074dbfaf7834841859606b3f20301a31, type: 3}
+  - id: mv_lost_03
+    speaker: aryan
+    text: Retrace it. What did I miss?
+    trigger: lost
+    conditions: nofight
+    priority: 2
+    cooldown: 150
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 1ba694389a5dc47239c119bd0b8f3157, type: 3}
+  - id: mv_deadend_01
+    speaker: aryan
+    text: Dead end.
+    trigger: dead_end
+    conditions: nofight;nojeep
+    priority: 1
+    cooldown: 60
+    chance: 0.7
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 6471bfd908d1b46919e723f32626bb03, type: 3}
+  - id: jp_approach_01
+    speaker: aryan
+    text: The jeep. Still in one piece.
+    trigger: jeep_approach
+    conditions: nojeep;nofight
+    priority: 1
+    cooldown: 180
+    chance: 0.5
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 3960057dfc78740058e615667996660c, type: 3}
+  - id: jp_enter_01
+    speaker: aryan
+    text: Let's go.
+    trigger: jeep_enter
+    conditions: 
+    priority: 2
+    cooldown: 40
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: cabin
+    clip: {fileID: 8300000, guid: fb85fa5b7c7004ce888072a8e7c580db, type: 3}
+  - id: jp_enter_02
+    speaker: aryan
+    text: Right. Drive.
+    trigger: jeep_enter
+    conditions: 
+    priority: 2
+    cooldown: 40
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: cabin
+    clip: {fileID: 8300000, guid: 56b73c6e3b21446e4b455ef1fba84aef, type: 3}
+  - id: jp_start_01
+    speaker: aryan
+    text: Good. She's running.
+    trigger: jeep_start
+    conditions: jeep
+    priority: 1
+    cooldown: 90
+    chance: 0.5
+    once: 0
+    subtitle: 1
+    fx: cabin
+    clip: {fileID: 8300000, guid: 16ce49453140146f3985305ada69c6a9, type: 3}
+  - id: jp_off_01
+    speaker: aryan
+    text: Here we go.
+    trigger: jeep_drive_off
+    conditions: jeep
+    priority: 1
+    cooldown: 90
+    chance: 0.5
+    once: 0
+    subtitle: 1
+    fx: cabin
+    clip: {fileID: 8300000, guid: 358664762be2a4026bbc6a12a1d849ea, type: 3}
+  - id: jp_fast_01
+    speaker: aryan
+    text: Faster. He's getting away.
+    trigger: jeep_fast
+    conditions: jeep;objective=obj_v3_jungle
+    priority: 2
+    cooldown: 45
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: cabin
+    clip: {fileID: 8300000, guid: 0e0099905dd484bac837bc7a209bb208, type: 3}
+  - id: jp_fast_02
+    speaker: aryan
+    text: Easy on this road.
+    trigger: jeep_fast
+    conditions: jeep;notobjective=obj_v3_jungle
+    priority: 1
+    cooldown: 60
+    chance: 0.8
+    once: 0
+    subtitle: 1
+    fx: cabin
+    clip: {fileID: 8300000, guid: a097e2de3611848e0b7c47dc107401ab, type: 3}
+  - id: jp_drift_01
+    speaker: aryan
+    text: Whoa, hold it!
+    trigger: jeep_drift
+    conditions: jeep
+    priority: 2
+    cooldown: 45
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: cabin
+    clip: {fileID: 8300000, guid: 4a4dcd28c29b248b79e03e53d2d076a7, type: 3}
+  - id: jp_brake_01
+    speaker: aryan
+    text: Brakes!
+    trigger: jeep_handbrake
+    conditions: jeep
+    priority: 1
+    cooldown: 45
+    chance: 0.5
+    once: 0
+    subtitle: 1
+    fx: cabin
+    clip: {fileID: 8300000, guid: 3cf61284ab3c04e65a0e601ff0edff4b, type: 3}
+  - id: jp_near_01
+    speaker: aryan
+    text: That was close.
+    trigger: jeep_near_miss
+    conditions: jeep
+    priority: 2
+    cooldown: 30
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: cabin
+    clip: {fileID: 8300000, guid: 016fdc43cd1a145ab99ebd89281779da, type: 3}
+  - id: jp_crash1_01
+    speaker: aryan
+    text: Ugh. That'll leave a mark.
+    trigger: jeep_crash_light
+    conditions: jeep
+    priority: 2
+    cooldown: 20
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: cabin
+    clip: {fileID: 8300000, guid: 361279fc61bdc4a5290ceaa4983cdcfd, type: 3}
+  - id: jp_crash1_02
+    speaker: aryan
+    text: Watch it!
+    trigger: jeep_crash_light
+    conditions: jeep
+    priority: 2
+    cooldown: 20
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: cabin
+    clip: {fileID: 8300000, guid: b7b21b7474a0640b48dae0a171dc028f, type: 3}
+  - id: jp_crash2_01
+    speaker: aryan
+    text: That hurt the jeep.
+    trigger: jeep_crash_heavy
+    conditions: jeep
+    priority: 3
+    cooldown: 30
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: cabin
+    clip: {fileID: 8300000, guid: e0e347daa672243b0ba1a75fbb707a9f, type: 3}
+  - id: jp_crash2_02
+    speaker: aryan
+    text: She can't take much more.
+    trigger: jeep_crash_heavy
+    conditions: jeep
+    priority: 3
+    cooldown: 30
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: cabin
+    clip: {fileID: 8300000, guid: 185a207c2266942a686cf75e0d3101f9, type: 3}
+  - id: jp_smoke_01
+    speaker: aryan
+    text: Smoke. Not good.
+    trigger: jeep_smoke
+    conditions: 
+    priority: 3
+    cooldown: 120
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: cabin
+    clip: {fileID: 8300000, guid: 27c85eacde47443f6adb8005d4227e5c, type: 3}
+  - id: jp_dead_01
+    speaker: aryan
+    text: Engine's gone. On foot, then.
+    trigger: jeep_engine_dead
+    conditions: 
+    priority: 4
+    cooldown: 300
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: cabin
+    clip: {fileID: 8300000, guid: a3dcb63fe5fb443babed3a7c80d085a0, type: 3}
+  - id: jp_stuck_01
+    speaker: aryan
+    text: We're stuck. Back up.
+    trigger: jeep_stuck
+    conditions: jeep
+    priority: 2
+    cooldown: 30
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: cabin
+    clip: {fileID: 8300000, guid: c4712e29635224fe384aa897034bd5b8, type: 3}
+  - id: jp_arrive_01
+    speaker: aryan
+    text: The ruins. This is it.
+    trigger: jeep_arrive
+    conditions: 
+    priority: 3
+    cooldown: 0
+    chance: 1
+    once: 1
+    subtitle: 1
+    fx: cabin
+    clip: {fileID: 8300000, guid: 77a4a5616cd0b42938d058c836cf6d1c, type: 3}
+  - id: jp_exit_01
+    speaker: aryan
+    text: Right. On foot.
+    trigger: jeep_exit
+    conditions: 
+    priority: 1
+    cooldown: 30
+    chance: 0.6
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 0c4c9e3a77f1244d5b09cb3759892b1b, type: 3}
+  - id: jp_park_01
+    speaker: aryan
+    text: Parked. Let's move.
+    trigger: jeep_park
+    conditions: 
+    priority: 1
+    cooldown: 60
+    chance: 0.8
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 7e50e43ce2eae47d682656edf8c0c0b1, type: 3}
+  - id: ex_notice_01
+    speaker: aryan
+    text: What's this?
+    trigger: notice
+    conditions: nofight
+    priority: 1
+    cooldown: 40
+    chance: 0.6
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: d508323053eef410a88d8cef5186efec, type: 3}
+  - id: ex_notice_02
+    speaker: aryan
+    text: Hm. Look at that.
+    trigger: notice
+    conditions: nofight
+    priority: 1
+    cooldown: 40
+    chance: 0.6
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 316170cdf9c304978ae748e74664ecff, type: 3}
+  - id: ex_clue_list
+    speaker: aryan
+    text: Neat writing. Somebody careful.
+    trigger: clue_found
+    conditions: evidence=list
+    priority: 3
+    cooldown: 3
+    chance: 1
+    once: 1
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: e95beca05498e4ad0be027291d7a9d60, type: 3}
+  - id: ex_clue_lock
+    speaker: aryan
+    text: From the inside. Interesting.
+    trigger: clue_found
+    conditions: evidence=inside_lock
+    priority: 3
+    cooldown: 3
+    chance: 1
+    once: 1
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 15d3aab3912e0412db3748f2c6cdf693, type: 3}
+  - id: ex_clue_ledger
+    speaker: aryan
+    text: Same ticks. Same hand.
+    trigger: clue_found
+    conditions: evidence=ledger
+    priority: 3
+    cooldown: 3
+    chance: 1
+    once: 1
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: e8657aac9230d47f988fb6bfbacf013a, type: 3}
+  - id: ex_clue_keys
+    speaker: aryan
+    text: Temple keys. All the way out here.
+    trigger: clue_found
+    conditions: evidence=key_ring
+    priority: 3
+    cooldown: 3
+    chance: 1
+    once: 1
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 43895aa928c6449d481538a6cae0da84, type: 3}
+  - id: ex_board_01
+    speaker: aryan
+    text: Enough to name someone. My notes.
+    trigger: board_ready
+    conditions: nofight
+    priority: 3
+    cooldown: 0
+    chance: 1
+    once: 1
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: d424a3da417ff45c895d995d05e94eb9, type: 3}
+  - id: ex_item_01
+    speaker: aryan
+    text: Got it.
+    trigger: item_found
+    conditions: 
+    priority: 2
+    cooldown: 10
+    chance: 0.5
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 9c47b8bba28564caba57e24cc5c33b7f, type: 3}
+  - id: ex_item_02
+    speaker: aryan
+    text: Safe now.
+    trigger: item_found
+    conditions: 
+    priority: 2
+    cooldown: 10
+    chance: 0.5
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: e082af065a2a042b7bea126bd370d9c9, type: 3}
+  - id: pz_start_01
+    speaker: aryan
+    text: Let's see how this works.
+    trigger: puzzle_start
+    conditions: nofight
+    priority: 2
+    cooldown: 45
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 0adbbd7d2095b40f185432770b1ce80a, type: 3}
+  - id: pz_start_02
+    speaker: aryan
+    text: There's a mechanism here.
+    trigger: puzzle_start
+    conditions: nofight
+    priority: 2
+    cooldown: 45
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 179b7a7180274442eb48fa997d19fbe4, type: 3}
+  - id: pz_step_01
+    speaker: aryan
+    text: That's one.
+    trigger: puzzle_step
+    conditions: nofight
+    priority: 1
+    cooldown: 12
+    chance: 0.5
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: bf34d5b498f0b49438ae2c881cdcd444, type: 3}
+  - id: pz_step_02
+    speaker: aryan
+    text: Good. That fits.
+    trigger: puzzle_step
+    conditions: nofight
+    priority: 1
+    cooldown: 12
+    chance: 0.5
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: d2c44512d2fa842e8b907034b525f5f9, type: 3}
+  - id: pz_wrong_01
+    speaker: aryan
+    text: No. Not like that.
+    trigger: puzzle_wrong
+    conditions: nofight
+    priority: 1
+    cooldown: 15
+    chance: 0.6
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: c0128678764c24d25a7c351819cb0ae1, type: 3}
+  - id: pz_wrong_02
+    speaker: aryan
+    text: Hm. Wrong way.
+    trigger: puzzle_wrong
+    conditions: nofight
+    priority: 1
+    cooldown: 15
+    chance: 0.6
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: ab7ccbeebf1b94a61b9682d2f184c33d, type: 3}
+  - id: pz_almost_01
+    speaker: aryan
+    text: Almost there.
+    trigger: puzzle_almost
+    conditions: nofight
+    priority: 2
+    cooldown: 60
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 35fc95a570e404151a448b9bebca6a9f, type: 3}
+  - id: pz_almost_02
+    speaker: aryan
+    text: One more.
+    trigger: puzzle_almost
+    conditions: nofight
+    priority: 2
+    cooldown: 60
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: b866c3e9f77934dc09a21e3b7e9ce281, type: 3}
+  - id: pz_solved_01
+    speaker: aryan
+    text: There. Solved.
+    trigger: puzzle_solved
+    conditions: 
+    priority: 3
+    cooldown: 5
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 0e4fbfd231a0e4299b51f040df251fc3, type: 3}
+  - id: pz_solved_03
+    speaker: aryan
+    text: Clever old builders.
+    trigger: puzzle_solved
+    conditions: 
+    priority: 3
+    cooldown: 5
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 4583b432ca38c4d8b91ee606c00433b5, type: 3}
+  - id: pz_hint1_01
+    speaker: aryan
+    text: Look around first.
+    trigger: hint_1
+    conditions: 
+    priority: 3
+    cooldown: 3
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 492ba9a89543248859fc1958e6e4cfc0, type: 3}
+  - id: pz_hint2_01
+    speaker: aryan
+    text: Think about how it moves.
+    trigger: hint_2
+    conditions: 
+    priority: 3
+    cooldown: 3
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: a49737f58d2804a77a1bdeaa70cfdb05, type: 3}
+  - id: pz_hint3_01
+    speaker: aryan
+    text: Right. Step by step, then.
+    trigger: hint_3
+    conditions: 
+    priority: 3
+    cooldown: 3
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 724a955b898754187a3f73ff421e9cbb, type: 3}
+  - id: pz_pot_shard_01
+    speaker: aryan
+    text: This piece fits.
+    trigger: pot_shard
+    conditions: 
+    priority: 2
+    cooldown: 6
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 19a1d8d37b73b49bf80194cec5c77aec, type: 3}
+  - id: pz_pot_shard_02
+    speaker: aryan
+    text: Another piece home.
+    trigger: pot_shard
+    conditions: 
+    priority: 2
+    cooldown: 6
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 6104d5ed291a04f20a3ff2b86defcc90, type: 3}
+  - id: pz_pot_whole_01
+    speaker: aryan
+    text: Whole again. And it holds oil.
+    trigger: pot_whole
+    conditions: 
+    priority: 3
+    cooldown: 0
+    chance: 1
+    once: 1
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: c4bd844c5fb4a4ef8813bef9212eb9ee, type: 3}
+  - id: pz_lantern_01
+    speaker: aryan
+    text: Now the light falls right.
+    trigger: lantern_stain
+    conditions: 
+    priority: 3
+    cooldown: 0
+    chance: 1
+    once: 1
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: f8bc8dfe27aeb4126afab721748a0504, type: 3}
+  - id: pz_flag_01
+    speaker: aryan
+    text: Something under this stone.
+    trigger: flagstone
+    conditions: 
+    priority: 3
+    cooldown: 0
+    chance: 1
+    once: 1
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: c4d89694487f24c7e81dd78d529d2180, type: 3}
+  - id: pz_vault_plate_01
+    speaker: aryan
+    text: Stone on the plate. Good.
+    trigger: vault_plate
+    conditions: 
+    priority: 2
+    cooldown: 10
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: vault
+    clip: {fileID: 8300000, guid: 3c9bde8e996bd4b7583137ec981f57d2, type: 3}
+  - id: pz_vault_gate_01
+    speaker: aryan
+    text: The gate's open.
+    trigger: vault_gate
+    conditions: 
+    priority: 3
+    cooldown: 0
+    chance: 1
+    once: 1
+    subtitle: 1
+    fx: vault
+    clip: {fileID: 8300000, guid: 75d77ea0b00234d769104a1aac4222aa, type: 3}
+  - id: pz_vault_rings_01
+    speaker: aryan
+    text: Three rings of light. Not by chance.
+    trigger: vault_rings
+    conditions: 
+    priority: 3
+    cooldown: 0
+    chance: 1
+    once: 1
+    subtitle: 1
+    fx: vault
+    clip: {fileID: 8300000, guid: d517190e1e8e24089b79a92a53515ce2, type: 3}
+  - id: pz_sluice_01
+    speaker: aryan
+    text: The water's coming in.
+    trigger: stepwell_sluice
+    conditions: 
+    priority: 2
+    cooldown: 15
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: f83f62b233e9c416baab00191d605495, type: 3}
+  - id: pz_flood_01
+    speaker: aryan
+    text: Too much. The panel's under water.
+    trigger: stepwell_flood
+    conditions: 
+    priority: 3
+    cooldown: 0
+    chance: 1
+    once: 1
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 052536b73e1794cc3a4f6aa04eef11f4, type: 3}
+  - id: pz_level_01
+    speaker: aryan
+    text: Right on the mark.
+    trigger: stepwell_level
+    conditions: 
+    priority: 3
+    cooldown: 0
+    chance: 1
+    once: 1
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: dfb864e3acb0e4879b2e44f7f629f47e, type: 3}
+  - id: pz_mirror_01
+    speaker: aryan
+    text: Turn it toward the wall.
+    trigger: sunwall_mirror
+    conditions: 
+    priority: 1
+    cooldown: 25
+    chance: 0.5
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 9631068a2763b423a80f7f5453a17e6b, type: 3}
+  - id: pz_beam_01
+    speaker: aryan
+    text: One beam. The wheel blocks the other.
+    trigger: sunwall_socket
+    conditions: 
+    priority: 3
+    cooldown: 0
+    chance: 1
+    once: 1
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 31b50aa61d37d430f8d4336983d2a843, type: 3}
+  - id: pz_wall_01
+    speaker: aryan
+    text: The wall's opening.
+    trigger: sunwall_open
+    conditions: 
+    priority: 3
+    cooldown: 0
+    chance: 1
+    once: 1
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: d8fd279d022594cbb8ab16c62226a087, type: 3}
+  - id: bz_follow_01
+    speaker: aryan
+    text: There he is. Keep your distance.
+    trigger: bazaar_follow
+    conditions: 
+    priority: 3
+    cooldown: 0
+    chance: 1
+    once: 1
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 66335d4e49af8443ab09d2e7011dc9b5, type: 3}
+  - id: bz_look_01
+    speaker: aryan
+    text: Don't look round... good.
+    trigger: bazaar_lookback
+    conditions: 
+    priority: 2
+    cooldown: 25
+    chance: 0.7
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: c2c004b30a3304a39b155f1917a6b477, type: 3}
+  - id: bz_spot_01
+    speaker: aryan
+    text: He felt that.
+    trigger: bazaar_spotted
+    conditions: 
+    priority: 3
+    cooldown: 5
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 95e7eb5acec504ca898e023a5c889561, type: 3}
+  - id: bz_spot_02
+    speaker: aryan
+    text: Careful. He's suspicious.
+    trigger: bazaar_spotted
+    conditions: 
+    priority: 3
+    cooldown: 5
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 8628b1d165e5e4277b5300a4600c5878, type: 3}
+  - id: bz_far_01
+    speaker: aryan
+    text: Don't lose him.
+    trigger: bazaar_far
+    conditions: 
+    priority: 2
+    cooldown: 30
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 42846bb61729c48f2999462ec6b59624, type: 3}
+  - id: bz_yard_01
+    speaker: aryan
+    text: A dead end. He's trapped.
+    trigger: bazaar_yard
+    conditions: 
+    priority: 3
+    cooldown: 0
+    chance: 1
+    once: 1
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: f598fad36820640b8a0cd3cec3692e74, type: 3}
+  - id: cb_start_01
+    speaker: aryan
+    text: Here they come.
+    trigger: fight_start
+    conditions: 
+    priority: 3
+    cooldown: 20
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: f17e33bb298394768b8ef343d853bf1f, type: 3}
+  - id: cb_start_02
+    speaker: aryan
+    text: Stay calm. Watch his hands.
+    trigger: fight_start
+    conditions: 
+    priority: 3
+    cooldown: 20
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: dc2c73f4430e740c985ab341ed637ce5, type: 3}
+  - id: cb_combo_01
+    speaker: aryan
+    text: Got you.
+    trigger: fight_combo
+    conditions: fight
+    priority: 1
+    cooldown: 10
+    chance: 0.4
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 664e4a6fb69ac4530a95b6bee142480e, type: 3}
+  - id: cb_combo_02
+    speaker: aryan
+    text: Back off.
+    trigger: fight_combo
+    conditions: fight
+    priority: 1
+    cooldown: 10
+    chance: 0.4
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: dbafe092ff3a943c9a8922ea32c98563, type: 3}
+  - id: cb_combo_03
+    speaker: aryan
+    text: Not today.
+    trigger: fight_combo
+    conditions: fight
+    priority: 1
+    cooldown: 10
+    chance: 0.4
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 47a6f55745ac0454690bcc2a7e8ec6c6, type: 3}
+  - id: cb_hurt_01
+    speaker: aryan
+    text: Ugh!
+    trigger: fight_hurt
+    conditions: fight
+    priority: 1
+    cooldown: 7
+    chance: 0.5
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: f70dc8bd73f884ddca2e37c13a8c4694, type: 3}
+  - id: cb_hurt_02
+    speaker: aryan
+    text: Ah! Careful.
+    trigger: fight_hurt
+    conditions: fight
+    priority: 1
+    cooldown: 7
+    chance: 0.5
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: e14cd81f16e9d40fdbc402ce5c71f6d5, type: 3}
+  - id: cb_low_01
+    speaker: aryan
+    text: I can't take many more.
+    trigger: fight_low
+    conditions: fight
+    priority: 3
+    cooldown: 60
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 5e4c738e75dad4bebabae493731cb4db, type: 3}
+  - id: cb_low_02
+    speaker: aryan
+    text: Block. Breathe. Block.
+    trigger: fight_low
+    conditions: fight
+    priority: 3
+    cooldown: 60
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 2f7f709ee1dfd4efbacbfd52c8a5682b, type: 3}
+  - id: cb_dodge_01
+    speaker: aryan
+    text: Too slow.
+    trigger: fight_dodge
+    conditions: fight
+    priority: 1
+    cooldown: 15
+    chance: 0.3
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 5737fc77b8be046cb9663fd0da9ba953, type: 3}
+  - id: cb_finish_01
+    speaker: aryan
+    text: Stay down.
+    trigger: fight_finish
+    conditions: fight
+    priority: 2
+    cooldown: 10
+    chance: 0.6
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: cc3e7e954853b4f2ebad3d7d6decedb8, type: 3}
+  - id: cb_finish_02
+    speaker: aryan
+    text: Enough.
+    trigger: fight_finish
+    conditions: fight
+    priority: 2
+    cooldown: 10
+    chance: 0.6
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 2ff01097b5761436995d4e63e740db1c, type: 3}
+  - id: cb_won_01
+    speaker: aryan
+    text: It's over.
+    trigger: fight_won
+    conditions: 
+    priority: 3
+    cooldown: 10
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 4ac4f68f2901c4432ad17f6e784172c3, type: 3}
+  - id: cb_won_02
+    speaker: aryan
+    text: Nobody else needs to get hurt.
+    trigger: fight_won
+    conditions: 
+    priority: 3
+    cooldown: 10
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 78b39a3f551234d5bb3ab120c717513d, type: 3}
+  - id: cb_retry_01
+    speaker: aryan
+    text: Again. Focus.
+    trigger: fight_retry
+    conditions: 
+    priority: 3
+    cooldown: 10
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 244bdce6ecad0478e863983bb9da6219, type: 3}
+  - id: rb_spot_vault
+    speaker: robber
+    text: Light! Someone's here!
+    trigger: enemy_spotted
+    conditions: zone=Vaults
+    priority: 3
+    cooldown: 0
+    chance: 1
+    once: 1
+    subtitle: 1
+    fx: vault
+    clip: {fileID: 8300000, guid: 0d802447de41e44fcadb1e4861c5be39, type: 3}
+  - id: rb_spot_well
+    speaker: robber
+    text: Slippery, isn't it?
+    trigger: enemy_spotted
+    conditions: zone=Stepwell
+    priority: 3
+    cooldown: 0
+    chance: 1
+    once: 1
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 64eb25b7b06984388878d069419fbff1, type: 3}
+  - id: rb_spot_store
+    speaker: robber
+    text: You should have stayed in the village.
+    trigger: enemy_spotted
+    conditions: zone=Courtyard
+    priority: 3
+    cooldown: 0
+    chance: 1
+    once: 1
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 2c512ba11d8424d39afe7a79296c08c6, type: 3}
+  - id: rb_taunt_01
+    speaker: robber
+    text: Walk away, detective.
+    trigger: fight_taunt
+    conditions: enemy=robber
+    priority: 2
+    cooldown: 18
+    chance: 0.5
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: d7106aebce3f84ef0a4052198f4348a5, type: 3}
+  - id: rb_taunt_02
+    speaker: robber
+    text: Two of us. One of you.
+    trigger: fight_taunt
+    conditions: enemy=robber
+    priority: 2
+    cooldown: 18
+    chance: 0.5
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 99da96266fe9740d9a0185c2f1f8de99, type: 3}
+  - id: rb_taunt_well
+    speaker: robber
+    text: He promised us a boat!
+    trigger: fight_taunt
+    conditions: enemy=robber;zone=Stepwell
+    priority: 2
+    cooldown: 18
+    chance: 0.6
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 3e10c306828374a9c8357566d38d721e, type: 3}
+  - id: rb_taunt_vault
+    speaker: robber
+    text: He said nobody comes down here.
+    trigger: fight_taunt
+    conditions: enemy=robber;zone=Vaults
+    priority: 2
+    cooldown: 18
+    chance: 0.6
+    once: 0
+    subtitle: 1
+    fx: vault
+    clip: {fileID: 8300000, guid: 72735af0dc890469a93f8acc27728d82, type: 3}
+  - id: cr_taunt_01
+    speaker: courier
+    text: Back off! It's mine now.
+    trigger: fight_taunt
+    conditions: enemy=courier
+    priority: 2
+    cooldown: 18
+    chance: 0.6
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 6f8c1811aa086495ebda6e05f07f9bf9, type: 3}
+  - id: cr_taunt_02
+    speaker: courier
+    text: You don't know who sent me.
+    trigger: fight_taunt
+    conditions: enemy=courier
+    priority: 2
+    cooldown: 18
+    chance: 0.6
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 254c13790dec5440b9dbe61e3a969d1b, type: 3}
+  - id: ki_spot_01
+    speaker: kishore
+    text: You read the wall. Impressive.
+    trigger: enemy_spotted
+    conditions: enemy=kishore
+    priority: 3
+    cooldown: 0
+    chance: 1
+    once: 1
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: e292e4b3037184811a746127fa6e5130, type: 3}
+  - id: ki_taunt_01
+    speaker: kishore
+    text: The finial is already moving.
+    trigger: fight_taunt
+    conditions: enemy=kishore
+    priority: 2
+    cooldown: 18
+    chance: 0.6
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 1f226e9247f80414e9c081ba5f5b9b6c, type: 3}
+  - id: ki_taunt_02
+    speaker: kishore
+    text: Bhaskar will not wait for me.
+    trigger: fight_taunt
+    conditions: enemy=kishore
+    priority: 2
+    cooldown: 18
+    chance: 0.6
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: d4f1fef0e07d942938f4d20c9bbe4ecb, type: 3}
+  - id: ki_down_01
+    speaker: kishore
+    text: The river. Before dawn.
+    trigger: enemy_down
+    conditions: enemy=kishore
+    priority: 4
+    cooldown: 0
+    chance: 1
+    once: 1
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 5f67082fd1ef341ae96beb73d7e29fa9, type: 3}
+  - id: bh_taunt_01
+    speaker: bhaskar
+    text: Go home, investigator.
+    trigger: fight_taunt
+    conditions: enemy=bhaskar
+    priority: 2
+    cooldown: 18
+    chance: 0.6
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 96f668d17a4824beba7a475dc16d6309, type: 3}
+  - id: bh_taunt_02
+    speaker: bhaskar
+    text: You fight like a clerk.
+    trigger: fight_taunt
+    conditions: enemy=bhaskar
+    priority: 2
+    cooldown: 18
+    chance: 0.6
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: fffdb55c27ff14a84babd2adbb0a01db, type: 3}
+  - id: ck_half_01
+    speaker: aryan
+    text: Half the night is gone.
+    trigger: clock_half
+    conditions: 
+    priority: 3
+    cooldown: 0
+    chance: 1
+    once: 1
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 7843d3e2ac3a84ad9ab34f8b7817d666, type: 3}
+  - id: ck_5_01
+    speaker: aryan
+    text: Five minutes to dawn.
+    trigger: clock_5
+    conditions: 
+    priority: 4
+    cooldown: 0
+    chance: 1
+    once: 1
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: f0c58dc1f6ebf4d0d959dce4e872476c, type: 3}
+  - id: ck_1_01
+    speaker: aryan
+    text: One minute. Run!
+    trigger: clock_1
+    conditions: 
+    priority: 4
+    cooldown: 0
+    chance: 1
+    once: 1
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: a9313e943f767478e89338591f0adebc, type: 3}
+  - id: ck_pen_01
+    speaker: aryan
+    text: That cost me time.
+    trigger: clock_penalty
+    conditions: 
+    priority: 1
+    cooldown: 45
+    chance: 0.5
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: c464ef918c6204abab62552c0925fe7a, type: 3}
+  - id: ck_pen_02
+    speaker: aryan
+    text: Minutes I don't have.
+    trigger: clock_penalty
+    conditions: 
+    priority: 1
+    cooldown: 45
+    chance: 0.5
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: d0815efd1ecb243de82a8aaaa260921b, type: 3}
+  - id: np_puj_01
+    speaker: pujari
+    text: Please hurry, sir.
+    trigger: npc_near
+    conditions: speaker=pujari;notobjective=obj_return
+    priority: 1
+    cooldown: 60
+    chance: 0.6
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 725b5c7c84119414ebd5855ba635976a, type: 3}
+  - id: np_puj_02
+    speaker: pujari
+    text: May you find them all.
+    trigger: npc_near
+    conditions: speaker=pujari;notobjective=obj_return
+    priority: 1
+    cooldown: 60
+    chance: 0.6
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 68e2e27a69db34ed890cf7f848aa1cff, type: 3}
+  - id: np_puj_03
+    speaker: pujari
+    text: You are back! Come, come.
+    trigger: npc_near
+    conditions: speaker=pujari;objective=obj_return
+    priority: 2
+    cooldown: 30
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 6d0956d8cc36f4d67a0c8e609a2c80d5, type: 3}
+  - id: np_mee_01
+    speaker: meera
+    text: Be careful, sir.
+    trigger: npc_near
+    conditions: speaker=meera
+    priority: 1
+    cooldown: 60
+    chance: 0.6
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 8848224933b43458d886d22443cb9872, type: 3}
+  - id: np_mee_02
+    speaker: meera
+    text: The whole village is awake.
+    trigger: npc_near
+    conditions: speaker=meera
+    priority: 1
+    cooldown: 60
+    chance: 0.6
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: c19ad424b8fae40e1b9af451f339b8e5, type: 3}
+  - id: np_mad_01
+    speaker: madhav
+    text: Long night, sir?
+    trigger: npc_near
+    conditions: speaker=madhav
+    priority: 1
+    cooldown: 90
+    chance: 0.6
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 8d3146f8ee3ab4356b35a9f74b7d1492, type: 3}
+  - id: np_mad_02
+    speaker: madhav
+    text: The keys? Safe with me, always.
+    trigger: npc_near
+    conditions: speaker=madhav
+    priority: 1
+    cooldown: 90
+    chance: 0.6
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 7914b0823545c445aaf4c5c32a0958f6, type: 3}
+  - id: vl_m_01
+    speaker: villager_m
+    text: Up early, sir?
+    trigger: npc_near
+    conditions: speaker=villager_m
+    priority: 1
+    cooldown: 30
+    chance: 0.5
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 8f24e303d2f444c459419892aacf9a93, type: 3}
+  - id: vl_m_02
+    speaker: villager_m
+    text: The temple bell is silent tonight.
+    trigger: npc_near
+    conditions: speaker=villager_m
+    priority: 1
+    cooldown: 30
+    chance: 0.5
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: c8bd9338b9715480e993b6916f72062e, type: 3}
+  - id: vl_m_03
+    speaker: villager_m
+    text: Thieves? In Suryapur?
+    trigger: npc_near
+    conditions: speaker=villager_m
+    priority: 1
+    cooldown: 30
+    chance: 0.5
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: f68202cf5b68a4f369a3d7d271eb21e9, type: 3}
+  - id: vl_f_01
+    speaker: villager_f
+    text: You're up early, sir.
+    trigger: npc_near
+    conditions: speaker=villager_f
+    priority: 1
+    cooldown: 30
+    chance: 0.5
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 7778f2dccf9e642519a9e0206500010c, type: 3}
+  - id: vl_f_02
+    speaker: villager_f
+    text: We are praying for the festival.
+    trigger: npc_near
+    conditions: speaker=villager_f
+    priority: 1
+    cooldown: 30
+    chance: 0.5
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: d3c1fe5b3f0e649549436f34897a32c0, type: 3}
+  - id: vl_f_03
+    speaker: villager_f
+    text: Mind the cart, sir.
+    trigger: npc_near
+    conditions: speaker=villager_f
+    priority: 1
+    cooldown: 30
+    chance: 0.5
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 857267897d59e4de8954c43b4d31a6a4, type: 3}
+  - id: end_narr_01
+    speaker: narrator
+    text: Every temple holds a story. Every artifact carries a memory. Protecting heritage means protecting our history.
+    trigger: ending
+    conditions: 
+    priority: 5
+    cooldown: 0
+    chance: 1
+    once: 1
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 87c84e754681248ceac53af48be5a478, type: 3}
+  builtFrom: Docs/VOICE_LINES.csv
+  builtAt: 2026-11-23 12:43

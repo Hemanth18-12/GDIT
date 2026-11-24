@@ -233,10 +233,9 @@ namespace LegacyOfTemples.UI
             yield return Interact(zone.MirrorA, zone.MirrorA.transform.position + Vector3.back * 1.2f);
             pc.Teleport(zone.MirrorB.transform.position + Vector3.back * 1.5f, Quaternion.identity); yield return null;
             yield return Interact(zone.MirrorB, zone.MirrorB.transform.position + Vector3.back * 1.2f);
-            zone.WheelSocket.SetState(1);
-            zone.WheelSocket.locked = true;
-            yield return new WaitForSeconds(0.5f);
-            Check(zone.WheelSocket.State == 1, "Sun beam reflected into Chariot Wheel socket");
+            yield return Interact(zone.MirrorB, zone.MirrorB.transform.position + Vector3.back * 1.2f);
+            yield return new WaitForSeconds(0.8f);
+            Check(zone.Emitter.LastSocket == zone.WheelSocket && zone.WheelSocket.State == 1, "Real raycast beam reflected through both mirrors into Chariot Wheel socket");
             yield return Shot("02-light-beam-reflected.png", new Vector3(58f, 5f, 120f), new Vector3(84f, 3.5f, 125f));
             pc.Teleport(zone.ChariotWheel.transform.position + Vector3.back * 2.0f, Quaternion.identity); yield return null;
             yield return Interact(zone.ChariotWheel, zone.ChariotWheel.transform.position + Vector3.back * 2.0f);

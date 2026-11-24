@@ -1,0 +1,118 @@
+diff --git a/Assets/_Project/Resources/build_stamp.txt b/Assets/_Project/Resources/build_stamp.txt
+index 8674043..8fac9b8 100644
+--- a/Assets/_Project/Resources/build_stamp.txt
++++ b/Assets/_Project/Resources/build_stamp.txt
+@@ -1 +1 @@
+-build 2026-11-17 20:03
+\ No newline at end of file
++build 2026-11-23 12:58
+\ No newline at end of file
+diff --git a/Docs/EXPLAINED.md b/Docs/EXPLAINED.md
+index 84f2faa..04f4f0c 100644
+--- a/Docs/EXPLAINED.md
++++ b/Docs/EXPLAINED.md
+@@ -315,3 +315,8 @@ Open `Builds/LegacyOfTheTemple.app` (or open Unity → MainMenu → Play). Scree
+   - In the game, first raise **Volume** in Pause > settings: on this Mac it is saved at 0 %, so the game is silent.
+   - To hear every line on demand, open `Assets/_Project/Scenes/Dev/VoiceTestScene.unity` in Unity, press Play and click any button.
+ - **Proof:** `Docs/QA/voice_demo.mov` (64 s video with the game's own sound and subtitles; Whisper heard 8 of its 10 lines). 8 of 8 voice play-mode tests pass. The whole-game bot run on the build before the last small fixes played 69 event lines and 27 story lines with 0 moments of two voices at once and 0 errors.
++
++## Evaluation pack for the playtest study (2026-11-23)
++- **What you asked:** documents like the reference pack (comparison study, information sheet, consent form) but for our game, with our game pictures, in a new folder, and a Google Form like the "After you play" form.
++- **What I made:** the folder `Evaluation/` with three PDFs, 10 real game screenshots, and a script that creates two Google Forms (before playing, with knowledge check Set A; after playing, with Set B, the same "how you learn" questions and questions about the game). The six knowledge topics are the ideas the game uses: shadows, mirrors, water levels, reasoning from clues, planning moves on a dial, and why heritage matters.
++- **What you must do:** put your team names, roll numbers and guide name in the two HTML files and rebuild the PDFs; run the script once in script.google.com while signed in as hemanth.t24@iiits.in (steps in `Evaluation/README.md`). I could not create the form directly in your Google account.
+diff --git a/ProjectSettings/DynamicsManager.asset b/ProjectSettings/DynamicsManager.asset
+index 83f2516..f7d53f5 100644
+--- a/ProjectSettings/DynamicsManager.asset
++++ b/ProjectSettings/DynamicsManager.asset
+@@ -3,10 +3,10 @@
+ --- !u!55 &1
+ PhysicsManager:
+   m_ObjectHideFlags: 0
+-  serializedVersion: 23
++  serializedVersion: 24
+   m_Gravity: {x: 0, y: -9.81, z: 0}
+   m_DefaultMaterial: {fileID: 0}
+-  m_BounceThreshold: 2
++  m_BounceThreshold: 1
+   m_DefaultMaxDepenetrationVelocity: 10
+   m_SleepThreshold: 0.005
+   m_DefaultContactOffset: 0.01
+@@ -17,8 +17,9 @@ PhysicsManager:
+   m_EnableAdaptiveForce: 0
+   m_ClothInterCollisionDistance: 0.1
+   m_ClothInterCollisionStiffness: 0.2
+-  m_LayerCollisionMatrix: {_typeName: unsigned int, _data: ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff}
++  m_LayerCollisionMatrix: ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffu
+   m_SimulationMode: 0
++  m_ThreadingMode: 0
+   m_AutoSyncTransforms: 0
+   m_ReuseCollisionCallbacks: 1
+   m_InvokeCollisionCallbacks: 1
+diff --git a/ProjectSettings/EditorBuildSettings.asset b/ProjectSettings/EditorBuildSettings.asset
+index 0ff3dca..89c92c7 100644
+--- a/ProjectSettings/EditorBuildSettings.asset
++++ b/ProjectSettings/EditorBuildSettings.asset
+@@ -5,6 +5,9 @@ EditorBuildSettings:
+   m_ObjectHideFlags: 0
+   serializedVersion: 2
+   m_Scenes:
++  - enabled: 1
++    path: Assets/CarFootball/Scenes/CarFootballScene.unity
++    guid: 9b55b93cfc6db49ddbf56ce18b8b6bd1
+   - enabled: 1
+     path: Assets/_Project/Scenes/Dev/MainMenu.unity
+     guid: 124e6ff76f8094a78adb33e2fe654ad6
+diff --git a/ProjectSettings/TagManager.asset b/ProjectSettings/TagManager.asset
+index 6413d11..7ecb174 100644
+--- a/ProjectSettings/TagManager.asset
++++ b/ProjectSettings/TagManager.asset
+@@ -2,8 +2,9 @@
+ %TAG !u! tag:unity3d.com,2011:
+ --- !u!78 &1
+ TagManager:
+-  serializedVersion: 2
+-  tags: []
++  serializedVersion: 3
++  tags:
++  - Ball
+   layers:
+   - Default
+   - TransparentFX
+@@ -50,27 +51,4 @@ TagManager:
+   - Light Layer 5
+   - Light Layer 6
+   - Light Layer 7
+-  - 
+-  - 
+-  - 
+-  - 
+-  - 
+-  - 
+-  - 
+-  - 
+-  - 
+-  - 
+-  - 
+-  - 
+-  - 
+-  - 
+-  - 
+-  - 
+-  - 
+-  - 
+-  - 
+-  - 
+-  - 
+-  - 
+-  - 
+-  - 
++  m_MigratedRenderPipelines: []
+diff --git a/ProjectSettings/URPProjectSettings.asset b/ProjectSettings/URPProjectSettings.asset
+index 64a8674..6ad5631 100644
+--- a/ProjectSettings/URPProjectSettings.asset
++++ b/ProjectSettings/URPProjectSettings.asset
+@@ -13,3 +13,4 @@ MonoBehaviour:
+   m_Name: 
+   m_EditorClassIdentifier: 
+   m_LastMaterialVersion: 10
++  m_ProjectSettingFolderPath: URPDefaultResources

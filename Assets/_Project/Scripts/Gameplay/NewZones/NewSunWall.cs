@@ -47,7 +47,9 @@ namespace LegacyOfTemples.Gameplay
             MarketArt.Box(r, "Sun Plaza Sandstone Floor", plazaOrigin + new Vector3(0f, -0.05f, 0f), new Vector3(45f, 0.3f, 45f), "sandstone_blocks_08");
 
             // Massive Monumental Sun Wall on the East (z = 100-150, x = 86)
-            MarketArt.Box(r, "Sun Wall Monument", plazaOrigin + new Vector3(21f, 6f, 0f), new Vector3(2.5f, 12f, 44f), "sandstone_blocks_08");
+            MarketArt.Box(r, "Sun Wall North", plazaOrigin + new Vector3(21f, 6f, 12f), new Vector3(2.5f, 12f, 20f), "sandstone_blocks_08");
+            MarketArt.Box(r, "Sun Wall South", plazaOrigin + new Vector3(21f, 6f, -12f), new Vector3(2.5f, 12f, 20f), "sandstone_blocks_08");
+            MarketArt.Box(r, "Sun Wall Lintel", plazaOrigin + new Vector3(21f, 9f, 0f), new Vector3(2.5f, 6f, 4f), "sandstone_blocks_08");
 
             // Four carved relief panels along the wall (Lotus, Conch, Wheel, Kalash)
             string[] symbols = { "LOTUS", "CONCH", "WHEEL", "KALASH" };
@@ -59,36 +61,46 @@ namespace LegacyOfTemples.Gameplay
             }
 
             // High Sun Altar with Light Beam Emitter
-            var altarObj = MarketArt.Box(r, "Sun Altar", plazaOrigin + new Vector3(-16f, 2f, -16f), new Vector3(3.2f, 4f, 3.2f), "sandstone_blocks_08");
-            Emitter = altarObj.AddComponent<LightBeamEmitter>();
+            MarketArt.Box(r, "Sun Altar", plazaOrigin + new Vector3(-16f, 1.3f, -16f), new Vector3(3.2f, 2.4f, 3.2f), "sandstone_blocks_08");
+            var emitterObj = new GameObject("Sunlight aperture");
+            emitterObj.transform.SetParent(r, false);
+            emitterObj.transform.localPosition = plazaOrigin + new Vector3(-16f, 2.8f, -14.2f);
+            var beam = emitterObj.AddComponent<LineRenderer>();
+            beam.useWorldSpace = true; beam.widthMultiplier = 0.12f; beam.numCapVertices = 4;
+            beam.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            beam.sharedMaterial = Fx.Res("Glow") ?? ZoneKit.Tinted("clay_plaster", Color.white, 0f, new Color(3f, 2.4f, 1.2f));
+            beam.startColor = beam.endColor = new Color(1f, 0.88f, 0.4f);
+            Emitter = emitterObj.AddComponent<LightBeamEmitter>(); Emitter.line = beam;
             Emitter.maxDistance = 50f;
 
             // Mirror A on pedestal at (plazaOrigin + (-16, 1.2, 12))
-            var mirAObj = ZoneKit.Round(r, "Mirror A Pedestal", plazaOrigin + new Vector3(-16f, 1f, 12f), new Vector3(1.2f, 2f, 1.2f), ZoneKit.Tinted("sandstone_blocks_08", Color.white, 0.2f), true);
-            ZoneKit.Reach(mirAObj, 1.4f);
-            MirrorA = mirAObj.AddComponent<LightMirror>();
-            MirrorA.elementId = "nz5.mirror_a";
-            MirrorA.steps = 8;
-            MirrorA.radius = 2.4f;
+            Vector3 mirrorA = plazaOrigin + new Vector3(-16f, 2.8f, 12f);
+            Vector3 mirrorB = plazaOrigin + new Vector3(12f, 2.8f, 12f);
+            Vector3 socketPosition = plazaOrigin + new Vector3(18.9f, 2.8f, 0f);
+            MirrorA = BuildMirror(r, "Mirror A", mirrorA, 90f, "nz5.mirror_a");
 
             // Mirror B on pedestal at (plazaOrigin + (12, 1.2, 12))
-            var mirBObj = ZoneKit.Round(r, "Mirror B Pedestal", plazaOrigin + new Vector3(12f, 1f, 12f), new Vector3(1.2f, 2f, 1.2f), ZoneKit.Tinted("sandstone_blocks_08", Color.white, 0.2f), true);
-            ZoneKit.Reach(mirBObj, 1.4f);
-            MirrorB = mirBObj.AddComponent<LightMirror>();
-            MirrorB.elementId = "nz5.mirror_b";
-            MirrorB.steps = 8;
-            MirrorB.radius = 2.4f;
+            Vector3 incoming = (mirrorB - mirrorA).normalized;
+            Vector3 outgoing = (socketPosition - mirrorB).normalized;
+            float solvedYaw = Quaternion.LookRotation((outgoing - incoming).normalized).eulerAngles.y;
+            MirrorB = BuildMirror(r, "Mirror B", mirrorB, solvedYaw - 90f, "nz5.mirror_b");
 
             // Light Socket on the Chariot Wheel Hub at (plazaOrigin + (19.4, 3.5, 0))
             var sockObj = new GameObject("Chariot Wheel Light Socket");
             sockObj.transform.SetParent(r, false);
-            sockObj.transform.localPosition = plazaOrigin + new Vector3(19.2f, 3.5f, 0f);
+            sockObj.transform.localPosition = socketPosition;
             ZoneKit.Reach(sockObj, 1.2f);
             WheelSocket = sockObj.AddComponent<LightSocket>();
             WheelSocket.elementId = "nz5.wheel_socket";
+            WheelSocket.holdSeconds = 0.35f;
+            var receiver = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            receiver.name = "Light receiver"; receiver.transform.SetParent(sockObj.transform, false);
+            receiver.transform.localScale = Vector3.one * 1.1f;
+            WheelSocket.glow = receiver.GetComponent<Renderer>();
+            WheelSocket.glow.sharedMaterial = ZoneKit.Tinted("clay_plaster", new Color(0.65f, 0.45f, 0.12f), 0.8f, new Color(1f, 0.6f, 0.1f));
 
             // Monumental Konark Chariot Wheel (4.5m diameter rotating disc)
-            var wheelObj = ZoneKit.Round(r, "Grand Chariot Wheel", plazaOrigin + new Vector3(19.6f, 3.5f, 0f), new Vector3(5.2f, 0.4f, 5.2f), ZoneKit.Tinted("sandstone_blocks_08", new Color(0.82f, 0.75f, 0.6f), 0.35f), true);
+            var wheelObj = ZoneKit.Round(r, "Grand Chariot Wheel", plazaOrigin + new Vector3(19.6f, 2.8f, 0f), new Vector3(5.2f, 0.4f, 5.2f), ZoneKit.Tinted("sandstone_blocks_08", new Color(0.82f, 0.75f, 0.6f), 0.35f), false);
             wheelObj.transform.localRotation = Quaternion.Euler(0f, 0f, 90f);
             ZoneKit.Reach(wheelObj, 2.2f);
             ChariotWheel = wheelObj.AddComponent<RotatingDisc>();
@@ -133,6 +145,21 @@ namespace LegacyOfTemples.Gameplay
 
             Built = true;
             Debug.Log("[NewSunWall] built: Sun Wall monument, rotatable mirrors, Konark Chariot Wheel & Kishore fight");
+        }
+
+        static LightMirror BuildMirror(Transform parent, string name, Vector3 position, float restYaw, string id)
+        {
+            ZoneKit.Round(parent, name + " pedestal", new Vector3(position.x, 0.8f, position.z), new Vector3(1.2f, 0.7f, 1.2f), ZoneKit.Tinted("sandstone_blocks_08", Color.white, 0.2f), true);
+            MarketArt.Box(parent, name + " support", new Vector3(position.x, 1.9f, position.z), new Vector3(0.18f, 1f, 0.18f), "sandstone_blocks_08", false);
+            var pivot = new GameObject(name);
+            pivot.transform.SetParent(parent, false); pivot.transform.localPosition = position;
+            pivot.transform.localRotation = Quaternion.Euler(0f, restYaw, 0f);
+            var plate = ZoneKit.Part(pivot.transform, "Bronze mirror face", Vector3.zero, new Vector3(1.8f, 1.8f, 0.12f), ZoneKit.Tinted("clay_plaster", new Color(0.8f, 0.64f, 0.3f), 0.95f), true);
+            plate.GetComponent<Renderer>().sharedMaterial.SetFloat("_Metallic", 0.9f);
+            ZoneKit.Reach(pivot, 1.4f);
+            var mirror = pivot.AddComponent<LightMirror>();
+            mirror.elementId = id; mirror.steps = 8; mirror.radius = 3.6f; mirror.verb = "Turn " + name;
+            return mirror;
         }
 
         IEnumerator Start()

@@ -44,34 +44,72 @@ namespace LegacyOfTemples.Gameplay
 
         private void Build()
         {
-            var pf = Resources.Load<GameObject>("Temple/Temple");
-            if (pf == null) { Debug.LogWarning("[TempleSite] Resources/Temple/Temple prefab missing (run Part2Tools.BuildTemple)"); return; }
-            var g = Instantiate(pf); g.name = "Temple_Site"; Temple = g.transform;
-            Bounds b = Measure(g); float top = Village.Top;
-            // its south edge 34 m beyond the village's north lane, centred on the main road, standing on the ground
-            Vector3 shift = new Vector3(Village.Centre.x - b.center.x, top - b.min.y - 0.05f, (Village.ZMin - 34f) - b.max.z);
-            g.transform.position += shift; b = Measure(g); Footprint = b;
-            int tris = 0; var lod0 = g.transform.Find("LOD0"); foreach (var mf in (lod0 != null ? lod0 : g.transform).GetComponentsInChildren<MeshFilter>()) if (mf.sharedMesh != null) for (int sm = 0; sm < mf.sharedMesh.subMeshCount; sm++) tris += (int)(mf.sharedMesh.GetIndexCount(sm) / 3); Triangles = tris;
+            float top = Village.Top;
+            Vector3 templePos = new Vector3(Village.Centre.x, top, Village.ZMin - 48f);
+            var res = KalingaTempleBuilder.Build(transform, "Temple_Site", templePos, 1.0f);
+            Temple = res.root;
+            Bounds b = res.footprint;
+            Footprint = b;
+            Triangles = 0;
+            foreach (var filter in Temple.GetComponentsInChildren<MeshFilter>())
+                if (filter.sharedMesh != null)
+                    for (int sub = 0; sub < filter.sharedMesh.subMeshCount; sub++)
+                        Triangles += (int)filter.sharedMesh.GetIndexCount(sub) / 3;
 
-            var ground = Village.Box(g.transform, "TempleGround", Vector3.zero, new Vector3(b.size.x + 60f, 0.2f, b.size.z + 60f), "red_sandstone_pavement", 3.2f);
+            // Seal the old black-shaded Sanctum portal box inside Courtyard.unity so players cannot enter darkness or get trapped.
+            SealCourtyardBlackGate(top);
+
+            var ground = Village.Box(Temple, "TempleGround", Vector3.zero, new Vector3(b.size.x + 60f, 0.2f, b.size.z + 60f), "red_sandstone_pavement", 3.2f);
             ground.transform.position = new Vector3(b.center.x, top - 0.12f, b.center.z);
-            Village.Box(g.transform, "TempleRoad", Vector3.zero, new Vector3(8f, 0.2f, 40f), "stony_dirt_path", 4f).transform.position = new Vector3(Village.Centre.x, top - 0.08f, b.max.z + 18f);
+            Village.Box(Temple, "TempleRoad", Vector3.zero, new Vector3(8f, 0.2f, 40f), "stony_dirt_path", 4f).transform.position = new Vector3(Village.Centre.x, top - 0.08f, b.max.z + 18f);
             var north = GameObject.Find("VillageBoundary_North"); if (north != null) north.SetActive(false);   // the road now continues to the temple
             foreach (var (pos, size) in new[] { (new Vector3(b.center.x, top + 3f, b.min.z - 28f), new Vector3(b.size.x + 60f, 8f, 1f)), (new Vector3(b.min.x - 28f, top + 3f, b.center.z), new Vector3(1f, 8f, b.size.z + 120f)), (new Vector3(b.max.x + 28f, top + 3f, b.center.z), new Vector3(1f, 8f, b.size.z + 120f)) })
-            { var f = new GameObject("TempleBoundary"); f.transform.SetParent(g.transform, false); f.transform.position = pos; f.AddComponent<BoxCollider>().size = size; }
+            { var f = new GameObject("TempleBoundary"); f.transform.SetParent(Temple, false); f.transform.position = pos; f.AddComponent<BoxCollider>().size = size; }
 
-            TowerTop = HighestPoint(g);
-            Flag(g.transform, TowerTop);
-            Birds(g.transform, TowerTop);
+            TowerTop = res.towerTop;
+            Flag(Temple, TowerTop);
+            Birds(Temple, TowerTop);
             for (int s = -1; s <= 1; s += 2)
-            {   // oil lamps at the approach
+            {   // oil lamps grounded at the approach
                 Vector3 p = new Vector3(Village.Centre.x + s * 5f, top, b.max.z + 4f);
-                ArtUpgrade.Place(g.transform, "brass_diya_lantern", p, 3.2f, 0f);
-                var l = new GameObject("TempleLamp").AddComponent<Light>(); l.transform.SetParent(g.transform, false); l.transform.position = p + Vector3.up * 0.9f;
+                ArtUpgrade.Place(Temple, "brass_diya_lantern", p, 2.2f, 0f);
+                var l = new GameObject("TempleLamp").AddComponent<Light>(); l.transform.SetParent(Temple, false); l.transform.position = p + Vector3.up * 0.9f;
                 l.type = LightType.Point; l.range = 7f; l.intensity = 2.4f; l.color = new Color(1f, 0.66f, 0.3f); l.shadows = LightShadows.None;
                 l.gameObject.AddComponent<LightFlicker>().Configure(1.8f, 2.8f, 10f);
             }
-            Debug.Log($"[TempleSite] temple placed: {tris} triangles, footprint {b.size.x:0} x {b.size.z:0} m, height {b.size.y:0} m, tower top {TowerTop}");
+            Debug.Log($"[TempleSite] grounded Kalinga temple built: {Triangles} triangles, footprint {b.size.x:0} x {b.size.z:0} m, tower top {TowerTop}");
+        }
+
+        private static void SealCourtyardBlackGate(float groundY)
+        {
+            // Close the dark Sanctum doorway behind Pujari & Meera so players stay cleanly inside the Courtyard.
+            foreach (var st in FindObjectsByType<SceneTransitionTrigger>(FindObjectsInactive.Include))
+            {
+                if (st.gameObject.name.Contains("Portal_To_Sanctum") || st.Id == "portal_to_" + Constants.Sanctum)
+                {
+                    Vector3 p = st.transform.position;
+                    var mr = st.GetComponent<MeshRenderer>(); if (mr != null) mr.enabled = false;
+                    var col = st.GetComponent<Collider>(); if (col != null) col.isTrigger = false;
+                    st.enabled = false;
+                    // Keep the frame under an unscaled root: parenting it to the door cube
+                    // multiplied its dimensions into an oversized solid slab.
+                    var doorway = new GameObject("Courtyard_Sanctum_ClosedDoors").transform;
+                    doorway.position = new Vector3(p.x, groundY, p.z);
+                    Village.Box(doorway, "Closed wooden doors", new Vector3(0f, 1.6f, 0f), new Vector3(3.8f, 3.2f, 0.8f), "medieval_wood", 1.5f, true);
+                    for (int side = -1; side <= 1; side += 2)
+                        Village.Box(doorway, "Stone door jamb", new Vector3(side * 2.06f, 1.7f, 0f), new Vector3(0.32f, 3.4f, 1.05f), "sandstone_blocks_08", 2f, true);
+                    Village.Box(doorway, "Stone door lintel", new Vector3(0f, 3.5f, 0f), new Vector3(4.45f, 0.35f, 1.05f), "sandstone_blocks_08", 2f, true);
+                }
+            }
+            // Also neutralize any pure black "mat_SanctumDarkness" box inside Courtyard
+            foreach (var r in FindObjectsByType<MeshRenderer>())
+            {
+                if (r.sharedMaterial != null && r.sharedMaterial.name.Contains("SanctumDarkness"))
+                {
+                    r.sharedMaterial = ArtUpgrade.Mat("red_sandstone_wall") ?? r.sharedMaterial;
+                    var c = r.GetComponent<Collider>(); if (c != null) c.isTrigger = false;
+                }
+            }
         }
 
         private static Bounds Measure(GameObject g)

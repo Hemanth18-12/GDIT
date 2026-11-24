@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Why Legacy of the Temple works</title><link rel="stylesheet" href="style.css"></head>
+<body>
+<div class="title-block">
+  <h1>Why Legacy of the Temple works</h1>
+  <p class="subtitle">A comparison study of how, why and what our educational game teaches</p>
+  <div class="meta">
+    <b>Game:</b> Legacy of the Temple (a heritage mystery, third-person, Unity 6)<br>
+    <b>Team:</b> Hemanth (S20240010236) · Aakash (S20240010245) · Sai Teja (S20240010136)<br>
+    <b>Guide:</b> Dr. Himangshu Sarma · Dept. of CSE, Indian Institute of Information Technology Sri City<br>
+    <b>Date:</b> November 2026
+  </div>
+</div>
+
+<div class="box">
+  <p><b>In short.</b> Legacy of the Temple turns observation, reasoning and simple physics of light and water into puzzles you must solve to move on. Five fictional temple treasures were stolen from Suryapur on the night before the festival; the Dawn Clock runs to <span class="mono">05:45</span>. You look at a scene, put it back together, watch what it shows you, and use the evidence to find the thief. This report explains why that helps, compares the game with other ways of learning, sums up what published research says about learning games, and sets out how our own study will measure whether it works.</p>
+  <p><b>Status of the evidence.</b> Sections 1–5 are complete. Section 6 describes our study; its results will be added after the playtest sessions. No results are shown before real data has been collected.</p>
+</div>
+
+<h2>1. Why: the problem we address</h2>
+<p>Many students meet history and science as facts to memorise. They can say that "temples are part of our heritage" or that "light reflects off a mirror at the same angle", but often cannot use the idea in a new situation, and heritage feels like something in a museum case rather than something that belongs to a living community. Three common problems:</p>
+<ul>
+  <li><b>Passive learning.</b> Listening and reading give little practice in using an idea. A large meta-analysis of 225 studies found that students in traditional lecture courses were 1.5 times more likely to fail than students in active-learning courses (Freeman et al., 2014).</li>
+  <li><b>Late feedback.</b> In homework and tests, students find out they were wrong days later, if at all.</li>
+  <li><b>Low motivation.</b> Revision feels like a chore, and heritage topics feel distant, so practice stops early.</li>
+</ul>
+<p>A mystery game can address all three: every puzzle is practice, the world reacts immediately, and a story with a deadline gives a reason to keep going.</p>
+
+<h2>2. What: the game</h2>
+<p>Legacy of the Temple is a third-person 3D mystery and action game for Mac, built in Unity with models from Blender. You are Aryan, an investigator. Pujari Ananda asks you to recover five stolen treasures before sunrise; Meera, a village girl, gives you leads; and two robbers, Bhaskar and Kishore, stand in your way. The treasures are fictional; the real Jagannath idol is only a respectful background element and is never touched.</p>
+<table>
+  <tr><th style="width:22%">Feature</th><th>Detail</th></tr>
+  <tr><td>Size</td><td>One temple village with six places (bazaar, storeroom, vaults, stepwell, Sun Wall, river road); about 20–30 minutes of play</td></tr>
+  <tr><td>Ideas used</td><td>Observation and reasoning from evidence, light and shadow, reflection by mirrors, water levels and floating, planning moves, and why heritage matters to a community</td></tr>
+  <tr><td>Help</td><td>Press <b>H</b> for up to three hints at the puzzle you stand at; each hint costs score, so players try first</td></tr>
+  <tr><td>Challenge</td><td>The Dawn Clock counts down to 05:45; a short fight in every place; a jeep chase at the end</td></tr>
+  <tr><td>Voices</td><td>166 spoken lines with subtitles for every moment (puzzles, the jeep, fights, the clock); a setting for how often the hero talks</td></tr>
+  <tr><td>Quality</td><td>Automated play-mode tests, and a test bot that plays the whole story in the finished Mac app and reports errors (0 in the latest run)</td></tr>
+</table>
+<div class="shots">
+  <figure><img src="../images/L0_05_hud_goal.jpg"><figcaption>Reach the temple: the goal and the Dawn Clock are always on screen.</figcaption></figure>
+  <figure><img src="../images/L1_02_priest_talk.jpg"><figcaption>Pujari Ananda explains what was stolen and why it matters.</figcaption></figure>
+  <figure><img src="../images/L7_02_chase.jpg"><figcaption>The river road: chase the last robber in the jeep.</figcaption></figure>
+</div>
+
+<h2>3. How: the way the game teaches</h2>
+<p>Every puzzle follows one loop, built on the investigation story. It matches the well-known <i>predict, observe, explain</i> approach to science teaching: the player first works out what must have happened, then tests it in the world.</p>
+<div class="loop">
+  <div><b>1. Observe</b>A crime scene or a puzzle room. The player looks for what is out of place.</div>
+  <div><b>2. Act</b>Put objects back, turn mirrors, open sluices. The world plays out by its own rules.</div>
+  <div><b>3. See</b>Light falls, water rises, a beam reaches the carving, immediately and visibly.</div>
+  <div><b>4. Use</b>The way on opens only when the idea is applied; each place gives one piece of evidence.</div>
+</div>
+<div style="break-inside:avoid;page-break-inside:avoid"><h3>Examples from the game</h3>
+<table>
+  <tr><th style="width:17%">Place</th><th style="width:22%">Idea</th><th>What the player does</th></tr>
+  <tr><td>Storeroom</td><td>Rebuilding a scene from evidence; light shows what is hidden</td><td>Carries three pot shards back to the plinth; the pot holds oil again and the lantern lights. Set on the oil stain, its light shows the loose flagstone. The lock plate is scratched on the inside: someone opened the door from within.</td></tr>
+  <tr><td>Vaults</td><td>Reading a light pattern; planning moves</td><td>Pushes stone blocks onto pressure plates (one must go round a pillar), then turns three discs to match the rings of light that the roof grate draws on the floor.</td></tr>
+  <tr><td>Stepwell</td><td>Water level and floating</td><td>Opens two sluices so the tank floods and the raft rises, then drains to the right mark: too much water hides the carved panel. The obvious move is not the answer.</td></tr>
+  <tr><td>Sun Wall</td><td>Reflection and blocking light</td><td>Turns four mirrors so two sunbeams reach two carvings, then turns a stone wheel so a spoke stops blocking one beam.</td></tr>
+  <tr><td>Evidence board</td><td>Reasoning from clues</td><td>Four small clues (a list in neat handwriting, scratches inside the lock, a ledger signed "M.", a key ring) point to one person; the player names the inside man once.</td></tr>
+  <tr><td>Ending</td><td>Why heritage matters</td><td>"Their value isn't money. It's memory." The treasures go back to the priest at sunrise.</td></tr>
+</table></div>
+<div class="shots">
+  <figure><img src="../images/L3_03_pot_whole_lantern_lit.jpg"><figcaption>Storeroom: the pot is whole, holds oil, and the lantern lights.</figcaption></figure>
+  <figure><img src="../images/L4_03_light_pattern.jpg"><figcaption>Vaults: rings of light on the floor give the disc answer.</figcaption></figure>
+  <figure><img src="../images/L6_03_beams_reach_wall.jpg"><figcaption>Sun Wall: mirrors send two sunbeams to the carvings.</figcaption></figure>
+</div>
+
+<h2 class="page-break">4. Comparison with other ways of learning</h2>
+<p>The table compares typical forms of each method. Individual products vary; quiz apps and museum visits, for example, differ a great deal.</p>
+<table class="cmp">
+  <tr><th style="width:23%">What matters for learning</th><th>Textbook / lecture</th><th>Museum or heritage walk</th><th>Video lessons</th><th>Quiz apps</th><th>Typical learning games</th><th class="us">Legacy of the Temple</th></tr>
+  <tr><td>Learning by doing (using the idea, not only reading it)</td><td class="n">No</td><td class="p">Partly</td><td class="n">No</td><td class="p">Partly</td><td class="p">Partly</td><td class="us y">Yes</td></tr>
+  <tr><td>Immediate feedback on mistakes</td><td class="n">No</td><td class="n">No</td><td class="n">No</td><td class="y">Yes</td><td class="y">Yes</td><td class="us y">Yes, the world reacts</td></tr>
+  <tr><td>Work it out before seeing the answer</td><td class="p">Partly</td><td class="n">No</td><td class="p">Partly</td><td class="n">No</td><td class="p">Partly</td><td class="us y">Yes, every crime scene</td></tr>
+  <tr><td>Help at the moment you are stuck</td><td class="n">No</td><td class="p">A guide, if present</td><td class="n">No</td><td class="p">Partly</td><td class="p">Partly</td><td class="us y">Yes, three hints (H)</td></tr>
+  <tr><td>Story and a reason to keep going</td><td class="n">No</td><td class="p">Partly</td><td class="p">Partly</td><td class="p">Points only</td><td class="y">Yes</td><td class="us y">Yes, the Dawn Clock and five treasures</td></tr>
+  <tr><td>Heritage felt as a living place</td><td class="n">No</td><td class="y">Yes</td><td class="p">Partly</td><td class="n">No</td><td class="p">Varies</td><td class="us y">Yes, a village, its people and its temple</td></tr>
+  <tr><td>Own pace</td><td class="y">Yes</td><td class="p">Group pace</td><td class="y">Yes</td><td class="p">Often timed</td><td class="y">Yes</td><td class="us p">Yes, with a soft deadline</td></tr>
+  <tr><td>Works without internet</td><td class="y">Yes</td><td class="y">Yes</td><td class="p">Usually not</td><td class="p">Usually not</td><td class="p">Varies</td><td class="us y">Yes</td></tr>
+</table>
+<p><b>Trade-offs.</b> Our game needs a computer and takes longer per idea than reading a summary, and it covers each idea through one or two puzzles rather than a full syllabus. It does not record learning data by itself; the study uses forms and the ending screen. It is meant to <i>add to</i> classes, textbooks and visits, giving practice and interest, not to replace them.</p>
+
+<h2 class="page-break">5. What published research says</h2>
+<ul>
+  <li><b>Active learning beats passive listening.</b> Across 225 studies in science, engineering and maths, active learning raised exam scores and lowered failure rates compared with lecturing (Freeman et al., 2014). Courses using interactive engagement showed about twice the learning gain in mechanics of traditional courses (Hake, 1998).</li>
+  <li><b>Well-designed learning games help.</b> A meta-analysis found that serious games led to more learning and better retention than conventional teaching (Wouters et al., 2013). Another found that digital games improved learning outcomes compared with non-game conditions, and that enhanced game designs did better than basic versions of the same games (Clark, Tanner-Smith &amp; Killingsworth, 2016).</li>
+  <li><b>Learning supports matter.</b> In the physics game <i>Physics Playground</i>, adding learning supports to the game helped players learn without making it less fun (Shute et al., 2021). Our hints play that role: they appear only when asked for.</li>
+  <li><b>Caution.</b> The same research shows that games help most when the puzzle cannot be solved without the idea being taught. That is the design rule our places follow: the way on opens only when the idea is used correctly.</li>
+</ul>
+
+<h2>6. How we will show it works: our study</h2>
+<p>To check that the game itself helps, we compare each participant's knowledge and attitudes <b>before</b> and <b>after</b> playing, and note how they played.</p>
+<h3>Procedure (each participant, about 40–45 minutes)</h3>
+<ol>
+  <li>Read the information sheet and sign the consent form; receive a participant ID (P001, P002, …).</li>
+  <li><b>Pre-play form</b> (Google Form): background, gaming habits, attitudes, and a 6-question knowledge check (<b>Set A</b>) on the game's ideas: shadows, reflection, water levels, reasoning from evidence, planning moves and the value of heritage.</li>
+  <li><b>Play</b> the game on our laptop for about 30 minutes from New Game. The researcher notes the places reached, the hints used and the ending-screen score.</li>
+  <li><b>Post-play form:</b> a matching knowledge check (<b>Set B</b>, same six topics, different questions), the same attitude questions, and opinions on the game.</li>
+</ol>
+<h3>What we compare</h3>
+<table>
+  <tr><th style="width:27%">Measure</th><th style="width:30%">Before vs after</th><th>Test</th></tr>
+  <tr><td>Knowledge (0–6)</td><td>Set A score vs Set B score, per participant</td><td>Wilcoxon signed-rank test (paired); normalised gain ⟨g⟩ = (post − pre) / (6 − pre)</td></tr>
+  <tr><td>Confidence in answers (1–5)</td><td>Pre vs post rating</td><td>Wilcoxon signed-rank test</td></tr>
+  <tr><td>"Games can help people learn" (1–5)</td><td>Pre vs post agreement</td><td>Wilcoxon signed-rank test</td></tr>
+  <tr><td>Interest in heritage (1–5)</td><td>Pre vs post agreement</td><td>Wilcoxon signed-rank test</td></tr>
+  <tr><td>Enjoyment and difficulty</td><td>Post-play ratings</td><td>Means and spread</td></tr>
+  <tr><td>How they played</td><td>Places reached, hints, score</td><td>Descriptive; Spearman ρ with knowledge gain</td></tr>
+  <tr><td>Gamers vs non-gamers</td><td>Gain by gaming frequency</td><td>Mann-Whitney U test</td></tr>
+</table>
+<div class="todo">
+  <b class="t">Results: to be added after the playtest sessions.</b><br>
+  Participants: N = ___ · Mean knowledge before: ___ / 6 · after: ___ / 6 · normalised gain ⟨g⟩ = ___ · p = ___<br>
+  Charts to add: before/after knowledge scores per participant; average enjoyment and difficulty; hints and places reached.
+</div>
+<h3>Limitations</h3>
+<ul>
+  <li><b>No control group.</b> All participants play the game, so a rise in scores could partly come from answering similar questions twice. A later study could compare with a group that reads the same topics instead.</li>
+  <li><b>Different question sets.</b> Sets A and B cover the same topics with different questions, which avoids memorised answers but means the two sets may differ slightly in difficulty.</li>
+  <li><b>Short session and small sample.</b> About 30 minutes of play, with classmates aged 18 and over, measures short-term understanding only.</li>
+</ul>
+
+<h2>7. Conclusion</h2>
+<p>Legacy of the Temple applies what research shows helps people learn: active problem-solving, working things out before seeing the result, immediate feedback, help at the moment of need, and a story that keeps players going. It also shows heritage as part of a living community rather than an object in a case. Our playtest study will show whether these advantages appear in practice for our participants.</p>
+
+<h2>References</h2>
+<ol class="refs">
+  <li>Clark, D. B., Tanner-Smith, E. E., &amp; Killingsworth, S. S. (2016). Digital games, design, and learning: A systematic review and meta-analysis. <i>Review of Educational Research, 86</i>(1), 79–122.</li>
+  <li>Freeman, S., Eddy, S. L., McDonough, M., Smith, M. K., Okoroafor, N., Jordt, H., &amp; Wenderoth, M. P. (2014). Active learning increases student performance in science, engineering, and mathematics. <i>Proceedings of the National Academy of Sciences, 111</i>(23), 8410–8415.</li>
+  <li>Hake, R. R. (1998). Interactive-engagement versus traditional methods: A six-thousand-student survey of mechanics test data for introductory physics courses. <i>American Journal of Physics, 66</i>(1), 64–74.</li>
+  <li>Shute, V. J., Rahimi, S., Smith, G., Ke, F., et al. (2021). Maximizing learning without sacrificing the fun: Stealth assessment, adaptivity and learning supports in educational games. <i>Journal of Computer Assisted Learning, 37</i>(1), 127–141.</li>
+  <li>Wouters, P., van Nimwegen, C., van Oostendorp, H., &amp; van der Spek, E. D. (2013). A meta-analysis of the cognitive and motivational effects of serious games. <i>Journal of Educational Psychology, 105</i>(2), 249–265.</li>
+</ol>
+<p class="small">Please check each reference against the original paper before submitting.</p>
+</body></html>

@@ -31,9 +31,11 @@ namespace LegacyOfTemples.Core
         private Dictionary<string, AudioClip> clipCache = new Dictionary<string, AudioClip>(StringComparer.OrdinalIgnoreCase);
 
         private float masterVolume = 1.0f;
-        private float musicVolume = 0.8f;
+        private float musicVolume = 0.7f;
+        private float ambienceVolume = 0.6f;
         private float sfxVolume = 0.9f;
         private float dialogueVolume = 1.0f;
+        public float AmbienceVolume => ambienceVolume;
 
         private bool isDucking = false;
         private float duckFactor = 1.0f;
@@ -107,12 +109,30 @@ namespace LegacyOfTemples.Core
             ApplyVolumes();
         }
 
+        public void SetAmbienceVolume(float vol)
+        {
+            ambienceVolume = Mathf.Clamp01(vol);
+            PlayerPrefs.SetFloat("Settings_AmbienceVol", ambienceVolume);
+            PlayerPrefs.Save();
+            ApplyVolumes();
+        }
+
+        public void SetVoiceVolume(float vol)
+        {
+            dialogueVolume = Mathf.Clamp01(vol);
+            PlayerPrefs.SetFloat("Settings_VoiceVol", dialogueVolume);
+            PlayerPrefs.SetFloat("Volume_Dialogue", dialogueVolume);
+            PlayerPrefs.Save();
+            ApplyVolumes();
+        }
+
         private void LoadVolumePreferences()
         {
-            masterVolume = PlayerPrefs.GetFloat("Volume_Master", 1.0f);
-            musicVolume = PlayerPrefs.GetFloat("Volume_Music", 0.8f);
-            sfxVolume = PlayerPrefs.GetFloat("Volume_SFX", 0.9f);
-            dialogueVolume = PlayerPrefs.GetFloat("Volume_Dialogue", 1.0f);
+            masterVolume = PlayerPrefs.HasKey("Settings_MasterVol") ? PlayerPrefs.GetFloat("Settings_MasterVol", 1.0f) : PlayerPrefs.GetFloat("Volume_Master", 1.0f);
+            musicVolume = PlayerPrefs.HasKey("Settings_MusicVol") ? PlayerPrefs.GetFloat("Settings_MusicVol", 0.7f) : PlayerPrefs.GetFloat("Volume_Music", 0.7f);
+            ambienceVolume = PlayerPrefs.GetFloat("Settings_AmbienceVol", 0.6f);
+            sfxVolume = PlayerPrefs.HasKey("Settings_SfxVol") ? PlayerPrefs.GetFloat("Settings_SfxVol", 0.9f) : PlayerPrefs.GetFloat("Volume_SFX", 0.9f);
+            dialogueVolume = PlayerPrefs.HasKey("Settings_VoiceVol") ? PlayerPrefs.GetFloat("Settings_VoiceVol", 1.0f) : PlayerPrefs.GetFloat("Volume_Dialogue", 1.0f);
             ApplyVolumes();
         }
 
@@ -194,7 +214,7 @@ namespace LegacyOfTemples.Core
             if (clip == null) return;
 
             ambienceSource.clip = clip;
-            ambienceSource.volume = masterVolume * musicVolume * 0.75f;
+            ambienceSource.volume = masterVolume * ambienceVolume * 0.75f;
             ambienceSource.Play();
         }
 
@@ -265,35 +285,39 @@ namespace LegacyOfTemples.Core
         public void SetMasterVolume(float vol)
         {
             masterVolume = Mathf.Clamp01(vol);
+            PlayerPrefs.SetFloat("Settings_MasterVol", masterVolume);
             PlayerPrefs.SetFloat("Volume_Master", masterVolume);
+            PlayerPrefs.Save();
             ApplyVolumes();
         }
 
         public void SetMusicVolume(float vol)
         {
             musicVolume = Mathf.Clamp01(vol);
+            PlayerPrefs.SetFloat("Settings_MusicVol", musicVolume);
             PlayerPrefs.SetFloat("Volume_Music", musicVolume);
+            PlayerPrefs.Save();
             ApplyVolumes();
         }
 
         public void SetSFXVolume(float vol)
         {
             sfxVolume = Mathf.Clamp01(vol);
+            PlayerPrefs.SetFloat("Settings_SfxVol", sfxVolume);
             PlayerPrefs.SetFloat("Volume_SFX", sfxVolume);
+            PlayerPrefs.Save();
             ApplyVolumes();
         }
 
         public void SetDialogueVolume(float vol)
         {
-            dialogueVolume = Mathf.Clamp01(vol);
-            PlayerPrefs.SetFloat("Volume_Dialogue", dialogueVolume);
-            ApplyVolumes();
+            SetVoiceVolume(vol);
         }
 
         private void ApplyVolumes()
         {
             if (bgmSource != null) bgmSource.volume = masterVolume * musicVolume * duckFactor;
-            if (ambienceSource != null) ambienceSource.volume = masterVolume * musicVolume * 0.75f;
+            if (ambienceSource != null) ambienceSource.volume = masterVolume * ambienceVolume * 0.75f;
             if (sfxSource != null) sfxSource.volume = masterVolume * sfxVolume;
             if (footstepSource != null) footstepSource.volume = masterVolume * sfxVolume * 0.6f;
             if (dialogueSource != null) dialogueSource.volume = masterVolume * dialogueVolume;

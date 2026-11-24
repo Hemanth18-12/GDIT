@@ -77,13 +77,13 @@ namespace LegacyOfTemples.Gameplay
 
             MarketArt.Box(RuinsCourt, "Ruins Flagstone Arena", new Vector3(0f, 0.2f, 0f), new Vector3(36f, 0.4f, 36f), "mossy_sandstone");
 
-            // Ruined carved pillars surrounding the arena
+            // Ruined carved pillars surrounding the arena (lamps mounted squarely on top of each pillar)
             for (int angle = 0; angle < 360; angle += 45)
             {
                 float rad = angle * Mathf.Deg2Rad;
                 Vector3 p = new Vector3(Mathf.Sin(rad) * 16f, 2.5f, Mathf.Cos(rad) * 16f);
                 MarketArt.Box(RuinsCourt, "Ruined Pillar", p, new Vector3(1.6f, 5f, 1.6f), "sandstone_blocks_08");
-                ArtUpgrade.Place(RuinsCourt, "vintage_oil_lamp", p + Vector3.up * 1.5f, 1.2f, 0f, false);
+                ArtUpgrade.Place(RuinsCourt, "vintage_oil_lamp", RuinsCourt.TransformPoint(p + Vector3.up * 2.5f), 1.2f, 0f, false);
             }
 
             // Smuggler Escape Boat at river edge behind ruins (z = 465)

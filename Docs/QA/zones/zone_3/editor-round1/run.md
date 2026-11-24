@@ -1,6 +1,6 @@
 # New Vaults — fresh gameplay run
 
-PASS Walk reached (-6.0, -5.3, 97.8); feet (-5.42, -5.80, 98.00)
+PASS Walk reached (-6.0, -5.3, 97.8); feet (-5.42, -5.80, 98.01)
 
 E interaction: el.nz3.BlockA
 
@@ -26,7 +26,7 @@ PASS Walk reached (-4.0, -4.4, 122.0); feet (-4.00, -5.80, 121.50)
 
 E interaction: el.nz3.peg.1
 
-PASS Walk reached (-7.0, -4.8, 122.2); feet (-7.00, -5.80, 121.58)
+PASS Walk reached (-7.0, -4.4, 122.2); feet (-7.00, -5.80, 121.58)
 
 E interaction: el.nz3.crank
 
@@ -74,7 +74,7 @@ E interaction: el.nz3.disc.2
 
 PASS Three stone discs aligned to roof light pattern (2, 5, 3)
 
-Fight: won=True, seconds=12.5, damage=20.0, retries=0, combo=11, finishers=2
+Fight: won=True, seconds=13.8, damage=44.0, retries=0, combo=9, finishers=2
 
 PASS Heavy vault guard defeated
 
@@ -84,9 +84,9 @@ E interaction: treasure.Sun Rosette (vaults)
 
 PASS Sun Rosette and duty ledger recovered
 
-Frame sample: 58.1 fps mean, 115.7 ms maximum; 640×480, editor=True.
+Frame sample: 58.5 fps mean, 92.5 ms maximum; 640×480, editor=True.
 
-Score 3900, grade S.
+Score 3780, grade S.
 
 RESULT: PASS
 

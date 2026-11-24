@@ -1,0 +1,136 @@
+ M ATTRIBUTION.md
+ M Assets/_Project/Art/PolyHaven/Models/Barrel_01/Barrel_01_explosive.mat
+ M Assets/_Project/Art/PolyHaven/Models/WoodenTable_01/WoodenTable_01.mat
+ M Assets/_Project/Art/PolyHaven/Models/brass_diya_lantern/brass_diya_lantern.mat
+ M Assets/_Project/Art/PolyHaven/Models/brass_pot_01/brass_pot_01.mat
+ M Assets/_Project/Art/PolyHaven/Models/brass_pot_02/brass_pot_02.mat
+ M Assets/_Project/Art/PolyHaven/Models/calathea_orbifolia_01/calathea_orbifolia_01.mat
+ M Assets/_Project/Art/PolyHaven/Models/carved_wooden_elephant/carved_wooden_elephant.mat
+ M Assets/_Project/Art/PolyHaven/Models/ceramic_pot/ceramic_pot.mat
+ M Assets/_Project/Art/PolyHaven/Models/ceramic_vase_01/ceramic_vase_01.mat
+ M Assets/_Project/Art/PolyHaven/Models/dry_branches_medium_01/dry_branches_medium_01.mat
+ M Assets/_Project/Art/PolyHaven/Models/fern_02/fern_02.mat
+ M Assets/_Project/Art/PolyHaven/Models/folding_wooden_stool/folding_wooden_stool.mat
+ M Assets/_Project/Art/PolyHaven/Models/lion_head/lion_head.mat
+ M Assets/_Project/Art/PolyHaven/Models/nettle_plant/nettle_plant.mat
+ M Assets/_Project/Art/PolyHaven/Models/periwinkle_plant/periwinkle_plant.mat
+ M Assets/_Project/Art/PolyHaven/Models/planter_box_01/planter_box_01.mat
+ M Assets/_Project/Art/PolyHaven/Models/rock_07/rock_07.mat
+ M Assets/_Project/Art/PolyHaven/Models/rock_moss_set_01/rock_moss_set_01.mat
+ M Assets/_Project/Art/PolyHaven/Models/rock_moss_set_02/rock_moss_set_02.mat
+ M Assets/_Project/Art/PolyHaven/Models/tree_stump_01/tree_stump_01.mat
+ M Assets/_Project/Art/PolyHaven/Models/vintage_oil_lamp/vintage_oil_lamp_flame.mat
+ M Assets/_Project/Art/PolyHaven/Models/vintage_oil_lamp/vintage_oil_lamp_glass.mat
+ M Assets/_Project/Art/PolyHaven/Models/wooden_bowl_02/wooden_bowl_02.mat
+ M Assets/_Project/Art/PolyHaven/Models/wooden_lantern_01/wooden_lantern_01_glass.mat
+ M Assets/_Project/Audio/Voice/manifest.json
+ M Assets/_Project/Models/Temple/Materials/MAT_Temple_Carved.mat
+ M Assets/_Project/Models/Temple/Materials/MAT_Temple_Glass.mat
+ M Assets/_Project/Models/Temple/Materials/MAT_Temple_Laterite.mat
+ M Assets/_Project/Models/Temple/Materials/MAT_Temple_RoofStone.mat
+ M Assets/_Project/Models/Temple/Materials/MAT_Temple_Saffron.mat
+ M Assets/_Project/Models/Temple/Materials/MAT_Temple_Sandstone.mat
+ M Assets/_Project/Models/Temple/Materials/MAT_Temple_Wood.mat
+ M Assets/_Project/Models/Vehicles/Jeep/Materials/MAT_Glass.mat
+ M Assets/_Project/Models/Vehicles/Jeep/Materials/MAT_Light_Head.mat
+ M Assets/_Project/Models/Vehicles/Jeep/Materials/MAT_Light_Indicator.mat
+ M Assets/_Project/Models/Vehicles/Jeep/Materials/MAT_Light_Reverse.mat
+ M Assets/_Project/Models/Vehicles/Jeep/Materials/MAT_Light_Tail.mat
+ M Assets/_Project/Models/Vehicles/Jeep/Materials/MAT_Screen.mat
+ M Assets/_Project/Resources/FX/Grass.mat
+ M Assets/_Project/Resources/FX/Mist.mat
+ M Assets/_Project/Resources/FX/Puddle.mat
+ M Assets/_Project/Resources/FX/Rain.mat
+ M Assets/_Project/Resources/Mats/bark_brown_02.mat
+ M Assets/_Project/Resources/Mats/brown_mud_leaves_01.mat
+ M Assets/_Project/Resources/Mats/clay_roof_tiles_02.mat
+ M Assets/_Project/Resources/Mats/mossy_sandstone.mat
+ M Assets/_Project/Resources/Mats/red_laterite_soil_stones.mat
+ M Assets/_Project/Resources/Mats/red_sandstone_pavement.mat
+ M Assets/_Project/Resources/Mats/stony_dirt_path.mat
+ M Assets/_Project/Resources/Mats/thatch_roof_angled.mat
+ M Assets/_Project/Resources/Mats/window_glow.mat
+ M Assets/_Project/Resources/VoiceDB/VoiceDatabase.asset
+ M Assets/_Project/Resources/build_stamp.txt
+ M Assets/_Project/Scripts/Core/VoiceData.cs
+ M Assets/_Project/Scripts/Gameplay/InvestigationJournal.cs
+ M Assets/_Project/Scripts/Gameplay/StoryDialogueSystem.cs
+ M Assets/_Project/Scripts/Gameplay/ZoneLook.cs
+ M Assets/_Project/Scripts/UI/AudioDirector.cs
+ M Assets/_Project/Scripts/UI/AuditBot.cs
+ M Assets/_Project/Scripts/UI/GuideSystem.cs
+ M Assets/_Project/Scripts/UI/LoadingScreen.cs
+ M Assets/_Project/Scripts/UI/UIManager.cs
+ M Assets/_Project/Scripts/UI/VoicePlayer.cs
+ M Assets/_Project/Scripts/World/LookTuner.cs
+ M Docs/ATTRIBUTION.md
+ M Docs/QA/voice/clip_report.csv
+ M Docs/VOICE_LINES.csv
+ M ProjectSettings/DynamicsManager.asset
+ M ProjectSettings/EditorBuildSettings.asset
+ M ProjectSettings/TagManager.asset
+ M ProjectSettings/URPProjectSettings.asset
+?? Assets/CarFootball.meta
+?? Assets/CarFootball/
+?? Assets/_Project/Audio/Voice/Meera/rem_meera_end.wav
+?? Assets/_Project/Audio/Voice/Meera/rem_meera_end.wav.meta
+?? Assets/_Project/Audio/Voice/Meera/rem_meera_obj_c0_reach.wav
+?? Assets/_Project/Audio/Voice/Meera/rem_meera_obj_c0_reach.wav.meta
+?? Assets/_Project/Audio/Voice/Meera/rem_meera_obj_return.wav
+?? Assets/_Project/Audio/Voice/Meera/rem_meera_obj_return.wav.meta
+?? Assets/_Project/Audio/Voice/Meera/rem_meera_obj_v3_bazaar.wav
+?? Assets/_Project/Audio/Voice/Meera/rem_meera_obj_v3_bazaar.wav.meta
+?? Assets/_Project/Audio/Voice/Meera/rem_meera_obj_v3_jungle.wav
+?? Assets/_Project/Audio/Voice/Meera/rem_meera_obj_v3_jungle.wav.meta
+?? Assets/_Project/Audio/Voice/Meera/rem_meera_obj_v3_pujari.wav
+?? Assets/_Project/Audio/Voice/Meera/rem_meera_obj_v3_pujari.wav.meta
+?? Assets/_Project/Audio/Voice/Meera/rem_meera_obj_v3_stepwell.wav
+?? Assets/_Project/Audio/Voice/Meera/rem_meera_obj_v3_stepwell.wav.meta
+?? Assets/_Project/Audio/Voice/Meera/rem_meera_obj_v3_storeroom.wav
+?? Assets/_Project/Audio/Voice/Meera/rem_meera_obj_v3_storeroom.wav.meta
+?? Assets/_Project/Audio/Voice/Meera/rem_meera_obj_v3_sunwall.wav
+?? Assets/_Project/Audio/Voice/Meera/rem_meera_obj_v3_sunwall.wav.meta
+?? Assets/_Project/Audio/Voice/Meera/rem_meera_obj_v3_vaults.wav
+?? Assets/_Project/Audio/Voice/Meera/rem_meera_obj_v3_vaults.wav.meta
+?? Assets/_Project/Audio/Voice/Pujari/rem_pujari_end.wav
+?? Assets/_Project/Audio/Voice/Pujari/rem_pujari_end.wav.meta
+?? Assets/_Project/Audio/Voice/Pujari/rem_pujari_obj_c0_reach.wav
+?? Assets/_Project/Audio/Voice/Pujari/rem_pujari_obj_c0_reach.wav.meta
+?? Assets/_Project/Audio/Voice/Pujari/rem_pujari_obj_return.wav
+?? Assets/_Project/Audio/Voice/Pujari/rem_pujari_obj_return.wav.meta
+?? Assets/_Project/Audio/Voice/Pujari/rem_pujari_obj_v3_bazaar.wav
+?? Assets/_Project/Audio/Voice/Pujari/rem_pujari_obj_v3_bazaar.wav.meta
+?? Assets/_Project/Audio/Voice/Pujari/rem_pujari_obj_v3_jungle.wav
+?? Assets/_Project/Audio/Voice/Pujari/rem_pujari_obj_v3_jungle.wav.meta
+?? Assets/_Project/Audio/Voice/Pujari/rem_pujari_obj_v3_pujari.wav
+?? Assets/_Project/Audio/Voice/Pujari/rem_pujari_obj_v3_pujari.wav.meta
+?? Assets/_Project/Audio/Voice/Pujari/rem_pujari_obj_v3_stepwell.wav
+?? Assets/_Project/Audio/Voice/Pujari/rem_pujari_obj_v3_stepwell.wav.meta
+?? Assets/_Project/Audio/Voice/Pujari/rem_pujari_obj_v3_storeroom.wav
+?? Assets/_Project/Audio/Voice/Pujari/rem_pujari_obj_v3_storeroom.wav.meta
+?? Assets/_Project/Audio/Voice/Pujari/rem_pujari_obj_v3_sunwall.wav
+?? Assets/_Project/Audio/Voice/Pujari/rem_pujari_obj_v3_sunwall.wav.meta
+?? Assets/_Project/Audio/Voice/Pujari/rem_pujari_obj_v3_vaults.wav
+?? Assets/_Project/Audio/Voice/Pujari/rem_pujari_obj_v3_vaults.wav.meta
+?? Assets/_Project/Resources/Story/heritage_notes.json
+?? Assets/_Project/Resources/Story/heritage_notes.json.meta
+?? Assets/_Project/Scripts/Gameplay/HeritageNotes.cs
+?? Assets/_Project/Scripts/Gameplay/HeritageNotes.cs.meta
+?? Docs/HERITAGE_SOURCES.md
+?? Docs/QA/2026-11-23-review/app-look/
+?? Docs/QA/2026-11-23-review/backup/
+?? Docs/QA/2026-11-23-review/before/
+?? Docs/QA/2026-11-23-review/confirmed-problems.md
+?? Docs/QA/2026-11-23-review/editor/measurements.txt
+?? Docs/QA/2026-11-23-review/initial-status.txt
+?? Docs/QA/2026-11-23-review/initial-working.diff
+?? Docs/QA/2026-11-23-review/playmode-round1.xml
+?? Docs/QA/2026-11-23-review/playmode-round2.xml
+?? Docs/QA/2026-11-23-review/playmode-round3.xml
+?? Docs/QA/2026-11-23-review/playmode-voice-hook.xml
+?? Docs/QA/2026-11-23-review/reminder-audio-measurements.csv
+?? Docs/QA/2026-11-23-review/reminder-ids.txt
+?? Docs/QA/2026-11-23-review/unity-material-normalization.diff
+?? Docs/QA/2026-11-24-continue/
+?? Evaluation/
+?? Tools/docs/build_project_report.py

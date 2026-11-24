@@ -124,3 +124,20 @@ All from polyhaven.com, licence CC0 1.0 (public domain), downloaded with Tools/a
 | Voice clips in Assets/_Project/Audio/Voice/ | Project (generated with Kokoro) | Docs/VOICE_LINES.csv, Tools/tts/generate_voices.py | Own work | Lines written for this project. |
 | Older voice clips in Assets/_Project/Resources/Voice/ | macOS `say` (see the table above) | - | Placeholder | Kept unchanged as a fallback only; the game now plays the Kokoro clips above. |
 
+## Evaluation documents (2026-11-25)
+
+| Title | Author | URL / source | Licence / provenance |
+|---|---|---|---|
+| Evaluation diagrams and slide/report text | Legacy of the Temple project | `Evaluation/source/build_evaluation.py` | Own work |
+| Current-source gameplay captures used in the report and world diagram | Legacy of the Temple project | `Docs/QA/2026-11-25-evaluation/editor-courtyard-sealed.png`, `editor-templering-world.png` | Project gameplay captures; underlying assets retain the credits above |
+| Heritage Mystery presentation template, embedded typography and illustrative artwork | Supplied by the user | `/Users/hemanth/Downloads/Heritage Mystery Project.pptx` | User-provided template reused at the user's explicit request; original rights retained. No separate CC0/CC-BY claim is made. |
+
+No third-party artwork, audio, font package or other asset was downloaded for these documents. The template's illustrations are distinguished from actual gameplay captures in the presentation notes and evidence review.
+
+## Devotional temple audio regeneration (2026-11-25)
+
+| Title | Author | URL / source | Licence / provenance |
+|---|---|---|---|
+| Serene Raga Bhupali temple music stems (`bgm_*`, `mus_*`), soft coastal breeze (`amb_village`, `ambience_temple`), and silent murmur replacements (`talk_murmur_1..3`) | Legacy of the Temple project | `Tools/audio/build_devotional_audio.py` | Own work (CC0 1.0 Public Domain Dedication) |
+
+

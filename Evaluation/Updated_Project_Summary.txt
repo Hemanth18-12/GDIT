@@ -1,0 +1,12 @@
+LEGACY OF THE TEMPLE — UPDATED IMPLEMENTATION SUMMARY
+25 November 2026
+
+Hemanth (S20240010236) · Aakash (S20240010245) · Sai Teja (S20240010136)
+
+The current source implements a modular Kalinga-inspired temple, a sealed Courtyard investigation doorway, a bottom-left square minimap, Jeep [R] repair and road reset, section checkpoint retries, devotional-style music and ambience, and master/music/ambience/SFX/voice volume controls. Original Blender and Heritage Mystery assets remain read-only.
+
+Fresh combined Editor PlayMode run: 8/8 passed; 0 failed. Upgrade checks: 2/2; six-zone suite: 6/6.
+
+The existing macOS app was also launched and captured separately. This binary is not evidence that the latest source upgrades are packaged. Batch world captures may omit the Canvas HUD, so a minimap visibility assertion is distinguished from visual rendering proof. See the evidence review for precise limits.
+
+The player study is pending. The evaluation report contains a game-specific methodology and empty result fields; no participants, survey means, learning gains or guaranteed performance numbers are invented.

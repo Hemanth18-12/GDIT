@@ -1,0 +1,750 @@
+diff --git a/Assets/_Project/Art/PolyHaven/Models/Barrel_01/Barrel_01_explosive.mat b/Assets/_Project/Art/PolyHaven/Models/Barrel_01/Barrel_01_explosive.mat
+index d87c348..10a4e3f 100644
+--- a/Assets/_Project/Art/PolyHaven/Models/Barrel_01/Barrel_01_explosive.mat
++++ b/Assets/_Project/Art/PolyHaven/Models/Barrel_01/Barrel_01_explosive.mat
+@@ -66,7 +66,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: 50741022b798e489497e3df1d72d0889, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Art/PolyHaven/Models/WoodenTable_01/WoodenTable_01.mat b/Assets/_Project/Art/PolyHaven/Models/WoodenTable_01/WoodenTable_01.mat
+index df71f3c..a0c750b 100644
+--- a/Assets/_Project/Art/PolyHaven/Models/WoodenTable_01/WoodenTable_01.mat
++++ b/Assets/_Project/Art/PolyHaven/Models/WoodenTable_01/WoodenTable_01.mat
+@@ -53,7 +53,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: 9cfdf29a210b34e4dba33261ff7a143a, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Art/PolyHaven/Models/brass_diya_lantern/brass_diya_lantern.mat b/Assets/_Project/Art/PolyHaven/Models/brass_diya_lantern/brass_diya_lantern.mat
+index 003f895..bdc6972 100644
+--- a/Assets/_Project/Art/PolyHaven/Models/brass_diya_lantern/brass_diya_lantern.mat
++++ b/Assets/_Project/Art/PolyHaven/Models/brass_diya_lantern/brass_diya_lantern.mat
+@@ -53,7 +53,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: 0bda16de183c944b597cd68581ad6d98, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Art/PolyHaven/Models/brass_pot_01/brass_pot_01.mat b/Assets/_Project/Art/PolyHaven/Models/brass_pot_01/brass_pot_01.mat
+index 85a5940..84fbf95 100644
+--- a/Assets/_Project/Art/PolyHaven/Models/brass_pot_01/brass_pot_01.mat
++++ b/Assets/_Project/Art/PolyHaven/Models/brass_pot_01/brass_pot_01.mat
+@@ -53,7 +53,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: e489df941266a48a9a497f09614c0e01, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Art/PolyHaven/Models/brass_pot_02/brass_pot_02.mat b/Assets/_Project/Art/PolyHaven/Models/brass_pot_02/brass_pot_02.mat
+index 68b9194..760e25f 100644
+--- a/Assets/_Project/Art/PolyHaven/Models/brass_pot_02/brass_pot_02.mat
++++ b/Assets/_Project/Art/PolyHaven/Models/brass_pot_02/brass_pot_02.mat
+@@ -66,7 +66,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: 56c145f17a3254b72a780269e9bc7d4b, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Art/PolyHaven/Models/calathea_orbifolia_01/calathea_orbifolia_01.mat b/Assets/_Project/Art/PolyHaven/Models/calathea_orbifolia_01/calathea_orbifolia_01.mat
+index b954e0d..27e6c28 100644
+--- a/Assets/_Project/Art/PolyHaven/Models/calathea_orbifolia_01/calathea_orbifolia_01.mat
++++ b/Assets/_Project/Art/PolyHaven/Models/calathea_orbifolia_01/calathea_orbifolia_01.mat
+@@ -53,7 +53,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: fb2f3ba9aaf474fd4ad992a57d0ab95e, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Art/PolyHaven/Models/carved_wooden_elephant/carved_wooden_elephant.mat b/Assets/_Project/Art/PolyHaven/Models/carved_wooden_elephant/carved_wooden_elephant.mat
+index 150aad8..fd85f95 100644
+--- a/Assets/_Project/Art/PolyHaven/Models/carved_wooden_elephant/carved_wooden_elephant.mat
++++ b/Assets/_Project/Art/PolyHaven/Models/carved_wooden_elephant/carved_wooden_elephant.mat
+@@ -51,7 +51,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: 97f201eb3f8a9475ab597b05242308e9, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Art/PolyHaven/Models/ceramic_pot/ceramic_pot.mat b/Assets/_Project/Art/PolyHaven/Models/ceramic_pot/ceramic_pot.mat
+index 1a122a1..715878f 100644
+--- a/Assets/_Project/Art/PolyHaven/Models/ceramic_pot/ceramic_pot.mat
++++ b/Assets/_Project/Art/PolyHaven/Models/ceramic_pot/ceramic_pot.mat
+@@ -66,7 +66,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: c9145048b8a25404aa5d42c8021f5040, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Art/PolyHaven/Models/ceramic_vase_01/ceramic_vase_01.mat b/Assets/_Project/Art/PolyHaven/Models/ceramic_vase_01/ceramic_vase_01.mat
+index 86a1a28..99ecff1 100644
+--- a/Assets/_Project/Art/PolyHaven/Models/ceramic_vase_01/ceramic_vase_01.mat
++++ b/Assets/_Project/Art/PolyHaven/Models/ceramic_vase_01/ceramic_vase_01.mat
+@@ -66,7 +66,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: b04b6ddd120d9464ba7ed8f09769749b, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Art/PolyHaven/Models/dry_branches_medium_01/dry_branches_medium_01.mat b/Assets/_Project/Art/PolyHaven/Models/dry_branches_medium_01/dry_branches_medium_01.mat
+index e9e69a4..5904e58 100644
+--- a/Assets/_Project/Art/PolyHaven/Models/dry_branches_medium_01/dry_branches_medium_01.mat
++++ b/Assets/_Project/Art/PolyHaven/Models/dry_branches_medium_01/dry_branches_medium_01.mat
+@@ -53,7 +53,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: 5196a75d514e748fa8b227bcc36da159, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Art/PolyHaven/Models/fern_02/fern_02.mat b/Assets/_Project/Art/PolyHaven/Models/fern_02/fern_02.mat
+index a12611c..5ad7af6 100644
+--- a/Assets/_Project/Art/PolyHaven/Models/fern_02/fern_02.mat
++++ b/Assets/_Project/Art/PolyHaven/Models/fern_02/fern_02.mat
+@@ -66,7 +66,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: 5dfd640968fc5415582150c92a84edb2, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Art/PolyHaven/Models/folding_wooden_stool/folding_wooden_stool.mat b/Assets/_Project/Art/PolyHaven/Models/folding_wooden_stool/folding_wooden_stool.mat
+index 9fe90b9..ba7d0f5 100644
+--- a/Assets/_Project/Art/PolyHaven/Models/folding_wooden_stool/folding_wooden_stool.mat
++++ b/Assets/_Project/Art/PolyHaven/Models/folding_wooden_stool/folding_wooden_stool.mat
+@@ -66,7 +66,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: 5cc22de5027304e748254de67031521d, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Art/PolyHaven/Models/lion_head/lion_head.mat b/Assets/_Project/Art/PolyHaven/Models/lion_head/lion_head.mat
+index 8653a60..32eb065 100644
+--- a/Assets/_Project/Art/PolyHaven/Models/lion_head/lion_head.mat
++++ b/Assets/_Project/Art/PolyHaven/Models/lion_head/lion_head.mat
+@@ -53,7 +53,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: b767d9c39b7bf4604ad3b253cd1440b5, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Art/PolyHaven/Models/nettle_plant/nettle_plant.mat b/Assets/_Project/Art/PolyHaven/Models/nettle_plant/nettle_plant.mat
+index 9c613b5..8f2b69e 100644
+--- a/Assets/_Project/Art/PolyHaven/Models/nettle_plant/nettle_plant.mat
++++ b/Assets/_Project/Art/PolyHaven/Models/nettle_plant/nettle_plant.mat
+@@ -66,7 +66,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: 1a455c2dd2ec2411498b312bf39d8b14, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Art/PolyHaven/Models/periwinkle_plant/periwinkle_plant.mat b/Assets/_Project/Art/PolyHaven/Models/periwinkle_plant/periwinkle_plant.mat
+index a3ef285..34b0fda 100644
+--- a/Assets/_Project/Art/PolyHaven/Models/periwinkle_plant/periwinkle_plant.mat
++++ b/Assets/_Project/Art/PolyHaven/Models/periwinkle_plant/periwinkle_plant.mat
+@@ -53,7 +53,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: 6db5ca7f6025c4f23bd7df02cd2ccf81, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Art/PolyHaven/Models/planter_box_01/planter_box_01.mat b/Assets/_Project/Art/PolyHaven/Models/planter_box_01/planter_box_01.mat
+index fdd2849..6255379 100644
+--- a/Assets/_Project/Art/PolyHaven/Models/planter_box_01/planter_box_01.mat
++++ b/Assets/_Project/Art/PolyHaven/Models/planter_box_01/planter_box_01.mat
+@@ -53,7 +53,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: 1e6067f2b65304b6f9d39d4577e15cc6, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Art/PolyHaven/Models/rock_07/rock_07.mat b/Assets/_Project/Art/PolyHaven/Models/rock_07/rock_07.mat
+index ffbc1da..0bf2232 100644
+--- a/Assets/_Project/Art/PolyHaven/Models/rock_07/rock_07.mat
++++ b/Assets/_Project/Art/PolyHaven/Models/rock_07/rock_07.mat
+@@ -66,7 +66,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: 81a09794a3b67479ca1c25aa3924f289, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Art/PolyHaven/Models/rock_moss_set_01/rock_moss_set_01.mat b/Assets/_Project/Art/PolyHaven/Models/rock_moss_set_01/rock_moss_set_01.mat
+index 96ad1c0..0fec80c 100644
+--- a/Assets/_Project/Art/PolyHaven/Models/rock_moss_set_01/rock_moss_set_01.mat
++++ b/Assets/_Project/Art/PolyHaven/Models/rock_moss_set_01/rock_moss_set_01.mat
+@@ -51,7 +51,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: 8ebc1b510d4474d68a3085391b00725b, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Art/PolyHaven/Models/rock_moss_set_02/rock_moss_set_02.mat b/Assets/_Project/Art/PolyHaven/Models/rock_moss_set_02/rock_moss_set_02.mat
+index 0b7615d..333ad71 100644
+--- a/Assets/_Project/Art/PolyHaven/Models/rock_moss_set_02/rock_moss_set_02.mat
++++ b/Assets/_Project/Art/PolyHaven/Models/rock_moss_set_02/rock_moss_set_02.mat
+@@ -51,7 +51,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: 0c7cd18d8085a40479b0b180c7bd6936, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Art/PolyHaven/Models/tree_stump_01/tree_stump_01.mat b/Assets/_Project/Art/PolyHaven/Models/tree_stump_01/tree_stump_01.mat
+index b8a8531..4bd130c 100644
+--- a/Assets/_Project/Art/PolyHaven/Models/tree_stump_01/tree_stump_01.mat
++++ b/Assets/_Project/Art/PolyHaven/Models/tree_stump_01/tree_stump_01.mat
+@@ -53,7 +53,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: 53fdc3d3d9f484f729a8545cb06e143e, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Art/PolyHaven/Models/vintage_oil_lamp/vintage_oil_lamp_flame.mat b/Assets/_Project/Art/PolyHaven/Models/vintage_oil_lamp/vintage_oil_lamp_flame.mat
+index e24c8c6..16d248e 100644
+--- a/Assets/_Project/Art/PolyHaven/Models/vintage_oil_lamp/vintage_oil_lamp_flame.mat
++++ b/Assets/_Project/Art/PolyHaven/Models/vintage_oil_lamp/vintage_oil_lamp_flame.mat
+@@ -63,7 +63,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: ffddd606131ab43219230f4a94d183eb, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Art/PolyHaven/Models/vintage_oil_lamp/vintage_oil_lamp_glass.mat b/Assets/_Project/Art/PolyHaven/Models/vintage_oil_lamp/vintage_oil_lamp_glass.mat
+index d9712ca..3ffa7f1 100644
+--- a/Assets/_Project/Art/PolyHaven/Models/vintage_oil_lamp/vintage_oil_lamp_glass.mat
++++ b/Assets/_Project/Art/PolyHaven/Models/vintage_oil_lamp/vintage_oil_lamp_glass.mat
+@@ -53,7 +53,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: 72ad54b5a232942f8a6193ff4fe73ce5, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Art/PolyHaven/Models/wooden_bowl_02/wooden_bowl_02.mat b/Assets/_Project/Art/PolyHaven/Models/wooden_bowl_02/wooden_bowl_02.mat
+index 7b40ed4..1146809 100644
+--- a/Assets/_Project/Art/PolyHaven/Models/wooden_bowl_02/wooden_bowl_02.mat
++++ b/Assets/_Project/Art/PolyHaven/Models/wooden_bowl_02/wooden_bowl_02.mat
+@@ -66,7 +66,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: 766283c5666204d52b631cccdc377343, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Art/PolyHaven/Models/wooden_lantern_01/wooden_lantern_01_glass.mat b/Assets/_Project/Art/PolyHaven/Models/wooden_lantern_01/wooden_lantern_01_glass.mat
+index 79670b6..492b3f7 100644
+--- a/Assets/_Project/Art/PolyHaven/Models/wooden_lantern_01/wooden_lantern_01_glass.mat
++++ b/Assets/_Project/Art/PolyHaven/Models/wooden_lantern_01/wooden_lantern_01_glass.mat
+@@ -53,7 +53,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: f0ac71f3e67a448e4bf794d83c18dc0a, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Models/Temple/Materials/MAT_Temple_Carved.mat b/Assets/_Project/Models/Temple/Materials/MAT_Temple_Carved.mat
+index a01ff02..2331581 100644
+--- a/Assets/_Project/Models/Temple/Materials/MAT_Temple_Carved.mat
++++ b/Assets/_Project/Models/Temple/Materials/MAT_Temple_Carved.mat
+@@ -67,7 +67,7 @@ Material:
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+         m_Texture: {fileID: 2800000, guid: 19f6b415e797f48fcb75e33782c73229, type: 3}
+-        m_Scale: {x: 1, y: 1}
++        m_Scale: {x: 0.625, y: 0.625}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+         m_Texture: {fileID: 2800000, guid: 7bd5838e7822c40e694a0874fc2d6a3a, type: 3}
+@@ -135,7 +135,7 @@ Material:
+     - _ZWrite: 1
+     m_Colors:
+     - _BaseColor: {r: 1, g: 0.74, b: 0.4, a: 1}
+-    - _Color: {r: 1, g: 1, b: 1, a: 1}
++    - _Color: {r: 1, g: 0.74, b: 0.39999998, a: 1}
+     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+   m_BuildTextureStacks: []
+diff --git a/Assets/_Project/Models/Temple/Materials/MAT_Temple_Glass.mat b/Assets/_Project/Models/Temple/Materials/MAT_Temple_Glass.mat
+index a741f1b..35224f9 100644
+--- a/Assets/_Project/Models/Temple/Materials/MAT_Temple_Glass.mat
++++ b/Assets/_Project/Models/Temple/Materials/MAT_Temple_Glass.mat
+@@ -128,7 +128,7 @@ Material:
+     - _Smoothness: 0.9
+     - _SmoothnessTextureChannel: 0
+     - _SpecularHighlights: 1
+-    - _SrcBlend: 5
++    - _SrcBlend: 1
+     - _SrcBlendAlpha: 1
+     - _Surface: 1
+     - _WorkflowMode: 1
+diff --git a/Assets/_Project/Models/Temple/Materials/MAT_Temple_Laterite.mat b/Assets/_Project/Models/Temple/Materials/MAT_Temple_Laterite.mat
+index e33a83c..ff62a80 100644
+--- a/Assets/_Project/Models/Temple/Materials/MAT_Temple_Laterite.mat
++++ b/Assets/_Project/Models/Temple/Materials/MAT_Temple_Laterite.mat
+@@ -67,7 +67,7 @@ Material:
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+         m_Texture: {fileID: 2800000, guid: e518c895f4fda4b6dbe25276c09f9ba5, type: 3}
+-        m_Scale: {x: 1, y: 1}
++        m_Scale: {x: 0.45454544, y: 0.45454544}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+         m_Texture: {fileID: 2800000, guid: c4c91db07bbf54d9b804c0b3f236f48a, type: 3}
+@@ -135,7 +135,7 @@ Material:
+     - _ZWrite: 1
+     m_Colors:
+     - _BaseColor: {r: 0.72, g: 0.36, b: 0.26, a: 1}
+-    - _Color: {r: 1, g: 1, b: 1, a: 1}
++    - _Color: {r: 0.72, g: 0.35999998, b: 0.25999996, a: 1}
+     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+   m_BuildTextureStacks: []
+diff --git a/Assets/_Project/Models/Temple/Materials/MAT_Temple_RoofStone.mat b/Assets/_Project/Models/Temple/Materials/MAT_Temple_RoofStone.mat
+index 1bde79b..c37efc5 100644
+--- a/Assets/_Project/Models/Temple/Materials/MAT_Temple_RoofStone.mat
++++ b/Assets/_Project/Models/Temple/Materials/MAT_Temple_RoofStone.mat
+@@ -67,7 +67,7 @@ Material:
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+         m_Texture: {fileID: 2800000, guid: e518c895f4fda4b6dbe25276c09f9ba5, type: 3}
+-        m_Scale: {x: 1, y: 1}
++        m_Scale: {x: 0.5555556, y: 0.5555556}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+         m_Texture: {fileID: 2800000, guid: c4c91db07bbf54d9b804c0b3f236f48a, type: 3}
+@@ -135,7 +135,7 @@ Material:
+     - _ZWrite: 1
+     m_Colors:
+     - _BaseColor: {r: 0.92, g: 0.46, b: 0.28, a: 1}
+-    - _Color: {r: 1, g: 1, b: 1, a: 1}
++    - _Color: {r: 0.92, g: 0.45999992, b: 0.27999997, a: 1}
+     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+   m_BuildTextureStacks: []
+diff --git a/Assets/_Project/Models/Temple/Materials/MAT_Temple_Saffron.mat b/Assets/_Project/Models/Temple/Materials/MAT_Temple_Saffron.mat
+index 2ce59b9..7c91065 100644
+--- a/Assets/_Project/Models/Temple/Materials/MAT_Temple_Saffron.mat
++++ b/Assets/_Project/Models/Temple/Materials/MAT_Temple_Saffron.mat
+@@ -54,7 +54,7 @@ Material:
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+         m_Texture: {fileID: 2800000, guid: 6446fca995e3040118cc4c9eb6622782, type: 3}
+-        m_Scale: {x: 1, y: 1}
++        m_Scale: {x: 0.6666667, y: 0.6666667}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+         m_Texture: {fileID: 2800000, guid: aaf7dc46e6a524055a12515428aa0164, type: 3}
+@@ -122,7 +122,7 @@ Material:
+     - _ZWrite: 1
+     m_Colors:
+     - _BaseColor: {r: 1, g: 0.55, b: 0.14, a: 1}
+-    - _Color: {r: 1, g: 1, b: 1, a: 1}
++    - _Color: {r: 1, g: 0.54999995, b: 0.13999996, a: 1}
+     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+   m_BuildTextureStacks: []
+diff --git a/Assets/_Project/Models/Temple/Materials/MAT_Temple_Sandstone.mat b/Assets/_Project/Models/Temple/Materials/MAT_Temple_Sandstone.mat
+index 9e61430..efa8708 100644
+--- a/Assets/_Project/Models/Temple/Materials/MAT_Temple_Sandstone.mat
++++ b/Assets/_Project/Models/Temple/Materials/MAT_Temple_Sandstone.mat
+@@ -54,7 +54,7 @@ Material:
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+         m_Texture: {fileID: 2800000, guid: e518c895f4fda4b6dbe25276c09f9ba5, type: 3}
+-        m_Scale: {x: 1, y: 1}
++        m_Scale: {x: 0.41666666, y: 0.41666666}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+         m_Texture: {fileID: 2800000, guid: c4c91db07bbf54d9b804c0b3f236f48a, type: 3}
+@@ -122,7 +122,7 @@ Material:
+     - _ZWrite: 1
+     m_Colors:
+     - _BaseColor: {r: 1, g: 0.7, b: 0.52, a: 1}
+-    - _Color: {r: 1, g: 1, b: 1, a: 1}
++    - _Color: {r: 1, g: 0.7, b: 0.52, a: 1}
+     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+   m_BuildTextureStacks: []
+diff --git a/Assets/_Project/Models/Temple/Materials/MAT_Temple_WhiteSpire.mat b/Assets/_Project/Models/Temple/Materials/MAT_Temple_WhiteSpire.mat
+index e6cb4a4..a483b50 100644
+--- a/Assets/_Project/Models/Temple/Materials/MAT_Temple_WhiteSpire.mat
++++ b/Assets/_Project/Models/Temple/Materials/MAT_Temple_WhiteSpire.mat
+@@ -54,7 +54,7 @@ Material:
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+         m_Texture: {fileID: 2800000, guid: 6446fca995e3040118cc4c9eb6622782, type: 3}
+-        m_Scale: {x: 1, y: 1}
++        m_Scale: {x: 0.6666667, y: 0.6666667}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+         m_Texture: {fileID: 2800000, guid: aaf7dc46e6a524055a12515428aa0164, type: 3}
+@@ -122,7 +122,7 @@ Material:
+     - _ZWrite: 1
+     m_Colors:
+     - _BaseColor: {r: 1, g: 0.96, b: 0.9, a: 1}
+-    - _Color: {r: 1, g: 1, b: 1, a: 1}
++    - _Color: {r: 1, g: 0.96, b: 0.9, a: 1}
+     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+   m_BuildTextureStacks: []
+diff --git a/Assets/_Project/Models/Temple/Materials/MAT_Temple_Wood.mat b/Assets/_Project/Models/Temple/Materials/MAT_Temple_Wood.mat
+index ead5cf0..7f4bba2 100644
+--- a/Assets/_Project/Models/Temple/Materials/MAT_Temple_Wood.mat
++++ b/Assets/_Project/Models/Temple/Materials/MAT_Temple_Wood.mat
+@@ -54,7 +54,7 @@ Material:
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+         m_Texture: {fileID: 2800000, guid: 661f3a8d10a554560a33348b09fd65f2, type: 3}
+-        m_Scale: {x: 1, y: 1}
++        m_Scale: {x: 0.71428573, y: 0.71428573}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+         m_Texture: {fileID: 2800000, guid: 51efed251208f45daa45779b19f04066, type: 3}
+diff --git a/Assets/_Project/Models/Vehicles/Jeep/Materials/MAT_Glass.mat b/Assets/_Project/Models/Vehicles/Jeep/Materials/MAT_Glass.mat
+index 7f26b50..73e6010 100644
+--- a/Assets/_Project/Models/Vehicles/Jeep/Materials/MAT_Glass.mat
++++ b/Assets/_Project/Models/Vehicles/Jeep/Materials/MAT_Glass.mat
+@@ -115,7 +115,7 @@ Material:
+     - _Smoothness: 0.95
+     - _SmoothnessTextureChannel: 0
+     - _SpecularHighlights: 1
+-    - _SrcBlend: 5
++    - _SrcBlend: 1
+     - _SrcBlendAlpha: 1
+     - _Surface: 1
+     - _WorkflowMode: 1
+diff --git a/Assets/_Project/Models/Vehicles/Jeep/Materials/MAT_Light_Head.mat b/Assets/_Project/Models/Vehicles/Jeep/Materials/MAT_Light_Head.mat
+index 11f3949..7e6953e 100644
+--- a/Assets/_Project/Models/Vehicles/Jeep/Materials/MAT_Light_Head.mat
++++ b/Assets/_Project/Models/Vehicles/Jeep/Materials/MAT_Light_Head.mat
+@@ -24,8 +24,7 @@ Material:
+   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+   m_Parent: {fileID: 0}
+   m_ModifiedSerializedProperties: 0
+-  m_ValidKeywords:
+-  - _EMISSION
++  m_ValidKeywords: []
+   m_InvalidKeywords: []
+   m_LightmapFlags: 0
+   m_EnableInstancingVariants: 1
+diff --git a/Assets/_Project/Models/Vehicles/Jeep/Materials/MAT_Light_Indicator.mat b/Assets/_Project/Models/Vehicles/Jeep/Materials/MAT_Light_Indicator.mat
+index d3e3e1c..786ce6b 100644
+--- a/Assets/_Project/Models/Vehicles/Jeep/Materials/MAT_Light_Indicator.mat
++++ b/Assets/_Project/Models/Vehicles/Jeep/Materials/MAT_Light_Indicator.mat
+@@ -11,8 +11,7 @@ Material:
+   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+   m_Parent: {fileID: 0}
+   m_ModifiedSerializedProperties: 0
+-  m_ValidKeywords:
+-  - _EMISSION
++  m_ValidKeywords: []
+   m_InvalidKeywords: []
+   m_LightmapFlags: 0
+   m_EnableInstancingVariants: 1
+diff --git a/Assets/_Project/Models/Vehicles/Jeep/Materials/MAT_Light_Reverse.mat b/Assets/_Project/Models/Vehicles/Jeep/Materials/MAT_Light_Reverse.mat
+index 7e263a8..7b65114 100644
+--- a/Assets/_Project/Models/Vehicles/Jeep/Materials/MAT_Light_Reverse.mat
++++ b/Assets/_Project/Models/Vehicles/Jeep/Materials/MAT_Light_Reverse.mat
+@@ -24,8 +24,7 @@ Material:
+   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+   m_Parent: {fileID: 0}
+   m_ModifiedSerializedProperties: 0
+-  m_ValidKeywords:
+-  - _EMISSION
++  m_ValidKeywords: []
+   m_InvalidKeywords: []
+   m_LightmapFlags: 0
+   m_EnableInstancingVariants: 1
+diff --git a/Assets/_Project/Models/Vehicles/Jeep/Materials/MAT_Light_Tail.mat b/Assets/_Project/Models/Vehicles/Jeep/Materials/MAT_Light_Tail.mat
+index 43d0945..8b2e893 100644
+--- a/Assets/_Project/Models/Vehicles/Jeep/Materials/MAT_Light_Tail.mat
++++ b/Assets/_Project/Models/Vehicles/Jeep/Materials/MAT_Light_Tail.mat
+@@ -11,8 +11,7 @@ Material:
+   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+   m_Parent: {fileID: 0}
+   m_ModifiedSerializedProperties: 0
+-  m_ValidKeywords:
+-  - _EMISSION
++  m_ValidKeywords: []
+   m_InvalidKeywords: []
+   m_LightmapFlags: 0
+   m_EnableInstancingVariants: 1
+diff --git a/Assets/_Project/Models/Vehicles/Jeep/Materials/MAT_Screen.mat b/Assets/_Project/Models/Vehicles/Jeep/Materials/MAT_Screen.mat
+index 0facee3..b23da89 100644
+--- a/Assets/_Project/Models/Vehicles/Jeep/Materials/MAT_Screen.mat
++++ b/Assets/_Project/Models/Vehicles/Jeep/Materials/MAT_Screen.mat
+@@ -24,8 +24,7 @@ Material:
+   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+   m_Parent: {fileID: 0}
+   m_ModifiedSerializedProperties: 0
+-  m_ValidKeywords:
+-  - _EMISSION
++  m_ValidKeywords: []
+   m_InvalidKeywords: []
+   m_LightmapFlags: 0
+   m_EnableInstancingVariants: 1
+diff --git a/Assets/_Project/Resources/FX/Grass.mat b/Assets/_Project/Resources/FX/Grass.mat
+index 928ea8e..855a829 100644
+--- a/Assets/_Project/Resources/FX/Grass.mat
++++ b/Assets/_Project/Resources/FX/Grass.mat
+@@ -28,7 +28,7 @@ Material:
+   m_InvalidKeywords: []
+   m_LightmapFlags: 4
+   m_EnableInstancingVariants: 0
+-  m_DoubleSidedGI: 0
++  m_DoubleSidedGI: 1
+   m_CustomRenderQueue: -1
+   stringTagMap:
+     RenderType: Opaque
+@@ -132,7 +132,7 @@ Material:
+     - _ZWrite: 1
+     m_Colors:
+     - _BaseColor: {r: 0.16, g: 0.32, b: 0.14, a: 1}
+-    - _Color: {r: 1, g: 1, b: 1, a: 1}
++    - _Color: {r: 0.15999997, g: 0.31999996, b: 0.13999996, a: 1}
+     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+   m_BuildTextureStacks: []
+diff --git a/Assets/_Project/Resources/FX/Mist.mat b/Assets/_Project/Resources/FX/Mist.mat
+index 072bc73..5479ccc 100644
+--- a/Assets/_Project/Resources/FX/Mist.mat
++++ b/Assets/_Project/Resources/FX/Mist.mat
+@@ -21,7 +21,9 @@ Material:
+   m_CustomRenderQueue: 3000
+   stringTagMap:
+     RenderType: Transparent
+-  disabledShaderPasses: []
++  disabledShaderPasses:
++  - DepthOnly
++  - SHADOWCASTER
+   m_LockedProperties: 
+   m_SavedProperties:
+     serializedVersion: 3
+@@ -55,7 +57,7 @@ Material:
+     - _DistortionStrength: 1
+     - _DistortionStrengthScaled: 0.1
+     - _DstBlend: 10
+-    - _DstBlendAlpha: 0
++    - _DstBlendAlpha: 10
+     - _FlipbookBlending: 0
+     - _FlipbookMode: 0
+     - _Mode: 0
+@@ -70,8 +72,8 @@ Material:
+     m_Colors:
+     - _BaseColor: {r: 0.75, g: 0.8, b: 0.88, a: 0.08}
+     - _BaseColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
+-    - _CameraFadeParams: {r: 0, g: 0, b: 0, a: 0}
+-    - _Color: {r: 1, g: 1, b: 1, a: 1}
++    - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}
++    - _Color: {r: 0.75, g: 0.8, b: 0.88, a: 0.08}
+     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
+   m_BuildTextureStacks: []
+diff --git a/Assets/_Project/Resources/Mats/bark_brown_02.mat b/Assets/_Project/Resources/Mats/bark_brown_02.mat
+index 59e8277..31d80d3 100644
+--- a/Assets/_Project/Resources/Mats/bark_brown_02.mat
++++ b/Assets/_Project/Resources/Mats/bark_brown_02.mat
+@@ -53,7 +53,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: 34f02ab1c9f364dcdbc3e735b91a47b9, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Resources/Mats/brown_mud_leaves_01.mat b/Assets/_Project/Resources/Mats/brown_mud_leaves_01.mat
+index 8e39d5f..d293247 100644
+--- a/Assets/_Project/Resources/Mats/brown_mud_leaves_01.mat
++++ b/Assets/_Project/Resources/Mats/brown_mud_leaves_01.mat
+@@ -53,7 +53,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: d064a6e8109814a1e8545d7b63d6b800, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Resources/Mats/clay_roof_tiles_02.mat b/Assets/_Project/Resources/Mats/clay_roof_tiles_02.mat
+index a5debd1..f5f8121 100644
+--- a/Assets/_Project/Resources/Mats/clay_roof_tiles_02.mat
++++ b/Assets/_Project/Resources/Mats/clay_roof_tiles_02.mat
+@@ -53,7 +53,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: 233acf3d70221407e941f5d039d952b9, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Resources/Mats/forest_leaves_02.mat b/Assets/_Project/Resources/Mats/forest_leaves_02.mat
+index 23c56af..02032fd 100644
+--- a/Assets/_Project/Resources/Mats/forest_leaves_02.mat
++++ b/Assets/_Project/Resources/Mats/forest_leaves_02.mat
+@@ -53,7 +53,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: 7e9d2b624765e409181844fd9eac0d5f, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Resources/Mats/mossy_sandstone.mat b/Assets/_Project/Resources/Mats/mossy_sandstone.mat
+index 2ee53bc..5466902 100644
+--- a/Assets/_Project/Resources/Mats/mossy_sandstone.mat
++++ b/Assets/_Project/Resources/Mats/mossy_sandstone.mat
+@@ -66,7 +66,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: 2a37e3ac83f0a41e9aeff386436327e0, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Resources/Mats/red_laterite_soil_stones.mat b/Assets/_Project/Resources/Mats/red_laterite_soil_stones.mat
+index 98cfea9..e1ce37a 100644
+--- a/Assets/_Project/Resources/Mats/red_laterite_soil_stones.mat
++++ b/Assets/_Project/Resources/Mats/red_laterite_soil_stones.mat
+@@ -66,7 +66,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: 4343f51870b95443dada76f0eed5edc6, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Resources/Mats/red_sandstone_pavement.mat b/Assets/_Project/Resources/Mats/red_sandstone_pavement.mat
+index 789f7f1..d418d9f 100644
+--- a/Assets/_Project/Resources/Mats/red_sandstone_pavement.mat
++++ b/Assets/_Project/Resources/Mats/red_sandstone_pavement.mat
+@@ -53,7 +53,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: 188915e4469f745ea9c754c609505854, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Resources/Mats/stony_dirt_path.mat b/Assets/_Project/Resources/Mats/stony_dirt_path.mat
+index a217f12..82adde9 100644
+--- a/Assets/_Project/Resources/Mats/stony_dirt_path.mat
++++ b/Assets/_Project/Resources/Mats/stony_dirt_path.mat
+@@ -66,7 +66,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: f24796c5273164c35af40e613ef3dbff, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Resources/Mats/thatch_roof_angled.mat b/Assets/_Project/Resources/Mats/thatch_roof_angled.mat
+index 7fe843e..e2d352b 100644
+--- a/Assets/_Project/Resources/Mats/thatch_roof_angled.mat
++++ b/Assets/_Project/Resources/Mats/thatch_roof_angled.mat
+@@ -53,7 +53,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: 6b239d9b46ace4881a0fe16288b13203, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Resources/Mats/window_glow.mat b/Assets/_Project/Resources/Mats/window_glow.mat
+index ec01fbd..12c3f5b 100644
+--- a/Assets/_Project/Resources/Mats/window_glow.mat
++++ b/Assets/_Project/Resources/Mats/window_glow.mat
+@@ -11,8 +11,7 @@ Material:
+   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+   m_Parent: {fileID: 0}
+   m_ModifiedSerializedProperties: 0
+-  m_ValidKeywords:
+-  - _EMISSION
++  m_ValidKeywords: []
+   m_InvalidKeywords: []
+   m_LightmapFlags: 0
+   m_EnableInstancingVariants: 0
+@@ -120,7 +119,7 @@ Material:
+     - _ZWrite: 1
+     m_Colors:
+     - _BaseColor: {r: 1, g: 0.72, b: 0.38, a: 1}
+-    - _Color: {r: 1, g: 1, b: 1, a: 1}
++    - _Color: {r: 1, g: 0.72, b: 0.37999994, a: 1}
+     - _EmissionColor: {r: 3.2, g: 1.9840001, b: 0.896, a: 3.2}
+     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+   m_BuildTextureStacks: []

@@ -148,7 +148,7 @@ namespace LegacyOfTemples.World
             }
 
             if (game) ArtUpgrade.Apply(scene); // real stone, wood and ground surfaces instead of flat colours
-            if (scene == "Courtyard") Dress();
+            if (scene == "Courtyard") { SealCourtyardPortalImmediate(); Dress(); }
             if (game) { CancelInvoke(nameof(Extras)); Invoke(nameof(Extras), 1.0f); }
         }
 
@@ -348,6 +348,23 @@ namespace LegacyOfTemples.World
         {
             n = n.ToLowerInvariant();
             return n.Contains("stone") || n.Contains("sandstone") || n.Contains("temple") || n.Contains("laterite") || n.Contains("plinth") || n.Contains("carved");
+        }
+
+        private static void SealCourtyardPortalImmediate()
+        {
+            var woodMat = ArtUpgrade.Mat("medieval_wood") ?? Lit(new Color(0.28f, 0.18f, 0.11f), 0.25f);
+            var stoneMat = ArtUpgrade.Mat("sandstone_blocks_08") ?? Lit(new Color(0.76f, 0.65f, 0.50f), 0.2f);
+            var portal = GameObject.Find("Portal_To_Sanctum");
+            if (portal != null)
+            {
+                foreach (var c in portal.GetComponents<Collider>()) c.isTrigger = false;
+                foreach (var r in portal.GetComponentsInChildren<MeshRenderer>()) r.sharedMaterial = woodMat;
+            }
+            foreach (var r in FindObjectsByType<MeshRenderer>())
+            {
+                if (r.sharedMaterial != null && r.sharedMaterial.name.Contains("SanctumDarkness"))
+                    r.sharedMaterial = r.gameObject.name.Contains("Portal") ? woodMat : stoneMat;
+            }
         }
 
         /// <summary>Low-cost scenery for the Courtyard edges: trees, shrubs, lamps, flags and market stalls (no colliders).</summary>

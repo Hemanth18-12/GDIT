@@ -1,0 +1,21 @@
+{
+  "label": "8/8 PlayMode checks passed",
+  "detail": "Fresh combined Editor PlayMode run: 8/8 passed; 0 failed. Upgrade checks: 2/2; six-zone suite: 6/6.",
+  "short": "2/2 upgrade checks\n6/6 zone checks",
+  "groups": {
+    "UpgradeVerificationTests": {
+      "total": 2,
+      "passed": 2
+    },
+    "NewBazaarPlayTests": {
+      "total": 6,
+      "passed": 6
+    }
+  },
+  "total": "8",
+  "passed": "8",
+  "failed": "0",
+  "start_utc": "2026-11-24 19:46:36Z",
+  "end_utc": "2026-11-24 19:52:43Z",
+  "failures": []
+}

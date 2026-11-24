@@ -53,13 +53,13 @@ namespace LegacyOfTemples.Gameplay
             // Underground level at y = -6 to -4
             Vector3 vaultOrigin = new Vector3(0f, -6f, 115f);
 
-            // Vaulted underground hall
+            // Vaulted underground hall (ceiling stays tucked at y <= -0.35m below Courtyard pavement)
             MarketArt.Box(r, "Vault Floor", vaultOrigin + new Vector3(0f, 0f, 0f), new Vector3(36f, 0.4f, 48f), "sandstone_blocks_08");
-            MarketArt.Box(r, "Vault Ceiling", vaultOrigin + new Vector3(0f, 6.2f, 0f), new Vector3(36f, 0.5f, 48f), "sandstone_blocks_08");
-            MarketArt.Box(r, "Vault Wall North", vaultOrigin + new Vector3(0f, 3.1f, 24f), new Vector3(36f, 6f, 1.2f), "sandstone_blocks_08");
-            MarketArt.Box(r, "Vault Wall South", vaultOrigin + new Vector3(0f, 3.1f, -24f), new Vector3(36f, 6f, 1.2f), "sandstone_blocks_08");
-            MarketArt.Box(r, "Vault Wall West", vaultOrigin + new Vector3(-18f, 3.1f, 0f), new Vector3(1.2f, 6f, 48f), "sandstone_blocks_08");
-            MarketArt.Box(r, "Vault Wall East", vaultOrigin + new Vector3(18f, 3.1f, 0f), new Vector3(1.2f, 6f, 48f), "sandstone_blocks_08");
+            MarketArt.Box(r, "Vault Ceiling", vaultOrigin + new Vector3(0f, 5.45f, 0f), new Vector3(36f, 0.4f, 48f), "sandstone_blocks_08");
+            MarketArt.Box(r, "Vault Wall North", vaultOrigin + new Vector3(0f, 2.75f, 24f), new Vector3(36f, 5.5f, 1.2f), "sandstone_blocks_08");
+            MarketArt.Box(r, "Vault Wall South", vaultOrigin + new Vector3(0f, 2.75f, -24f), new Vector3(36f, 5.5f, 1.2f), "sandstone_blocks_08");
+            MarketArt.Box(r, "Vault Wall West", vaultOrigin + new Vector3(-18f, 2.75f, 0f), new Vector3(1.2f, 5.5f, 48f), "sandstone_blocks_08");
+            MarketArt.Box(r, "Vault Wall East", vaultOrigin + new Vector3(18f, 2.75f, 0f), new Vector3(1.2f, 5.5f, 48f), "sandstone_blocks_08");
 
             // Underground entrance stairs from courtyard
             for (int i = 0; i < 12; i++)
@@ -67,14 +67,15 @@ namespace LegacyOfTemples.Gameplay
                 MarketArt.Box(r, "Stair " + i, new Vector3(25f, -i * 0.5f, 85f - i * 1.2f), new Vector3(3.5f, 0.5f, 1.3f), "sandstone_blocks_08");
             }
 
-            // Heavy pillars supporting the stone vault
+            // Heavy pillars supporting the stone vault with grounded lamp sconces
             for (int ix = -1; ix <= 1; ix += 2)
             {
                 for (int iz = -1; iz <= 1; iz++)
                 {
-                    Vector3 pPos = vaultOrigin + new Vector3(ix * 8f, 3f, iz * 12f);
-                    MarketArt.Box(r, "Vault Pillar", pPos, new Vector3(2f, 6f, 2f), "sandstone_blocks_08");
-                    ArtUpgrade.Place(r, "brass_diya_lantern", pPos + Vector3.up * 1.5f + Vector3.forward * 1.1f, 1.1f, 0f, false);
+                    Vector3 pPos = vaultOrigin + new Vector3(ix * 8f, 2.7f, iz * 12f);
+                    MarketArt.Box(r, "Vault Pillar", pPos, new Vector3(2f, 5.4f, 2f), "sandstone_blocks_08");
+                    MarketArt.Box(r, "Vault Lamp Bracket", pPos + new Vector3(0f, 1.35f, 1.15f), new Vector3(0.45f, 0.3f, 0.45f), "sandstone_blocks_08", false);
+                    ArtUpgrade.Place(r, "brass_diya_lantern", pPos + Vector3.up * 1.5f + Vector3.forward * 1.15f, 1.1f, 0f, false);
                 }
             }
 
@@ -138,7 +139,7 @@ namespace LegacyOfTemples.Gameplay
                 LooseGears[i] = c;
             }
 
-            var crankObj = ZoneKit.Round(r, "Gear Crank", vaultOrigin + new Vector3(-7f, 1.2f, 8f), new Vector3(0.4f, 0.2f, 0.4f), ZoneKit.Tinted("clay_plaster", new Color(0.5f, 0.4f, 0.2f), 0.4f), false);
+            var crankObj = ZoneKit.Round(r, "Gear Crank", vaultOrigin + new Vector3(-7f, 1.65f, 8f), new Vector3(0.4f, 0.2f, 0.4f), ZoneKit.Tinted("clay_plaster", new Color(0.5f, 0.4f, 0.2f), 0.4f), false);
             ZoneKit.Reach(crankObj, 0.6f);
             Crank = crankObj.AddComponent<RotatingDisc>();
             Crank.elementId = "nz3.crank";

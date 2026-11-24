@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="9" result="Passed" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-23 18:08:38Z" end-time="2026-11-23 18:08:50Z" duration="11.8023105">
+  <test-suite type="TestSuite" id="1064" name="My project" fullname="My project" runstate="Runnable" testcasecount="47" result="Passed" start-time="2026-11-23 18:08:38Z" end-time="2026-11-23 18:08:50Z" duration="11.802311" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1122" name="LOT.Grounding.PlayModeTests.dll" fullname="/Users/hemanth/Desktop/GDIT/My project/Library/ScriptAssemblies/LOT.Grounding.PlayModeTests.dll" runstate="Runnable" testcasecount="47" result="Passed" start-time="2026-11-23 18:08:38Z" end-time="2026-11-23 18:08:50Z" duration="11.798548" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="18146" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+      <test-suite type="TestSuite" id="1123" name="LegacyOfTemples" fullname="LegacyOfTemples" runstate="Runnable" testcasecount="39" result="Passed" start-time="2026-11-23 18:08:38Z" end-time="2026-11-23 18:08:46Z" duration="8.469470" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+        <test-suite type="TestSuite" id="1124" name="Tests" fullname="LegacyOfTemples.Tests" runstate="Runnable" testcasecount="39" result="Passed" start-time="2026-11-23 18:08:38Z" end-time="2026-11-23 18:08:46Z" duration="8.452692" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+          <test-suite type="TestFixture" id="1108" name="ReviewRegressionTests" fullname="LegacyOfTemples.Tests.ReviewRegressionTests" classname="LegacyOfTemples.Tests.ReviewRegressionTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-11-23 18:08:38Z" end-time="2026-11-23 18:08:46Z" duration="8.435764" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+            <test-case id="1111" name="Dialogue_PlainNpcLine_UsesRecordedVoice" fullname="LegacyOfTemples.Tests.ReviewRegressionTests.Dialogue_PlainNpcLine_UsesRecordedVoice" methodname="Dialogue_PlainNpcLine_UsesRecordedVoice" classname="LegacyOfTemples.Tests.ReviewRegressionTests" runstate="Runnable" seed="1814006566" result="Passed" start-time="2026-11-23 18:08:38Z" end-time="2026-11-23 18:08:46Z" duration="8.416434" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+[Weather] scene Sanctum: target=0.00, interior=True, quality=2
+[CharacterManager] Player placed in Sanctum: spawn=Spawn_player_start (0.00, 0.05, 5.00) -> player (0.00, 0.00, 5.00)
+[CharacterManager] Player placed in Sanctum: spawn=Spawn_player_start (0.00, 0.05, 5.00) -> player (0.00, 0.00, 5.00)
+[BatchFriendly] baked 54 renderers into 54 shared materials (total 54)
+[Voice] story:dialogue: played v3_puj_01 (story line)
+[Review] Plain NPC dialogue triggered Pujari recording v3_puj_01
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+      <test-suite type="TestFixture" id="1065" name="VoiceSystemTests" fullname="VoiceSystemTests" classname="VoiceSystemTests" runstate="Runnable" testcasecount="8" result="Passed" start-time="2026-11-23 18:08:46Z" end-time="2026-11-23 18:08:50Z" duration="3.313883" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-case id="1071" name="Chatter_Line_Is_Not_Said_Again_Within_The_Repeat_Gap" fullname="VoiceSystemTests.Chatter_Line_Is_Not_Said_Again_Within_The_Repeat_Gap" methodname="Chatter_Line_Is_Not_Said_Again_Within_The_Repeat_Gap" classname="VoiceSystemTests" runstate="Runnable" seed="199393171" result="Passed" start-time="2026-11-23 18:08:46Z" end-time="2026-11-23 18:08:47Z" duration="0.083336" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[[Voice] dialogue: stopped v3_puj_01 (test reset)
+[Voice] vault_plate: played pz_vault_plate_01 (p2 2D )
+[Voice] vault_plate: stopped pz_vault_plate_01 (test)
+[VoiceTest] repeat gap 45 s on Normal; second vault_plate: no candidate (said 0s ago)
+]]></output>
+        </test-case>
+        <test-case id="1069" name="Cooldown_OnceOnly_And_No_Immediate_Repeat" fullname="VoiceSystemTests.Cooldown_OnceOnly_And_No_Immediate_Repeat" methodname="Cooldown_OnceOnly_And_No_Immediate_Repeat" classname="VoiceSystemTests" runstate="Runnable" seed="86209462" result="Passed" start-time="2026-11-23 18:08:47Z" end-time="2026-11-23 18:08:47Z" duration="0.083235" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[[Voice] fight_start: played cb_start_02 (p3 2D )
+[Voice] fight_start: stopped cb_start_02 (test)
+[Voice] fight_start: played cb_start_01 (p3 2D )
+[Voice] fight_start: stopped cb_start_01 (test)
+[Voice] fight_start: played cb_start_02 (p3 2D )
+[Voice] fight_start: stopped cb_start_02 (test)
+[Voice] clock_half: played ck_half_01 (p3 2D )
+[Voice] clock_half: stopped ck_half_01 (test)
+]]></output>
+        </test-case>
+        <test-case id="1066" name="Database_Has_Every_Line_With_A_Mono_Clip" fullname="VoiceSystemTests.Database_Has_Every_Line_With_A_Mono_Clip" methodname="Database_Has_Every_Line_With_A_Mono_Clip" classname="VoiceSystemTests" runstate="Runnable" seed="135738082" result="Passed" start-time="2026-11-23 18:08:47Z" end-time="2026-11-23 18:08:47Z" duration="0.083203" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-case id="1067" name="Every_Trigger_Can_Speak" fullname="VoiceSystemTests.Every_Trigger_Can_Speak" methodname="Every_Trigger_Can_Speak" classname="VoiceSystemTests" runstate="Runnable" seed="1464197895" result="Passed" start-time="2026-11-23 18:08:47Z" end-time="2026-11-23 18:08:48Z" duration="1.283355" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[[Voice] move_first: played mv_first_01 (p2 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] move_first: stopped mv_first_01 (test reset)
+[Voice] run_long: played mv_run_01 (p1 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] run_long: stopped mv_run_01 (test reset)
+[Voice] run_tired: played mv_tired_01 (p1 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] run_tired: stopped mv_tired_01 (test reset)
+[Voice] jump: played mv_jump_01 (p1 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] jump: stopped mv_jump_01 (test reset)
+[Voice] land_hard: played mv_land_02 (p1 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] land_hard: stopped mv_land_02 (test reset)
+[Voice] area_enter: played mv_area_stepwell (p2 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] area_enter: stopped mv_area_stepwell (test reset)
+[Voice] danger_drop: played mv_danger_02 (p2 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] danger_drop: stopped mv_danger_02 (test reset)
+[Voice] rain: played mv_rain_02 (p1 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] rain: stopped mv_rain_02 (test reset)
+[Voice] lost: played mv_lost_03 (p2 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] lost: stopped mv_lost_03 (test reset)
+[Voice] dead_end: played mv_deadend_01 (p1 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] dead_end: stopped mv_deadend_01 (test reset)
+[Voice] jeep_approach: played jp_approach_01 (p1 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] jeep_approach: stopped jp_approach_01 (test reset)
+[Voice] jeep_enter: played jp_enter_01 (p2 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] jeep_enter: stopped jp_enter_01 (test reset)
+[Voice] jeep_start: played jp_start_01 (p1 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] jeep_start: stopped jp_start_01 (test reset)
+[Voice] jeep_drive_off: played jp_off_01 (p1 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] jeep_drive_off: stopped jp_off_01 (test reset)
+[Voice] jeep_fast: played jp_fast_01 (p2 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] jeep_fast: stopped jp_fast_01 (test reset)
+[Voice] jeep_drift: played jp_drift_01 (p2 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] jeep_drift: stopped jp_drift_01 (test reset)
+[Voice] jeep_handbrake: played jp_brake_01 (p1 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] jeep_handbrake: stopped jp_brake_01 (test reset)
+[Voice] jeep_near_miss: played jp_near_01 (p2 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] jeep_near_miss: stopped jp_near_01 (test reset)
+[Voice] jeep_crash_light: played jp_crash1_01 (p2 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] jeep_crash_light: stopped jp_crash1_01 (test reset)
+[Voice] jeep_crash_heavy: played jp_crash2_01 (p3 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] jeep_crash_heavy: stopped jp_crash2_01 (test reset)
+[Voice] jeep_smoke: played jp_smoke_01 (p3 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] jeep_smoke: stopped jp_smoke_01 (test reset)
+[Voice] jeep_engine_dead: played jp_dead_01 (p4 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] jeep_engine_dead: stopped jp_dead_01 (test reset)
+[Voice] jeep_stuck: played jp_stuck_01 (p2 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] jeep_stuck: stopped jp_stuck_01 (test reset)
+[Voice] jeep_arrive: played jp_arrive_01 (p3 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] jeep_arrive: stopped jp_arrive_01 (test reset)
+[Voice] jeep_exit: played jp_exit_01 (p1 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] jeep_exit: stopped jp_exit_01 (test reset)
+[Voice] jeep_park: played jp_park_01 (p1 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] jeep_park: stopped jp_park_01 (test reset)
+[Voice] notice: played ex_notice_01 (p1 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] notice: stopped ex_notice_01 (test reset)
+[Voice] clue_found: played ex_clue_list (p3 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] clue_found: stopped ex_clue_list (test reset)
+[Voice] board_ready: played ex_board_01 (p3 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] board_ready: stopped ex_board_01 (test reset)
+[Voice] item_found: played ex_item_01 (p2 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] item_found: stopped ex_item_01 (test reset)
+[Voice] puzzle_start: played pz_start_01 (p2 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] puzzle_start: stopped pz_start_01 (test reset)
+[Voice] puzzle_step: played pz_step_01 (p1 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] puzzle_step: stopped pz_step_01 (test reset)
+[Voice] puzzle_wrong: played pz_wrong_01 (p1 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] puzzle_wrong: stopped pz_wrong_01 (test reset)
+[Voice] puzzle_almost: played pz_almost_01 (p2 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] puzzle_almost: stopped pz_almost_01 (test reset)
+[Voice] puzzle_solved: played pz_solved_03 (p3 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] puzzle_solved: stopped pz_solved_03 (test reset)
+[Voice] hint_1: played pz_hint1_01 (p3 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] hint_1: stopped pz_hint1_01 (test reset)
+[Voice] hint_2: played pz_hint2_01 (p3 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] hint_2: stopped pz_hint2_01 (test reset)
+[Voice] hint_3: played pz_hint3_01 (p3 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] hint_3: stopped pz_hint3_01 (test reset)
+[Voice] pot_shard: played pz_pot_shard_02 (p2 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] pot_shard: stopped pz_pot_shard_02 (test reset)
+[Voice] pot_whole: played pz_pot_whole_01 (p3 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] pot_whole: stopped pz_pot_whole_01 (test reset)
+[Voice] lantern_stain: played pz_lantern_01 (p3 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] lantern_stain: stopped pz_lantern_01 (test reset)
+[Voice] flagstone: played pz_flag_01 (p3 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] flagstone: stopped pz_flag_01 (test reset)
+[Voice] vault_plate: played pz_vault_plate_01 (p2 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] vault_plate: stopped pz_vault_plate_01 (test reset)
+[Voice] vault_gate: played pz_vault_gate_01 (p3 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] vault_gate: stopped pz_vault_gate_01 (test reset)
+[Voice] vault_rings: played pz_vault_rings_01 (p3 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] vault_rings: stopped pz_vault_rings_01 (test reset)
+[Voice] stepwell_sluice: played pz_sluice_01 (p2 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] stepwell_sluice: stopped pz_sluice_01 (test reset)
+[Voice] stepwell_flood: played pz_flood_01 (p3 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] stepwell_flood: stopped pz_flood_01 (test reset)
+[Voice] stepwell_level: played pz_level_01 (p3 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] stepwell_level: stopped pz_level_01 (test reset)
+[Voice] sunwall_mirror: played pz_mirror_01 (p1 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] sunwall_mirror: stopped pz_mirror_01 (test reset)
+[Voice] sunwall_socket: played pz_beam_01 (p3 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] sunwall_socket: stopped pz_beam_01 (test reset)
+[Voice] sunwall_open: played pz_wall_01 (p3 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] sunwall_open: stopped pz_wall_01 (test reset)
+[Voice] bazaar_follow: played bz_follow_01 (p3 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] bazaar_follow: stopped bz_follow_01 (test reset)
+[Voice] bazaar_lookback: played bz_look_01 (p2 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] bazaar_lookback: stopped bz_look_01 (test reset)
+[Voice] bazaar_spotted: played bz_spot_02 (p3 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] bazaar_spotted: stopped bz_spot_02 (test reset)
+[Voice] bazaar_far: played bz_far_01 (p2 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] bazaar_far: stopped bz_far_01 (test reset)
+[Voice] bazaar_yard: played bz_yard_01 (p3 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] bazaar_yard: stopped bz_yard_01 (test reset)
+[Voice] fight_start: played cb_start_01 (p3 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] fight_start: stopped cb_start_01 (test reset)
+[Voice] fight_combo: played cb_combo_01 (p1 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] fight_combo: stopped cb_combo_01 (test reset)
+[Voice] fight_hurt: played cb_hurt_02 (p1 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] fight_hurt: stopped cb_hurt_02 (test reset)
+[Voice] fight_low: played cb_low_01 (p3 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] fight_low: stopped cb_low_01 (test reset)
+[Voice] fight_dodge: played cb_dodge_01 (p1 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] fight_dodge: stopped cb_dodge_01 (test reset)
+[Voice] fight_finish: played cb_finish_01 (p2 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] fight_finish: stopped cb_finish_01 (test reset)
+[Voice] fight_won: played cb_won_02 (p3 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] fight_won: stopped cb_won_02 (test reset)
+[Voice] fight_retry: played cb_retry_01 (p3 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] fight_retry: stopped cb_retry_01 (test reset)
+[Voice] enemy_spotted: played rb_spot_store (p3 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] enemy_spotted: stopped rb_spot_store (test reset)
+[Voice] fight_taunt: played cr_taunt_01 (p2 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] fight_taunt: stopped cr_taunt_01 (test reset)
+[Voice] enemy_down: played ki_down_01 (p4 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] enemy_down: stopped ki_down_01 (test reset)
+[Voice] clock_half: played ck_half_01 (p3 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] clock_half: stopped ck_half_01 (test reset)
+[Voice] clock_5: played ck_5_01 (p4 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] clock_5: stopped ck_5_01 (test reset)
+[Voice] clock_1: played ck_1_01 (p4 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] clock_1: stopped ck_1_01 (test reset)
+[Voice] clock_penalty: played ck_pen_02 (p1 2D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] clock_penalty: stopped ck_pen_02 (test reset)
+[Voice] npc_near: played np_puj_03 (p2 3D enemy=robber;evidence=list;speaker=villager_f)
+[Voice] npc_near: stopped np_puj_03 (test reset)
+[Voice] ending: played end_narr_01 (p5 2D enemy=robber;evidence=list;speaker=villager_f)
+[VoiceTest] 73 triggers all speak
+[Voice] ending: stopped end_narr_01 (test reset)
+]]></output>
+        </test-case>
+        <test-case id="1072" name="Frequency_Setting_Scales_Chance_Cooldown_And_Gap" fullname="VoiceSystemTests.Frequency_Setting_Scales_Chance_Cooldown_And_Gap" methodname="Frequency_Setting_Scales_Chance_Cooldown_And_Gap" classname="VoiceSystemTests" runstate="Runnable" seed="590217750" result="Passed" start-time="2026-11-23 18:08:48Z" end-time="2026-11-23 18:08:48Z" duration="0.083196" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[[VoiceTest] run_long chance 0.30/0.60/0.84, cooldown 120/75/53 s, chatter gap 30/12/6 s (Low/Normal/High)
+]]></output>
+        </test-case>
+        <test-case id="1068" name="Higher_Priority_Interrupts_And_Voices_Never_Overlap" fullname="VoiceSystemTests.Higher_Priority_Interrupts_And_Voices_Never_Overlap" methodname="Higher_Priority_Interrupts_And_Voices_Never_Overlap" classname="VoiceSystemTests" runstate="Runnable" seed="544015042" result="Passed" start-time="2026-11-23 18:08:48Z" end-time="2026-11-23 18:08:50Z" duration="1.483309" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[[Voice] jump: played mv_jump_01 (p1 2D )
+[Voice] puzzle_solved: interrupts pz_solved_01 (over mv_jump_01 (p1))
+[Voice] puzzle_solved: played pz_solved_01 (p3 2D )
+[Voice] fight_start: queued cb_start_02 (behind p3)
+[Voice] fight_start: played cb_start_02 (p3 2D )
+[Voice] fight_start: stopped cb_start_02 (test reset)
+]]></output>
+        </test-case>
+        <test-case id="1073" name="Story_Line_Uses_The_New_Voice_And_Wins_Over_Event_Lines" fullname="VoiceSystemTests.Story_Line_Uses_The_New_Voice_And_Wins_Over_Event_Lines" methodname="Story_Line_Uses_The_New_Voice_And_Wins_Over_Event_Lines" classname="VoiceSystemTests" runstate="Runnable" seed="1317436131" result="Passed" start-time="2026-11-23 18:08:50Z" end-time="2026-11-23 18:08:50Z" duration="0.099839" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[[Voice] puzzle_solved: played pz_solved_01 (p3 2D )
+[Voice] story:dialogue: played v3_puj_01 (story line)
+[Voice] dialogue: stopped v3_puj_01 (test reset)
+]]></output>
+        </test-case>
+        <test-case id="1070" name="VoiceOnEvent_Helper_Asks_The_Manager" fullname="VoiceSystemTests.VoiceOnEvent_Helper_Asks_The_Manager" methodname="VoiceOnEvent_Helper_Asks_The_Manager" classname="VoiceSystemTests" runstate="Runnable" seed="2033341952" result="Passed" start-time="2026-11-23 18:08:50Z" end-time="2026-11-23 18:08:50Z" duration="0.099887" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[[Voice] jeep_enter: played jp_enter_02 (p2 2D )
+[Voice] jeep_enter: stopped jp_enter_02 (test)
+[Voice] fight_start: played cb_start_02 (p3 2D )
+[Voice] fight_start: stopped cb_start_02 (test reset)
+Saving results to: /Users/hemanth/Library/Application Support/DefaultCompany/My project/TestResults.xml
+]]></output>
+        </test-case>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

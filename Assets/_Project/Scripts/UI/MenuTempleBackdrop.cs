@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using LegacyOfTemples.Core;
 using LegacyOfTemples.World;
+using LegacyOfTemples.Gameplay;
 
 namespace LegacyOfTemples.UI
 {
@@ -25,12 +26,14 @@ namespace LegacyOfTemples.UI
 
         void Start()
         {
-            var pf = Resources.Load<GameObject>("Temple/Temple"); cam = Camera.main;
-            if (pf == null || cam == null) { Debug.LogWarning("[Menu] temple prefab or camera missing; keeping the old menu background"); enabled = false; return; }
-            var g = Instantiate(pf, Site, Quaternion.identity, transform); g.name = "MenuTemple";
-            foreach (var c in g.GetComponentsInChildren<Collider>()) Destroy(c);
-            bool first = true; foreach (var r in g.GetComponentsInChildren<Renderer>()) { if (first) { b = r.bounds; first = false; } else b.Encapsulate(r.bounds); }
-            g.transform.position += new Vector3(Site.x - b.center.x, -b.min.y, Site.z - b.center.z); b.center = new Vector3(Site.x, b.extents.y, Site.z);
+            cam = Camera.main;
+            if (cam == null) { enabled = false; return; }
+            var res = KalingaTempleBuilder.Build(transform, "MenuTemple", Site, 2.1f);
+            foreach (var c in res.root.GetComponentsInChildren<Collider>()) Destroy(c);
+            b = res.footprint;
+            var flag = new GameObject("MenuTempleFlag").AddComponent<WavingFlag>();
+            flag.transform.SetParent(res.root, false);
+            flag.transform.position = res.towerTop;
             var ground = Village.Box(transform, "MenuGround", Vector3.zero, new Vector3(900f, 0.2f, 900f), "red_sandstone_pavement", 3.2f, false); ground.transform.position = new Vector3(Site.x, -0.1f, Site.z);
             // golden hour: one low warm sun from the front-left, warm haze
             Light sun = RenderSettings.sun; if (sun == null) foreach (var l in FindObjectsByType<Light>()) if (l.type == LightType.Directional) sun = l;

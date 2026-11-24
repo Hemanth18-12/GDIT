@@ -72,14 +72,33 @@ namespace LegacyOfTemples.UI
             int ts = PlayerPrefs.GetInt("Settings_TextScaleIndex", 1);
             Button("Text size: " + TextSizes[Mathf.Clamp(ts, 0, 3)], () => { UIManager.Instance.CycleTextScale(); Rebuild(); });
             Button("High contrast: " + (ScreenTextRenderer.HighContrast ? "ON" : "OFF"), () => { UIManager.Instance.ToggleHighContrast(); Rebuild(); });
+            Button("RETRY SECTION HERE", () => { UIManager.Instance.TogglePause(); DawnClock.Instance?.RetryOnSpot(false); });
             float mv = PlayerPrefs.GetFloat("Settings_MasterVol", 1f);
-            Button($"Volume: {Mathf.RoundToInt(mv * 100)}%", () =>
+            Button($"Master volume: {Mathf.RoundToInt(mv * 100)}%", () =>
             {
                 float nv = mv >= 0.99f ? 0f : Mathf.Min(1f, mv + 0.25f);
-                PlayerPrefs.SetFloat("Settings_MasterVol", nv); PlayerPrefs.Save(); AudioManager.Instance?.SetMasterVolume(nv); Rebuild();
+                PlayerPrefs.SetFloat("Settings_MasterVol", nv); PlayerPrefs.SetFloat("Volume_Master", nv); PlayerPrefs.Save(); AudioManager.Instance?.SetMasterVolume(nv); Rebuild();
+            });
+            float muv = PlayerPrefs.GetFloat("Settings_MusicVol", 0.7f);
+            Button($"Music volume: {Mathf.RoundToInt(muv * 100)}%", () =>
+            {
+                float nv = muv >= 0.99f ? 0f : Mathf.Min(1f, muv + 0.25f);
+                PlayerPrefs.SetFloat("Settings_MusicVol", nv); PlayerPrefs.SetFloat("Volume_Music", nv); PlayerPrefs.Save(); AudioManager.Instance?.SetMusicVolume(nv); Rebuild();
+            });
+            float av = PlayerPrefs.GetFloat("Settings_AmbienceVol", 0.6f);
+            Button($"Ambience volume: {Mathf.RoundToInt(av * 100)}%", () =>
+            {
+                float nv = av >= 0.99f ? 0f : Mathf.Min(1f, av + 0.25f);
+                PlayerPrefs.SetFloat("Settings_AmbienceVol", nv); PlayerPrefs.Save(); AudioManager.Instance?.SetAmbienceVolume(nv); Rebuild();
+            });
+            float sv = PlayerPrefs.GetFloat("Settings_SfxVol", 0.9f);
+            Button($"Effects volume: {Mathf.RoundToInt(sv * 100)}%", () =>
+            {
+                float nv = sv >= 0.99f ? 0f : Mathf.Min(1f, sv + 0.25f);
+                PlayerPrefs.SetFloat("Settings_SfxVol", nv); PlayerPrefs.SetFloat("Volume_SFX", nv); PlayerPrefs.Save(); AudioManager.Instance?.SetSFXVolume(nv); Rebuild();
             });
             float vv = VoicePlayer.Volume;
-            Button($"Voice: {Mathf.RoundToInt(vv * 100)}%", () => { VoicePlayer.Volume = vv >= 0.99f ? 0f : Mathf.Min(1f, vv + 0.25f); Rebuild(); });
+            Button($"Voice volume: {Mathf.RoundToInt(vv * 100)}%", () => { float nv = vv >= 0.99f ? 0f : Mathf.Min(1f, vv + 0.25f); VoicePlayer.Volume = nv; AudioManager.Instance?.SetVoiceVolume(nv); Rebuild(); });
             Button("Difficulty: " + GameOptions.DifficultyNames[GameOptions.Difficulty], () => { GameOptions.Difficulty = (GameOptions.Difficulty + 1) % 3; Rebuild(); });
             Button("Voice lines: " + GameOptions.VoiceFrequencyNames[GameOptions.VoiceFrequency], () => { GameOptions.VoiceFrequency = (GameOptions.VoiceFrequency + 1) % 3; Rebuild(); });
             Button("Subtitles: " + (GameOptions.Subtitles ? "ON" : "OFF"), () => { GameOptions.Subtitles = !GameOptions.Subtitles; Rebuild(); });

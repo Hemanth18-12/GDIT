@@ -1,0 +1,2163 @@
+diff --git a/ATTRIBUTION.md b/ATTRIBUTION.md
+index b2126f5..b59130c 100644
+--- a/ATTRIBUTION.md
++++ b/ATTRIBUTION.md
+@@ -124,3 +124,10 @@ All from polyhaven.com, licence CC0 1.0 (public domain), downloaded with Tools/a
+ | Voice clips in Assets/_Project/Audio/Voice/ | Project (generated with Kokoro) | Docs/VOICE_LINES.csv, Tools/tts/generate_voices.py | Own work | Lines written for this project. |
+ | Older voice clips in Assets/_Project/Resources/Voice/ | macOS `say` (see the table above) | - | Placeholder | Kept unchanged as a fallback only; the game now plays the Kokoro clips above. |
+ 
++
++
++## Targeted fix pass additions
++| Asset/content | Author | Source | Licence/use |
++|---|---|---|---|
++| 20 short Pujari/Meera reminder clips (`rem_*`) | Project writing; generated offline with existing Kokoro voice settings | `Docs/VOICE_LINES.csv`; https://huggingface.co/hexgrad/Kokoro-82M | Original text/audio output; existing model Apache-2.0 and runner MIT. No model distributed; no download in this pass. |
++| Heritage note text and feedback effects | Project | `Docs/HERITAGE_SOURCES.md`; `HeritageNotes.cs`; `CombatFeedback.cs` | Original paraphrases and code. Source pages are references, not imported media. Existing licensed effect materials/sounds reused. |
+diff --git a/Assets/_Project/Art/PolyHaven/Models/Barrel_01/Barrel_01_explosive.mat b/Assets/_Project/Art/PolyHaven/Models/Barrel_01/Barrel_01_explosive.mat
+index d87c348..10a4e3f 100644
+--- a/Assets/_Project/Art/PolyHaven/Models/Barrel_01/Barrel_01_explosive.mat
++++ b/Assets/_Project/Art/PolyHaven/Models/Barrel_01/Barrel_01_explosive.mat
+@@ -66,7 +66,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: 50741022b798e489497e3df1d72d0889, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Art/PolyHaven/Models/WoodenTable_01/WoodenTable_01.mat b/Assets/_Project/Art/PolyHaven/Models/WoodenTable_01/WoodenTable_01.mat
+index df71f3c..a0c750b 100644
+--- a/Assets/_Project/Art/PolyHaven/Models/WoodenTable_01/WoodenTable_01.mat
++++ b/Assets/_Project/Art/PolyHaven/Models/WoodenTable_01/WoodenTable_01.mat
+@@ -53,7 +53,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: 9cfdf29a210b34e4dba33261ff7a143a, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Art/PolyHaven/Models/brass_diya_lantern/brass_diya_lantern.mat b/Assets/_Project/Art/PolyHaven/Models/brass_diya_lantern/brass_diya_lantern.mat
+index 003f895..bdc6972 100644
+--- a/Assets/_Project/Art/PolyHaven/Models/brass_diya_lantern/brass_diya_lantern.mat
++++ b/Assets/_Project/Art/PolyHaven/Models/brass_diya_lantern/brass_diya_lantern.mat
+@@ -53,7 +53,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: 0bda16de183c944b597cd68581ad6d98, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Art/PolyHaven/Models/brass_pot_01/brass_pot_01.mat b/Assets/_Project/Art/PolyHaven/Models/brass_pot_01/brass_pot_01.mat
+index 85a5940..84fbf95 100644
+--- a/Assets/_Project/Art/PolyHaven/Models/brass_pot_01/brass_pot_01.mat
++++ b/Assets/_Project/Art/PolyHaven/Models/brass_pot_01/brass_pot_01.mat
+@@ -53,7 +53,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: e489df941266a48a9a497f09614c0e01, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Art/PolyHaven/Models/brass_pot_02/brass_pot_02.mat b/Assets/_Project/Art/PolyHaven/Models/brass_pot_02/brass_pot_02.mat
+index 68b9194..760e25f 100644
+--- a/Assets/_Project/Art/PolyHaven/Models/brass_pot_02/brass_pot_02.mat
++++ b/Assets/_Project/Art/PolyHaven/Models/brass_pot_02/brass_pot_02.mat
+@@ -66,7 +66,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: 56c145f17a3254b72a780269e9bc7d4b, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Art/PolyHaven/Models/calathea_orbifolia_01/calathea_orbifolia_01.mat b/Assets/_Project/Art/PolyHaven/Models/calathea_orbifolia_01/calathea_orbifolia_01.mat
+index b954e0d..27e6c28 100644
+--- a/Assets/_Project/Art/PolyHaven/Models/calathea_orbifolia_01/calathea_orbifolia_01.mat
++++ b/Assets/_Project/Art/PolyHaven/Models/calathea_orbifolia_01/calathea_orbifolia_01.mat
+@@ -53,7 +53,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: fb2f3ba9aaf474fd4ad992a57d0ab95e, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Art/PolyHaven/Models/carved_wooden_elephant/carved_wooden_elephant.mat b/Assets/_Project/Art/PolyHaven/Models/carved_wooden_elephant/carved_wooden_elephant.mat
+index 150aad8..fd85f95 100644
+--- a/Assets/_Project/Art/PolyHaven/Models/carved_wooden_elephant/carved_wooden_elephant.mat
++++ b/Assets/_Project/Art/PolyHaven/Models/carved_wooden_elephant/carved_wooden_elephant.mat
+@@ -51,7 +51,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: 97f201eb3f8a9475ab597b05242308e9, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Art/PolyHaven/Models/ceramic_pot/ceramic_pot.mat b/Assets/_Project/Art/PolyHaven/Models/ceramic_pot/ceramic_pot.mat
+index 1a122a1..715878f 100644
+--- a/Assets/_Project/Art/PolyHaven/Models/ceramic_pot/ceramic_pot.mat
++++ b/Assets/_Project/Art/PolyHaven/Models/ceramic_pot/ceramic_pot.mat
+@@ -66,7 +66,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: c9145048b8a25404aa5d42c8021f5040, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Art/PolyHaven/Models/ceramic_vase_01/ceramic_vase_01.mat b/Assets/_Project/Art/PolyHaven/Models/ceramic_vase_01/ceramic_vase_01.mat
+index 86a1a28..99ecff1 100644
+--- a/Assets/_Project/Art/PolyHaven/Models/ceramic_vase_01/ceramic_vase_01.mat
++++ b/Assets/_Project/Art/PolyHaven/Models/ceramic_vase_01/ceramic_vase_01.mat
+@@ -66,7 +66,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: b04b6ddd120d9464ba7ed8f09769749b, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Art/PolyHaven/Models/dry_branches_medium_01/dry_branches_medium_01.mat b/Assets/_Project/Art/PolyHaven/Models/dry_branches_medium_01/dry_branches_medium_01.mat
+index e9e69a4..5904e58 100644
+--- a/Assets/_Project/Art/PolyHaven/Models/dry_branches_medium_01/dry_branches_medium_01.mat
++++ b/Assets/_Project/Art/PolyHaven/Models/dry_branches_medium_01/dry_branches_medium_01.mat
+@@ -53,7 +53,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: 5196a75d514e748fa8b227bcc36da159, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Art/PolyHaven/Models/fern_02/fern_02.mat b/Assets/_Project/Art/PolyHaven/Models/fern_02/fern_02.mat
+index a12611c..5ad7af6 100644
+--- a/Assets/_Project/Art/PolyHaven/Models/fern_02/fern_02.mat
++++ b/Assets/_Project/Art/PolyHaven/Models/fern_02/fern_02.mat
+@@ -66,7 +66,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: 5dfd640968fc5415582150c92a84edb2, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Art/PolyHaven/Models/folding_wooden_stool/folding_wooden_stool.mat b/Assets/_Project/Art/PolyHaven/Models/folding_wooden_stool/folding_wooden_stool.mat
+index 9fe90b9..ba7d0f5 100644
+--- a/Assets/_Project/Art/PolyHaven/Models/folding_wooden_stool/folding_wooden_stool.mat
++++ b/Assets/_Project/Art/PolyHaven/Models/folding_wooden_stool/folding_wooden_stool.mat
+@@ -66,7 +66,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: 5cc22de5027304e748254de67031521d, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Art/PolyHaven/Models/lion_head/lion_head.mat b/Assets/_Project/Art/PolyHaven/Models/lion_head/lion_head.mat
+index 8653a60..32eb065 100644
+--- a/Assets/_Project/Art/PolyHaven/Models/lion_head/lion_head.mat
++++ b/Assets/_Project/Art/PolyHaven/Models/lion_head/lion_head.mat
+@@ -53,7 +53,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: b767d9c39b7bf4604ad3b253cd1440b5, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Art/PolyHaven/Models/nettle_plant/nettle_plant.mat b/Assets/_Project/Art/PolyHaven/Models/nettle_plant/nettle_plant.mat
+index 9c613b5..8f2b69e 100644
+--- a/Assets/_Project/Art/PolyHaven/Models/nettle_plant/nettle_plant.mat
++++ b/Assets/_Project/Art/PolyHaven/Models/nettle_plant/nettle_plant.mat
+@@ -66,7 +66,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: 1a455c2dd2ec2411498b312bf39d8b14, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Art/PolyHaven/Models/periwinkle_plant/periwinkle_plant.mat b/Assets/_Project/Art/PolyHaven/Models/periwinkle_plant/periwinkle_plant.mat
+index a3ef285..34b0fda 100644
+--- a/Assets/_Project/Art/PolyHaven/Models/periwinkle_plant/periwinkle_plant.mat
++++ b/Assets/_Project/Art/PolyHaven/Models/periwinkle_plant/periwinkle_plant.mat
+@@ -53,7 +53,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: 6db5ca7f6025c4f23bd7df02cd2ccf81, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Art/PolyHaven/Models/planter_box_01/planter_box_01.mat b/Assets/_Project/Art/PolyHaven/Models/planter_box_01/planter_box_01.mat
+index fdd2849..6255379 100644
+--- a/Assets/_Project/Art/PolyHaven/Models/planter_box_01/planter_box_01.mat
++++ b/Assets/_Project/Art/PolyHaven/Models/planter_box_01/planter_box_01.mat
+@@ -53,7 +53,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: 1e6067f2b65304b6f9d39d4577e15cc6, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Art/PolyHaven/Models/rock_07/rock_07.mat b/Assets/_Project/Art/PolyHaven/Models/rock_07/rock_07.mat
+index ffbc1da..0bf2232 100644
+--- a/Assets/_Project/Art/PolyHaven/Models/rock_07/rock_07.mat
++++ b/Assets/_Project/Art/PolyHaven/Models/rock_07/rock_07.mat
+@@ -66,7 +66,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: 81a09794a3b67479ca1c25aa3924f289, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Art/PolyHaven/Models/rock_moss_set_01/rock_moss_set_01.mat b/Assets/_Project/Art/PolyHaven/Models/rock_moss_set_01/rock_moss_set_01.mat
+index 96ad1c0..0fec80c 100644
+--- a/Assets/_Project/Art/PolyHaven/Models/rock_moss_set_01/rock_moss_set_01.mat
++++ b/Assets/_Project/Art/PolyHaven/Models/rock_moss_set_01/rock_moss_set_01.mat
+@@ -51,7 +51,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: 8ebc1b510d4474d68a3085391b00725b, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Art/PolyHaven/Models/rock_moss_set_02/rock_moss_set_02.mat b/Assets/_Project/Art/PolyHaven/Models/rock_moss_set_02/rock_moss_set_02.mat
+index 0b7615d..333ad71 100644
+--- a/Assets/_Project/Art/PolyHaven/Models/rock_moss_set_02/rock_moss_set_02.mat
++++ b/Assets/_Project/Art/PolyHaven/Models/rock_moss_set_02/rock_moss_set_02.mat
+@@ -51,7 +51,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: 0c7cd18d8085a40479b0b180c7bd6936, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Art/PolyHaven/Models/tree_stump_01/tree_stump_01.mat b/Assets/_Project/Art/PolyHaven/Models/tree_stump_01/tree_stump_01.mat
+index b8a8531..4bd130c 100644
+--- a/Assets/_Project/Art/PolyHaven/Models/tree_stump_01/tree_stump_01.mat
++++ b/Assets/_Project/Art/PolyHaven/Models/tree_stump_01/tree_stump_01.mat
+@@ -53,7 +53,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: 53fdc3d3d9f484f729a8545cb06e143e, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Art/PolyHaven/Models/vintage_oil_lamp/vintage_oil_lamp_flame.mat b/Assets/_Project/Art/PolyHaven/Models/vintage_oil_lamp/vintage_oil_lamp_flame.mat
+index e24c8c6..16d248e 100644
+--- a/Assets/_Project/Art/PolyHaven/Models/vintage_oil_lamp/vintage_oil_lamp_flame.mat
++++ b/Assets/_Project/Art/PolyHaven/Models/vintage_oil_lamp/vintage_oil_lamp_flame.mat
+@@ -63,7 +63,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: ffddd606131ab43219230f4a94d183eb, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Art/PolyHaven/Models/vintage_oil_lamp/vintage_oil_lamp_glass.mat b/Assets/_Project/Art/PolyHaven/Models/vintage_oil_lamp/vintage_oil_lamp_glass.mat
+index d9712ca..3ffa7f1 100644
+--- a/Assets/_Project/Art/PolyHaven/Models/vintage_oil_lamp/vintage_oil_lamp_glass.mat
++++ b/Assets/_Project/Art/PolyHaven/Models/vintage_oil_lamp/vintage_oil_lamp_glass.mat
+@@ -53,7 +53,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: 72ad54b5a232942f8a6193ff4fe73ce5, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Art/PolyHaven/Models/wooden_bowl_02/wooden_bowl_02.mat b/Assets/_Project/Art/PolyHaven/Models/wooden_bowl_02/wooden_bowl_02.mat
+index 7b40ed4..1146809 100644
+--- a/Assets/_Project/Art/PolyHaven/Models/wooden_bowl_02/wooden_bowl_02.mat
++++ b/Assets/_Project/Art/PolyHaven/Models/wooden_bowl_02/wooden_bowl_02.mat
+@@ -66,7 +66,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: 766283c5666204d52b631cccdc377343, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Art/PolyHaven/Models/wooden_lantern_01/wooden_lantern_01_glass.mat b/Assets/_Project/Art/PolyHaven/Models/wooden_lantern_01/wooden_lantern_01_glass.mat
+index 79670b6..492b3f7 100644
+--- a/Assets/_Project/Art/PolyHaven/Models/wooden_lantern_01/wooden_lantern_01_glass.mat
++++ b/Assets/_Project/Art/PolyHaven/Models/wooden_lantern_01/wooden_lantern_01_glass.mat
+@@ -53,7 +53,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: f0ac71f3e67a448e4bf794d83c18dc0a, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Audio/Voice/manifest.json b/Assets/_Project/Audio/Voice/manifest.json
+index 22fbd6a..05c9b53 100644
+--- a/Assets/_Project/Audio/Voice/manifest.json
++++ b/Assets/_Project/Audio/Voice/manifest.json
+@@ -2240,6 +2240,346 @@
+    "wer_strict": 0.0
+   }
+  },
++ "rem_meera_end": {
++  "key": "517bfad8ae38acfd",
++  "qa": {
++   "f0": 222,
++   "heard": "",
++   "id": "rem_meera_end",
++   "lufs": -16.0,
++   "peak_db": -1.7,
++   "seconds": 2.21,
++   "source": "kokoro hf_alpha:1.0",
++   "speaker": "meera",
++   "take": "take 1",
++   "text": "Our village will remember your help.",
++   "true_peak": -1.72,
++   "wer": ""
++  }
++ },
++ "rem_meera_obj_c0_reach": {
++  "key": "77f8c01c191fa4b0",
++  "qa": {
++   "f0": 223,
++   "heard": "",
++   "id": "rem_meera_obj_c0_reach",
++   "lufs": -16.03,
++   "peak_db": -1.7,
++   "seconds": 2.18,
++   "source": "kokoro hf_alpha:1.0",
++   "speaker": "meera",
++   "take": "take 1",
++   "text": "Follow the road towards the temple.",
++   "true_peak": -1.72,
++   "wer": ""
++  }
++ },
++ "rem_meera_obj_return": {
++  "key": "5917efdad3152de9",
++  "qa": {
++   "f0": 214,
++   "heard": "",
++   "id": "rem_meera_obj_return",
++   "lufs": -16.0,
++   "peak_db": -1.7,
++   "seconds": 2.05,
++   "source": "kokoro hf_alpha:1.0",
++   "speaker": "meera",
++   "take": "take 1",
++   "text": "Bring the treasures back to Ananda.",
++   "true_peak": -1.72,
++   "wer": ""
++  }
++ },
++ "rem_meera_obj_v3_bazaar": {
++  "key": "aca90b1f2db1266d",
++  "qa": {
++   "f0": 240,
++   "heard": "",
++   "id": "rem_meera_obj_v3_bazaar",
++   "lufs": -15.99,
++   "peak_db": -1.7,
++   "seconds": 1.77,
++   "source": "kokoro hf_alpha:1.0",
++   "speaker": "meera",
++   "take": "take 1",
++   "text": "Follow the man with the bell.",
++   "true_peak": -1.71,
++   "wer": ""
++  }
++ },
++ "rem_meera_obj_v3_jungle": {
++  "key": "9ee0726acbea5f70",
++  "qa": {
++   "f0": 220,
++   "heard": "",
++   "id": "rem_meera_obj_v3_jungle",
++   "lufs": -16.02,
++   "peak_db": -2.5,
++   "seconds": 2.2,
++   "source": "kokoro hf_alpha:1.0",
++   "speaker": "meera",
++   "take": "take 1",
++   "text": "Your jeep waits on the north road.",
++   "true_peak": -2.5,
++   "wer": ""
++  }
++ },
++ "rem_meera_obj_v3_pujari": {
++  "key": "fb5d7831b13ff306",
++  "qa": {
++   "f0": 224,
++   "heard": "",
++   "id": "rem_meera_obj_v3_pujari",
++   "lufs": -15.98,
++   "peak_db": -1.7,
++   "seconds": 1.88,
++   "source": "kokoro hf_alpha:1.0",
++   "speaker": "meera",
++   "take": "take 1",
++   "text": "The priest waits by the steps.",
++   "true_peak": -1.71,
++   "wer": ""
++  }
++ },
++ "rem_meera_obj_v3_stepwell": {
++  "key": "f2bf36c617230598",
++  "qa": {
++   "f0": 237,
++   "heard": "",
++   "id": "rem_meera_obj_v3_stepwell",
++   "lufs": -16.0,
++   "peak_db": -1.7,
++   "seconds": 1.89,
++   "source": "kokoro hf_alpha:1.0",
++   "speaker": "meera",
++   "take": "take 1",
++   "text": "They went towards the old well.",
++   "true_peak": -1.71,
++   "wer": ""
++  }
++ },
++ "rem_meera_obj_v3_storeroom": {
++  "key": "9dba3b8c3c039073",
++  "qa": {
++   "f0": 226,
++   "heard": "",
++   "id": "rem_meera_obj_v3_storeroom",
++   "lufs": -16.02,
++   "peak_db": -1.7,
++   "seconds": 2.12,
++   "source": "kokoro hf_alpha:1.0",
++   "speaker": "meera",
++   "take": "take 1",
++   "text": "The storeroom may hold more clues.",
++   "true_peak": -1.71,
++   "wer": ""
++  }
++ },
++ "rem_meera_obj_v3_sunwall": {
++  "key": "96327596be7dfbc5",
++  "qa": {
++   "f0": 240,
++   "heard": "",
++   "id": "rem_meera_obj_v3_sunwall",
++   "lufs": -15.98,
++   "peak_db": -2.4,
++   "seconds": 1.87,
++   "source": "kokoro hf_alpha:1.0",
++   "speaker": "meera",
++   "take": "take 1",
++   "text": "The light may reveal the way.",
++   "true_peak": -2.39,
++   "wer": ""
++  }
++ },
++ "rem_meera_obj_v3_vaults": {
++  "key": "9f96e2b49ecb5d76",
++  "qa": {
++   "f0": 215,
++   "heard": "",
++   "id": "rem_meera_obj_v3_vaults",
++   "lufs": -16.02,
++   "peak_db": -1.7,
++   "seconds": 2.01,
++   "source": "kokoro hf_alpha:1.0",
++   "speaker": "meera",
++   "take": "take 1",
++   "text": "Try the vaults behind the temple.",
++   "true_peak": -1.7,
++   "wer": ""
++  }
++ },
++ "rem_pujari_end": {
++  "key": "83130da3b3c2697e",
++  "qa": {
++   "f0": 123,
++   "heard": "",
++   "id": "rem_pujari_end",
++   "lufs": -16.33,
++   "peak_db": -1.7,
++   "seconds": 2.73,
++   "source": "kokoro hm_psi:1.0",
++   "speaker": "pujari",
++   "take": "take 1",
++   "text": "Thank you for protecting our heritage.",
++   "true_peak": -1.69,
++   "wer": ""
++  }
++ },
++ "rem_pujari_obj_c0_reach": {
++  "key": "ce3196ea3b9ecbc1",
++  "qa": {
++   "f0": 122,
++   "heard": "",
++   "id": "rem_pujari_obj_c0_reach",
++   "lufs": -16.0,
++   "peak_db": -1.9,
++   "seconds": 1.99,
++   "source": "kokoro hm_psi:1.0",
++   "speaker": "pujari",
++   "take": "take 1",
++   "text": "Follow the road to our temple.",
++   "true_peak": -1.89,
++   "wer": ""
++  }
++ },
++ "rem_pujari_obj_return": {
++  "key": "0b88fbb5dba76f48",
++  "qa": {
++   "f0": 132,
++   "heard": "",
++   "id": "rem_pujari_obj_return",
++   "lufs": -16.08,
++   "peak_db": -1.7,
++   "seconds": 2.07,
++   "source": "kokoro hm_psi:1.0",
++   "speaker": "pujari",
++   "take": "take 1",
++   "text": "You brought our memories home.",
++   "true_peak": -1.68,
++   "wer": ""
++  }
++ },
++ "rem_pujari_obj_v3_bazaar": {
++  "key": "12c21184502c4ea3",
++  "qa": {
++   "f0": 119,
++   "heard": "",
++   "id": "rem_pujari_obj_v3_bazaar",
++   "lufs": -16.18,
++   "peak_db": -1.7,
++   "seconds": 1.7,
++   "source": "kokoro hm_psi:1.0",
++   "speaker": "pujari",
++   "take": "take 1",
++   "text": "Ask around the bazaar.",
++   "true_peak": -1.7,
++   "wer": ""
++  }
++ },
++ "rem_pujari_obj_v3_jungle": {
++  "key": "a7c102c55b9b19b2",
++  "qa": {
++   "f0": 120,
++   "heard": "",
++   "id": "rem_pujari_obj_v3_jungle",
++   "lufs": -16.12,
++   "peak_db": -1.7,
++   "seconds": 2.27,
++   "source": "kokoro hm_psi:1.0",
++   "speaker": "pujari",
++   "take": "take 1",
++   "text": "Follow the north road carefully.",
++   "true_peak": -1.71,
++   "wer": ""
++  }
++ },
++ "rem_pujari_obj_v3_pujari": {
++  "key": "2fa897a583664d7d",
++  "qa": {
++   "f0": 129,
++   "heard": "",
++   "id": "rem_pujari_obj_v3_pujari",
++   "lufs": -16.04,
++   "peak_db": -1.7,
++   "seconds": 1.99,
++   "source": "kokoro hm_psi:1.0",
++   "speaker": "pujari",
++   "take": "take 1",
++   "text": "Please, meet me by the steps.",
++   "true_peak": -1.7,
++   "wer": ""
++  }
++ },
++ "rem_pujari_obj_v3_stepwell": {
++  "key": "2a4e98f4dd82bc2b",
++  "qa": {
++   "f0": 123,
++   "heard": "",
++   "id": "rem_pujari_obj_v3_stepwell",
++   "lufs": -16.15,
++   "peak_db": -1.7,
++   "seconds": 2.1,
++   "source": "kokoro hm_psi:1.0",
++   "speaker": "pujari",
++   "take": "take 1",
++   "text": "Follow the marks by the stepwell.",
++   "true_peak": -1.7,
++   "wer": ""
++  }
++ },
++ "rem_pujari_obj_v3_storeroom": {
++  "key": "fb8ac9cf6a380ea6",
++  "qa": {
++   "f0": 125,
++   "heard": "",
++   "id": "rem_pujari_obj_v3_storeroom",
++   "lufs": -16.46,
++   "peak_db": -1.7,
++   "seconds": 2.8,
++   "source": "kokoro hm_psi:1.0",
++   "speaker": "pujari",
++   "take": "take 1",
++   "text": "Look closely around the broken storeroom.",
++   "true_peak": -1.7,
++   "wer": ""
++  }
++ },
++ "rem_pujari_obj_v3_sunwall": {
++  "key": "0f212e29333d0c83",
++  "qa": {
++   "f0": 127,
++   "heard": "",
++   "id": "rem_pujari_obj_v3_sunwall",
++   "lufs": -16.4,
++   "peak_db": -1.7,
++   "seconds": 2.23,
++   "source": "kokoro hm_psi:1.0",
++   "speaker": "pujari",
++   "take": "take 1",
++   "text": "Study the symbols on the wall.",
++   "true_peak": -1.69,
++   "wer": ""
++  }
++ },
++ "rem_pujari_obj_v3_vaults": {
++  "key": "56ba256bd516fddc",
++  "qa": {
++   "f0": 123,
++   "heard": "",
++   "id": "rem_pujari_obj_v3_vaults",
++   "lufs": -16.29,
++   "peak_db": -1.7,
++   "seconds": 2.35,
++   "source": "kokoro hm_psi:1.0",
++   "speaker": "pujari",
++   "take": "take 1",
++   "text": "The old vaults lie behind us.",
++   "true_peak": -1.71,
++   "wer": ""
++  }
++ },
+  "v3_ary_01": {
+   "key": "a520d6a98f5b6c52",
+   "qa": {
+diff --git a/Assets/_Project/Models/Temple/Materials/MAT_Temple_Carved.mat b/Assets/_Project/Models/Temple/Materials/MAT_Temple_Carved.mat
+index a01ff02..2331581 100644
+--- a/Assets/_Project/Models/Temple/Materials/MAT_Temple_Carved.mat
++++ b/Assets/_Project/Models/Temple/Materials/MAT_Temple_Carved.mat
+@@ -67,7 +67,7 @@ Material:
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+         m_Texture: {fileID: 2800000, guid: 19f6b415e797f48fcb75e33782c73229, type: 3}
+-        m_Scale: {x: 1, y: 1}
++        m_Scale: {x: 0.625, y: 0.625}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+         m_Texture: {fileID: 2800000, guid: 7bd5838e7822c40e694a0874fc2d6a3a, type: 3}
+@@ -135,7 +135,7 @@ Material:
+     - _ZWrite: 1
+     m_Colors:
+     - _BaseColor: {r: 1, g: 0.74, b: 0.4, a: 1}
+-    - _Color: {r: 1, g: 1, b: 1, a: 1}
++    - _Color: {r: 1, g: 0.74, b: 0.39999998, a: 1}
+     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+   m_BuildTextureStacks: []
+diff --git a/Assets/_Project/Models/Temple/Materials/MAT_Temple_Glass.mat b/Assets/_Project/Models/Temple/Materials/MAT_Temple_Glass.mat
+index a741f1b..35224f9 100644
+--- a/Assets/_Project/Models/Temple/Materials/MAT_Temple_Glass.mat
++++ b/Assets/_Project/Models/Temple/Materials/MAT_Temple_Glass.mat
+@@ -128,7 +128,7 @@ Material:
+     - _Smoothness: 0.9
+     - _SmoothnessTextureChannel: 0
+     - _SpecularHighlights: 1
+-    - _SrcBlend: 5
++    - _SrcBlend: 1
+     - _SrcBlendAlpha: 1
+     - _Surface: 1
+     - _WorkflowMode: 1
+diff --git a/Assets/_Project/Models/Temple/Materials/MAT_Temple_Laterite.mat b/Assets/_Project/Models/Temple/Materials/MAT_Temple_Laterite.mat
+index e33a83c..ff62a80 100644
+--- a/Assets/_Project/Models/Temple/Materials/MAT_Temple_Laterite.mat
++++ b/Assets/_Project/Models/Temple/Materials/MAT_Temple_Laterite.mat
+@@ -67,7 +67,7 @@ Material:
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+         m_Texture: {fileID: 2800000, guid: e518c895f4fda4b6dbe25276c09f9ba5, type: 3}
+-        m_Scale: {x: 1, y: 1}
++        m_Scale: {x: 0.45454544, y: 0.45454544}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+         m_Texture: {fileID: 2800000, guid: c4c91db07bbf54d9b804c0b3f236f48a, type: 3}
+@@ -135,7 +135,7 @@ Material:
+     - _ZWrite: 1
+     m_Colors:
+     - _BaseColor: {r: 0.72, g: 0.36, b: 0.26, a: 1}
+-    - _Color: {r: 1, g: 1, b: 1, a: 1}
++    - _Color: {r: 0.72, g: 0.35999998, b: 0.25999996, a: 1}
+     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+   m_BuildTextureStacks: []
+diff --git a/Assets/_Project/Models/Temple/Materials/MAT_Temple_RoofStone.mat b/Assets/_Project/Models/Temple/Materials/MAT_Temple_RoofStone.mat
+index 1bde79b..c37efc5 100644
+--- a/Assets/_Project/Models/Temple/Materials/MAT_Temple_RoofStone.mat
++++ b/Assets/_Project/Models/Temple/Materials/MAT_Temple_RoofStone.mat
+@@ -67,7 +67,7 @@ Material:
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+         m_Texture: {fileID: 2800000, guid: e518c895f4fda4b6dbe25276c09f9ba5, type: 3}
+-        m_Scale: {x: 1, y: 1}
++        m_Scale: {x: 0.5555556, y: 0.5555556}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+         m_Texture: {fileID: 2800000, guid: c4c91db07bbf54d9b804c0b3f236f48a, type: 3}
+@@ -135,7 +135,7 @@ Material:
+     - _ZWrite: 1
+     m_Colors:
+     - _BaseColor: {r: 0.92, g: 0.46, b: 0.28, a: 1}
+-    - _Color: {r: 1, g: 1, b: 1, a: 1}
++    - _Color: {r: 0.92, g: 0.45999992, b: 0.27999997, a: 1}
+     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+   m_BuildTextureStacks: []
+diff --git a/Assets/_Project/Models/Temple/Materials/MAT_Temple_Saffron.mat b/Assets/_Project/Models/Temple/Materials/MAT_Temple_Saffron.mat
+index 2ce59b9..7c91065 100644
+--- a/Assets/_Project/Models/Temple/Materials/MAT_Temple_Saffron.mat
++++ b/Assets/_Project/Models/Temple/Materials/MAT_Temple_Saffron.mat
+@@ -54,7 +54,7 @@ Material:
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+         m_Texture: {fileID: 2800000, guid: 6446fca995e3040118cc4c9eb6622782, type: 3}
+-        m_Scale: {x: 1, y: 1}
++        m_Scale: {x: 0.6666667, y: 0.6666667}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+         m_Texture: {fileID: 2800000, guid: aaf7dc46e6a524055a12515428aa0164, type: 3}
+@@ -122,7 +122,7 @@ Material:
+     - _ZWrite: 1
+     m_Colors:
+     - _BaseColor: {r: 1, g: 0.55, b: 0.14, a: 1}
+-    - _Color: {r: 1, g: 1, b: 1, a: 1}
++    - _Color: {r: 1, g: 0.54999995, b: 0.13999996, a: 1}
+     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+   m_BuildTextureStacks: []
+diff --git a/Assets/_Project/Models/Temple/Materials/MAT_Temple_Sandstone.mat b/Assets/_Project/Models/Temple/Materials/MAT_Temple_Sandstone.mat
+index 9e61430..efa8708 100644
+--- a/Assets/_Project/Models/Temple/Materials/MAT_Temple_Sandstone.mat
++++ b/Assets/_Project/Models/Temple/Materials/MAT_Temple_Sandstone.mat
+@@ -54,7 +54,7 @@ Material:
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+         m_Texture: {fileID: 2800000, guid: e518c895f4fda4b6dbe25276c09f9ba5, type: 3}
+-        m_Scale: {x: 1, y: 1}
++        m_Scale: {x: 0.41666666, y: 0.41666666}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+         m_Texture: {fileID: 2800000, guid: c4c91db07bbf54d9b804c0b3f236f48a, type: 3}
+@@ -122,7 +122,7 @@ Material:
+     - _ZWrite: 1
+     m_Colors:
+     - _BaseColor: {r: 1, g: 0.7, b: 0.52, a: 1}
+-    - _Color: {r: 1, g: 1, b: 1, a: 1}
++    - _Color: {r: 1, g: 0.7, b: 0.52, a: 1}
+     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+   m_BuildTextureStacks: []
+diff --git a/Assets/_Project/Models/Temple/Materials/MAT_Temple_Wood.mat b/Assets/_Project/Models/Temple/Materials/MAT_Temple_Wood.mat
+index ead5cf0..7f4bba2 100644
+--- a/Assets/_Project/Models/Temple/Materials/MAT_Temple_Wood.mat
++++ b/Assets/_Project/Models/Temple/Materials/MAT_Temple_Wood.mat
+@@ -54,7 +54,7 @@ Material:
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+         m_Texture: {fileID: 2800000, guid: 661f3a8d10a554560a33348b09fd65f2, type: 3}
+-        m_Scale: {x: 1, y: 1}
++        m_Scale: {x: 0.71428573, y: 0.71428573}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+         m_Texture: {fileID: 2800000, guid: 51efed251208f45daa45779b19f04066, type: 3}
+diff --git a/Assets/_Project/Models/Vehicles/Jeep/Materials/MAT_Glass.mat b/Assets/_Project/Models/Vehicles/Jeep/Materials/MAT_Glass.mat
+index 7f26b50..73e6010 100644
+--- a/Assets/_Project/Models/Vehicles/Jeep/Materials/MAT_Glass.mat
++++ b/Assets/_Project/Models/Vehicles/Jeep/Materials/MAT_Glass.mat
+@@ -115,7 +115,7 @@ Material:
+     - _Smoothness: 0.95
+     - _SmoothnessTextureChannel: 0
+     - _SpecularHighlights: 1
+-    - _SrcBlend: 5
++    - _SrcBlend: 1
+     - _SrcBlendAlpha: 1
+     - _Surface: 1
+     - _WorkflowMode: 1
+diff --git a/Assets/_Project/Models/Vehicles/Jeep/Materials/MAT_Light_Head.mat b/Assets/_Project/Models/Vehicles/Jeep/Materials/MAT_Light_Head.mat
+index 11f3949..7e6953e 100644
+--- a/Assets/_Project/Models/Vehicles/Jeep/Materials/MAT_Light_Head.mat
++++ b/Assets/_Project/Models/Vehicles/Jeep/Materials/MAT_Light_Head.mat
+@@ -24,8 +24,7 @@ Material:
+   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+   m_Parent: {fileID: 0}
+   m_ModifiedSerializedProperties: 0
+-  m_ValidKeywords:
+-  - _EMISSION
++  m_ValidKeywords: []
+   m_InvalidKeywords: []
+   m_LightmapFlags: 0
+   m_EnableInstancingVariants: 1
+diff --git a/Assets/_Project/Models/Vehicles/Jeep/Materials/MAT_Light_Indicator.mat b/Assets/_Project/Models/Vehicles/Jeep/Materials/MAT_Light_Indicator.mat
+index d3e3e1c..786ce6b 100644
+--- a/Assets/_Project/Models/Vehicles/Jeep/Materials/MAT_Light_Indicator.mat
++++ b/Assets/_Project/Models/Vehicles/Jeep/Materials/MAT_Light_Indicator.mat
+@@ -11,8 +11,7 @@ Material:
+   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+   m_Parent: {fileID: 0}
+   m_ModifiedSerializedProperties: 0
+-  m_ValidKeywords:
+-  - _EMISSION
++  m_ValidKeywords: []
+   m_InvalidKeywords: []
+   m_LightmapFlags: 0
+   m_EnableInstancingVariants: 1
+diff --git a/Assets/_Project/Models/Vehicles/Jeep/Materials/MAT_Light_Reverse.mat b/Assets/_Project/Models/Vehicles/Jeep/Materials/MAT_Light_Reverse.mat
+index 7e263a8..7b65114 100644
+--- a/Assets/_Project/Models/Vehicles/Jeep/Materials/MAT_Light_Reverse.mat
++++ b/Assets/_Project/Models/Vehicles/Jeep/Materials/MAT_Light_Reverse.mat
+@@ -24,8 +24,7 @@ Material:
+   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+   m_Parent: {fileID: 0}
+   m_ModifiedSerializedProperties: 0
+-  m_ValidKeywords:
+-  - _EMISSION
++  m_ValidKeywords: []
+   m_InvalidKeywords: []
+   m_LightmapFlags: 0
+   m_EnableInstancingVariants: 1
+diff --git a/Assets/_Project/Models/Vehicles/Jeep/Materials/MAT_Light_Tail.mat b/Assets/_Project/Models/Vehicles/Jeep/Materials/MAT_Light_Tail.mat
+index 43d0945..8b2e893 100644
+--- a/Assets/_Project/Models/Vehicles/Jeep/Materials/MAT_Light_Tail.mat
++++ b/Assets/_Project/Models/Vehicles/Jeep/Materials/MAT_Light_Tail.mat
+@@ -11,8 +11,7 @@ Material:
+   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+   m_Parent: {fileID: 0}
+   m_ModifiedSerializedProperties: 0
+-  m_ValidKeywords:
+-  - _EMISSION
++  m_ValidKeywords: []
+   m_InvalidKeywords: []
+   m_LightmapFlags: 0
+   m_EnableInstancingVariants: 1
+diff --git a/Assets/_Project/Models/Vehicles/Jeep/Materials/MAT_Screen.mat b/Assets/_Project/Models/Vehicles/Jeep/Materials/MAT_Screen.mat
+index 0facee3..b23da89 100644
+--- a/Assets/_Project/Models/Vehicles/Jeep/Materials/MAT_Screen.mat
++++ b/Assets/_Project/Models/Vehicles/Jeep/Materials/MAT_Screen.mat
+@@ -24,8 +24,7 @@ Material:
+   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+   m_Parent: {fileID: 0}
+   m_ModifiedSerializedProperties: 0
+-  m_ValidKeywords:
+-  - _EMISSION
++  m_ValidKeywords: []
+   m_InvalidKeywords: []
+   m_LightmapFlags: 0
+   m_EnableInstancingVariants: 1
+diff --git a/Assets/_Project/Resources/FX/Grass.mat b/Assets/_Project/Resources/FX/Grass.mat
+index 928ea8e..855a829 100644
+--- a/Assets/_Project/Resources/FX/Grass.mat
++++ b/Assets/_Project/Resources/FX/Grass.mat
+@@ -28,7 +28,7 @@ Material:
+   m_InvalidKeywords: []
+   m_LightmapFlags: 4
+   m_EnableInstancingVariants: 0
+-  m_DoubleSidedGI: 0
++  m_DoubleSidedGI: 1
+   m_CustomRenderQueue: -1
+   stringTagMap:
+     RenderType: Opaque
+@@ -132,7 +132,7 @@ Material:
+     - _ZWrite: 1
+     m_Colors:
+     - _BaseColor: {r: 0.16, g: 0.32, b: 0.14, a: 1}
+-    - _Color: {r: 1, g: 1, b: 1, a: 1}
++    - _Color: {r: 0.15999997, g: 0.31999996, b: 0.13999996, a: 1}
+     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+   m_BuildTextureStacks: []
+diff --git a/Assets/_Project/Resources/FX/Mist.mat b/Assets/_Project/Resources/FX/Mist.mat
+index 072bc73..5479ccc 100644
+--- a/Assets/_Project/Resources/FX/Mist.mat
++++ b/Assets/_Project/Resources/FX/Mist.mat
+@@ -21,7 +21,9 @@ Material:
+   m_CustomRenderQueue: 3000
+   stringTagMap:
+     RenderType: Transparent
+-  disabledShaderPasses: []
++  disabledShaderPasses:
++  - DepthOnly
++  - SHADOWCASTER
+   m_LockedProperties: 
+   m_SavedProperties:
+     serializedVersion: 3
+@@ -55,7 +57,7 @@ Material:
+     - _DistortionStrength: 1
+     - _DistortionStrengthScaled: 0.1
+     - _DstBlend: 10
+-    - _DstBlendAlpha: 0
++    - _DstBlendAlpha: 10
+     - _FlipbookBlending: 0
+     - _FlipbookMode: 0
+     - _Mode: 0
+@@ -70,8 +72,8 @@ Material:
+     m_Colors:
+     - _BaseColor: {r: 0.75, g: 0.8, b: 0.88, a: 0.08}
+     - _BaseColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
+-    - _CameraFadeParams: {r: 0, g: 0, b: 0, a: 0}
+-    - _Color: {r: 1, g: 1, b: 1, a: 1}
++    - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}
++    - _Color: {r: 0.75, g: 0.8, b: 0.88, a: 0.08}
+     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
+   m_BuildTextureStacks: []
+diff --git a/Assets/_Project/Resources/FX/Puddle.mat b/Assets/_Project/Resources/FX/Puddle.mat
+index b5e6f3c..0d0f139 100644
+--- a/Assets/_Project/Resources/FX/Puddle.mat
++++ b/Assets/_Project/Resources/FX/Puddle.mat
+@@ -136,7 +136,7 @@ Material:
+     - _ZWrite: 0
+     m_Colors:
+     - _BaseColor: {r: 0.049999736, g: 0.05999966, b: 0.07999965, a: 0.042002156}
+-    - _Color: {r: 0.049999736, g: 0.05999966, b: 0.07999965, a: 0.009046618}
++    - _Color: {r: 0.04999972, g: 0.059999637, b: 0.07999962, a: 0.042002156}
+     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+   m_BuildTextureStacks: []
+diff --git a/Assets/_Project/Resources/FX/Rain.mat b/Assets/_Project/Resources/FX/Rain.mat
+index cf464c8..bf3aba4 100644
+--- a/Assets/_Project/Resources/FX/Rain.mat
++++ b/Assets/_Project/Resources/FX/Rain.mat
+@@ -21,7 +21,9 @@ Material:
+   m_CustomRenderQueue: 3000
+   stringTagMap:
+     RenderType: Transparent
+-  disabledShaderPasses: []
++  disabledShaderPasses:
++  - DepthOnly
++  - SHADOWCASTER
+   m_LockedProperties: 
+   m_SavedProperties:
+     serializedVersion: 3
+@@ -55,7 +57,7 @@ Material:
+     - _DistortionStrength: 1
+     - _DistortionStrengthScaled: 0.1
+     - _DstBlend: 10
+-    - _DstBlendAlpha: 0
++    - _DstBlendAlpha: 10
+     - _FlipbookBlending: 0
+     - _FlipbookMode: 0
+     - _Mode: 0
+@@ -70,8 +72,8 @@ Material:
+     m_Colors:
+     - _BaseColor: {r: 0.78, g: 0.84, b: 0.95, a: 0.5}
+     - _BaseColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
+-    - _CameraFadeParams: {r: 0, g: 0, b: 0, a: 0}
+-    - _Color: {r: 1, g: 1, b: 1, a: 1}
++    - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}
++    - _Color: {r: 0.78, g: 0.8399999, b: 0.95, a: 0.5}
+     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
+   m_BuildTextureStacks: []
+diff --git a/Assets/_Project/Resources/Mats/bark_brown_02.mat b/Assets/_Project/Resources/Mats/bark_brown_02.mat
+index 59e8277..31d80d3 100644
+--- a/Assets/_Project/Resources/Mats/bark_brown_02.mat
++++ b/Assets/_Project/Resources/Mats/bark_brown_02.mat
+@@ -53,7 +53,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: 34f02ab1c9f364dcdbc3e735b91a47b9, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Resources/Mats/brown_mud_leaves_01.mat b/Assets/_Project/Resources/Mats/brown_mud_leaves_01.mat
+index 8e39d5f..d293247 100644
+--- a/Assets/_Project/Resources/Mats/brown_mud_leaves_01.mat
++++ b/Assets/_Project/Resources/Mats/brown_mud_leaves_01.mat
+@@ -53,7 +53,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: d064a6e8109814a1e8545d7b63d6b800, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Resources/Mats/clay_roof_tiles_02.mat b/Assets/_Project/Resources/Mats/clay_roof_tiles_02.mat
+index a5debd1..f5f8121 100644
+--- a/Assets/_Project/Resources/Mats/clay_roof_tiles_02.mat
++++ b/Assets/_Project/Resources/Mats/clay_roof_tiles_02.mat
+@@ -53,7 +53,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: 233acf3d70221407e941f5d039d952b9, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Resources/Mats/mossy_sandstone.mat b/Assets/_Project/Resources/Mats/mossy_sandstone.mat
+index 2ee53bc..5466902 100644
+--- a/Assets/_Project/Resources/Mats/mossy_sandstone.mat
++++ b/Assets/_Project/Resources/Mats/mossy_sandstone.mat
+@@ -66,7 +66,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: 2a37e3ac83f0a41e9aeff386436327e0, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Resources/Mats/red_laterite_soil_stones.mat b/Assets/_Project/Resources/Mats/red_laterite_soil_stones.mat
+index 98cfea9..e1ce37a 100644
+--- a/Assets/_Project/Resources/Mats/red_laterite_soil_stones.mat
++++ b/Assets/_Project/Resources/Mats/red_laterite_soil_stones.mat
+@@ -66,7 +66,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: 4343f51870b95443dada76f0eed5edc6, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Resources/Mats/red_sandstone_pavement.mat b/Assets/_Project/Resources/Mats/red_sandstone_pavement.mat
+index 789f7f1..d418d9f 100644
+--- a/Assets/_Project/Resources/Mats/red_sandstone_pavement.mat
++++ b/Assets/_Project/Resources/Mats/red_sandstone_pavement.mat
+@@ -53,7 +53,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: 188915e4469f745ea9c754c609505854, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Resources/Mats/stony_dirt_path.mat b/Assets/_Project/Resources/Mats/stony_dirt_path.mat
+index a217f12..82adde9 100644
+--- a/Assets/_Project/Resources/Mats/stony_dirt_path.mat
++++ b/Assets/_Project/Resources/Mats/stony_dirt_path.mat
+@@ -66,7 +66,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: f24796c5273164c35af40e613ef3dbff, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Resources/Mats/thatch_roof_angled.mat b/Assets/_Project/Resources/Mats/thatch_roof_angled.mat
+index 7fe843e..e2d352b 100644
+--- a/Assets/_Project/Resources/Mats/thatch_roof_angled.mat
++++ b/Assets/_Project/Resources/Mats/thatch_roof_angled.mat
+@@ -53,7 +53,7 @@ Material:
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MainTex:
+-        m_Texture: {fileID: 0}
++        m_Texture: {fileID: 2800000, guid: 6b239d9b46ace4881a0fe16288b13203, type: 3}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
+     - _MetallicGlossMap:
+diff --git a/Assets/_Project/Resources/Mats/window_glow.mat b/Assets/_Project/Resources/Mats/window_glow.mat
+index ec01fbd..12c3f5b 100644
+--- a/Assets/_Project/Resources/Mats/window_glow.mat
++++ b/Assets/_Project/Resources/Mats/window_glow.mat
+@@ -11,8 +11,7 @@ Material:
+   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+   m_Parent: {fileID: 0}
+   m_ModifiedSerializedProperties: 0
+-  m_ValidKeywords:
+-  - _EMISSION
++  m_ValidKeywords: []
+   m_InvalidKeywords: []
+   m_LightmapFlags: 0
+   m_EnableInstancingVariants: 0
+@@ -120,7 +119,7 @@ Material:
+     - _ZWrite: 1
+     m_Colors:
+     - _BaseColor: {r: 1, g: 0.72, b: 0.38, a: 1}
+-    - _Color: {r: 1, g: 1, b: 1, a: 1}
++    - _Color: {r: 1, g: 0.72, b: 0.37999994, a: 1}
+     - _EmissionColor: {r: 3.2, g: 1.9840001, b: 0.896, a: 3.2}
+     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+   m_BuildTextureStacks: []
+diff --git a/Assets/_Project/Resources/VoiceDB/VoiceDatabase.asset b/Assets/_Project/Resources/VoiceDB/VoiceDatabase.asset
+index f228156..0a4dadf 100644
+--- a/Assets/_Project/Resources/VoiceDB/VoiceDatabase.asset
++++ b/Assets/_Project/Resources/VoiceDB/VoiceDatabase.asset
+@@ -2005,5 +2005,245 @@ MonoBehaviour:
+     subtitle: 1
+     fx: none
+     clip: {fileID: 8300000, guid: 87c84e754681248ceac53af48be5a478, type: 3}
++  - id: rem_pujari_obj_c0_reach
++    speaker: pujari
++    text: Follow the road to our temple.
++    trigger: story
++    conditions: 
++    priority: 5
++    cooldown: 0
++    chance: 1
++    once: 0
++    subtitle: 1
++    fx: none
++    clip: {fileID: 8300000, guid: b53fbed494f5a4a84b75b5ca571c92e1, type: 3}
++  - id: rem_meera_obj_c0_reach
++    speaker: meera
++    text: Follow the road towards the temple.
++    trigger: story
++    conditions: 
++    priority: 5
++    cooldown: 0
++    chance: 1
++    once: 0
++    subtitle: 1
++    fx: none
++    clip: {fileID: 8300000, guid: 2b3118f6ab53341d79a3fa21033836d5, type: 3}
++  - id: rem_pujari_obj_v3_pujari
++    speaker: pujari
++    text: Please, meet me by the steps.
++    trigger: story
++    conditions: 
++    priority: 5
++    cooldown: 0
++    chance: 1
++    once: 0
++    subtitle: 1
++    fx: none
++    clip: {fileID: 8300000, guid: 41a27fa85831a4baa8f9f6c9e8c37ebf, type: 3}
++  - id: rem_meera_obj_v3_pujari
++    speaker: meera
++    text: The priest waits by the steps.
++    trigger: story
++    conditions: 
++    priority: 5
++    cooldown: 0
++    chance: 1
++    once: 0
++    subtitle: 1
++    fx: none
++    clip: {fileID: 8300000, guid: 091a189f58de14f5dab50df92b65a69f, type: 3}
++  - id: rem_pujari_obj_v3_bazaar
++    speaker: pujari
++    text: Ask around the bazaar.
++    trigger: story
++    conditions: 
++    priority: 5
++    cooldown: 0
++    chance: 1
++    once: 0
++    subtitle: 1
++    fx: none
++    clip: {fileID: 8300000, guid: de138992e013846709a3b8f594f7e677, type: 3}
++  - id: rem_meera_obj_v3_bazaar
++    speaker: meera
++    text: Follow the man with the bell.
++    trigger: story
++    conditions: 
++    priority: 5
++    cooldown: 0
++    chance: 1
++    once: 0
++    subtitle: 1
++    fx: none
++    clip: {fileID: 8300000, guid: 713cff0b144a64e4f8298b3d4fd01664, type: 3}
++  - id: rem_pujari_obj_v3_storeroom
++    speaker: pujari
++    text: Look closely around the broken storeroom.
++    trigger: story
++    conditions: 
++    priority: 5
++    cooldown: 0
++    chance: 1
++    once: 0
++    subtitle: 1
++    fx: none
++    clip: {fileID: 8300000, guid: a0c226eafbab5494280ae76639a2e601, type: 3}
++  - id: rem_meera_obj_v3_storeroom
++    speaker: meera
++    text: The storeroom may hold more clues.
++    trigger: story
++    conditions: 
++    priority: 5
++    cooldown: 0
++    chance: 1
++    once: 0
++    subtitle: 1
++    fx: none
++    clip: {fileID: 8300000, guid: c25b9bbe5db05429aa1108b5b2b112bd, type: 3}
++  - id: rem_pujari_obj_v3_vaults
++    speaker: pujari
++    text: The old vaults lie behind us.
++    trigger: story
++    conditions: 
++    priority: 5
++    cooldown: 0
++    chance: 1
++    once: 0
++    subtitle: 1
++    fx: none
++    clip: {fileID: 8300000, guid: 5bdf02e4a2d474982931ea1b406a9056, type: 3}
++  - id: rem_meera_obj_v3_vaults
++    speaker: meera
++    text: Try the vaults behind the temple.
++    trigger: story
++    conditions: 
++    priority: 5
++    cooldown: 0
++    chance: 1
++    once: 0
++    subtitle: 1
++    fx: none
++    clip: {fileID: 8300000, guid: 7fc30e3f405f049f180850df43f796c1, type: 3}
++  - id: rem_pujari_obj_v3_stepwell
++    speaker: pujari
++    text: Follow the marks by the stepwell.
++    trigger: story
++    conditions: 
++    priority: 5
++    cooldown: 0
++    chance: 1
++    once: 0
++    subtitle: 1
++    fx: none
++    clip: {fileID: 8300000, guid: 52bdfdd6037e147be8e7718edabcf50e, type: 3}
++  - id: rem_meera_obj_v3_stepwell
++    speaker: meera
++    text: They went towards the old well.
++    trigger: story
++    conditions: 
++    priority: 5
++    cooldown: 0
++    chance: 1
++    once: 0
++    subtitle: 1
++    fx: none
++    clip: {fileID: 8300000, guid: d3a3f486769824e45ab59e23691fe010, type: 3}
++  - id: rem_pujari_obj_v3_sunwall
++    speaker: pujari
++    text: Study the symbols on the wall.
++    trigger: story
++    conditions: 
++    priority: 5
++    cooldown: 0
++    chance: 1
++    once: 0
++    subtitle: 1
++    fx: none
++    clip: {fileID: 8300000, guid: 8558d0d59cf0b4973b93e7e8af9dcd0e, type: 3}
++  - id: rem_meera_obj_v3_sunwall
++    speaker: meera
++    text: The light may reveal the way.
++    trigger: story
++    conditions: 
++    priority: 5
++    cooldown: 0
++    chance: 1
++    once: 0
++    subtitle: 1
++    fx: none
++    clip: {fileID: 8300000, guid: 3e677ca9864164ea5ba3bd11ef01c731, type: 3}
++  - id: rem_pujari_obj_v3_jungle
++    speaker: pujari
++    text: Follow the north road carefully.
++    trigger: story
++    conditions: 
++    priority: 5
++    cooldown: 0
++    chance: 1
++    once: 0
++    subtitle: 1
++    fx: none
++    clip: {fileID: 8300000, guid: 135c25bf36e45464f9c497cfd4f6b937, type: 3}
++  - id: rem_meera_obj_v3_jungle
++    speaker: meera
++    text: Your jeep waits on the north road.
++    trigger: story
++    conditions: 
++    priority: 5
++    cooldown: 0
++    chance: 1
++    once: 0
++    subtitle: 1
++    fx: none
++    clip: {fileID: 8300000, guid: 78f25d64cbe3e4f32ae76119ac637645, type: 3}
++  - id: rem_pujari_obj_return
++    speaker: pujari
++    text: You brought our memories home.
++    trigger: story
++    conditions: 
++    priority: 5
++    cooldown: 0
++    chance: 1
++    once: 0
++    subtitle: 1
++    fx: none
++    clip: {fileID: 8300000, guid: f453bdd613bca4432b267783cad5707f, type: 3}
++  - id: rem_meera_obj_return
++    speaker: meera
++    text: Bring the treasures back to Ananda.
++    trigger: story
++    conditions: 
++    priority: 5
++    cooldown: 0
++    chance: 1
++    once: 0
++    subtitle: 1
++    fx: none
++    clip: {fileID: 8300000, guid: f4a14f38e9ec6438fa41c7371e3b4090, type: 3}
++  - id: rem_pujari_end
++    speaker: pujari
++    text: Thank you for protecting our heritage.
++    trigger: story
++    conditions: 
++    priority: 5
++    cooldown: 0
++    chance: 1
++    once: 0
++    subtitle: 1
++    fx: none
++    clip: {fileID: 8300000, guid: 903e4843522684e92bc7bfa772709d63, type: 3}
++  - id: rem_meera_end
++    speaker: meera
++    text: Our village will remember your help.
++    trigger: story
++    conditions: 
++    priority: 5
++    cooldown: 0
++    chance: 1
++    once: 0
++    subtitle: 1
++    fx: none
++    clip: {fileID: 8300000, guid: 37606d81256df48aa88ef1ebfb92eefc, type: 3}
+   builtFrom: Docs/VOICE_LINES.csv
+-  builtAt: 2026-11-23 12:43
++  builtAt: 2026-11-24 00:04
+diff --git a/Assets/_Project/Resources/build_stamp.txt b/Assets/_Project/Resources/build_stamp.txt
+index 8674043..5a4d195 100644
+--- a/Assets/_Project/Resources/build_stamp.txt
++++ b/Assets/_Project/Resources/build_stamp.txt
+@@ -1 +1 @@
+-build 2026-11-17 20:03
+\ No newline at end of file
++build 2026-11-23 23:39
+\ No newline at end of file
+diff --git a/Assets/_Project/Scripts/Core/VoiceData.cs b/Assets/_Project/Scripts/Core/VoiceData.cs
+index 0282c7d..94cc488 100644
+--- a/Assets/_Project/Scripts/Core/VoiceData.cs
++++ b/Assets/_Project/Scripts/Core/VoiceData.cs
+@@ -37,6 +37,12 @@ public static VoiceDatabase Db
+         }
+         public static VoiceLine Line(string id) { if (Db == null || string.IsNullOrEmpty(id)) return null; byId.TryGetValue(id, out var l); return l; }
+         public static AudioClip Clip(string id) => Line(id)?.clip;
++        public static VoiceLine FindText(string text, string speaker)
++        {
++            if (Db == null) return null;
++            foreach (var line in Db.lines) if (line.text == text && line.speaker == speaker) return line;
++            return null;
++        }
+     }
+ 
+     /// <summary>Gameplay asks for a voice line here (any assembly can call it); the voice manager decides if and what to say.</summary>
+diff --git a/Assets/_Project/Scripts/Gameplay/InvestigationJournal.cs b/Assets/_Project/Scripts/Gameplay/InvestigationJournal.cs
+index 83bc37a..1e2b822 100644
+--- a/Assets/_Project/Scripts/Gameplay/InvestigationJournal.cs
++++ b/Assets/_Project/Scripts/Gameplay/InvestigationJournal.cs
+@@ -227,6 +227,9 @@ private void Update()
+                 if (kb.digit2Key.wasPressedThisFrame) SwitchTab(1);
+                 if (kb.digit3Key.wasPressedThisFrame) SwitchTab(2);
+                 if (kb.digit4Key.wasPressedThisFrame) SwitchTab(3);
++                if (kb.digit5Key.wasPressedThisFrame) SwitchTab(4);
++                if (currentTab == 4 && kb.leftArrowKey.wasPressedThisFrame) HeritageNotes.Page--;
++                if (currentTab == 4 && kb.rightArrowKey.wasPressedThisFrame) HeritageNotes.Page++;
+                 if (kb.escapeKey.wasPressedThisFrame) { EventBus.EscapeConsumedFrame = Time.frameCount; ToggleJournal(); }
+             }
+         }
+@@ -332,7 +335,7 @@ public float CalculateProgressPercentage()
+         private void LateUpdate()
+         {
+             if (!isOpen) return;
+-            string[] tabs = { "Goals", "Clues", "People", "Pieces" };
++            string[] tabs = { "Goals", "Clues", "People", "Pieces", "Heritage Notes" };
+             var head = new System.Text.StringBuilder();
+             for (int i = 0; i < tabs.Length; i++)
+                 head.Append(i == currentTab ? $"<color={ScreenText.Gold}><b><u>[{i + 1}] {tabs[i]}</u></b></color>   " : $"[{i + 1}] {tabs[i]}   ");
+@@ -340,6 +343,7 @@ private void LateUpdate()
+             var sb = new System.Text.StringBuilder(head.ToString());
+             switch (currentTab)
+             {
++                case 4: sb.Append(HeritageNotes.JournalText()); break;
+                 case 0:
+                     var story = StoryDialogueSystem.Instance;
+                     var objs = StoryData.Objectives;
+@@ -367,7 +371,7 @@ private void LateUpdate()
+                     break;
+             }
+             ScreenText.Panel("journal", "CASE JOURNAL", sb.ToString(), PanelAnchor.Center, 1300f,
+-                ScreenText.Key("1-4") + " Tabs    " + ScreenText.Key("J") + " / " + ScreenText.Key("Esc") + " Close", true, 60);
++                ScreenText.Key("1-5") + " Tabs    " + ScreenText.Key("J") + " / " + ScreenText.Key("Esc") + " Close", true, 60);
+         }
+ 
+     }
+diff --git a/Assets/_Project/Scripts/Gameplay/StoryDialogueSystem.cs b/Assets/_Project/Scripts/Gameplay/StoryDialogueSystem.cs
+index e9f6f67..a1afff0 100644
+--- a/Assets/_Project/Scripts/Gameplay/StoryDialogueSystem.cs
++++ b/Assets/_Project/Scripts/Gameplay/StoryDialogueSystem.cs
+@@ -439,7 +439,8 @@ private bool HandleTrigger(NPCDialogueTrigger trigger)
+                 // Not this NPC's turn: give a short, useful reminder instead of repeating old lines.
+                 var sp = SpeakerForNpc(npc);
+                 string text = cur != null ? (cur.hints != null && cur.hints.Length > 0 ? cur.hints[0] + " " : "") + "(" + cur.title + ")" : "Thank you for everything, Aryan.";
+-                conv = new StoryConversation { id = "", scene = scene, npc = npc, lines = new[] { new StoryLine { s = sp, t = text } } };
++                var reminder = VoiceLibrary.Line("rem_" + sp + "_" + (cur != null ? cur.id : "end"));
++                conv = new StoryConversation { id = "", scene = scene, npc = npc, lines = new[] { new StoryLine { id = reminder?.id, s = sp, t = reminder != null ? reminder.text : text } } };
+             }
+             PlayConversation(conv, trigger);
+             return true;
+diff --git a/Assets/_Project/Scripts/Gameplay/ZoneLook.cs b/Assets/_Project/Scripts/Gameplay/ZoneLook.cs
+index 94270fa..29b5664 100644
+--- a/Assets/_Project/Scripts/Gameplay/ZoneLook.cs
++++ b/Assets/_Project/Scripts/Gameplay/ZoneLook.cs
+@@ -29,12 +29,12 @@ public static Look Preset(Zone z)
+         {
+             switch (z)
+             {
+-                case Zone.Bazaar:    return new Look { exposure = 0f,    temperature = 15f,  contrast = 12f, saturation = 10f,  bloom = 0.5f, bloomThreshold = 1.0f, vignette = 0.22f, grain = 0.12f, shadows = new Color(0.92f, 0.95f, 1.05f), fog = new Color(0.78f, 0.62f, 0.45f), fogDensity = 0.004f, sunIntensity = 1.3f, sun = new Color(1f, 0.78f, 0.55f) };
+-                case Zone.Courtyard: return new Look { exposure = 0.2f,  temperature = 8f,   contrast = 14f, saturation = -8f,  bloom = 0.5f, bloomThreshold = 1.0f, vignette = 0.2f,  grain = 0.1f,  shadows = new Color(0.85f, 0.92f, 1.12f), fog = new Color(0.9f, 0.75f, 0.55f),  fogDensity = 0.006f, sunIntensity = 1.5f, sun = new Color(1f, 0.82f, 0.56f) };
+-                case Zone.Vaults:    return new Look { exposure = -1.5f, temperature = -10f, contrast = 28f, saturation = -15f, bloom = 0.25f, bloomThreshold = 1.1f, vignette = 0.42f, grain = 0.25f, shadows = new Color(0.9f, 1.0f, 1.08f),  fog = new Color(0.05f, 0.06f, 0.07f), fogDensity = 0.045f, sunIntensity = 0f,   sun = Color.black };
+-                case Zone.Stepwell:  return new Look { exposure = -1.0f, temperature = -25f, contrast = 26f, saturation = -20f, bloom = 0.8f, bloomThreshold = 0.9f, vignette = 0.35f, grain = 0.2f,  shadows = new Color(0.82f, 0.92f, 1.15f), fog = new Color(0.1f, 0.13f, 0.18f),  fogDensity = 0.02f,  sunIntensity = 0.25f, sun = new Color(0.6f, 0.72f, 1f) };
+-                case Zone.SunWall:   return new Look { exposure = 0.7f,  temperature = 0f,   contrast = 35f, saturation = -5f,  bloom = 0.25f, bloomThreshold = 1.2f, vignette = 0.15f, grain = 0.08f, shadows = new Color(0.95f, 0.97f, 1.05f), fog = new Color(0.9f, 0.88f, 0.8f),   fogDensity = 0f,     sunIntensity = 2.2f, sun = new Color(1f, 0.97f, 0.9f) };
+-                default:             return new Look { exposure = -0.3f, temperature = 10f,  contrast = 14f, saturation = 5f,   bloom = 0.5f, bloomThreshold = 1.0f, vignette = 0.3f,  grain = 0.15f, shadows = new Color(1.02f, 0.9f, 1.12f),  fog = new Color(0.32f, 0.27f, 0.36f), fogDensity = 0.018f, sunIntensity = 0.9f, sun = new Color(1f, 0.6f, 0.4f) };
++                case Zone.Bazaar:    return new Look { exposure = 0.7f, temperature = 6f, contrast = 6f, saturation = 2f, bloom = 0.18f, bloomThreshold = 1.2f, vignette = 0.12f, grain = 0.025f, shadows = new Color(0.99f, 1f, 1.01f), fog = new Color(0.68f, 0.62f, 0.54f), fogDensity = 0.003f, sunIntensity = 1.3f, sun = new Color(1f, 0.88f, 0.72f) };
++                case Zone.Courtyard: return new Look { exposure = 0.65f, temperature = 3f, contrast = 5f, saturation = 0f, bloom = 0.18f, bloomThreshold = 1.2f, vignette = 0.12f, grain = 0.025f, shadows = new Color(0.99f, 1f, 1.02f), fog = new Color(0.72f, 0.69f, 0.62f), fogDensity = 0.003f, sunIntensity = 1.5f, sun = new Color(1f, 0.9f, 0.76f) };
++                case Zone.Vaults:    return new Look { exposure = 0.1f, temperature = 0f, contrast = 8f, saturation = -4f, bloom = 0.15f, bloomThreshold = 1.2f, vignette = 0.18f, grain = 0.03f, shadows = Color.white, fog = new Color(0.12f, 0.11f, 0.10f), fogDensity = 0.008f, sunIntensity = 0f, sun = Color.black };
++                case Zone.Stepwell:  return new Look { exposure = 0.35f, temperature = -5f, contrast = 7f, saturation = -3f, bloom = 0.2f, bloomThreshold = 1.2f, vignette = 0.16f, grain = 0.03f, shadows = new Color(0.99f, 1f, 1.02f), fog = new Color(0.17f, 0.19f, 0.22f), fogDensity = 0.008f, sunIntensity = 0.65f, sun = new Color(0.88f, 0.93f, 1f) };
++                case Zone.SunWall:   return new Look { exposure = 0.5f, temperature = 0f, contrast = 8f, saturation = 0f, bloom = 0.15f, bloomThreshold = 1.3f, vignette = 0.1f, grain = 0.02f, shadows = Color.white, fog = new Color(0.9f, 0.88f, 0.8f), fogDensity = 0f, sunIntensity = 1.6f, sun = new Color(1f, 0.97f, 0.9f) };
++                default:             return new Look { exposure = 0.5f, temperature = 4f, contrast = 6f, saturation = 2f, bloom = 0.18f, bloomThreshold = 1.2f, vignette = 0.14f, grain = 0.025f, shadows = new Color(1f, 1f, 1.01f), fog = new Color(0.30f, 0.32f, 0.33f), fogDensity = 0.01f, sunIntensity = 1.0f, sun = new Color(1f, 0.84f, 0.68f) };
+             }
+         }
+ 
+@@ -60,7 +60,7 @@ public void Build()
+                 var box = gameObject.GetComponent<BoxCollider>(); if (box == null) box = gameObject.AddComponent<BoxCollider>();
+                 box.isTrigger = true; box.size = size;
+             }
+-            Volume.isGlobal = false; Volume.blendDistance = blendDistance; Volume.priority = 10f; Volume.sharedProfile = Profile;
++            Volume.isGlobal = false; Volume.blendDistance = blendDistance; Volume.priority = 110f; Volume.sharedProfile = Profile;
+         }
+ 
+         T Get<T>() where T : VolumeComponent { if (!Profile.TryGet(out T c)) c = Profile.Add<T>(true); c.active = true; return c; }
+diff --git a/Assets/_Project/Scripts/UI/AudioDirector.cs b/Assets/_Project/Scripts/UI/AudioDirector.cs
+index aee9872..aab29e5 100644
+--- a/Assets/_Project/Scripts/UI/AudioDirector.cs
++++ b/Assets/_Project/Scripts/UI/AudioDirector.cs
+@@ -79,10 +79,12 @@ private string PickState(string scene)
+         {
+             var story = StoryDialogueSystem.Instance; var fight = FightDirector.Instance; var ch = ChapterDirector.Instance; var clock = DawnClock.Instance;
+             if (story != null && (story.IsComplete || (story.Chapter != null && story.Chapter.id == "ch6"))) return "Resolve";
+-            if (CombatState.InCombat || (ch != null && ch.ChaseRunning)) return "Combat";
++            if (CombatState.InCombat || Brawl.Active != null || (ch != null && ch.ChaseRunning)) return "Combat";
+             if (fight != null && fight.StealthRunning) return "Stealth";
+             var wall = ChakraPuzzleController.Active;
+             bool tense = (clock != null && clock.ChapterLeft < 5f) || (wall != null && wall.ResetLeft > 0f && wall.ResetLeft < 30f) || (ch != null && ch.ActiveTrap != null) || (clock != null && clock.OutOfTime);
++            var zone = ZoneAtmosphere.Instance != null ? ZoneAtmosphere.Instance.Current : null;
++            if (zone != null && (zone.zone == ZoneLook.Zone.Vaults || zone.zone == ZoneLook.Zone.Stepwell || zone.zone == ZoneLook.Zone.SunWall)) tense = true;
+             return tense ? "Tension" : "Calm";
+         }
+ 
+diff --git a/Assets/_Project/Scripts/UI/AuditBot.cs b/Assets/_Project/Scripts/UI/AuditBot.cs
+index ed1c0ae..4b5db9e 100644
+--- a/Assets/_Project/Scripts/UI/AuditBot.cs
++++ b/Assets/_Project/Scripts/UI/AuditBot.cs
+@@ -57,6 +57,13 @@ private IEnumerator Start()
+             Directory.CreateDirectory(output);
+             Line("# Runtime audit (" + DateTime.Now.ToString("yyyy-MM-dd HH:mm") + ", " + (Application.isEditor ? "Editor" : "Standalone") + ", " + Screen.width + "x" + Screen.height + ")");
+             yield return new WaitForSecondsRealtime(1.5f);
++            if (Array.IndexOf(Environment.GetCommandLineArgs(), "-reviewLook") >= 0)
++            {
++                yield return ReviewLooksAndStairs();
++                File.WriteAllText(Path.Combine(output, "audit.md"), report.ToString());
++                Line("Review capture complete; inspect measurements and images before judging.");
++                Application.Quit(); yield break;
++            }
+             if (StartupIntroVideo.Playing)
+             {   // the intro video at start-up: a few frames as evidence, then let it finish
+                 Line("## Intro video at start-up: playing");
+@@ -2135,6 +2142,44 @@ private static Rect TextBounds(TMP_Text t)
+             return r;
+         }
+ 
++        private IEnumerator ReviewLooksAndStairs()
++        {
++            foreach (string map in new[] { "Courtyard", "Sanctum", "ShrineCrime", "PuzzleWall", "JunglePath" })
++            {
++                PlayerPrefs.SetInt("OpeningCinematicActive", 0);
++                yield return SceneManager.LoadSceneAsync(map);
++                yield return new WaitForSecondsRealtime(3f);
++                yield return SkipIntro();
++                yield return new WaitForSecondsRealtime(4f);
++                Time.timeScale = 1f;
++                var pc = FindAnyObjectByType<PlayerController>();
++                Line($"Review {map}: player={pc != null}, sun={RenderSettings.sun?.intensity:0.00}, fog={RenderSettings.fogDensity:0.000}");
++                yield return Shot("review-" + map + ".png");
++                if (pc != null && (map == "Courtyard" || map == "JunglePath"))
++                {
++                    string firstName = map == "Courtyard" ? "Step_5" : "RuinedStep_1";
++                    string lastName = map == "Courtyard" ? "Step_1" : "RuinedStep_7";
++                    var first = GameObject.Find(firstName).GetComponent<Collider>().bounds;
++                    var last = GameObject.Find(lastName).GetComponent<Collider>().bounds;
++                    pc.Teleport(new Vector3(first.center.x, first.min.y + 0.1f, first.max.z + 1f), Quaternion.Euler(0f, 180f, 0f));
++                    yield return new WaitForSecondsRealtime(4f);
++                    var direction = new GameObject("Review input direction"); direction.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
++                    pc.SetCameraTransform(direction.transform);
++                    float start = pc.GetComponent<CharacterGrounding>().FeetY;
++                    for (float t = 0f; t < 6f && pc.transform.position.z > last.center.z; t += Time.unscaledDeltaTime)
++                    { Hold(Key.W); yield return null; }
++                    Release(); yield return new WaitForSecondsRealtime(0.4f);
++                    Line($"Review {map} stairs: startFeet={start:0.000}, endFeet={pc.GetComponent<CharacterGrounding>().FeetY:0.000}, expectedTop={last.max.y:0.000}, z={pc.transform.position.z:0.000}, enabled={pc.enabled}, inputBlocked={InputGate.GameplayBlocked}");
++                    var cam = Camera.main; var orbit = cam.GetComponent<OrbitCamera>();
++                    Vector3 from = pc.transform.position + new Vector3(4f, 2.5f, 5f);
++                    orbit.SetCutsceneOverride(from, Quaternion.LookRotation(pc.transform.position + Vector3.up - from));
++                    yield return null; yield return Shot("review-" + map + "-stairs.png");
++                    orbit.ClearCutsceneOverride(); pc.SetCameraTransform(cam.transform); Destroy(direction);
++                }
++                File.WriteAllText(Path.Combine(output, "audit.md"), report.ToString());
++            }
++        }
++
+         private IEnumerator Shot(string file)
+         {
+             yield return new WaitForEndOfFrame();
+diff --git a/Assets/_Project/Scripts/UI/GuideSystem.cs b/Assets/_Project/Scripts/UI/GuideSystem.cs
+index 2aca704..7140336 100644
+--- a/Assets/_Project/Scripts/UI/GuideSystem.cs
++++ b/Assets/_Project/Scripts/UI/GuideSystem.cs
+@@ -36,6 +36,7 @@ public sealed class GuideSystem : MonoBehaviour
+         private LineRenderer line;
+         private string hintObjectiveId;
+         private bool ending;
++        private bool learnedSummary;
+         private float endingTime;
+ 
+         private static readonly HashSet<string> GameplayScenes = new HashSet<string> {
+@@ -367,6 +368,13 @@ private static void DrawPuzzle()
+         private int runRank;
+         private void DrawEnding(StoryDialogueSystem story)
+         {
++            if (Keyboard.current != null && Keyboard.current.hKey.wasPressedThisFrame) learnedSummary = !learnedSummary;
++            if (learnedSummary)
++            {
++                ScreenText.Panel("ending", "WHAT YOU LEARNED", HeritageNotes.LearnedSummary(), PanelAnchor.Center, 1400,
++                    ScreenText.Key("H") + " Back to results", true, 100);
++                return;
++            }
+             var file = StoryData.File;
+             var end = StoryData.Ending(DawnClock.EndingId());
+             var sb = new StringBuilder();
+@@ -384,7 +392,7 @@ private void DrawEnding(StoryDialogueSystem story)
+             sb.Append($"\n<color={ScreenText.Gold}><b>CLOCK</b></color>  {DawnClock.ClockText(clock)} (dawn 05:45)     <color={ScreenText.Gold}><b>PLAY TIME</b></color>  {t / 60:00}:{t % 60:00}     <color={ScreenText.Gold}><b>DIFFICULTY</b></color>  {GameOptions.DifficultyNames[GameOptions.Difficulty]}\n");
+             sb.Append($"<color={ScreenText.Gold}><b>SCORE</b></color>  {ScoreSystem.Total}  (grade {ScoreSystem.OverallGrade(6)})     <color={ScreenText.Gold}><b>HINTS USED</b></color>  {story.HintsUsed}     <color={ScreenText.Gold}><b>RETRIES</b></color>  {(DawnClock.Instance != null ? DawnClock.Instance.Retries : 0)}");
+             if (runRank > 0) sb.Append($"\n<color={ScreenText.Cyan}>Best runs on this computer: this run is number {runRank}. See Credits in the main menu.</color>");
+-            ScreenText.Panel("ending", file.ending?.title ?? "MISSION COMPLETED", sb.ToString(), PanelAnchor.Center, 1400, ScreenText.Key("Enter") + " Return to main menu", true, 100);
++            ScreenText.Panel("ending", file.ending?.title ?? "MISSION COMPLETED", sb.ToString(), PanelAnchor.Center, 1400, ScreenText.Key("H") + " What you learned    " + ScreenText.Key("Enter") + " Return to main menu", true, 100);
+             var kb = Keyboard.current; var gp = Gamepad.current;
+             if (Time.unscaledTime - endingTime > 2f && ((kb != null && kb.enterKey.wasPressedThisFrame) || (gp != null && gp.buttonSouth.wasPressedThisFrame)))
+             {
+diff --git a/Assets/_Project/Scripts/UI/LoadingScreen.cs b/Assets/_Project/Scripts/UI/LoadingScreen.cs
+index 734f736..2325eae 100644
+--- a/Assets/_Project/Scripts/UI/LoadingScreen.cs
++++ b/Assets/_Project/Scripts/UI/LoadingScreen.cs
+@@ -23,6 +23,7 @@ public sealed class LoadingScreen : MonoBehaviour
+ 
+         private CanvasGroup group; private RawImage image; private RectTransform barFill, track, glow, tipPill; private Image glowImg; private TMP_Text tipText, pctText, titleText, loadingText;
+         private Texture2D[] images; private Texture2D fallback; private string[] tips; private int tipIndex; private float tipAt;
++        private bool showHeritageFirst;
+ 
+ 
+ 
+@@ -64,7 +65,8 @@ private void Awake()
+             tipText.fontStyle = FontStyles.Italic; tipText.textWrappingMode = TextWrappingModes.NoWrap; tipText.enableAutoSizing = true; tipText.fontSizeMax = 26; tipText.fontSizeMin = 16; tipText.raycastTarget = false;
+             pctText = ScreenTextRenderer.MakeText(transform, "LoadingPercent", 28, ScreenTextRenderer.Gold, true, TextAlignmentOptions.Right); pctText.raycastTarget = false; pctText.textWrappingMode = TextWrappingModes.NoWrap;
+ 
+-            images = Resources.LoadAll<Texture2D>("UI/Loading");
++            var candidates = Resources.LoadAll<Texture2D>("UI/Loading");
++            images = System.Array.FindAll(candidates, picture => picture.name != "loading_b_thieves"); // depicts a real deity being carried; preserve the source but do not display it
+             System.Array.Sort(images, (a, b) => string.CompareOrdinal(a.name, b.name));
+             SceneLoader.Handler = scene => StartCoroutine(Run(scene));
+         }
+@@ -99,7 +101,7 @@ private IEnumerator Run(string scene)
+             LastImage = tex != null ? tex.name : "(gradient fallback)";
+             image.texture = tex != null ? tex : fallback;
+             tips = StoryData.File.tips ?? new string[0];
+-            tipIndex = PlayerPrefs.GetInt("Loading_TipIndex", 0); PlayerPrefs.SetInt("Loading_TipIndex", tipIndex + 2); NextTip();
++            tipIndex = PlayerPrefs.GetInt("Loading_TipIndex", 0); PlayerPrefs.SetInt("Loading_TipIndex", tipIndex + 2); showHeritageFirst = true; NextTip();
+             SetBar(0f); group.blocksRaycasts = true;
+             float aspect = tex != null ? (float)tex.width / tex.height : 16f / 9f;
+ 
+@@ -133,6 +135,7 @@ private IEnumerator Run(string scene)
+         private void NextTip()
+         {
+             tipAt = Time.unscaledTime + 1.6f;
++            if (showHeritageFirst) { showHeritageFirst = false; tipText.text = "Heritage: " + HeritageNotes.LoadingFact(tipIndex++); return; }
+             tipText.text = tips != null && tips.Length > 0 ? "Tip: " + tips[tipIndex++ % tips.Length] : "";
+         }
+ 
+diff --git a/Assets/_Project/Scripts/UI/UIManager.cs b/Assets/_Project/Scripts/UI/UIManager.cs
+index 637abec..3649941 100644
+--- a/Assets/_Project/Scripts/UI/UIManager.cs
++++ b/Assets/_Project/Scripts/UI/UIManager.cs
+@@ -1350,9 +1350,10 @@ private void ShowDialogueLine(int index)
+                 dialogueSpeakerText.text = who;
+                 if (dialoguePortraitInitial != null) dialoguePortraitInitial.text = who.Substring(0, 1).ToUpperInvariant();
+                 EventBus.RaiseDialogueLine(who);
+-                OnSubtitleLine?.Invoke(who, activeFullLine);
+             }
+             else EventBus.RaiseDialogueLine(dialogueSpeakerText.text);
++            // Plain NPC lines use the speaker already displayed in the dialogue box.
++            OnSubtitleLine?.Invoke(dialogueSpeakerText.text, activeFullLine);
+             dialogueChoicesContainer.SetActive(false);
+ 
+             if (typewriterCoroutine != null) StopCoroutine(typewriterCoroutine);
+diff --git a/Assets/_Project/Scripts/UI/VoicePlayer.cs b/Assets/_Project/Scripts/UI/VoicePlayer.cs
+index e3d32ce..79e8268 100644
+--- a/Assets/_Project/Scripts/UI/VoicePlayer.cs
++++ b/Assets/_Project/Scripts/UI/VoicePlayer.cs
+@@ -10,7 +10,7 @@ namespace LegacyOfTemples.UI
+ {
+     /// <summary>
+     /// Plays a voice clip for every dialogue line and story bark. The clip comes from the voice database first
+-    /// (Docs/VOICE_LINES.csv, same id as the story line), then the older Resources/Voice files, then soft "talk blips".
++    /// (Docs/VOICE_LINES.csv, same id as the story line), then the older Resources/Voice files, then a labelled missing-recording slot (subtitles remain available).
+     /// Playback goes through the VoiceManager queue, so story lines never overlap other voices. Volume: "Settings_VoiceVol".
+     /// </summary>
+     public sealed class VoicePlayer : MonoBehaviour
+@@ -19,7 +19,7 @@ public sealed class VoicePlayer : MonoBehaviour
+         public string LastPlayed { get; private set; } = "";
+         private AudioSource source;
+         public AudioSource Source => VoiceManager.Instance != null ? VoiceManager.Instance.Source2D : source;
+-        private readonly Dictionary<string, AudioClip> blips = new Dictionary<string, AudioClip>();
++        private readonly HashSet<string> missing = new HashSet<string>();
+ 
+         public static float Volume
+         {
+@@ -78,10 +78,15 @@ private void OnLine(string speaker, string text)
+ 
+         private void OnBark(StoryLine line) { Play(line.s, line, line.t, false); }
+ 
+-        /// <summary>Recorded file "<id>.wav" wins, then the "<id>_tts.wav" placeholder, then the old text hash, then blips.</summary>
++        /// <summary>Recorded file "<id>.wav" wins, then the "<id>_tts.wav" placeholder, then the old text hash, then a silent missing-recording slot.</summary>
+         private void Play(string id, StoryLine line, string text, bool dialogue)
+         {
+             AudioClip clip = null;
++            if (line == null)
++            {
++                var recorded = VoiceLibrary.FindText(text, id);
++                if (recorded != null) line = new StoryLine { id = recorded.id, s = id, t = text };
++            }
+             if (line != null && !string.IsNullOrEmpty(line.id))
+             {
+                 clip = VoiceLibrary.Clip(line.id);   // the current voice set (Docs/VOICE_LINES.csv)
+@@ -89,7 +94,14 @@ private void Play(string id, StoryLine line, string text, bool dialogue)
+                 if (clip == null) clip = Resources.Load<AudioClip>($"Voice/{id}/{line.id}_tts");
+             }
+             if (clip == null) clip = Resources.Load<AudioClip>($"Voice/{id}/{Hash(text)}");
+-            if (clip == null) clip = Blip(id, text.Length);
++            if (clip == null)
++            {
++                string slot = line != null && !string.IsNullOrEmpty(line.id) ? line.id : Hash(text);
++                LastPlayed = "MISSING RECORDING: " + id + "/" + slot;
++                if (missing.Add(LastPlayed)) Debug.Log("[Voice] " + LastPlayed + ". Subtitles only: " + text);
++                source.Stop();
++                return;
++            }
+             LastTier = line != null && !string.IsNullOrEmpty(line.tier) ? line.tier : "calm";
+             OnVoice?.Invoke(id, LastTier);
+             float tierVol = LastTier == "shout" ? 1f : LastTier == "firm" ? 0.9f : 0.8f;
+@@ -98,30 +110,5 @@ private void Play(string id, StoryLine line, string text, bool dialogue)
+             LastPlayed = id + ":" + clip.name;
+         }
+ 
+-        /// <summary>Fallback talk blips with a different pitch per character.</summary>
+-        private AudioClip Blip(string who, int chars)
+-        {
+-            int count = Mathf.Clamp(chars / 6, 3, 14);
+-            string key = who + count;
+-            if (blips.TryGetValue(key, out var c)) return c;
+-            float pitch = who == "pujari" ? 150f : who == "meera" ? 330f : who == "aryan" ? 200f : who == "bhaskar" ? 120f : who == "kishore" ? 170f : 240f;
+-            const int rate = 22050;
+-            int per = rate / 9;
+-            var data = new float[per * count];
+-            var rng = new System.Random(key.GetHashCode());
+-            for (int k = 0; k < count; k++)
+-            {
+-                float f = pitch * (0.9f + 0.2f * (float)rng.NextDouble());
+-                for (int i = 0; i < per * 0.6f; i++)
+-                {
+-                    float env = Mathf.Sin(Mathf.PI * i / (per * 0.6f));
+-                    data[k * per + i] = 0.18f * env * Mathf.Sin(2f * Mathf.PI * f * i / rate);
+-                }
+-            }
+-            c = AudioClip.Create("blip_" + key, data.Length, 1, rate, false);
+-            c.SetData(data, 0);
+-            blips[key] = c;
+-            return c;
+-        }
+     }
+ }
+diff --git a/Assets/_Project/Scripts/World/LookTuner.cs b/Assets/_Project/Scripts/World/LookTuner.cs
+index 79e5e4c..0037d01 100644
+--- a/Assets/_Project/Scripts/World/LookTuner.cs
++++ b/Assets/_Project/Scripts/World/LookTuner.cs
+@@ -61,20 +61,20 @@ private static Look For(string scene)
+             switch (scene)
+             {
+                 case "Sanctum": // dark storage hall: the flashlight and the relit lamps matter here
+-                    return new Look { exposure = 0.6f, ambient = 0.7f, fog = 0.01f, sky = C(0.33f, 0.3f, 0.28f), equator = C(0.3f, 0.23f, 0.16f), ground = C(0.12f, 0.1f, 0.08f), fogColor = C(0.11f, 0.09f, 0.07f),
+-                        sunIntensity = 0.15f, sunColor = C(1f, 0.8f, 0.6f), sunAngles = new Vector2(60f, 20f), skyExposure = 0.15f, skyTint = C(0.2f, 0.2f, 0.3f), bloom = 0.45f, saturation = 4f, vignette = 0.3f, fill = 0f };
++                    return new Look { exposure = 0.85f, ambient = 1.15f, fog = 0.004f, sky = C(0.42f, 0.40f, 0.37f), equator = C(0.37f, 0.34f, 0.30f), ground = C(0.22f, 0.20f, 0.18f), fogColor = C(0.11f, 0.09f, 0.07f),
++                        sunIntensity = 0.15f, sunColor = C(1f, 0.8f, 0.6f), sunAngles = new Vector2(60f, 20f), skyExposure = 0.15f, skyTint = C(0.2f, 0.2f, 0.3f), bloom = 0.18f, saturation = 0f, vignette = 0.14f, fill = 0f };
+                 case "ShrineCrime": // blue moonlight against warm lamps, in rain
+-                    return new Look { exposure = 1.35f, ambient = 1.5f, fog = 0.008f, sky = C(0.36f, 0.42f, 0.6f), equator = C(0.34f, 0.32f, 0.36f), ground = C(0.16f, 0.14f, 0.14f), fogColor = C(0.12f, 0.16f, 0.26f),
+-                        sunIntensity = 1.5f, sunColor = C(0.82f, 0.88f, 1f), sunAngles = new Vector2(42f, 30f), skyExposure = 0.45f, skyTint = C(0.2f, 0.28f, 0.5f), bloom = 0.4f, saturation = 10f, vignette = 0.26f, fill = 0.22f };
++                    return new Look { exposure = 0.8f, ambient = 1.5f, fog = 0.004f, sky = C(0.43f, 0.47f, 0.52f), equator = C(0.40f, 0.38f, 0.35f), ground = C(0.23f, 0.22f, 0.21f), fogColor = C(0.12f, 0.16f, 0.26f),
++                        sunIntensity = 1.5f, sunColor = C(0.82f, 0.88f, 1f), sunAngles = new Vector2(42f, 30f), skyExposure = 0.45f, skyTint = C(0.2f, 0.28f, 0.5f), bloom = 0.18f, saturation = 0f, vignette = 0.14f, fill = 0.35f };
+                 case "PuzzleWall": // torch-lit stone (the bright midday look was removed at the player's request)
+                     return new Look { exposure = 1.0f, ambient = 1.4f, fog = 0.008f, sky = C(0.24f, 0.19f, 0.15f), equator = C(0.32f, 0.22f, 0.14f), ground = C(0.11f, 0.09f, 0.07f), fogColor = C(0.13f, 0.09f, 0.06f),
+-                        sunIntensity = 0.3f, sunColor = C(1f, 0.75f, 0.5f), sunAngles = new Vector2(55f, 0f), skyExposure = 0.15f, skyTint = C(0.2f, 0.18f, 0.2f), bloom = 0.45f, saturation = 6f, vignette = 0.28f, fill = 0f };
++                        sunIntensity = 0.3f, sunColor = C(1f, 0.75f, 0.5f), sunAngles = new Vector2(55f, 0f), skyExposure = 0.15f, skyTint = C(0.2f, 0.18f, 0.2f), bloom = 0.18f, saturation = 0f, vignette = 0.14f, fill = 0f };
+                 case "JunglePath": // dusk: low orange sun through teal mist
+                     return new Look { exposure = 0.95f, ambient = 1.25f, fog = 0.02f, sky = C(0.35f, 0.5f, 0.55f), equator = C(0.55f, 0.44f, 0.38f), ground = C(0.14f, 0.16f, 0.12f), fogColor = C(0.3f, 0.48f, 0.5f),
+-                        sunIntensity = 1.4f, sunColor = C(1f, 0.56f, 0.3f), sunAngles = new Vector2(7f, -60f), skyExposure = 0.75f, skyTint = C(0.5f, 0.42f, 0.42f), bloom = 0.5f, saturation = 14f, vignette = 0.3f, fill = 0.2f };
++                        sunIntensity = 1.4f, sunColor = C(1f, 0.56f, 0.3f), sunAngles = new Vector2(7f, -60f), skyExposure = 0.75f, skyTint = C(0.5f, 0.42f, 0.42f), bloom = 0.2f, saturation = 2f, vignette = 0.15f, fill = 0.2f };
+                 case "Courtyard": // 3:10 AM: moonlight, drizzle and oil lamps
+-                    return new Look { exposure = 1.4f, ambient = 1.5f, fog = 0.006f, sky = C(0.36f, 0.42f, 0.6f), equator = C(0.36f, 0.32f, 0.34f), ground = C(0.18f, 0.15f, 0.14f), fogColor = C(0.1f, 0.13f, 0.22f),
+-                        sunIntensity = 1.5f, sunColor = C(0.84f, 0.89f, 1f), sunAngles = new Vector2(38f, -40f), skyExposure = 0.5f, skyTint = C(0.2f, 0.28f, 0.5f), bloom = 0.4f, saturation = 10f, vignette = 0.25f, fill = 0.25f };
++                    return new Look { exposure = 0.8f, ambient = 1.5f, fog = 0.004f, sky = C(0.43f, 0.47f, 0.52f), equator = C(0.40f, 0.38f, 0.35f), ground = C(0.23f, 0.22f, 0.21f), fogColor = C(0.1f, 0.13f, 0.22f),
++                        sunIntensity = 1.5f, sunColor = C(0.84f, 0.89f, 1f), sunAngles = new Vector2(38f, -40f), skyExposure = 0.5f, skyTint = C(0.2f, 0.28f, 0.5f), bloom = 0.18f, saturation = 0f, vignette = 0.14f, fill = 0.35f };
+                 default:
+                     return new Look { exposure = 0.6f, ambient = 1f, fog = 0.006f, sky = C(0.6f, 0.68f, 0.85f), equator = C(0.7f, 0.56f, 0.42f), ground = C(0.3f, 0.24f, 0.18f), fogColor = C(0.8f, 0.68f, 0.55f),
+                         sunIntensity = 1.2f, sunColor = C(1f, 0.9f, 0.8f), sunAngles = new Vector2(40f, 30f), skyExposure = 1f, skyTint = C(0.5f, 0.5f, 0.5f), bloom = 0.35f, saturation = 6f, vignette = 0.2f, fill = 0.35f };
+@@ -83,7 +83,7 @@ private static Look For(string scene)
+ 
+         /// <summary>Golden first light: low warm sun, long shadows, warm mist (the ending).</summary>
+         private static Look DawnLook() => new Look { exposure = 0.6f, ambient = 1.15f, fog = 0.0022f, sky = C(0.5f, 0.62f, 0.85f), equator = C(0.8f, 0.7f, 0.6f), ground = C(0.3f, 0.24f, 0.18f), fogColor = C(0.7f, 0.78f, 0.9f),
+-            sunIntensity = 1.5f, sunColor = C(1f, 0.79f, 0.54f), sunAngles = new Vector2(8f, 115f), skyExposure = 1.05f, skyTint = C(1.0f, 0.8f, 0.86f), bloom = 0.4f, saturation = 24f, vignette = 0.2f, fill = 0.35f };
++            sunIntensity = 1.5f, sunColor = C(1f, 0.79f, 0.54f), sunAngles = new Vector2(8f, 115f), skyExposure = 1.05f, skyTint = C(1.0f, 0.8f, 0.86f), bloom = 0.2f, saturation = 6f, vignette = 0.12f, fill = 0.35f };
+ 
+         private static Look Blend(Look a, Look b, float t)
+         {
+@@ -104,12 +104,13 @@ private void Apply(string sceneName)
+             vol.isGlobal = true; vol.priority = 100f;
+             var profile = ScriptableObject.CreateInstance<VolumeProfile>();
+             var tm = profile.Add<Tonemapping>(true); tm.mode.Override(TonemappingMode.ACES);
+-            grade = profile.Add<ColorAdjustments>(true); grade.contrast.Override(10f);
++            grade = profile.Add<ColorAdjustments>(true); grade.contrast.Override(4f);
+             var bl = profile.Add<Bloom>(true); bl.threshold.Override(1.0f); bl.scatter.Override(0.7f);
+             var vg = profile.Add<Vignette>(true); vg.smoothness.Override(0.45f);
+-            var lgg = profile.Add<LiftGammaGain>(true); // shadows toward indigo, highlights toward amber
+-            lgg.lift.Override(new Vector4(0.96f, 0.98f, 1.06f, 0f)); lgg.gain.Override(new Vector4(1.05f, 1.0f, 0.93f, 0f));
+-            var fg = profile.Add<FilmGrain>(true); fg.type.Override(FilmGrainLookup.Thin1); fg.intensity.Override(0.15f); fg.response.Override(0.8f);
++            // Keep shadow colour neutral: lamps and the sky provide the colour.
++            var lgg = profile.Add<LiftGammaGain>(true);
++            lgg.lift.Override(new Vector4(1f, 1f, 1f, 0f)); lgg.gain.Override(new Vector4(1f, 1f, 1f, 0f));
++            var fg = profile.Add<FilmGrain>(true); fg.type.Override(FilmGrainLookup.Thin1); fg.intensity.Override(0.025f); fg.response.Override(0.8f);
+             dof = profile.Add<DepthOfField>(true); dof.mode.Override(DepthOfFieldMode.Bokeh); dof.focusDistance.Override(2.6f); dof.aperture.Override(4f); dof.focalLength.Override(70f);
+             dof.active = false; // only in dialogue close-ups
+             vol.sharedProfile = profile;
+@@ -128,7 +129,7 @@ private void Apply(string sceneName)
+             if (game && scene != "Sanctum" && scene != "PuzzleWall")
+             {
+                 skyFill = new GameObject("LookTuner_SkyFill").AddComponent<Light>();
+-                skyFill.type = LightType.Directional; skyFill.shadows = LightShadows.None; skyFill.color = new Color(0.62f, 0.72f, 0.95f);
++                skyFill.type = LightType.Directional; skyFill.shadows = LightShadows.None; skyFill.color = new Color(0.86f, 0.91f, 1f);
+             }
+             if (game && RenderSettings.skybox != null) { skyMat = new Material(RenderSettings.skybox); RenderSettings.skybox = skyMat; } else skyMat = null;
+             Relight(scene);
+@@ -139,11 +140,11 @@ private void Apply(string sceneName)
+                 var rim = new GameObject("HeroRimLight").AddComponent<Light>();
+                 rim.transform.SetParent(player.transform, false);
+                 rim.transform.localPosition = new Vector3(0.4f, 2.0f, -1.2f);
+-                rim.type = LightType.Point; rim.range = 4f; rim.intensity = 2.2f; rim.color = new Color(1f, 0.92f, 0.8f); rim.shadows = LightShadows.None;
++                rim.type = LightType.Point; rim.range = 3f; rim.intensity = 1.3f; rim.color = new Color(1f, 0.95f, 0.88f); rim.shadows = LightShadows.None;
+                 var key = new GameObject("HeroFaceFill").AddComponent<Light>();
+                 key.transform.SetParent(player.transform, false);
+                 key.transform.localPosition = new Vector3(-0.3f, 1.8f, 1.4f);
+-                key.type = LightType.Point; key.range = 3f; key.intensity = 1.2f; key.color = new Color(1f, 0.85f, 0.7f); key.shadows = LightShadows.None;
++                key.type = LightType.Point; key.range = 2.5f; key.intensity = 0.8f; key.color = new Color(1f, 0.94f, 0.85f); key.shadows = LightShadows.None;
+             }
+ 
+             if (game) ArtUpgrade.Apply(scene); // real stone, wood and ground surfaces instead of flat colours
+diff --git a/Docs/ATTRIBUTION.md b/Docs/ATTRIBUTION.md
+index b2126f5..b59130c 100644
+--- a/Docs/ATTRIBUTION.md
++++ b/Docs/ATTRIBUTION.md
+@@ -124,3 +124,10 @@ All from polyhaven.com, licence CC0 1.0 (public domain), downloaded with Tools/a
+ | Voice clips in Assets/_Project/Audio/Voice/ | Project (generated with Kokoro) | Docs/VOICE_LINES.csv, Tools/tts/generate_voices.py | Own work | Lines written for this project. |
+ | Older voice clips in Assets/_Project/Resources/Voice/ | macOS `say` (see the table above) | - | Placeholder | Kept unchanged as a fallback only; the game now plays the Kokoro clips above. |
+ 
++
++
++## Targeted fix pass additions
++| Asset/content | Author | Source | Licence/use |
++|---|---|---|---|
++| 20 short Pujari/Meera reminder clips (`rem_*`) | Project writing; generated offline with existing Kokoro voice settings | `Docs/VOICE_LINES.csv`; https://huggingface.co/hexgrad/Kokoro-82M | Original text/audio output; existing model Apache-2.0 and runner MIT. No model distributed; no download in this pass. |
++| Heritage note text and feedback effects | Project | `Docs/HERITAGE_SOURCES.md`; `HeritageNotes.cs`; `CombatFeedback.cs` | Original paraphrases and code. Source pages are references, not imported media. Existing licensed effect materials/sounds reused. |
+diff --git a/Docs/QA/voice/clip_report.csv b/Docs/QA/voice/clip_report.csv
+index 87e861c..d64bd44 100644
+--- a/Docs/QA/voice/clip_report.csv
++++ b/Docs/QA/voice/clip_report.csv
+@@ -1,167 +1,21 @@
+ id,speaker,source,take,seconds,peak_db,lufs,true_peak,f0,text,heard,wer,wer_strict
+-v3_mee_00,meera,kokoro hf_alpha:1.0,take 1,1.81,-3.8,-16.0,-3.77,231,Two men. One carried a bell.,"Two men, one carry the bell.",0.2,0.33
+-v3_mee_03,meera,kokoro hf_alpha:1.0,,1.74,-2.3,-15.99,-2.23,237,It rang. He hid it fast.,It rang he hid it fast.,0.0,0.0
+-v3_ary_06,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.76,-1.8,-15.98,-1.82,119,He saw me. After him.,He saw me after him.,0.0,0.0
+-v3_cou_01,courier,kokoro hm_omega:0.5+am_puck:0.5,,1.22,-1.7,-16.0,-1.72,144,You followed me? Clever.,You followed me clever.,0.0,0.0
+-v3_ary_02,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.56,-1.7,-16.27,-1.69,114,One. Four to go.,"One, four, to go.",0.0,0.0
+-v3_ary_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.67,-1.7,-16.02,-1.72,123,Not forced. Opened.,Not forced opened.,0.0,0.0
+-v3_ary_07,aryan,kokoro hm_omega:0.75+am_onyx:0.25,take 1,0.78,-3.0,-15.98,-2.97,131,Two.,Dude.,1.0,1.0
+-v3_puj_03,pujari,kokoro hm_psi:1.0,,2.36,-1.7,-16.06,-1.7,126,The old vaults. Behind the temple.,the old vaults behind the temple.,0.0,0.0
+-v3_ary_03,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,0.81,-2.7,-15.98,-2.64,133,Three.,Three.,0.0,0.0
+-v3_mee_01,meera,kokoro hf_alpha:1.0,,2.42,-1.9,-15.99,-1.91,218,They went to the old well. In this rain.,They went to the old well in this rain.,0.0,0.0
+-v3_mee_02,meera,kokoro hf_alpha:1.0,,2.31,-2.0,-16.0,-2.04,236,Only one man carries those keys.,Only one man carries those keys.,0.0,0.0
+-v3_ary_04,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.79,-1.7,-16.0,-1.7,118,Four. Now the Sun Wall.,4. Now the sun wall.,0.0,0.0
+-v3_ary_05,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,2.4,-1.7,-16.37,-1.67,115,An empty case. The jungle road.,an empty case the jungle road.,0.0,0.0
+-v3_mee_04,meera,kokoro hf_alpha:1.0,,2.2,-2.5,-16.02,-2.5,220,Your jeep waits on the north road.,Your jeep waits on the north road.,0.0,0.0
+-v3_bha_01,bhaskar,kokoro hm_omega:0.5+am_onyx:0.5,take 1,1.86,-1.7,-16.45,-1.71,100,Keep moving. He is close.,"Keep moving, he is close.",0.0,0.0
+-v3_bha_02,bhaskar,kokoro hm_omega:0.5+am_onyx:0.5,take 1,1.79,-1.7,-16.33,-1.71,105,Do you know what this fetches?,Do you know what this fetch is?,0.17,0.33
+-v3_ary_08,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.96,-1.7,-16.05,-1.71,119,Its value is not money.,Its value is not money.,0.0,0.0
+-v3_mad_01,madhav,kokoro hm_psi:0.6+bm_fable:0.4,take 1,0.94,-1.7,-16.11,-1.71,160,You knew?,You know.,0.5,0.5
+-v3_mad_02,madhav,kokoro hm_psi:0.6+bm_fable:0.4,,1.52,-1.7,-16.0,-1.68,142,"I am sorry, sir.","I am sorry, sir.",0.0,0.0
+-v3_mad_03,madhav,kokoro hm_psi:0.6+bm_fable:0.4,,1.93,-1.7,-16.2,-1.63,140,I only opened a door.,I only opened a door.,0.0,0.0
+-v3_ary_10,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,0.89,-3.6,-15.99,-3.59,121,Five.,5.,0.0,0.0
+-v3_mad_04,madhav,kokoro hm_psi:0.6+bm_fable:0.4,take 4 (pause at comma),2.01,-1.7,-16.13,-1.7,143,"Tea, sir? You look tired.","Steve, sir, you look tired.",0.2,0.2
+-v3_mad_05,madhav,kokoro hm_psi:0.6+bm_fable:0.4,,2.53,-1.7,-16.24,-1.69,139,I locked up myself. As always.,I locked up myself as always.,0.0,0.0
+-v3_mad_06,madhav,kokoro hm_psi:0.6+bm_fable:0.4,,2.65,-1.7,-16.41,-1.64,141,Take my lantern. It is dark below.,"Take my lantern, it is dark below.",0.0,0.0
+-v3_bha_03,bhaskar,kokoro hm_omega:0.5+am_onyx:0.5,take 1,1.77,-1.7,-16.39,-1.71,106,Then come and take it.,Then come and take it.,0.0,0.0
+-v3_puj_01,pujari,kokoro hm_psi:1.0,,2.71,-1.7,-16.19,-1.7,124,Five treasures. Gone before sunrise.,five treasures gone before sunrise.,0.0,0.0
+-v3_puj_02,pujari,kokoro hm_psi:1.0,,2.21,-1.7,-16.3,-1.68,124,The procession leaves at dawn.,The procession leaves a dawn.,0.25,0.2
+-v3_puj_09,pujari,kokoro hm_psi:1.0,,2.03,-1.7,-16.17,-1.71,127,You brought our memory home.,You brought out memory home.,0.2,0.2
+-v3_ary_09,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.62,-1.7,-16.25,-1.66,126,Every piece is home.,Every piece is home.,0.0,0.0
+-intro_puj_01,pujari,kokoro hm_psi:1.0,,2.11,-1.7,-16.26,-1.71,131,Something terrible has happened!,something terrible has happened.,0.0,0.0
+-intro_ary_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,3.39,-1.7,-16.14,-1.69,109,"Excuse me, could you tell me the way to Jagannath Temple?","Excuse me, could you tell me the way to Jagannath Temple?",0.0,0.0
+-intro_mee_01,meera,kokoro hf_alpha:1.0,,5.34,-1.7,-16.05,-1.69,204,Go straight along this road and follow the old stone entrance. The temple is at the end.,"Go straight along this road and follow the old stone entrance, the temple is at the end.",0.0,0.0
+-intro_ary_02,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,0.99,-1.9,-16.01,-1.91,135,Thank you.,Thank you.,0.0,0.0
+-mv_first_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.94,-1.7,-15.99,-1.71,113,Right. Let's find that temple.,"Right, let's find that temple.",0.0,0.0
+-mv_run_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.64,-1.7,-16.06,-1.7,127,No time to stroll.,No time to stroll.,0.0,0.0
+-mv_run_02,aryan,kokoro hm_omega:0.75+am_onyx:0.25,take 1,1.44,-1.7,-16.06,-1.72,118,Dawn won't wait.,Don won't wait.,0.33,0.33
+-mv_tired_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.79,-1.7,-16.04,-1.69,120,Need to catch my breath.,Need to catch my breath.,0.0,0.0
+-mv_tired_02,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.29,-2.5,-15.99,-2.46,132,Easy. Breathe.,Easy Breathe.,0.0,0.0
+-mv_jump_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.12,-1.7,-16.0,-1.68,114,Up we go.,Up we go.,0.0,0.0
+-mv_land_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.17,-1.7,-16.13,-1.68,120,Oof. Careful.,"(interjection, not checked)",,
+-mv_land_02,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.5,-1.7,-16.17,-1.7,124,That was a drop.,That was a drop.,0.0,0.0
+-mv_area_courtyard,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,2.26,-1.7,-16.2,-1.71,122,The temple courtyard. Stay sharp.,The temple courtyard stay sharp.,0.0,0.0
+-mv_area_vaults,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,2.31,-1.7,-16.08,-1.7,123,Dark down here. Watch your step.,"Dark down here, watch your step.",0.0,0.0
+-mv_area_stepwell,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,2.19,-1.7,-16.12,-1.69,122,The old well. Listen to that rain.,The old well listened to that rain.,0.17,0.14
+-mv_area_sunwall,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.96,-1.7,-16.19,-1.7,112,No shade at all out here.,No shade at all out here.,0.0,0.0
+-mv_area_jungle,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,2.05,-1.7,-16.27,-1.71,121,The river road. Trees everywhere.,The river road trees everywhere.,0.0,0.0
+-mv_area_bazaar,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.98,-1.7,-16.1,-1.71,117,Back to the bazaar. Listen.,"Back to the Bazaar, listen.",0.0,0.0
+-mv_danger_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.91,-1.7,-16.39,-1.69,113,Careful. That's a long drop.,"Careful, that's a long drop.",0.0,0.0
+-mv_danger_02,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.55,-1.7,-16.1,-1.68,125,One wrong step here...,One wrong step here.,0.0,0.0
+-mv_rain_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.73,-1.7,-16.18,-1.71,131,This rain won't stop.,This rain won't stop.,0.0,0.0
+-mv_rain_02,aryan,kokoro hm_omega:0.75+am_onyx:0.25,take 1,1.56,-1.7,-16.45,-1.68,119,Wet stone. Slippery.,Wetstone Slippery,0.67,0.67
+-mv_lost_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.71,-1.7,-16.08,-1.7,121,Think. Where would they go?,Think where would they go?,0.0,0.0
+-mv_lost_02,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,2.64,-1.7,-16.16,-1.69,125,I'm losing time. My notes might help.,"I'm losing time, my notes might help.",0.0,0.0
+-mv_lost_03,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,2.02,-1.7,-16.31,-1.71,113,Retrace it. What did I miss?,"Retrace it, what did I miss?",0.0,0.0
+-mv_deadend_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.19,-1.7,-16.09,-1.66,109,Dead end.,Dead end.,0.0,0.0
+-jp_approach_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.98,-1.7,-16.11,-1.72,117,The jeep. Still in one piece.,the Jeep still in one piece.,0.0,0.0
+-jp_enter_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.13,-1.7,-16.35,-1.67,110,Let's go.,Let's go.,0.0,0.0
+-jp_enter_02,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.25,-1.7,-16.44,-1.72,114,Right. Drive.,Right drive.,0.0,0.0
+-jp_start_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.39,-1.7,-16.32,-1.72,107,Good. She's running.,"Good, she's running.",0.0,0.0
+-jp_off_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.17,-1.7,-16.41,-1.7,143,Here we go.,Here we go.,0.0,0.0
+-jp_fast_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.9,-1.7,-16.15,-1.7,130,Faster. He's getting away.,"Faster, he's getting away.",0.0,0.0
+-jp_fast_02,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.6,-1.7,-16.49,-1.7,122,Easy on this road.,Easy on this road.,0.0,0.0
+-jp_drift_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.32,-1.7,-16.4,-1.71,143,"Whoa, hold it!","Whoa, hold it.",0.0,0.0
+-jp_brake_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,0.88,-1.7,-16.01,-1.72,134,Brakes!,Brakes.,0.0,0.0
+-jp_near_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.38,-1.7,-16.37,-1.7,121,That was close.,That was close.,0.0,0.0
+-jp_crash1_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.69,-1.7,-16.31,-1.7,119,Ugh. That'll leave a mark.,Ugg that'll leave a mark.,0.25,0.2
+-jp_crash1_02,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.02,-1.7,-16.23,-1.71,137,Watch it!,Watch it.,0.0,0.0
+-jp_crash2_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.55,-1.7,-16.41,-1.71,134,That hurt the jeep.,That hurt the jeep.,0.0,0.0
+-jp_crash2_02,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.76,-1.7,-16.27,-1.71,140,She can't take much more.,She can't take much more.,0.0,0.0
+-jp_smoke_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.47,-1.7,-16.35,-1.71,142,Smoke. Not good.,Smoke not good.,0.0,0.0
+-jp_dead_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,2.1,-1.7,-16.23,-1.7,126,"Engine's gone. On foot, then.",Engine's gone on foot then.,0.0,0.0
+-jp_stuck_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.52,-1.7,-16.33,-1.69,144,We're stuck. Back up.,We're stuck back up.,0.0,0.0
+-jp_arrive_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.63,-1.7,-16.1,-1.71,146,The ruins. This is it.,"The ruins, this is it.",0.0,0.0
+-jp_exit_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.35,-1.7,-15.98,-1.72,120,Right. On foot.,Right on foot.,0.0,0.0
+-jp_park_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.36,-1.7,-16.07,-1.7,118,Parked. Let's move.,"Parked, let's move.",0.0,0.0
+-ex_notice_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.07,-1.7,-16.13,-1.7,133,What's this?,What's this?,0.0,0.0
+-ex_notice_02,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.59,-1.7,-16.28,-1.7,120,Hm. Look at that.,Hm look at that,0.0,0.0
+-ex_clue_list,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,2.23,-1.7,-16.09,-1.7,124,Neat writing. Somebody careful.,Neat writing somebody careful.,0.0,0.0
+-ex_clue_lock,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,2.07,-1.7,-16.03,-1.72,122,From the inside. Interesting.,from the inside interesting.,0.0,0.0
+-ex_clue_ledger,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.9,-1.7,-16.34,-1.7,109,Same ticks. Same hand.,"Same tics, same hand.",0.25,0.25
+-ex_clue_keys,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,2.21,-1.7,-16.22,-1.67,126,Temple keys. All the way out here.,Temple keys all the way out here.,0.0,0.0
+-ex_board_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,2.32,-1.7,-16.1,-1.67,117,Enough to name someone. My notes.,Enough to name someone my notes.,0.0,0.0
+-ex_item_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,take 1,0.93,-1.8,-15.98,-1.8,134,Got it.,God it.,0.5,0.5
+-ex_item_02,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.05,-1.7,-16.0,-1.69,112,Safe now.,Safe now.,0.0,0.0
+-pz_start_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.73,-1.7,-16.17,-1.69,112,Let's see how this works.,Let's see how this works.,0.0,0.0
+-pz_start_02,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.75,-1.7,-16.16,-1.71,121,There's a mechanism here.,There's a mechanism here.,0.0,0.0
+-pz_step_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.12,-1.7,-16.16,-1.71,107,That's one.,That's one.,0.0,0.0
+-pz_step_02,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.34,-1.7,-16.01,-1.67,133,Good. That fits.,Good that fits.,0.0,0.0
+-pz_wrong_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.51,-1.7,-16.14,-1.71,120,No. Not like that.,"No, not like that.",0.0,0.0
+-pz_wrong_02,aryan,kokoro hm_omega:0.75+am_onyx:0.25,take 1,1.59,-1.7,-16.17,-1.71,104,Hm. Wrong way.,H.M. Wrong Way,0.67,0.67
+-pz_almost_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.14,-1.7,-16.06,-1.7,126,Almost there.,Almost there.,0.0,0.0
+-pz_almost_02,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.01,-1.8,-16.02,-1.75,130,One more.,One more.,0.0,0.0
+-pz_solved_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,take 1,1.25,-1.7,-16.22,-1.68,109,There. Solved.,They're solved.,0.5,0.5
+-pz_solved_03,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.69,-1.7,-16.08,-1.7,119,Clever old builders.,Clever old builders.,0.0,0.0
+-pz_hint1_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.5,-1.7,-16.04,-1.69,121,Look around first.,Look around first.,0.0,0.0
+-pz_hint2_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.76,-1.7,-16.05,-1.7,116,Think about how it moves.,Think about how it moves.,0.0,0.0
+-pz_hint3_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.81,-1.7,-16.16,-1.7,107,"Right. Step by step, then.",Right step by step then.,0.0,0.0
+-pz_pot_shard_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.37,-1.7,-16.15,-1.71,133,This piece fits.,This piece fits.,0.0,0.0
+-pz_pot_shard_02,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.45,-1.7,-16.17,-1.7,123,Another piece home.,Another piece home.,0.0,0.0
+-pz_pot_whole_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,2.04,-1.7,-16.25,-1.67,124,Whole again. And it holds oil.,Hole again and it holds oil.,0.17,0.17
+-pz_lantern_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.78,-1.7,-16.17,-1.65,117,Now the light falls right.,Now the light falls right.,0.0,0.0
+-pz_flag_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.87,-1.7,-16.26,-1.7,118,Something under this stone.,something under this stone.,0.0,0.0
+-pz_vault_plate_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,2.01,-1.7,-16.23,-1.71,127,Stone on the plate. Good.,Stone on the plate good.,0.0,0.0
+-pz_vault_gate_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,take 1,1.53,-1.7,-16.09,-1.72,127,The gate's open.,The gates open.,0.0,0.33
+-pz_vault_rings_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,2.69,-1.7,-16.02,-1.71,124,Three rings of light. Not by chance.,"3 rings of life, not by chance.",0.14,0.14
+-pz_sluice_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,take 1,1.58,-2.2,-16.0,-2.18,126,The water's coming in.,The water is coming in.,0.0,0.5
+-pz_flood_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,take 2 (slower),2.42,-1.7,-16.18,-1.67,121,Too much. The panel's under water.,Too much the panels under water.,0.0,0.17
+-pz_level_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.45,-1.7,-16.01,-1.7,113,Right on the mark.,Right on the mark.,0.0,0.0
+-pz_mirror_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.54,-1.7,-16.11,-1.71,117,Turn it toward the wall.,Turn it toward the wall.,0.0,0.0
+-pz_beam_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,2.28,-1.7,-16.09,-1.68,126,One beam. The wheel blocks the other.,"One beam, the wheel blocks the other.",0.0,0.0
+-pz_wall_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,take 1,1.57,-2.9,-15.95,-2.85,126,The wall's opening.,The walls opening.,0.0,0.33
+-bz_follow_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,2.05,-1.7,-16.24,-1.69,133,There he is. Keep your distance.,"There he is, keep your distance.",0.0,0.0
+-bz_look_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.7,-1.7,-16.11,-1.71,118,Don't look round... good.,Don't look round good.,0.0,0.0
+-bz_spot_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.15,-1.7,-16.02,-1.72,128,He felt that.,He felt that.,0.0,0.0
+-bz_spot_02,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.65,-1.7,-16.15,-1.7,130,Careful. He's suspicious.,Careful he's suspicious.,0.0,0.0
+-bz_far_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.22,-1.7,-16.19,-1.68,124,Don't lose him.,Don't lose him.,0.0,0.0
+-bz_yard_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.82,-1.7,-16.18,-1.7,126,A dead end. He's trapped.,A dead end he's trapped.,0.0,0.0
+-cb_start_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.19,-1.9,-15.98,-1.92,133,Here they come.,Here they come.,0.0,0.0
+-cb_start_02,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,2.01,-1.7,-16.1,-1.71,122,Stay calm. Watch his hands.,"Stay calm, watch his hands.",0.0,0.0
+-cb_combo_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,0.99,-1.7,-15.99,-1.72,110,Got you.,Got you!,0.0,0.0
+-cb_combo_02,aryan,kokoro hm_omega:0.75+am_onyx:0.25,take 1,0.99,-2.2,-15.99,-2.21,114,Back off.,Back off.,0.0,0.0
+-cb_combo_03,aryan,kokoro hm_omega:0.75+am_onyx:0.25,take 1,1.19,-1.7,-16.03,-1.69,112,Not today.,Not today.,0.0,0.0
+-cb_hurt_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,0.69,-2.1,-16.0,-2.05,125,Ugh!,"(interjection, not checked)",,
+-cb_hurt_02,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.19,-1.7,-16.07,-1.7,121,Ah! Careful.,"(interjection, not checked)",,
+-cb_low_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.65,-1.7,-16.15,-1.7,109,I can't take many more.,I can't take many more.,0.0,0.0
+-cb_low_02,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.67,-1.7,-16.05,-1.68,118,Block. Breathe. Block.,"Block, breathe, block.",0.0,0.0
+-cb_dodge_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,take 3 (faster),0.93,-1.7,-16.08,-1.71,114,Too slow.,Too slow.,0.0,0.0
+-cb_finish_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.1,-2.2,-15.99,-2.15,117,Stay down.,Stay down.,0.0,0.0
+-cb_finish_02,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,0.85,-2.6,-15.96,-2.59,131,Enough.,Enough.,0.0,0.0
+-cb_won_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.05,-1.7,-16.05,-1.71,110,It's over.,It's over.,0.0,0.0
+-cb_won_02,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,2.2,-1.7,-16.43,-1.71,117,Nobody else needs to get hurt.,Nobody else needs to get hurt.,0.0,0.0
+-cb_retry_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.4,-1.7,-16.11,-1.71,126,Again. Focus.,"Again, focus.",0.0,0.0
+-rb_spot_vault,robber,kokoro hm_psi:0.6+am_onyx:0.4,take 1,1.68,-1.7,-16.26,-1.7,108,Light! Someone's here!,Like someone's here.,0.33,0.33
+-rb_spot_well,robber,kokoro hm_psi:0.6+am_onyx:0.4,,1.47,-1.7,-16.19,-1.7,109,"Slippery, isn't it?",Slippery isn't it?,0.0,0.0
+-rb_spot_store,robber,kokoro hm_psi:0.6+am_onyx:0.4,,1.91,-1.7,-16.33,-1.7,101,You should have stayed in the village.,You should have stayed in the village.,0.0,0.0
+-rb_taunt_01,robber,kokoro hm_psi:0.6+am_onyx:0.4,,1.71,-1.7,-16.4,-1.69,109,"Walk away, detective.",walk away detective.,0.0,0.0
+-rb_taunt_02,robber,kokoro hm_psi:0.6+am_onyx:0.4,,1.57,-1.7,-16.43,-1.7,108,Two of us. One of you.,"Two of us, one of you.",0.0,0.0
+-rb_taunt_well,robber,kokoro hm_psi:0.6+am_onyx:0.4,,1.85,-1.7,-16.28,-1.7,102,He promised us a boat!,He promised us a boat.,0.0,0.0
+-rb_taunt_vault,robber,kokoro hm_psi:0.6+am_onyx:0.4,,2.44,-1.7,-16.39,-1.71,101,He said nobody comes down here.,He said nobody comes down here.,0.0,0.0
+-cr_taunt_01,courier,kokoro hm_omega:0.5+am_puck:0.5,,1.27,-1.7,-16.0,-1.63,133,Back off! It's mine now.,Back off it's mine now.,0.0,0.0
+-cr_taunt_02,courier,kokoro hm_omega:0.5+am_puck:0.5,,1.3,-1.7,-15.98,-1.69,141,You don't know who sent me.,You don't know who sent me.,0.0,0.0
+-ki_spot_01,kishore,kokoro hm_psi:0.55+bm_george:0.45,,1.92,-1.7,-16.25,-1.7,154,You read the wall. Impressive.,"You read the wall, impressive.",0.0,0.0
+-ki_taunt_01,kishore,kokoro hm_psi:0.55+bm_george:0.45,,2.07,-1.7,-16.02,-1.68,141,The finial is already moving.,The finial is already moving.,0.0,0.0
+-ki_taunt_02,kishore,kokoro hm_psi:0.55+bm_george:0.45,,1.88,-1.7,-16.02,-1.68,150,Bhaskar will not wait for me.,Baskar will not wait for me.,0.0,0.0
+-ki_down_01,kishore,kokoro hm_psi:0.55+bm_george:0.45,,1.6,-1.7,-16.02,-1.68,149,The river. Before dawn.,the river before dawn.,0.0,0.0
+-bh_taunt_01,bhaskar,kokoro hm_omega:0.5+am_onyx:0.5,take 1,2.04,-1.7,-16.39,-1.69,105,"Go home, investigator.","Go home, investigator.",0.0,0.0
+-bh_taunt_02,bhaskar,kokoro hm_omega:0.5+am_onyx:0.5,take 1,1.81,-1.7,-16.23,-1.71,103,You fight like a clerk.,You fight like a clerk.,0.0,0.0
+-ck_half_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.71,-1.7,-16.08,-1.67,120,Half the night is gone.,Half the night is gone.,0.0,0.0
+-ck_5_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.54,-1.7,-16.04,-1.7,133,Five minutes to dawn.,5 minutes to dawn,0.0,0.0
+-ck_1_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.36,-1.7,-16.08,-1.68,134,One minute. Run!,One minute run.,0.0,0.0
+-ck_pen_01,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.55,-1.7,-16.19,-1.67,106,That cost me time.,That cost me time.,0.0,0.0
+-ck_pen_02,aryan,kokoro hm_omega:0.75+am_onyx:0.25,,1.55,-1.7,-16.06,-1.72,112,Minutes I don't have.,Minutes I don't have.,0.0,0.0
+-np_puj_01,pujari,kokoro hm_psi:1.0,take 2 (slower),1.64,-1.7,-16.28,-1.7,122,"Please hurry, sir.","Please hurry, sir.",0.0,0.0
+-np_puj_02,pujari,kokoro hm_psi:1.0,,1.53,-1.7,-16.2,-1.69,129,May you find them all.,May you find them all.,0.0,0.0
+-np_puj_03,pujari,kokoro hm_psi:1.0,,1.61,-1.7,-16.44,-1.71,126,"You are back! Come, come.","You are back, come, come.",0.0,0.0
+-np_mee_01,meera,kokoro hf_alpha:1.0,,1.23,-2.7,-15.99,-2.69,244,"Be careful, sir.",Be careful sir.,0.0,0.0
+-np_mee_02,meera,kokoro hf_alpha:1.0,,1.9,-1.7,-15.99,-1.71,235,The whole village is awake.,The whole village is awake.,0.0,0.0
+-np_mad_01,madhav,kokoro hm_psi:0.6+bm_fable:0.4,take 4 (pause at comma),1.48,-1.7,-16.09,-1.67,148,"Long night, sir?","Long night, sir.",0.0,0.0
+-np_mad_02,madhav,kokoro hm_psi:0.6+bm_fable:0.4,,2.37,-1.7,-16.39,-1.7,131,"The keys? Safe with me, always.","The keys, safe with me always.",0.0,0.0
+-vl_m_01,villager_m,kokoro hm_psi:1.0,take 2 (slower),1.21,-1.7,-16.33,-1.69,156,"Up early, sir?",Up early sir.,0.0,0.0
+-vl_m_02,villager_m,kokoro hm_psi:1.0,,2.1,-1.7,-16.43,-1.67,157,The temple bell is silent tonight.,The temple bell is silent tonight.,0.0,0.0
+-vl_m_03,villager_m,kokoro hm_psi:1.0,,1.57,-1.7,-16.12,-1.68,171,Thieves? In Suryapur?,Thieves in Sariyapur.,0.0,0.0
+-vl_f_01,villager_f,kokoro hf_beta:1.0,,1.21,-1.8,-15.98,-1.78,189,"You're up early, sir.","You're up early, sir.",0.0,0.0
+-vl_f_02,villager_f,kokoro hf_beta:1.0,,1.76,-1.7,-16.2,-1.66,199,We are praying for the festival.,We are praying for the festival.,0.0,0.0
+-vl_f_03,villager_f,kokoro hf_beta:1.0,take 1,1.27,-1.7,-16.08,-1.7,197,"Mind the cart, sir.",Mind the card say.,0.67,0.5
+-end_narr_01,narrator,kokoro hf_beta:0.5+bf_emma:0.5,,6.84,-1.7,-16.2,-1.59,176,Every temple holds a story. Every artifact carries a memory. Protecting heritage means protecting our history.,Every temple holds a story. Every artifact carries a memory.  Protecting heritage means protecting our history.,0.0,0.0
++rem_pujari_obj_c0_reach,pujari,kokoro hm_psi:1.0,take 1,1.99,-1.9,-16.0,-1.89,122,Follow the road to our temple.,,,
++rem_meera_obj_c0_reach,meera,kokoro hf_alpha:1.0,take 1,2.18,-1.7,-16.03,-1.72,223,Follow the road towards the temple.,,,
++rem_pujari_obj_v3_pujari,pujari,kokoro hm_psi:1.0,take 1,1.99,-1.7,-16.04,-1.7,129,"Please, meet me by the steps.",,,
++rem_meera_obj_v3_pujari,meera,kokoro hf_alpha:1.0,take 1,1.88,-1.7,-15.98,-1.71,224,The priest waits by the steps.,,,
++rem_pujari_obj_v3_bazaar,pujari,kokoro hm_psi:1.0,take 1,1.7,-1.7,-16.18,-1.7,119,Ask around the bazaar.,,,
++rem_meera_obj_v3_bazaar,meera,kokoro hf_alpha:1.0,take 1,1.77,-1.7,-15.99,-1.71,240,Follow the man with the bell.,,,
++rem_pujari_obj_v3_storeroom,pujari,kokoro hm_psi:1.0,take 1,2.8,-1.7,-16.46,-1.7,125,Look closely around the broken storeroom.,,,
++rem_meera_obj_v3_storeroom,meera,kokoro hf_alpha:1.0,take 1,2.12,-1.7,-16.02,-1.71,226,The storeroom may hold more clues.,,,
++rem_pujari_obj_v3_vaults,pujari,kokoro hm_psi:1.0,take 1,2.35,-1.7,-16.29,-1.71,123,The old vaults lie behind us.,,,
++rem_meera_obj_v3_vaults,meera,kokoro hf_alpha:1.0,take 1,2.01,-1.7,-16.02,-1.7,215,Try the vaults behind the temple.,,,
++rem_pujari_obj_v3_stepwell,pujari,kokoro hm_psi:1.0,take 1,2.1,-1.7,-16.15,-1.7,123,Follow the marks by the stepwell.,,,
++rem_meera_obj_v3_stepwell,meera,kokoro hf_alpha:1.0,take 1,1.89,-1.7,-16.0,-1.71,237,They went towards the old well.,,,
++rem_pujari_obj_v3_sunwall,pujari,kokoro hm_psi:1.0,take 1,2.23,-1.7,-16.4,-1.69,127,Study the symbols on the wall.,,,
++rem_meera_obj_v3_sunwall,meera,kokoro hf_alpha:1.0,take 1,1.87,-2.4,-15.98,-2.39,240,The light may reveal the way.,,,
++rem_pujari_obj_v3_jungle,pujari,kokoro hm_psi:1.0,take 1,2.27,-1.7,-16.12,-1.71,120,Follow the north road carefully.,,,
++rem_meera_obj_v3_jungle,meera,kokoro hf_alpha:1.0,take 1,2.2,-2.5,-16.02,-2.5,220,Your jeep waits on the north road.,,,
++rem_pujari_obj_return,pujari,kokoro hm_psi:1.0,take 1,2.07,-1.7,-16.08,-1.68,132,You brought our memories home.,,,
++rem_meera_obj_return,meera,kokoro hf_alpha:1.0,take 1,2.05,-1.7,-16.0,-1.72,214,Bring the treasures back to Ananda.,,,
++rem_pujari_end,pujari,kokoro hm_psi:1.0,take 1,2.73,-1.7,-16.33,-1.69,123,Thank you for protecting our heritage.,,,
++rem_meera_end,meera,kokoro hf_alpha:1.0,take 1,2.21,-1.7,-16.0,-1.72,222,Our village will remember your help.,,,
+diff --git a/Docs/VOICE_LINES.csv b/Docs/VOICE_LINES.csv
+index 7ff512a..9366b8e 100644
+--- a/Docs/VOICE_LINES.csv
++++ b/Docs/VOICE_LINES.csv
+@@ -165,3 +165,23 @@ vl_f_01,villager_f,"You're up early, sir.",npc_near,speaker=villager_f,1,30,0.5,
+ vl_f_02,villager_f,We are praying for the festival.,npc_near,speaker=villager_f,1,30,0.5,0,1,none,Assets/_Project/Audio/Voice/Villager/vl_f_02.wav,new,
+ vl_f_03,villager_f,"Mind the cart, sir.",npc_near,speaker=villager_f,1,30,0.5,0,1,none,Assets/_Project/Audio/Voice/Villager/vl_f_03.wav,new,
+ end_narr_01,narrator,Every temple holds a story. Every artifact carries a memory. Protecting heritage means protecting our history.,ending,,5,0,1.0,1,1,none,Assets/_Project/Audio/Voice/Narrator/end_narr_01.wav,new,
++rem_pujari_obj_c0_reach,pujari,Follow the road to our temple.,story,,5,0,1.0,0,1,none,Assets/_Project/Audio/Voice/Pujari/rem_pujari_obj_c0_reach.wav,fixpass reminder,Short recorded replacement for generated objective reminder
++rem_meera_obj_c0_reach,meera,Follow the road towards the temple.,story,,5,0,1.0,0,1,none,Assets/_Project/Audio/Voice/Meera/rem_meera_obj_c0_reach.wav,fixpass reminder,Short recorded replacement for generated objective reminder
++rem_pujari_obj_v3_pujari,pujari,"Please, meet me by the steps.",story,,5,0,1.0,0,1,none,Assets/_Project/Audio/Voice/Pujari/rem_pujari_obj_v3_pujari.wav,fixpass reminder,Short recorded replacement for generated objective reminder
++rem_meera_obj_v3_pujari,meera,The priest waits by the steps.,story,,5,0,1.0,0,1,none,Assets/_Project/Audio/Voice/Meera/rem_meera_obj_v3_pujari.wav,fixpass reminder,Short recorded replacement for generated objective reminder
++rem_pujari_obj_v3_bazaar,pujari,Ask around the bazaar.,story,,5,0,1.0,0,1,none,Assets/_Project/Audio/Voice/Pujari/rem_pujari_obj_v3_bazaar.wav,fixpass reminder,Short recorded replacement for generated objective reminder
++rem_meera_obj_v3_bazaar,meera,Follow the man with the bell.,story,,5,0,1.0,0,1,none,Assets/_Project/Audio/Voice/Meera/rem_meera_obj_v3_bazaar.wav,fixpass reminder,Short recorded replacement for generated objective reminder
++rem_pujari_obj_v3_storeroom,pujari,Look closely around the broken storeroom.,story,,5,0,1.0,0,1,none,Assets/_Project/Audio/Voice/Pujari/rem_pujari_obj_v3_storeroom.wav,fixpass reminder,Short recorded replacement for generated objective reminder
++rem_meera_obj_v3_storeroom,meera,The storeroom may hold more clues.,story,,5,0,1.0,0,1,none,Assets/_Project/Audio/Voice/Meera/rem_meera_obj_v3_storeroom.wav,fixpass reminder,Short recorded replacement for generated objective reminder
++rem_pujari_obj_v3_vaults,pujari,The old vaults lie behind us.,story,,5,0,1.0,0,1,none,Assets/_Project/Audio/Voice/Pujari/rem_pujari_obj_v3_vaults.wav,fixpass reminder,Short recorded replacement for generated objective reminder
++rem_meera_obj_v3_vaults,meera,Try the vaults behind the temple.,story,,5,0,1.0,0,1,none,Assets/_Project/Audio/Voice/Meera/rem_meera_obj_v3_vaults.wav,fixpass reminder,Short recorded replacement for generated objective reminder
++rem_pujari_obj_v3_stepwell,pujari,Follow the marks by the stepwell.,story,,5,0,1.0,0,1,none,Assets/_Project/Audio/Voice/Pujari/rem_pujari_obj_v3_stepwell.wav,fixpass reminder,Short recorded replacement for generated objective reminder
++rem_meera_obj_v3_stepwell,meera,They went towards the old well.,story,,5,0,1.0,0,1,none,Assets/_Project/Audio/Voice/Meera/rem_meera_obj_v3_stepwell.wav,fixpass reminder,Short recorded replacement for generated objective reminder
++rem_pujari_obj_v3_sunwall,pujari,Study the symbols on the wall.,story,,5,0,1.0,0,1,none,Assets/_Project/Audio/Voice/Pujari/rem_pujari_obj_v3_sunwall.wav,fixpass reminder,Short recorded replacement for generated objective reminder
++rem_meera_obj_v3_sunwall,meera,The light may reveal the way.,story,,5,0,1.0,0,1,none,Assets/_Project/Audio/Voice/Meera/rem_meera_obj_v3_sunwall.wav,fixpass reminder,Short recorded replacement for generated objective reminder
++rem_pujari_obj_v3_jungle,pujari,Follow the north road carefully.,story,,5,0,1.0,0,1,none,Assets/_Project/Audio/Voice/Pujari/rem_pujari_obj_v3_jungle.wav,fixpass reminder,Short recorded replacement for generated objective reminder
++rem_meera_obj_v3_jungle,meera,Your jeep waits on the north road.,story,,5,0,1.0,0,1,none,Assets/_Project/Audio/Voice/Meera/rem_meera_obj_v3_jungle.wav,fixpass reminder,Short recorded replacement for generated objective reminder
++rem_pujari_obj_return,pujari,You brought our memories home.,story,,5,0,1.0,0,1,none,Assets/_Project/Audio/Voice/Pujari/rem_pujari_obj_return.wav,fixpass reminder,Short recorded replacement for generated objective reminder
++rem_meera_obj_return,meera,Bring the treasures back to Ananda.,story,,5,0,1.0,0,1,none,Assets/_Project/Audio/Voice/Meera/rem_meera_obj_return.wav,fixpass reminder,Short recorded replacement for generated objective reminder
++rem_pujari_end,pujari,Thank you for protecting our heritage.,story,,5,0,1.0,0,1,none,Assets/_Project/Audio/Voice/Pujari/rem_pujari_end.wav,fixpass reminder,Short recorded replacement for generated objective reminder
++rem_meera_end,meera,Our village will remember your help.,story,,5,0,1.0,0,1,none,Assets/_Project/Audio/Voice/Meera/rem_meera_end.wav,fixpass reminder,Short recorded replacement for generated objective reminder
+diff --git a/ProjectSettings/DynamicsManager.asset b/ProjectSettings/DynamicsManager.asset
+index 83f2516..f7d53f5 100644
+--- a/ProjectSettings/DynamicsManager.asset
++++ b/ProjectSettings/DynamicsManager.asset
+@@ -3,10 +3,10 @@
+ --- !u!55 &1
+ PhysicsManager:
+   m_ObjectHideFlags: 0
+-  serializedVersion: 23
++  serializedVersion: 24
+   m_Gravity: {x: 0, y: -9.81, z: 0}
+   m_DefaultMaterial: {fileID: 0}
+-  m_BounceThreshold: 2
++  m_BounceThreshold: 1
+   m_DefaultMaxDepenetrationVelocity: 10
+   m_SleepThreshold: 0.005
+   m_DefaultContactOffset: 0.01
+@@ -17,8 +17,9 @@ PhysicsManager:
+   m_EnableAdaptiveForce: 0
+   m_ClothInterCollisionDistance: 0.1
+   m_ClothInterCollisionStiffness: 0.2
+-  m_LayerCollisionMatrix: {_typeName: unsigned int, _data: ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff}
++  m_LayerCollisionMatrix: ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffu
+   m_SimulationMode: 0
++  m_ThreadingMode: 0
+   m_AutoSyncTransforms: 0
+   m_ReuseCollisionCallbacks: 1
+   m_InvokeCollisionCallbacks: 1
+diff --git a/ProjectSettings/EditorBuildSettings.asset b/ProjectSettings/EditorBuildSettings.asset
+index 0ff3dca..89c92c7 100644
+--- a/ProjectSettings/EditorBuildSettings.asset
++++ b/ProjectSettings/EditorBuildSettings.asset
+@@ -5,6 +5,9 @@ EditorBuildSettings:
+   m_ObjectHideFlags: 0
+   serializedVersion: 2
+   m_Scenes:
++  - enabled: 1
++    path: Assets/CarFootball/Scenes/CarFootballScene.unity
++    guid: 9b55b93cfc6db49ddbf56ce18b8b6bd1
+   - enabled: 1
+     path: Assets/_Project/Scenes/Dev/MainMenu.unity
+     guid: 124e6ff76f8094a78adb33e2fe654ad6
+diff --git a/ProjectSettings/TagManager.asset b/ProjectSettings/TagManager.asset
+index 6413d11..7ecb174 100644
+--- a/ProjectSettings/TagManager.asset
++++ b/ProjectSettings/TagManager.asset
+@@ -2,8 +2,9 @@
+ %TAG !u! tag:unity3d.com,2011:
+ --- !u!78 &1
+ TagManager:
+-  serializedVersion: 2
+-  tags: []
++  serializedVersion: 3
++  tags:
++  - Ball
+   layers:
+   - Default
+   - TransparentFX
+@@ -50,27 +51,4 @@ TagManager:
+   - Light Layer 5
+   - Light Layer 6
+   - Light Layer 7
+-  - 
+-  - 
+-  - 
+-  - 
+-  - 
+-  - 
+-  - 
+-  - 
+-  - 
+-  - 
+-  - 
+-  - 
+-  - 
+-  - 
+-  - 
+-  - 
+-  - 
+-  - 
+-  - 
+-  - 
+-  - 
+-  - 
+-  - 
+-  - 
++  m_MigratedRenderPipelines: []
+diff --git a/ProjectSettings/URPProjectSettings.asset b/ProjectSettings/URPProjectSettings.asset
+index 64a8674..6ad5631 100644
+--- a/ProjectSettings/URPProjectSettings.asset
++++ b/ProjectSettings/URPProjectSettings.asset
+@@ -13,3 +13,4 @@ MonoBehaviour:
+   m_Name: 
+   m_EditorClassIdentifier: 
+   m_LastMaterialVersion: 10
++  m_ProjectSettingFolderPath: URPDefaultResources

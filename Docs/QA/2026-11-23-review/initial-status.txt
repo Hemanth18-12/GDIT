@@ -1,0 +1,9 @@
+ M Assets/_Project/Resources/build_stamp.txt
+ M Docs/EXPLAINED.md
+ M ProjectSettings/DynamicsManager.asset
+ M ProjectSettings/EditorBuildSettings.asset
+ M ProjectSettings/TagManager.asset
+ M ProjectSettings/URPProjectSettings.asset
+?? Assets/CarFootball.meta
+?? Assets/CarFootball/
+?? Evaluation/

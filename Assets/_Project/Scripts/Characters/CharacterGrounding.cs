@@ -6,7 +6,7 @@ namespace LegacyOfTemples.Characters
     public sealed class CharacterGrounding : MonoBehaviour
     {
         [SerializeField] private LayerMask groundLayers = ~0;
-        [SerializeField, Min(0.01f)] private float snapDistance = 0.4f;
+        [SerializeField, Min(0.01f)] private float snapDistance = 0.55f;
         [SerializeField] private float footClearance = 0.005f;
         private readonly RaycastHit[] hits = new RaycastHit[64];
         private CharacterController controller;

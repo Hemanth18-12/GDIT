@@ -131,10 +131,11 @@ namespace LegacyOfTemples.UI
                     first = AddButton("Text size: " + TextSizes[Mathf.Clamp(ts, 0, 3)], () => { PlayerPrefs.SetInt("Settings_TextScaleIndex", (ts + 1) % 4); PlayerPrefs.Save(); Show(Screen.Settings); });
                     bool hc = ScreenTextRenderer.HighContrast;
                     AddButton("High contrast: " + (hc ? "ON" : "OFF"), () => { PlayerPrefs.SetInt("Settings_HighContrast", hc ? 0 : 1); PlayerPrefs.Save(); Show(Screen.Settings); });
-                    AddVolume("Master volume", "Settings_MasterVol", 1f, v => AudioManager.Instance?.SetMasterVolume(v));
-                    AddVolume("Music volume", "Settings_MusicVol", 0.8f, v => AudioManager.Instance?.SetMusicVolume(v));
-                    AddVolume("Effects volume", "Settings_SfxVol", 0.9f, v => AudioManager.Instance?.SetSFXVolume(v));
-                    AddVolume("Voice volume", "Settings_VoiceVol", 1f, v => { });
+                    AddVolume("Master volume", "Settings_MasterVol", 1f, v => { PlayerPrefs.SetFloat("Volume_Master", v); AudioManager.Instance?.SetMasterVolume(v); });
+                    AddVolume("Music volume", "Settings_MusicVol", 0.7f, v => { PlayerPrefs.SetFloat("Volume_Music", v); AudioManager.Instance?.SetMusicVolume(v); });
+                    AddVolume("Ambience volume", "Settings_AmbienceVol", 0.6f, v => AudioManager.Instance?.SetAmbienceVolume(v));
+                    AddVolume("Effects volume", "Settings_SfxVol", 0.9f, v => { PlayerPrefs.SetFloat("Volume_SFX", v); AudioManager.Instance?.SetSFXVolume(v); });
+                    AddVolume("Voice volume", "Settings_VoiceVol", 1f, v => { VoicePlayer.Volume = v; AudioManager.Instance?.SetVoiceVolume(v); });
                     bool sub = PlayerPrefs.GetInt("Settings_Subtitles", 1) == 1;
                     AddButton("Subtitles: " + (sub ? "ON" : "OFF"), () => { PlayerPrefs.SetInt("Settings_Subtitles", sub ? 0 : 1); PlayerPrefs.Save(); Show(Screen.Settings); });
                     int q = QualitySettings.GetQualityLevel();

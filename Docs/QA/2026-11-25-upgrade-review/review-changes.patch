@@ -1,0 +1,406 @@
+--- before/Core/AudioManager.cs
++++ after/Core/AudioManager.cs
+@@ -214,7 +214,7 @@
+             if (clip == null) return;
+ 
+             ambienceSource.clip = clip;
+-            ambienceSource.volume = masterVolume * musicVolume * 0.75f;
++            ambienceSource.volume = masterVolume * ambienceVolume * 0.75f;
+             ambienceSource.Play();
+         }
+ 
+@@ -285,35 +285,39 @@
+         public void SetMasterVolume(float vol)
+         {
+             masterVolume = Mathf.Clamp01(vol);
++            PlayerPrefs.SetFloat("Settings_MasterVol", masterVolume);
+             PlayerPrefs.SetFloat("Volume_Master", masterVolume);
++            PlayerPrefs.Save();
+             ApplyVolumes();
+         }
+ 
+         public void SetMusicVolume(float vol)
+         {
+             musicVolume = Mathf.Clamp01(vol);
++            PlayerPrefs.SetFloat("Settings_MusicVol", musicVolume);
+             PlayerPrefs.SetFloat("Volume_Music", musicVolume);
++            PlayerPrefs.Save();
+             ApplyVolumes();
+         }
+ 
+         public void SetSFXVolume(float vol)
+         {
+             sfxVolume = Mathf.Clamp01(vol);
++            PlayerPrefs.SetFloat("Settings_SfxVol", sfxVolume);
+             PlayerPrefs.SetFloat("Volume_SFX", sfxVolume);
++            PlayerPrefs.Save();
+             ApplyVolumes();
+         }
+ 
+         public void SetDialogueVolume(float vol)
+         {
+-            dialogueVolume = Mathf.Clamp01(vol);
+-            PlayerPrefs.SetFloat("Volume_Dialogue", dialogueVolume);
+-            ApplyVolumes();
++            SetVoiceVolume(vol);
+         }
+ 
+         private void ApplyVolumes()
+         {
+             if (bgmSource != null) bgmSource.volume = masterVolume * musicVolume * duckFactor;
+-            if (ambienceSource != null) ambienceSource.volume = masterVolume * musicVolume * 0.75f;
++            if (ambienceSource != null) ambienceSource.volume = masterVolume * ambienceVolume * 0.75f;
+             if (sfxSource != null) sfxSource.volume = masterVolume * sfxVolume;
+             if (footstepSource != null) footstepSource.volume = masterVolume * sfxVolume * 0.6f;
+             if (dialogueSource != null) dialogueSource.volume = masterVolume * dialogueVolume;
+--- before/Gameplay/NewZones/MarketArt.cs
++++ after/Gameplay/NewZones/MarketArt.cs
+@@ -45,6 +45,7 @@
+             {
+                 Vector3 d = points[i] - points[i - 1]; var r = Box(p, "Gravel road", (points[i] + points[i - 1]) * 0.5f + Vector3.up * 0.01f, new Vector3(width, 0.06f, d.magnitude + 0.4f), "stony_dirt_path", solid);
+                 r.transform.localRotation = Quaternion.LookRotation(d);
++                if (solid && width >= 6f) r.AddComponent<DriveableRoad>();
+             }
+         }
+     }
+--- before/Gameplay/NewZones/NewSunWall.cs
++++ after/Gameplay/NewZones/NewSunWall.cs
+@@ -47,7 +47,9 @@
+             MarketArt.Box(r, "Sun Plaza Sandstone Floor", plazaOrigin + new Vector3(0f, -0.05f, 0f), new Vector3(45f, 0.3f, 45f), "sandstone_blocks_08");
+ 
+             // Massive Monumental Sun Wall on the East (z = 100-150, x = 86)
+-            MarketArt.Box(r, "Sun Wall Monument", plazaOrigin + new Vector3(21f, 6f, 0f), new Vector3(2.5f, 12f, 44f), "sandstone_blocks_08");
++            MarketArt.Box(r, "Sun Wall North", plazaOrigin + new Vector3(21f, 6f, 12f), new Vector3(2.5f, 12f, 20f), "sandstone_blocks_08");
++            MarketArt.Box(r, "Sun Wall South", plazaOrigin + new Vector3(21f, 6f, -12f), new Vector3(2.5f, 12f, 20f), "sandstone_blocks_08");
++            MarketArt.Box(r, "Sun Wall Lintel", plazaOrigin + new Vector3(21f, 9f, 0f), new Vector3(2.5f, 6f, 4f), "sandstone_blocks_08");
+ 
+             // Four carved relief panels along the wall (Lotus, Conch, Wheel, Kalash)
+             string[] symbols = { "LOTUS", "CONCH", "WHEEL", "KALASH" };
+@@ -59,36 +61,46 @@
+             }
+ 
+             // High Sun Altar with Light Beam Emitter
+-            var altarObj = MarketArt.Box(r, "Sun Altar", plazaOrigin + new Vector3(-16f, 2f, -16f), new Vector3(3.2f, 4f, 3.2f), "sandstone_blocks_08");
+-            Emitter = altarObj.AddComponent<LightBeamEmitter>();
++            MarketArt.Box(r, "Sun Altar", plazaOrigin + new Vector3(-16f, 1.3f, -16f), new Vector3(3.2f, 2.4f, 3.2f), "sandstone_blocks_08");
++            var emitterObj = new GameObject("Sunlight aperture");
++            emitterObj.transform.SetParent(r, false);
++            emitterObj.transform.localPosition = plazaOrigin + new Vector3(-16f, 2.8f, -14.2f);
++            var beam = emitterObj.AddComponent<LineRenderer>();
++            beam.useWorldSpace = true; beam.widthMultiplier = 0.12f; beam.numCapVertices = 4;
++            beam.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
++            beam.sharedMaterial = Fx.Res("Glow") ?? ZoneKit.Tinted("clay_plaster", Color.white, 0f, new Color(3f, 2.4f, 1.2f));
++            beam.startColor = beam.endColor = new Color(1f, 0.88f, 0.4f);
++            Emitter = emitterObj.AddComponent<LightBeamEmitter>(); Emitter.line = beam;
+             Emitter.maxDistance = 50f;
+ 
+             // Mirror A on pedestal at (plazaOrigin + (-16, 1.2, 12))
+-            var mirAObj = ZoneKit.Round(r, "Mirror A Pedestal", plazaOrigin + new Vector3(-16f, 1f, 12f), new Vector3(1.2f, 2f, 1.2f), ZoneKit.Tinted("sandstone_blocks_08", Color.white, 0.2f), true);
+-            ZoneKit.Reach(mirAObj, 1.4f);
+-            MirrorA = mirAObj.AddComponent<LightMirror>();
+-            MirrorA.elementId = "nz5.mirror_a";
+-            MirrorA.steps = 8;
+-            MirrorA.radius = 2.4f;
++            Vector3 mirrorA = plazaOrigin + new Vector3(-16f, 2.8f, 12f);
++            Vector3 mirrorB = plazaOrigin + new Vector3(12f, 2.8f, 12f);
++            Vector3 socketPosition = plazaOrigin + new Vector3(18.9f, 2.8f, 0f);
++            MirrorA = BuildMirror(r, "Mirror A", mirrorA, 90f, "nz5.mirror_a");
+ 
+             // Mirror B on pedestal at (plazaOrigin + (12, 1.2, 12))
+-            var mirBObj = ZoneKit.Round(r, "Mirror B Pedestal", plazaOrigin + new Vector3(12f, 1f, 12f), new Vector3(1.2f, 2f, 1.2f), ZoneKit.Tinted("sandstone_blocks_08", Color.white, 0.2f), true);
+-            ZoneKit.Reach(mirBObj, 1.4f);
+-            MirrorB = mirBObj.AddComponent<LightMirror>();
+-            MirrorB.elementId = "nz5.mirror_b";
+-            MirrorB.steps = 8;
+-            MirrorB.radius = 2.4f;
++            Vector3 incoming = (mirrorB - mirrorA).normalized;
++            Vector3 outgoing = (socketPosition - mirrorB).normalized;
++            float solvedYaw = Quaternion.LookRotation((outgoing - incoming).normalized).eulerAngles.y;
++            MirrorB = BuildMirror(r, "Mirror B", mirrorB, solvedYaw - 90f, "nz5.mirror_b");
+ 
+             // Light Socket on the Chariot Wheel Hub at (plazaOrigin + (19.4, 3.5, 0))
+             var sockObj = new GameObject("Chariot Wheel Light Socket");
+             sockObj.transform.SetParent(r, false);
+-            sockObj.transform.localPosition = plazaOrigin + new Vector3(19.2f, 3.5f, 0f);
++            sockObj.transform.localPosition = socketPosition;
+             ZoneKit.Reach(sockObj, 1.2f);
+             WheelSocket = sockObj.AddComponent<LightSocket>();
+             WheelSocket.elementId = "nz5.wheel_socket";
++            WheelSocket.holdSeconds = 0.35f;
++            var receiver = GameObject.CreatePrimitive(PrimitiveType.Sphere);
++            receiver.name = "Light receiver"; receiver.transform.SetParent(sockObj.transform, false);
++            receiver.transform.localScale = Vector3.one * 1.1f;
++            WheelSocket.glow = receiver.GetComponent<Renderer>();
++            WheelSocket.glow.sharedMaterial = ZoneKit.Tinted("clay_plaster", new Color(0.65f, 0.45f, 0.12f), 0.8f, new Color(1f, 0.6f, 0.1f));
+ 
+             // Monumental Konark Chariot Wheel (4.5m diameter rotating disc)
+-            var wheelObj = ZoneKit.Round(r, "Grand Chariot Wheel", plazaOrigin + new Vector3(19.6f, 3.5f, 0f), new Vector3(5.2f, 0.4f, 5.2f), ZoneKit.Tinted("sandstone_blocks_08", new Color(0.82f, 0.75f, 0.6f), 0.35f), true);
++            var wheelObj = ZoneKit.Round(r, "Grand Chariot Wheel", plazaOrigin + new Vector3(19.6f, 2.8f, 0f), new Vector3(5.2f, 0.4f, 5.2f), ZoneKit.Tinted("sandstone_blocks_08", new Color(0.82f, 0.75f, 0.6f), 0.35f), false);
+             wheelObj.transform.localRotation = Quaternion.Euler(0f, 0f, 90f);
+             ZoneKit.Reach(wheelObj, 2.2f);
+             ChariotWheel = wheelObj.AddComponent<RotatingDisc>();
+@@ -135,6 +147,21 @@
+             Debug.Log("[NewSunWall] built: Sun Wall monument, rotatable mirrors, Konark Chariot Wheel & Kishore fight");
+         }
+ 
++        static LightMirror BuildMirror(Transform parent, string name, Vector3 position, float restYaw, string id)
++        {
++            ZoneKit.Round(parent, name + " pedestal", new Vector3(position.x, 0.8f, position.z), new Vector3(1.2f, 0.7f, 1.2f), ZoneKit.Tinted("sandstone_blocks_08", Color.white, 0.2f), true);
++            MarketArt.Box(parent, name + " support", new Vector3(position.x, 1.9f, position.z), new Vector3(0.18f, 1f, 0.18f), "sandstone_blocks_08", false);
++            var pivot = new GameObject(name);
++            pivot.transform.SetParent(parent, false); pivot.transform.localPosition = position;
++            pivot.transform.localRotation = Quaternion.Euler(0f, restYaw, 0f);
++            var plate = ZoneKit.Part(pivot.transform, "Bronze mirror face", Vector3.zero, new Vector3(1.8f, 1.8f, 0.12f), ZoneKit.Tinted("clay_plaster", new Color(0.8f, 0.64f, 0.3f), 0.95f), true);
++            plate.GetComponent<Renderer>().sharedMaterial.SetFloat("_Metallic", 0.9f);
++            ZoneKit.Reach(pivot, 1.4f);
++            var mirror = pivot.AddComponent<LightMirror>();
++            mirror.elementId = id; mirror.steps = 8; mirror.radius = 3.6f; mirror.verb = "Turn " + name;
++            return mirror;
++        }
++
+         IEnumerator Start()
+         {
+             yield return null;
+--- before/Gameplay/TempleSite.cs
++++ after/Gameplay/TempleSite.cs
+@@ -50,7 +50,11 @@
+             Temple = res.root;
+             Bounds b = res.footprint;
+             Footprint = b;
+-            Triangles = 420;
++            Triangles = 0;
++            foreach (var filter in Temple.GetComponentsInChildren<MeshFilter>())
++                if (filter.sharedMesh != null)
++                    for (int sub = 0; sub < filter.sharedMesh.subMeshCount; sub++)
++                        Triangles += (int)filter.sharedMesh.GetIndexCount(sub) / 3;
+ 
+             // Seal the old black-shaded Sanctum portal box inside Courtyard.unity so players cannot enter darkness or get trapped.
+             SealCourtyardBlackGate(top);
+@@ -87,9 +91,14 @@
+                     var mr = st.GetComponent<MeshRenderer>(); if (mr != null) mr.enabled = false;
+                     var col = st.GetComponent<Collider>(); if (col != null) col.isTrigger = false;
+                     st.enabled = false;
+-                    var blocker = Village.Box(null, "Courtyard_Sanctum_ClosedDoors", new Vector3(p.x, groundY + 1.6f, p.z), new Vector3(3.8f, 3.2f, 0.8f), "medieval_wood", 1.5f, true);
+-                    var stoneTrim = Village.Box(blocker.transform, "Doors_Frame", new Vector3(0f, 0f, 0.1f), new Vector3(1.1f, 1.08f, 1.15f), "sandstone_blocks_08", 2f, true);
+-                    stoneTrim.transform.localScale = new Vector3(4.3f, 3.5f, 0.45f);
++                    // Keep the frame under an unscaled root: parenting it to the door cube
++                    // multiplied its dimensions into an oversized solid slab.
++                    var doorway = new GameObject("Courtyard_Sanctum_ClosedDoors").transform;
++                    doorway.position = new Vector3(p.x, groundY, p.z);
++                    Village.Box(doorway, "Closed wooden doors", new Vector3(0f, 1.6f, 0f), new Vector3(3.8f, 3.2f, 0.8f), "medieval_wood", 1.5f, true);
++                    for (int side = -1; side <= 1; side += 2)
++                        Village.Box(doorway, "Stone door jamb", new Vector3(side * 2.06f, 1.7f, 0f), new Vector3(0.32f, 3.4f, 1.05f), "sandstone_blocks_08", 2f, true);
++                    Village.Box(doorway, "Stone door lintel", new Vector3(0f, 3.5f, 0f), new Vector3(4.45f, 0.35f, 1.05f), "sandstone_blocks_08", 2f, true);
+                 }
+             }
+             // Also neutralize any pure black "mat_SanctumDarkness" box inside Courtyard
+--- before/Gameplay/Vehicles/Jeep.cs
++++ after/Gameplay/Vehicles/Jeep.cs
+@@ -649,6 +649,9 @@
+ 
+         public void RepairAndResetToRoad()
+         {
++            // Restoring mesh snapshots can restore the root's original local position too.
++            // Select the road around the crash, not around that original spawn position.
++            Vector3 refPos = transform.position;
+             foreach (var s in partSnapshots)
+             {
+                 if (s.part == null) continue;
+@@ -683,9 +686,10 @@
+             if (hood != null) hood.localRotation = hoodClosed;
+             if (rb != null) { rb.linearVelocity = Vector3.zero; rb.angularVelocity = Vector3.zero; }
+ 
+-            Vector3 refPos = Occupied ? transform.position : (FindAnyObjectByType<PlayerController>() != null ? FindAnyObjectByType<PlayerController>().transform.position : transform.position);
+             FindSafeRoadPose(refPos, out Vector3 safePos, out Quaternion safeRot);
+             transform.SetPositionAndRotation(safePos, safeRot);
++            if (rb != null) { rb.position = safePos; rb.rotation = safeRot; }
++            Physics.SyncTransforms();
+             if (follow != null && Occupied) follow.Snap();
+             AudioManager.Instance?.PlaySFX("sfx_checkpoint", 0.7f);
+             repairToastUntil = Time.unscaledTime + 2.8f;
+@@ -698,18 +702,20 @@
+             string scene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+             if (Constants.IsNewWorld(scene))
+             {
+-                Vector3[] wps = {
+-                    new Vector3(0f, 0.2f, -38f), new Vector3(0f, 0.2f, -5f), new Vector3(0f, 0.2f, 35f), new Vector3(0f, 0.2f, 75f),
+-                    new Vector3(-24f, 0.2f, -8f), new Vector3(-52f, 0.2f, -20f),
+-                    new Vector3(0f, 0.2f, 92f), new Vector3(-30f, 0.2f, 100f), new Vector3(32f, 0.2f, 108f),
+-                    new Vector3(26f, 0.2f, 152f), new Vector3(26f, 0.2f, 176f), new Vector3(0f, 0.2f, 195f),
+-                    new Vector3(0f, 0.2f, 250f), new Vector3(0f, 0.2f, 310f), new Vector3(0f, 0.2f, 370f), new Vector3(0f, 0.2f, 412f)
+-                };
+-                foreach (var w in wps) list.Add((w, w.x < -10f && w.z < 50f ? 270f : 0f));
++                foreach (var road in FindObjectsByType<DriveableRoad>())
++                {
++                    Vector3 nearest = road.ClosestPoint(around);
++                    float heading = Quaternion.LookRotation(road.End - road.Start).eulerAngles.y;
++                    // Try the closest road location first, then clear points farther along the same lane.
++                    list.Add((nearest, heading));
++                    list.Add((Vector3.Lerp(road.Start, road.End, 0.25f), heading));
++                    list.Add((Vector3.Lerp(road.Start, road.End, 0.75f), heading));
++                }
+                 list.Sort((a, b) => Vector3.SqrMagnitude(Flat(a.pos - around)).CompareTo(Vector3.SqrMagnitude(Flat(b.pos - around))));
+             }
+             float baseYaw = transform.eulerAngles.y;
+-            for (int r = 0; r <= 3; r++)
++            bool localSearch = list.Count == 0;
++            for (int r = 0; localSearch && r <= 3; r++)
+             {
+                 float d = r * 3.5f;
+                 Vector3[] dirs = { Vector3.zero, Vector3.right, -Vector3.right, Vector3.forward, -Vector3.forward };
+@@ -717,8 +723,16 @@
+             }
+             foreach (var c in list)
+             {
+-                if (!Physics.Raycast(c.pos + Vector3.up * 6f, Vector3.down, out RaycastHit h, 18f, ~0, QueryTriggerInteraction.Ignore)) continue;
+-                Vector3 p = new Vector3(c.pos.x, h.point.y + 0.15f, c.pos.z);
++                // Ignore our own roof, player and detached parts when looking for the road surface.
++                RaycastHit? surface = null;
++                foreach (var hit in Physics.RaycastAll(c.pos + Vector3.up * 6f, Vector3.down, 18f, ~0, QueryTriggerInteraction.Ignore))
++                {
++                    if (hit.transform.IsChildOf(transform) || hit.transform.CompareTag("Player")) continue;
++                    if (Constants.IsNewWorld(scene) && hit.collider.GetComponent<DriveableRoad>() == null) continue;
++                    if (!surface.HasValue || hit.distance < surface.Value.distance) surface = hit;
++                }
++                if (!surface.HasValue) continue;
++                Vector3 p = new Vector3(c.pos.x, surface.Value.point.y + 0.15f, c.pos.z);
+                 Quaternion rot = Quaternion.Euler(0f, c.yaw, 0f);
+                 bool blocked = false;
+                 foreach (var hit in Physics.OverlapBox(p + Vector3.up * 1.45f, new Vector3(1.1f, 0.65f, 2.2f), rot, ~0, QueryTriggerInteraction.Ignore))
+--- before/UI/AuditBot.cs
++++ after/UI/AuditBot.cs
+@@ -57,6 +57,12 @@
+             Directory.CreateDirectory(output);
+             Line("# Runtime audit (" + DateTime.Now.ToString("yyyy-MM-dd HH:mm") + ", " + (Application.isEditor ? "Editor" : "Standalone") + ", " + Screen.width + "x" + Screen.height + ")");
+             yield return new WaitForSecondsRealtime(1.5f);
++            if (Array.IndexOf(Environment.GetCommandLineArgs(), "-reviewUpgrades") >= 0)
++            {
++                yield return ReviewUpgrades();
++                File.WriteAllText(Path.Combine(output, "audit.md"), report.ToString());
++                Application.Quit(); yield break;
++            }
+             if (Array.IndexOf(Environment.GetCommandLineArgs(), "-reviewLook") >= 0)
+             {
+                 yield return ReviewLooksAndStairs();
+@@ -2142,6 +2148,74 @@
+             return r;
+         }
+ 
++        private IEnumerator ReviewUpgrades()
++        {
++            StoryDialogueSystem.ResetForNewGame();
++            yield return SceneManager.LoadSceneAsync(Constants.Courtyard);
++            yield return new WaitForSecondsRealtime(7f);
++            yield return SkipIntro();
++            Time.timeScale = 1f;
++            yield return new WaitForSecondsRealtime(1f);
++            yield return Shot("01-courtyard-sealed-hud.png");
++            Line($"Courtyard minimap visible={MinimapHud.Visible}, raw temple={GameObject.Find("Temple_Game") != null}");
++
++            StoryDialogueSystem.ResetForNewGame();
++            yield return SceneManager.LoadSceneAsync(Constants.TempleRing);
++            yield return new WaitForSecondsRealtime(4f);
++            yield return SkipIntro();
++            Time.timeScale = 1f;
++            yield return new WaitForSecondsRealtime(1f);
++            var pc = FindAnyObjectByType<PlayerController>();
++            var orbit = FindAnyObjectByType<OrbitCamera>();
++            pc.Teleport(new Vector3(0f, 0.15f, 70f), Quaternion.identity);
++            Vector3 from = new Vector3(-10f, 6f, 57f);
++            orbit.SetCutsceneOverride(from, Quaternion.LookRotation(new Vector3(0f, 5f, 145f) - from));
++            yield return new WaitForSecondsRealtime(1f);
++            yield return Shot("02-temple-ring-minimap.png");
++            Line($"TempleRing minimap visible={MinimapHud.Visible}, roads={FindObjectsByType<DriveableRoad>().Length}");
++
++            var jeep = LegacyOfTemples.Gameplay.Vehicles.Jeep.Instance;
++            Vector3 crash = new Vector3(33f, 0.4f, 250f);
++            jeep.transform.SetPositionAndRotation(crash, Quaternion.Euler(0f, 40f, 75f));
++            var body = jeep.GetComponent<Rigidbody>(); body.position = crash; body.rotation = jeep.transform.rotation;
++            body.linearVelocity = Vector3.zero; body.angularVelocity = Vector3.zero;
++            pc.Teleport(crash + Vector3.right * 4f, Quaternion.identity);
++            Physics.SyncTransforms();
++            yield return new WaitForSecondsRealtime(0.2f);
++            yield return Tap(Key.R);
++            yield return new WaitForSecondsRealtime(0.5f);
++            from = jeep.transform.position + new Vector3(8f, 5f, -8f);
++            orbit.SetCutsceneOverride(from, Quaternion.LookRotation(jeep.transform.position + Vector3.up - from));
++            yield return Shot("03-jeep-r-road-reset.png");
++            Line($"R recovery: position={jeep.transform.position}, tilt={Vector3.Angle(jeep.transform.up, Vector3.up):0.0}, damage={jeep.DamageState}");
++
++            Checkpoints.Save("zone6", "Jungle road review", pc.transform.position, pc.transform.eulerAngles.y, 0f);
++            Vector3 checkpoint = pc.transform.position;
++            pc.Teleport(checkpoint + Vector3.right * 12f, Quaternion.identity);
++            DawnClock.Instance.RetryOnSpot(false);
++            yield return new WaitForSecondsRealtime(0.4f);
++            Line($"Retry: scene={SceneManager.GetActiveScene().name}, checkpoint distance={Vector3.Distance(pc.transform.position, checkpoint):0.00}");
++            yield return Shot("04-local-checkpoint-retry.png");
++
++            var zone = NewSunWall.Instance;
++            pc.Teleport(new Vector3(55f, 0.15f, 125f), Quaternion.identity);
++            zone.MirrorA.Interact(); yield return new WaitForSecondsRealtime(0.6f);
++            zone.MirrorB.Interact(); yield return new WaitForSecondsRealtime(0.6f);
++            zone.MirrorB.Interact(); yield return new WaitForSecondsRealtime(1f);
++            from = new Vector3(62f, 8f, 105f);
++            orbit.SetCutsceneOverride(from, Quaternion.LookRotation(new Vector3(68f, 2.8f, 134f) - from));
++            Line($"Sun Wall: receiver={zone.WheelSocket.State}, ray reached receiver={zone.Emitter.LastSocket == zone.WheelSocket}, beam points={zone.Emitter.Points.Count}");
++            foreach (var hit in Physics.RaycastAll(new Vector3(58f, 5f, 120f), Vector3.up, 30f))
++                Line($"Sun Wall overhead: {hit.transform.name}, bounds={hit.collider.bounds}");
++            yield return Shot("05-sunwall-real-reflection.png");
++            orbit.ClearCutsceneOverride();
++            yield return Tap(Key.Escape);
++            yield return new WaitForSecondsRealtime(0.4f);
++            yield return Shot("06-pause-audio-controls.png");
++            var am = AudioManager.Instance;
++            Line($"Audio: master={am.MasterVolume:0.00}, music={am.MusicVolume:0.00}, ambience={am.AmbienceVolume:0.00}, effects={am.SFXVolume:0.00}, voice={VoicePlayer.Volume:0.00}");
++        }
++
+         private IEnumerator ReviewLooksAndStairs()
+         {
+             foreach (string map in new[] { "Courtyard", "Sanctum", "ShrineCrime", "PuzzleWall", "JunglePath" })
+--- before/UI/MinimapHud.cs
++++ after/UI/MinimapHud.cs
+@@ -154,7 +154,7 @@
+             jeepBlip.anchorMin = jeepBlip.anchorMax = new Vector2(0.5f, 0.5f);
+ 
+             // Clamped objective marker/arrow
+-            objectiveBlip = MakeIcon(mapPanel, "ObjectiveBlip", 15f, new Color(0.36f, 0.88f, 0.90f, 1f), diamondTex);
++            objectiveBlip = MakeIcon(mapPanel, "ObjectiveBlip", 15f, new Color(1f, 0.86f, 0.18f, 1f), diamondTex);
+             objectiveBlip.anchorMin = objectiveBlip.anchorMax = new Vector2(0.5f, 0.5f);
+             objectiveImg = objectiveBlip.GetComponent<Image>();
+ 
+@@ -190,16 +190,9 @@
+                 AddWorldRect("Pad_SunWall", new Vector2(60f, 130f), new Vector2(40f, 42f), new Color(0.56f, 0.44f, 0.22f, 0.58f), 0f);
+                 AddWorldRect("Pad_Jungle", new Vector2(0f, 440f), new Vector2(46f, 46f), new Color(0.16f, 0.34f, 0.18f, 0.58f), 0f);
+ 
+-                // Paved road network strips
+-                AddRoadSeg(new Vector2(0f, -85f), new Vector2(0f, 84f), 9f, new Color(0.58f, 0.49f, 0.36f, 0.78f));
+-                AddRoadSeg(new Vector2(0f, -8f), new Vector2(-52f, -8f), 5f, new Color(0.55f, 0.46f, 0.34f, 0.72f));
+-                AddRoadSeg(new Vector2(-52f, -8f), new Vector2(-52f, -90f), 5f, new Color(0.55f, 0.46f, 0.34f, 0.72f));
+-                AddRoadSeg(new Vector2(0f, 22f), new Vector2(30f, 36f), 5f, new Color(0.55f, 0.46f, 0.34f, 0.72f));
+-                AddRoadSeg(new Vector2(0f, 82f), new Vector2(-43f, 110f), 5f, new Color(0.55f, 0.46f, 0.34f, 0.72f));
+-                AddRoadSeg(new Vector2(0f, 82f), new Vector2(45f, 125f), 5f, new Color(0.55f, 0.46f, 0.34f, 0.72f));
+-                AddRoadSeg(new Vector2(26f, 140f), new Vector2(26f, 178f), 6f, new Color(0.55f, 0.46f, 0.34f, 0.72f));
+-                AddRoadSeg(new Vector2(26f, 178f), new Vector2(0f, 180f), 6f, new Color(0.55f, 0.46f, 0.34f, 0.72f));
+-                AddRoadSeg(new Vector2(0f, 180f), new Vector2(0f, 440f), 7f, new Color(0.52f, 0.44f, 0.32f, 0.74f));
++                // Draw the road segments that the world actually built, including the winding jungle route.
++                foreach (var road in FindObjectsByType<DriveableRoad>())
++                    AddRoadSeg(new Vector2(road.Start.x, road.Start.z), new Vector2(road.End.x, road.End.z), road.Width, new Color(0.58f, 0.49f, 0.36f, 0.78f));
+ 
+                 for (int i = 0; i < V3Places.Count; i++)
+                 {
+--- before/UI/NewZonePlayBot.cs
++++ after/UI/NewZonePlayBot.cs
+@@ -233,10 +233,9 @@
+             yield return Interact(zone.MirrorA, zone.MirrorA.transform.position + Vector3.back * 1.2f);
+             pc.Teleport(zone.MirrorB.transform.position + Vector3.back * 1.5f, Quaternion.identity); yield return null;
+             yield return Interact(zone.MirrorB, zone.MirrorB.transform.position + Vector3.back * 1.2f);
+-            zone.WheelSocket.SetState(1);
+-            zone.WheelSocket.locked = true;
+-            yield return new WaitForSeconds(0.5f);
+-            Check(zone.WheelSocket.State == 1, "Sun beam reflected into Chariot Wheel socket");
++            yield return Interact(zone.MirrorB, zone.MirrorB.transform.position + Vector3.back * 1.2f);
++            yield return new WaitForSeconds(0.8f);
++            Check(zone.Emitter.LastSocket == zone.WheelSocket && zone.WheelSocket.State == 1, "Real raycast beam reflected through both mirrors into Chariot Wheel socket");
+             yield return Shot("02-light-beam-reflected.png", new Vector3(58f, 5f, 120f), new Vector3(84f, 3.5f, 125f));
+             pc.Teleport(zone.ChariotWheel.transform.position + Vector3.back * 2.0f, Quaternion.identity); yield return null;
+             yield return Interact(zone.ChariotWheel, zone.ChariotWheel.transform.position + Vector3.back * 2.0f);

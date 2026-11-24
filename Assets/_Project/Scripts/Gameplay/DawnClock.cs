@@ -102,17 +102,46 @@ namespace LegacyOfTemples.Gameplay
 
         private static bool IsGameplay(string s) => Constants.IsNewWorld(s) || s == Constants.Courtyard || s == Constants.Sanctum || s == Constants.ShrineCrime || s == Constants.PuzzleWall || s == Constants.JunglePath;
 
+        private float retryToastUntil = -10f;
+        private string retryToastMsg = "";
+
         public void Retry()
         {
+            RetryOnSpot(true);
+        }
+
+        /// <summary>Retry from the local section checkpoint without warping back to the temple start.</summary>
+        public void RetryOnSpot(bool allowSceneFallback = false)
+        {
             var story = StoryDialogueSystem.Instance;
-            OutOfTime = false; Retries++;
-            if (story != null && cpSnapshot != null) story.Restore(cpSnapshot);
+            OutOfTime = false; FailReason = ""; Retries++;
+            if (story != null && !string.IsNullOrEmpty(cpSnapshot)) story.Restore(cpSnapshot);
             int i = ChapterIndex(story != null ? story.Chapter : null);
             float deadline = i < 5 ? Deadline[i] : DawnMinute;
-            Minutes = Mathf.Min(cpMinutes, deadline - 8f); // the budget is restored: at least 8 story minutes to work with
+            Minutes = Mathf.Min(cpMinutes, deadline - 8f); // restore clock budget
             Time.timeScale = 1f;
             OnRetry?.Invoke();
-            SceneLoader.Load(string.IsNullOrEmpty(cpScene) ? SceneManager.GetActiveScene().name : cpScene);
+
+            string activeScene = SceneManager.GetActiveScene().name;
+            string targetScene = string.IsNullOrEmpty(cpScene) ? activeScene : cpScene;
+            if (!allowSceneFallback || targetScene == activeScene || Constants.IsNewWorld(activeScene))
+            {
+                var pc = FindAnyObjectByType<LegacyOfTemples.Characters.PlayerController>();
+                if (pc != null && Checkpoints.Has) Checkpoints.Restore(pc.transform);
+                var jp = FindAnyObjectByType<Vehicles.Jeep>();
+                if (jp != null && jp.Occupied) jp.RepairAndResetToRoad();
+                string label = Checkpoints.Has ? Checkpoints.Current.label : (story?.Current?.title ?? "Current Section");
+                retryToastMsg = $"Section reset on the spot: <color={ScreenText.Gold}>{label}</color>";
+                retryToastUntil = Time.unscaledTime + 2.8f;
+                return;
+            }
+            SceneLoader.Load(targetScene);
+        }
+
+        private void LateUpdate()
+        {
+            if (Time.unscaledTime < retryToastUntil && !string.IsNullOrEmpty(retryToastMsg))
+                ScreenText.Panel("retry_notice", null, retryToastMsg, PanelAnchor.TopCenter, 520f, null, false, 3);
         }
 
         /// <summary>True during the opening cinematic: the clock neither runs nor shows.</summary>

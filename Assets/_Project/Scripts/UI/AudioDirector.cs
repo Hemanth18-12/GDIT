@@ -83,8 +83,6 @@ namespace LegacyOfTemples.UI
             if (fight != null && fight.StealthRunning) return "Stealth";
             var wall = ChakraPuzzleController.Active;
             bool tense = (clock != null && clock.ChapterLeft < 5f) || (wall != null && wall.ResetLeft > 0f && wall.ResetLeft < 30f) || (ch != null && ch.ActiveTrap != null) || (clock != null && clock.OutOfTime);
-            var zone = ZoneAtmosphere.Instance != null ? ZoneAtmosphere.Instance.Current : null;
-            if (zone != null && (zone.zone == ZoneLook.Zone.Vaults || zone.zone == ZoneLook.Zone.Stepwell || zone.zone == ZoneLook.Zone.SunWall)) tense = true;
             return tense ? "Tension" : "Calm";
         }
 
@@ -96,8 +94,16 @@ namespace LegacyOfTemples.UI
             string scene = SceneManager.GetActiveScene().name; bool game = Gameplay(scene);
 
             // music: stems always run together; snapshots choose which are heard
-            float mv = game ? am.MasterVolume * am.MusicVolume * 0.8f : 0f;
-            foreach (var s in stems) if (s != null) s.volume = Mathf.MoveTowards(s.volume, mv, Time.unscaledDeltaTime);
+            string musicState = PickState(scene);
+            int targetIdx = musicState == "Tension" ? 1 : musicState == "Stealth" ? 2 : musicState == "Combat" ? 3 : musicState == "Resolve" ? 4 : 0;
+            if (game && am.IsBGMPlaying) am.StopBGM();
+            float mv = game ? 0.52f : 0f;
+            for (int i = 0; i < stems.Length; i++)
+            {
+                if (stems[i] == null) continue;
+                float want = (i == targetIdx) ? mv : 0f;
+                stems[i].volume = Mathf.MoveTowards(stems[i].volume, want, Time.unscaledDeltaTime * 0.65f);
+            }
             if (game && am.IsBGMPlaying) am.StopBGM();
             stateT -= Time.unscaledDeltaTime;
             if (game && stateT <= 0f)
@@ -115,9 +121,11 @@ namespace LegacyOfTemples.UI
             // ducking: music and ambience step back while a voice line plays
             bool speaking = VoiceManager.AnyPlaying;   // every voice: story lines and event lines, 2D and 3D
             DuckDb = Mathf.MoveTowards(DuckDb, speaking ? -6f : 0f, Time.unscaledDeltaTime * (speaking ? 40f : 10f));
-            mixer.SetFloat("MusicVol", DuckDb);
-            mixer.SetFloat("AmbienceVol", Db(am.MasterVolume * am.SFXVolume) + DuckDb * 0.66f);
-            mixer.SetFloat("VoiceVol", Db(am.MasterVolume));
+            mixer.SetFloat("MasterVol", Db(am.MasterVolume));
+            mixer.SetFloat("MusicVol", Db(am.MusicVolume) + DuckDb);
+            mixer.SetFloat("AmbienceVol", Db(am.AmbienceVolume) + DuckDb * 0.66f);
+            mixer.SetFloat("SfxVol", Db(am.SFXVolume));
+            mixer.SetFloat("VoiceVol", Db(VoicePlayer.Volume));
 
             // reverb "zones": one setting per map (stone hall, open court, shrine forecourt, jungle, ruin courtyard)
             float room, decay;
@@ -140,7 +148,7 @@ namespace LegacyOfTemples.UI
             mixer.SetFloat("VoiceRoom", room + (Tier == "shout" ? 700f : 0f)); mixer.SetFloat("VoiceDecay", decay);
 
             // ambience beds
-            var w = WeatherManager.Instance; float sv = am.MasterVolume * am.SFXVolume;
+            var w = WeatherManager.Instance; float sv = am.MasterVolume * am.AmbienceVolume * 0.65f;
             Fade(wind, game && scene != "Sanctum" && scene != "PuzzleWall" ? (0.12f + (w != null ? w.Wind * 0.3f : 0f)) : 0f);
             Fade(jungle, scene == "JunglePath" ? 0.4f * (1f - (w != null ? w.Intensity * 0.6f : 0f)) : 0f);
             Fade(flame, scene == "Sanctum" || scene == "PuzzleWall" || CombatState.InCombat ? 0.3f : 0f);

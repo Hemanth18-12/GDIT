@@ -230,7 +230,7 @@ namespace LegacyOfTemples.UI
                 case PanelAnchor.TopCenter: anchor = new Vector2(0.5f, 1); pivot = new Vector2(0.5f, 1); pos = new Vector2(0, -m - offset); break;
                 case PanelAnchor.TopRight: anchor = new Vector2(1, 1); pivot = new Vector2(1, 1); pos = new Vector2(-m, -m - offset); break;
                 case PanelAnchor.BottomCenter: anchor = new Vector2(0.5f, 0); pivot = new Vector2(0.5f, 0); pos = new Vector2(0, 150 + offset); break;
-                case PanelAnchor.BottomLeft: anchor = new Vector2(0, 0); pivot = new Vector2(0, 0); pos = new Vector2(m, 110 + offset); break;
+                case PanelAnchor.BottomLeft: anchor = new Vector2(0, 0); pivot = new Vector2(0, 0); pos = new Vector2(MinimapHud.Visible ? 248f : m, (MinimapHud.Visible ? 28f : 110f) + offset); break;
                 case PanelAnchor.BottomRight: anchor = new Vector2(1, 0); pivot = new Vector2(1, 0); pos = new Vector2(-m, 200 + offset); break;
                 default: anchor = new Vector2(0.5f, 0.5f); pivot = new Vector2(0.5f, 0.5f); pos = new Vector2(0, -offset); break;
             }

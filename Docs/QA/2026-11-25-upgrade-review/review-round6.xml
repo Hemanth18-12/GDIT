@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="3" result="Passed" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-24 20:12:46Z" end-time="2026-11-24 20:12:57Z" duration="10.6874713">
+  <test-suite type="TestSuite" id="1089" name="My project" fullname="My project" runstate="Runnable" testcasecount="68" result="Passed" start-time="2026-11-24 20:12:46Z" end-time="2026-11-24 20:12:57Z" duration="10.687471" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1172" name="LOT.Grounding.PlayModeTests.dll" fullname="/Users/hemanth/Desktop/GDIT/My project/Library/ScriptAssemblies/LOT.Grounding.PlayModeTests.dll" runstate="Runnable" testcasecount="68" result="Passed" start-time="2026-11-24 20:12:46Z" end-time="2026-11-24 20:12:57Z" duration="10.683728" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="16493" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+      <test-suite type="TestSuite" id="1173" name="LegacyOfTemples" fullname="LegacyOfTemples" runstate="Runnable" testcasecount="60" result="Passed" start-time="2026-11-24 20:12:47Z" end-time="2026-11-24 20:12:57Z" duration="10.668299" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+        <test-suite type="TestSuite" id="1174" name="Tests" fullname="LegacyOfTemples.Tests" runstate="Runnable" testcasecount="60" result="Passed" start-time="2026-11-24 20:12:47Z" end-time="2026-11-24 20:12:57Z" duration="10.651594" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+          <test-suite type="TestFixture" id="1158" name="UpgradeReviewTests" fullname="LegacyOfTemples.Tests.UpgradeReviewTests" classname="LegacyOfTemples.Tests.UpgradeReviewTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-24 20:12:47Z" end-time="2026-11-24 20:12:57Z" duration="10.634679" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+            <test-case id="1159" name="AmbienceRemainsAudibleWithMusicMuted_AndSettingsSurviveManagerReload" fullname="LegacyOfTemples.Tests.UpgradeReviewTests.AmbienceRemainsAudibleWithMusicMuted_AndSettingsSurviveManagerReload" methodname="AmbienceRemainsAudibleWithMusicMuted_AndSettingsSurviveManagerReload" classname="LegacyOfTemples.Tests.UpgradeReviewTests" runstate="Runnable" seed="868383038" result="Passed" start-time="2026-11-24 20:12:47Z" end-time="2026-11-24 20:12:47Z" duration="0.051856" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+            </test-case>
+            <test-case id="1160" name="JeepRKey_RecoversToBuiltWindingRoad_WithoutLandingOnOwnRoof" fullname="LegacyOfTemples.Tests.UpgradeReviewTests.JeepRKey_RecoversToBuiltWindingRoad_WithoutLandingOnOwnRoof" methodname="JeepRKey_RecoversToBuiltWindingRoad_WithoutLandingOnOwnRoof" classname="LegacyOfTemples.Tests.UpgradeReviewTests" runstate="Runnable" seed="1847596265" result="Passed" start-time="2026-11-24 20:12:47Z" end-time="2026-11-24 20:12:51Z" duration="4.222088" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+[V3] new game: puzzles, run score and checkpoint cleared
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+[NewStepwell] built: multi-tier tank, sluice valves, rising raft, monsoon shrine & wet-stone brawl
+[NewVaults] built: underground hall, pressure plates, gear train, light-arc discs & heavy guard fight
+[NewCourtyard] built: Lion Gate, flagstone courtyard, storage hall crime scene, shadow-matching & lookout fight
+[NewWorldDirector] All 6 zones and grounded Kalinga central temple linked cleanly across TempleRing.unity!
+[NewBazaar] built: T market, 3 loop links, 16 villagers, tail / seal / sequence / street fight
+[NewJungleChase] built: 250m jungle trail, river ruins court, inside man deduction & Bhaskar boss fight
+[NewSunWall] built: Sun Wall monument, rotatable mirrors, Konark Chariot Wheel & Kishore fight
+[NewWorldDirector] All 6 zones and grounded Kalinga central temple linked cleanly across TempleRing.unity!
+[Checkpoint] new_bazaar / Banyan arrival at (-52.0, 0.1, -90.0)
+[Voice] jeep_approach: played jp_approach_01 (p1 2D )
+[BatchFriendly] baked 483 renderers into 145 shared materials (total 483)
+[UpgradeReview] Before R: occupied=False, transitioning=False, brawl=False, combat=False, playerGap=4.013565, keyboard=True
+[Jeep] Repaired and reset to road at (13.48, 0.19, 235.36)
+[UpgradeReview] After R: pressed=True, down=False, position=(13.48, 0.19, 235.36)
+[UpgradeReview] Before R: occupied=False, transitioning=False, brawl=False, combat=False, playerGap=4.018766, keyboard=True
+[Jeep] Repaired and reset to road at (-10.56, 0.19, 387.60)
+[UpgradeReview] After R: pressed=True, down=False, position=(-10.56, 0.19, 387.60)
+[Voice] area_enter: played mv_area_jungle (p2 2D zone=Jungle)
+[Heritage] discovered market_craft
+]]></output>
+            </test-case>
+            <test-case id="1161" name="SunWall_RequiresRealMirrorReflections_AndBreaksWhenMisaligned" fullname="LegacyOfTemples.Tests.UpgradeReviewTests.SunWall_RequiresRealMirrorReflections_AndBreaksWhenMisaligned" methodname="SunWall_RequiresRealMirrorReflections_AndBreaksWhenMisaligned" classname="LegacyOfTemples.Tests.UpgradeReviewTests" runstate="Runnable" seed="4283735" result="Passed" start-time="2026-11-24 20:12:51Z" end-time="2026-11-24 20:12:57Z" duration="6.341032" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[V3] new game: puzzles, run score and checkpoint cleared
+[NewStepwell] built: multi-tier tank, sluice valves, rising raft, monsoon shrine & wet-stone brawl
+[NewVaults] built: underground hall, pressure plates, gear train, light-arc discs & heavy guard fight
+[NewCourtyard] built: Lion Gate, flagstone courtyard, storage hall crime scene, shadow-matching & lookout fight
+[NewWorldDirector] All 6 zones and grounded Kalinga central temple linked cleanly across TempleRing.unity!
+[NewBazaar] built: T market, 3 loop links, 16 villagers, tail / seal / sequence / street fight
+[NewJungleChase] built: 250m jungle trail, river ruins court, inside man deduction & Bhaskar boss fight
+[NewSunWall] built: Sun Wall monument, rotatable mirrors, Konark Chariot Wheel & Kishore fight
+[Voice] area_enter: stopped mv_area_jungle (scene change)
+[NewWorldDirector] All 6 zones and grounded Kalinga central temple linked cleanly across TempleRing.unity!
+[Checkpoint] new_bazaar / Banyan arrival at (-52.0, 0.1, -90.0)
+[BatchFriendly] baked 483 renderers into 146 shared materials (total 966)
+Saving results to: /Users/hemanth/Library/Application Support/DefaultCompany/My project/TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

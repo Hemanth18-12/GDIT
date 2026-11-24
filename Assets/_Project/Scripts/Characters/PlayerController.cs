@@ -264,6 +264,20 @@ namespace LegacyOfTemples.Characters
                 verticalVelocity = -2f;
                 isGrounded = true;
             }
+            // Anti-sink terrain recovery guard: never allow clicking or thin collider edges to drop the player under the earth.
+            float feetY = grounding != null ? grounding.FeetY : transform.position.y;
+            bool inExcavation = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == Constants.TempleRing &&
+                ((transform.position.x >= -19f && transform.position.x <= 28f && transform.position.z >= 70f && transform.position.z <= 142f) ||
+                 (transform.position.x >= -68f && transform.position.x <= -42f && transform.position.z >= 108f && transform.position.z <= 142f));
+            if (feetY < (inExcavation ? -8.5f : -1.0f))
+            {
+                if (Physics.Raycast(new Vector3(transform.position.x, Mathf.Max(feetY + 30f, 15f), transform.position.z), Vector3.down, out RaycastHit safeGround, 55f, ~0, QueryTriggerInteraction.Ignore)
+                    && !safeGround.collider.transform.IsChildOf(transform) && safeGround.collider.GetComponentInParent<CharacterController>() == null)
+                {
+                    Teleport(safeGround.point + Vector3.up * 0.08f, transform.rotation);
+                    isGrounded = true;
+                }
+            }
             traversal.Observe(beforeMove, moveDir, isGrounded);
             if (isGrounded && wasAirborne) GameSfx.Footstep(transform.position, 0.65f);
             wasAirborne = !isGrounded;

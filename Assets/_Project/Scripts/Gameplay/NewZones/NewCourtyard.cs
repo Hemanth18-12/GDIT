@@ -73,11 +73,12 @@ namespace LegacyOfTemples.Gameplay
             ArtUpgrade.Place(Gate, "lion_head", Gate.TransformPoint(new Vector3(-5f, 5.2f, -1f)), 1.4f, 0f, false);
             ArtUpgrade.Place(Gate, "lion_head", Gate.TransformPoint(new Vector3(5f, 5.2f, -1f)), 1.4f, 0f, false);
 
-            // Courtyard colonnade along west side
+            // Courtyard colonnade along west side with grounded pedestals
             for (int i = 0; i < 6; i++)
             {
                 float z = 75f + i * 14f;
                 MarketArt.Box(r, "Colonnade pillar", new Vector3(-35f, 3f, z), new Vector3(1.2f, 6f, 1.2f), "sandstone_blocks_08");
+                MarketArt.Box(r, "Colonnade lamp pedestal", new Vector3(-35f, 0.6f, z + 1.2f), new Vector3(0.6f, 1.2f, 0.6f), "sandstone_blocks_08");
                 ArtUpgrade.Place(r, "brass_diya_lantern", new Vector3(-35f, 1.2f, z + 1.2f), 1.1f, 0f, false);
             }
 
@@ -87,6 +88,10 @@ namespace LegacyOfTemples.Gameplay
             hall.localPosition = new Vector3(25f, 0f, 105f);
 
             MarketArt.Box(hall, "Hall Floor", new Vector3(0f, 0.15f, 0f), new Vector3(18f, 0.3f, 24f), "sandstone_blocks_08");
+            MarketArt.Box(hall, "Hall Ceiling", new Vector3(0f, 5.15f, 0f), new Vector3(18.6f, 0.3f, 24.6f), "red_sandstone_wall");
+            var hallLight = new GameObject("StorageHallWarmLight").AddComponent<Light>();
+            hallLight.transform.SetParent(hall, false); hallLight.transform.localPosition = new Vector3(-2f, 4.2f, 2f);
+            hallLight.type = LightType.Point; hallLight.range = 24f; hallLight.intensity = 2.6f; hallLight.color = new Color(1f, 0.78f, 0.48f); hallLight.shadows = LightShadows.None;
             MarketArt.Box(hall, "Hall Wall North", new Vector3(0f, 2.5f, 12f), new Vector3(18f, 5f, 0.8f), "yellow_plaster");
             MarketArt.Box(hall, "Hall Wall East", new Vector3(9f, 2.5f, 0f), new Vector3(0.8f, 5f, 24f), "yellow_plaster");
             MarketArt.Box(hall, "Hall Wall South", new Vector3(0f, 2.5f, -12f), new Vector3(18f, 5f, 0.8f), "yellow_plaster");

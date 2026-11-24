@@ -167,6 +167,18 @@ namespace LegacyOfTemples.Gameplay.Vehicles
             return wc;
         }
 
+        private struct PartSnapshot
+        {
+            public Transform part, parent;
+            public Vector3 localPos, localScale;
+            public Quaternion localRot;
+            public Mesh mesh;
+            public Material[] mats;
+        }
+        private readonly List<PartSnapshot> partSnapshots = new List<PartSnapshot>();
+        private float baseMotorForce = 1400f;
+        private float repairToastUntil = -10f;
+
         private void BuildPhysics()
         {
             rb = gameObject.GetComponent<Rigidbody>(); if (rb == null) rb = gameObject.AddComponent<Rigidbody>();   // not "??": Unity's null check is needed here
@@ -180,6 +192,7 @@ namespace LegacyOfTemples.Gameplay.Vehicles
                 if (top != null) { var tb = LocalBounds(top); var cc = gameObject.AddComponent<BoxCollider>(); cc.center = new Vector3(tb.center.x, (1.15f + tb.max.y) * 0.5f, tb.center.z); cc.size = new Vector3(tb.size.x, tb.max.y - 1.15f, tb.size.z); }
             }
             Car = gameObject.AddComponent<CarController>();
+            baseMotorForce = Car.motorForce;
             Transform fl = T("SM_Jeep_Wheel_FL"), fr = T("SM_Jeep_Wheel_FR"), rl = T("SM_Jeep_Wheel_RL"), rr = T("SM_Jeep_Wheel_RR");
             // name the sides from where the wheels really are after alignment (left = -X in Unity)
             if (L(fl).x > L(fr).x) { var t = fl; fl = fr; fr = t; }
@@ -218,6 +231,24 @@ namespace LegacyOfTemples.Gameplay.Vehicles
             Lights.head = head.ToArray(); Lights.stop = stop.ToArray(); Lights.reverse = rev.ToArray(); Lights.turnLeft = tl.ToArray(); Lights.turnRight = tr.ToArray();
             Lights.headMesh = headR.ToArray(); Lights.stopMesh = stopR.ToArray(); Lights.reverseMesh = revR.ToArray(); Lights.turnLeftMesh = tlR.ToArray(); Lights.turnRightMesh = trR.ToArray();
             Car.lights = Lights;
+            partSnapshots.Clear();
+            foreach (var kv in named)
+            {
+                var t = kv.Value;
+                if (t == null || kv.Key.Contains("_Wheel_")) continue;
+                var mf = t.GetComponent<MeshFilter>();
+                var mr = t.GetComponent<MeshRenderer>();
+                partSnapshots.Add(new PartSnapshot
+                {
+                    part = t,
+                    parent = t.parent,
+                    localPos = t.localPosition,
+                    localRot = t.localRotation,
+                    localScale = t.localScale,
+                    mesh = mf != null ? mf.sharedMesh : null,
+                    mats = mr != null ? (Material[])mr.sharedMaterials.Clone() : null
+                });
+            }
         }
 
         // ------------------------------------------------------------------ doors and hood
@@ -437,16 +468,32 @@ namespace LegacyOfTemples.Gameplay.Vehicles
 
         private void Update()
         {
+            var kb = Keyboard.current; var gp = Gamepad.current;
+            bool inFight = CombatState.InCombat || Brawl.Active != null;
+            if (!Transitioning && !InputGate.GameplayBlocked && !inFight)
+            {
+                var nearPc = player != null ? player : FindAnyObjectByType<PlayerController>();
+                bool closeOnFoot = !Occupied && nearPc != null && Vector3.Distance(nearPc.transform.position, transform.position) <= 28f;
+                if (kb != null && kb.rKey.wasPressedThisFrame && (Occupied || closeOnFoot))
+                {
+                    RepairAndResetToRoad();
+                }
+                else if (closeOnFoot && (DamageState > 0 || Vector3.Dot(transform.up, Vector3.up) < 0.7f) && nearPc != null && Vector3.Distance(nearPc.transform.position, transform.position) <= 7f)
+                {
+                    ScreenText.Panel("jeep_repair_hint", null, $"{ScreenText.Key("R")} Repair & Reset Jeep to Road", PanelAnchor.TopCenter, 420f, null, false, 1);
+                }
+            }
+            if (Time.unscaledTime < repairToastUntil)
+                ScreenText.Panel("jeep_reset", null, "Jeep repaired and reset cleanly onto the road.", PanelAnchor.TopCenter, 480f, null, false, 3);
             if (Occupied && !Transitioning && Car.Driven && Time.frameCount > enteredFrame + 2 && !InputGate.GameplayBlocked)
             {
-                var kb = Keyboard.current; var gp = Gamepad.current;
                 bool exit = (kb != null && kb.eKey.wasPressedThisFrame) || (gp != null && gp.buttonWest.wasPressedThisFrame) || VirtualInput.Down("interact");
                 if (exit && Car.CurrentSpeed < 3f) StartCoroutine(GetOut());
                 bool horn = (kb != null && kb.gKey.isPressed) || (gp != null && gp.leftStickButton.isPressed);
                 Horn(horn);
                 ScreenText.Panel("jeep_ui", null,
                     $"<size=140%><b>{Car.CurrentSpeed * 3.6f:0}</b></size> km/h   <color={ScreenText.Gold}>{Car.EffectiveGear.ToString()[0]}</color>" + (DamageState > 0 ? $"   <color={ScreenText.Coral}>{StateName}</color>" : "") +
-                    $"\n{ScreenText.Key("W S")} Drive  {ScreenText.Key("A D")} Steer  {ScreenText.Key("Space")} Brake\n{ScreenText.Key("L")} Lights  {ScreenText.Key("G")} Horn  {ScreenText.Key("E")} Get out",
+                    $"\n{ScreenText.Key("W S")} Drive  {ScreenText.Key("A D")} Steer  {ScreenText.Key("Space")} Brake\n{ScreenText.Key("L")} Lights  {ScreenText.Key("G")} Horn  {ScreenText.Key("R")} Repair/Road  {ScreenText.Key("E")} Get out",
                     PanelAnchor.BottomLeft, 560f, null, false, 2);
             }
         }
@@ -598,6 +645,105 @@ namespace LegacyOfTemples.Gameplay.Vehicles
             var mats = new Material[Mathf.Max(1, states[s].subMeshCount)];
             for (int i = 0; i < mats.Length; i++) mats[i] = i == 0 ? paint : (interior != null ? interior : paint);
             mr.sharedMaterials = mats;
+        }
+
+        public void RepairAndResetToRoad()
+        {
+            // Restoring mesh snapshots can restore the root's original local position too.
+            // Select the road around the crash, not around that original spawn position.
+            Vector3 refPos = transform.position;
+            foreach (var s in partSnapshots)
+            {
+                if (s.part == null) continue;
+                bool wasDetached = s.part.parent != s.parent || debris.Contains(s.part.gameObject);
+                if (wasDetached)
+                {
+                    var prb = s.part.GetComponent<Rigidbody>(); if (prb != null) Destroy(prb);
+                    var pcol = s.part.GetComponent<BoxCollider>(); if (pcol != null) Destroy(pcol);
+                }
+                s.part.gameObject.SetActive(true);
+                if (s.parent != null) s.part.SetParent(s.parent, false);
+                s.part.localPosition = s.localPos;
+                s.part.localRotation = s.localRot;
+                s.part.localScale = s.localScale;
+                var mf = s.part.GetComponent<MeshFilter>();
+                if (mf != null && s.mesh != null) mf.sharedMesh = s.mesh;
+                var mr = s.part.GetComponent<MeshRenderer>();
+                if (mr != null)
+                {
+                    mr.enabled = true;
+                    if (s.mats != null && s.mats.Length > 0) mr.sharedMaterials = s.mats;
+                    for (int i = 0; i < mr.sharedMaterials.Length; i++) mr.SetPropertyBlock(null, i);
+                }
+                foreach (var l in s.part.GetComponentsInChildren<Light>(true)) l.enabled = false;
+            }
+            debris.Clear();
+            TotalDamage = 0f; ZoneDamage.Clear(); PartsBroken = 0; DamageState = 0;
+            if (smoke != null) { Destroy(smoke.gameObject); smoke = null; }
+            if (Lights != null && Lights.broken != null) for (int i = 0; i < Lights.broken.Length; i++) Lights.broken[i] = false;
+            if (Car != null) { Car.motorForce = baseMotorForce; Car.Driven = Occupied; }
+            if (driverDoor != null) driverDoor.localRotation = driverDoorClosed;
+            if (hood != null) hood.localRotation = hoodClosed;
+            if (rb != null) { rb.linearVelocity = Vector3.zero; rb.angularVelocity = Vector3.zero; }
+
+            FindSafeRoadPose(refPos, out Vector3 safePos, out Quaternion safeRot);
+            transform.SetPositionAndRotation(safePos, safeRot);
+            if (rb != null) { rb.position = safePos; rb.rotation = safeRot; }
+            Physics.SyncTransforms();
+            if (follow != null && Occupied) follow.Snap();
+            AudioManager.Instance?.PlaySFX("sfx_checkpoint", 0.7f);
+            repairToastUntil = Time.unscaledTime + 2.8f;
+            Debug.Log($"[Jeep] Repaired and reset to road at {safePos}");
+        }
+
+        private void FindSafeRoadPose(Vector3 around, out Vector3 safePos, out Quaternion safeRot)
+        {
+            var list = new List<(Vector3 pos, float yaw)>();
+            string scene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+            if (Constants.IsNewWorld(scene))
+            {
+                foreach (var road in FindObjectsByType<DriveableRoad>())
+                {
+                    Vector3 nearest = road.ClosestPoint(around);
+                    float heading = Quaternion.LookRotation(road.End - road.Start).eulerAngles.y;
+                    // Try the closest road location first, then clear points farther along the same lane.
+                    list.Add((nearest, heading));
+                    list.Add((Vector3.Lerp(road.Start, road.End, 0.25f), heading));
+                    list.Add((Vector3.Lerp(road.Start, road.End, 0.75f), heading));
+                }
+                list.Sort((a, b) => Vector3.SqrMagnitude(Flat(a.pos - around)).CompareTo(Vector3.SqrMagnitude(Flat(b.pos - around))));
+            }
+            float baseYaw = transform.eulerAngles.y;
+            bool localSearch = list.Count == 0;
+            for (int r = 0; localSearch && r <= 3; r++)
+            {
+                float d = r * 3.5f;
+                Vector3[] dirs = { Vector3.zero, Vector3.right, -Vector3.right, Vector3.forward, -Vector3.forward };
+                foreach (var dir in dirs) list.Add((around + dir * d, baseYaw));
+            }
+            foreach (var c in list)
+            {
+                // Ignore our own roof, player and detached parts when looking for the road surface.
+                RaycastHit? surface = null;
+                foreach (var hit in Physics.RaycastAll(c.pos + Vector3.up * 6f, Vector3.down, 18f, ~0, QueryTriggerInteraction.Ignore))
+                {
+                    if (hit.transform.IsChildOf(transform) || hit.transform.CompareTag("Player")) continue;
+                    if (Constants.IsNewWorld(scene) && hit.collider.GetComponent<DriveableRoad>() == null) continue;
+                    if (!surface.HasValue || hit.distance < surface.Value.distance) surface = hit;
+                }
+                if (!surface.HasValue) continue;
+                Vector3 p = new Vector3(c.pos.x, surface.Value.point.y + 0.15f, c.pos.z);
+                Quaternion rot = Quaternion.Euler(0f, c.yaw, 0f);
+                bool blocked = false;
+                foreach (var hit in Physics.OverlapBox(p + Vector3.up * 1.45f, new Vector3(1.1f, 0.65f, 2.2f), rot, ~0, QueryTriggerInteraction.Ignore))
+                {
+                    if (hit.transform == transform || hit.transform.IsChildOf(transform) || hit.transform.CompareTag("Player")) continue;
+                    blocked = true; break;
+                }
+                if (!blocked) { safePos = p; safeRot = rot; return; }
+            }
+            safePos = around + Vector3.up * 0.5f;
+            safeRot = Quaternion.Euler(0f, baseYaw, 0f);
         }
 
         private ParticleSystem Smoke()

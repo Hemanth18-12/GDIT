@@ -47,7 +47,12 @@ namespace LegacyOfTemples.Gameplay
         void Build()
         {
             var r = transform;
-            MarketArt.Box(r, "Walkable laterite landscape", new Vector3(0f, -0.6f, 5f), new Vector3(220f, 1.2f, 260f), "red_laterite_soil_stones");
+            // Continuous walkable ground surrounding excavated Stepwell (-67..-43, z 109..141) and spanning south -> north jungle (z -140..520)
+            MarketArt.Box(r, "Walkable laterite south", new Vector3(0f, -0.6f, -16f), new Vector3(340f, 1.2f, 248f), "red_laterite_soil_stones");
+            MarketArt.Box(r, "Walkable laterite north jungle", new Vector3(0f, -0.6f, 331f), new Vector3(340f, 1.2f, 378f), "red_laterite_soil_stones");
+            MarketArt.Box(r, "Walkable laterite west", new Vector3(-118.5f, -0.6f, 125f), new Vector3(103f, 1.2f, 34f), "red_laterite_soil_stones");
+            MarketArt.Box(r, "Walkable laterite mid", new Vector3(-30.5f, -0.6f, 125f), new Vector3(25f, 1.2f, 34f), "red_laterite_soil_stones");
+            MarketArt.Box(r, "Walkable laterite east", new Vector3(94f, -0.6f, 125f), new Vector3(152f, 1.2f, 34f), "red_laterite_soil_stones");
             MarketArt.Road(r, new[] { new Vector3(-55f, 0f, -100f), new Vector3(-55f, 0f, -64f), new Vector3(0f, 0f, -48f), new Vector3(0f, 0f, 0f) }, 9f);
             MarketArt.Road(r, new[] { new Vector3(-40f, 0f, 0f), new Vector3(40f, 0f, 0f) }, 11f);
             MarketArt.Road(r, new[] { new Vector3(0f, 0f, -12f), new Vector3(0f, 0f, 58f) }, 8f);
@@ -86,9 +91,10 @@ namespace LegacyOfTemples.Gameplay
             {
                 Vector3 p = new Vector3(i % 2 == 0 ? -5.2f : 5.2f, 0f, 5f + i * 3f);
                 if (i % 3 == 0) ArtUpgrade.Place(r, "planter_box_01", p, 1.1f, i * 19f);
+                MarketArt.Box(r, "Tea lane lamp post", p + Vector3.up * 1.45f, new Vector3(0.14f, 2.9f, 0.14f), "medieval_wood", false);
                 var l = new GameObject("Tea lane lantern").AddComponent<Light>(); l.transform.SetParent(r, false); l.transform.localPosition = p + Vector3.up * 3f;
                 l.type = LightType.Point; l.range = 8f; l.color = new Color(1f, 0.66f, 0.3f); l.intensity = 1.2f; lanterns.Add(l);
-                ArtUpgrade.Place(r, "wooden_lantern_01", l.transform.position, 0.8f, 0f, false);
+                ArtUpgrade.Place(r, "wooden_lantern_01", l.transform.position - Vector3.up * 0.18f, 0.8f, 0f, false);
             }
             // Shared yard has two exits: the tea lane and east loop. No sealed dead end after the fight.
             MarketArt.Box(r, "Yard wall north", new Vector3(32f, 1.7f, 51f), new Vector3(22f, 3.4f, 0.4f), "yellow_plaster");
