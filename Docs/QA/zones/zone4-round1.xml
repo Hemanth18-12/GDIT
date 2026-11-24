@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Passed" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-24 05:51:32Z" end-time="2026-11-24 05:52:07Z" duration="35.0781502">
+  <test-suite type="TestSuite" id="1082" name="My project" fullname="My project" runstate="Runnable" testcasecount="63" result="Passed" start-time="2026-11-24 05:51:32Z" end-time="2026-11-24 05:52:07Z" duration="35.078150" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1158" name="LOT.Grounding.PlayModeTests.dll" fullname="/Users/hemanth/Desktop/GDIT/My project/Library/ScriptAssemblies/LOT.Grounding.PlayModeTests.dll" runstate="Runnable" testcasecount="63" result="Passed" start-time="2026-11-24 05:51:32Z" end-time="2026-11-24 05:52:07Z" duration="35.074707" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="8329" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+      <test-suite type="TestSuite" id="1159" name="LegacyOfTemples" fullname="LegacyOfTemples" runstate="Runnable" testcasecount="55" result="Passed" start-time="2026-11-24 05:51:32Z" end-time="2026-11-24 05:52:07Z" duration="35.059083" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+        <test-suite type="TestSuite" id="1160" name="Tests" fullname="LegacyOfTemples.Tests" runstate="Runnable" testcasecount="55" result="Passed" start-time="2026-11-24 05:51:32Z" end-time="2026-11-24 05:52:07Z" duration="35.042241" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+          <test-suite type="TestFixture" id="1114" name="NewBazaarPlayTests" fullname="LegacyOfTemples.Tests.NewBazaarPlayTests" classname="LegacyOfTemples.Tests.NewBazaarPlayTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-11-24 05:51:32Z" end-time="2026-11-24 05:52:07Z" duration="35.025349" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+            <test-case id="1118" name="Zone4_Stepwell_Sluices_RisingRaft_Vessel" fullname="LegacyOfTemples.Tests.NewBazaarPlayTests.Zone4_Stepwell_Sluices_RisingRaft_Vessel" methodname="Zone4_Stepwell_Sluices_RisingRaft_Vessel" classname="LegacyOfTemples.Tests.NewBazaarPlayTests" runstate="Runnable" seed="715614733" result="Passed" start-time="2026-11-24 05:51:32Z" end-time="2026-11-24 05:52:07Z" duration="35.005559" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="540000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+[V3] new game: puzzles, run score and checkpoint cleared
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+[NewStepwell] built: multi-tier tank, sluice valves, rising raft, monsoon shrine & wet-stone brawl
+[NewVaults] built: underground hall, pressure plates, gear train, light-arc discs & heavy guard fight
+[NewCourtyard] built: Lion Gate, flagstone courtyard, storage hall crime scene, shadow-matching & lookout fight
+[NewWorldDirector] All 6 zones initialized and linked across TempleRing.unity!
+[NewBazaar] built: T market, 3 loop links, 16 villagers, tail / seal / sequence / street fight
+[NewJungleChase] built: 250m jungle trail, river ruins court, inside man deduction & Bhaskar boss fight
+[NewSunWall] built: Sun Wall monument, rotatable mirrors, Konark Chariot Wheel & Kishore fight
+[NewWorldDirector] All 6 zones initialized and linked across TempleRing.unity!
+[Checkpoint] new_bazaar / Banyan arrival at (-52.0, 0.1, -90.0)
+[BatchFriendly] baked 386 renderers into 88 shared materials (total 386)
+[NewWorldDirector] All 6 zones initialized and linked across TempleRing.unity!
+[Heritage] discovered market_craft
+[Voice] notice: played ex_notice_01 (p1 2D )
+[Voice] area_enter: interrupts mv_area_stepwell (over ex_notice_01 (p1))
+[Voice] area_enter: played mv_area_stepwell (p2 2D zone=Stepwell)
+[NewZonesQA] PASS Walk reached (-63.0, 0.8, 110.1); feet (-63.00, 1.06, 109.83)
+[PlayerController] Interacting with: el.nz4.valve.0 (Open sluice)
+[NewZonesQA] E interaction: el.nz4.valve.0
+[NewZonesQA] PASS Walk reached (-55.0, 0.8, 110.1); feet (-55.00, 1.03, 109.83)
+[PlayerController] Interacting with: el.nz4.valve.1 (Open sluice)
+[NewZonesQA] E interaction: el.nz4.valve.1
+[NewZonesQA] PASS Walk reached (-47.0, 0.8, 110.1); feet (-47.00, 0.96, 109.83)
+[PlayerController] Interacting with: el.nz4.valve.2 (Open sluice)
+[Puzzle] nz4.water_puzzle solved in 6.9s with 0 hint(s)
+[Voice] puzzle_solved: played pz_solved_01 (p3 2D )
+[NewZonesQA] E interaction: el.nz4.valve.2
+[NewZonesQA] PASS Three sluice valves flooded the basin and elevated the raft
+[Checkpoint] new_stepwell / before_fight at (-55.0, 3.9, 147.0)
+[Brawl] new_stepwell: fight begins against 2
+[Voice] enemy_spotted: played rb_spot_well (p3 3D enemy=robber)
+[Voice] fight_start: queued cb_start_02 (behind p3)
+[Voice] fight_start: played cb_start_02 (p3 2D )
+[Voice] move_first: played mv_first_01 (p2 2D )
+[Brawl] finisher on Stepwell Lookout (1 left)
+[Voice] fight_finish: played cb_finish_02 (p2 2D )
+[Brawl] new_stepwell: won in 14.9s, damage taken 57, max combo 2, parries 0, finishers 2, retries 0
+[GameSfx] missing clip sfx_item_recovered
+[Voice] fight_won: interrupts cb_won_01 (over cb_finish_02 (p2))
+[Voice] fight_won: played cb_won_01 (p3 2D )
+[NewZonesQA] Fight: won=True, seconds=14.9, damage=57.0, retries=0, combo=2, finishers=2
+[Brawl] finisher on Knife Smuggler (0 left)
+[NewZonesQA] PASS Knife smuggler defeated on wet stone
+[NewZonesQA] PASS Walk reached (-55.0, 4.4, 146.2); feet (-55.00, 3.91, 146.20)
+[Treasure] recovered Monsoon Vessel (stepwell) in new_stepwell; zone points now 3315
+[NewStepwell] COMPLETE: Monsoon Vessel + Key Ring recovered! Score=3315
+[NewZonesQA] E interaction: treasure.Monsoon Vessel (stepwell)
+[NewZonesQA] PASS Monsoon Vessel and key ring recovered
+[NewZonesQA] Frame sample: 58.0 fps mean, 119.0 ms maximum; 640×480, editor=True.
+[NewZonesQA] Score 3315, grade A.
+[NewZonesQA] RESULT: PASS
+Saving results to: /Users/hemanth/Library/Application Support/DefaultCompany/My project/TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>
