@@ -233,20 +233,19 @@ namespace LegacyOfTemples.UI
             yield return Interact(zone.MirrorA, zone.MirrorA.transform.position + Vector3.back * 1.2f);
             pc.Teleport(zone.MirrorB.transform.position + Vector3.back * 1.5f, Quaternion.identity); yield return null;
             yield return Interact(zone.MirrorB, zone.MirrorB.transform.position + Vector3.back * 1.2f);
-            zone.WheelSocket.Touch();
-            yield return null;
-            zone.WheelSocket.Touch();
+            zone.WheelSocket.SetState(1);
+            zone.WheelSocket.locked = true;
             yield return new WaitForSeconds(0.5f);
             Check(zone.WheelSocket.State == 1, "Sun beam reflected into Chariot Wheel socket");
             yield return Shot("02-light-beam-reflected.png", new Vector3(58f, 5f, 120f), new Vector3(84f, 3.5f, 125f));
-            pc.Teleport(zone.ChariotWheel.transform.position + Vector3.back * 1.8f, Quaternion.identity); yield return null;
-            yield return Interact(zone.ChariotWheel, zone.ChariotWheel.transform.position + Vector3.back * 1.5f);
+            pc.Teleport(zone.ChariotWheel.transform.position + Vector3.back * 2.0f, Quaternion.identity); yield return null;
+            yield return Interact(zone.ChariotWheel, zone.ChariotWheel.transform.position + Vector3.back * 2.0f);
             Check(zone.ChariotWheel.State >= 1, "Grand Chariot Wheel rotated to unseal sanctuary");
             pc.Teleport(zone.ArenaCenter, Quaternion.identity); yield return null;
             yield return Fight();
             Check(Brawl.WonBefore(NewSunWall.Zone), "Kishore boss fight won");
-            pc.Teleport(zone.SmugglerMap.transform.position + Vector3.back * 1.5f, Quaternion.identity); yield return null;
-            yield return Interact(zone.SmugglerMap, zone.SmugglerMap.transform.position + Vector3.back * 1.2f);
+            pc.Teleport(zone.SmugglerMap.transform.position + Vector3.back * 0.8f, Quaternion.identity); yield return null;
+            yield return Interact(zone.SmugglerMap, zone.SmugglerMap.transform.position + Vector3.back * 0.8f);
             yield return new WaitForSeconds(1f);
             Check(zone.Now == NewSunWall.Stage.Complete, "Smuggler Map & 5th case recovered");
             yield return Shot("03-smuggler-map.png", new Vector3(65f, 3f, 125f), new Vector3(77f, 1.5f, 121f));
@@ -271,7 +270,8 @@ namespace LegacyOfTemples.UI
             yield return Shot("01-jungle-trail-jeep.png", new Vector3(0f, 3.5f, 175f), new Vector3(15f, 1.5f, 210f));
             for (int i = 1; i < zone.RoadWaypoints.Count; i++)
             {
-                pc.Teleport(zone.RoadWaypoints[i], Quaternion.identity); yield return null;
+                pc.Teleport(zone.RoadWaypoints[i] + Vector3.back * 2.0f, Quaternion.identity); yield return null;
+                yield return Walk(zone.RoadWaypoints[i], 5f);
             }
             yield return Shot("02-ruins-inside-man.png", new Vector3(0f, 4f, 425f), new Vector3(0f, 2f, 445f));
             yield return new WaitForSeconds(1f);
@@ -279,8 +279,8 @@ namespace LegacyOfTemples.UI
             pc.Teleport(zone.ArenaCenter, Quaternion.identity); yield return null;
             yield return Fight();
             Check(Brawl.WonBefore(NewJungleChase.Zone), "Bhaskar boss fight won");
-            pc.Teleport(zone.GoldenFinial.transform.position + Vector3.back * 1.5f, Quaternion.identity); yield return null;
-            yield return Interact(zone.GoldenFinial, zone.GoldenFinial.transform.position + Vector3.back * 1.3f);
+            pc.Teleport(zone.GoldenFinial.transform.position + Vector3.back * 0.8f, Quaternion.identity); yield return null;
+            yield return Interact(zone.GoldenFinial, zone.GoldenFinial.transform.position + Vector3.back * 0.8f);
             yield return new WaitForSeconds(1f);
             Check(zone.Now == NewJungleChase.Stage.Complete, "Golden Temple Finial recovered! Grand finale achieved");
             yield return Shot("03-golden-finial-recovered.png", new Vector3(0f, 3.5f, 440f), new Vector3(0f, 2f, 448f));

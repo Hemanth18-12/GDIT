@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Passed" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-24 05:57:33Z" end-time="2026-11-24 05:58:07Z" duration="34.674024">
+  <test-suite type="TestSuite" id="1082" name="My project" fullname="My project" runstate="Runnable" testcasecount="63" result="Passed" start-time="2026-11-24 05:57:33Z" end-time="2026-11-24 05:58:07Z" duration="34.674024" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1158" name="LOT.Grounding.PlayModeTests.dll" fullname="/Users/hemanth/Desktop/GDIT/My project/Library/ScriptAssemblies/LOT.Grounding.PlayModeTests.dll" runstate="Runnable" testcasecount="63" result="Passed" start-time="2026-11-24 05:57:33Z" end-time="2026-11-24 05:58:07Z" duration="34.668826" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="8805" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+      <test-suite type="TestSuite" id="1159" name="LegacyOfTemples" fullname="LegacyOfTemples" runstate="Runnable" testcasecount="55" result="Passed" start-time="2026-11-24 05:57:33Z" end-time="2026-11-24 05:58:07Z" duration="34.653691" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+        <test-suite type="TestSuite" id="1160" name="Tests" fullname="LegacyOfTemples.Tests" runstate="Runnable" testcasecount="55" result="Passed" start-time="2026-11-24 05:57:33Z" end-time="2026-11-24 05:58:07Z" duration="34.637002" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+          <test-suite type="TestFixture" id="1114" name="NewBazaarPlayTests" fullname="LegacyOfTemples.Tests.NewBazaarPlayTests" classname="LegacyOfTemples.Tests.NewBazaarPlayTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-11-24 05:57:33Z" end-time="2026-11-24 05:58:07Z" duration="34.619981" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+            <test-case id="1120" name="Zone6_Jungle_Trail_InsideMan_Bhaskar_Finial" fullname="LegacyOfTemples.Tests.NewBazaarPlayTests.Zone6_Jungle_Trail_InsideMan_Bhaskar_Finial" methodname="Zone6_Jungle_Trail_InsideMan_Bhaskar_Finial" classname="LegacyOfTemples.Tests.NewBazaarPlayTests" runstate="Runnable" seed="1166200414" result="Passed" start-time="2026-11-24 05:57:33Z" end-time="2026-11-24 05:58:07Z" duration="34.600251" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="540000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+[V3] new game: puzzles, run score and checkpoint cleared
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+[NewStepwell] built: multi-tier tank, sluice valves, rising raft, monsoon shrine & wet-stone brawl
+[NewVaults] built: underground hall, pressure plates, gear train, light-arc discs & heavy guard fight
+[NewCourtyard] built: Lion Gate, flagstone courtyard, storage hall crime scene, shadow-matching & lookout fight
+[NewWorldDirector] All 6 zones initialized and linked across TempleRing.unity!
+[NewBazaar] built: T market, 3 loop links, 16 villagers, tail / seal / sequence / street fight
+[NewJungleChase] built: 250m jungle trail, river ruins court, inside man deduction & Bhaskar boss fight
+[NewSunWall] built: Sun Wall monument, rotatable mirrors, Konark Chariot Wheel & Kishore fight
+[NewWorldDirector] All 6 zones initialized and linked across TempleRing.unity!
+[Checkpoint] new_bazaar / Banyan arrival at (-52.0, 0.1, -90.0)
+[BatchFriendly] baked 386 renderers into 88 shared materials (total 386)
+[NewWorldDirector] All 6 zones initialized and linked across TempleRing.unity!
+[Heritage] discovered market_craft
+[Voice] area_enter: played mv_area_courtyard (p2 2D zone=Courtyard)
+[NewZonesQA] PASS Walk reached (25.0, 0.0, 220.0); feet (25.00, -3.39, 219.41)
+[NewZonesQA] PASS Walk reached (-20.0, 0.0, 280.0); feet (-20.00, -1.11, 279.41)
+[NewZonesQA] PASS Walk reached (18.0, 0.0, 340.0); feet (18.00, -1.11, 339.41)
+[NewZonesQA] PASS Walk reached (-12.0, 0.0, 390.0); feet (-12.00, -1.11, 389.41)
+[Checkpoint] new_jungle / before_fight at (0.0, 0.4, 428.0)
+[Brawl] new_jungle: fight begins against 2
+[Voice] fight_start: played cb_start_01 (p3 2D )
+[NewZonesQA] PASS Walk reached (0.0, 0.0, 430.0); feet (0.00, 0.41, 429.36)
+[NewZonesQA] PASS Inside man (Madhav) exposed by evidence deduction
+[Voice] move_first: played mv_first_01 (p2 2D )
+[Brawl] finisher on Madhav — The Inside Man (1 left)
+[Voice] fight_taunt: played bh_taunt_02 (p2 3D enemy=bhaskar)
+[Brawl] Bhaskar — Robber Leader enters phase 2
+[Brawl] new_jungle: won in 17.7s, damage taken 41, max combo 13, parries 0, finishers 2, retries 0
+[GameSfx] missing clip sfx_item_recovered
+[Voice] fight_won: played cb_won_02 (p3 2D )
+[NewZonesQA] Fight: won=True, seconds=17.7, damage=41.0, retries=0, combo=13, finishers=2
+[Brawl] finisher on Bhaskar — Robber Leader (0 left)
+[NewZonesQA] PASS Bhaskar boss fight won
+[NewZonesQA] PASS Walk reached (0.0, 1.4, 447.2); feet (0.00, 0.41, 447.20)
+[PlayerController] Interacting with: treasure.Golden Temple Finial (ruins) (Take Golden Temple Finial (ruins))
+[Treasure] recovered Golden Temple Finial (ruins) in new_jungle; zone points now 2795
+[NewJungleChase] COMPLETE: Golden Temple Finial recovered! Grand finale achieved! Score=2795
+[NewZonesQA] E interaction: treasure.Golden Temple Finial (ruins)
+[NewZonesQA] PASS Golden Temple Finial recovered! Grand finale achieved
+[NewZonesQA] Frame sample: 58.3 fps mean, 105.3 ms maximum; 640×480, editor=True.
+[NewZonesQA] Score 2795, grade B.
+[NewZonesQA] RESULT: PASS
+Saving results to: /Users/hemanth/Library/Application Support/DefaultCompany/My project/TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>
