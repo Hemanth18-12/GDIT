@@ -15,6 +15,13 @@ namespace LegacyOfTemples.Tests
     public class UpgradeVerificationTests
     {
         [UnityTest, Timeout(180000)]
+        public IEnumerator Courtyard_VisibleSkip_AutomaticReturnAndHistory_AllSixLevels()
+        {
+            yield return VisibleHandoverReviewBot.Run(Path.GetFullPath(Path.Combine(Application.dataPath, "../../Docs/QA/2026-11-25-visible-handover/editor")));
+            Assert.IsTrue(VisibleHandoverReviewBot.Finished);
+        }
+
+        [UnityTest, Timeout(180000)]
         public IEnumerator TempleRing_PujariLore_SixDeliveriesSkipVoiceAndReload()
         {
             yield return PujariLoreReviewBot.Run(Path.GetFullPath(Path.Combine(Application.dataPath, "../../Docs/QA/zones/pujari-lore/editor")));

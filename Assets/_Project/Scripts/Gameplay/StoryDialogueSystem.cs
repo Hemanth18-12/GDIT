@@ -269,6 +269,12 @@ namespace LegacyOfTemples.Gameplay
         public static event Action<string, string> OnChapterChanged;
 
         /// <summary>Test / bot helper: complete the current objective without playing it.</summary>
+        public void PrepareHeritageSkip(string target)
+        {
+            for (int i = 0; i < StoryData.Objectives.Length; i++)
+                if (StoryData.Objectives[i].id == target && objectiveIndex < i) { objectiveIndex = i; Save(); Publish(); break; }
+        }
+
         public void DebugCompleteCurrent()
         {
             var cur = Current; if (cur == null) return;
@@ -302,7 +308,7 @@ namespace LegacyOfTemples.Gameplay
 
         private void UpdateBarks()
         {
-            bool talking = activeConversation != null;
+            bool talking = activeConversation != null || (PujariLoreDirector.Instance != null && PujariLoreDirector.Instance.Talking);
             if (barkNow == null && barkQueue.Count > 0 && !talking)
             {
                 barkNow = barkQueue.Dequeue();
@@ -424,6 +430,8 @@ namespace LegacyOfTemples.Gameplay
         private bool HandleTrigger(NPCDialogueTrigger trigger)
         {
             string scene = SceneManager.GetActiveScene().name;
+            if (trigger.CharacterId == Constants.Priest && PujariLoreDirector.Instance != null && PujariLoreDirector.Instance.PendingZone > 0)
+            { PujariLoreDirector.Instance.HandOver(); return true; }
             string npc = trigger.CharacterId;
             if (npc == Constants.Robber2) npc = Constants.Robber1;
             var cur = Current;

@@ -1,0 +1,79 @@
+Original Courtyard — visible skip and automatic history
+PASS Feature runs in actual New Game Courtyard route
+PASS Original priest and initial conversation retained
+PASS SKIP LEVEL [K] button visible during normal gameplay
+PASS Normal first-level relic pickup uses real E input
+PASS Countdown before automatic return zone 1
+PASS Three-second auto return opens explanation without T or priest E, zone 1
+PASS Return occurs around three seconds, zone 1
+PASS Aryan reaches original Pujari, zone 1
+PASS Narration auto advances to Ananda zone 1
+PASS Ananda uses real talking animation zone 1
+PASS Ananda has a playing animation clip zone 1
+ANIMATION Priest_Rig|Priest_Rig|Priest_Rig|Priest_Talk zone 1
+PASS Actual Jagannath heritage content readable on screen zone 1
+PASS Relic history title visible zone 1
+PASS Required history handover completes once zone 1
+PASS Exactly 500 heritage points zone 1
+PASS Countdown before automatic return zone 2
+PASS Three-second auto return opens explanation without T or priest E, zone 2
+PASS Return occurs around three seconds, zone 2
+PASS Aryan reaches original Pujari, zone 2
+PASS Narration auto advances to Ananda zone 2
+PASS Ananda uses real talking animation zone 2
+PASS Ananda has a playing animation clip zone 2
+ANIMATION Priest_Rig|Priest_Rig|Priest_Rig|Priest_Talk zone 2
+PASS Actual Jagannath heritage content readable on screen zone 2
+PASS Relic history title visible zone 2
+PASS Required history handover completes once zone 2
+PASS Exactly 500 heritage points zone 2
+PASS Countdown before automatic return zone 3
+PASS Three-second auto return opens explanation without T or priest E, zone 3
+PASS Return occurs around three seconds, zone 3
+PASS Aryan reaches original Pujari, zone 3
+PASS Narration auto advances to Ananda zone 3
+PASS Ananda uses real talking animation zone 3
+PASS Ananda has a playing animation clip zone 3
+ANIMATION Priest_Rig|Priest_Rig|Priest_Rig|Priest_Talk zone 3
+PASS Actual Jagannath heritage content readable on screen zone 3
+PASS Relic history title visible zone 3
+PASS Required history handover completes once zone 3
+PASS Exactly 500 heritage points zone 3
+PASS Countdown before automatic return zone 4
+PASS Three-second auto return opens explanation without T or priest E, zone 4
+PASS Return occurs around three seconds, zone 4
+PASS Aryan reaches original Pujari, zone 4
+PASS Narration auto advances to Ananda zone 4
+PASS Ananda uses real talking animation zone 4
+PASS Ananda has a playing animation clip zone 4
+ANIMATION Priest_Rig|Priest_Rig|Priest_Rig|Priest_Talk zone 4
+PASS Actual Jagannath heritage content readable on screen zone 4
+PASS Relic history title visible zone 4
+PASS Required history handover completes once zone 4
+PASS Exactly 500 heritage points zone 4
+PASS Countdown before automatic return zone 5
+PASS Three-second auto return opens explanation without T or priest E, zone 5
+PASS Return occurs around three seconds, zone 5
+PASS Aryan reaches original Pujari, zone 5
+PASS Narration auto advances to Ananda zone 5
+PASS Ananda uses real talking animation zone 5
+PASS Ananda has a playing animation clip zone 5
+ANIMATION Priest_Rig|Priest_Rig|Priest_Rig|Priest_Talk zone 5
+PASS Actual Jagannath heritage content readable on screen zone 5
+PASS Relic history title visible zone 5
+PASS Required history handover completes once zone 5
+PASS Exactly 500 heritage points zone 5
+PASS Countdown before automatic return zone 6
+PASS Three-second auto return opens explanation without T or priest E, zone 6
+PASS Return occurs around three seconds, zone 6
+PASS Aryan reaches original Pujari, zone 6
+PASS Narration auto advances to Ananda zone 6
+PASS Ananda uses real talking animation zone 6
+PASS Ananda has a playing animation clip zone 6
+ANIMATION Priest_Rig|Priest_Rig|Priest_Rig|Priest_Talk zone 6
+PASS Actual Jagannath heritage content readable on screen zone 6
+PASS Relic history title visible zone 6
+PASS Required history handover completes once zone 6
+PASS Exactly 500 heritage points zone 6
+PASS All six original-route explanations completed
+ALL CHECKS PASSED

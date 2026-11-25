@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Passed" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-25 16:21:01Z" end-time="2026-11-25 16:21:53Z" duration="51.7159219">
+  <test-suite type="TestSuite" id="1100" name="My project" fullname="My project" runstate="Runnable" testcasecount="77" result="Passed" start-time="2026-11-25 16:21:01Z" end-time="2026-11-25 16:21:53Z" duration="51.715922" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1194" name="LOT.Grounding.PlayModeTests.dll" fullname="/Users/hemanth/Desktop/GDIT/My project/Library/ScriptAssemblies/LOT.Grounding.PlayModeTests.dll" runstate="Runnable" testcasecount="77" result="Passed" start-time="2026-11-25 16:21:01Z" end-time="2026-11-25 16:21:53Z" duration="51.712329" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="18588" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+      <test-suite type="TestSuite" id="1195" name="LegacyOfTemples" fullname="LegacyOfTemples" runstate="Runnable" testcasecount="69" result="Passed" start-time="2026-11-25 16:21:01Z" end-time="2026-11-25 16:21:53Z" duration="51.697037" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+        <test-suite type="TestSuite" id="1196" name="Tests" fullname="LegacyOfTemples.Tests" runstate="Runnable" testcasecount="69" result="Passed" start-time="2026-11-25 16:21:01Z" end-time="2026-11-25 16:21:53Z" duration="51.680350" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+          <test-suite type="TestFixture" id="1182" name="UpgradeVerificationTests" fullname="LegacyOfTemples.Tests.UpgradeVerificationTests" classname="LegacyOfTemples.Tests.UpgradeVerificationTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-11-25 16:21:01Z" end-time="2026-11-25 16:21:53Z" duration="51.663397" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+            <test-case id="1183" name="Courtyard_VisibleSkip_AutomaticReturnAndHistory_AllSixLevels" fullname="LegacyOfTemples.Tests.UpgradeVerificationTests.Courtyard_VisibleSkip_AutomaticReturnAndHistory_AllSixLevels" methodname="Courtyard_VisibleSkip_AutomaticReturnAndHistory_AllSixLevels" classname="LegacyOfTemples.Tests.UpgradeVerificationTests" runstate="Runnable" seed="421617757" result="Passed" start-time="2026-11-25 16:21:01Z" end-time="2026-11-25 16:21:53Z" duration="51.643794" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="180000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+[V3] new game: puzzles, run score and checkpoint cleared
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+[Checkpoint] obj_c0_reach / Reach Jagannath Temple at (0.0, 0.1, -12.0)
+[Weather] scene Courtyard: target=0.00, interior=False, quality=2
+[CharacterManager] Player placed in Courtyard: spawn=Spawn_player_start (0.00, 0.05, 15.00) -> player (0.00, 0.00, 15.00)
+[CharacterManager] Player placed in Courtyard: spawn=Spawn_player_start (0.00, 0.05, 15.00) -> player (0.00, 0.00, 15.00)
+[Voice] npc_near: played np_puj_02 (p1 3D speaker=pujari)
+[Heritage] discovered pottery
+[Heritage] discovered inventory
+[Heritage] discovered market_craft
+[Heritage] discovered market_transmission
+[TempleSite] temple placed: 1867721 triangles, footprint 247 x 108 m, height 61 m, tower top (-111.34, 61.05, -149.14)
+[VillageLife] built: 13 villagers, jeep parked
+[BatchFriendly] baked 1270 renderers into 571 shared materials (total 1270)
+[BreakIn] zone 2 puzzle built at (-17.0, 0.0, -74.0)
+[Stepwell] zone 4 puzzle built at (137.1, 0.0, -134.0)
+[SunWall] zone 5 puzzle built at (-137.6, 0.0, -135.0)
+[Vaults] zone 3 puzzle built at (0.0, 0.0, -202.5)
+[BatchFriendly] baked 104 renderers into 637 shared materials (total 1374)
+[Heritage] discovered architecture
+[Bazaar] zone 1 built: yard at (21.0, 0.0, 145.0), route 7 points
+[Jungle] zone 6 built: road 24 points from (30.5, 0.0, -221.0), court at (39.5, 0.0, -457.0)
+[Voice] clue_found: played ex_clue_list (p3 2D evidence=list)
+[PlayerController] Interacting with: treasure.the Dawn Bell (Take Panchajanya Brass Aarti Ghanta & Shankha Bell (teaching replica))
+[Treasure] recovered Panchajanya Brass Aarti Ghanta & Shankha Bell (teaching replica) in bazaar; zone points now 3500
+[Voice] story:dialogue: played lore_ary_z1 (story line)
+[TempleLife] bell, 8 lamp stands, 6 reflection probes
+[Checkpoint] obj_v3_pujari / Find the priest at (17.4, -0.1, 145.0)
+[BatchFriendly] baked 2438 renderers into 1992 shared materials (total 3812)
+[Voice] dialogue: stopped lore_ary_z1 (heritage dialogue)
+[Voice] story:dialogue: played lore_ary_z1 (story line)
+[Voice] story:dialogue: played lore_puj_z1_1 (story line)
+[Voice] story:dialogue: played lore_puj_z1_2 (story line)
+[Voice] story:dialogue: played lore_puj_z1_3 (story line)
+[Voice] story:dialogue: played lore_puj_z1_care (story line)
+[Heritage] discovered lore_z1
+[Voice] puzzle_start: played pz_start_01 (p2 2D )
+[Puzzle] z2_breakin solved in 9.6s with 0 hint(s)
+[Voice] puzzle_solved: interrupts pz_solved_03 (over pz_start_01 (p2))
+[Checkpoint] obj_v3_storeroom / The storeroom at (1.2, 0.0, 9.4)
+[Treasure] recovered Tala-Patra Gita Govinda Palm-Leaf Manuscript (teaching replica) in courtyard; zone points now 3500
+[Voice] story:dialogue: played lore_ary_z2 (story line)
+[Madhav] on stage for obj_v3_storeroom at (-12.0, 0.0, -79.5)
+[Voice] pot_whole: queued pz_pot_whole_01 (behind p5)
+[Voice] flagstone: queued pz_flag_01 (behind p5)
+[Voice] dialogue: stopped lore_ary_z2 (heritage dialogue)
+[Voice] story:dialogue: played lore_ary_z2 (story line)
+[Voice] story:dialogue: played lore_puj_z2_1 (story line)
+[Voice] story:dialogue: played lore_puj_z2_2 (story line)
+[Voice] story:dialogue: played lore_puj_z2_3 (story line)
+[Voice] story:dialogue: played lore_puj_z2_extra (story line)
+[Heritage] discovered lore_z2
+[Checkpoint] obj_v3_vaults / The vaults at (1.2, 0.0, 9.4)
+[Voice] story:bark: played v3_ary_07 (story line)
+[Madhav] on stage for obj_v3_vaults at (-14.5, 0.0, -200.3)
+[Puzzle] z3_vaults solved in 17.4s with 0 hint(s)
+[Voice] puzzle_solved: queued pz_solved_03 (behind p4)
+[Treasure] recovered Ashtadhatu Nilachakra Seal & Pattachitra Medallion (teaching replica) in vaults; zone points now 3500
+[Voice] story:dialogue: played lore_ary_z3 (story line)
+[Voice] vault_gate: queued pz_vault_gate_01 (behind p5)
+[Voice] clue_found: queued ex_clue_ledger (behind p5)
+[Voice] story:bark: played v3_puj_03 (story line)
+[Voice] bark: stopped v3_puj_03 (heritage dialogue)
+[Voice] story:dialogue: played lore_ary_z3 (story line)
+[Voice] story:dialogue: played lore_puj_z3_1 (story line)
+[Voice] story:dialogue: played lore_puj_z3_2 (story line)
+[Voice] story:dialogue: played lore_puj_z3_3 (story line)
+[Voice] story:dialogue: played lore_puj_z3_care (story line)
+[Heritage] discovered lore_z3
+[Checkpoint] obj_v3_stepwell / The stepwell at (1.2, 0.0, 9.4)
+[Voice] story:bark: played v3_ary_03 (story line)
+[Madhav] on stage for obj_v3_stepwell at (127.6, 0.0, -144.5)
+[Puzzle] z4_stepwell solved in 25.6s with 0 hint(s)
+[Voice] puzzle_solved: queued pz_solved_03 (behind p4)
+[Treasure] recovered Abadha Kumbha & Rohini Kunda Brass Kalasha (teaching replica) in stepwell; zone points now 3500
+[Voice] story:dialogue: played lore_ary_z4 (story line)
+[Voice] clue_found: queued ex_clue_keys (behind p5)
+[Voice] board_ready: queued ex_board_01 (behind p5)
+[Voice] story:bark: played v3_mee_01 (story line)
+[Voice] bark: stopped v3_mee_01 (heritage dialogue)
+[Voice] story:dialogue: played lore_ary_z4 (story line)
+[Voice] story:dialogue: played lore_puj_z4_1 (story line)
+[Voice] story:dialogue: played lore_puj_z4_2 (story line)
+[Voice] story:dialogue: played lore_puj_z4_3 (story line)
+[Voice] story:dialogue: played lore_puj_z4_extra (story line)
+[Heritage] discovered lore_z4
+[Checkpoint] obj_v3_sunwall / The Sun Wall at (1.2, 0.0, 9.4)
+[Voice] story:bark: played v3_mee_02 (story line)
+[Madhav] on stage for obj_v3_sunwall at (-126.1, 0.0, -150.0)
+[Voice] clock_half: queued ck_half_01 (behind p4)
+[Puzzle] z5_sunwall solved in 33.3s with 0 hint(s)
+[Treasure] recovered Nandighosha Chariot Wheel Medallion & Ratha Pataka (teaching replica) in sunwall; zone points now 3500
+[Voice] story:dialogue: played lore_ary_z5 (story line)
+[Voice] sunwall_open: queued pz_wall_01 (behind p5)
+[Voice] story:bark: played v3_ary_04 (story line)
+[Voice] bark: stopped v3_ary_04 (heritage dialogue)
+[Voice] story:dialogue: played lore_ary_z5 (story line)
+[Voice] story:dialogue: played lore_puj_z5_1 (story line)
+[Voice] story:dialogue: played lore_puj_z5_2 (story line)
+[Voice] story:dialogue: played lore_puj_z5_3 (story line)
+[Voice] story:dialogue: played lore_puj_z5_care (story line)
+[Heritage] discovered lore_z5
+[Checkpoint] obj_v3_jungle / The river road at (1.2, 0.0, 9.4)
+[Voice] story:bark: played v3_ary_05 (story line)
+[Treasure] recovered Shree Mandir Swarna Kalasha & Daru Brahma Chronicle Ornament (teaching replica) in jungle; zone points now 2500
+[Voice] story:dialogue: played lore_ary_z6 (story line)
+[Voice] story:bark: played v3_mee_04 (story line)
+[Voice] bark: stopped v3_mee_04 (heritage dialogue)
+[Voice] story:dialogue: played lore_ary_z6 (story line)
+[Voice] story:dialogue: played lore_puj_z6_1 (story line)
+[Voice] story:dialogue: played lore_puj_z6_2 (story line)
+[Voice] story:dialogue: played lore_puj_z6_3 (story line)
+[Voice] story:dialogue: played lore_puj_z6_extra (story line)
+[Heritage] discovered lore_z6
+[Checkpoint] obj_return / Return the treasures at (1.2, 0.0, 9.4)
+[Voice] story:bark: played v3_ary_10 (story line)
+Saving results to: /Users/hemanth/Library/Application Support/DefaultCompany/My project/TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

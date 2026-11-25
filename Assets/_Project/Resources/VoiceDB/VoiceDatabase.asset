@@ -2019,7 +2019,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 9fb3e75cd30d44061a199614fbf590aa, type: 3}
   - id: lore_puj_z1_1
     speaker: pujari
-    text: This bell and conch are fictional teaching replicas, not objects removed from Puri. Bells and conches accompany worship and the early morning Mangal Aarti.
+    text: At Puri in Odisha, the present Shree Jagannath Temple began under King Anantavarman Chodaganga Deva of the Eastern Ganga dynasty in the twelfth century.
     trigger: lore
     conditions:
     priority: 5
@@ -2031,7 +2031,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 7c19c842c098e4ca7b77adb69e30f26a, type: 3}
   - id: lore_puj_z1_2
     speaker: pujari
-    text: The present Shree Jagannath Temple began under the Eastern Ganga king Anantavarman Chodaganga Deva in the twelfth century.
+    text: This bell and conch recall Mangal Aarti, the early morning worship of Jagannath. Their sound calls attention to prayer and the daily service that keeps the temple tradition alive.
     trigger: lore
     conditions:
     priority: 5
@@ -2043,7 +2043,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: f243626234ab1406d92ef0e7e0c16155, type: 3}
   - id: lore_puj_z1_3
     speaker: pujari
-    text: King Indradyumna and the sacred timber belong to the temple foundation tradition. We distinguish that cherished legend from the history of the present building.
+    text: Temple tradition also tells of King Indradyumna and sacred timber. That is a cherished foundation legend, distinct from the documented history of the present stone temple.
     trigger: lore
     conditions:
     priority: 5
@@ -2079,7 +2079,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 71795b3d4b5944890b3d83e09108520c, type: 3}
   - id: lore_puj_z2_1
     speaker: pujari
-    text: This fictional manuscript replica introduces Odisha palm-leaf engraving, called tala patra. Craftspeople prepare leaves and incise fine lines with a stylus.
+    text: This palm-leaf manuscript recalls tala patra, an Odisha craft that preserves writing and pictures on prepared palm leaves. Artists incise fine lines with a stylus and darken them with pigment.
     trigger: lore
     conditions:
     priority: 5
@@ -2091,7 +2091,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: ac91f750bf5d44dccbc773602c63895f, type: 3}
   - id: lore_puj_z2_2
     speaker: pujari
-    text: Dark pigment makes the engraved lines visible. Palm leaves preserve writing and images through skilled preparation and careful storage.
+    text: The Gita Govinda was composed by the twelfth-century poet Jayadeva. Its devotional verses are sung in Jagannath worship, connecting poetry, music and temple service.
     trigger: lore
     conditions:
     priority: 5
@@ -2103,7 +2103,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: fe5184518584e4673b8804d2319b345c, type: 3}
   - id: lore_puj_z2_3
     speaker: pujari
-    text: Jayadeva composed the Gita Govinda in the twelfth century. Its devotional poetry is closely associated with Jagannath worship.
+    text: Preserving a manuscript protects more than words. It keeps a language, an artist's skill and generations of community memory available to the people who come after us.
     trigger: lore
     conditions:
     priority: 5
@@ -2139,7 +2139,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 7030b1d6bf66a4710a723fda8ee65784, type: 3}
   - id: lore_puj_z3_1
     speaker: pujari
-    text: This fictional seal represents the Nilachakra, the sacred metal wheel above the Puri temple. The wheel itself remains on the temple; it is never a collectible.
+    text: The Nilachakra is the sacred wheel above the Shree Jagannath Temple at Puri. It is made from ashtadhatu, an alloy traditionally described as eight metals.
     trigger: lore
     conditions:
     priority: 5
@@ -2151,7 +2151,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: ebc2ce3faa6cb4d04a918afd4bfd7f43, type: 3}
   - id: lore_puj_z3_2
     speaker: pujari
-    text: The temple banner is associated with this wheel. We respect that living tradition without presenting tales about the wind as measured science.
+    text: The temple flag is associated with this wheel. The small seal you recovered recalls that landmark; the actual sacred wheel remains on the temple.
     trigger: lore
     conditions:
     priority: 5
@@ -2163,7 +2163,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 78bd7f3b5ad5a4a95929ac097cc4f009, type: 3}
   - id: lore_puj_z3_3
     speaker: pujari
-    text: Odisha Pattachitra artists create detailed narrative paintings. The medallion is our invented teaching design, not an authenticated historic temple object.
+    text: Pattachitra is Odisha's detailed story-painting tradition. Artists use careful outlines and prepared colours to preserve devotional stories, including stories associated with Jagannath.
     trigger: lore
     conditions:
     priority: 5
@@ -2199,7 +2199,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: b2ec5ceb31f0e40128e868aee232eeab, type: 3}
   - id: lore_puj_z4_1
     speaker: pujari
-    text: This brass vessel is a fictional teaching replica. Rohini Kunda is a sacred place within the Puri temple tradition, not a puzzle tank to be disturbed.
+    text: This vessel introduces Mahaprasad, the sacred food offered at Shree Jagannath Temple. The temple kitchen prepares offerings in earthen pots through the skilled service of its cooks.
     trigger: lore
     conditions:
     priority: 5
@@ -2211,7 +2211,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 71d75e553f2924a48a20db7536e6e159, type: 3}
   - id: lore_puj_z4_2
     speaker: pujari
-    text: The temple kitchen prepares offerings in earthen pots. Mahaprasad connects worship, food and a community of cooks, servitors and devotees.
+    text: Rohini Kunda is a sacred water place within the temple tradition. A water vessel can help us remember the place of water, offerings and daily care in worship.
     trigger: lore
     conditions:
     priority: 5
@@ -2223,7 +2223,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: e468d2933f17a4a0d903ed84dbfb13bb, type: 3}
   - id: lore_puj_z4_3
     speaker: pujari
-    text: Nirmalya includes dried sacred rice cherished by devotees. Our brass replica illustrates heritage learning; it is not an actual kitchen pot or sacred offering.
+    text: Nirmalya includes dried sacred rice cherished by devotees. Food traditions remind us that heritage lives through people who prepare, share and care for it, as well as through buildings.
     trigger: lore
     conditions:
     priority: 5
@@ -2259,7 +2259,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: d706322aaa88b4d368605ac3f469de39, type: 3}
   - id: lore_puj_z5_1
     speaker: pujari
-    text: This fictional medallion and banner recall Ratha Yatra. The chariots travel along Puri Grand Avenue towards Gundicha Temple.
+    text: Ratha Yatra is the great chariot festival of Puri. Jagannath, Balabhadra and Subhadra travel along Bada Danda, the Grand Avenue, towards Gundicha Temple.
     trigger: lore
     conditions:
     priority: 5
@@ -2271,7 +2271,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: a4255cbd3236746738b62b2ef523b700, type: 3}
   - id: lore_puj_z5_2
     speaker: pujari
-    text: Jagannath rides Nandighosha, Balabhadra rides Taladhwaja, and Subhadra rides Darpadalana. Nandighosha has sixteen wheels.
+    text: Jagannath's chariot is Nandighosha, with sixteen wheels. Balabhadra's is Taladhwaja and Subhadra's is Darpadalana. Each chariot has its own established design.
     trigger: lore
     conditions:
     priority: 5
@@ -2283,7 +2283,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 0cfc03965d0b547ffbb752f16a4ab32d, type: 3}
   - id: lore_puj_z5_3
     speaker: pujari
-    text: Artisans build the festival chariots anew each year. The celebration brings the deities into public view, expressing a widely shared tradition of devotion.
+    text: Skilled carpenters build the chariots anew each year. The wheel and banner recall a living tradition in which making, devotion and community participation carry knowledge forward.
     trigger: lore
     conditions:
     priority: 5
@@ -2319,7 +2319,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: b200d56ee46724c78949b719d96754f6, type: 3}
   - id: lore_puj_z6_1
     speaker: pujari
-    text: This finial ornament and chronicle are fictional teaching replicas. A kalasha crowns temple architecture; no actual temple crown has been taken in this story.
+    text: A kalasha is a crowning vessel form in temple architecture. This finial ornament helps us notice how the upper parts of a temple contribute to its identity and craftsmanship.
     trigger: lore
     conditions:
     priority: 5
@@ -2331,7 +2331,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: edd962e53458648019819a2e8556a283, type: 3}
   - id: lore_puj_z6_2
     speaker: pujari
-    text: Nabakalebara is the periodic renewal of the wooden sacred images in the Jagannath tradition. Its ritual calendar is not a fixed annual replacement.
+    text: At Puri, Nabakalebara is the periodic renewal of the sacred wooden images in the Jagannath tradition. The images are associated with sacred neem wood, or daru.
     trigger: lore
     conditions:
     priority: 5
@@ -2343,7 +2343,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 78ad8a813a2bc4a64806c5315ede2593, type: 3}
   - id: lore_puj_z6_3
     speaker: pujari
-    text: The sacred images remain untouched in our game. Returning these replicas reminds us that heritage is living community memory, not gold for smugglers.
+    text: This is why heritage is more than the price of wood or metal. People preserve and renew its meaning through knowledge, care and worship. Protecting heritage means protecting living community memory.
     trigger: lore
     conditions:
     priority: 5
@@ -2462,4 +2462,4 @@ MonoBehaviour:
     fx: none
     clip: {fileID: 8300000, guid: 8a8fffca5036547d08eeac9aa12b0943, type: 3}
   builtFrom: Docs/VOICE_LINES.csv
-  builtAt: 2026-11-25 15:07
+  builtAt: 2026-11-25 22:06

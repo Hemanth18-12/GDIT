@@ -37,6 +37,7 @@ namespace LegacyOfTemples.UI
         private readonly List<(RectTransform rt, int zoneIdx)> zoneBlips = new List<(RectTransform, int)>();
         private Texture2D arrowTex, diamondTex;
         private Sprite arrowSprite, diamondSprite;
+        private Button skipLevelButton;
         private bool builtTempleRing;
         private string layoutScene;
         private int layoutPlaces;
@@ -172,6 +173,11 @@ namespace LegacyOfTemples.UI
             footerText.rectTransform.offsetMin = new Vector2(8f, 0f);
             footerText.rectTransform.offsetMax = new Vector2(-8f, 0f);
 
+            var skipRow = MakeBox(rootRect, "SkipLevelButton", new Vector2(0f, MapSize + 56f), new Vector2(MapSize, 38f), new Color(0.28f, 0.16f, 0.05f, 0.96f));
+            skipLevelButton = skipRow.gameObject.AddComponent<Button>();
+            skipLevelButton.onClick.AddListener(NewWorldDirector.SkipActiveTask);
+            var skipLabel = MakeLabel(skipRow, "SkipLevelLabel", 20f, TextAlignmentOptions.Center, new Color(1f, 0.84f, 0.45f));
+            skipLabel.text = "SKIP LEVEL [K]"; skipLabel.raycastTarget = false;
             rootRect.gameObject.SetActive(false);
         }
 
@@ -256,6 +262,7 @@ namespace LegacyOfTemples.UI
         private void LateUpdate()
         {
             string scene = SceneManager.GetActiveScene().name;
+            if (skipLevelButton != null) skipLevelButton.interactable = PujariLoreDirector.Instance != null && PujariLoreDirector.Instance.Ready && !InputGate.GameplayBlocked;
             bool menuOrIntro = scene == "MainMenu" || scene == "Boot" || string.IsNullOrEmpty(scene)
                 || IntroCinematic.Playing
                 || (TempleMapOverlay.Instance != null && TempleMapOverlay.Instance.IsOpen)

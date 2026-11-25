@@ -160,3 +160,16 @@ Historical reference sources (factual paraphrase, not asset downloads):
 - Odisha Tourism, *Puri*: https://odishatourism.gov.in/en/destinations/puri — living heritage, food and crafts.
 
 All recoverable pieces are explicitly fictional teaching replicas. No authentic temple object or sacred image is represented as stolen inventory. The recoverable designs and composite names are not asserted to be authenticated historic objects. Legend is distinguished from construction history; wind folklore is not asserted as measured physics.
+
+## 25 November 2026 — Clear history in the original Courtyard game
+
+The six heritage narratives now lead with historical context, rather than repeated replica disclaimers. Eighteen Kokoro narration clips were regenerated locally from the revised original text in `pujari_lore.json` / `Docs/VOICE_LINES.csv`. Existing temple, characters, puzzle assets and animations are retained. The priest uses the existing embedded `Priest_Talk` / `Priest_Point` takes; Aryan uses the existing interaction clip. No model, animation, music or artwork was downloaded.
+
+Additional reference sources for factual paraphrase:
+
+- Government of Odisha Directorate of Handicrafts, *Palm-leaf Engraving*: https://crafts.odisha.gov.in/?crafts=palm-leaf-engraving
+- Government of Odisha, *Patta Chitra*: https://odisha.gov.in/en/odisha-tourism/patta-chitra
+- Odisha Tourism, *Mahaprasad*: https://odishatourism.gov.in/en/mahaprasad
+- Government Rath Jatra site, *The Pulling of Chariots*: https://rathjatra.nic.in/pulling.html
+
+These sources inform text only; no website image, recording or asset was imported. The recovered game pieces remain fictional teaching replicas. The actual Nilachakra, temple crown and sacred images remain outside inventory.

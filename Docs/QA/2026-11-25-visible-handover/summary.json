@@ -1,0 +1,13 @@
+{
+  "build": "build 2026-11-25 22:08",
+  "build_report": "Succeeded: errors=0, warnings=0",
+  "editor_handover_tests": {
+    "passed": 2,
+    "failed": 0
+  },
+  "original_regressions": "5/5 passed in round2.xml; its new test setup failed before the scene-load wait was corrected",
+  "standalone_checks": 71,
+  "standalone_result": "ALL CHECKS PASSED",
+  "historical_clips_regenerated": 18,
+  "known_build_preflight_warnings": 4
+}

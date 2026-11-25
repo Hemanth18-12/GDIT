@@ -194,6 +194,13 @@ namespace LegacyOfTemples.Gameplay
             if (f != null) f.OnBossPhase = (e, n) => { if (n == 3) { StoryDialogueSystem.Instance?.Say("v3:jungle_phase3"); ObjectiveBanner.Show("HIS SWORD IS GONE", "He fights with his hands now.", 2.2f); } };
         }
 
+        public void SkipForHandover()
+        {
+            StopAllCoroutines(); Now = Phase.Done;
+            foreach (var key in new[] { "jungle_wave1", "jungle_wave2", "jungle_boss" }) PuzzleSave.Set("fight." + key, 1);
+            if (Runner != null) Runner.gameObject.SetActive(false);
+            Finial.enabled = true;
+        }
         void Done()
         {
             Now = Phase.Done; Finial.enabled = true; foreach (var r in Finial.GetComponentsInChildren<Renderer>()) r.enabled = true;

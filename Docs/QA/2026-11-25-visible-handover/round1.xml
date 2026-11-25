@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Failed(Child)" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-25 16:17:38Z" end-time="2026-11-25 16:17:49Z" duration="10.9917279">
+  <test-suite type="TestSuite" id="1100" name="My project" fullname="My project" runstate="Runnable" testcasecount="77" result="Failed" site="Child" start-time="2026-11-25 16:17:38Z" end-time="2026-11-25 16:17:49Z" duration="10.991728" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1194" name="LOT.Grounding.PlayModeTests.dll" fullname="/Users/hemanth/Desktop/GDIT/My project/Library/ScriptAssemblies/LOT.Grounding.PlayModeTests.dll" runstate="Runnable" testcasecount="77" result="Failed" site="Child" start-time="2026-11-25 16:17:38Z" end-time="2026-11-25 16:17:49Z" duration="10.987570" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="18368" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+      <test-suite type="TestSuite" id="1195" name="LegacyOfTemples" fullname="LegacyOfTemples" runstate="Runnable" testcasecount="69" result="Failed" site="Child" start-time="2026-11-25 16:17:38Z" end-time="2026-11-25 16:17:49Z" duration="10.972545" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+        <test-suite type="TestSuite" id="1196" name="Tests" fullname="LegacyOfTemples.Tests" runstate="Runnable" testcasecount="69" result="Failed" site="Child" start-time="2026-11-25 16:17:38Z" end-time="2026-11-25 16:17:49Z" duration="10.955720" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+          <test-suite type="TestFixture" id="1182" name="UpgradeVerificationTests" fullname="LegacyOfTemples.Tests.UpgradeVerificationTests" classname="LegacyOfTemples.Tests.UpgradeVerificationTests" runstate="Runnable" testcasecount="4" result="Failed" site="Child" start-time="2026-11-25 16:17:38Z" end-time="2026-11-25 16:17:49Z" duration="10.938726" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+            <test-case id="1183" name="Courtyard_VisibleSkip_AutomaticReturnAndHistory_AllSixLevels" fullname="LegacyOfTemples.Tests.UpgradeVerificationTests.Courtyard_VisibleSkip_AutomaticReturnAndHistory_AllSixLevels" methodname="Courtyard_VisibleSkip_AutomaticReturnAndHistory_AllSixLevels" classname="LegacyOfTemples.Tests.UpgradeVerificationTests" runstate="Runnable" seed="2053601689" result="Failed" label="Error" start-time="2026-11-25 16:17:38Z" end-time="2026-11-25 16:17:49Z" duration="10.917360" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="180000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[System.NullReferenceException : Object reference not set to an instance of an object]]></message>
+                <stack-trace><![CDATA[  at LegacyOfTemples.UI.VisibleHandoverReviewBot+<Run>d__3.MoveNext () [0x0081b] in /Users/hemanth/Desktop/GDIT/My project/Assets/_Project/Scripts/UI/VisibleHandoverReviewBot.cs:92 
+  at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in ./Library/PackageCache/com.unity.test-framework@ee3fe9477490/UnityEngine.TestRunner/NUnitExtensions/Attributes/TestEnumerator.cs:52 ]]></stack-trace>
+              </failure>
+              <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+[V3] new game: puzzles, run score and checkpoint cleared
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+[Checkpoint] obj_c0_reach / Reach Jagannath Temple at (0.0, 0.1, -12.0)
+[Weather] scene Courtyard: target=0.00, interior=False, quality=2
+[CharacterManager] Player placed in Courtyard: spawn=Spawn_player_start (0.00, 0.05, 15.00) -> player (0.00, 0.00, 15.00)
+[CharacterManager] Player placed in Courtyard: spawn=Spawn_player_start (0.00, 0.05, 15.00) -> player (0.00, 0.00, 15.00)
+[Voice] npc_near: played np_puj_01 (p1 3D speaker=pujari)
+[Heritage] discovered pottery
+[Heritage] discovered inventory
+[Heritage] discovered market_craft
+[Heritage] discovered market_transmission
+[TempleSite] temple placed: 1867721 triangles, footprint 247 x 108 m, height 61 m, tower top (-111.34, 61.05, -149.14)
+[VillageLife] built: 13 villagers, jeep parked
+[BatchFriendly] baked 1270 renderers into 571 shared materials (total 1270)
+[BreakIn] zone 2 puzzle built at (-17.0, 0.0, -74.0)
+[Stepwell] zone 4 puzzle built at (137.1, 0.0, -134.0)
+[SunWall] zone 5 puzzle built at (-137.6, 0.0, -135.0)
+[Vaults] zone 3 puzzle built at (0.0, 0.0, -202.5)
+[BatchFriendly] baked 104 renderers into 637 shared materials (total 1374)
+[Heritage] discovered architecture
+[Bazaar] zone 1 built: yard at (21.0, 0.0, 145.0), route 7 points
+[Jungle] zone 6 built: road 24 points from (30.5, 0.0, -221.0), court at (39.5, 0.0, -457.0)
+[Voice] clue_found: played ex_clue_list (p3 2D evidence=list)
+[PlayerController] Interacting with: treasure.the Dawn Bell (Take Panchajanya Brass Aarti Ghanta & Shankha Bell (teaching replica))
+[Treasure] recovered Panchajanya Brass Aarti Ghanta & Shankha Bell (teaching replica) in bazaar; zone points now 3500
+[Voice] story:dialogue: played lore_ary_z1 (story line)
+[TempleLife] bell, 8 lamp stands, 6 reflection probes
+[Checkpoint] obj_v3_pujari / Find the priest at (17.4, -0.1, 145.0)
+[BatchFriendly] baked 2438 renderers into 1992 shared materials (total 3812)
+[Voice] dialogue: stopped lore_ary_z1 (heritage dialogue)
+[Voice] story:dialogue: played lore_ary_z1 (story line)
+[Voice] story:dialogue: played lore_puj_z1_1 (story line)
+Saving results to: /Users/hemanth/Library/Application Support/DefaultCompany/My project/TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

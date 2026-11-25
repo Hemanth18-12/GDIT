@@ -125,10 +125,16 @@ namespace LegacyOfTemples.Gameplay
 
         public static void SkipActiveTask()
         {
-            if (Instance != null) Instance.StartCoroutine(Instance.SkipAfterMenu());
+            if (PujariLoreDirector.Instance != null) PujariLoreDirector.Instance.StartCoroutine(SkipLoreAfterMenu());
+            else if (Instance != null) Instance.StartCoroutine(Instance.SkipAfterMenu());
             else StoryDialogueSystem.Instance?.DebugCompleteCurrent();
         }
 
+        static IEnumerator SkipLoreAfterMenu()
+        {
+            for (int i = 0; i < 4; i++) yield return null;
+            PujariLoreDirector.Instance?.SkipLevel();
+        }
         IEnumerator SkipAfterMenu()
         {
             for (int i = 0; i < 4; i++) yield return null;

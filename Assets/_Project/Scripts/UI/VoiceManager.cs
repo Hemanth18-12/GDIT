@@ -74,6 +74,7 @@ namespace LegacyOfTemples.UI
                 var line = VoiceLibrary.Line(id);
                 if (line != null) PlayStory(id, speaker, line.text, line.clip, "calm", true, 1f, at);
             };
+            PujariLoreDirector.AdvanceLine = () => UIManager.Instance?.AdvanceDialogue();
             PujariLoreDirector.StopVoices = () => StopAll("heritage dialogue");
             PujariLoreDirector.DialogueIsOpen = () => UIManager.Instance != null && UIManager.Instance.IsDialogueActive;
             Source2D = gameObject.AddComponent<AudioSource>(); Source2D.playOnAwake = false; Source2D.spatialBlend = 0f; Source2D.priority = 0;

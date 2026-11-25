@@ -183,6 +183,11 @@ namespace LegacyOfTemples.Gameplay
             }
         }
 
+        public void SkipForHandover()
+        {
+            if (Courier != null) Courier.gameObject.SetActive(false);
+            Won();
+        }
         void Won()
         {
             Now = Phase.Done; Bell.enabled = true; foreach (var r in Bell.GetComponentsInChildren<Renderer>()) r.enabled = true;

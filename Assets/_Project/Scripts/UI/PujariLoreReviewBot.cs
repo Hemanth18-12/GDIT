@@ -27,12 +27,14 @@ namespace LegacyOfTemples.UI
         static Keyboard reviewKeyboard;
         public static IEnumerator Run(string output)
         {
+            bool automatic = PujariLoreDirector.AutoReturnEnabled; PujariLoreDirector.AutoReturnEnabled = false;
             var background = InputSystem.settings.backgroundBehavior;
             var editor = InputSystem.settings.editorInputBehaviorInPlayMode;
             try { yield return RunCore(output); }
             finally
             {
                 if (reviewKeyboard != null) { InputSystem.RemoveDevice(reviewKeyboard); reviewKeyboard = null; }
+                PujariLoreDirector.AutoReturnEnabled = automatic;
                 InputSystem.settings.backgroundBehavior = background;
                 InputSystem.settings.editorInputBehaviorInPlayMode = editor;
             }

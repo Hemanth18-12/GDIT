@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="6" result="Failed(Child)" total="6" passed="5" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-25 16:18:36Z" end-time="2026-11-25 16:19:50Z" duration="74.0457615">
+  <test-suite type="TestSuite" id="1100" name="My project" fullname="My project" runstate="Runnable" testcasecount="77" result="Failed" site="Child" start-time="2026-11-25 16:18:36Z" end-time="2026-11-25 16:19:50Z" duration="74.045762" total="6" passed="5" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1194" name="LOT.Grounding.PlayModeTests.dll" fullname="/Users/hemanth/Desktop/GDIT/My project/Library/ScriptAssemblies/LOT.Grounding.PlayModeTests.dll" runstate="Runnable" testcasecount="77" result="Failed" site="Child" start-time="2026-11-25 16:18:36Z" end-time="2026-11-25 16:19:50Z" duration="74.041729" total="6" passed="5" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="18472" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+      <test-suite type="TestSuite" id="1195" name="LegacyOfTemples" fullname="LegacyOfTemples" runstate="Runnable" testcasecount="69" result="Failed" site="Child" start-time="2026-11-25 16:18:36Z" end-time="2026-11-25 16:19:50Z" duration="74.026459" total="6" passed="5" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+        <test-suite type="TestSuite" id="1196" name="Tests" fullname="LegacyOfTemples.Tests" runstate="Runnable" testcasecount="69" result="Failed" site="Child" start-time="2026-11-25 16:18:36Z" end-time="2026-11-25 16:19:50Z" duration="74.009621" total="6" passed="5" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+          <test-suite type="TestFixture" id="1148" name="OriginalRouteReviewTests" fullname="LegacyOfTemples.Tests.OriginalRouteReviewTests" classname="LegacyOfTemples.Tests.OriginalRouteReviewTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-11-25 16:18:36Z" end-time="2026-11-25 16:19:50Z" duration="73.340013" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+            <test-case id="1150" name="EInteraction_KeepsVisibleCharacterAboveTheFloor" fullname="LegacyOfTemples.Tests.OriginalRouteReviewTests.EInteraction_KeepsVisibleCharacterAboveTheFloor" methodname="EInteraction_KeepsVisibleCharacterAboveTheFloor" classname="LegacyOfTemples.Tests.OriginalRouteReviewTests" runstate="Runnable" seed="1028893905" result="Passed" start-time="2026-11-25 16:18:36Z" end-time="2026-11-25 16:18:53Z" duration="16.955868" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="90000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+[V3] new game: puzzles, run score and checkpoint cleared
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+[Checkpoint] obj_c0_reach / Reach Jagannath Temple at (0.0, 0.1, -12.0)
+[Weather] scene Courtyard: target=0.00, interior=False, quality=2
+[CharacterManager] Player placed in Courtyard: spawn=Spawn_player_start (0.00, 0.05, 15.00) -> player (0.00, 0.00, 15.00)
+[CharacterManager] Player placed in Courtyard: spawn=Spawn_player_start (0.00, 0.05, 15.00) -> player (0.00, 0.00, 15.00)
+[Heritage] discovered pottery
+[Heritage] discovered inventory
+[Heritage] discovered market_craft
+[Heritage] discovered market_transmission
+[TempleSite] temple placed: 1867721 triangles, footprint 247 x 108 m, height 61 m, tower top (-111.34, 61.05, -149.14)
+[VillageLife] built: 13 villagers, jeep parked
+[BatchFriendly] baked 1270 renderers into 571 shared materials (total 1270)
+[BreakIn] zone 2 puzzle built at (-17.0, 0.0, -74.0)
+[Stepwell] zone 4 puzzle built at (137.1, 0.0, -134.0)
+[SunWall] zone 5 puzzle built at (-137.6, 0.0, -135.0)
+[Vaults] zone 3 puzzle built at (0.0, 0.0, -202.5)
+[BatchFriendly] baked 104 renderers into 637 shared materials (total 1374)
+[Heritage] discovered architecture
+[Bazaar] zone 1 built: yard at (21.0, 0.0, 145.0), route 7 points
+[Jungle] zone 6 built: road 24 points from (30.5, 0.0, -221.0), court at (39.5, 0.0, -457.0)
+[TempleLife] bell, 8 lamp stands, 6 reflection probes
+[Checkpoint] obj_v3_pujari / Find the priest at (0.0, 0.0, 15.0)
+[BatchFriendly] baked 2438 renderers into 1992 shared materials (total 3812)
+[Voice] area_enter: played mv_area_sunwall (p2 2D zone=SunWall)
+[Heritage] discovered light
+[PlayerController] Interacting with: el.z5.mirror_1 (Turn mirror)
+[EInteraction] before feet=-0.029; lowest posed feet=-0.052; head 1.587->1.533; lowest capsule root=-0.015; mirror 0->1
+]]></output>
+            </test-case>
+            <test-case id="1149" name="EstablishedLocations_ArePreserved_AndSunWallUsesRealReflections" fullname="LegacyOfTemples.Tests.OriginalRouteReviewTests.EstablishedLocations_ArePreserved_AndSunWallUsesRealReflections" methodname="EstablishedLocations_ArePreserved_AndSunWallUsesRealReflections" classname="LegacyOfTemples.Tests.OriginalRouteReviewTests" runstate="Runnable" seed="814869884" result="Passed" start-time="2026-11-25 16:18:53Z" end-time="2026-11-25 16:19:11Z" duration="17.584618" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="90000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[V3] new game: puzzles, run score and checkpoint cleared
+[Checkpoint] obj_c0_reach / Reach Jagannath Temple at (0.0, 0.1, -12.0)
+[Weather] scene Courtyard: target=0.00, interior=False, quality=2
+[CharacterManager] Player placed in Courtyard: spawn=Spawn_player_start (0.00, 0.05, 15.00) -> player (0.00, 0.00, 15.00)
+[CharacterManager] Player placed in Courtyard: spawn=Spawn_player_start (0.00, 0.05, 15.00) -> player (0.00, 0.00, 15.00)
+[Bazaar] zone 1 built: yard at (20.9, 0.0, 129.0), route 7 points
+[Heritage] discovered architecture
+[Heritage] discovered pottery
+[Heritage] discovered inventory
+[Heritage] discovered market_craft
+[Heritage] discovered market_transmission
+[TempleSite] temple placed: 1867721 triangles, footprint 247 x 108 m, height 61 m, tower top (-111.34, 61.05, -149.14)
+[VillageLife] built: 13 villagers, jeep parked
+[BatchFriendly] baked 1274 renderers into 2189 shared materials (total 5086)
+[BreakIn] zone 2 puzzle built at (-17.0, 0.0, -74.0)
+[Stepwell] zone 4 puzzle built at (137.1, 0.0, -134.0)
+[SunWall] zone 5 puzzle built at (-137.6, 0.0, -135.0)
+[Vaults] zone 3 puzzle built at (0.0, 0.0, -202.5)
+[Jungle] zone 6 built: road 24 points from (30.5, 0.0, -221.0), court at (39.5, 0.0, -457.0)
+[TempleLife] bell, 8 lamp stands, 6 reflection probes
+[Checkpoint] obj_v3_pujari / Find the priest at (0.0, 0.0, 15.0)
+[BatchFriendly] baked 2538 renderers into 2215 shared materials (total 7624)
+[Voice] sunwall_mirror: played pz_mirror_01 (p1 2D )
+[Voice] puzzle_start: interrupts pz_start_01 (over pz_mirror_01 (p1))
+[Voice] puzzle_start: played pz_start_01 (p2 2D )
+[Voice] sunwall_socket: played pz_beam_01 (p3 2D )
+[Puzzle] z5_sunwall solved in 14.9s with 0 hint(s)
+[Checkpoint] sunwall / before_fight at (0.0, 0.0, 15.0)
+[Brawl] sunwall: fight begins against 1
+[Voice] enemy_spotted: queued ki_spot_01 (behind p3)
+[Voice] fight_start: queued cb_start_01 (behind p3)
+[Voice] sunwall_open: queued pz_wall_01 (behind p3)
+]]></output>
+            </test-case>
+            <test-case id="1151" name="OriginalApproachRoad_RKeyRecoversLocally" fullname="LegacyOfTemples.Tests.OriginalRouteReviewTests.OriginalApproachRoad_RKeyRecoversLocally" methodname="OriginalApproachRoad_RKeyRecoversLocally" classname="LegacyOfTemples.Tests.OriginalRouteReviewTests" runstate="Runnable" seed="1436640810" result="Passed" start-time="2026-11-25 16:19:11Z" end-time="2026-11-25 16:19:24Z" duration="13.292416" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="90000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[V3] new game: puzzles, run score and checkpoint cleared
+[Voice] sunwall_socket: stopped pz_beam_01 (scene change)
+[Checkpoint] obj_c0_reach / Reach Jagannath Temple at (0.0, 0.1, -12.0)
+[Weather] scene Courtyard: target=0.00, interior=False, quality=2
+[CharacterManager] Player placed in Courtyard: spawn=Spawn_player_start (0.00, 0.05, 15.00) -> player (0.00, 0.00, 15.00)
+[CharacterManager] Player placed in Courtyard: spawn=Spawn_player_start (0.00, 0.05, 15.00) -> player (0.00, 0.00, 15.00)
+[Bazaar] zone 1 built: yard at (20.9, 0.0, 129.0), route 7 points
+[Heritage] discovered architecture
+[Heritage] discovered pottery
+[Heritage] discovered inventory
+[Heritage] discovered market_craft
+[Heritage] discovered market_transmission
+[TempleSite] temple placed: 1867721 triangles, footprint 247 x 108 m, height 61 m, tower top (-111.34, 61.05, -149.14)
+[VillageLife] built: 13 villagers, jeep parked
+[BatchFriendly] baked 1274 renderers into 2412 shared materials (total 8898)
+[BreakIn] zone 2 puzzle built at (-17.0, 0.0, -74.0)
+[Stepwell] zone 4 puzzle built at (137.1, 0.0, -134.0)
+[SunWall] zone 5 puzzle built at (-137.6, 0.0, -135.0)
+[Vaults] zone 3 puzzle built at (0.0, 0.0, -202.5)
+[BatchFriendly] baked 104 renderers into 2438 shared materials (total 9002)
+[Jungle] zone 6 built: road 24 points from (30.5, 0.0, -221.0), court at (39.5, 0.0, -457.0)
+[TempleLife] bell, 8 lamp stands, 6 reflection probes
+[Checkpoint] obj_v3_pujari / Find the priest at (0.0, 0.0, 15.0)
+[BatchFriendly] baked 2434 renderers into 2438 shared materials (total 11436)
+[Voice] jeep_approach: played jp_approach_01 (p1 2D )
+[Jeep] Repaired and reset to road at (4.38, 0.17, 118.65)
+]]></output>
+            </test-case>
+            <test-case id="1152" name="PauseMenu_Fits720p_AndFiveSlidersReachAudioSystems" fullname="LegacyOfTemples.Tests.OriginalRouteReviewTests.PauseMenu_Fits720p_AndFiveSlidersReachAudioSystems" methodname="PauseMenu_Fits720p_AndFiveSlidersReachAudioSystems" classname="LegacyOfTemples.Tests.OriginalRouteReviewTests" runstate="Runnable" seed="106310200" result="Passed" start-time="2026-11-25 16:19:24Z" end-time="2026-11-25 16:19:37Z" duration="12.738892" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="90000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[V3] new game: puzzles, run score and checkpoint cleared
+[Voice] jeep_approach: stopped jp_approach_01 (scene change)
+[Checkpoint] obj_c0_reach / Reach Jagannath Temple at (0.0, 0.1, -12.0)
+[Weather] scene Courtyard: target=0.00, interior=False, quality=2
+[CharacterManager] Player placed in Courtyard: spawn=Spawn_player_start (0.00, 0.05, 15.00) -> player (0.00, 0.00, 15.00)
+[CharacterManager] Player placed in Courtyard: spawn=Spawn_player_start (0.00, 0.05, 15.00) -> player (0.00, 0.00, 15.00)
+[Bazaar] zone 1 built: yard at (20.9, 0.0, 129.0), route 7 points
+[Heritage] discovered architecture
+[Heritage] discovered pottery
+[Heritage] discovered inventory
+[Heritage] discovered market_craft
+[Heritage] discovered market_transmission
+[TempleSite] temple placed: 1867721 triangles, footprint 247 x 108 m, height 61 m, tower top (-111.34, 61.05, -149.14)
+[VillageLife] built: 13 villagers, jeep parked
+[BatchFriendly] baked 1274 renderers into 2635 shared materials (total 12710)
+[BreakIn] zone 2 puzzle built at (-17.0, 0.0, -74.0)
+[Stepwell] zone 4 puzzle built at (137.1, 0.0, -134.0)
+[SunWall] zone 5 puzzle built at (-137.6, 0.0, -135.0)
+[Vaults] zone 3 puzzle built at (0.0, 0.0, -202.5)
+[Jungle] zone 6 built: road 24 points from (30.5, 0.0, -221.0), court at (39.5, 0.0, -457.0)
+[BatchFriendly] baked 2538 renderers into 2661 shared materials (total 15248)
+[TempleLife] bell, 8 lamp stands, 6 reflection probes
+[Checkpoint] obj_v3_pujari / Find the priest at (0.0, 0.0, 15.0)
+]]></output>
+            </test-case>
+            <test-case id="1153" name="Retry_RemainsInOriginalSceneAndUsesLocalClockBudget" fullname="LegacyOfTemples.Tests.OriginalRouteReviewTests.Retry_RemainsInOriginalSceneAndUsesLocalClockBudget" methodname="Retry_RemainsInOriginalSceneAndUsesLocalClockBudget" classname="LegacyOfTemples.Tests.OriginalRouteReviewTests" runstate="Runnable" seed="739630715" result="Passed" start-time="2026-11-25 16:19:37Z" end-time="2026-11-25 16:19:50Z" duration="12.747898" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="90000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[V3] new game: puzzles, run score and checkpoint cleared
+[Checkpoint] obj_c0_reach / Reach Jagannath Temple at (0.0, 0.1, -12.0)
+[Weather] scene Courtyard: target=0.00, interior=False, quality=2
+[CharacterManager] Player placed in Courtyard: spawn=Spawn_player_start (0.00, 0.05, 15.00) -> player (0.00, 0.00, 15.00)
+[CharacterManager] Player placed in Courtyard: spawn=Spawn_player_start (0.00, 0.05, 15.00) -> player (0.00, 0.00, 15.00)
+[Heritage] discovered architecture
+[Heritage] discovered pottery
+[Heritage] discovered inventory
+[Heritage] discovered market_craft
+[Heritage] discovered market_transmission
+[Bazaar] zone 1 built: yard at (20.9, 0.0, 129.0), route 7 points
+[TempleSite] temple placed: 1867721 triangles, footprint 247 x 108 m, height 61 m, tower top (-111.34, 61.05, -149.14)
+[VillageLife] built: 13 villagers, jeep parked
+[BatchFriendly] baked 1274 renderers into 2858 shared materials (total 16522)
+[BreakIn] zone 2 puzzle built at (-17.0, 0.0, -74.0)
+[Stepwell] zone 4 puzzle built at (137.1, 0.0, -134.0)
+[SunWall] zone 5 puzzle built at (-137.6, 0.0, -135.0)
+[Vaults] zone 3 puzzle built at (0.0, 0.0, -202.5)
+[Jungle] zone 6 built: road 24 points from (30.5, 0.0, -221.0), court at (39.5, 0.0, -457.0)
+[BatchFriendly] baked 2538 renderers into 2884 shared materials (total 19060)
+[TempleLife] bell, 8 lamp stands, 6 reflection probes
+[Checkpoint] obj_v3_pujari / Find the priest at (0.0, 0.0, 15.0)
+[Checkpoint] sunwall / Sun Wall plaza at (-137.6, 0.0, -145.0)
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1182" name="UpgradeVerificationTests" fullname="LegacyOfTemples.Tests.UpgradeVerificationTests" classname="LegacyOfTemples.Tests.UpgradeVerificationTests" runstate="Runnable" testcasecount="4" result="Failed" site="Child" start-time="2026-11-25 16:19:50Z" end-time="2026-11-25 16:19:50Z" duration="0.652533" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-case id="1183" name="Courtyard_VisibleSkip_AutomaticReturnAndHistory_AllSixLevels" fullname="LegacyOfTemples.Tests.UpgradeVerificationTests.Courtyard_VisibleSkip_AutomaticReturnAndHistory_AllSixLevels" methodname="Courtyard_VisibleSkip_AutomaticReturnAndHistory_AllSixLevels" classname="LegacyOfTemples.Tests.UpgradeVerificationTests" runstate="Runnable" seed="727194905" result="Failed" label="Error" start-time="2026-11-25 16:19:50Z" end-time="2026-11-25 16:19:50Z" duration="0.636562" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="180000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[System.InvalidOperationException : Feature runs in actual New Game Courtyard route]]></message>
+                <stack-trace><![CDATA[  at LegacyOfTemples.UI.VisibleHandoverReviewBot.Check (System.Boolean ok, System.String what) [0x00038] in /Users/hemanth/Desktop/GDIT/My project/Assets/_Project/Scripts/UI/VisibleHandoverReviewBot.cs:25 
+  at LegacyOfTemples.UI.VisibleHandoverReviewBot+<Run>d__3.MoveNext () [0x001d2] in /Users/hemanth/Desktop/GDIT/My project/Assets/_Project/Scripts/UI/VisibleHandoverReviewBot.cs:46 
+  at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in ./Library/PackageCache/com.unity.test-framework@ee3fe9477490/UnityEngine.TestRunner/NUnitExtensions/Attributes/TestEnumerator.cs:52 ]]></stack-trace>
+              </failure>
+              <output><![CDATA[[V3] new game: puzzles, run score and checkpoint cleared
+[Checkpoint] obj_c0_reach / Reach Jagannath Temple at (-137.6, 0.0, -145.0)
+[Weather] scene Courtyard: target=0.00, interior=False, quality=2
+[CharacterManager] Player placed in Courtyard: spawn=Spawn_player_start (0.00, 0.05, 15.00) -> player (0.00, 0.00, 15.00)
+[CharacterManager] Player placed in Courtyard: spawn=Spawn_player_start (0.00, 0.05, 15.00) -> player (0.00, 0.00, 15.00)
+[Bazaar] zone 1 built: yard at (20.9, 0.0, 129.0), route 7 points
+[Heritage] discovered architecture
+[Heritage] discovered pottery
+[Heritage] discovered inventory
+[Heritage] discovered market_craft
+[Heritage] discovered market_transmission
+[Voice] npc_near: played np_puj_02 (p1 3D speaker=pujari)
+Saving results to: /Users/hemanth/Library/Application Support/DefaultCompany/My project/TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

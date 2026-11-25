@@ -309,10 +309,11 @@ namespace LegacyOfTemples.Gameplay
             Debug.Log($"[Brawl] {zoneId}: retry {Retries}");
         }
 
-        public void ResolveSkipped()
+        public void ResolveSkipped(bool notify = true)
         {
             if (Won) return;
             foreach (var enemy in Enemies) if (enemy != null) enemy.gameObject.SetActive(false);
+            if (!notify) OnWon = null;
             Win();
         }
 
