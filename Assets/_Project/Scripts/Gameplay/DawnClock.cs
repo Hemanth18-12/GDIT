@@ -155,6 +155,7 @@ namespace LegacyOfTemples.Gameplay
         private void Update()
         {
             string scene = SceneManager.GetActiveScene().name;
+            if (scene == Constants.TempleRing && Puzzles.PuzzleSave.Get("lore.completed") == 1) return;
             var story = StoryDialogueSystem.Instance;
             if (!IsGameplay(scene) || story == null || (story.IsComplete && !Constants.IsNewWorld(scene)) || SceneLoader.IsLoading || Hold) return;
             var ch = story.Chapter; int ci = ChapterIndex(ch);

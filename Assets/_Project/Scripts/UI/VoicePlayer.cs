@@ -71,6 +71,7 @@ namespace LegacyOfTemples.UI
         private void OnLine(string speaker, string text)
         {
             VoiceManager.StopStory();
+            if (PujariLoreDirector.TryPlayLine(speaker, text)) return;
             if (text.StartsWith("(")) return; // a prompt, not speech
             var line = StoryData.LineByText(text);
             Play(line != null ? line.s : SpeakerId(speaker) ?? speaker, line, text, true);

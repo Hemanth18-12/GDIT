@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Failed(Child)" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-25 10:43:52Z" end-time="2026-11-25 10:43:58Z" duration="6.1507963">
+  <test-suite type="TestSuite" id="1099" name="My project" fullname="My project" runstate="Runnable" testcasecount="76" result="Failed" site="Child" start-time="2026-11-25 10:43:52Z" end-time="2026-11-25 10:43:58Z" duration="6.150796" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1192" name="LOT.Grounding.PlayModeTests.dll" fullname="/Users/hemanth/Desktop/GDIT/My project/Library/ScriptAssemblies/LOT.Grounding.PlayModeTests.dll" runstate="Runnable" testcasecount="76" result="Failed" site="Child" start-time="2026-11-25 10:43:52Z" end-time="2026-11-25 10:43:58Z" duration="6.146762" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="13957" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+      <test-suite type="TestSuite" id="1193" name="LegacyOfTemples" fullname="LegacyOfTemples" runstate="Runnable" testcasecount="68" result="Failed" site="Child" start-time="2026-11-25 10:43:52Z" end-time="2026-11-25 10:43:58Z" duration="6.131494" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+        <test-suite type="TestSuite" id="1194" name="Tests" fullname="LegacyOfTemples.Tests" runstate="Runnable" testcasecount="68" result="Failed" site="Child" start-time="2026-11-25 10:43:52Z" end-time="2026-11-25 10:43:58Z" duration="6.114868" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+          <test-suite type="TestFixture" id="1181" name="UpgradeVerificationTests" fullname="LegacyOfTemples.Tests.UpgradeVerificationTests" classname="LegacyOfTemples.Tests.UpgradeVerificationTests" runstate="Runnable" testcasecount="3" result="Failed" site="Child" start-time="2026-11-25 10:43:52Z" end-time="2026-11-25 10:43:58Z" duration="6.097886" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+            <test-case id="1182" name="TempleRing_PujariLore_SixDeliveriesSkipVoiceAndReload" fullname="LegacyOfTemples.Tests.UpgradeVerificationTests.TempleRing_PujariLore_SixDeliveriesSkipVoiceAndReload" methodname="TempleRing_PujariLore_SixDeliveriesSkipVoiceAndReload" classname="LegacyOfTemples.Tests.UpgradeVerificationTests" runstate="Runnable" seed="492411432" result="Failed" label="Error" start-time="2026-11-25 10:43:52Z" end-time="2026-11-25 10:43:58Z" duration="6.079108" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="180000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[System.InvalidOperationException : Zone 1 skip collects stable-ID relic and completes zone]]></message>
+                <stack-trace><![CDATA[  at LegacyOfTemples.UI.PujariLoreReviewBot.Check (System.Boolean ok, System.String what) [0x00038] in /Users/hemanth/Desktop/GDIT/My project/Assets/_Project/Scripts/UI/PujariLoreReviewBot.cs:24 
+  at LegacyOfTemples.UI.PujariLoreReviewBot+<Run>d__3.MoveNext () [0x0043d] in /Users/hemanth/Desktop/GDIT/My project/Assets/_Project/Scripts/UI/PujariLoreReviewBot.cs:58 
+  at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in ./Library/PackageCache/com.unity.test-framework@ee3fe9477490/UnityEngine.TestRunner/NUnitExtensions/Attributes/TestEnumerator.cs:52 ]]></stack-trace>
+              </failure>
+              <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+[V3] new game: puzzles, run score and checkpoint cleared
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+[NewStepwell] built: multi-tier tank, sluice valves, rising raft, monsoon shrine & wet-stone brawl
+[NewVaults] built: underground hall, pressure plates, gear train, light-arc discs & heavy guard fight
+[NewCourtyard] built: Lion Gate, flagstone courtyard, storage hall crime scene, shadow-matching & lookout fight
+[NewWorldDirector] All 6 zones and grounded Kalinga central temple linked cleanly across TempleRing.unity!
+[NewBazaar] built: T market, 3 loop links, 16 villagers, tail / seal / sequence / street fight
+[NewJungleChase] built: 250m jungle trail, river ruins court, inside man deduction & Bhaskar boss fight
+[NewSunWall] built: Sun Wall monument, rotatable mirrors, Konark Chariot Wheel & Kishore fight
+[NewWorldDirector] All 6 zones and grounded Kalinga central temple linked cleanly across TempleRing.unity!
+[Checkpoint] new_bazaar / Banyan arrival at (-52.0, 0.1, -90.0)
+The character used for Ellipsis is not available in font asset [LiberationSans SDF] or any potential fallbacks. Switching Text Overflow mode to Truncate.
+The character used for Ellipsis is not available in font asset [LiberationSans SDF] or any potential fallbacks. Switching Text Overflow mode to Truncate.
+The character used for Ellipsis is not available in font asset [LiberationSans SDF] or any potential fallbacks. Switching Text Overflow mode to Truncate.
+[BatchFriendly] baked 483 renderers into 145 shared materials (total 483)
+[Checkpoint] zone1 / Village bazaar and tea lane at (0.0, 0.0, -8.0)
+Saving results to: /Users/hemanth/Library/Application Support/DefaultCompany/My project/TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

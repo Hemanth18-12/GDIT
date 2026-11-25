@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 using LegacyOfTemples.Core;
 using LegacyOfTemples.Characters;
 using LegacyOfTemples.World;
+using UnityEngine.InputSystem;
 using LegacyOfTemples.Gameplay.Puzzles;
 
 namespace LegacyOfTemples.Gameplay
@@ -86,7 +87,52 @@ namespace LegacyOfTemples.Gameplay
                 MarketArt.Road(transform, new[] { new Vector3(26f, 0.02f, 140f), new Vector3(26f, 0.02f, 178f), new Vector3(0f, 0.02f, 180f) }, 6f);
             }
 
+            if (GetComponent<PujariLoreDirector>() == null) gameObject.AddComponent<PujariLoreDirector>();
+
             Debug.Log("[NewWorldDirector] All 6 zones and grounded Kalinga central temple linked cleanly across TempleRing.unity!");
+        }
+
+        public void SkipCurrentTask()
+        {
+            var lore = GetComponent<PujariLoreDirector>();
+            if (lore != null && lore.PendingZone > 0)
+            {
+                if (ZoneKit.Player != null && Vector3.Distance(ZoneKit.Player.transform.position, lore.Priest.position) <= 4f) lore.HandOver();
+                else ObjectiveBanner.Show("RETURN TO PUJARI ANANDA", "[T] Quick return · [M] Map", 5f);
+                return;
+            }
+            int zone = -1; float nearest = 55f;
+            var player = ZoneKit.Player;
+            for (int i = 0; i < 6; i++)
+            {
+                if (PuzzleSave.Get($"nz{i + 1}.complete") == 1) continue;
+                var place = V3Places.Get(i);
+                float distance = player != null && place.ok ? Vector3.Distance(player.transform.position, place.at) : float.MaxValue;
+                if (distance < nearest) { nearest = distance; zone = i; }
+            }
+            if (zone < 0) for (int i = 0; i < 6; i++) if (PuzzleSave.Get($"nz{i + 1}.complete") == 0) { zone = i; break; }
+            switch (zone)
+            {
+                case 0: Bazaar.SkipTask(); break; case 1: Courtyard.SkipTask(); break;
+                case 2: Vaults.SkipTask(); break; case 3: Stepwell.SkipTask(); break;
+                case 4: SunWall.SkipTask(); break; case 5: Jungle.SkipTask(); break;
+                default: ObjectiveBanner.Show("ALL TASKS COMPLETE", "Speak with Pujari Ananda at the temple.", 5f); return;
+            }
+            AudioManager.Instance?.PlaySFX("sfx_ui_select");
+            PujariLoreDirector.PlayVoice?.Invoke("lore_skip_01", "aryan", null);
+            ObjectiveBanner.Show("TASK SKIPPED", "Bring the teaching relic to Pujari Ananda.", 5f);
+        }
+
+        public static void SkipActiveTask()
+        {
+            if (Instance != null) Instance.StartCoroutine(Instance.SkipAfterMenu());
+            else StoryDialogueSystem.Instance?.DebugCompleteCurrent();
+        }
+
+        IEnumerator SkipAfterMenu()
+        {
+            for (int i = 0; i < 4; i++) yield return null;
+            SkipCurrentTask();
         }
 
         private int lastSavedZoneIdx = -1;
@@ -111,6 +157,7 @@ namespace LegacyOfTemples.Gameplay
         {
             var pc = FindAnyObjectByType<PlayerController>();
             if (pc == null || Time.timeScale <= 0f || InputGate.GameplayBlocked) return;
+            if (Keyboard.current != null && Keyboard.current.kKey.wasPressedThisFrame) SkipCurrentTask();
             for (int i = 0; i < V3Places.Count && i < 6; i++)
             {
                 if (i == lastSavedZoneIdx) continue;

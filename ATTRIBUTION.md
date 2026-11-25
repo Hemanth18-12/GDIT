@@ -141,3 +141,22 @@ No third-party artwork, audio, font package or other asset was downloaded for th
 | Serene Raga Bhupali temple music stems (`bgm_*`, `mus_*`), soft coastal breeze (`amb_village`, `ambience_temple`), and silent murmur replacements (`talk_murmur_1..3`) | Legacy of the Temple project | `Tools/audio/build_devotional_audio.py` | Own work (CC0 1.0 Public Domain Dedication) |
 
 
+
+## 25 November 2026 — Pujari heritage handovers
+
+| Title | Author | URL / source | License / status |
+|---|---|---|---|
+| Six teaching-replica lore records and 38 spoken lines | Project original writing; factual context from the sources below | Assets/_Project/Resources/Story/pujari_lore.json; Docs/VOICE_LINES.csv | Own work; historical facts paraphrased, no source illustrations or recordings copied |
+| Offline lore voice synthesis | Project using hexgrad Kokoro-82M and thewh1teagle kokoro-onnx | https://huggingface.co/hexgrad/Kokoro-82M ; https://github.com/thewh1teagle/kokoro-onnx | Kokoro model Apache-2.0; runner MIT; generated output recorded as project work. Existing local models used, no download. |
+| Priest runtime resource copy | Existing user-supplied priest asset; original authorship/license status remains as listed above | Assets/_Project/Resources/NPC/Priest.prefab copied from Assets/_Project/Prefabs/Characters/Priest.prefab | Existing project asset retained at the user's request; this copy does not establish or change the original license. Original Heritage Mystery/Blender files unmodified. |
+
+Historical reference sources (factual paraphrase, not asset downloads):
+
+- Odisha Tourism, *Shree Jagannath Temple*: https://odishatourism.gov.in/en/places/shree-jagannath-temple — temple traditions and Nabakalebara.
+- Ministry of Tourism, *Sri Jagannath Temple*: https://www.incredibleindia.gov.in/en/odisha/puri/sri-jagannath-temple — architecture and Nilachakra.
+- Government of Odisha, *Odisha Review*, *Palm Leaf Inscriptions* (April 2017): https://magazines.odisha.gov.in/Orissareview/2017/April/engpdf/Palm_Leaf_Inscriptions.pdf — engraving and manuscript craft.
+- Odisha Bibhaba, *Gita Govinda*: https://new.odiabibhaba.in/en/gitagobinda — text and its association with worship; museum manuscript context.
+- Dr Subas Pani, *The Chariots*, government Rath Jatra site: https://rathjatra.nic.in/chariots.html — annual construction, names and wheel counts.
+- Odisha Tourism, *Puri*: https://odishatourism.gov.in/en/destinations/puri — living heritage, food and crafts.
+
+All recoverable pieces are explicitly fictional teaching replicas. No authentic temple object or sacred image is represented as stolen inventory. The recoverable designs and composite names are not asserted to be authenticated historic objects. Legend is distinguished from construction history; wind folklore is not asserted as measured physics.

@@ -116,7 +116,7 @@ namespace LegacyOfTemples.Gameplay
             mapObj.name = "Treasure — Smuggler Map";
             ZoneKit.Reach(mapObj, 0.8f);
             SmugglerMap = mapObj.AddComponent<TreasurePickup>();
-            SmugglerMap.treasureName = "Smuggler Map (sun wall)";
+            SmugglerMap.saveId = "treasure.Smuggler Map (sun wall)"; SmugglerMap.treasureName = "Nandighosha Chariot Wheel Medallion & Ratha Pataka (teaching replica)";
             SmugglerMap.zoneId = Zone;
 
             // Puzzle Group
@@ -211,11 +211,22 @@ namespace LegacyOfTemples.Gameplay
             }
         }
 
+        public void SkipTask()
+        {
+            if (SmugglerMap.Taken) return;
+            if (Brawl.Active != null && Brawl.Active.zoneId == Zone) Brawl.Active.ResolveSkipped();
+            if (Group != null) foreach (var condition in Group.conditions)
+                if (condition.element != null) condition.element.SetState(condition.state, true, true);
+            if (sanctuaryDoor != null) sanctuaryDoor.SetActive(false);
+            Won();
+            SmugglerMap.Interact();
+        }
+
         void Won()
         {
             Now = Stage.Recover;
             ShowMap(true);
-            GameSfx.At("sfx_item_recovered", SmugglerMap.transform.position, 1f);
+            GameSfx.At("sfx_clue_found", SmugglerMap.transform.position, 1f);
         }
     }
 }

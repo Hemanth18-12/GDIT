@@ -1,0 +1,779 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="12" result="Passed" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-25 10:56:31Z" end-time="2026-11-25 11:03:06Z" duration="395.2008016">
+  <test-suite type="TestSuite" id="1099" name="My project" fullname="My project" runstate="Runnable" testcasecount="76" result="Passed" start-time="2026-11-25 10:56:31Z" end-time="2026-11-25 11:03:06Z" duration="395.200802" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1192" name="LOT.Grounding.PlayModeTests.dll" fullname="/Users/hemanth/Desktop/GDIT/My project/Library/ScriptAssemblies/LOT.Grounding.PlayModeTests.dll" runstate="Runnable" testcasecount="76" result="Passed" start-time="2026-11-25 10:56:31Z" end-time="2026-11-25 11:03:06Z" duration="395.197343" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="14447" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+      <test-suite type="TestSuite" id="1193" name="LegacyOfTemples" fullname="LegacyOfTemples" runstate="Runnable" testcasecount="68" result="Passed" start-time="2026-11-25 10:56:31Z" end-time="2026-11-25 11:03:06Z" duration="395.181886" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+        <test-suite type="TestSuite" id="1194" name="Tests" fullname="LegacyOfTemples.Tests" runstate="Runnable" testcasecount="68" result="Passed" start-time="2026-11-25 10:56:31Z" end-time="2026-11-25 11:03:06Z" duration="395.165229" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+          <test-suite type="TestFixture" id="1134" name="NewBazaarPlayTests" fullname="LegacyOfTemples.Tests.NewBazaarPlayTests" classname="LegacyOfTemples.Tests.NewBazaarPlayTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-11-25 10:56:31Z" end-time="2026-11-25 11:02:26Z" duration="354.554605" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+            <test-case id="1135" name="Bazaar_ContinuousWalk_PhysicalLock_RealFight_Recovery" fullname="LegacyOfTemples.Tests.NewBazaarPlayTests.Bazaar_ContinuousWalk_PhysicalLock_RealFight_Recovery" methodname="Bazaar_ContinuousWalk_PhysicalLock_RealFight_Recovery" classname="LegacyOfTemples.Tests.NewBazaarPlayTests" runstate="Runnable" seed="416379663" result="Passed" start-time="2026-11-25 10:56:31Z" end-time="2026-11-25 10:59:34Z" duration="183.068320" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="540000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+[V3] new game: puzzles, run score and checkpoint cleared
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+[NewStepwell] built: multi-tier tank, sluice valves, rising raft, monsoon shrine & wet-stone brawl
+[NewVaults] built: underground hall, pressure plates, gear train, light-arc discs & heavy guard fight
+[NewCourtyard] built: Lion Gate, flagstone courtyard, storage hall crime scene, shadow-matching & lookout fight
+[NewWorldDirector] All 6 zones and grounded Kalinga central temple linked cleanly across TempleRing.unity!
+[NewBazaar] built: T market, 3 loop links, 16 villagers, tail / seal / sequence / street fight
+[NewJungleChase] built: 250m jungle trail, river ruins court, inside man deduction & Bhaskar boss fight
+[NewSunWall] built: Sun Wall monument, rotatable mirrors, Konark Chariot Wheel & Kishore fight
+[NewWorldDirector] All 6 zones and grounded Kalinga central temple linked cleanly across TempleRing.unity!
+[Checkpoint] new_bazaar / Banyan arrival at (-52.0, 0.1, -90.0)
+[BatchFriendly] baked 483 renderers into 145 shared materials (total 483)
+[NewWorldDirector] All 6 zones and grounded Kalinga central temple linked cleanly across TempleRing.unity!
+[NewZonesQA] PASS Bag ring clip loaded
+[NewZonesQA] PASS Jeep parked on two-bend arrival road
+[Voice] move_first: played mv_first_01 (p2 2D )
+[NewZonesQA] PASS Walk reached (-53.3, 0.1, -89.9); feet (-53.25, 0.05, -90.57)
+[PlayerController] Interacting with: vehicle_jeep (Drive the jeep)
+[NewZonesQA] E interaction: vehicle_jeep
+[SeatedPose] seat=(-54.60, 1.00, -90.00) hips=(-54.60, 1.00, -90.00) root=(-54.60, 0.10, -90.26) head=(-54.60, 1.62, -90.11)
+[NewZonesQA] PASS Physical Jeep entry succeeded
+[NewZonesQA] PASS WheelCollider drive reached road bend (-55, 0, -64)
+[NewZonesQA] PASS WheelCollider drive reached road bend (0, 0, -48)
+[Checkpoint] zone1 / Village bazaar and tea lane at (0.1, 0.1, -21.9)
+[NewZonesQA] PASS WheelCollider drive reached road bend (0, 0, -10)
+[Voice] jeep_park: played jp_park_01 (p1 2D )
+[NewZonesQA] PASS Parked Jeep exit succeeded
+[NewZonesQA] PASS Feet on road after Jeep exit
+[Voice] bazaar_follow: played bz_follow_01 (p3 2D )
+[Heritage] discovered market_craft
+[NewZonesQA] PASS Walk reached (-18.0, 0.0, -1.0); feet (-17.45, 0.05, -1.26)
+[Voice] lost: played mv_lost_03 (p2 2D )
+[NewBazaar] tail completed
+[NewZonesQA] PASS Sound-led tail completed along the real looping lanes
+[Heritage] discovered market_transmission
+[NewZonesQA] PASS Walk reached (32.0, 0.0, 17.0); feet (31.97, 0.05, 17.61)
+[NewZonesQA] PASS Walk reached (-22.0, 0.0, 17.0); feet (-21.36, 0.05, 17.01)
+[NewZonesQA] PASS Walk reached (-22.0, 0.0, 16.5); feet (-21.52, 0.05, 16.88)
+[PlayerController] Interacting with: carry.Dropped red cloth strip (Pick up red bag tie)
+[NewZonesQA] E interaction: carry.Dropped red cloth strip
+[NewZonesQA] PASS Dropped bag tie picked up with production E input
+[NewZonesQA] PASS Walk reached (0.0, 0.0, 16.0); feet (-0.59, 0.05, 16.02)
+[NewZonesQA] PASS Walk reached (32.0, 0.0, 16.0); feet (31.41, 0.05, 16.00)
+[NewZonesQA] PASS Walk reached (35.0, 0.0, 32.0); feet (34.87, 0.00, 31.42)
+[NewZonesQA] PASS Walk reached (34.5, 0.0, 33.0); feet (34.64, 0.01, 32.39)
+[PlayerController] Interacting with: carry.Dropped red cloth strip (Place red bag tie)
+[Voice] puzzle_start: played pz_start_01 (p2 2D )
+[NewZonesQA] E interaction: el.nz1.seal
+[NewZonesQA] PASS Bag tie fitted into cart latch
+[NewZonesQA] PASS Walk reached (36.0, 0.0, 31.7); feet (35.43, 0.00, 31.99)
+[PlayerController] Interacting with: key.CUP lock peg (Press cup peg)
+[NewZonesQA] E interaction: key.CUP lock peg
+[NewZonesQA] PASS Walk reached (37.0, 0.0, 31.7); feet (36.42, 0.00, 31.81)
+[PlayerController] Interacting with: key.THREAD lock peg (Press thread peg)
+[NewZonesQA] E interaction: key.THREAD lock peg
+[NewZonesQA] PASS Wrong cart order softly resets
+[NewZonesQA] PASS Walk reached (36.0, 0.0, 31.7); feet (36.42, 0.00, 31.81)
+[PlayerController] Interacting with: key.CUP lock peg (Press cup peg)
+[NewZonesQA] E interaction: key.CUP lock peg
+[NewZonesQA] PASS Walk reached (38.0, 0.0, 31.7); feet (37.37, 0.00, 31.74)
+[PlayerController] Interacting with: key.BELL lock peg (Press bell peg)
+[NewZonesQA] E interaction: key.BELL lock peg
+[NewZonesQA] PASS Walk reached (37.0, 0.0, 31.7); feet (37.37, 0.00, 31.74)
+[PlayerController] Interacting with: key.THREAD lock peg (Press thread peg)
+[Puzzle] nz1.market solved in 153.4s with 0 hint(s)
+[Voice] puzzle_solved: played pz_solved_03 (p3 2D )
+[Checkpoint] new_bazaar / before_fight at (37.4, 0.0, 31.7)
+[Brawl] new_bazaar: fight begins against 2
+[Voice] story:bark: played v3_cou_01 (story line)
+[Voice] fight_start: queued cb_start_02 (behind p4)
+[NewZonesQA] E interaction: key.THREAD lock peg
+[NewZonesQA] PASS Market receipt order opens cart: CUP, BELL, THREAD
+[NewZonesQA] PASS Walk reached (32.0, 0.0, 31.0); feet (32.60, 0.01, 31.08)
+[Voice] fight_start: played cb_start_02 (p3 2D )
+[NewZonesQA] PASS Walk reached (32.0, 0.0, 40.0); feet (32.03, 0.00, 39.41)
+[Voice] area_enter: played mv_area_courtyard (p2 2D zone=Courtyard)
+[Voice] fight_taunt: played rb_taunt_02 (p2 3D enemy=robber)
+[Brawl] finisher on Dyer yard lookout (1 left)
+[Voice] fight_low: played cb_low_01 (p3 2D )
+[Voice] fight_finish: played cb_finish_02 (p2 2D )
+[Brawl] new_bazaar: won in 18.7s, damage taken 72, max combo 5, parries 0, finishers 2, retries 0
+[Voice] story:bark: played v3_ary_02 (story line)
+[Voice] fight_won: queued cb_won_01 (behind p4)
+[NewZonesQA] Fight: won=True, seconds=18.7, damage=72.0, retries=0, combo=5, finishers=2
+[Brawl] finisher on Courier — red scarf (0 left)
+[NewZonesQA] PASS Street fight won using attacks, blocks and dodge inputs
+[Voice] fight_won: played cb_won_01 (p3 2D )
+[NewZonesQA] PASS Walk reached (37.0, 0.1, 40.7); feet (36.58, 0.01, 40.28)
+[PlayerController] Interacting with: treasure.Dawn Bell (new bazaar) (Take Panchajanya Brass Aarti Ghanta & Shankha Bell (teaching replica))
+[Treasure] recovered Panchajanya Brass Aarti Ghanta & Shankha Bell (teaching replica) in new_bazaar; zone points now 3390
+[Voice] story:dialogue: played lore_ary_z1 (story line)
+[NewBazaar] COMPLETE: bell + list, score=3390 grade=A
+[Voice] clue_found: queued ex_clue_list (behind p5)
+[NewZonesQA] E interaction: treasure.Dawn Bell (new bazaar)
+[NewZonesQA] PASS Dawn Bell recovered only after defeating the robbers
+[NewZonesQA] PASS Inside-man list added to existing evidence board
+[Voice] clue_found: played ex_clue_list (p3 2D evidence=list)
+[NewZonesQA] Frame sample: 58.3 fps mean, 104.7 ms maximum; 640×480, editor=True, graphics=Apple M5. This is a measured sample, not a guaranteed 60 fps claim.
+[NewZonesQA] Score 3390, grade A, spotted 0.
+[NewZonesQA] RESULT: PASS
+]]></output>
+            </test-case>
+            <test-case id="1136" name="Zone2_Courtyard_Reconstruct_Shadow_Lookout_Chronicle" fullname="LegacyOfTemples.Tests.NewBazaarPlayTests.Zone2_Courtyard_Reconstruct_Shadow_Lookout_Chronicle" methodname="Zone2_Courtyard_Reconstruct_Shadow_Lookout_Chronicle" classname="LegacyOfTemples.Tests.NewBazaarPlayTests" runstate="Runnable" seed="1791729422" result="Passed" start-time="2026-11-25 10:59:34Z" end-time="2026-11-25 11:00:05Z" duration="30.256308" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="540000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[V3] new game: puzzles, run score and checkpoint cleared
+[NewStepwell] built: multi-tier tank, sluice valves, rising raft, monsoon shrine & wet-stone brawl
+[NewVaults] built: underground hall, pressure plates, gear train, light-arc discs & heavy guard fight
+[NewCourtyard] built: Lion Gate, flagstone courtyard, storage hall crime scene, shadow-matching & lookout fight
+[NewWorldDirector] All 6 zones and grounded Kalinga central temple linked cleanly across TempleRing.unity!
+[NewBazaar] built: T market, 3 loop links, 16 villagers, tail / seal / sequence / street fight
+[NewJungleChase] built: 250m jungle trail, river ruins court, inside man deduction & Bhaskar boss fight
+[NewSunWall] built: Sun Wall monument, rotatable mirrors, Konark Chariot Wheel & Kishore fight
+[Voice] clue_found: stopped ex_clue_list (scene change)
+[NewWorldDirector] All 6 zones and grounded Kalinga central temple linked cleanly across TempleRing.unity!
+[Checkpoint] new_bazaar / Banyan arrival at (-52.0, 0.1, -90.0)
+[BatchFriendly] baked 483 renderers into 146 shared materials (total 966)
+[NewWorldDirector] All 6 zones and grounded Kalinga central temple linked cleanly across TempleRing.unity!
+[Voice] move_first: played mv_first_01 (p2 2D )
+[Heritage] discovered market_craft
+[Checkpoint] zone2 / Temple gate and courtyard at (0.0, 0.1, 61.0)
+[NewZonesQA] PASS Walk reached (0.0, 0.0, 65.0); feet (0.00, 0.11, 64.41)
+[NewZonesQA] PASS Walk reached (10.0, 0.1, 81.2); feet (10.00, 0.11, 80.58)
+[PlayerController] Interacting with: carry.Base shard (Pick up Base shard)
+[NewZonesQA] E interaction: carry.Base shard
+[NewZonesQA] PASS Walk reached (23.0, 0.5, 107.8); feet (23.00, 0.31, 107.20)
+[PlayerController] Interacting with: carry.Base shard (Place Base shard)
+[NewZonesQA] E interaction: el.nz2.socket.0
+[Voice] area_enter: played mv_area_stepwell (p2 2D zone=Stepwell)
+[NewZonesQA] PASS Walk reached (-12.0, 0.1, 97.2); feet (-12.00, 0.11, 96.58)
+[PlayerController] Interacting with: carry.Handle shard (Pick up Handle shard)
+[NewZonesQA] E interaction: carry.Handle shard
+[NewZonesQA] PASS Walk reached (23.0, 0.5, 107.8); feet (23.00, 0.31, 107.20)
+[PlayerController] Interacting with: carry.Handle shard (Place Handle shard)
+[NewZonesQA] E interaction: el.nz2.socket.1
+[NewZonesQA] PASS Walk reached (28.0, 0.1, 75.2); feet (28.00, 0.11, 74.58)
+[PlayerController] Interacting with: carry.Spout shard (Pick up Spout shard)
+[NewZonesQA] E interaction: carry.Spout shard
+[NewZonesQA] PASS Walk reached (23.0, 0.5, 107.8); feet (23.00, 0.31, 107.20)
+[PlayerController] Interacting with: carry.Spout shard (Place Spout shard)
+[GameSfx] missing clip sfx_bell_ring
+[NewZonesQA] E interaction: el.nz2.socket.2
+[NewZonesQA] PASS All 3 pot shards reconstructed onto plinth
+[NewZonesQA] PASS Walk reached (21.0, 0.1, 100.2); feet (21.00, 0.31, 99.58)
+[PlayerController] Interacting with: carry.Standing Brass Lantern (Pick up Lit Brass Lantern)
+[NewZonesQA] E interaction: carry.Standing Brass Lantern
+[NewZonesQA] PASS Walk reached (26.0, 0.2, 109.2); feet (26.00, 0.31, 108.58)
+[NewZonesQA] PASS Walk reached (16.1, 1.6, 105.4); feet (16.67, 0.31, 105.18)
+[PlayerController] Interacting with: el.nz2.lock_plate (Turn)
+[Voice] clue_found: played ex_clue_lock (p3 2D evidence=inside_lock)
+[NewZonesQA] E interaction: el.nz2.lock_plate
+[NewZonesQA] PASS Lock plate inspected: inside scratches revealed
+[NewZonesQA] PASS Walk reached (30.0, 0.2, 109.2); feet (30.00, 0.31, 108.58)
+[PlayerController] Interacting with: el.nz2.flagstone (Lift flagstone)
+[Puzzle] nz2.reconstruct solved in 17.0s with 0 hint(s)
+[Voice] puzzle_solved: queued pz_solved_03 (behind p3)
+[Checkpoint] new_courtyard / before_fight at (30.0, 0.3, 108.6)
+[Brawl] new_courtyard: fight begins against 1
+[Voice] enemy_spotted: queued rb_spot_vault (behind p3)
+[Voice] fight_start: queued cb_start_01 (behind p3)
+[NewZonesQA] E interaction: el.nz2.flagstone
+[NewZonesQA] PASS Flagstone lifted: lookout escape rope exposed
+[Voice] puzzle_solved: played pz_solved_03 (p3 2D )
+[Voice] enemy_spotted: played rb_spot_vault (p3 3D enemy=robber)
+[Voice] fight_start: played cb_start_01 (p3 2D )
+[Brawl] new_courtyard: won in 5.7s, damage taken 12, max combo 4, parries 0, finishers 1, retries 0
+[GameSfx] missing clip sfx_item_recovered
+[Voice] fight_won: played cb_won_01 (p3 2D )
+[NewZonesQA] Fight: won=True, seconds=5.7, damage=12.0, retries=0, combo=4, finishers=1
+[Brawl] finisher on Lookout — temple roof (0 left)
+[NewZonesQA] PASS Lookout mini-brawl won
+[NewZonesQA] PASS Walk reached (15.0, 0.1, 98.8); feet (15.00, 0.11, 98.50)
+[PlayerController] Interacting with: treasure.Palm-Leaf Chronicle (courtyard) (Take Tala-Patra Gita Govinda Palm-Leaf Manuscript (teaching replica))
+[Treasure] recovered Tala-Patra Gita Govinda Palm-Leaf Manuscript (teaching replica) in new_courtyard; zone points now 3690
+[Voice] story:dialogue: played lore_ary_z2 (story line)
+[NewCourtyard] COMPLETE: Palm-Leaf Chronicle recovered! Score=3690
+[NewZonesQA] E interaction: treasure.Palm-Leaf Chronicle (courtyard)
+[NewZonesQA] PASS Palm-Leaf Chronicle recovered
+[NewZonesQA] Frame sample: 58.9 fps mean, 73.5 ms maximum; 640×480, editor=True.
+[NewZonesQA] Score 3690, grade S.
+[NewZonesQA] RESULT: PASS
+]]></output>
+            </test-case>
+            <test-case id="1137" name="Zone3_Vaults_Plates_Gears_Discs_Rosette" fullname="LegacyOfTemples.Tests.NewBazaarPlayTests.Zone3_Vaults_Plates_Gears_Discs_Rosette" methodname="Zone3_Vaults_Plates_Gears_Discs_Rosette" classname="LegacyOfTemples.Tests.NewBazaarPlayTests" runstate="Runnable" seed="1232764922" result="Passed" start-time="2026-11-25 11:00:05Z" end-time="2026-11-25 11:00:53Z" duration="48.307893" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="540000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[V3] new game: puzzles, run score and checkpoint cleared
+[NewStepwell] built: multi-tier tank, sluice valves, rising raft, monsoon shrine & wet-stone brawl
+[NewVaults] built: underground hall, pressure plates, gear train, light-arc discs & heavy guard fight
+[NewCourtyard] built: Lion Gate, flagstone courtyard, storage hall crime scene, shadow-matching & lookout fight
+[NewWorldDirector] All 6 zones and grounded Kalinga central temple linked cleanly across TempleRing.unity!
+[NewBazaar] built: T market, 3 loop links, 16 villagers, tail / seal / sequence / street fight
+[NewJungleChase] built: 250m jungle trail, river ruins court, inside man deduction & Bhaskar boss fight
+[NewSunWall] built: Sun Wall monument, rotatable mirrors, Konark Chariot Wheel & Kishore fight
+[NewWorldDirector] All 6 zones and grounded Kalinga central temple linked cleanly across TempleRing.unity!
+[Checkpoint] new_bazaar / Banyan arrival at (-52.0, 0.1, -90.0)
+[BatchFriendly] baked 483 renderers into 147 shared materials (total 1449)
+[NewWorldDirector] All 6 zones and grounded Kalinga central temple linked cleanly across TempleRing.unity!
+[Checkpoint] zone3 / Underground storage vaults at (0.0, -5.8, 105.0)
+[Voice] area_enter: played mv_area_vaults (p2 2D zone=Vaults)
+[Heritage] discovered market_craft
+[NewZonesQA] PASS Walk reached (-6.0, -5.3, 97.8); feet (-5.41, -5.80, 98.01)
+[PlayerController] Interacting with: el.nz3.BlockA (Push)
+[NewZonesQA] E interaction: el.nz3.BlockA
+[NewZonesQA] PASS Walk reached (10.0, -5.3, 99.8); feet (9.37, -5.80, 99.73)
+[PlayerController] Interacting with: el.nz3.BlockB (Push)
+[NewZonesQA] E interaction: el.nz3.BlockB
+[Voice] puzzle_start: played pz_start_02 (p2 2D )
+[NewZonesQA] PASS Pushable blocks depressed both floor plates
+[NewZonesQA] PASS Walk reached (-12.0, -5.6, 118.2); feet (-12.00, -5.80, 117.58)
+[PlayerController] Interacting with: carry.LooseGear_0 (Pick up Bronze Gear 1)
+[NewZonesQA] E interaction: carry.LooseGear_0
+[NewZonesQA] PASS Walk reached (-16.0, -4.4, 122.0); feet (-16.00, -5.80, 121.50)
+[PlayerController] Interacting with: carry.LooseGear_0 (Place Bronze Gear 1)
+[NewZonesQA] E interaction: el.nz3.peg.0
+[NewZonesQA] PASS Walk reached (-8.0, -5.6, 118.2); feet (-8.00, -5.80, 117.58)
+[PlayerController] Interacting with: carry.LooseGear_1 (Pick up Bronze Gear 2)
+[NewZonesQA] E interaction: carry.LooseGear_1
+[NewZonesQA] PASS Walk reached (-4.0, -4.4, 122.0); feet (-4.00, -5.80, 121.50)
+[PlayerController] Interacting with: carry.LooseGear_1 (Place Bronze Gear 2)
+[NewZonesQA] E interaction: el.nz3.peg.1
+[NewZonesQA] PASS Walk reached (-7.0, -4.4, 122.2); feet (-7.00, -5.80, 121.58)
+[PlayerController] Interacting with: el.nz3.crank (Turn)
+[NewZonesQA] E interaction: el.nz3.crank
+[NewZonesQA] PASS Gear train connected and crank rotated
+[NewZonesQA] PASS Walk reached (-4.0, -5.8, 129.8); feet (-4.00, -5.80, 129.50)
+[PlayerController] Interacting with: el.nz3.disc.0 (Turn)
+[NewZonesQA] E interaction: el.nz3.disc.0
+[NewZonesQA] PASS Walk reached (-4.0, -5.8, 129.8); feet (-4.00, -5.80, 129.50)
+[PlayerController] Interacting with: el.nz3.disc.0 (Turn)
+[NewZonesQA] E interaction: el.nz3.disc.0
+[NewZonesQA] PASS Walk reached (0.0, -5.8, 129.8); feet (0.00, -5.80, 129.50)
+[PlayerController] Interacting with: el.nz3.disc.1 (Turn)
+[NewZonesQA] E interaction: el.nz3.disc.1
+[NewZonesQA] PASS Walk reached (0.0, -5.8, 129.8); feet (0.00, -5.80, 129.50)
+[PlayerController] Interacting with: el.nz3.disc.1 (Turn)
+[NewZonesQA] E interaction: el.nz3.disc.1
+[NewZonesQA] PASS Walk reached (0.0, -5.8, 129.8); feet (0.00, -5.80, 129.50)
+[PlayerController] Interacting with: el.nz3.disc.1 (Turn)
+[NewZonesQA] E interaction: el.nz3.disc.1
+[NewZonesQA] PASS Walk reached (0.0, -5.8, 129.8); feet (0.00, -5.80, 129.50)
+[PlayerController] Interacting with: el.nz3.disc.1 (Turn)
+[NewZonesQA] E interaction: el.nz3.disc.1
+[NewZonesQA] PASS Walk reached (0.0, -5.8, 129.8); feet (0.00, -5.80, 129.50)
+[PlayerController] Interacting with: el.nz3.disc.1 (Turn)
+[Voice] puzzle_almost: played pz_almost_01 (p2 2D )
+[NewZonesQA] E interaction: el.nz3.disc.1
+[NewZonesQA] PASS Walk reached (4.0, -5.8, 129.8); feet (4.00, -5.80, 129.50)
+[PlayerController] Interacting with: el.nz3.disc.2 (Turn)
+[NewZonesQA] E interaction: el.nz3.disc.2
+[NewZonesQA] PASS Walk reached (4.0, -5.8, 129.8); feet (4.00, -5.80, 129.50)
+[PlayerController] Interacting with: el.nz3.disc.2 (Turn)
+[NewZonesQA] E interaction: el.nz3.disc.2
+[NewZonesQA] PASS Walk reached (4.0, -5.8, 129.8); feet (4.00, -5.80, 129.50)
+[PlayerController] Interacting with: el.nz3.disc.2 (Turn)
+[Puzzle] nz3.vault_puzzles solved in 25.4s with 0 hint(s)
+[Voice] puzzle_solved: played pz_solved_01 (p3 2D )
+[Checkpoint] new_vaults / before_fight at (4.0, -5.8, 129.5)
+[Brawl] new_vaults: fight begins against 2
+[Voice] enemy_spotted: queued rb_spot_vault (behind p3)
+[Voice] fight_start: queued cb_start_01 (behind p3)
+[NewZonesQA] E interaction: el.nz3.disc.2
+[NewZonesQA] PASS Three stone discs aligned to roof light pattern (2, 5, 3)
+[Voice] enemy_spotted: played rb_spot_vault (p3 3D enemy=robber)
+[Voice] fight_start: played cb_start_01 (p3 2D )
+[Voice] move_first: played mv_first_01 (p2 2D )
+[Brawl] finisher on Corridor Enforcer (1 left)
+[Voice] fight_finish: played cb_finish_01 (p2 2D )
+[Brawl] new_vaults: won in 14.1s, damage taken 44, max combo 9, parries 0, finishers 2, retries 0
+[GameSfx] missing clip sfx_item_recovered
+[Voice] fight_won: interrupts cb_won_01 (over cb_finish_01 (p2))
+[Voice] fight_won: played cb_won_01 (p3 2D )
+[NewZonesQA] Fight: won=True, seconds=14.1, damage=44.0, retries=0, combo=9, finishers=2
+[Brawl] finisher on Heavy Vault Sentinel (0 left)
+[NewZonesQA] PASS Heavy vault guard defeated
+[NewZonesQA] PASS Walk reached (0.0, -5.2, 135.8); feet (0.00, -5.80, 135.50)
+[PlayerController] Interacting with: treasure.Sun Rosette (vaults) (Take Ashtadhatu Nilachakra Seal & Pattachitra Medallion (teaching replica))
+[Treasure] recovered Ashtadhatu Nilachakra Seal & Pattachitra Medallion (teaching replica) in new_vaults; zone points now 3780
+[Voice] story:dialogue: played lore_ary_z3 (story line)
+[NewVaults] COMPLETE: Sun Rosette + Ledger recovered! Score=3780
+[Voice] clue_found: queued ex_clue_ledger (behind p5)
+[NewZonesQA] E interaction: treasure.Sun Rosette (vaults)
+[NewZonesQA] PASS Sun Rosette and duty ledger recovered
+[Voice] clue_found: played ex_clue_ledger (p3 2D evidence=ledger)
+[NewZonesQA] Frame sample: 58.9 fps mean, 73.1 ms maximum; 640×480, editor=True.
+[NewZonesQA] Score 3780, grade S.
+[NewZonesQA] RESULT: PASS
+]]></output>
+            </test-case>
+            <test-case id="1138" name="Zone4_Stepwell_Sluices_RisingRaft_Vessel" fullname="LegacyOfTemples.Tests.NewBazaarPlayTests.Zone4_Stepwell_Sluices_RisingRaft_Vessel" methodname="Zone4_Stepwell_Sluices_RisingRaft_Vessel" classname="LegacyOfTemples.Tests.NewBazaarPlayTests" runstate="Runnable" seed="1935103507" result="Passed" start-time="2026-11-25 11:00:53Z" end-time="2026-11-25 11:01:22Z" duration="29.409864" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="540000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[V3] new game: puzzles, run score and checkpoint cleared
+[NewStepwell] built: multi-tier tank, sluice valves, rising raft, monsoon shrine & wet-stone brawl
+[NewVaults] built: underground hall, pressure plates, gear train, light-arc discs & heavy guard fight
+[NewCourtyard] built: Lion Gate, flagstone courtyard, storage hall crime scene, shadow-matching & lookout fight
+[NewWorldDirector] All 6 zones and grounded Kalinga central temple linked cleanly across TempleRing.unity!
+[NewBazaar] built: T market, 3 loop links, 16 villagers, tail / seal / sequence / street fight
+[NewJungleChase] built: 250m jungle trail, river ruins court, inside man deduction & Bhaskar boss fight
+[NewSunWall] built: Sun Wall monument, rotatable mirrors, Konark Chariot Wheel & Kishore fight
+[Voice] clue_found: stopped ex_clue_ledger (scene change)
+[NewWorldDirector] All 6 zones and grounded Kalinga central temple linked cleanly across TempleRing.unity!
+[Checkpoint] new_bazaar / Banyan arrival at (-52.0, 0.1, -90.0)
+[BatchFriendly] baked 483 renderers into 148 shared materials (total 1932)
+[NewWorldDirector] All 6 zones and grounded Kalinga central temple linked cleanly across TempleRing.unity!
+[Checkpoint] zone4 / Stepwell and monsoon shrine at (-55.0, -0.1, 110.0)
+[Heritage] discovered market_craft
+[Voice] area_enter: played mv_area_stepwell (p2 2D zone=Stepwell)
+[NewZonesQA] PASS Walk reached (-63.0, 0.8, 110.1); feet (-63.00, -0.15, 109.83)
+[PlayerController] Interacting with: el.nz4.valve.0 (Open sluice)
+[NewZonesQA] E interaction: el.nz4.valve.0
+[NewZonesQA] PASS Walk reached (-55.0, 0.8, 110.1); feet (-55.00, -0.15, 109.83)
+[PlayerController] Interacting with: el.nz4.valve.1 (Open sluice)
+[NewZonesQA] E interaction: el.nz4.valve.1
+[NewZonesQA] PASS Walk reached (-47.0, 0.8, 110.1); feet (-47.00, -0.15, 109.83)
+[PlayerController] Interacting with: el.nz4.valve.2 (Open sluice)
+[Puzzle] nz4.water_puzzle solved in 6.6s with 0 hint(s)
+[Voice] puzzle_solved: played pz_solved_03 (p3 2D )
+[NewZonesQA] E interaction: el.nz4.valve.2
+[NewZonesQA] PASS Three sluice valves flooded the basin and elevated the raft
+[Checkpoint] new_stepwell / before_fight at (-55.0, 3.9, 147.0)
+[Brawl] new_stepwell: fight begins against 2
+[Voice] enemy_spotted: played rb_spot_well (p3 3D enemy=robber)
+[Voice] fight_start: queued cb_start_02 (behind p3)
+[Voice] fight_start: played cb_start_02 (p3 2D )
+[Voice] move_first: played mv_first_01 (p2 2D )
+[Brawl] finisher on Knife Smuggler (1 left)
+[Voice] fight_finish: played cb_finish_02 (p2 2D )
+[Brawl] new_stepwell: won in 10.7s, damage taken 9, max combo 4, parries 1, finishers 2, retries 0
+[GameSfx] missing clip sfx_item_recovered
+[Voice] fight_won: interrupts cb_won_02 (over cb_finish_02 (p2))
+[Voice] fight_won: played cb_won_02 (p3 2D )
+[NewZonesQA] Fight: won=True, seconds=10.7, damage=9.0, retries=0, combo=4, finishers=2
+[Brawl] finisher on Stepwell Lookout (0 left)
+[NewZonesQA] PASS Knife smuggler defeated on wet stone
+[NewZonesQA] PASS Walk reached (-55.0, 4.4, 146.2); feet (-55.00, 3.91, 146.20)
+[PlayerController] Interacting with: treasure.Monsoon Vessel (stepwell) (Take Abadha Kumbha & Rohini Kunda Brass Kalasha (teaching replica))
+[Treasure] recovered Abadha Kumbha & Rohini Kunda Brass Kalasha (teaching replica) in new_stepwell; zone points now 3655
+[Voice] story:dialogue: played lore_ary_z4 (story line)
+[NewStepwell] COMPLETE: Monsoon Vessel + Key Ring recovered! Score=3655
+[NewZonesQA] E interaction: treasure.Monsoon Vessel (stepwell)
+[NewZonesQA] PASS Monsoon Vessel and key ring recovered
+[NewZonesQA] Frame sample: 58.9 fps mean, 70.7 ms maximum; 640×480, editor=True.
+[NewZonesQA] Score 3655, grade S.
+[NewZonesQA] RESULT: PASS
+]]></output>
+            </test-case>
+            <test-case id="1139" name="Zone5_SunWall_Mirrors_ChariotWheel_SmugglerMap" fullname="LegacyOfTemples.Tests.NewBazaarPlayTests.Zone5_SunWall_Mirrors_ChariotWheel_SmugglerMap" methodname="Zone5_SunWall_Mirrors_ChariotWheel_SmugglerMap" classname="LegacyOfTemples.Tests.NewBazaarPlayTests" runstate="Runnable" seed="253134669" result="Passed" start-time="2026-11-25 11:01:22Z" end-time="2026-11-25 11:01:53Z" duration="30.458880" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="540000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[V3] new game: puzzles, run score and checkpoint cleared
+[NewStepwell] built: multi-tier tank, sluice valves, rising raft, monsoon shrine & wet-stone brawl
+[NewVaults] built: underground hall, pressure plates, gear train, light-arc discs & heavy guard fight
+[NewCourtyard] built: Lion Gate, flagstone courtyard, storage hall crime scene, shadow-matching & lookout fight
+[NewWorldDirector] All 6 zones and grounded Kalinga central temple linked cleanly across TempleRing.unity!
+[NewBazaar] built: T market, 3 loop links, 16 villagers, tail / seal / sequence / street fight
+[NewJungleChase] built: 250m jungle trail, river ruins court, inside man deduction & Bhaskar boss fight
+[NewSunWall] built: Sun Wall monument, rotatable mirrors, Konark Chariot Wheel & Kishore fight
+[NewWorldDirector] All 6 zones and grounded Kalinga central temple linked cleanly across TempleRing.unity!
+[Checkpoint] new_bazaar / Banyan arrival at (-52.0, 0.1, -90.0)
+[BatchFriendly] baked 483 renderers into 149 shared materials (total 2415)
+[NewWorldDirector] All 6 zones and grounded Kalinga central temple linked cleanly across TempleRing.unity!
+[Checkpoint] zone5 / Sun Wall and chariot plaza at (55.0, 0.1, 125.0)
+[Voice] area_enter: played mv_area_courtyard (p2 2D zone=Courtyard)
+[Heritage] discovered market_craft
+[NewZonesQA] PASS Walk reached (49.0, 2.8, 135.8); feet (49.00, 2.75, 135.50)
+[PlayerController] Interacting with: el.nz5.mirror_a (Turn Mirror A)
+[NewZonesQA] E interaction: el.nz5.mirror_a
+[NewZonesQA] PASS Walk reached (77.0, 2.8, 135.8); feet (77.00, 2.80, 135.50)
+[PlayerController] Interacting with: el.nz5.mirror_b (Turn Mirror B)
+[NewZonesQA] E interaction: el.nz5.mirror_b
+[NewZonesQA] PASS Walk reached (77.0, 2.8, 135.8); feet (77.00, 0.11, 135.50)
+[PlayerController] Interacting with: el.nz5.mirror_b (Turn Mirror B)
+[NewZonesQA] E interaction: el.nz5.mirror_b
+[NewZonesQA] PASS Real raycast beam reflected through both mirrors into Chariot Wheel socket
+[NewZonesQA] PASS Walk reached (84.6, 2.8, 123.0); feet (84.37, 2.80, 123.00)
+[PlayerController] Interacting with: el.nz5.chariot_wheel (Turn)
+[Puzzle] nz5.sunwall_puzzle solved in 8.7s with 0 hint(s)
+[Voice] puzzle_solved: played pz_solved_01 (p3 2D )
+[Checkpoint] new_sunwall / before_fight at (84.4, 1.7, 123.0)
+[Brawl] new_sunwall: fight begins against 1
+[Voice] enemy_spotted: queued ki_spot_01 (behind p3)
+[Voice] fight_start: queued cb_start_02 (behind p3)
+[NewZonesQA] E interaction: el.nz5.chariot_wheel
+[NewZonesQA] PASS Grand Chariot Wheel rotated to unseal sanctuary
+[Voice] enemy_spotted: played ki_spot_01 (p3 3D enemy=kishore)
+[Voice] fight_start: played cb_start_02 (p3 2D )
+[Voice] move_first: played mv_first_01 (p2 2D )
+[Brawl] Kishore — Winged Smuggler enters phase 2
+[Voice] enemy_down: played ki_down_01 (p4 3D enemy=kishore)
+[Brawl] new_sunwall: won in 13.5s, damage taken 32, max combo 11, parries 0, finishers 1, retries 0
+[GameSfx] missing clip sfx_item_recovered
+[Voice] fight_won: queued cb_won_02 (behind p4)
+[NewZonesQA] Fight: won=True, seconds=13.5, damage=32.0, retries=0, combo=11, finishers=1
+[Brawl] finisher on Kishore — Winged Smuggler (0 left)
+[NewZonesQA] PASS Kishore boss fight won
+[NewZonesQA] PASS Walk reached (77.0, 0.0, 120.2); feet (77.00, 0.11, 120.20)
+[Voice] fight_won: played cb_won_02 (p3 2D )
+[PlayerController] Interacting with: treasure.Smuggler Map (sun wall) (Take Nandighosha Chariot Wheel Medallion & Ratha Pataka (teaching replica))
+[Treasure] recovered Nandighosha Chariot Wheel Medallion & Ratha Pataka (teaching replica) in new_sunwall; zone points now 3840
+[Voice] story:dialogue: played lore_ary_z5 (story line)
+[NewSunWall] COMPLETE: Smuggler Map recovered! Score=3840
+[NewZonesQA] E interaction: treasure.Smuggler Map (sun wall)
+[NewZonesQA] PASS Smuggler Map & 5th case recovered
+[NewZonesQA] Frame sample: 59.0 fps mean, 69.2 ms maximum; 640×480, editor=True.
+[NewZonesQA] Score 3840, grade S.
+[NewZonesQA] RESULT: PASS
+]]></output>
+            </test-case>
+            <test-case id="1140" name="Zone6_Jungle_Trail_InsideMan_Bhaskar_Finial" fullname="LegacyOfTemples.Tests.NewBazaarPlayTests.Zone6_Jungle_Trail_InsideMan_Bhaskar_Finial" methodname="Zone6_Jungle_Trail_InsideMan_Bhaskar_Finial" classname="LegacyOfTemples.Tests.NewBazaarPlayTests" runstate="Runnable" seed="81842906" result="Passed" start-time="2026-11-25 11:01:53Z" end-time="2026-11-25 11:02:26Z" duration="33.033161" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="540000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[V3] new game: puzzles, run score and checkpoint cleared
+[NewStepwell] built: multi-tier tank, sluice valves, rising raft, monsoon shrine & wet-stone brawl
+[NewVaults] built: underground hall, pressure plates, gear train, light-arc discs & heavy guard fight
+[NewCourtyard] built: Lion Gate, flagstone courtyard, storage hall crime scene, shadow-matching & lookout fight
+[NewWorldDirector] All 6 zones and grounded Kalinga central temple linked cleanly across TempleRing.unity!
+[NewBazaar] built: T market, 3 loop links, 16 villagers, tail / seal / sequence / street fight
+[NewJungleChase] built: 250m jungle trail, river ruins court, inside man deduction & Bhaskar boss fight
+[NewSunWall] built: Sun Wall monument, rotatable mirrors, Konark Chariot Wheel & Kishore fight
+[NewWorldDirector] All 6 zones and grounded Kalinga central temple linked cleanly across TempleRing.unity!
+[Checkpoint] new_bazaar / Banyan arrival at (-52.0, 0.1, -90.0)
+[Voice] jeep_approach: played jp_approach_01 (p1 2D )
+[BatchFriendly] baked 483 renderers into 150 shared materials (total 2898)
+[NewWorldDirector] All 6 zones and grounded Kalinga central temple linked cleanly across TempleRing.unity!
+[Voice] area_enter: played mv_area_courtyard (p2 2D zone=Courtyard)
+[Heritage] discovered market_craft
+[NewZonesQA] PASS Walk reached (25.0, 0.0, 220.0); feet (25.00, 0.05, 219.41)
+[NewZonesQA] PASS Walk reached (-20.0, 0.0, 280.0); feet (-20.00, 0.05, 279.41)
+[NewZonesQA] PASS Walk reached (18.0, 0.0, 340.0); feet (18.00, 0.05, 339.41)
+[NewZonesQA] PASS Walk reached (-12.0, 0.0, 390.0); feet (-12.00, 0.05, 389.41)
+[Checkpoint] zone6 / Jungle road and ancient ruins at (0.0, 0.4, 428.0)
+[Checkpoint] new_jungle / before_fight at (0.0, 0.4, 428.0)
+[Brawl] new_jungle: fight begins against 2
+[Voice] fight_start: interrupts cb_start_02 (over mv_area_courtyard (p2))
+[Voice] fight_start: played cb_start_02 (p3 2D )
+[NewZonesQA] PASS Walk reached (0.0, 0.0, 430.0); feet (0.00, 0.41, 429.41)
+[NewZonesQA] PASS Inside man (Madhav) exposed by evidence deduction
+[Voice] move_first: played mv_first_01 (p2 2D )
+[Brawl] finisher on Madhav — The Inside Man (1 left)
+[Voice] fight_taunt: played bh_taunt_01 (p2 3D enemy=bhaskar)
+[Brawl] Bhaskar — Robber Leader enters phase 2
+[Brawl] new_jungle: won in 17.5s, damage taken 41, max combo 13, parries 0, finishers 2, retries 0
+[GameSfx] missing clip sfx_item_recovered
+[Voice] fight_won: played cb_won_02 (p3 2D )
+[NewZonesQA] Fight: won=True, seconds=17.5, damage=41.0, retries=0, combo=13, finishers=2
+[Brawl] finisher on Bhaskar — Robber Leader (0 left)
+[NewZonesQA] PASS Bhaskar boss fight won
+[NewZonesQA] PASS Walk reached (0.0, 1.4, 447.2); feet (0.00, 0.41, 447.20)
+[PlayerController] Interacting with: treasure.Golden Temple Finial (ruins) (Take Shree Mandir Swarna Kalasha & Daru Brahma Chronicle Ornament (teaching replica))
+[Treasure] recovered Shree Mandir Swarna Kalasha & Daru Brahma Chronicle Ornament (teaching replica) in new_jungle; zone points now 2795
+[Voice] story:dialogue: played lore_ary_z6 (story line)
+[NewJungleChase] COMPLETE: Golden Temple Finial recovered! Grand finale achieved! Score=2795
+[NewZonesQA] E interaction: treasure.Golden Temple Finial (ruins)
+[NewZonesQA] PASS Golden Temple Finial recovered! Grand finale achieved
+[NewZonesQA] Frame sample: 59.0 fps mean, 68.8 ms maximum; 640×480, editor=True.
+[NewZonesQA] Score 2795, grade B.
+[NewZonesQA] RESULT: PASS
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1177" name="UpgradeReviewTests" fullname="LegacyOfTemples.Tests.UpgradeReviewTests" classname="LegacyOfTemples.Tests.UpgradeReviewTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-25 11:02:26Z" end-time="2026-11-25 11:02:36Z" duration="10.316128" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1178" name="AmbienceRemainsAudibleWithMusicMuted_AndSettingsSurviveManagerReload" fullname="LegacyOfTemples.Tests.UpgradeReviewTests.AmbienceRemainsAudibleWithMusicMuted_AndSettingsSurviveManagerReload" methodname="AmbienceRemainsAudibleWithMusicMuted_AndSettingsSurviveManagerReload" classname="LegacyOfTemples.Tests.UpgradeReviewTests" runstate="Runnable" seed="374764934" result="Passed" start-time="2026-11-25 11:02:26Z" end-time="2026-11-25 11:02:26Z" duration="0.054720" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1179" name="JeepRKey_RecoversToBuiltWindingRoad_WithoutLandingOnOwnRoof" fullname="LegacyOfTemples.Tests.UpgradeReviewTests.JeepRKey_RecoversToBuiltWindingRoad_WithoutLandingOnOwnRoof" methodname="JeepRKey_RecoversToBuiltWindingRoad_WithoutLandingOnOwnRoof" classname="LegacyOfTemples.Tests.UpgradeReviewTests" runstate="Runnable" seed="1734870332" result="Passed" start-time="2026-11-25 11:02:26Z" end-time="2026-11-25 11:02:30Z" duration="3.921492" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[V3] new game: puzzles, run score and checkpoint cleared
+[NewStepwell] built: multi-tier tank, sluice valves, rising raft, monsoon shrine & wet-stone brawl
+[NewVaults] built: underground hall, pressure plates, gear train, light-arc discs & heavy guard fight
+[NewCourtyard] built: Lion Gate, flagstone courtyard, storage hall crime scene, shadow-matching & lookout fight
+[NewWorldDirector] All 6 zones and grounded Kalinga central temple linked cleanly across TempleRing.unity!
+[NewBazaar] built: T market, 3 loop links, 16 villagers, tail / seal / sequence / street fight
+[NewJungleChase] built: 250m jungle trail, river ruins court, inside man deduction & Bhaskar boss fight
+[NewSunWall] built: Sun Wall monument, rotatable mirrors, Konark Chariot Wheel & Kishore fight
+[NewWorldDirector] All 6 zones and grounded Kalinga central temple linked cleanly across TempleRing.unity!
+[Checkpoint] new_bazaar / Banyan arrival at (-52.0, 0.1, -90.0)
+[BatchFriendly] baked 483 renderers into 151 shared materials (total 3381)
+[UpgradeReview] Before R: occupied=False, transitioning=False, brawl=False, combat=False, playerGap=4.019456, keyboard=True
+[Jeep] Repaired and reset to road at (13.50, 0.19, 235.34)
+[UpgradeReview] After R: pressed=True, down=False, position=(13.50, 0.19, 235.34)
+[Heritage] discovered market_craft
+[UpgradeReview] Before R: occupied=False, transitioning=False, brawl=False, combat=False, playerGap=4.019456, keyboard=True
+[Jeep] Repaired and reset to road at (-10.56, 0.19, 387.60)
+[UpgradeReview] After R: pressed=True, down=False, position=(-10.56, 0.19, 387.60)
+[Voice] area_enter: played mv_area_jungle (p2 2D zone=Jungle)
+]]></output>
+            </test-case>
+            <test-case id="1180" name="SunWall_RequiresRealMirrorReflections_AndBreaksWhenMisaligned" fullname="LegacyOfTemples.Tests.UpgradeReviewTests.SunWall_RequiresRealMirrorReflections_AndBreaksWhenMisaligned" methodname="SunWall_RequiresRealMirrorReflections_AndBreaksWhenMisaligned" classname="LegacyOfTemples.Tests.UpgradeReviewTests" runstate="Runnable" seed="925725443" result="Passed" start-time="2026-11-25 11:02:30Z" end-time="2026-11-25 11:02:36Z" duration="6.323643" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[V3] new game: puzzles, run score and checkpoint cleared
+[NewStepwell] built: multi-tier tank, sluice valves, rising raft, monsoon shrine & wet-stone brawl
+[NewVaults] built: underground hall, pressure plates, gear train, light-arc discs & heavy guard fight
+[NewCourtyard] built: Lion Gate, flagstone courtyard, storage hall crime scene, shadow-matching & lookout fight
+[NewWorldDirector] All 6 zones and grounded Kalinga central temple linked cleanly across TempleRing.unity!
+[NewBazaar] built: T market, 3 loop links, 16 villagers, tail / seal / sequence / street fight
+[NewJungleChase] built: 250m jungle trail, river ruins court, inside man deduction & Bhaskar boss fight
+[NewSunWall] built: Sun Wall monument, rotatable mirrors, Konark Chariot Wheel & Kishore fight
+[Voice] area_enter: stopped mv_area_jungle (scene change)
+[NewWorldDirector] All 6 zones and grounded Kalinga central temple linked cleanly across TempleRing.unity!
+[Checkpoint] new_bazaar / Banyan arrival at (-52.0, 0.1, -90.0)
+[BatchFriendly] baked 483 renderers into 152 shared materials (total 3864)
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1181" name="UpgradeVerificationTests" fullname="LegacyOfTemples.Tests.UpgradeVerificationTests" classname="LegacyOfTemples.Tests.UpgradeVerificationTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-25 11:02:36Z" end-time="2026-11-25 11:03:06Z" duration="30.277248" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1183" name="Courtyard_BlackGateSealed_NoRawTempleMesh" fullname="LegacyOfTemples.Tests.UpgradeVerificationTests.Courtyard_BlackGateSealed_NoRawTempleMesh" methodname="Courtyard_BlackGateSealed_NoRawTempleMesh" classname="LegacyOfTemples.Tests.UpgradeVerificationTests" runstate="Runnable" seed="102358920" result="Passed" start-time="2026-11-25 11:02:36Z" end-time="2026-11-25 11:02:40Z" duration="3.391641" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="60000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[V3] new game: puzzles, run score and checkpoint cleared
+[Checkpoint] obj_c0_reach / Reach Jagannath Temple at (0.0, 0.1, -12.0)
+[Weather] scene Courtyard: target=0.00, interior=False, quality=2
+[CharacterManager] Player placed in Courtyard: spawn=Spawn_player_start (0.00, 0.05, 15.00) -> player (0.00, 0.00, 15.00)
+[CharacterManager] Player placed in Courtyard: spawn=Spawn_player_start (0.00, 0.05, 15.00) -> player (0.00, 0.00, 15.00)
+[Heritage] discovered pottery
+[Heritage] discovered inventory
+[Heritage] discovered market_craft
+[Heritage] discovered market_transmission
+[TempleSite] temple placed: 1867721 triangles, footprint 247 x 108 m, height 61 m, tower top (-111.34, 61.05, -149.14)
+[VillageLife] built: 13 villagers, jeep parked
+[BatchFriendly] baked 1270 renderers into 723 shared materials (total 5134)
+[BreakIn] zone 2 puzzle built at (-17.0, 0.0, -74.0)
+[Stepwell] zone 4 puzzle built at (137.1, 0.0, -134.0)
+[SunWall] zone 5 puzzle built at (-137.6, 0.0, -135.0)
+[Vaults] zone 3 puzzle built at (0.0, 0.0, -202.5)
+[Heritage] discovered architecture
+[Bazaar] zone 1 built: yard at (21.0, 0.0, 145.0), route 7 points
+[Jungle] zone 6 built: road 24 points from (30.5, 0.0, -221.0), court at (39.5, 0.0, -457.0)
+]]></output>
+            </test-case>
+            <test-case id="1184" name="TempleRing_Minimap_JeepReset_OnSpotRetry_AudioChannels" fullname="LegacyOfTemples.Tests.UpgradeVerificationTests.TempleRing_Minimap_JeepReset_OnSpotRetry_AudioChannels" methodname="TempleRing_Minimap_JeepReset_OnSpotRetry_AudioChannels" classname="LegacyOfTemples.Tests.UpgradeVerificationTests" runstate="Runnable" seed="248538201" result="Passed" start-time="2026-11-25 11:02:40Z" end-time="2026-11-25 11:02:44Z" duration="4.005569" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="90000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[V3] new game: puzzles, run score and checkpoint cleared
+[NewStepwell] built: multi-tier tank, sluice valves, rising raft, monsoon shrine & wet-stone brawl
+[NewVaults] built: underground hall, pressure plates, gear train, light-arc discs & heavy guard fight
+[NewCourtyard] built: Lion Gate, flagstone courtyard, storage hall crime scene, shadow-matching & lookout fight
+[NewWorldDirector] All 6 zones and grounded Kalinga central temple linked cleanly across TempleRing.unity!
+[NewBazaar] built: T market, 3 loop links, 16 villagers, tail / seal / sequence / street fight
+[NewJungleChase] built: 250m jungle trail, river ruins court, inside man deduction & Bhaskar boss fight
+[NewSunWall] built: Sun Wall monument, rotatable mirrors, Konark Chariot Wheel & Kishore fight
+[NewWorldDirector] All 6 zones and grounded Kalinga central temple linked cleanly across TempleRing.unity!
+[Checkpoint] new_bazaar / Banyan arrival at (-52.0, 0.1, -90.0)
+[BatchFriendly] baked 483 renderers into 724 shared materials (total 5617)
+[NewWorldDirector] All 6 zones and grounded Kalinga central temple linked cleanly across TempleRing.unity!
+[Jeep] Repaired and reset to road at (0.00, 0.19, 38.00)
+[Checkpoint] zone2 / Courtyard Gate at (0.0, 0.2, 92.0)
+[Voice] area_enter: played mv_area_courtyard (p2 2D zone=Courtyard)
+[Checkpoint] zone3 / Underground storage vaults at (0.0, 0.2, 92.0)
+[Heritage] discovered market_craft
+]]></output>
+            </test-case>
+            <test-case id="1182" name="TempleRing_PujariLore_SixDeliveriesSkipVoiceAndReload" fullname="LegacyOfTemples.Tests.UpgradeVerificationTests.TempleRing_PujariLore_SixDeliveriesSkipVoiceAndReload" methodname="TempleRing_PujariLore_SixDeliveriesSkipVoiceAndReload" classname="LegacyOfTemples.Tests.UpgradeVerificationTests" runstate="Runnable" seed="966326193" result="Passed" start-time="2026-11-25 11:02:44Z" end-time="2026-11-25 11:03:06Z" duration="22.862986" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="180000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[V3] new game: puzzles, run score and checkpoint cleared
+[NewStepwell] built: multi-tier tank, sluice valves, rising raft, monsoon shrine & wet-stone brawl
+[NewVaults] built: underground hall, pressure plates, gear train, light-arc discs & heavy guard fight
+[NewCourtyard] built: Lion Gate, flagstone courtyard, storage hall crime scene, shadow-matching & lookout fight
+[NewWorldDirector] All 6 zones and grounded Kalinga central temple linked cleanly across TempleRing.unity!
+[NewBazaar] built: T market, 3 loop links, 16 villagers, tail / seal / sequence / street fight
+[NewJungleChase] built: 250m jungle trail, river ruins court, inside man deduction & Bhaskar boss fight
+[NewSunWall] built: Sun Wall monument, rotatable mirrors, Konark Chariot Wheel & Kishore fight
+[Voice] area_enter: stopped mv_area_courtyard (scene change)
+[NewWorldDirector] All 6 zones and grounded Kalinga central temple linked cleanly across TempleRing.unity!
+[Checkpoint] new_bazaar / Banyan arrival at (-52.0, 0.1, -90.0)
+[BatchFriendly] baked 483 renderers into 725 shared materials (total 6100)
+[Checkpoint] zone1 / Village bazaar and tea lane at (0.0, 0.0, -8.0)
+[Puzzle] nz1.market solved in 5.3s with 0 hint(s)
+[Voice] puzzle_solved: played pz_solved_01 (p3 2D )
+[Treasure] recovered Panchajanya Brass Aarti Ghanta & Shankha Bell (teaching replica) in new_bazaar; zone points now 3500
+[Voice] story:dialogue: played lore_ary_z1 (story line)
+[Voice] story:dialogue: played lore_skip_01 (story line)
+[NewBazaar] COMPLETE: bell + list, score=3500 grade=A
+[Voice] story:bark: played v3_ary_02 (story line)
+[Voice] clue_found: queued ex_clue_list (behind p4)
+[Heritage] discovered market_transmission
+[Heritage] discovered market_craft
+[PlayerController] Interacting with: pujari_lore_handover (Speak with Pujari Ananda)
+[Voice] bark: stopped v3_ary_02 (heritage dialogue)
+[Voice] story:dialogue: played lore_ary_z1 (story line)
+[Voice] story:dialogue: played lore_puj_z1_1 (story line)
+[Voice] story:dialogue: played lore_puj_z1_2 (story line)
+[Voice] story:dialogue: played lore_puj_z1_3 (story line)
+[Voice] story:dialogue: played lore_puj_z1_care (story line)
+[Heritage] discovered lore_z1
+[Checkpoint] zone2 / Temple gate and courtyard at (0.0, 0.1, 75.0)
+[Voice] puzzle_start: played pz_start_02 (p2 2D )
+[Puzzle] nz2.reconstruct solved in 11.0s with 0 hint(s)
+[Voice] puzzle_solved: interrupts pz_solved_03 (over pz_start_02 (p2))
+[GameSfx] missing clip sfx_item_recovered
+[Treasure] recovered Tala-Patra Gita Govinda Palm-Leaf Manuscript (teaching replica) in new_courtyard; zone points now 3500
+[Voice] story:dialogue: played lore_ary_z2 (story line)
+[Voice] story:dialogue: played lore_skip_01 (story line)
+[GameSfx] missing clip sfx_bell_ring
+[NewCourtyard] COMPLETE: Palm-Leaf Chronicle recovered! Score=3500
+[Voice] dialogue: stopped lore_skip_01 (heritage dialogue)
+[Voice] story:dialogue: played lore_ary_z2 (story line)
+[Voice] story:dialogue: played lore_puj_z2_1 (story line)
+[Voice] story:dialogue: played lore_puj_z2_2 (story line)
+[Voice] story:dialogue: played lore_puj_z2_3 (story line)
+[Voice] story:dialogue: played lore_puj_z2_extra (story line)
+[Heritage] discovered lore_z2
+[Checkpoint] zone3 / Underground storage vaults at (0.0, -5.8, 105.0)
+[Checkpoint] new_vaults / before_fight at (0.0, -5.8, 105.0)
+[Brawl] new_vaults: fight begins against 1
+[Brawl] new_vaults: won in 0.0s, damage taken 0, max combo 0, parries 0, finishers 0, retries 0
+[Puzzle] nz3.vault_puzzles solved in 12.9s with 0 hint(s)
+[Voice] puzzle_solved: played pz_solved_03 (p3 2D )
+[GameSfx] missing clip sfx_item_recovered
+[Treasure] recovered Ashtadhatu Nilachakra Seal & Pattachitra Medallion (teaching replica) in new_vaults; zone points now 3500
+[Voice] story:dialogue: played lore_ary_z3 (story line)
+[Voice] story:dialogue: played lore_skip_01 (story line)
+[NewVaults] COMPLETE: Sun Rosette + Ledger recovered! Score=3500
+[Voice] clue_found: queued ex_clue_ledger (behind p5)
+[Voice] dialogue: stopped lore_skip_01 (heritage dialogue)
+[Voice] story:dialogue: played lore_ary_z3 (story line)
+[Voice] story:dialogue: played lore_ary_z3 (story line)
+[Voice] story:dialogue: played lore_puj_z3_1 (story line)
+[Voice] story:dialogue: played lore_puj_z3_2 (story line)
+[Voice] story:dialogue: played lore_puj_z3_3 (story line)
+[Voice] story:dialogue: played lore_puj_z3_care (story line)
+[Heritage] discovered lore_z3
+[Checkpoint] zone4 / Stepwell and monsoon shrine at (-55.0, -0.1, 110.0)
+[Puzzle] nz4.water_puzzle solved in 14.7s with 0 hint(s)
+[GameSfx] missing clip sfx_item_recovered
+[Treasure] recovered Abadha Kumbha & Rohini Kunda Brass Kalasha (teaching replica) in new_stepwell; zone points now 3500
+[Voice] story:dialogue: played lore_ary_z4 (story line)
+[Voice] story:dialogue: played lore_skip_01 (story line)
+[NewStepwell] COMPLETE: Monsoon Vessel + Key Ring recovered! Score=3500
+[Voice] dialogue: stopped lore_skip_01 (heritage dialogue)
+[Voice] story:dialogue: played lore_ary_z4 (story line)
+[Voice] story:dialogue: played lore_puj_z4_1 (story line)
+[Voice] story:dialogue: played lore_puj_z4_2 (story line)
+[Voice] story:dialogue: played lore_puj_z4_3 (story line)
+[Voice] story:dialogue: played lore_puj_z4_extra (story line)
+[Heritage] discovered lore_z4
+[Checkpoint] zone5 / Sun Wall and chariot plaza at (55.0, 0.1, 125.0)
+[Puzzle] nz5.sunwall_puzzle solved in 16.5s with 0 hint(s)
+[GameSfx] missing clip sfx_item_recovered
+[Treasure] recovered Nandighosha Chariot Wheel Medallion & Ratha Pataka (teaching replica) in new_sunwall; zone points now 3500
+[Voice] story:dialogue: played lore_ary_z5 (story line)
+[Voice] story:dialogue: played lore_skip_01 (story line)
+[NewSunWall] COMPLETE: Smuggler Map recovered! Score=3500
+[Voice] dialogue: stopped lore_skip_01 (heritage dialogue)
+[Voice] story:dialogue: played lore_ary_z5 (story line)
+[Voice] story:dialogue: played lore_puj_z5_1 (story line)
+[Voice] story:dialogue: played lore_puj_z5_2 (story line)
+[Voice] story:dialogue: played lore_puj_z5_3 (story line)
+[Voice] story:dialogue: played lore_puj_z5_care (story line)
+[Heritage] discovered lore_z5
+[Checkpoint] zone6 / Jungle road and ancient ruins at (0.0, 0.0, 415.0)
+[Voice] area_enter: played mv_area_jungle (p2 2D zone=Jungle)
+[GameSfx] missing clip sfx_item_recovered
+[Treasure] recovered Shree Mandir Swarna Kalasha & Daru Brahma Chronicle Ornament (teaching replica) in new_jungle; zone points now 2500
+[Voice] story:dialogue: played lore_ary_z6 (story line)
+[Voice] story:dialogue: played lore_skip_01 (story line)
+[NewJungleChase] COMPLETE: Golden Temple Finial recovered! Grand finale achieved! Score=2500
+[Voice] dialogue: stopped lore_skip_01 (heritage dialogue)
+[Voice] story:dialogue: played lore_ary_z6 (story line)
+[Voice] story:dialogue: played lore_puj_z6_1 (story line)
+[Voice] story:dialogue: played lore_puj_z6_2 (story line)
+[Voice] story:dialogue: played lore_puj_z6_3 (story line)
+[Voice] story:dialogue: played lore_puj_z6_extra (story line)
+[Heritage] discovered lore_z6
+[NewStepwell] built: multi-tier tank, sluice valves, rising raft, monsoon shrine & wet-stone brawl
+[NewVaults] built: underground hall, pressure plates, gear train, light-arc discs & heavy guard fight
+[NewCourtyard] built: Lion Gate, flagstone courtyard, storage hall crime scene, shadow-matching & lookout fight
+[NewWorldDirector] All 6 zones and grounded Kalinga central temple linked cleanly across TempleRing.unity!
+[NewBazaar] built: T market, 3 loop links, 16 villagers, tail / seal / sequence / street fight
+[NewJungleChase] built: 250m jungle trail, river ruins court, inside man deduction & Bhaskar boss fight
+[NewSunWall] built: Sun Wall monument, rotatable mirrors, Konark Chariot Wheel & Kishore fight
+[NewWorldDirector] All 6 zones and grounded Kalinga central temple linked cleanly across TempleRing.unity!
+[GameSfx] missing clip sfx_item_recovered
+[NewVaults] COMPLETE: Sun Rosette + Ledger recovered! Score=4000
+[GameSfx] missing clip sfx_bell_ring
+[Checkpoint] new_courtyard / before_fight at (0.0, 0.1, -35.0)
+[Brawl] new_courtyard: fight begins against 1
+[Checkpoint] new_bazaar / Banyan arrival at (-52.0, 0.1, -90.0)
+[Voice] story:bark: played v3_cou_01 (story line)
+[Voice] fight_start: queued cb_start_01 (behind p4)
+[BatchFriendly] baked 480 renderers into 727 shared materials (total 6580)
+[Voice] fight_start: played cb_start_01 (p3 2D )
+Saving results to: /Users/hemanth/Library/Application Support/DefaultCompany/My project/TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

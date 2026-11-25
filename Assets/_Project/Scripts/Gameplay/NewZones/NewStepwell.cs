@@ -113,7 +113,7 @@ namespace LegacyOfTemples.Gameplay
             vesObj.name = "Treasure — Monsoon Vessel";
             ZoneKit.Reach(vesObj, 0.8f);
             Vessel = vesObj.AddComponent<TreasurePickup>();
-            Vessel.treasureName = "Monsoon Vessel (stepwell)";
+            Vessel.saveId = "treasure.Monsoon Vessel (stepwell)"; Vessel.treasureName = "Abadha Kumbha & Rohini Kunda Brass Kalasha (teaching replica)";
             Vessel.zoneId = Zone;
 
             // Puzzle Group
@@ -200,11 +200,22 @@ namespace LegacyOfTemples.Gameplay
             }
         }
 
+        public void SkipTask()
+        {
+            if (Vessel.Taken) return;
+            if (Brawl.Active != null && Brawl.Active.zoneId == Zone) Brawl.Active.ResolveSkipped();
+            if (Group != null) foreach (var condition in Group.conditions)
+                if (condition.element != null) condition.element.SetState(condition.state, true, true);
+            foreach (var valve in Valves) valve.SetState(1, true, true); Basin.Recompute();
+            Won();
+            Vessel.Interact();
+        }
+
         void Won()
         {
             Now = Stage.Recover;
             ShowVessel(true);
-            GameSfx.At("sfx_item_recovered", Vessel.transform.position, 1f);
+            GameSfx.At("sfx_clue_found", Vessel.transform.position, 1f);
         }
     }
 }

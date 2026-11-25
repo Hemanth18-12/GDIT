@@ -1,0 +1,20 @@
+{
+  "build_stamp": "build 2026-11-25 17:01",
+  "build_result": "Succeeded: errors=0, warnings=0",
+  "requested_suites": {
+    "passed": 12,
+    "failed": 0,
+    "xml": "all-tests-round1.xml"
+  },
+  "final_focused": {
+    "passed": 3,
+    "failed": 0,
+    "xml": "visual-fix.xml"
+  },
+  "standalone_checks_passed": 109,
+  "standalone_result": "ALL CHECKS PASSED",
+  "voice_files_validated": 38,
+  "known_prebuild_warnings": [
+    "Four missing legacy loading-image slots in LoadingImageTools.Sync; outside build report warning count."
+  ]
+}

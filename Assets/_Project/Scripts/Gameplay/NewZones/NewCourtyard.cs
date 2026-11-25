@@ -209,7 +209,7 @@ namespace LegacyOfTemples.Gameplay
             chronObj.name = "Treasure — Palm-Leaf Chronicle";
             ZoneKit.Reach(chronObj, 0.7f);
             Chronicle = chronObj.AddComponent<TreasurePickup>();
-            Chronicle.treasureName = "Palm-Leaf Chronicle (courtyard)";
+            Chronicle.saveId = "treasure.Palm-Leaf Chronicle (courtyard)"; Chronicle.treasureName = "Tala-Patra Gita Govinda Palm-Leaf Manuscript (teaching replica)";
             Chronicle.zoneId = Zone;
 
             // Puzzle group & hint tiers
@@ -275,7 +275,7 @@ namespace LegacyOfTemples.Gameplay
             {
                 wholePot.SetActive(true);
                 lanternLight.enabled = true;
-                GameSfx.At("sfx_bell_ring", Plinth.position, 0.7f);
+                GameSfx.At("sfx_bell_temple", Plinth.position, 0.7f);
                 StoryDialogueSystem.Instance?.Say("v3:courtyard_lamp_lit");
             }
 
@@ -307,11 +307,22 @@ namespace LegacyOfTemples.Gameplay
             }
         }
 
+        public void SkipTask()
+        {
+            if (Chronicle.Taken) return;
+            if (Brawl.Active != null && Brawl.Active.zoneId == Zone) Brawl.Active.ResolveSkipped();
+            if (Group != null) foreach (var condition in Group.conditions)
+                if (condition.element != null) condition.element.SetState(condition.state, true, true);
+
+            Won();
+            Chronicle.Interact();
+        }
+
         void Won()
         {
             Now = Stage.Recover;
             ShowChronicle(true);
-            GameSfx.At("sfx_item_recovered", Chronicle.transform.position, 1f);
+            GameSfx.At("sfx_clue_found", Chronicle.transform.position, 1f);
         }
     }
 }

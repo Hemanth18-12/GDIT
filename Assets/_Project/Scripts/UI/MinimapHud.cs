@@ -352,7 +352,7 @@ namespace LegacyOfTemples.UI
             else
             {
                 objectiveBlip.gameObject.SetActive(false);
-                footerText.text = isTempleRing ? "[M] Map   [R] Jeep Reset" : "[M] Map";
+                footerText.text = isTempleRing ? "[M] Map  [K] Skip  [T] Back" : "[M] Map";
             }
         }
 
@@ -398,7 +398,7 @@ namespace LegacyOfTemples.UI
             if (PlayerController.ObjectiveFocus != null)
             {
                 targetPos = PlayerController.ObjectiveFocus.position;
-                label = "Goal";
+                label = PujariLoreDirector.Instance != null && PujariLoreDirector.Instance.PendingZone > 0 ? "Pujari Ananda" : "Goal";
                 return true;
             }
             if (Constants.IsNewWorld(scene))
@@ -491,7 +491,7 @@ namespace LegacyOfTemples.UI
             t.color = color;
             t.raycastTarget = false;
             t.textWrappingMode = TextWrappingModes.NoWrap;
-            t.overflowMode = TextOverflowModes.Ellipsis;
+            t.overflowMode = TextOverflowModes.Truncate;
             return t;
         }
 

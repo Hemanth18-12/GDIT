@@ -88,6 +88,8 @@ namespace LegacyOfTemples.Gameplay
             Current = inside; float k = 1f - Mathf.Exp(-Time.deltaTime * 1.6f);
             float ti = baseIntensity, tf = baseFogOn ? baseFog : 0f; Color tc = baseColor, tfc = baseFogColor; Quaternion tr = baseRot;
             if (inside != null) { var p = ZoneLook.Preset(inside.zone); ti = p.sunIntensity; tc = p.sunIntensity > 0f ? p.sun : baseColor; tf = p.fogDensity; tfc = p.fog; tr = sunAim[inside]; }
+            if (PujariLoreDirector.Instance != null && Puzzles.PuzzleSave.Get("lore.completed") == 1)
+            { tr = Quaternion.Euler(10f, -90f, 0f); tc = new Color(1f, 0.75f, 0.47f); ti = 1.1f; }
             sun.intensity = Mathf.Lerp(sun.intensity, ti, k); sun.color = Color.Lerp(sun.color, tc, k); sun.transform.rotation = Quaternion.Slerp(sun.transform.rotation, tr, k);
             RenderSettings.fog = true; RenderSettings.fogDensity = Mathf.Lerp(RenderSettings.fogDensity, tf, k); RenderSettings.fogColor = Color.Lerp(RenderSettings.fogColor, tfc, k);
         }

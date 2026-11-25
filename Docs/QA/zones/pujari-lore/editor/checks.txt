@@ -1,0 +1,114 @@
+Pujari lore runtime review
+PASS Pujari and all six zones spawned
+PASS Stone platform under Pujari
+PASS Pujari rendered model above platform: Object_01
+PASS Valid mono 44.1kHz voice: lore_ary_z1
+PASS Valid mono 44.1kHz voice: lore_puj_z1_1
+PASS Valid mono 44.1kHz voice: lore_puj_z1_2
+PASS Valid mono 44.1kHz voice: lore_puj_z1_3
+PASS Valid mono 44.1kHz voice: lore_puj_z1_extra
+PASS Valid mono 44.1kHz voice: lore_ary_z2
+PASS Valid mono 44.1kHz voice: lore_puj_z2_1
+PASS Valid mono 44.1kHz voice: lore_puj_z2_2
+PASS Valid mono 44.1kHz voice: lore_puj_z2_3
+PASS Valid mono 44.1kHz voice: lore_puj_z2_extra
+PASS Valid mono 44.1kHz voice: lore_ary_z3
+PASS Valid mono 44.1kHz voice: lore_puj_z3_1
+PASS Valid mono 44.1kHz voice: lore_puj_z3_2
+PASS Valid mono 44.1kHz voice: lore_puj_z3_3
+PASS Valid mono 44.1kHz voice: lore_puj_z3_extra
+PASS Valid mono 44.1kHz voice: lore_ary_z4
+PASS Valid mono 44.1kHz voice: lore_puj_z4_1
+PASS Valid mono 44.1kHz voice: lore_puj_z4_2
+PASS Valid mono 44.1kHz voice: lore_puj_z4_3
+PASS Valid mono 44.1kHz voice: lore_puj_z4_extra
+PASS Valid mono 44.1kHz voice: lore_ary_z5
+PASS Valid mono 44.1kHz voice: lore_puj_z5_1
+PASS Valid mono 44.1kHz voice: lore_puj_z5_2
+PASS Valid mono 44.1kHz voice: lore_puj_z5_3
+PASS Valid mono 44.1kHz voice: lore_puj_z5_extra
+PASS Valid mono 44.1kHz voice: lore_ary_z6
+PASS Valid mono 44.1kHz voice: lore_puj_z6_1
+PASS Valid mono 44.1kHz voice: lore_puj_z6_2
+PASS Valid mono 44.1kHz voice: lore_puj_z6_3
+PASS Valid mono 44.1kHz voice: lore_puj_z6_extra
+PASS Valid mono 44.1kHz voice: lore_skip_01
+PASS Valid mono 44.1kHz voice: lore_return_01
+PASS Valid mono 44.1kHz voice: lore_puj_z1_care
+PASS Valid mono 44.1kHz voice: lore_puj_z2_care
+PASS Valid mono 44.1kHz voice: lore_puj_z3_care
+PASS Valid mono 44.1kHz voice: lore_puj_z4_care
+PASS Valid mono 44.1kHz voice: lore_puj_z5_care
+PASS Valid mono 44.1kHz voice: lore_puj_z6_care
+STATE before K: blocked=False, time=1, currentKeyboard=Keyboard1, world=True, player=(0.00, 0.05, -8.00), pending=-1
+STATE after K: blocked=False, key=True, active=True, stage=Complete, taken=True
+PASS Zone 1 skip collects stable-ID relic and completes zone
+PASS Zone 1 objective returns to Pujari
+PASS Safe quick return zone 1
+STATE E stand=(2.50, 0.70, 138.70) priest=(2.50, 0.70, 141.00) nearest=pujari_lore_handover blocked=False
+PASS Zone 1 E dialogue opens
+PASS Aryan delivery clip playing zone 1
+PASS Pujari clip replaces Aryan without overlap zone 1
+PASS Follow-up choice voiced zone 1
+PASS Delivery persisted zone 1
+PASS Exactly 500 lore points zone 1
+PASS Historical journal unlocked zone 1
+PASS Delivered relic clears return objective
+PASS Pause menu exposes skip task button
+PASS Pause skip resumes gameplay
+PASS Zone 2 skip collects stable-ID relic and completes zone
+PASS Zone 2 objective returns to Pujari
+PASS Safe quick return zone 2
+PASS Zone 2 E dialogue opens
+PASS Aryan delivery clip playing zone 2
+PASS Pujari clip replaces Aryan without overlap zone 2
+PASS Follow-up choice voiced zone 2
+PASS Delivery persisted zone 2
+PASS Exactly 500 lore points zone 2
+PASS Historical journal unlocked zone 2
+PASS Skip resolves active combat cleanly
+PASS Zone 3 skip collects stable-ID relic and completes zone
+PASS Zone 3 objective returns to Pujari
+PASS Safe quick return zone 3
+PASS Cancelled conversation preserves pending delivery
+PASS Zone 3 E dialogue opens
+PASS Aryan delivery clip playing zone 3
+PASS Pujari clip replaces Aryan without overlap zone 3
+PASS Follow-up choice voiced zone 3
+PASS Delivery persisted zone 3
+PASS Exactly 500 lore points zone 3
+PASS Historical journal unlocked zone 3
+PASS Zone 4 skip collects stable-ID relic and completes zone
+PASS Zone 4 objective returns to Pujari
+PASS Safe quick return zone 4
+PASS Zone 4 E dialogue opens
+PASS Aryan delivery clip playing zone 4
+PASS Pujari clip replaces Aryan without overlap zone 4
+PASS Follow-up choice voiced zone 4
+PASS Delivery persisted zone 4
+PASS Exactly 500 lore points zone 4
+PASS Historical journal unlocked zone 4
+PASS Zone 5 skip collects stable-ID relic and completes zone
+PASS Zone 5 objective returns to Pujari
+PASS Safe quick return zone 5
+PASS Zone 5 E dialogue opens
+PASS Aryan delivery clip playing zone 5
+PASS Pujari clip replaces Aryan without overlap zone 5
+PASS Follow-up choice voiced zone 5
+PASS Delivery persisted zone 5
+PASS Exactly 500 lore points zone 5
+PASS Historical journal unlocked zone 5
+PASS Zone 6 skip collects stable-ID relic and completes zone
+PASS Zone 6 objective returns to Pujari
+PASS Safe quick return zone 6
+PASS Zone 6 E dialogue opens
+PASS Aryan delivery clip playing zone 6
+PASS Pujari clip replaces Aryan without overlap zone 6
+PASS Follow-up choice voiced zone 6
+PASS Delivery persisted zone 6
+PASS Exactly 500 lore points zone 6
+PASS Historical journal unlocked zone 6
+PASS Finale waits for all six handovers
+PASS Reload restores pending handover from stable save ID
+PASS Reload preserves delivered relics
+ALL CHECKS PASSED

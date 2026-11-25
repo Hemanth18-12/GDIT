@@ -1,0 +1,112 @@
+{
+  "zones": [
+    {
+      "zone": 1,
+      "name": "Panchajanya Brass Aarti Ghanta & Shankha Bell (teaching replica)",
+      "title": "Mangal Aarti and the temple beginnings",
+      "lines": [
+        "This bell and conch are fictional teaching replicas, not objects removed from Puri. Bells and conches accompany worship and the early morning Mangal Aarti.",
+        "The present Shree Jagannath Temple began under the Eastern Ganga king Anantavarman Chodaganga Deva in the twelfth century.",
+        "King Indradyumna and the sacred timber belong to the temple foundation tradition. We distinguish that cherished legend from the history of the present building."
+      ],
+      "choices": [
+        "Why distinguish legend and history?",
+        "How do we protect this craft?"
+      ],
+      "extra": "Legends express devotion and community identity. Historical claims use inscriptions and other evidence; both deserve careful explanation.",
+      "care": "Keep replicas documented and handle them carefully. Real sacred objects remain in the care of their community.",
+      "aryan": "I have recovered the bell and conch teaching replica.",
+      "source": "https://odishatourism.gov.in/en/places/shree-jagannath-temple"
+    },
+    {
+      "zone": 2,
+      "name": "Tala-Patra Gita Govinda Palm-Leaf Manuscript (teaching replica)",
+      "title": "Palm-leaf writing and Gita Govinda",
+      "lines": [
+        "This fictional manuscript replica introduces Odisha palm-leaf engraving, called tala patra. Craftspeople prepare leaves and incise fine lines with a stylus.",
+        "Dark pigment makes the engraved lines visible. Palm leaves preserve writing and images through skilled preparation and careful storage.",
+        "Jayadeva composed the Gita Govinda in the twelfth century. Its devotional poetry is closely associated with Jagannath worship."
+      ],
+      "choices": [
+        "Why preserve palm-leaf manuscripts?",
+        "How do we care for this replica?"
+      ],
+      "extra": "Manuscripts preserve language, poetry and the knowledge of their makers. Real leaves are fragile and need trained conservation rather than a quick repair.",
+      "care": "Keep replicas documented and handle them carefully. Real sacred objects remain in the care of their community.",
+      "aryan": "I have recovered the palm-leaf teaching manuscript.",
+      "source": "https://new.odiabibhaba.in/en/gitagobinda"
+    },
+    {
+      "zone": 3,
+      "name": "Ashtadhatu Nilachakra Seal & Pattachitra Medallion (teaching replica)",
+      "title": "Nilachakra and Pattachitra craftsmanship",
+      "lines": [
+        "This fictional seal represents the Nilachakra, the sacred metal wheel above the Puri temple. The wheel itself remains on the temple; it is never a collectible.",
+        "The temple banner is associated with this wheel. We respect that living tradition without presenting tales about the wind as measured science.",
+        "Odisha Pattachitra artists create detailed narrative paintings. The medallion is our invented teaching design, not an authenticated historic temple object."
+      ],
+      "choices": [
+        "What does Pattachitra preserve?",
+        "How do we protect this craft?"
+      ],
+      "extra": "Pattachitra carries stories through line, colour and patient workshop practice. Supporting practising artists helps skills pass between generations.",
+      "care": "Keep replicas documented and handle them carefully. Real sacred objects remain in the care of their community.",
+      "aryan": "I have recovered the wheel seal and painted teaching medallion.",
+      "source": "https://www.incredibleindia.gov.in/en/odisha/puri/sri-jagannath-temple"
+    },
+    {
+      "zone": 4,
+      "name": "Abadha Kumbha & Rohini Kunda Brass Kalasha (teaching replica)",
+      "title": "Mahaprasad and water traditions",
+      "lines": [
+        "This brass vessel is a fictional teaching replica. Rohini Kunda is a sacred place within the Puri temple tradition, not a puzzle tank to be disturbed.",
+        "The temple kitchen prepares offerings in earthen pots. Mahaprasad connects worship, food and a community of cooks, servitors and devotees.",
+        "Nirmalya includes dried sacred rice cherished by devotees. Our brass replica illustrates heritage learning; it is not an actual kitchen pot or sacred offering."
+      ],
+      "choices": [
+        "Why discuss the people behind offerings?",
+        "How do we care for this replica?"
+      ],
+      "extra": "Living heritage includes the people who maintain a tradition. We honour their knowledge and work, and avoid treating sacred food as treasure or a commodity.",
+      "care": "Keep replicas documented and handle them carefully. Real sacred objects remain in the care of their community.",
+      "aryan": "I have recovered the ceremonial teaching vessel.",
+      "source": "https://odishatourism.gov.in/en/destinations/puri"
+    },
+    {
+      "zone": 5,
+      "name": "Nandighosha Chariot Wheel Medallion & Ratha Pataka (teaching replica)",
+      "title": "Ratha Yatra and the chariot makers",
+      "lines": [
+        "This fictional medallion and banner recall Ratha Yatra. The chariots travel along Puri Grand Avenue towards Gundicha Temple.",
+        "Jagannath rides Nandighosha, Balabhadra rides Taladhwaja, and Subhadra rides Darpadalana. Nandighosha has sixteen wheels.",
+        "Artisans build the festival chariots anew each year. The celebration brings the deities into public view, expressing a widely shared tradition of devotion."
+      ],
+      "choices": [
+        "Why build the chariots anew?",
+        "How do we protect this craft?"
+      ],
+      "extra": "Rebuilding keeps specialist skills alive through practice and transmission. The knowledge of the makers matters as much as the finished woodwork.",
+      "care": "Keep replicas documented and handle them carefully. Real sacred objects remain in the care of their community.",
+      "aryan": "I have recovered the chariot teaching medallion and banner.",
+      "source": "https://rathjatra.nic.in/chariots.html"
+    },
+    {
+      "zone": 6,
+      "name": "Shree Mandir Swarna Kalasha & Daru Brahma Chronicle Ornament (teaching replica)",
+      "title": "Living heritage and Nabakalebara",
+      "lines": [
+        "This finial ornament and chronicle are fictional teaching replicas. A kalasha crowns temple architecture; no actual temple crown has been taken in this story.",
+        "Nabakalebara is the periodic renewal of the wooden sacred images in the Jagannath tradition. Its ritual calendar is not a fixed annual replacement.",
+        "The sacred images remain untouched in our game. Returning these replicas reminds us that heritage is living community memory, not gold for smugglers."
+      ],
+      "choices": [
+        "What makes heritage living?",
+        "How do we care for this replica?"
+      ],
+      "extra": "People renew heritage through knowledge, care and shared responsibility. Every temple holds a story; protecting heritage means protecting our history.",
+      "care": "Keep replicas documented and handle them carefully. Real sacred objects remain in the care of their community.",
+      "aryan": "I have recovered the teaching finial and chronicle ornament.",
+      "source": "https://odishatourism.gov.in/en/places/shree-jagannath-temple"
+    }
+  ]
+}

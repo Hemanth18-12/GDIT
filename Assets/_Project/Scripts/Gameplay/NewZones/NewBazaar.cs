@@ -125,7 +125,7 @@ namespace LegacyOfTemples.Gameplay
             if (courierAnimator != null) foreach (var p in courierAnimator.parameters) if (p.name == "Speed") hasSpeed = true;
             var bag = ZoneKit.Part(Courier, "Bell bag", new Vector3(0.32f, 0.9f, -0.12f), new Vector3(0.35f, 0.44f, 0.22f), ZoneKit.Tinted("clay_plaster", new Color(0.38f, 0.27f, 0.15f), 0.1f), false);
             ZoneKit.Part(Courier, "Red bag thread", new Vector3(0.32f, 1.1f, -0.12f), new Vector3(0.4f, 0.08f, 0.25f), ZoneKit.Tinted("clay_plaster", new Color(0.82f, 0.06f, 0.03f), 0.1f), false);
-            bagRing = bag.AddComponent<AudioSource>(); bagRing.clip = Resources.Load<AudioClip>("Audio/sfx_bell_muffled"); if (bagRing.clip == null) bagRing.clip = AudioManager.Instance?.GetClip("sfx_bell_ring"); bagRing.spatialBlend = 1f; bagRing.minDistance = 5f; bagRing.maxDistance = 45f; AudioManager.Router?.Invoke(bagRing, "SFX");
+            bagRing = bag.AddComponent<AudioSource>(); bagRing.clip = Resources.Load<AudioClip>("Audio/sfx_bell_muffled"); if (bagRing.clip == null) bagRing.clip = AudioManager.Instance?.GetClip("sfx_bell_temple"); bagRing.spatialBlend = 1f; bagRing.minDistance = 5f; bagRing.maxDistance = 45f; AudioManager.Router?.Invoke(bagRing, "SFX");
             var cloth = ZoneKit.Part(transform, "Dropped red cloth strip", new Vector3(-23f, 0.12f, 17f), new Vector3(0.5f, 0.06f, 0.8f), ZoneKit.Tinted("clay_plaster", new Color(0.8f, 0.05f, 0.03f), 0.08f), false);
             ZoneKit.Reach(cloth, 0.6f); Thread = cloth.AddComponent<Carryable>(); Thread.itemKey = "nz1.redthread"; Thread.displayName = "red bag tie";
         }
@@ -152,7 +152,7 @@ namespace LegacyOfTemples.Gameplay
             Group.conditions.Add(new PuzzleGroup.Condition { element = Seal, state = 1 }); Group.conditions.Add(new PuzzleGroup.Condition { element = CartLock, state = 1 });
             Group.hints = new[] { "Listen for a bag ringing near the tea stalls. The back lanes connect.", "His red bag tie fits the cart latch. Shop receipts carry three numbered symbols.", "Follow through the dyer's loop. Place the dropped tie at the cart, then press CUP, BELL, THREAD." };
             var bell = ArtUpgrade.Place(cartRoot, "brass_goblets", new Vector3(37f, 0.1f, 42f), 1.2f, 0f, false);
-            bell.name = "Fictional Dawn Bell — drop after fight"; ZoneKit.Reach(bell, 0.7f); Bell = bell.AddComponent<TreasurePickup>(); Bell.treasureName = "Dawn Bell (new bazaar)"; Bell.zoneId = Zone;
+            bell.name = "Fictional Dawn Bell — drop after fight"; ZoneKit.Reach(bell, 0.7f); Bell = bell.AddComponent<TreasurePickup>(); Bell.saveId = "treasure.Dawn Bell (new bazaar)"; Bell.treasureName = "Panchajanya Brass Aarti Ghanta & Shankha Bell (teaching replica)"; Bell.zoneId = Zone;
         }
         void BuildCrowd()
         {
@@ -248,6 +248,17 @@ namespace LegacyOfTemples.Gameplay
                     break;
             }
         }
+        public void SkipTask()
+        {
+            if (Bell.Taken) return;
+            if (Brawl.Active != null && Brawl.Active.zoneId == Zone) Brawl.Active.ResolveSkipped();
+            if (Group != null) foreach (var condition in Group.conditions)
+                if (condition.element != null) condition.element.SetState(condition.state, true, true);
+            PuzzleSave.Set("nz1.tail", 1); Courier.gameObject.SetActive(false); cartGate.SetActive(false);
+            Won();
+            Bell.Interact();
+        }
+
         void Won() { Now = Stage.Recover; ShowBell(true); StoryDialogueSystem.Instance?.Say("done:obj_v3_bazaar"); }
     }
 }

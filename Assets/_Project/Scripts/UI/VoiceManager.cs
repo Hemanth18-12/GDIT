@@ -70,6 +70,12 @@ namespace LegacyOfTemples.UI
 
         void Awake()
         {
+            PujariLoreDirector.PlayVoice = (id, speaker, at) => {
+                var line = VoiceLibrary.Line(id);
+                if (line != null) PlayStory(id, speaker, line.text, line.clip, "calm", true, 1f, at);
+            };
+            PujariLoreDirector.StopVoices = () => StopAll("heritage dialogue");
+            PujariLoreDirector.DialogueIsOpen = () => UIManager.Instance != null && UIManager.Instance.IsDialogueActive;
             Source2D = gameObject.AddComponent<AudioSource>(); Source2D.playOnAwake = false; Source2D.spatialBlend = 0f; Source2D.priority = 0;
             var e = new GameObject("VoiceEmitter3D"); e.transform.SetParent(transform, false);
             Source3D = e.AddComponent<AudioSource>(); Source3D.playOnAwake = false; Source3D.spatialBlend = 0.85f; Source3D.priority = 0;
@@ -101,10 +107,10 @@ namespace LegacyOfTemples.UI
 
         /// <summary>A story bark (priority 4) or dialogue line (priority 5) from the story system: plays now on the 2D source.
         /// Subtitles are drawn by the story UI itself.</summary>
-        public static void PlayStory(string id, string speaker, string text, AudioClip clip, string tier, bool dialogue, float volumeScale)
+        public static void PlayStory(string id, string speaker, string text, AudioClip clip, string tier, bool dialogue, float volumeScale, Transform at = null)
         {
             var vm = Instance; if (vm == null || clip == null) return;
-            var it = new Item { id = id, speaker = speaker, text = text, trigger = dialogue ? "dialogue" : "bark", clip = clip, priority = dialogue ? 5 : 4, story = true, subtitle = false, tier = tier ?? "calm" };
+            var it = new Item { id = id, speaker = speaker, text = text, trigger = dialogue ? "dialogue" : "bark", clip = clip, priority = dialogue ? 5 : 4, story = true, subtitle = false, tier = tier ?? "calm", at = at };
             it.volume = Mathf.Clamp(volumeScale, 0.5f, 1f);
             vm.Record_("story:" + (dialogue ? "dialogue" : "bark"), "played", id, "story line");
             vm.StartNow(it, true);

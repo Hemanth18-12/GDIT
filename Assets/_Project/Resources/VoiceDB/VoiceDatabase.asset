@@ -17,7 +17,7 @@ MonoBehaviour:
     speaker: meera
     text: Two men. One carried a bell.
     trigger: story
-    conditions: 
+    conditions:
     priority: 4
     cooldown: 0
     chance: 1
@@ -29,7 +29,7 @@ MonoBehaviour:
     speaker: meera
     text: It rang. He hid it fast.
     trigger: story
-    conditions: 
+    conditions:
     priority: 4
     cooldown: 0
     chance: 1
@@ -41,7 +41,7 @@ MonoBehaviour:
     speaker: aryan
     text: He saw me. After him.
     trigger: story
-    conditions: 
+    conditions:
     priority: 4
     cooldown: 0
     chance: 1
@@ -53,7 +53,7 @@ MonoBehaviour:
     speaker: courier
     text: You followed me? Clever.
     trigger: story
-    conditions: 
+    conditions:
     priority: 4
     cooldown: 0
     chance: 1
@@ -65,7 +65,7 @@ MonoBehaviour:
     speaker: aryan
     text: One. Four to go.
     trigger: story
-    conditions: 
+    conditions:
     priority: 4
     cooldown: 0
     chance: 1
@@ -77,7 +77,7 @@ MonoBehaviour:
     speaker: aryan
     text: Not forced. Opened.
     trigger: story
-    conditions: 
+    conditions:
     priority: 4
     cooldown: 0
     chance: 1
@@ -89,7 +89,7 @@ MonoBehaviour:
     speaker: aryan
     text: Two.
     trigger: story
-    conditions: 
+    conditions:
     priority: 4
     cooldown: 0
     chance: 1
@@ -101,7 +101,7 @@ MonoBehaviour:
     speaker: pujari
     text: The old vaults. Behind the temple.
     trigger: story
-    conditions: 
+    conditions:
     priority: 4
     cooldown: 0
     chance: 1
@@ -113,7 +113,7 @@ MonoBehaviour:
     speaker: aryan
     text: Three.
     trigger: story
-    conditions: 
+    conditions:
     priority: 4
     cooldown: 0
     chance: 1
@@ -125,7 +125,7 @@ MonoBehaviour:
     speaker: meera
     text: They went to the old well. In this rain.
     trigger: story
-    conditions: 
+    conditions:
     priority: 4
     cooldown: 0
     chance: 1
@@ -137,7 +137,7 @@ MonoBehaviour:
     speaker: meera
     text: Only one man carries those keys.
     trigger: story
-    conditions: 
+    conditions:
     priority: 4
     cooldown: 0
     chance: 1
@@ -149,7 +149,7 @@ MonoBehaviour:
     speaker: aryan
     text: Four. Now the Sun Wall.
     trigger: story
-    conditions: 
+    conditions:
     priority: 4
     cooldown: 0
     chance: 1
@@ -161,7 +161,7 @@ MonoBehaviour:
     speaker: aryan
     text: An empty case. The jungle road.
     trigger: story
-    conditions: 
+    conditions:
     priority: 4
     cooldown: 0
     chance: 1
@@ -173,7 +173,7 @@ MonoBehaviour:
     speaker: meera
     text: Your jeep waits on the north road.
     trigger: story
-    conditions: 
+    conditions:
     priority: 4
     cooldown: 0
     chance: 1
@@ -185,7 +185,7 @@ MonoBehaviour:
     speaker: bhaskar
     text: Keep moving. He is close.
     trigger: story
-    conditions: 
+    conditions:
     priority: 4
     cooldown: 0
     chance: 1
@@ -197,7 +197,7 @@ MonoBehaviour:
     speaker: bhaskar
     text: Do you know what this fetches?
     trigger: story
-    conditions: 
+    conditions:
     priority: 4
     cooldown: 0
     chance: 1
@@ -209,7 +209,7 @@ MonoBehaviour:
     speaker: aryan
     text: Its value is not money.
     trigger: story
-    conditions: 
+    conditions:
     priority: 4
     cooldown: 0
     chance: 1
@@ -221,7 +221,7 @@ MonoBehaviour:
     speaker: madhav
     text: You knew?
     trigger: story
-    conditions: 
+    conditions:
     priority: 4
     cooldown: 0
     chance: 1
@@ -233,7 +233,7 @@ MonoBehaviour:
     speaker: madhav
     text: I am sorry, sir.
     trigger: story
-    conditions: 
+    conditions:
     priority: 4
     cooldown: 0
     chance: 1
@@ -245,7 +245,7 @@ MonoBehaviour:
     speaker: madhav
     text: I only opened a door.
     trigger: story
-    conditions: 
+    conditions:
     priority: 4
     cooldown: 0
     chance: 1
@@ -257,7 +257,7 @@ MonoBehaviour:
     speaker: aryan
     text: Five.
     trigger: story
-    conditions: 
+    conditions:
     priority: 4
     cooldown: 0
     chance: 1
@@ -269,7 +269,7 @@ MonoBehaviour:
     speaker: madhav
     text: Tea, sir? You look tired.
     trigger: story
-    conditions: 
+    conditions:
     priority: 4
     cooldown: 0
     chance: 1
@@ -281,7 +281,7 @@ MonoBehaviour:
     speaker: madhav
     text: I locked up myself. As always.
     trigger: story
-    conditions: 
+    conditions:
     priority: 4
     cooldown: 0
     chance: 1
@@ -293,7 +293,7 @@ MonoBehaviour:
     speaker: madhav
     text: Take my lantern. It is dark below.
     trigger: story
-    conditions: 
+    conditions:
     priority: 4
     cooldown: 0
     chance: 1
@@ -305,7 +305,7 @@ MonoBehaviour:
     speaker: bhaskar
     text: Then come and take it.
     trigger: story
-    conditions: 
+    conditions:
     priority: 4
     cooldown: 0
     chance: 1
@@ -317,7 +317,7 @@ MonoBehaviour:
     speaker: pujari
     text: Five treasures. Gone before sunrise.
     trigger: story
-    conditions: 
+    conditions:
     priority: 5
     cooldown: 0
     chance: 1
@@ -329,7 +329,7 @@ MonoBehaviour:
     speaker: pujari
     text: The procession leaves at dawn.
     trigger: story
-    conditions: 
+    conditions:
     priority: 5
     cooldown: 0
     chance: 1
@@ -341,7 +341,7 @@ MonoBehaviour:
     speaker: pujari
     text: You brought our memory home.
     trigger: story
-    conditions: 
+    conditions:
     priority: 5
     cooldown: 0
     chance: 1
@@ -353,7 +353,7 @@ MonoBehaviour:
     speaker: aryan
     text: Every piece is home.
     trigger: story
-    conditions: 
+    conditions:
     priority: 5
     cooldown: 0
     chance: 1
@@ -365,7 +365,7 @@ MonoBehaviour:
     speaker: pujari
     text: Something terrible has happened!
     trigger: story
-    conditions: 
+    conditions:
     priority: 5
     cooldown: 0
     chance: 1
@@ -377,7 +377,7 @@ MonoBehaviour:
     speaker: aryan
     text: Excuse me, could you tell me the way to Jagannath Temple?
     trigger: story
-    conditions: 
+    conditions:
     priority: 5
     cooldown: 0
     chance: 1
@@ -389,7 +389,7 @@ MonoBehaviour:
     speaker: meera
     text: Go straight along this road and follow the old stone entrance. The temple is at the end.
     trigger: story
-    conditions: 
+    conditions:
     priority: 5
     cooldown: 0
     chance: 1
@@ -401,7 +401,7 @@ MonoBehaviour:
     speaker: aryan
     text: Thank you.
     trigger: story
-    conditions: 
+    conditions:
     priority: 5
     cooldown: 0
     chance: 1
@@ -485,7 +485,7 @@ MonoBehaviour:
     speaker: aryan
     text: Oof. Careful.
     trigger: land_hard
-    conditions: 
+    conditions:
     priority: 1
     cooldown: 25
     chance: 0.8
@@ -497,7 +497,7 @@ MonoBehaviour:
     speaker: aryan
     text: That was a drop.
     trigger: land_hard
-    conditions: 
+    conditions:
     priority: 1
     cooldown: 25
     chance: 0.8
@@ -689,7 +689,7 @@ MonoBehaviour:
     speaker: aryan
     text: Let's go.
     trigger: jeep_enter
-    conditions: 
+    conditions:
     priority: 2
     cooldown: 40
     chance: 1
@@ -701,7 +701,7 @@ MonoBehaviour:
     speaker: aryan
     text: Right. Drive.
     trigger: jeep_enter
-    conditions: 
+    conditions:
     priority: 2
     cooldown: 40
     chance: 1
@@ -845,7 +845,7 @@ MonoBehaviour:
     speaker: aryan
     text: Smoke. Not good.
     trigger: jeep_smoke
-    conditions: 
+    conditions:
     priority: 3
     cooldown: 120
     chance: 1
@@ -857,7 +857,7 @@ MonoBehaviour:
     speaker: aryan
     text: Engine's gone. On foot, then.
     trigger: jeep_engine_dead
-    conditions: 
+    conditions:
     priority: 4
     cooldown: 300
     chance: 1
@@ -881,7 +881,7 @@ MonoBehaviour:
     speaker: aryan
     text: The ruins. This is it.
     trigger: jeep_arrive
-    conditions: 
+    conditions:
     priority: 3
     cooldown: 0
     chance: 1
@@ -893,7 +893,7 @@ MonoBehaviour:
     speaker: aryan
     text: Right. On foot.
     trigger: jeep_exit
-    conditions: 
+    conditions:
     priority: 1
     cooldown: 30
     chance: 0.6
@@ -905,7 +905,7 @@ MonoBehaviour:
     speaker: aryan
     text: Parked. Let's move.
     trigger: jeep_park
-    conditions: 
+    conditions:
     priority: 1
     cooldown: 60
     chance: 0.8
@@ -1001,7 +1001,7 @@ MonoBehaviour:
     speaker: aryan
     text: Got it.
     trigger: item_found
-    conditions: 
+    conditions:
     priority: 2
     cooldown: 10
     chance: 0.5
@@ -1013,7 +1013,7 @@ MonoBehaviour:
     speaker: aryan
     text: Safe now.
     trigger: item_found
-    conditions: 
+    conditions:
     priority: 2
     cooldown: 10
     chance: 0.5
@@ -1121,7 +1121,7 @@ MonoBehaviour:
     speaker: aryan
     text: There. Solved.
     trigger: puzzle_solved
-    conditions: 
+    conditions:
     priority: 3
     cooldown: 5
     chance: 1
@@ -1133,7 +1133,7 @@ MonoBehaviour:
     speaker: aryan
     text: Clever old builders.
     trigger: puzzle_solved
-    conditions: 
+    conditions:
     priority: 3
     cooldown: 5
     chance: 1
@@ -1145,7 +1145,7 @@ MonoBehaviour:
     speaker: aryan
     text: Look around first.
     trigger: hint_1
-    conditions: 
+    conditions:
     priority: 3
     cooldown: 3
     chance: 1
@@ -1157,7 +1157,7 @@ MonoBehaviour:
     speaker: aryan
     text: Think about how it moves.
     trigger: hint_2
-    conditions: 
+    conditions:
     priority: 3
     cooldown: 3
     chance: 1
@@ -1169,7 +1169,7 @@ MonoBehaviour:
     speaker: aryan
     text: Right. Step by step, then.
     trigger: hint_3
-    conditions: 
+    conditions:
     priority: 3
     cooldown: 3
     chance: 1
@@ -1181,7 +1181,7 @@ MonoBehaviour:
     speaker: aryan
     text: This piece fits.
     trigger: pot_shard
-    conditions: 
+    conditions:
     priority: 2
     cooldown: 6
     chance: 1
@@ -1193,7 +1193,7 @@ MonoBehaviour:
     speaker: aryan
     text: Another piece home.
     trigger: pot_shard
-    conditions: 
+    conditions:
     priority: 2
     cooldown: 6
     chance: 1
@@ -1205,7 +1205,7 @@ MonoBehaviour:
     speaker: aryan
     text: Whole again. And it holds oil.
     trigger: pot_whole
-    conditions: 
+    conditions:
     priority: 3
     cooldown: 0
     chance: 1
@@ -1217,7 +1217,7 @@ MonoBehaviour:
     speaker: aryan
     text: Now the light falls right.
     trigger: lantern_stain
-    conditions: 
+    conditions:
     priority: 3
     cooldown: 0
     chance: 1
@@ -1229,7 +1229,7 @@ MonoBehaviour:
     speaker: aryan
     text: Something under this stone.
     trigger: flagstone
-    conditions: 
+    conditions:
     priority: 3
     cooldown: 0
     chance: 1
@@ -1241,7 +1241,7 @@ MonoBehaviour:
     speaker: aryan
     text: Stone on the plate. Good.
     trigger: vault_plate
-    conditions: 
+    conditions:
     priority: 2
     cooldown: 10
     chance: 1
@@ -1253,7 +1253,7 @@ MonoBehaviour:
     speaker: aryan
     text: The gate's open.
     trigger: vault_gate
-    conditions: 
+    conditions:
     priority: 3
     cooldown: 0
     chance: 1
@@ -1265,7 +1265,7 @@ MonoBehaviour:
     speaker: aryan
     text: Three rings of light. Not by chance.
     trigger: vault_rings
-    conditions: 
+    conditions:
     priority: 3
     cooldown: 0
     chance: 1
@@ -1277,7 +1277,7 @@ MonoBehaviour:
     speaker: aryan
     text: The water's coming in.
     trigger: stepwell_sluice
-    conditions: 
+    conditions:
     priority: 2
     cooldown: 15
     chance: 1
@@ -1289,7 +1289,7 @@ MonoBehaviour:
     speaker: aryan
     text: Too much. The panel's under water.
     trigger: stepwell_flood
-    conditions: 
+    conditions:
     priority: 3
     cooldown: 0
     chance: 1
@@ -1301,7 +1301,7 @@ MonoBehaviour:
     speaker: aryan
     text: Right on the mark.
     trigger: stepwell_level
-    conditions: 
+    conditions:
     priority: 3
     cooldown: 0
     chance: 1
@@ -1313,7 +1313,7 @@ MonoBehaviour:
     speaker: aryan
     text: Turn it toward the wall.
     trigger: sunwall_mirror
-    conditions: 
+    conditions:
     priority: 1
     cooldown: 25
     chance: 0.5
@@ -1325,7 +1325,7 @@ MonoBehaviour:
     speaker: aryan
     text: One beam. The wheel blocks the other.
     trigger: sunwall_socket
-    conditions: 
+    conditions:
     priority: 3
     cooldown: 0
     chance: 1
@@ -1337,7 +1337,7 @@ MonoBehaviour:
     speaker: aryan
     text: The wall's opening.
     trigger: sunwall_open
-    conditions: 
+    conditions:
     priority: 3
     cooldown: 0
     chance: 1
@@ -1349,7 +1349,7 @@ MonoBehaviour:
     speaker: aryan
     text: There he is. Keep your distance.
     trigger: bazaar_follow
-    conditions: 
+    conditions:
     priority: 3
     cooldown: 0
     chance: 1
@@ -1361,7 +1361,7 @@ MonoBehaviour:
     speaker: aryan
     text: Don't look round... good.
     trigger: bazaar_lookback
-    conditions: 
+    conditions:
     priority: 2
     cooldown: 25
     chance: 0.7
@@ -1373,7 +1373,7 @@ MonoBehaviour:
     speaker: aryan
     text: He felt that.
     trigger: bazaar_spotted
-    conditions: 
+    conditions:
     priority: 3
     cooldown: 5
     chance: 1
@@ -1385,7 +1385,7 @@ MonoBehaviour:
     speaker: aryan
     text: Careful. He's suspicious.
     trigger: bazaar_spotted
-    conditions: 
+    conditions:
     priority: 3
     cooldown: 5
     chance: 1
@@ -1397,7 +1397,7 @@ MonoBehaviour:
     speaker: aryan
     text: Don't lose him.
     trigger: bazaar_far
-    conditions: 
+    conditions:
     priority: 2
     cooldown: 30
     chance: 1
@@ -1409,7 +1409,7 @@ MonoBehaviour:
     speaker: aryan
     text: A dead end. He's trapped.
     trigger: bazaar_yard
-    conditions: 
+    conditions:
     priority: 3
     cooldown: 0
     chance: 1
@@ -1421,7 +1421,7 @@ MonoBehaviour:
     speaker: aryan
     text: Here they come.
     trigger: fight_start
-    conditions: 
+    conditions:
     priority: 3
     cooldown: 20
     chance: 1
@@ -1433,7 +1433,7 @@ MonoBehaviour:
     speaker: aryan
     text: Stay calm. Watch his hands.
     trigger: fight_start
-    conditions: 
+    conditions:
     priority: 3
     cooldown: 20
     chance: 1
@@ -1565,7 +1565,7 @@ MonoBehaviour:
     speaker: aryan
     text: It's over.
     trigger: fight_won
-    conditions: 
+    conditions:
     priority: 3
     cooldown: 10
     chance: 1
@@ -1577,7 +1577,7 @@ MonoBehaviour:
     speaker: aryan
     text: Nobody else needs to get hurt.
     trigger: fight_won
-    conditions: 
+    conditions:
     priority: 3
     cooldown: 10
     chance: 1
@@ -1589,7 +1589,7 @@ MonoBehaviour:
     speaker: aryan
     text: Again. Focus.
     trigger: fight_retry
-    conditions: 
+    conditions:
     priority: 3
     cooldown: 10
     chance: 1
@@ -1781,7 +1781,7 @@ MonoBehaviour:
     speaker: aryan
     text: Half the night is gone.
     trigger: clock_half
-    conditions: 
+    conditions:
     priority: 3
     cooldown: 0
     chance: 1
@@ -1793,7 +1793,7 @@ MonoBehaviour:
     speaker: aryan
     text: Five minutes to dawn.
     trigger: clock_5
-    conditions: 
+    conditions:
     priority: 4
     cooldown: 0
     chance: 1
@@ -1805,7 +1805,7 @@ MonoBehaviour:
     speaker: aryan
     text: One minute. Run!
     trigger: clock_1
-    conditions: 
+    conditions:
     priority: 4
     cooldown: 0
     chance: 1
@@ -1817,7 +1817,7 @@ MonoBehaviour:
     speaker: aryan
     text: That cost me time.
     trigger: clock_penalty
-    conditions: 
+    conditions:
     priority: 1
     cooldown: 45
     chance: 0.5
@@ -1829,7 +1829,7 @@ MonoBehaviour:
     speaker: aryan
     text: Minutes I don't have.
     trigger: clock_penalty
-    conditions: 
+    conditions:
     priority: 1
     cooldown: 45
     chance: 0.5
@@ -1997,7 +1997,7 @@ MonoBehaviour:
     speaker: narrator
     text: Every temple holds a story. Every artifact carries a memory. Protecting heritage means protecting our history.
     trigger: ending
-    conditions: 
+    conditions:
     priority: 5
     cooldown: 0
     chance: 1
@@ -2005,245 +2005,461 @@ MonoBehaviour:
     subtitle: 1
     fx: none
     clip: {fileID: 8300000, guid: 87c84e754681248ceac53af48be5a478, type: 3}
-  - id: rem_pujari_obj_c0_reach
+  - id: lore_ary_z1
+    speaker: aryan
+    text: I have recovered the bell and conch teaching replica.
+    trigger: lore
+    conditions:
+    priority: 5
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 9fb3e75cd30d44061a199614fbf590aa, type: 3}
+  - id: lore_puj_z1_1
     speaker: pujari
-    text: Follow the road to our temple.
-    trigger: story
-    conditions: 
+    text: This bell and conch are fictional teaching replicas, not objects removed from Puri. Bells and conches accompany worship and the early morning Mangal Aarti.
+    trigger: lore
+    conditions:
     priority: 5
     cooldown: 0
     chance: 1
     once: 0
     subtitle: 1
     fx: none
-    clip: {fileID: 8300000, guid: b53fbed494f5a4a84b75b5ca571c92e1, type: 3}
-  - id: rem_meera_obj_c0_reach
-    speaker: meera
-    text: Follow the road towards the temple.
-    trigger: story
-    conditions: 
-    priority: 5
-    cooldown: 0
-    chance: 1
-    once: 0
-    subtitle: 1
-    fx: none
-    clip: {fileID: 8300000, guid: 2b3118f6ab53341d79a3fa21033836d5, type: 3}
-  - id: rem_pujari_obj_v3_pujari
+    clip: {fileID: 8300000, guid: 7c19c842c098e4ca7b77adb69e30f26a, type: 3}
+  - id: lore_puj_z1_2
     speaker: pujari
-    text: Please, meet me by the steps.
-    trigger: story
-    conditions: 
+    text: The present Shree Jagannath Temple began under the Eastern Ganga king Anantavarman Chodaganga Deva in the twelfth century.
+    trigger: lore
+    conditions:
     priority: 5
     cooldown: 0
     chance: 1
     once: 0
     subtitle: 1
     fx: none
-    clip: {fileID: 8300000, guid: 41a27fa85831a4baa8f9f6c9e8c37ebf, type: 3}
-  - id: rem_meera_obj_v3_pujari
-    speaker: meera
-    text: The priest waits by the steps.
-    trigger: story
-    conditions: 
-    priority: 5
-    cooldown: 0
-    chance: 1
-    once: 0
-    subtitle: 1
-    fx: none
-    clip: {fileID: 8300000, guid: 091a189f58de14f5dab50df92b65a69f, type: 3}
-  - id: rem_pujari_obj_v3_bazaar
+    clip: {fileID: 8300000, guid: f243626234ab1406d92ef0e7e0c16155, type: 3}
+  - id: lore_puj_z1_3
     speaker: pujari
-    text: Ask around the bazaar.
-    trigger: story
-    conditions: 
+    text: King Indradyumna and the sacred timber belong to the temple foundation tradition. We distinguish that cherished legend from the history of the present building.
+    trigger: lore
+    conditions:
     priority: 5
     cooldown: 0
     chance: 1
     once: 0
     subtitle: 1
     fx: none
-    clip: {fileID: 8300000, guid: de138992e013846709a3b8f594f7e677, type: 3}
-  - id: rem_meera_obj_v3_bazaar
-    speaker: meera
-    text: Follow the man with the bell.
-    trigger: story
-    conditions: 
-    priority: 5
-    cooldown: 0
-    chance: 1
-    once: 0
-    subtitle: 1
-    fx: none
-    clip: {fileID: 8300000, guid: 713cff0b144a64e4f8298b3d4fd01664, type: 3}
-  - id: rem_pujari_obj_v3_storeroom
+    clip: {fileID: 8300000, guid: 9ef646d0ca50443f79dcf0c92eba85c4, type: 3}
+  - id: lore_puj_z1_extra
     speaker: pujari
-    text: Look closely around the broken storeroom.
-    trigger: story
-    conditions: 
+    text: Legends express devotion and community identity. Historical claims use inscriptions and other evidence; both deserve careful explanation.
+    trigger: lore
+    conditions:
     priority: 5
     cooldown: 0
     chance: 1
     once: 0
     subtitle: 1
     fx: none
-    clip: {fileID: 8300000, guid: a0c226eafbab5494280ae76639a2e601, type: 3}
-  - id: rem_meera_obj_v3_storeroom
-    speaker: meera
-    text: The storeroom may hold more clues.
-    trigger: story
-    conditions: 
+    clip: {fileID: 8300000, guid: ec018fe4b91714f27b3e49db192ae3dd, type: 3}
+  - id: lore_ary_z2
+    speaker: aryan
+    text: I have recovered the palm-leaf teaching manuscript.
+    trigger: lore
+    conditions:
     priority: 5
     cooldown: 0
     chance: 1
     once: 0
     subtitle: 1
     fx: none
-    clip: {fileID: 8300000, guid: c25b9bbe5db05429aa1108b5b2b112bd, type: 3}
-  - id: rem_pujari_obj_v3_vaults
+    clip: {fileID: 8300000, guid: 71795b3d4b5944890b3d83e09108520c, type: 3}
+  - id: lore_puj_z2_1
     speaker: pujari
-    text: The old vaults lie behind us.
-    trigger: story
-    conditions: 
+    text: This fictional manuscript replica introduces Odisha palm-leaf engraving, called tala patra. Craftspeople prepare leaves and incise fine lines with a stylus.
+    trigger: lore
+    conditions:
     priority: 5
     cooldown: 0
     chance: 1
     once: 0
     subtitle: 1
     fx: none
-    clip: {fileID: 8300000, guid: 5bdf02e4a2d474982931ea1b406a9056, type: 3}
-  - id: rem_meera_obj_v3_vaults
-    speaker: meera
-    text: Try the vaults behind the temple.
-    trigger: story
-    conditions: 
-    priority: 5
-    cooldown: 0
-    chance: 1
-    once: 0
-    subtitle: 1
-    fx: none
-    clip: {fileID: 8300000, guid: 7fc30e3f405f049f180850df43f796c1, type: 3}
-  - id: rem_pujari_obj_v3_stepwell
+    clip: {fileID: 8300000, guid: ac91f750bf5d44dccbc773602c63895f, type: 3}
+  - id: lore_puj_z2_2
     speaker: pujari
-    text: Follow the marks by the stepwell.
-    trigger: story
-    conditions: 
+    text: Dark pigment makes the engraved lines visible. Palm leaves preserve writing and images through skilled preparation and careful storage.
+    trigger: lore
+    conditions:
     priority: 5
     cooldown: 0
     chance: 1
     once: 0
     subtitle: 1
     fx: none
-    clip: {fileID: 8300000, guid: 52bdfdd6037e147be8e7718edabcf50e, type: 3}
-  - id: rem_meera_obj_v3_stepwell
-    speaker: meera
-    text: They went towards the old well.
-    trigger: story
-    conditions: 
-    priority: 5
-    cooldown: 0
-    chance: 1
-    once: 0
-    subtitle: 1
-    fx: none
-    clip: {fileID: 8300000, guid: d3a3f486769824e45ab59e23691fe010, type: 3}
-  - id: rem_pujari_obj_v3_sunwall
+    clip: {fileID: 8300000, guid: fe5184518584e4673b8804d2319b345c, type: 3}
+  - id: lore_puj_z2_3
     speaker: pujari
-    text: Study the symbols on the wall.
-    trigger: story
-    conditions: 
+    text: Jayadeva composed the Gita Govinda in the twelfth century. Its devotional poetry is closely associated with Jagannath worship.
+    trigger: lore
+    conditions:
     priority: 5
     cooldown: 0
     chance: 1
     once: 0
     subtitle: 1
     fx: none
-    clip: {fileID: 8300000, guid: 8558d0d59cf0b4973b93e7e8af9dcd0e, type: 3}
-  - id: rem_meera_obj_v3_sunwall
-    speaker: meera
-    text: The light may reveal the way.
-    trigger: story
-    conditions: 
-    priority: 5
-    cooldown: 0
-    chance: 1
-    once: 0
-    subtitle: 1
-    fx: none
-    clip: {fileID: 8300000, guid: 3e677ca9864164ea5ba3bd11ef01c731, type: 3}
-  - id: rem_pujari_obj_v3_jungle
+    clip: {fileID: 8300000, guid: d3a05abcd375e425ba622d177f02a00b, type: 3}
+  - id: lore_puj_z2_extra
     speaker: pujari
-    text: Follow the north road carefully.
-    trigger: story
-    conditions: 
+    text: Manuscripts preserve language, poetry and the knowledge of their makers. Real leaves are fragile and need trained conservation rather than a quick repair.
+    trigger: lore
+    conditions:
     priority: 5
     cooldown: 0
     chance: 1
     once: 0
     subtitle: 1
     fx: none
-    clip: {fileID: 8300000, guid: 135c25bf36e45464f9c497cfd4f6b937, type: 3}
-  - id: rem_meera_obj_v3_jungle
-    speaker: meera
-    text: Your jeep waits on the north road.
-    trigger: story
-    conditions: 
+    clip: {fileID: 8300000, guid: 4906191e51d4d4bc7bb2af1397a6f99c, type: 3}
+  - id: lore_ary_z3
+    speaker: aryan
+    text: I have recovered the wheel seal and painted teaching medallion.
+    trigger: lore
+    conditions:
     priority: 5
     cooldown: 0
     chance: 1
     once: 0
     subtitle: 1
     fx: none
-    clip: {fileID: 8300000, guid: 78f25d64cbe3e4f32ae76119ac637645, type: 3}
-  - id: rem_pujari_obj_return
+    clip: {fileID: 8300000, guid: 7030b1d6bf66a4710a723fda8ee65784, type: 3}
+  - id: lore_puj_z3_1
     speaker: pujari
-    text: You brought our memories home.
-    trigger: story
-    conditions: 
+    text: This fictional seal represents the Nilachakra, the sacred metal wheel above the Puri temple. The wheel itself remains on the temple; it is never a collectible.
+    trigger: lore
+    conditions:
     priority: 5
     cooldown: 0
     chance: 1
     once: 0
     subtitle: 1
     fx: none
-    clip: {fileID: 8300000, guid: f453bdd613bca4432b267783cad5707f, type: 3}
-  - id: rem_meera_obj_return
-    speaker: meera
-    text: Bring the treasures back to Ananda.
-    trigger: story
-    conditions: 
-    priority: 5
-    cooldown: 0
-    chance: 1
-    once: 0
-    subtitle: 1
-    fx: none
-    clip: {fileID: 8300000, guid: f4a14f38e9ec6438fa41c7371e3b4090, type: 3}
-  - id: rem_pujari_end
+    clip: {fileID: 8300000, guid: ebc2ce3faa6cb4d04a918afd4bfd7f43, type: 3}
+  - id: lore_puj_z3_2
     speaker: pujari
-    text: Thank you for protecting our heritage.
-    trigger: story
-    conditions: 
+    text: The temple banner is associated with this wheel. We respect that living tradition without presenting tales about the wind as measured science.
+    trigger: lore
+    conditions:
     priority: 5
     cooldown: 0
     chance: 1
     once: 0
     subtitle: 1
     fx: none
-    clip: {fileID: 8300000, guid: 903e4843522684e92bc7bfa772709d63, type: 3}
-  - id: rem_meera_end
-    speaker: meera
-    text: Our village will remember your help.
-    trigger: story
-    conditions: 
+    clip: {fileID: 8300000, guid: 78bd7f3b5ad5a4a95929ac097cc4f009, type: 3}
+  - id: lore_puj_z3_3
+    speaker: pujari
+    text: Odisha Pattachitra artists create detailed narrative paintings. The medallion is our invented teaching design, not an authenticated historic temple object.
+    trigger: lore
+    conditions:
     priority: 5
     cooldown: 0
     chance: 1
     once: 0
     subtitle: 1
     fx: none
-    clip: {fileID: 8300000, guid: 37606d81256df48aa88ef1ebfb92eefc, type: 3}
+    clip: {fileID: 8300000, guid: aff8821621e4d4de2b03c85b2265325a, type: 3}
+  - id: lore_puj_z3_extra
+    speaker: pujari
+    text: Pattachitra carries stories through line, colour and patient workshop practice. Supporting practising artists helps skills pass between generations.
+    trigger: lore
+    conditions:
+    priority: 5
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 23080be8741b545298311489812499dd, type: 3}
+  - id: lore_ary_z4
+    speaker: aryan
+    text: I have recovered the ceremonial teaching vessel.
+    trigger: lore
+    conditions:
+    priority: 5
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: b2ec5ceb31f0e40128e868aee232eeab, type: 3}
+  - id: lore_puj_z4_1
+    speaker: pujari
+    text: This brass vessel is a fictional teaching replica. Rohini Kunda is a sacred place within the Puri temple tradition, not a puzzle tank to be disturbed.
+    trigger: lore
+    conditions:
+    priority: 5
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 71d75e553f2924a48a20db7536e6e159, type: 3}
+  - id: lore_puj_z4_2
+    speaker: pujari
+    text: The temple kitchen prepares offerings in earthen pots. Mahaprasad connects worship, food and a community of cooks, servitors and devotees.
+    trigger: lore
+    conditions:
+    priority: 5
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: e468d2933f17a4a0d903ed84dbfb13bb, type: 3}
+  - id: lore_puj_z4_3
+    speaker: pujari
+    text: Nirmalya includes dried sacred rice cherished by devotees. Our brass replica illustrates heritage learning; it is not an actual kitchen pot or sacred offering.
+    trigger: lore
+    conditions:
+    priority: 5
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: bed30315383f648c08ea87337b9b33d3, type: 3}
+  - id: lore_puj_z4_extra
+    speaker: pujari
+    text: Living heritage includes the people who maintain a tradition. We honour their knowledge and work, and avoid treating sacred food as treasure or a commodity.
+    trigger: lore
+    conditions:
+    priority: 5
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 6d5541474031a49b295ff08fde3d26d9, type: 3}
+  - id: lore_ary_z5
+    speaker: aryan
+    text: I have recovered the chariot teaching medallion and banner.
+    trigger: lore
+    conditions:
+    priority: 5
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: d706322aaa88b4d368605ac3f469de39, type: 3}
+  - id: lore_puj_z5_1
+    speaker: pujari
+    text: This fictional medallion and banner recall Ratha Yatra. The chariots travel along Puri Grand Avenue towards Gundicha Temple.
+    trigger: lore
+    conditions:
+    priority: 5
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: a4255cbd3236746738b62b2ef523b700, type: 3}
+  - id: lore_puj_z5_2
+    speaker: pujari
+    text: Jagannath rides Nandighosha, Balabhadra rides Taladhwaja, and Subhadra rides Darpadalana. Nandighosha has sixteen wheels.
+    trigger: lore
+    conditions:
+    priority: 5
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 0cfc03965d0b547ffbb752f16a4ab32d, type: 3}
+  - id: lore_puj_z5_3
+    speaker: pujari
+    text: Artisans build the festival chariots anew each year. The celebration brings the deities into public view, expressing a widely shared tradition of devotion.
+    trigger: lore
+    conditions:
+    priority: 5
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 9081f778799e84742b2c8ed230452e91, type: 3}
+  - id: lore_puj_z5_extra
+    speaker: pujari
+    text: Rebuilding keeps specialist skills alive through practice and transmission. The knowledge of the makers matters as much as the finished woodwork.
+    trigger: lore
+    conditions:
+    priority: 5
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: a78c71d262ad54b438a46eb5fd142ab2, type: 3}
+  - id: lore_ary_z6
+    speaker: aryan
+    text: I have recovered the teaching finial and chronicle ornament.
+    trigger: lore
+    conditions:
+    priority: 5
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: b200d56ee46724c78949b719d96754f6, type: 3}
+  - id: lore_puj_z6_1
+    speaker: pujari
+    text: This finial ornament and chronicle are fictional teaching replicas. A kalasha crowns temple architecture; no actual temple crown has been taken in this story.
+    trigger: lore
+    conditions:
+    priority: 5
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: edd962e53458648019819a2e8556a283, type: 3}
+  - id: lore_puj_z6_2
+    speaker: pujari
+    text: Nabakalebara is the periodic renewal of the wooden sacred images in the Jagannath tradition. Its ritual calendar is not a fixed annual replacement.
+    trigger: lore
+    conditions:
+    priority: 5
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 78ad8a813a2bc4a64806c5315ede2593, type: 3}
+  - id: lore_puj_z6_3
+    speaker: pujari
+    text: The sacred images remain untouched in our game. Returning these replicas reminds us that heritage is living community memory, not gold for smugglers.
+    trigger: lore
+    conditions:
+    priority: 5
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: b4cfef74c64414b5aa8047f40f15bf43, type: 3}
+  - id: lore_puj_z6_extra
+    speaker: pujari
+    text: People renew heritage through knowledge, care and shared responsibility. Every temple holds a story; protecting heritage means protecting our history.
+    trigger: lore
+    conditions:
+    priority: 5
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: b07a7edfbbc0946ccbe9f0b92271a0aa, type: 3}
+  - id: lore_skip_01
+    speaker: aryan
+    text: Moving ahead to the next lead.
+    trigger: lore
+    conditions:
+    priority: 5
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 46953e6b323684b77af14c5353167596, type: 3}
+  - id: lore_return_01
+    speaker: pujari
+    text: Bring every teaching piece to the temple steps, Aryan.
+    trigger: lore
+    conditions:
+    priority: 5
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 3df443327b8e345ff944e64eb9e7eaef, type: 3}
+  - id: lore_puj_z1_care
+    speaker: pujari
+    text: Keep replicas documented and handle them carefully. Real sacred objects remain in the care of their community.
+    trigger: lore
+    conditions:
+    priority: 5
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: e37a85e2b7da84d8b8564c0bb0181f18, type: 3}
+  - id: lore_puj_z2_care
+    speaker: pujari
+    text: Keep replicas documented and handle them carefully. Real sacred objects remain in the care of their community.
+    trigger: lore
+    conditions:
+    priority: 5
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 853148de2b8c540a1ae0ecdc6492d32b, type: 3}
+  - id: lore_puj_z3_care
+    speaker: pujari
+    text: Keep replicas documented and handle them carefully. Real sacred objects remain in the care of their community.
+    trigger: lore
+    conditions:
+    priority: 5
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 2bd496ff101a247caa7574f5b1c793b7, type: 3}
+  - id: lore_puj_z4_care
+    speaker: pujari
+    text: Keep replicas documented and handle them carefully. Real sacred objects remain in the care of their community.
+    trigger: lore
+    conditions:
+    priority: 5
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 5d328d529a245412f967080b3f488473, type: 3}
+  - id: lore_puj_z5_care
+    speaker: pujari
+    text: Keep replicas documented and handle them carefully. Real sacred objects remain in the care of their community.
+    trigger: lore
+    conditions:
+    priority: 5
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: ab52879895d9749aabc2dcb24630399f, type: 3}
+  - id: lore_puj_z6_care
+    speaker: pujari
+    text: Keep replicas documented and handle them carefully. Real sacred objects remain in the care of their community.
+    trigger: lore
+    conditions:
+    priority: 5
+    cooldown: 0
+    chance: 1
+    once: 0
+    subtitle: 1
+    fx: none
+    clip: {fileID: 8300000, guid: 8a8fffca5036547d08eeac9aa12b0943, type: 3}
   builtFrom: Docs/VOICE_LINES.csv
-  builtAt: 2026-11-24 00:04
+  builtAt: 2026-11-25 15:07

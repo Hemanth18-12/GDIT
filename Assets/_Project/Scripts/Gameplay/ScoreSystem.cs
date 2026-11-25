@@ -13,7 +13,7 @@ namespace LegacyOfTemples.Gameplay
         public class ZoneScore
         {
             public string zone; public bool puzzleSolved; public int hintsUsed; public float seconds; public float damage;
-            public int spotted; public int items; public int maxCombo; public int collectibles; public bool finished;
+            public int spotted; public int items; public int maxCombo; public int collectibles; public bool finished; public int heritageBonus;
         }
         [System.Serializable] public class HighScore { public string date; public int total; public string grade; public int items; public float seconds; }
         [System.Serializable] class Table { public List<HighScore> rows = new List<HighScore>(); public List<ZoneScore> zones = new List<ZoneScore>(); }
@@ -55,10 +55,12 @@ namespace LegacyOfTemples.Gameplay
         public static void PuzzleSolved(string zone, int hints, float seconds) { var z = Zone(zone); z.puzzleSolved = true; if (hints > z.hintsUsed) z.hintsUsed = hints; Save(); }
         public static void FinishZone(string zone) { Zone(zone).finished = true; Save(); }
 
+        public static void HeritageHandover(string zone) { Zone(zone).heritageBonus = 500; Save(); }
+
         // ---------- pure rules (tested) ----------
         public static int Points(ZoneScore z)
         {
-            int p = 0;
+            int p = z.heritageBonus;
             if (z.puzzleSolved) p += Mathf.Max(PuzzlePoints - HintCost * z.hintsUsed, HintCost);
             p += Mathf.Max(StealthPoints - SpottedCost * z.spotted, 0);
             p += Mathf.RoundToInt(TimePoints * Mathf.Clamp01(1f - Mathf.Max(0f, z.seconds - ParSeconds) / ParSeconds));

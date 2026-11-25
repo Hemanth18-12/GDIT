@@ -8,11 +8,12 @@ namespace LegacyOfTemples.Gameplay.Puzzles
     {
         public string treasureName = "treasure";
         public string zoneId = "zone";
+        public string saveId; // Stable identity when the displayed heritage label changes.
         public float radius = 2.2f;
         public bool Taken { get; private set; }
         public static event System.Action<TreasurePickup> OnTaken;
 
-        public string Id => "treasure." + treasureName;
+        public string Id => string.IsNullOrEmpty(saveId) ? "treasure." + treasureName : saveId;
         public string Prompt => Taken ? "" : "Take " + treasureName;
         public Transform Anchor => transform;
         public float Radius => Taken ? 0f : radius;

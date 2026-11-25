@@ -176,7 +176,7 @@ namespace LegacyOfTemples.Gameplay
             rosObj.name = "Treasure — Sun Rosette";
             ZoneKit.Reach(rosObj, 0.8f);
             Rosette = rosObj.AddComponent<TreasurePickup>();
-            Rosette.treasureName = "Sun Rosette (vaults)";
+            Rosette.saveId = "treasure.Sun Rosette (vaults)"; Rosette.treasureName = "Ashtadhatu Nilachakra Seal & Pattachitra Medallion (teaching replica)";
             Rosette.zoneId = Zone;
 
             // Puzzle Group
@@ -272,11 +272,22 @@ namespace LegacyOfTemples.Gameplay
             }
         }
 
+        public void SkipTask()
+        {
+            if (Rosette.Taken) return;
+            if (Brawl.Active != null && Brawl.Active.zoneId == Zone) Brawl.Active.ResolveSkipped();
+            if (Group != null) foreach (var condition in Group.conditions)
+                if (condition.element != null) condition.element.SetState(condition.state, true, true);
+            if (vaultGate != null) vaultGate.SetActive(false); if (chestLid != null) chestLid.SetActive(false);
+            Won();
+            Rosette.Interact();
+        }
+
         void Won()
         {
             Now = Stage.Recover;
             ShowRosette(true);
-            GameSfx.At("sfx_item_recovered", Rosette.transform.position, 1f);
+            GameSfx.At("sfx_clue_found", Rosette.transform.position, 1f);
         }
     }
 }

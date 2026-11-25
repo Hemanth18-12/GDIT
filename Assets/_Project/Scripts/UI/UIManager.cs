@@ -245,6 +245,8 @@ namespace LegacyOfTemples.UI
             }
 
 
+            if (NewWorldDirector.Instance == null && kb != null && kb.kKey.wasPressedThisFrame && !InputGate.GameplayBlocked) NewWorldDirector.SkipActiveTask();
+
             // Pause Toggle (Esc)
             if (((kb != null && kb.escapeKey.wasPressedThisFrame) || VirtualInput.Down("pause")) && !OverlayOwnsEscape() && !InputGate.CinematicActive)
             {
@@ -947,11 +949,14 @@ namespace LegacyOfTemples.UI
             // Buttons Container
             float startY = -105f;
             CreateMenuButton(pausePanel.transform, "Resume Game", new Vector2(0f, startY), () => TogglePause());
-            CreateMenuButton(pausePanel.transform, "Show The Five Hints Again", new Vector2(0f, startY - 55f), () =>
+            var skipTask = CreateMenuButton(pausePanel.transform, "SKIP CURRENT TASK", new Vector2(-150f, startY - 55f), () =>
             {
                 TogglePause();
-                HintTutorial.Restart();
+                NewWorldDirector.SkipActiveTask();
             });
+            skipTask.GetComponent<RectTransform>().sizeDelta = new Vector2(280f, 48f);
+            var replayHints = CreateMenuButton(pausePanel.transform, "Replay Hints", new Vector2(150f, startY - 55f), () => { TogglePause(); HintTutorial.Restart(); });
+            replayHints.GetComponent<RectTransform>().sizeDelta = new Vector2(280f, 48f);
             CreateMenuButton(pausePanel.transform, "Retry Section Here", new Vector2(0f, startY - 110f), () =>
             {
                 TogglePause();
@@ -1432,12 +1437,19 @@ namespace LegacyOfTemples.UI
 
         public void EndDialogue()
         {
+            VoiceManager.StopStory();
             isDialogueActive = false;
             if (dialoguePanel != null) dialoguePanel.SetActive(false);
             if (bottomHintBar != null && !isPhotoMode) bottomHintBar.SetActive(true);
             AudioManager.Instance.SetDialogueDucking(false);
             onDialogueCompletedCallback?.Invoke();
             onDialogueCompletedCallback = null;
+        }
+
+        public void SelectDialogueChoice(int choiceIndex)
+        {
+            if (!isDialogueActive || activeDialogueChoices == null || choiceIndex < 0 || choiceIndex >= activeDialogueChoices.Length) return;
+            OnChoiceButtonClicked(choiceIndex);
         }
 
         private void OnChoiceButtonClicked(int choiceIndex)

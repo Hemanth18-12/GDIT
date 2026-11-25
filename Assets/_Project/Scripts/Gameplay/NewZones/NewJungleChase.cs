@@ -94,7 +94,7 @@ namespace LegacyOfTemples.Gameplay
             finialObj.name = "Treasure — Golden Temple Finial";
             ZoneKit.Reach(finialObj, 1.0f);
             GoldenFinial = finialObj.AddComponent<TreasurePickup>();
-            GoldenFinial.treasureName = "Golden Temple Finial (ruins)";
+            GoldenFinial.saveId = "treasure.Golden Temple Finial (ruins)"; GoldenFinial.treasureName = "Shree Mandir Swarna Kalasha & Daru Brahma Chronicle Ornament (teaching replica)";
             GoldenFinial.zoneId = Zone;
 
             // Puzzle / Deduction Group
@@ -184,15 +184,26 @@ namespace LegacyOfTemples.Gameplay
                 Debug.Log("[NewJungleChase] COMPLETE: Golden Temple Finial recovered! Grand finale achieved! Score=" + ScoreSystem.Points(ScoreSystem.Zone(Zone)));
 
                 // Mark story completed
-                PuzzleSave.Set("story.completed", 1);
+                // Final story completion waits for the sixth handover at the temple.
             }
+        }
+
+        public void SkipTask()
+        {
+            if (GoldenFinial.Taken) return;
+            if (Brawl.Active != null && Brawl.Active.zoneId == Zone) Brawl.Active.ResolveSkipped();
+            if (Group != null) foreach (var condition in Group.conditions)
+                if (condition.element != null) condition.element.SetState(condition.state, true, true);
+
+            Won();
+            GoldenFinial.Interact();
         }
 
         void Won()
         {
             Now = Stage.RecoverFinial;
             ShowFinial(true);
-            GameSfx.At("sfx_item_recovered", GoldenFinial.transform.position, 1.2f);
+            GameSfx.At("sfx_clue_found", GoldenFinial.transform.position, 1.2f);
         }
     }
 }

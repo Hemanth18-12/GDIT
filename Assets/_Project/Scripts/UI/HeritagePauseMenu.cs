@@ -82,6 +82,7 @@ namespace LegacyOfTemples.UI
             int ts = PlayerPrefs.GetInt("Settings_TextScaleIndex", 1);
             Button("Text size: " + TextSizes[Mathf.Clamp(ts, 0, 3)], () => { UIManager.Instance.CycleTextScale(); Rebuild(); });
             Button("High contrast: " + (ScreenTextRenderer.HighContrast ? "ON" : "OFF"), () => { UIManager.Instance.ToggleHighContrast(); Rebuild(); });
+            Button("SKIP CURRENT TASK", () => { UIManager.Instance.TogglePause(); NewWorldDirector.SkipActiveTask(); });
             Button("RETRY SECTION HERE", () => { UIManager.Instance.TogglePause(); DawnClock.Instance?.RetryOnSpot(false); });
             var audio = AudioManager.Instance;
             VolumeSlider("Master", audio.MasterVolume, audio.SetMasterVolume);

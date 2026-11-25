@@ -14,6 +14,13 @@ namespace LegacyOfTemples.Tests
 {
     public class UpgradeVerificationTests
     {
+        [UnityTest, Timeout(180000)]
+        public IEnumerator TempleRing_PujariLore_SixDeliveriesSkipVoiceAndReload()
+        {
+            yield return PujariLoreReviewBot.Run(Path.GetFullPath(Path.Combine(Application.dataPath, "../../Docs/QA/zones/pujari-lore/editor")));
+            Assert.IsTrue(PujariLoreReviewBot.Finished);
+        }
+
         [UnityTest, Timeout(60000)]
         public IEnumerator Courtyard_BlackGateSealed_NoRawTempleMesh()
         {

@@ -45,6 +45,11 @@ namespace LegacyOfTemples.Gameplay
                 ToggleMap();
             }
 
+            if (isOpen && NewWorldDirector.Instance != null && kb != null && kb.tKey.wasPressedThisFrame)
+            {
+                if (NewWorldDirector.Instance.GetComponent<PujariLoreDirector>().QuickReturn(true)) ToggleMap();
+            }
+
             if (isOpen && playerTransform == null)
             {
                 GameObject player = GameObject.FindWithTag("Player");
@@ -96,6 +101,7 @@ namespace LegacyOfTemples.Gameplay
                 if (goal) sb.Append($"   <color={ScreenText.Cyan}>Goal: {story.Current.title}</color>");
                 sb.Append('\n');
             }
+            if (NewWorldDirector.Instance != null) sb.Append("\n[T] Central Temple Courtyard — Pujari Ananda (carried relics)\n");
             if (travelMsg != "") sb.Append($"\n<color={ScreenText.Coral}>{travelMsg}</color>");
             ScreenText.Panel("map", "MAP: FAST TRAVEL", sb.ToString(), PanelAnchor.Center, 900f,
                 ScreenText.Key("1-8") + " Travel (2 min)    " + ScreenText.Key("M") + " / " + ScreenText.Key("Esc") + " Close", true, 60);

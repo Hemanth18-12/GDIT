@@ -1159,6 +1159,652 @@
    "wer_strict": 0.0
   }
  },
+ "lore_ary_z1": {
+  "key": "f1bf161131340cc9",
+  "qa": {
+   "f0": 120,
+   "heard": "",
+   "id": "lore_ary_z1",
+   "lufs": -16.48,
+   "peak_db": -1.7,
+   "seconds": 3.22,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "take": "take 1",
+   "text": "I have recovered the bell and conch teaching replica.",
+   "true_peak": -1.69,
+   "wer": ""
+  }
+ },
+ "lore_ary_z2": {
+  "key": "8ff4bacb7f15bef0",
+  "qa": {
+   "f0": 127,
+   "heard": "",
+   "id": "lore_ary_z2",
+   "lufs": -16.38,
+   "peak_db": -1.7,
+   "seconds": 3.15,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "take": "take 1",
+   "text": "I have recovered the palm-leaf teaching manuscript.",
+   "true_peak": -1.69,
+   "wer": ""
+  }
+ },
+ "lore_ary_z3": {
+  "key": "b53cb79fa5b8183d",
+  "qa": {
+   "f0": 124,
+   "heard": "",
+   "id": "lore_ary_z3",
+   "lufs": -16.19,
+   "peak_db": -1.7,
+   "seconds": 3.64,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "take": "take 1",
+   "text": "I have recovered the wheel seal and painted teaching medallion.",
+   "true_peak": -1.69,
+   "wer": ""
+  }
+ },
+ "lore_ary_z4": {
+  "key": "829df3bdaf4d5fef",
+  "qa": {
+   "f0": 123,
+   "heard": "",
+   "id": "lore_ary_z4",
+   "lufs": -16.24,
+   "peak_db": -1.7,
+   "seconds": 3.07,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "take": "take 1",
+   "text": "I have recovered the ceremonial teaching vessel.",
+   "true_peak": -1.7,
+   "wer": ""
+  }
+ },
+ "lore_ary_z5": {
+  "key": "04c95eddfc2d4fb7",
+  "qa": {
+   "f0": 115,
+   "heard": "",
+   "id": "lore_ary_z5",
+   "lufs": -16.31,
+   "peak_db": -1.7,
+   "seconds": 3.56,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "take": "take 1",
+   "text": "I have recovered the chariot teaching medallion and banner.",
+   "true_peak": -1.66,
+   "wer": ""
+  }
+ },
+ "lore_ary_z6": {
+  "key": "b60dc37acf30ed0e",
+  "qa": {
+   "f0": 125,
+   "heard": "",
+   "id": "lore_ary_z6",
+   "lufs": -16.46,
+   "peak_db": -1.7,
+   "seconds": 3.58,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "take": "take 1",
+   "text": "I have recovered the teaching finial and chronicle ornament.",
+   "true_peak": -1.69,
+   "wer": ""
+  }
+ },
+ "lore_puj_z1_1": {
+  "key": "255be494a67a3feb",
+  "qa": {
+   "f0": 119,
+   "heard": "",
+   "id": "lore_puj_z1_1",
+   "lufs": -16.34,
+   "peak_db": -1.7,
+   "seconds": 11.13,
+   "source": "kokoro hm_psi:1.0",
+   "speaker": "pujari",
+   "take": "take 1",
+   "text": "This bell and conch are fictional teaching replicas, not objects removed from Puri. Bells and conches accompany worship and the early morning Mangal Aarti.",
+   "true_peak": -1.68,
+   "wer": ""
+  }
+ },
+ "lore_puj_z1_2": {
+  "key": "0075f4047085fecc",
+  "qa": {
+   "f0": 120,
+   "heard": "",
+   "id": "lore_puj_z1_2",
+   "lufs": -16.43,
+   "peak_db": -1.7,
+   "seconds": 9.14,
+   "source": "kokoro hm_psi:1.0",
+   "speaker": "pujari",
+   "take": "take 1",
+   "text": "The present Shree Jagannath Temple began under the Eastern Ganga king Anantavarman Chodaganga Deva in the twelfth century.",
+   "true_peak": -1.68,
+   "wer": ""
+  }
+ },
+ "lore_puj_z1_3": {
+  "key": "5c9b2abbf4abc5bf",
+  "qa": {
+   "f0": 120,
+   "heard": "",
+   "id": "lore_puj_z1_3",
+   "lufs": -16.49,
+   "peak_db": -1.7,
+   "seconds": 11.13,
+   "source": "kokoro hm_psi:1.0",
+   "speaker": "pujari",
+   "take": "take 1",
+   "text": "King Indradyumna and the sacred timber belong to the temple foundation tradition. We distinguish that cherished legend from the history of the present building.",
+   "true_peak": -1.66,
+   "wer": ""
+  }
+ },
+ "lore_puj_z1_care": {
+  "key": "0e418063a327845e",
+  "qa": {
+   "f0": 121,
+   "heard": "",
+   "id": "lore_puj_z1_care",
+   "lufs": -16.32,
+   "peak_db": -1.7,
+   "seconds": 8.09,
+   "source": "kokoro hm_psi:1.0",
+   "speaker": "pujari",
+   "take": "take 1",
+   "text": "Keep replicas documented and handle them carefully. Real sacred objects remain in the care of their community.",
+   "true_peak": -1.69,
+   "wer": ""
+  }
+ },
+ "lore_puj_z1_extra": {
+  "key": "4f2fab5ee7092cc1",
+  "qa": {
+   "f0": 119,
+   "heard": "",
+   "id": "lore_puj_z1_extra",
+   "lufs": -16.27,
+   "peak_db": -1.7,
+   "seconds": 10.87,
+   "source": "kokoro hm_psi:1.0",
+   "speaker": "pujari",
+   "take": "take 1",
+   "text": "Legends express devotion and community identity. Historical claims use inscriptions and other evidence; both deserve careful explanation.",
+   "true_peak": -1.68,
+   "wer": ""
+  }
+ },
+ "lore_puj_z2_1": {
+  "key": "2633e5783c53468e",
+  "qa": {
+   "f0": 120,
+   "heard": "",
+   "id": "lore_puj_z2_1",
+   "lufs": -16.43,
+   "peak_db": -1.7,
+   "seconds": 11.93,
+   "source": "kokoro hm_psi:1.0",
+   "speaker": "pujari",
+   "take": "take 1",
+   "text": "This fictional manuscript replica introduces Odisha palm-leaf engraving, called tala patra. Craftspeople prepare leaves and incise fine lines with a stylus.",
+   "true_peak": -1.69,
+   "wer": ""
+  }
+ },
+ "lore_puj_z2_2": {
+  "key": "65f394426743b62c",
+  "qa": {
+   "f0": 120,
+   "heard": "",
+   "id": "lore_puj_z2_2",
+   "lufs": -16.37,
+   "peak_db": -1.7,
+   "seconds": 9.49,
+   "source": "kokoro hm_psi:1.0",
+   "speaker": "pujari",
+   "take": "take 1",
+   "text": "Dark pigment makes the engraved lines visible. Palm leaves preserve writing and images through skilled preparation and careful storage.",
+   "true_peak": -1.68,
+   "wer": ""
+  }
+ },
+ "lore_puj_z2_3": {
+  "key": "9c636eeb105d1dea",
+  "qa": {
+   "f0": 119,
+   "heard": "",
+   "id": "lore_puj_z2_3",
+   "lufs": -16.28,
+   "peak_db": -1.7,
+   "seconds": 9.27,
+   "source": "kokoro hm_psi:1.0",
+   "speaker": "pujari",
+   "take": "take 1",
+   "text": "Jayadeva composed the Gita Govinda in the twelfth century. Its devotional poetry is closely associated with Jagannath worship.",
+   "true_peak": -1.68,
+   "wer": ""
+  }
+ },
+ "lore_puj_z2_care": {
+  "key": "0e418063a327845e",
+  "qa": {
+   "f0": 121,
+   "heard": "",
+   "id": "lore_puj_z2_care",
+   "lufs": -16.32,
+   "peak_db": -1.7,
+   "seconds": 8.09,
+   "source": "kokoro hm_psi:1.0",
+   "speaker": "pujari",
+   "take": "take 1",
+   "text": "Keep replicas documented and handle them carefully. Real sacred objects remain in the care of their community.",
+   "true_peak": -1.69,
+   "wer": ""
+  }
+ },
+ "lore_puj_z2_extra": {
+  "key": "29f5dc2e94332198",
+  "qa": {
+   "f0": 121,
+   "heard": "",
+   "id": "lore_puj_z2_extra",
+   "lufs": -16.27,
+   "peak_db": -1.7,
+   "seconds": 10.64,
+   "source": "kokoro hm_psi:1.0",
+   "speaker": "pujari",
+   "take": "take 1",
+   "text": "Manuscripts preserve language, poetry and the knowledge of their makers. Real leaves are fragile and need trained conservation rather than a quick repair.",
+   "true_peak": -1.67,
+   "wer": ""
+  }
+ },
+ "lore_puj_z3_1": {
+  "key": "1370ca94e9779ecd",
+  "qa": {
+   "f0": 120,
+   "heard": "",
+   "id": "lore_puj_z3_1",
+   "lufs": -16.19,
+   "peak_db": -1.7,
+   "seconds": 11.32,
+   "source": "kokoro hm_psi:1.0",
+   "speaker": "pujari",
+   "take": "take 1",
+   "text": "This fictional seal represents the Nilachakra, the sacred metal wheel above the Puri temple. The wheel itself remains on the temple; it is never a collectible.",
+   "true_peak": -1.68,
+   "wer": ""
+  }
+ },
+ "lore_puj_z3_2": {
+  "key": "8ff137fc5bc6cf22",
+  "qa": {
+   "f0": 117,
+   "heard": "",
+   "id": "lore_puj_z3_2",
+   "lufs": -16.46,
+   "peak_db": -1.7,
+   "seconds": 9.76,
+   "source": "kokoro hm_psi:1.0",
+   "speaker": "pujari",
+   "take": "take 1",
+   "text": "The temple banner is associated with this wheel. We respect that living tradition without presenting tales about the wind as measured science.",
+   "true_peak": -1.68,
+   "wer": ""
+  }
+ },
+ "lore_puj_z3_3": {
+  "key": "d6ba7af7d99bb055",
+  "qa": {
+   "f0": 117,
+   "heard": "",
+   "id": "lore_puj_z3_3",
+   "lufs": -16.37,
+   "peak_db": -1.7,
+   "seconds": 11.95,
+   "source": "kokoro hm_psi:1.0",
+   "speaker": "pujari",
+   "take": "take 1",
+   "text": "Odisha Pattachitra artists create detailed narrative paintings. The medallion is our invented teaching design, not an authenticated historic temple object.",
+   "true_peak": -1.66,
+   "wer": ""
+  }
+ },
+ "lore_puj_z3_care": {
+  "key": "0e418063a327845e",
+  "qa": {
+   "f0": 121,
+   "heard": "",
+   "id": "lore_puj_z3_care",
+   "lufs": -16.32,
+   "peak_db": -1.7,
+   "seconds": 8.09,
+   "source": "kokoro hm_psi:1.0",
+   "speaker": "pujari",
+   "take": "take 1",
+   "text": "Keep replicas documented and handle them carefully. Real sacred objects remain in the care of their community.",
+   "true_peak": -1.69,
+   "wer": ""
+  }
+ },
+ "lore_puj_z3_extra": {
+  "key": "ca17a398bb891571",
+  "qa": {
+   "f0": 117,
+   "heard": "",
+   "id": "lore_puj_z3_extra",
+   "lufs": -16.39,
+   "peak_db": -1.7,
+   "seconds": 10.23,
+   "source": "kokoro hm_psi:1.0",
+   "speaker": "pujari",
+   "take": "take 1",
+   "text": "Pattachitra carries stories through line, colour and patient workshop practice. Supporting practising artists helps skills pass between generations.",
+   "true_peak": -1.66,
+   "wer": ""
+  }
+ },
+ "lore_puj_z4_1": {
+  "key": "2cdee4d104ce4c44",
+  "qa": {
+   "f0": 124,
+   "heard": "",
+   "id": "lore_puj_z4_1",
+   "lufs": -16.17,
+   "peak_db": -1.7,
+   "seconds": 11.06,
+   "source": "kokoro hm_psi:1.0",
+   "speaker": "pujari",
+   "take": "take 1",
+   "text": "This brass vessel is a fictional teaching replica. Rohini Kunda is a sacred place within the Puri temple tradition, not a puzzle tank to be disturbed.",
+   "true_peak": -1.67,
+   "wer": ""
+  }
+ },
+ "lore_puj_z4_2": {
+  "key": "4cf84e8a0d6b58f6",
+  "qa": {
+   "f0": 122,
+   "heard": "",
+   "id": "lore_puj_z4_2",
+   "lufs": -16.22,
+   "peak_db": -1.7,
+   "seconds": 10.03,
+   "source": "kokoro hm_psi:1.0",
+   "speaker": "pujari",
+   "take": "take 1",
+   "text": "The temple kitchen prepares offerings in earthen pots. Mahaprasad connects worship, food and a community of cooks, servitors and devotees.",
+   "true_peak": -1.7,
+   "wer": ""
+  }
+ },
+ "lore_puj_z4_3": {
+  "key": "a622f5848a43c99a",
+  "qa": {
+   "f0": 115,
+   "heard": "",
+   "id": "lore_puj_z4_3",
+   "lufs": -16.49,
+   "peak_db": -1.7,
+   "seconds": 12.04,
+   "source": "kokoro hm_psi:1.0",
+   "speaker": "pujari",
+   "take": "take 1",
+   "text": "Nirmalya includes dried sacred rice cherished by devotees. Our brass replica illustrates heritage learning; it is not an actual kitchen pot or sacred offering.",
+   "true_peak": -1.69,
+   "wer": ""
+  }
+ },
+ "lore_puj_z4_care": {
+  "key": "0e418063a327845e",
+  "qa": {
+   "f0": 121,
+   "heard": "",
+   "id": "lore_puj_z4_care",
+   "lufs": -16.32,
+   "peak_db": -1.7,
+   "seconds": 8.09,
+   "source": "kokoro hm_psi:1.0",
+   "speaker": "pujari",
+   "take": "take 1",
+   "text": "Keep replicas documented and handle them carefully. Real sacred objects remain in the care of their community.",
+   "true_peak": -1.69,
+   "wer": ""
+  }
+ },
+ "lore_puj_z4_extra": {
+  "key": "b32c22cd627b8ace",
+  "qa": {
+   "f0": 120,
+   "heard": "",
+   "id": "lore_puj_z4_extra",
+   "lufs": -16.44,
+   "peak_db": -1.7,
+   "seconds": 10.86,
+   "source": "kokoro hm_psi:1.0",
+   "speaker": "pujari",
+   "take": "take 1",
+   "text": "Living heritage includes the people who maintain a tradition. We honour their knowledge and work, and avoid treating sacred food as treasure or a commodity.",
+   "true_peak": -1.69,
+   "wer": ""
+  }
+ },
+ "lore_puj_z5_1": {
+  "key": "ac61b3967f6a1c77",
+  "qa": {
+   "f0": 116,
+   "heard": "",
+   "id": "lore_puj_z5_1",
+   "lufs": -16.37,
+   "peak_db": -1.7,
+   "seconds": 9.77,
+   "source": "kokoro hm_psi:1.0",
+   "speaker": "pujari",
+   "take": "take 1",
+   "text": "This fictional medallion and banner recall Ratha Yatra. The chariots travel along Puri Grand Avenue towards Gundicha Temple.",
+   "true_peak": -1.68,
+   "wer": ""
+  }
+ },
+ "lore_puj_z5_2": {
+  "key": "045f8a8b30ea87e9",
+  "qa": {
+   "f0": 120,
+   "heard": "",
+   "id": "lore_puj_z5_2",
+   "lufs": -16.19,
+   "peak_db": -1.7,
+   "seconds": 10.38,
+   "source": "kokoro hm_psi:1.0",
+   "speaker": "pujari",
+   "take": "take 1",
+   "text": "Jagannath rides Nandighosha, Balabhadra rides Taladhwaja, and Subhadra rides Darpadalana. Nandighosha has sixteen wheels.",
+   "true_peak": -1.68,
+   "wer": ""
+  }
+ },
+ "lore_puj_z5_3": {
+  "key": "62ca0c5bc1787287",
+  "qa": {
+   "f0": 114,
+   "heard": "",
+   "id": "lore_puj_z5_3",
+   "lufs": -16.22,
+   "peak_db": -1.7,
+   "seconds": 11.57,
+   "source": "kokoro hm_psi:1.0",
+   "speaker": "pujari",
+   "take": "take 1",
+   "text": "Artisans build the festival chariots anew each year. The celebration brings the deities into public view, expressing a widely shared tradition of devotion.",
+   "true_peak": -1.67,
+   "wer": ""
+  }
+ },
+ "lore_puj_z5_care": {
+  "key": "0e418063a327845e",
+  "qa": {
+   "f0": 121,
+   "heard": "",
+   "id": "lore_puj_z5_care",
+   "lufs": -16.32,
+   "peak_db": -1.7,
+   "seconds": 8.09,
+   "source": "kokoro hm_psi:1.0",
+   "speaker": "pujari",
+   "take": "take 1",
+   "text": "Keep replicas documented and handle them carefully. Real sacred objects remain in the care of their community.",
+   "true_peak": -1.69,
+   "wer": ""
+  }
+ },
+ "lore_puj_z5_extra": {
+  "key": "f14748f02926e37d",
+  "qa": {
+   "f0": 119,
+   "heard": "",
+   "id": "lore_puj_z5_extra",
+   "lufs": -16.37,
+   "peak_db": -1.7,
+   "seconds": 9.78,
+   "source": "kokoro hm_psi:1.0",
+   "speaker": "pujari",
+   "take": "take 1",
+   "text": "Rebuilding keeps specialist skills alive through practice and transmission. The knowledge of the makers matters as much as the finished woodwork.",
+   "true_peak": -1.69,
+   "wer": ""
+  }
+ },
+ "lore_puj_z6_1": {
+  "key": "5881a583a4195712",
+  "qa": {
+   "f0": 115,
+   "heard": "",
+   "id": "lore_puj_z6_1",
+   "lufs": -16.42,
+   "peak_db": -1.7,
+   "seconds": 11.36,
+   "source": "kokoro hm_psi:1.0",
+   "speaker": "pujari",
+   "take": "take 1",
+   "text": "This finial ornament and chronicle are fictional teaching replicas. A kalasha crowns temple architecture; no actual temple crown has been taken in this story.",
+   "true_peak": -1.67,
+   "wer": ""
+  }
+ },
+ "lore_puj_z6_2": {
+  "key": "80af781b3b44df9f",
+  "qa": {
+   "f0": 116,
+   "heard": "",
+   "id": "lore_puj_z6_2",
+   "lufs": -16.29,
+   "peak_db": -1.7,
+   "seconds": 11.53,
+   "source": "kokoro hm_psi:1.0",
+   "speaker": "pujari",
+   "take": "take 1",
+   "text": "Nabakalebara is the periodic renewal of the wooden sacred images in the Jagannath tradition. Its ritual calendar is not a fixed annual replacement.",
+   "true_peak": -1.68,
+   "wer": ""
+  }
+ },
+ "lore_puj_z6_3": {
+  "key": "54c9b457e7b4c866",
+  "qa": {
+   "f0": 115,
+   "heard": "",
+   "id": "lore_puj_z6_3",
+   "lufs": -16.37,
+   "peak_db": -1.7,
+   "seconds": 11.17,
+   "source": "kokoro hm_psi:1.0",
+   "speaker": "pujari",
+   "take": "take 1",
+   "text": "The sacred images remain untouched in our game. Returning these replicas reminds us that heritage is living community memory, not gold for smugglers.",
+   "true_peak": -1.69,
+   "wer": ""
+  }
+ },
+ "lore_puj_z6_care": {
+  "key": "0e418063a327845e",
+  "qa": {
+   "f0": 121,
+   "heard": "",
+   "id": "lore_puj_z6_care",
+   "lufs": -16.32,
+   "peak_db": -1.7,
+   "seconds": 8.09,
+   "source": "kokoro hm_psi:1.0",
+   "speaker": "pujari",
+   "take": "take 1",
+   "text": "Keep replicas documented and handle them carefully. Real sacred objects remain in the care of their community.",
+   "true_peak": -1.69,
+   "wer": ""
+  }
+ },
+ "lore_puj_z6_extra": {
+  "key": "8f8eab065bffec58",
+  "qa": {
+   "f0": 117,
+   "heard": "",
+   "id": "lore_puj_z6_extra",
+   "lufs": -16.34,
+   "peak_db": -1.7,
+   "seconds": 10.52,
+   "source": "kokoro hm_psi:1.0",
+   "speaker": "pujari",
+   "take": "take 1",
+   "text": "People renew heritage through knowledge, care and shared responsibility. Every temple holds a story; protecting heritage means protecting our history.",
+   "true_peak": -1.66,
+   "wer": ""
+  }
+ },
+ "lore_return_01": {
+  "key": "d5836a435e93ede4",
+  "qa": {
+   "f0": 120,
+   "heard": "",
+   "id": "lore_return_01",
+   "lufs": -16.18,
+   "peak_db": -1.7,
+   "seconds": 3.65,
+   "source": "kokoro hm_psi:1.0",
+   "speaker": "pujari",
+   "take": "take 1",
+   "text": "Bring every teaching piece to the temple steps, Aryan.",
+   "true_peak": -1.68,
+   "wer": ""
+  }
+ },
+ "lore_skip_01": {
+  "key": "d258134767438e02",
+  "qa": {
+   "f0": 118,
+   "heard": "",
+   "id": "lore_skip_01",
+   "lufs": -16.25,
+   "peak_db": -1.7,
+   "seconds": 2.07,
+   "source": "kokoro hm_omega:0.75+am_onyx:0.25",
+   "speaker": "aryan",
+   "take": "take 1",
+   "text": "Moving ahead to the next lead.",
+   "true_peak": -1.68,
+   "wer": ""
+  }
+ },
  "mv_area_bazaar": {
   "key": "b294c2464325aecf",
   "qa": {

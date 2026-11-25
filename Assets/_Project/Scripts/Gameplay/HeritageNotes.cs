@@ -52,7 +52,7 @@ namespace LegacyOfTemples.Gameplay
             }
             foreach(var note in All)
             {
-                if(Known(note))continue;var place=V3Places.Get(note.place);
+                if(Known(note) || note.id.StartsWith("lore_z"))continue;var place=V3Places.Get(note.place);
                 if(place.ok&&Vector3.Distance(pc.transform.position,place.at)<18f)Discover(note.id);
             }
         }
@@ -62,7 +62,7 @@ namespace LegacyOfTemples.Gameplay
             if(All.Length==0)return "No heritage notes available.";
             Page=(Page%All.Length+All.Length)%All.Length;var note=All[Page];
             if(!Known(note))return $"<b>HERITAGE NOTES — {Discovered}/{All.Length} discovered</b>\n\nNote {Page+1}: not discovered. Explore {V3Places.LegacyNames[note.place]}.\n\n[Left / Right] Browse notes";
-            return $"<b>HERITAGE NOTES — {Discovered}/{All.Length} discovered</b>\n\n<color={Core.ScreenText.Gold}><b>{note.title}</b></color>\n{note.fact}\n\n<b>In this game</b>\n{note.connection}\n\n<size=80%>Source: {note.source}\nGeneral conservation knowledge; fictional game setting.</size>\n\n[Left / Right] Note {Page+1}/{All.Length}";
+            return $"<b>HERITAGE NOTES — {Discovered}/{All.Length} discovered</b>\n\n<color={Core.ScreenText.Gold}><b>{note.title}</b></color>\n{note.fact}\n\n<b>In this game</b>\n{note.connection}\n\n<size=80%>Source: {note.source}\nHistorical and conservation context; fictional game setting.</size>\n\n[Left / Right] Note {Page+1}/{All.Length}";
         }
         public static string LearnedSummary()
         {

@@ -309,6 +309,13 @@ namespace LegacyOfTemples.Gameplay
             Debug.Log($"[Brawl] {zoneId}: retry {Retries}");
         }
 
+        public void ResolveSkipped()
+        {
+            if (Won) return;
+            foreach (var enemy in Enemies) if (enemy != null) enemy.gameObject.SetActive(false);
+            Win();
+        }
+
         void Win()
         {
             Won = true; Time.timeScale = 1f; HeroFlag("Block", false); PuzzleSave.Set("fight." + fightId, 1);
