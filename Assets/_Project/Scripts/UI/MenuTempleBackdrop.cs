@@ -28,12 +28,19 @@ namespace LegacyOfTemples.UI
         {
             cam = Camera.main;
             if (cam == null) { enabled = false; return; }
-            var res = KalingaTempleBuilder.Build(transform, "MenuTemple", Site, 2.1f);
-            foreach (var c in res.root.GetComponentsInChildren<Collider>()) Destroy(c);
-            b = res.footprint;
-            var flag = new GameObject("MenuTempleFlag").AddComponent<WavingFlag>();
-            flag.transform.SetParent(res.root, false);
-            flag.transform.position = res.towerTop;
+            var original = Resources.Load<GameObject>("Temple/Temple");
+            if (original == null) { enabled = false; return; }
+            var temple = Instantiate(original, Site, Quaternion.identity, transform);
+            temple.name = "MenuTemple";
+            TempleSite.PreserveTempleSilhouettes(temple);
+            foreach (var c in temple.GetComponentsInChildren<Collider>()) Destroy(c);
+            bool first = true;
+            foreach (var renderer in temple.GetComponentsInChildren<Renderer>())
+            {
+                if (first) { b = renderer.bounds; first = false; } else b.Encapsulate(renderer.bounds);
+            }
+            temple.transform.position += new Vector3(Site.x - b.center.x, -b.min.y, Site.z - b.center.z);
+            b.center = new Vector3(Site.x, b.extents.y, Site.z);
             var ground = Village.Box(transform, "MenuGround", Vector3.zero, new Vector3(900f, 0.2f, 900f), "red_sandstone_pavement", 3.2f, false); ground.transform.position = new Vector3(Site.x, -0.1f, Site.z);
             // golden hour: one low warm sun from the front-left, warm haze
             Light sun = RenderSettings.sun; if (sun == null) foreach (var l in FindObjectsByType<Light>()) if (l.type == LightType.Directional) sun = l;

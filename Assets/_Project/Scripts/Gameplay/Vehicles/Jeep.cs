@@ -483,7 +483,7 @@ namespace LegacyOfTemples.Gameplay.Vehicles
                     ScreenText.Panel("jeep_repair_hint", null, $"{ScreenText.Key("R")} Repair & Reset Jeep to Road", PanelAnchor.TopCenter, 420f, null, false, 1);
                 }
             }
-            if (Time.unscaledTime < repairToastUntil)
+            if (Time.timeScale > 0f && Time.unscaledTime < repairToastUntil)
                 ScreenText.Panel("jeep_reset", null, "Jeep repaired and reset cleanly onto the road.", PanelAnchor.TopCenter, 480f, null, false, 3);
             if (Occupied && !Transitioning && Car.Driven && Time.frameCount > enteredFrame + 2 && !InputGate.GameplayBlocked)
             {
@@ -711,6 +711,24 @@ namespace LegacyOfTemples.Gameplay.Vehicles
                     list.Add((Vector3.Lerp(road.Start, road.End, 0.25f), heading));
                     list.Add((Vector3.Lerp(road.Start, road.End, 0.75f), heading));
                 }
+                list.Sort((a, b) => Vector3.SqrMagnitude(Flat(a.pos - around)).CompareTo(Vector3.SqrMagnitude(Flat(b.pos - around))));
+            }
+            else if (scene == Constants.Courtyard)
+            {
+                void Segment(Vector3 a, Vector3 b)
+                {
+                    Vector3 d = b - a; d.y = 0f;
+                    if (d.sqrMagnitude < 0.01f) return;
+                    Vector3 offset = around - a; offset.y = 0f;
+                    float t = Mathf.Clamp01(Vector3.Dot(offset, d) / d.sqrMagnitude);
+                    list.Add((Vector3.Lerp(a, b, t), Quaternion.LookRotation(d).eulerAngles.y));
+                }
+                float start = LegacyOfTemples.World.Village.ZMin - 62f;
+                float end = LegacyOfTemples.World.Village.ZMax + 125f;
+                for (float z = start; z < end; z += 8f)
+                    Segment(LegacyOfTemples.World.Village.RoadPoint(z), LegacyOfTemples.World.Village.RoadPoint(Mathf.Min(z + 8f, end)));
+                var trail = JungleChase.Instance;
+                if (trail != null) for (int i = 1; i < trail.Road.Count; i++) Segment(trail.Road[i - 1], trail.Road[i]);
                 list.Sort((a, b) => Vector3.SqrMagnitude(Flat(a.pos - around)).CompareTo(Vector3.SqrMagnitude(Flat(b.pos - around))));
             }
             float baseYaw = transform.eulerAngles.y;

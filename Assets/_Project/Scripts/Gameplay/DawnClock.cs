@@ -80,6 +80,9 @@ namespace LegacyOfTemples.Gameplay
             var story = StoryDialogueSystem.Instance; if (story == null) return;
             cpObjective = o.id; cpSnapshot = story.Snapshot(); cpMinutes = Minutes;
             cpScene = SceneManager.GetActiveScene().name;
+            var player = FindAnyObjectByType<LegacyOfTemples.Characters.PlayerController>();
+            if (player != null && !Constants.IsNewWorld(cpScene))
+                Checkpoints.Save(o.id, o.title, player.transform.position, player.transform.eulerAngles.y, Minutes * 60f);
             PlayerPrefs.SetFloat("Story_Clock", Minutes);
         }
 
@@ -118,7 +121,9 @@ namespace LegacyOfTemples.Gameplay
             if (story != null && !string.IsNullOrEmpty(cpSnapshot)) story.Restore(cpSnapshot);
             int i = ChapterIndex(story != null ? story.Chapter : null);
             float deadline = i < 5 ? Deadline[i] : DawnMinute;
-            Minutes = Mathf.Min(cpMinutes, deadline - 8f); // restore clock budget
+            bool localCheckpoint = Checkpoints.Has && (string.IsNullOrEmpty(Checkpoints.Current.scene) || Checkpoints.Current.scene == SceneManager.GetActiveScene().name);
+            float checkpointMinutes = localCheckpoint ? Checkpoints.Current.clockSeconds / 60f : cpMinutes;
+            Minutes = Mathf.Clamp(checkpointMinutes, 0f, Mathf.Max(0f, deadline - 8f));
             Time.timeScale = 1f;
             OnRetry?.Invoke();
 
@@ -140,7 +145,7 @@ namespace LegacyOfTemples.Gameplay
 
         private void LateUpdate()
         {
-            if (Time.unscaledTime < retryToastUntil && !string.IsNullOrEmpty(retryToastMsg))
+            if (Time.timeScale > 0f && Time.unscaledTime < retryToastUntil && !string.IsNullOrEmpty(retryToastMsg))
                 ScreenText.Panel("retry_notice", null, retryToastMsg, PanelAnchor.TopCenter, 520f, null, false, 3);
         }
 

@@ -9,7 +9,7 @@ namespace LegacyOfTemples.Gameplay
     public static class Checkpoints
     {
         [System.Serializable]
-        public class Data { public string zone = ""; public string label = ""; public Vector3 position; public float yaw; public float clockSeconds; public string savedAt = ""; public bool valid; }
+        public class Data { public string zone = ""; public string label = ""; public string scene = ""; public Vector3 position; public float yaw; public float clockSeconds; public string savedAt = ""; public bool valid; }
         const string Key = "lot_v3_checkpoint";
         static Data current;
 
@@ -18,7 +18,7 @@ namespace LegacyOfTemples.Gameplay
 
         public static void Save(string zone, string label, Vector3 position, float yaw, float clockSeconds)
         {
-            current = new Data { zone = zone, label = label, position = position, yaw = yaw, clockSeconds = clockSeconds, savedAt = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm"), valid = true };
+            current = new Data { zone = zone, label = label, scene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name, position = position, yaw = yaw, clockSeconds = clockSeconds, savedAt = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm"), valid = true };
             PlayerPrefs.SetString(Key, JsonUtility.ToJson(current)); PlayerPrefs.Save();
             Debug.Log($"[Checkpoint] {zone} / {label} at {position:0.0}");
         }
@@ -27,6 +27,7 @@ namespace LegacyOfTemples.Gameplay
         public static bool Restore(Transform who)
         {
             if (!Has || who == null) return false;
+            if (!string.IsNullOrEmpty(Current.scene) && Current.scene != UnityEngine.SceneManagement.SceneManager.GetActiveScene().name) return false;
             var cc = who.GetComponent<CharacterController>(); if (cc != null) cc.enabled = false;
             who.SetPositionAndRotation(Current.position, Quaternion.Euler(0f, Current.yaw, 0f));
             if (cc != null) cc.enabled = true;

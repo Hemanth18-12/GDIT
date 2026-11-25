@@ -118,7 +118,6 @@ namespace LegacyOfTemples.UI
                     first = hasSave ? AddButton("CONTINUE", Continue) : null;
                     var ng = AddButton("NEW GAME", NewGame);
                     if (first == null) first = ng;
-                    AddButton("NEW BAZAAR / ZONE 1", NewBazaarPreview);
                     AddButton("SHOWCASE TOUR", () => { PlayerPrefs.SetInt("ShowcaseTourActive", 1); PlayerPrefs.Save(); SceneManager.LoadScene(Constants.Courtyard); });
                     AddButton("SETTINGS", () => Show(Screen.Settings));
                     AddButton("CONTROLS", () => Show(Screen.Controls));
@@ -230,7 +229,10 @@ namespace LegacyOfTemples.UI
             PlayerPrefs.SetInt("OpeningCinematicActive", 0);
             PlayerPrefs.SetInt("ShowcaseTourActive", 0);
             PlayerPrefs.Save();
-            SceneLoader.Load(PlayerPrefs.GetString("LastPlayedScene", Constants.Courtyard));
+            string scene = PlayerPrefs.GetString("LastPlayedScene", Constants.Courtyard);
+            // The user's established locations are the main game. An experimental
+            // TempleRing preview save must not silently change the world on Continue.
+            SceneLoader.Load(scene == Constants.TempleRing ? Constants.Courtyard : scene);
         }
     }
 }

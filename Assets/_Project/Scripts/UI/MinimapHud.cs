@@ -20,7 +20,7 @@ namespace LegacyOfTemples.UI
         public static MinimapHud Instance { get; private set; }
         public static bool Visible { get; private set; }
 
-        private const float MapSize = 196f;
+        private const float MapSize = 240f;
         private const float WorldHalfSpan = 72f; // metres shown from centre to edge
         private const float Scale = (MapSize * 0.5f) / WorldHalfSpan;
 
@@ -38,6 +38,8 @@ namespace LegacyOfTemples.UI
         private Texture2D arrowTex, diamondTex;
         private Sprite arrowSprite, diamondSprite;
         private bool builtTempleRing;
+        private string layoutScene;
+        private int layoutPlaces;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void Bootstrap()
@@ -114,7 +116,7 @@ namespace LegacyOfTemples.UI
             // Header bar above radar square
             var hdrBg = MakeBox(rootRect, "Header", new Vector2(0f, MapSize + 24f), new Vector2(MapSize, 24f), new Color(0.05f, 0.06f, 0.08f, 0.90f));
             AddOutline(hdrBg.gameObject, new Color(1f, 0.784f, 0.341f, 0.45f), 1.5f);
-            headerText = MakeLabel(hdrBg, "HeaderLabel", 14f, TextAlignmentOptions.MidlineLeft, new Color(1f, 0.784f, 0.341f, 1f));
+            headerText = MakeLabel(hdrBg, "HeaderLabel", 18f, TextAlignmentOptions.MidlineLeft, new Color(1f, 0.784f, 0.341f, 1f));
             headerText.rectTransform.offsetMin = new Vector2(8f, 0f);
             headerText.rectTransform.offsetMax = new Vector2(-8f, 0f);
 
@@ -166,7 +168,7 @@ namespace LegacyOfTemples.UI
             // Footer bar below radar showing destination + distance
             var ftrBg = MakeBox(rootRect, "Footer", Vector2.zero, new Vector2(MapSize, 24f), new Color(0.05f, 0.06f, 0.08f, 0.90f));
             AddOutline(ftrBg.gameObject, new Color(1f, 0.784f, 0.341f, 0.45f), 1.5f);
-            footerText = MakeLabel(ftrBg, "FooterLabel", 14f, TextAlignmentOptions.MidlineLeft, new Color(0.36f, 0.88f, 0.90f, 1f));
+            footerText = MakeLabel(ftrBg, "FooterLabel", 18f, TextAlignmentOptions.MidlineLeft, new Color(1f, 0.86f, 0.18f, 1f));
             footerText.rectTransform.offsetMin = new Vector2(8f, 0f);
             footerText.rectTransform.offsetMax = new Vector2(-8f, 0f);
 
@@ -175,10 +177,14 @@ namespace LegacyOfTemples.UI
 
         private void EnsureMapLayout(bool isTempleRing)
         {
-            if (builtTempleRing == isTempleRing && roads.Count > 0) return;
+            string scene = SceneManager.GetActiveScene().name;
+            int ready = 0;
+            if (scene == Constants.Courtyard) for (int i = 0; i < V3Places.Count; i++) if (V3Places.Get(i).ok) ready++;
+            if (builtTempleRing == isTempleRing && layoutScene == scene && layoutPlaces == ready && roads.Count > 0) return;
             for (int i = worldLayer.childCount - 1; i >= 0; i--) Destroy(worldLayer.GetChild(i).gameObject);
             roads.Clear(); zoneBlips.Clear();
             builtTempleRing = isTempleRing;
+            layoutScene = scene; layoutPlaces = ready;
 
             if (isTempleRing)
             {
@@ -202,8 +208,27 @@ namespace LegacyOfTemples.UI
             }
             else
             {
-                // Classic scenes: subtle central shrine ring
-                AddWorldRect("ArenaCenter", new Vector2(0f, 0f), new Vector2(24f, 24f), new Color(0.55f, 0.45f, 0.28f, 0.25f), 0f);
+                if (scene == Constants.Courtyard && LegacyOfTemples.World.Village.GatePos != Vector3.zero)
+                {
+                    var tint = new Color(0.52f, 0.48f, 0.38f, 0.8f);
+                    float start = LegacyOfTemples.World.Village.ZMin - 62f;
+                    float end = LegacyOfTemples.World.Village.ZMax + 128f;
+                    for (float z = start; z < end; z += 6f)
+                    {
+                        Vector3 a = LegacyOfTemples.World.Village.RoadPoint(z), b = LegacyOfTemples.World.Village.RoadPoint(Mathf.Min(end, z + 6f));
+                        AddRoadSeg(new Vector2(a.x, a.z), new Vector2(b.x, b.z), 8f, tint);
+                    }
+                    var footprint = TempleSite.Footprint;
+                    if (footprint.size.sqrMagnitude > 1f)
+                        AddWorldRect("OriginalTemple", new Vector2(footprint.center.x, footprint.center.z), new Vector2(footprint.size.x, footprint.size.z), new Color(0.48f, 0.36f, 0.22f, 0.4f), 0f);
+                    var jungle = JungleChase.Instance;
+                    if (jungle != null)
+                        for (int i = 1; i < jungle.Road.Count; i++)
+                            AddRoadSeg(new Vector2(jungle.Road[i - 1].x, jungle.Road[i - 1].z), new Vector2(jungle.Road[i].x, jungle.Road[i].z), 9f, tint);
+                    for (int i = 0; i < V3Places.Count; i++)
+                        zoneBlips.Add((MakeIcon(worldLayer, "OriginalPlace_" + i, 9f, new Color(0.6f, 0.78f, 0.9f), diamondTex), i));
+                }
+                else AddWorldRect("ArenaCenter", Vector2.zero, new Vector2(24f, 24f), new Color(0.35f, 0.32f, 0.27f, 0.3f), 0f);
             }
         }
 
@@ -340,7 +365,26 @@ namespace LegacyOfTemples.UI
 
         private static string ResolveAreaLabel(string scene, Vector3 p, bool isTempleRing)
         {
-            if (!isTempleRing) return scene.ToUpperInvariant();
+            if (!isTempleRing)
+            {
+                if (scene == Constants.Courtyard)
+                {
+                    string name = "VILLAGE"; float nearest = 32f;
+                    for (int i = 0; i < V3Places.Count; i++)
+                    {
+                        var place = V3Places.Get(i); if (!place.ok) continue;
+                        float distance = Vector3.Distance(p, place.at);
+                        if (distance < nearest)
+                        {
+                            nearest = distance;
+                            string[] labels = { "TEMPLE GATE", "BAZAAR", "STOREROOM", "VAULTS", "STEPWELL", "SUN WALL", "JUNGLE ROAD", "RUIN COURT" };
+                            name = labels[i];
+                        }
+                    }
+                    return name;
+                }
+                return scene.ToUpperInvariant();
+            }
             if (p.z > 220f) return "JUNGLE TRAIL";
             if (p.x < -30f && p.z > 70f) return "STEPWELL";
             if (p.x > 30f && p.z > 80f) return "SUN WALL";
@@ -446,14 +490,14 @@ namespace LegacyOfTemples.UI
             t.alignment = align;
             t.color = color;
             t.raycastTarget = false;
+            t.textWrappingMode = TextWrappingModes.NoWrap;
+            t.overflowMode = TextOverflowModes.Ellipsis;
             return t;
         }
 
         private static void AddOutline(GameObject go, Color c, float thickness)
         {
-            var ol = go.AddComponent<Outline>();
-            ol.effectColor = c;
-            ol.effectDistance = new Vector2(thickness, thickness);
+            ScreenTextRenderer.AddBorder((RectTransform)go.transform, c, thickness);
         }
     }
 }

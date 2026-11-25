@@ -1,5 +1,9 @@
 # Evaluation (playtest study pack for Legacy of the Temple)
 
+## Current game route — location correction on 25 November 2026
+
+The main game now preserves the established village, Courtyard and Sun Wall locations confirmed in the user's screenshots. Start in `Courtyard`, not the experimental `TempleRing` world. The PDF/PPT below are the earlier evaluation snapshot and still contain modular replacement-world claims; do not present those claims as the current game's layout. The updated implementation summary and `../Docs/QA/2026-11-25-original-locations/evidence-review.md` record the newer route and verification. Player-study results remain pending.
+
 ## New evaluation deliverables — 25 November 2026
 
 - `Study_Methodology_and_Results.pdf`: four-page report following the supplied example's structure, rewritten for this game. Player results are pending; technical evidence is reported separately.

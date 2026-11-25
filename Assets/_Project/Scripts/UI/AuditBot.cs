@@ -57,6 +57,12 @@ namespace LegacyOfTemples.UI
             Directory.CreateDirectory(output);
             Line("# Runtime audit (" + DateTime.Now.ToString("yyyy-MM-dd HH:mm") + ", " + (Application.isEditor ? "Editor" : "Standalone") + ", " + Screen.width + "x" + Screen.height + ")");
             yield return new WaitForSecondsRealtime(1.5f);
+            if (Array.IndexOf(Environment.GetCommandLineArgs(), "-reviewConfirmedPlaces") >= 0)
+            {
+                yield return ReviewConfirmedPlaces();
+                File.WriteAllText(Path.Combine(output, "audit.md"), report.ToString());
+                Application.Quit(); yield break;
+            }
             if (Array.IndexOf(Environment.GetCommandLineArgs(), "-reviewUpgrades") >= 0)
             {
                 yield return ReviewUpgrades();
@@ -2146,6 +2152,76 @@ namespace LegacyOfTemples.UI
                 if (r.width <= 0 || r.height <= 0) return new Rect();
             }
             return r;
+        }
+
+        private IEnumerator ReviewConfirmedPlaces()
+        {
+            StoryDialogueSystem.ResetForNewGame();
+            yield return SceneManager.LoadSceneAsync(Constants.Courtyard);
+            yield return new WaitForSecondsRealtime(12f); yield return SkipIntro();
+            Time.timeScale = 1f;
+            TutorialManager.Instance?.SkipTutorial();
+            var pc = FindAnyObjectByType<PlayerController>();
+            var orbit = FindAnyObjectByType<OrbitCamera>();
+            pc.Teleport(LegacyOfTemples.World.Village.GatePos + Vector3.forward * 26f, Quaternion.LookRotation(Vector3.back));
+            Vector3 from = pc.transform.position + new Vector3(0f, 2.3f, 6f);
+            orbit.SetCutsceneOverride(from, Quaternion.LookRotation(LegacyOfTemples.World.Village.GatePos + Vector3.up * 3f - from));
+            yield return new WaitForSecondsRealtime(1f); yield return Shot("01-confirmed-village-and-minimap.png");
+            Line($"Confirmed route: {SceneManager.GetActiveScene().name}; replacement director={NewWorldDirector.Instance != null}; temple footprint={TempleSite.Footprint}; minimap={MinimapHud.Visible}");
+
+            var sealedDoor = GameObject.Find("Courtyard_Sanctum_ClosedDoors");
+            if (sealedDoor != null)
+            {
+                Vector3 door = sealedDoor.transform.position;
+                pc.Teleport(door + Vector3.forward * 7f, Quaternion.LookRotation(Vector3.back));
+                from = door + new Vector3(-4f, 3f, 12f);
+                orbit.SetCutsceneOverride(from, Quaternion.LookRotation(door + Vector3.up * 1.8f - from));
+                yield return new WaitForSecondsRealtime(0.5f); yield return Shot("01b-original-courtyard-sealed-door.png");
+                Line($"Original Courtyard closed doorway={sealedDoor != null}; position={door}");
+            }
+
+            var sun = SunWallPuzzle.Instance;
+            pc.Teleport(sun.transform.TransformPoint(new Vector3(-4f, 0f, -9f)), Quaternion.identity);
+            from = sun.transform.TransformPoint(new Vector3(-11f, 7f, -17f));
+            orbit.SetCutsceneOverride(from, Quaternion.LookRotation(sun.transform.TransformPoint(new Vector3(1f, 1.5f, 6f)) - from));
+            yield return new WaitForSecondsRealtime(0.5f); yield return Shot("02-confirmed-sunwall-and-minimap.png");
+            Line($"Original Sun Wall present={sun.Built}; mirrors={sun.Mirrors.Length}; wheel={sun.Wheel.transform.position}");
+
+            var jeep = LegacyOfTemples.Gameplay.Vehicles.Jeep.Instance;
+            Vector3 road = LegacyOfTemples.World.Village.RoadPoint(LegacyOfTemples.World.Village.ZMax + 80f);
+            Vector3 crash = road + new Vector3(8f, 0.3f, 0f);
+            jeep.transform.SetPositionAndRotation(crash, Quaternion.Euler(0f, 30f, 70f));
+            var rb = jeep.GetComponent<Rigidbody>(); rb.position = crash; rb.rotation = jeep.transform.rotation;
+            rb.linearVelocity = rb.angularVelocity = Vector3.zero;
+            pc.Teleport(crash + Vector3.right * 4f, Quaternion.identity); Physics.SyncTransforms();
+            yield return new WaitForSecondsRealtime(0.3f); yield return Tap(Key.R); yield return new WaitForSecondsRealtime(0.5f);
+            from = jeep.transform.position + new Vector3(0f, 3.5f, -8f);
+            orbit.SetCutsceneOverride(from, Quaternion.LookRotation(jeep.transform.position + Vector3.up - from));
+            yield return Shot("03-original-road-r-recovery.png");
+            Line($"Original road R: position={jeep.transform.position}; tilt={Vector3.Angle(jeep.transform.up, Vector3.up):0.0}; damage={jeep.DamageState}");
+
+            pc.Teleport(V3Places.Get(5).at, Quaternion.identity);
+            Checkpoints.Save("sunwall", "Sun Wall plaza", pc.transform.position, 0f, 6f * 60f);
+            Vector3 checkpoint = pc.transform.position;
+            pc.Teleport(checkpoint + Vector3.right * 8f, Quaternion.identity);
+            DawnClock.Instance.RetryOnSpot(false); yield return new WaitForSecondsRealtime(0.3f);
+            from = sun.transform.TransformPoint(new Vector3(-11f, 7f, -17f));
+            orbit.SetCutsceneOverride(from, Quaternion.LookRotation(sun.transform.TransformPoint(new Vector3(1f, 1.5f, 6f)) - from));
+            yield return Shot("04-original-sunwall-local-retry.png");
+            Line($"Original retry: scene={SceneManager.GetActiveScene().name}; distance={Vector3.Distance(checkpoint,pc.transform.position):0.00}; clock={DawnClock.Instance.Minutes:0.00}");
+
+            yield return Tap(Key.Escape); yield return new WaitForSecondsRealtime(0.5f);
+            var scroll = GameObject.Find("PauseMenuViewport")?.GetComponent<ScrollRect>();
+            if (scroll != null)
+            {
+                scroll.verticalNormalizedPosition = 1f;
+                yield return null; yield return Shot("05-pause-menu-top.png");
+                scroll.verticalNormalizedPosition = 0.5f;
+                yield return null; yield return Shot("06-pause-five-audio-sliders.png");
+                scroll.verticalNormalizedPosition = 0f;
+                yield return null; yield return Shot("07-pause-menu-bottom.png");
+                Line($"Pause viewport={ScreenRect(scroll.viewport)}; screen={Screen.width}x{Screen.height}; sliders={scroll.content.GetComponentsInChildren<Slider>().Length}");
+            }
         }
 
         private IEnumerator ReviewUpgrades()
