@@ -678,7 +678,10 @@ namespace LegacyOfTemples.Gameplay.Vehicles
                 foreach (var l in s.part.GetComponentsInChildren<Light>(true)) l.enabled = false;
             }
             debris.Clear();
-            TotalDamage = 0f; ZoneDamage.Clear(); PartsBroken = 0; DamageState = 0;
+            TotalDamage = 0f;
+            // Keep every damage zone available for the next collision after R.
+            foreach (string zone in new[] { "front", "rear", "left", "right", "top" }) ZoneDamage[zone] = 0f;
+            PartsBroken = 0; DamageState = 0;
             if (smoke != null) { Destroy(smoke.gameObject); smoke = null; }
             if (Lights != null && Lights.broken != null) for (int i = 0; i < Lights.broken.Length; i++) Lights.broken[i] = false;
             if (Car != null) { Car.motorForce = baseMotorForce; Car.Driven = Occupied; }

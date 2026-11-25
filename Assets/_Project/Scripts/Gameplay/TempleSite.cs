@@ -28,7 +28,13 @@ namespace LegacyOfTemples.Gameplay
             SceneManager.sceneLoaded += (s, m) => { if (s.name == Constants.Courtyard) new GameObject("TempleSite").AddComponent<TempleSite>(); };
             if (SceneManager.GetActiveScene().name == Constants.Courtyard) new GameObject("TempleSite").AddComponent<TempleSite>();
         }
-        private void Awake() { Instance = this; }
+        private void Awake()
+        {
+            Instance = this;
+            // The jungle entrance waits for this scene's footprint before opening
+            // the boundary. A previous scene's bounds must not signal readiness.
+            Footprint = default;
+        }
         private void OnDestroy() { if (Instance == this) Instance = null; }
 
         private void Update()

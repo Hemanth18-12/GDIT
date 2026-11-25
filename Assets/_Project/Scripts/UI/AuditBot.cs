@@ -57,6 +57,12 @@ namespace LegacyOfTemples.UI
             Directory.CreateDirectory(output);
             Line("# Runtime audit (" + DateTime.Now.ToString("yyyy-MM-dd HH:mm") + ", " + (Application.isEditor ? "Editor" : "Standalone") + ", " + Screen.width + "x" + Screen.height + ")");
             yield return new WaitForSecondsRealtime(1.5f);
+            if (Array.IndexOf(Environment.GetCommandLineArgs(), "-reviewJungleAccess") >= 0)
+            {
+                yield return ReviewJungleAccess();
+                File.WriteAllText(Path.Combine(output, "audit.md"), report.ToString());
+                Application.Quit(); yield break;
+            }
             if (Array.IndexOf(Environment.GetCommandLineArgs(), "-reviewEInteractions") >= 0)
             {
                 yield return ReviewEInteractions();
@@ -2158,6 +2164,79 @@ namespace LegacyOfTemples.UI
                 if (r.width <= 0 || r.height <= 0) return new Rect();
             }
             return r;
+        }
+
+        private IEnumerator ReviewJungleAccess()
+        {
+            int errors = 0;
+            Application.LogCallback countErrors = (message, trace, type) =>
+            { if (type == LogType.Exception || type == LogType.Error || type == LogType.Assert) errors++; };
+            Application.logMessageReceived += countErrors;
+            try
+            {
+                // Re-enter Courtyard: the reported invisible wall appears on reload.
+                for (int load = 0; load < 2; load++)
+                {
+                    StoryDialogueSystem.ResetForNewGame();
+                    yield return SceneManager.LoadSceneAsync(Constants.Courtyard);
+                    yield return new WaitForSecondsRealtime(12f); yield return SkipIntro();
+                    TutorialManager.Instance?.SkipTutorial(); Time.timeScale = 1f;
+                }
+                var trail = JungleChase.Instance;
+                var jeep = LegacyOfTemples.Gameplay.Vehicles.Jeep.Instance;
+                var pc = FindAnyObjectByType<PlayerController>();
+                var body = jeep.GetComponent<Rigidbody>();
+                Vector3 start = trail.Road[0] + Vector3.forward * 6f + Vector3.up * 0.12f;
+                Quaternion heading = Quaternion.LookRotation(trail.Road[1] - trail.Road[0]);
+                jeep.transform.SetPositionAndRotation(start, heading); body.position = start; body.rotation = heading;
+                body.linearVelocity = body.angularVelocity = Vector3.zero; Physics.SyncTransforms();
+                yield return new WaitForSecondsRealtime(1f);
+                pc.Teleport(jeep.DriverExitPoint, heading); PlayerController.ObjectiveFocus = jeep.Anchor;
+                yield return new WaitForSecondsRealtime(0.6f); yield return Tap(Key.E);
+                yield return new WaitForSecondsRealtime(3.2f);
+                Line($"Jungle entrance after reload: occupied={jeep.Occupied}; start={jeep.transform.position}");
+                yield return Shot("01-jungle-entrance-before-driving.png");
+                float startedZ = jeep.transform.position.z;
+                for (float t = 0f; t < 20f && jeep.transform.position.z > trail.Road[3].z; t += Time.unscaledDeltaTime)
+                {
+                    int nearest = 0; float best = float.PositiveInfinity;
+                    for (int i = 0; i < trail.Road.Count; i++)
+                    {
+                        float d = Vector3.Distance(jeep.transform.position, trail.Road[i]);
+                        if (d < best) { best = d; nearest = i; }
+                    }
+                    Vector3 aim = trail.Road[Mathf.Min(nearest + 1, trail.Road.Count - 1)] - jeep.transform.position;
+                    float angle = Vector3.SignedAngle(Vector3.ProjectOnPlane(jeep.transform.forward, Vector3.up), Vector3.ProjectOnPlane(aim, Vector3.up), Vector3.up);
+                    held.Clear(); held.Add(Key.W); if (angle > 3f) held.Add(Key.D); else if (angle < -3f) held.Add(Key.A); Push();
+                    yield return null;
+                }
+                held.Clear(); held.Add(Key.Space); Push(); yield return new WaitForSecondsRealtime(1.5f);
+                held.Clear(); Push();
+                bool crossed = jeep.transform.position.z < trail.Road[2].z;
+                Line($"Drove across temple boundary: passed={crossed}; forward progress={startedZ-jeep.transform.position.z:0.0} m; position={jeep.transform.position}");
+                yield return Shot("02-jungle-entrance-crossed.png");
+
+                yield return Tap(Key.R); yield return new WaitForSecondsRealtime(0.8f);
+                Line($"R repair: zones={jeep.ZoneDamage.Count}; total damage={jeep.TotalDamage:0.0}");
+                // A temporary QA barrier makes a real front impact after R. It is
+                // created only in this audit, outside normal gameplay builds.
+                var wall = GameObject.CreatePrimitive(PrimitiveType.Cube); wall.name = "QA_post_repair_impact";
+                wall.transform.position = jeep.transform.position + jeep.transform.forward * 7f + Vector3.up;
+                wall.transform.rotation = jeep.transform.rotation; wall.transform.localScale = new Vector3(7f, 2f, 0.5f);
+                Physics.SyncTransforms();
+                held.Add(Key.W); Push(); yield return new WaitForSecondsRealtime(4f); held.Clear(); Push();
+                bool damaged = jeep.TotalDamage > 0f;
+                Line($"Real collision after repair: damaged={damaged}; total={jeep.TotalDamage:0.0}; front={jeep.ZoneDamage["front"]:0.0}; errors={errors}");
+                yield return Shot("03-impact-after-repair.png");
+                Destroy(wall); yield return null;
+                yield return Tap(Key.R); yield return new WaitForSecondsRealtime(0.8f);
+                held.Add(Key.W); Push(); yield return new WaitForSecondsRealtime(1.5f); held.Clear(); Push();
+                bool moving = jeep.Car.CurrentSpeed > 0.5f;
+                Line($"Continued driving after second repair: moving={moving}; speed={jeep.Car.CurrentSpeed:0.0} m/s; damage={jeep.TotalDamage:0.0}; errors={errors}");
+                yield return Shot("04-jungle-driving-after-second-repair.png");
+                Line($"Jungle access verification passed={crossed && damaged && moving && errors == 0}");
+            }
+            finally { held.Clear(); Push(); Application.logMessageReceived -= countErrors; }
         }
 
         private int reviewEPassed, reviewEAttempts;
