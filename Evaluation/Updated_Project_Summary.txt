@@ -1,12 +1,17 @@
-LEGACY OF THE TEMPLE — CURRENT IMPLEMENTATION SUMMARY
-25 November 2026 — updated after the user's location correction
+LEGACY OF THE TEMPLE — VERIFIED IMPLEMENTATION SUMMARY
+25 November 2026
 
 Hemanth (S20240010236) · Aakash (S20240010245) · Sai Teja (S20240010136)
 
-The main game preserves the established village approach, Courtyard with Pujari Ananda and Meera, and original Sun Wall wheel plaza confirmed by the user's screenshots. New Game starts in Courtyard. The existing detailed temple game prefab and its original footprint are restored; the experimental TempleRing replacement is no longer offered as the main game entry. Original Blender / Heritage Mystery source files remain untouched.
+The main game preserves the original village, Courtyard and Sun Wall locations. New Game opens Courtyard. The existing detailed temple game prefab and its original footprint are retained; original Blender and Heritage Mystery sources remain untouched.
 
-The square minimap now follows the actual established roads and destinations. R repairs the Jeep and returns it upright to a nearby original road segment. Local section retry restores the same-scene checkpoint and clock budget. The Courtyard dark doorway remains sealed. The scrolling pause menu contains independent Master, Music, Ambience, Effects and Voice sliders. Existing devotional music/ambience assets remain available; saved Master/Music settings were at 0%, so raise them in Settings to hear the music.
+The square minimap follows the actual roads and destinations. R repairs the Jeep and resets upright onto a nearby original road segment. Same-scene retry restores the local checkpoint and clock budget. The dark Courtyard doorway is sealed. A scrolling pause menu contains independent Master, Music, Ambience, Effects and Voice sliders.
 
-Verification: a wider Editor PlayMode run passed 32/32 checks. The focused original-route suite separately covers the preserved places, real mirror/wheel puzzle, closed doorway, R-key recovery, local retry and audio sliders. A standalone scripted story audit completed all six zones and reached MISSION COMPLETED. The latest standalone appearance/mechanics captures are reviewed separately. See Docs/QA/2026-11-25-original-locations/evidence-review.md for exact final counts, build identity and limits. No guaranteed FPS figures are claimed.
+The E-key visual sinking bug was reproduced: the visible feet dropped about 85 cm while the capsule stayed grounded. The empty Interact state now uses the existing CC0 Quaternius interaction clip. The focused check shows about 2 cm foot movement and confirms that the real puzzle still responds.
 
-The PDF/PPT evaluation files predate this location correction and are a historical technical snapshot; their modular replacement-world claims do not describe the current main route. Player-study results are pending. No participants, survey means or learning gains have been invented.
+Wider Editor PlayMode run: 32/32 passed. Final focused original-route run: 5/5 passed. These are separate, overlapping runs; their counts are not added.
+build 2026-11-25 09:52 — build report: 0 errors, 0 warnings.
+
+Standalone task screenshots and story audit are described in Docs/QA/2026-11-25-e-interaction/evidence-review.md. Scripted QA uses controlled positioning and is not an uninterrupted manual playthrough or an FPS benchmark. Saved Master and Music were at 0%; raise them to hear the sound.
+
+The report and PPT now describe this original route. The player study is pending: no respondents, survey means, learning gains or player quotations have been invented.

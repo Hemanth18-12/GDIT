@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Passed" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-25 04:19:49Z" end-time="2026-11-25 04:20:07Z" duration="17.5182401">
+  <test-suite type="TestSuite" id="1095" name="My project" fullname="My project" runstate="Runnable" testcasecount="73" result="Passed" start-time="2026-11-25 04:19:49Z" end-time="2026-11-25 04:20:07Z" duration="17.518240" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1184" name="LOT.Grounding.PlayModeTests.dll" fullname="/Users/hemanth/Desktop/GDIT/My project/Library/ScriptAssemblies/LOT.Grounding.PlayModeTests.dll" runstate="Runnable" testcasecount="73" result="Passed" start-time="2026-11-25 04:19:49Z" end-time="2026-11-25 04:20:07Z" duration="17.514733" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="3432" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+      <test-suite type="TestSuite" id="1185" name="LegacyOfTemples" fullname="LegacyOfTemples" runstate="Runnable" testcasecount="65" result="Passed" start-time="2026-11-25 04:19:49Z" end-time="2026-11-25 04:20:07Z" duration="17.498171" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+        <test-suite type="TestSuite" id="1186" name="Tests" fullname="LegacyOfTemples.Tests" runstate="Runnable" testcasecount="65" result="Passed" start-time="2026-11-25 04:19:49Z" end-time="2026-11-25 04:20:07Z" duration="17.479513" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+          <test-suite type="TestFixture" id="1140" name="OriginalRouteReviewTests" fullname="LegacyOfTemples.Tests.OriginalRouteReviewTests" classname="LegacyOfTemples.Tests.OriginalRouteReviewTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-11-25 04:19:49Z" end-time="2026-11-25 04:20:07Z" duration="17.464600" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+]]></output>
+            <test-case id="1142" name="EInteraction_KeepsVisibleCharacterAboveTheFloor" fullname="LegacyOfTemples.Tests.OriginalRouteReviewTests.EInteraction_KeepsVisibleCharacterAboveTheFloor" methodname="EInteraction_KeepsVisibleCharacterAboveTheFloor" classname="LegacyOfTemples.Tests.OriginalRouteReviewTests" runstate="Runnable" seed="1280293725" result="Passed" start-time="2026-11-25 04:19:49Z" end-time="2026-11-25 04:20:07Z" duration="17.445160" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="90000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+[V3] new game: puzzles, run score and checkpoint cleared
+There are no audio listeners in the scene. Please ensure there is always one audio listener in the scene
+[Checkpoint] obj_c0_reach / Reach Jagannath Temple at (0.0, 0.1, -12.0)
+[Weather] scene Courtyard: target=0.00, interior=False, quality=2
+[CharacterManager] Player placed in Courtyard: spawn=Spawn_player_start (0.00, 0.05, 15.00) -> player (0.00, 0.00, 15.00)
+[CharacterManager] Player placed in Courtyard: spawn=Spawn_player_start (0.00, 0.05, 15.00) -> player (0.00, 0.00, 15.00)
+[Voice] npc_near: played np_puj_01 (p1 3D speaker=pujari)
+The character used for Ellipsis is not available in font asset [LiberationSans SDF] or any potential fallbacks. Switching Text Overflow mode to Truncate.
+The character used for Ellipsis is not available in font asset [LiberationSans SDF] or any potential fallbacks. Switching Text Overflow mode to Truncate.
+The character used for Ellipsis is not available in font asset [LiberationSans SDF] or any potential fallbacks. Switching Text Overflow mode to Truncate.
+[Heritage] discovered pottery
+[Heritage] discovered inventory
+[Heritage] discovered market_craft
+[Heritage] discovered market_transmission
+[TempleSite] temple placed: 1867721 triangles, footprint 247 x 108 m, height 61 m, tower top (-111.34, 61.05, -149.14)
+[VillageLife] built: 13 villagers, jeep parked
+[BatchFriendly] baked 1270 renderers into 571 shared materials (total 1270)
+[BreakIn] zone 2 puzzle built at (-17.0, 0.0, -74.0)
+[Stepwell] zone 4 puzzle built at (137.1, 0.0, -134.0)
+[SunWall] zone 5 puzzle built at (-137.6, 0.0, -135.0)
+[Vaults] zone 3 puzzle built at (0.0, 0.0, -202.5)
+[BatchFriendly] baked 104 renderers into 637 shared materials (total 1374)
+[Heritage] discovered architecture
+[Bazaar] zone 1 built: yard at (21.0, 0.0, 145.0), route 7 points
+[Jungle] zone 6 built: road 24 points from (30.5, 0.0, -221.0), court at (39.5, 0.0, -457.0)
+[TempleLife] bell, 8 lamp stands, 6 reflection probes
+[Checkpoint] obj_v3_pujari / Find the priest at (0.0, 0.0, 15.0)
+[BatchFriendly] baked 2438 renderers into 1992 shared materials (total 3812)
+[Voice] area_enter: played mv_area_sunwall (p2 2D zone=SunWall)
+[Heritage] discovered light
+[PlayerController] Interacting with: el.z5.mirror_1 (Turn mirror)
+[EInteraction] before feet=-0.029; lowest posed feet=-0.052; head 1.586->1.533; lowest capsule root=-0.015; mirror 0->1
+Saving results to: /Users/hemanth/Library/Application Support/DefaultCompany/My project/TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

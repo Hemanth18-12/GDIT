@@ -1,8 +1,8 @@
 # Evaluation (playtest study pack for Legacy of the Temple)
 
-## Current game route — location correction on 25 November 2026
+## Current game route — corrected on 25 November 2026
 
-The main game now preserves the established village, Courtyard and Sun Wall locations confirmed in the user's screenshots. Start in `Courtyard`, not the experimental `TempleRing` world. The PDF/PPT below are the earlier evaluation snapshot and still contain modular replacement-world claims; do not present those claims as the current game's layout. The updated implementation summary and `../Docs/QA/2026-11-25-original-locations/evidence-review.md` record the newer route and verification. Player-study results remain pending.
+The report, editable PPTX and PDF preview now describe the established village, Courtyard and Sun Wall locations confirmed by the team. New Game starts in Courtyard. The presentation keeps the supplied Heritage Mystery template and contains updated speaker notes. Technical results now use the separate 32/32 wider and 5/5 focused Editor runs, the rebuilt app, and the E-interaction regression. Player-study results remain pending. See `../Docs/QA/2026-11-25-e-interaction/evidence-review.md` for build identity, reproduced failure, corrected behaviour and limits.
 
 ## New evaluation deliverables — 25 November 2026
 
@@ -13,7 +13,7 @@ The main game now preserves the established village, Courtyard and Sun Wall loca
 - `source/Study_Methodology_and_Results.html`: editable report source.
 - `source/Presentation_Speaker_Notes.txt`: the spoken scripts as a separate editable text file.
 
-The fresh combined Editor run passed 8/8 checks. The existing installed game app was checked separately and does not establish parity with the upgraded source. See `../Docs/QA/2026-11-25-evaluation/evidence-review.md` for exact observations and limitations. No player responses or survey statistics have been invented.
+The report separates technical QA from participant results. The current original-route app was rebuilt and inspected; the E animation failure and its correction are retained as evidence. No player responses or survey statistics have been invented.
 
 To regenerate the documents, run `python3 Evaluation/source/build_evaluation.py` from the project root. Render the report HTML with the installed Chrome (headless print-to-PDF, no browser headers/footers). Export the PPTX preview using `osascript Evaluation/source/export_presentation.applescript` with the installed Keynote. These steps do not install software or modify the supplied template.
 

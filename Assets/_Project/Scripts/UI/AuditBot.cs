@@ -57,6 +57,12 @@ namespace LegacyOfTemples.UI
             Directory.CreateDirectory(output);
             Line("# Runtime audit (" + DateTime.Now.ToString("yyyy-MM-dd HH:mm") + ", " + (Application.isEditor ? "Editor" : "Standalone") + ", " + Screen.width + "x" + Screen.height + ")");
             yield return new WaitForSecondsRealtime(1.5f);
+            if (Array.IndexOf(Environment.GetCommandLineArgs(), "-reviewEInteractions") >= 0)
+            {
+                yield return ReviewEInteractions();
+                File.WriteAllText(Path.Combine(output, "audit.md"), report.ToString());
+                Application.Quit(); yield break;
+            }
             if (Array.IndexOf(Environment.GetCommandLineArgs(), "-reviewConfirmedPlaces") >= 0)
             {
                 yield return ReviewConfirmedPlaces();
@@ -2152,6 +2158,74 @@ namespace LegacyOfTemples.UI
                 if (r.width <= 0 || r.height <= 0) return new Rect();
             }
             return r;
+        }
+
+        private int reviewEPassed, reviewEAttempts;
+        private IEnumerator ReviewEInteractions()
+        {
+            StoryDialogueSystem.ResetForNewGame();
+            yield return SceneManager.LoadSceneAsync(Constants.Courtyard);
+            yield return new WaitForSecondsRealtime(12f); yield return SkipIntro();
+            Time.timeScale = 1f; TutorialManager.Instance?.SkipTutorial();
+            var sun = SunWallPuzzle.Instance;
+            yield return ReviewEAction("01-mirror", sun.Mirrors[0], sun.Mirrors[0].transform.position + Vector3.back * 1.6f);
+            yield return ReviewEAction("02-mirror-repeat", sun.Mirrors[0], sun.Mirrors[0].transform.position + Vector3.back * 1.6f);
+            yield return ReviewEAction("03-centre-wheel", sun.Wheel, sun.Wheel.transform.position + Vector3.back * 2f - Vector3.up * 3f);
+            var well = StepwellPuzzle.Instance;
+            yield return ReviewEAction("04-stepwell-sluice", well.SluiceA, well.transform.TransformPoint(new Vector3(-2.5f, StepwellPuzzle.Rim, -8f)));
+            var vault = VaultPuzzle.Instance;
+            yield return ReviewEAction("05-vault-disc", vault.Discs[0], vault.transform.TransformPoint(new Vector3(10.55f, 0f, 3f)));
+            foreach (var npc in FindObjectsByType<NPCDialogueTrigger>())
+                if (npc.CharacterId == Constants.Priest)
+                {
+                    yield return ReviewEAction("06-priest-dialogue", npc, npc.transform.position + Vector3.forward * 1.8f);
+                    break;
+                }
+            Line($"E interaction cases passed={reviewEPassed}/{reviewEAttempts}");
+        }
+
+        private IEnumerator ReviewEAction(string label, IInteractable target, Vector3 stand)
+        {
+            var pc = FindAnyObjectByType<PlayerController>();
+            var animator = pc.GetComponentInChildren<Animator>();
+            var orbit = FindAnyObjectByType<OrbitCamera>();
+            pc.Teleport(stand, Quaternion.LookRotation(Vector3.ProjectOnPlane(target.Anchor.position - stand, Vector3.up)));
+            PlayerController.ObjectiveFocus = target.Anchor;
+            Vector3 eye = pc.transform.position + new Vector3(-3f, 2f, -4f);
+            Quaternion view = Quaternion.LookRotation(pc.transform.position + Vector3.up - eye);
+            orbit.SetCutsceneOverride(eye, view);
+            yield return new WaitForSecondsRealtime(4f);
+            bool selected = ReferenceEquals(pc.CurrentInteractable, target) && !InputGate.GameplayBlocked;
+            Line($"{label}: selected={pc.CurrentInteractable?.Id}; expected={target.Id}; blocked={InputGate.GameplayBlocked}");
+            CharacterMeshBounds.TryMeasure(pc.transform, out var bounds);
+            float feet = pc.transform.TransformPoint(new Vector3(0f, bounds.min.y, 0f)).y;
+            float head = animator.GetBoneTransform(HumanBodyBones.Head).position.y;
+            float lowFeet = feet, lowHead = head, root = pc.transform.position.y, lowRoot = root;
+            var part = target as LegacyOfTemples.Gameplay.Puzzles.PuzzleElement;
+            int before = part != null ? part.State : -1;
+            yield return Shot(label + "-before.png");
+            held.Add(Key.E); Push();
+            bool released = false, captured = false;
+            for (float elapsed = 0f; elapsed < 2.8f; elapsed += Time.unscaledDeltaTime)
+            {
+                yield return null;
+                if (!released && elapsed > 0.04f) { held.Remove(Key.E); Push(); released = true; }
+                CharacterMeshBounds.TryMeasure(pc.transform, out bounds);
+                lowFeet = Mathf.Min(lowFeet, pc.transform.TransformPoint(new Vector3(0f, bounds.min.y, 0f)).y);
+                lowHead = Mathf.Min(lowHead, animator.GetBoneTransform(HumanBodyBones.Head).position.y);
+                lowRoot = Mathf.Min(lowRoot, pc.transform.position.y);
+                if (!captured && elapsed > 0.35f)
+                {
+                    captured = true; orbit.SetCutsceneOverride(eye, view);
+                    yield return Shot(label + "-during.png");
+                }
+            }
+            held.Remove(Key.E); Push();
+            bool grounded = lowFeet >= feet - 0.12f && lowHead >= head - 0.25f;
+            bool acted = part != null ? part.State != before : target is NPCDialogueTrigger npc && npc.IsDialogueActive;
+            reviewEAttempts++; if (selected && grounded && acted) reviewEPassed++;
+            Line($"{label}: feet {feet:0.000}->{lowFeet:0.000}; head {head:0.000}->{lowHead:0.000}; root {root:0.000}->{lowRoot:0.000}; state {before}->{(part != null ? part.State : -1)}; grounded pose={grounded}; action worked={acted}; expected target selected={selected}");
+            yield return Shot(label + "-after.png");
         }
 
         private IEnumerator ReviewConfirmedPlaces()

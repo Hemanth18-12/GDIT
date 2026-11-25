@@ -1,0 +1,132 @@
+{
+  "order": [
+    1,
+    2,
+    7,
+    4,
+    9,
+    10,
+    8,
+    11,
+    12,
+    13
+  ],
+  "slides": {
+    "1": [
+      "UNITY 6 · CULTURAL INVESTIGATION · PROJECT DEFENSE",
+      "LEGACY OF\nTHE TEMPLE",
+      "Explore the original temple world. Follow the clues.\nRecover the community’s fictional heritage objects.",
+      "Hemanth (S20240010236) · Aakash (S20240010245) · Sai Teja (S20240010136)\nDEPT. OF CSE · IIIT SRI CITY · NOVEMBER 2026"
+    ],
+    "2": [
+      "01 / PROBLEM & MOTIVATION",
+      "HERITAGE CAN FEEL\nDISTANT.",
+      "The player observes a place, questions witnesses and tests ideas through physical puzzles. The investigation connects those actions with the meaning of community heritage.",
+      "OBSERVATION → UNDERSTANDING → CARE",
+      "LEGACY OF THE TEMPLE · 02"
+    ],
+    "7": [
+      "02 / GAME DESIGN & CORE LOOP",
+      "THE INVESTIGATION HAS A RHYTHM",
+      "01",
+      "02",
+      "03",
+      "04",
+      "05",
+      "EXPLORE",
+      "follow the active objective",
+      "INSPECT",
+      "connect clues and testimony",
+      "SOLVE",
+      "test physical puzzle controls",
+      "CONFRONT",
+      "resolve the encounter",
+      "RECOVER",
+      "return fictional heritage objects",
+      "Six established zones carry one investigation from the village to the return dialogue.",
+      "03"
+    ],
+    "4": [
+      "03 / ORIGINAL WORLD LAYOUT",
+      "PRESERVE THE PLACES. IMPROVE THE PLAY.",
+      "ORIGINAL\nTEMPLE",
+      "ZONE 6",
+      "Jungle Road + Ruin Court",
+      "ZONE 5",
+      "Sun Wall + Wheel Plaza",
+      "ZONE 4",
+      "Monsoon Stepwell",
+      "ZONE 1",
+      "Village Bazaar + Tea Lane",
+      "04"
+    ],
+    "9": [
+      "04 / PHYSICAL PUZZLE TOOLKIT",
+      "TURN AN IDEA INTO ACTION.",
+      "Rotate mirrors, then turn the obstructing wheel. Move blocks and align vault discs. Open sluices and adjust the stepwell water level. Feedback makes each action visible.",
+      "EDITABLE SCHEMATIC · SIMPLIFIED GAME PHYSICS",
+      "05"
+    ],
+    "10": [
+      "05 / JEEP MECHANICS",
+      "RECOVER.\nREPAIR.\nCONTINUE.",
+      "The PhysX Jeep uses wheel colliders. Press [R] near or inside it to clear damage and return upright to a nearby road segment in the original village or jungle.",
+      "REAL INPUT CHECK",
+      "R-key recovery verified on the village road",
+      "06"
+    ],
+    "8": [
+      "06 / UI & NAVIGATION",
+      "KEEP THE INVESTIGATION READABLE",
+      "SQUARE MINIMAP",
+      "actual roads + player heading\nobjective direction + distance",
+      "OBJECTIVES",
+      "clue prompts + zone context\nE to talk or use task controls",
+      "LOCAL CHECKPOINTS",
+      "same-scene section retry\nrestore the local clock budget",
+      "Rebuilt-app screenshots show the HUD; the pause menu scrolls within the screen.",
+      "07"
+    ],
+    "11": [
+      "07 / AUDIO & CULTURAL SOUNDSCAPES",
+      "A CALMER SOUND FOR THE INVESTIGATION",
+      "MUSIC",
+      "devotional-style melody\ncalm investigation backdrop",
+      "AMBIENCE",
+      "temple and village layers\nbackground atmosphere",
+      "CONTROL",
+      "master · music\nambience · effects · voice",
+      "FIVE INDEPENDENT SLIDERS · SUBTITLES · VOICE HOOKS",
+      "08"
+    ],
+    "12": [
+      "08 / TECHNICAL EXECUTION & QA",
+      "VERIFY THE SYSTEM.\nTHEN STUDY THE PLAYER.",
+      "EDITOR PLAYMODE",
+      "32/32 wider checks\n5/5 focused checks\nSeparate, overlapping runs",
+      "REBUILT MACOS APP",
+      "0 build errors · 0 warnings\nOriginal route + HUD inspected\nPlayer-study results pending",
+      "TECHNICAL CHECKS DO NOT MEASURE LEARNING",
+      "09"
+    ],
+    "13": [
+      "09 / CONCLUSION & LIVE DEMO",
+      "DISCOVERY\nCREATES CARE.",
+      "The original temple world combines clues, physical puzzles and a heritage-protection story. Demonstrate the verified controls, then collect real player feedback.",
+      "EVERY ARTIFACT CARRIES A MEMORY.",
+      "THANK YOU · Q&A"
+    ]
+  },
+  "notes": {
+    "1": "We are Hemanth (S20240010236) · Aakash (S20240010245) · Sai Teja (S20240010136). Legacy of the Temple is a desktop third-person investigation game built with Unity 6000.6.8f1, URP and C#. The player explores a temple-inspired setting, connects evidence, solves physical puzzles and recovers fictional heritage objects. The setting is inspired by heritage; it is not a validated reconstruction of a real temple. This evaluation now follows the original village, Courtyard and Sun Wall locations confirmed by the team. An experimental replacement world is not the main game. Our evidence includes Editor PlayMode tests, screenshots from the rebuilt macOS app and a scripted story audit. We will separate that technical evidence from the player study, which has not yet collected analysed responses. The supplied Heritage Mystery deck provides the design template. Its illustrated artwork is separate from the labelled gameplay screenshot on the world-layout slide.",
+    "2": "The project asks whether an investigation can encourage a player to observe a heritage-inspired environment carefully. A clue has a purpose: it helps the player understand a person, a place or the next action. Physical puzzles connect observation with a visible result. Recovering fictional objects then connects progress with the idea of protecting community memory. These are design intentions, not measured learning outcomes. We must still ask real players whether the goals are clear, whether the controls are readable and whether the heritage message comes through. The planned study uses knowledge questions, ratings and open comments. It does not assume that solving a puzzle automatically proves understanding. The shrine element remains a respectful background feature. The game does not ask the player to steal or handle the shrine idol. That distinction is part of how we present the story.",
+    "7": "The player first explores towards an objective, then inspects clues or talks to a witness. The evidence leads to a puzzle or encounter, and recovery moves the investigation forward. The established route includes the bazaar, storeroom, vaults, stepwell, Sun Wall and jungle road. Each area varies the action while keeping the investigation familiar. A first-time player may need help even when the code works, so the game provides objectives, prompts, a map and local retry. The technical audit exercises selected puzzle controls, encounters and the return dialogue. It uses controlled positioning between locations, so it is not an uninterrupted manual playthrough. In the live demonstration we should show one complete small loop: read a clue, use the relevant control and observe what changes. The later participant study will help us find confusing instructions and transitions.",
+    "4": "The main game keeps the original places confirmed in the team’s screenshots. The village road leads to the Courtyard with Pujari Ananda and Meera. The surrounding investigation includes the storeroom, vaults, stepwell, large Sun Wall wheel plaza and jungle route. These systems share the Courtyard scene. The diagram is a schematic list of connected places, not a measured compass map. The image is a screenshot from the rebuilt original-route macOS app. The existing detailed temple game prefab and its footprint were restored because the footprint determines where the surrounding areas are built. Its complete game mesh is retained at distance because the strongest reduced meshes removed supports and made roofs look detached. This costs more geometry, so we do not promise a measured frame rate. The Blender and Heritage Mystery source files remain untouched. New Game opens this established route.",
+    "9": "The Sun Wall asks the player to rotate mirrors and observe where the reflected rays travel. Aligning the mirrors alone is insufficient because a wheel spoke still blocks one ray. Turning the wheel lets both sockets receive light and opens the passage. That obstruction was checked using real raycast behaviour, rather than forcing the solved state. The vault uses movable blocks, pressure plates and rotating discs. The stepwell links sluice settings with water level and the floating platform. These are simplified game systems, not calibrated experiments in optics or hydraulics. The later study can ask whether players transfer the intended ideas to a new question. A recent interaction bug showed why animation also needs testing: E operated the puzzle but the character’s visible pose dropped below the floor. The empty animation state has been replaced with an existing licensed standing interaction clip.",
+    "10": "The Jeep supports road movement and the jungle section. Wheel colliders model its wheel contact and suspension. If the vehicle overturns or takes damage, R repairs it and finds a nearby road position, then restores an upright orientation. The reset now uses the actual original village approach and jungle road segments. This avoids treating the experimental replacement layout as the player’s world. The focused Editor test presses the real R key after placing the Jeep tilted beside the village road. The rebuilt app audit repeats the action and records the resulting position, tilt and damage state. Those are selected recovery cases, not proof of every possible crash. During the demo, use an open stretch of road, show the recovery and then continue driving. Entering and leaving the vehicle should also be demonstrated at a clear location with room for the player capsule.",
+    "8": "The square minimap stays at the bottom-left. It draws the established roads, player orientation, nearby destinations, vehicle and objective direction with distance. The latest screenshots include the rendered HUD, so we are not relying only on a visibility flag. The pause menu now scrolls within the screen, allowing the player to reach its lower options at 720p. Retry Section Here restores a local checkpoint in the same scene and gives back the local clock budget. A checkpoint from another scene is rejected. E still operates the normal dialogue and task controls. The interaction regression checks the animated mesh as well as the grounded capsule, because a visible body can sink even when collision remains correct. These technical checks support the live demo; participant feedback is still needed to judge whether the prompts and map make the next action easy to understand.",
+    "11": "The soundtrack aims to support a calm investigation in a heritage-inspired setting. Music and ambience remain separate from effects and voice. Five independent sliders control Master, Music, Ambience, Effects and Voice. This lets a player lower the music while keeping dialogue and interaction feedback audible. Subtitles and voice-ready dialogue hooks also support following the story. The focused tests set distinct channel values and confirm the resulting audio settings. The rebuilt pause-menu screenshots show the five sliders and the scrolling layout. This is technical verification, not a listening study or a claim that the music reproduces an authenticated ritual. The captured saved preferences had Master and Music at zero percent. Those settings were preserved, so the live demo should raise them to a comfortable level before demonstrating the sound. Real player responses about clarity and presentation remain pending.",
+    "12": "We report two separate Editor runs: a wider run with thirty-two passes and a focused original-route run with five passes. They overlap, so we do not add them into a single total. The focused checks cover the original locations, real mirror behaviour, sealed doorway, R-key recovery, local retry, audio sliders and the visible E-interaction pose. The E regression first reproduced the problem: the feet dropped about eighty-five centimetres while the capsule remained grounded. With the existing licensed interaction clip assigned, the same check showed about two centimetres of foot movement. The rebuilt app is inspected separately, and its build report records zero errors and warnings. A scripted story audit checks the route through the ending. No controlled frame-rate benchmark or analysed participant sample is available. Technical passes establish selected behaviour; they do not establish learning, enjoyment or complete coverage of every player action.",
+    "13": "For the live demo, start New Game in the established world. Show the original Courtyard and its closed doorway, then the bottom-left minimap. Use E on a task control so the audience sees both the puzzle response and the grounded character animation. Demonstrate a Sun Wall mirror and the wheel obstruction, then show Jeep R recovery and local retry. Open the pause menu, show the five volume sliders and scroll to the lower settings. Keep the protected shrine element untouched. The ending carries the message that every temple holds a story and every artifact carries a memory. After the technical demo, the next evaluation step is an adult pilot with consent, recorded task exposure and real questionnaire responses. We will report those results only after collection. The aim is a dependable investigation where observation, clear feedback and respect for heritage support each other."
+  }
+}

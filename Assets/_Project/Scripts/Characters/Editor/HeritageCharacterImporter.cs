@@ -448,7 +448,10 @@ namespace LegacyOfTemples.Characters.Editor
 
             // 4. Interact State
             AnimatorState interactState = rootStateMachine.AddState("Interact", new Vector3(480, 70, 0));
-            if (interactClip != null) interactState.motion = interactClip;
+            // An empty Humanoid state restores the bind pose and drops Aryan's
+            // visible body below his grounded capsule. Keep a real motion here.
+            interactState.motion = interactClip != null ? interactClip :
+                AssetDatabase.LoadAssetAtPath<AnimationClip>("Assets/_Project/Animations/Clips/Hero/Interact.anim");
 
             var tAnyInteract = rootStateMachine.AddAnyStateTransition(interactState);
             tAnyInteract.AddCondition(AnimatorConditionMode.If, 0, "Interact");

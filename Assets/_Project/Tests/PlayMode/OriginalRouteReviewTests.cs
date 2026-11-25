@@ -57,6 +57,89 @@ namespace LegacyOfTemples.Tests
         }
 
         [UnityTest, Timeout(90000)]
+        public IEnumerator EInteraction_KeepsVisibleCharacterAboveTheFloor()
+        {
+            yield return LoadOriginal();
+            var pc = Object.FindAnyObjectByType<PlayerController>();
+            var mirror = SunWallPuzzle.Instance.Mirrors[0];
+            pc.Teleport(mirror.transform.position + Vector3.back * 1.6f, Quaternion.identity);
+            PlayerController.ObjectiveFocus = mirror.transform;
+            var animator = pc.GetComponentInChildren<Animator>();
+            animator.cullingMode = AnimatorCullingMode.AlwaysAnimate;
+            var orbit = Object.FindAnyObjectByType<OrbitCamera>();
+            Vector3 eye = pc.transform.position + new Vector3(-3f, 2f, -4f);
+            orbit.SetCutsceneOverride(eye, Quaternion.LookRotation(pc.transform.position + Vector3.up - eye));
+            yield return new WaitForSeconds(1f);
+            Assert.IsFalse(InputGate.GameplayBlocked, "The test must press E through normal gameplay input");
+            Assert.AreSame(mirror, pc.CurrentInteractable);
+            Assert.IsTrue(CharacterMeshBounds.TryMeasure(pc.transform, out var before));
+            float beforeFeet = pc.transform.TransformPoint(new Vector3(0f, before.min.y, 0f)).y;
+            float beforeHead = animator.GetBoneTransform(HumanBodyBones.Head).position.y;
+            float lowestFeet = beforeFeet;
+            float lowestHead = beforeHead;
+            float lowestRoot = pc.transform.position.y;
+            var keyboard = InputSystem.AddDevice<Keyboard>("EInteractionReviewKeyboard");
+            var previousBackground = InputSystem.settings.backgroundBehavior;
+            var previousEditor = InputSystem.settings.editorInputBehaviorInPlayMode;
+            string projectRoot = System.IO.Directory.GetParent(Application.dataPath).FullName;
+            if (new System.IO.DirectoryInfo(projectRoot).Name == "My project") projectRoot = System.IO.Directory.GetParent(projectRoot).FullName;
+            string output = System.IO.Path.Combine(projectRoot, "Docs/QA/2026-11-25-e-interaction");
+            System.IO.Directory.CreateDirectory(output);
+            InputSystem.EnableDevice(keyboard); keyboard.MakeCurrent();
+            InputSystem.settings.backgroundBehavior = InputSettings.BackgroundBehavior.IgnoreFocus;
+            InputSystem.settings.editorInputBehaviorInPlayMode = InputSettings.EditorInputBehaviorInPlayMode.AllDeviceInputAlwaysGoesToGameView;
+            try
+            {
+                int state = mirror.State;
+                InputSystem.QueueStateEvent(keyboard, new KeyboardState(Key.E)); yield return null; yield return null;
+                InputSystem.QueueStateEvent(keyboard, new KeyboardState());
+                var trace = new System.Text.StringBuilder();
+                int i = 0;
+                for (float elapsed = 0f; elapsed < 2.8f; elapsed += Time.deltaTime, i++)
+                {
+                    yield return null;
+                    Assert.IsTrue(CharacterMeshBounds.TryMeasure(pc.transform, out var posed));
+                    lowestFeet = Mathf.Min(lowestFeet, pc.transform.TransformPoint(new Vector3(0f, posed.min.y, 0f)).y);
+                    lowestHead = Mathf.Min(lowestHead, animator.GetBoneTransform(HumanBodyBones.Head).position.y);
+                    lowestRoot = Mathf.Min(lowestRoot, pc.transform.position.y);
+                    trace.AppendLine($"{i}, root={pc.transform.position.y:0.000}, head={animator.GetBoneTransform(HumanBodyBones.Head).position.y:0.000}, meshFeet={pc.transform.TransformPoint(new Vector3(0f, posed.min.y, 0f)).y:0.000}, state={animator.GetCurrentAnimatorStateInfo(0).shortNameHash}");
+                    if (i == 12) CaptureCharacterPose(System.IO.Path.Combine(output, "editor-e-interaction.png"));
+                }
+                System.IO.File.WriteAllText(System.IO.Path.Combine(output,"editor-pose-trace.txt"),trace.ToString());
+                Debug.Log($"[EInteraction] before feet={beforeFeet:0.000}; lowest posed feet={lowestFeet:0.000}; head {beforeHead:0.000}->{lowestHead:0.000}; lowest capsule root={lowestRoot:0.000}; mirror {state}->{mirror.State}");
+                Assert.AreNotEqual(state, mirror.State, "E must still operate the real mirror");
+                Assert.GreaterOrEqual(lowestFeet, beforeFeet - 0.12f, "Pressing E must not drop the visible mesh below the floor while the capsule stays grounded");
+                Assert.GreaterOrEqual(lowestHead, beforeHead - 0.25f, "Pressing E must not collapse the character's pose");
+            }
+            finally
+            {
+                InputSystem.settings.backgroundBehavior = previousBackground;
+                InputSystem.settings.editorInputBehaviorInPlayMode = previousEditor;
+                InputSystem.RemoveDevice(keyboard);
+            }
+        }
+
+        static void CaptureCharacterPose(string path)
+        {
+            var camera = Camera.main;
+            var previousTarget = camera.targetTexture;
+            var previousActive = RenderTexture.active;
+            var target = RenderTexture.GetTemporary(1280, 720, 24);
+            var pixels = new Texture2D(1280, 720, TextureFormat.RGB24, false);
+            try
+            {
+                camera.targetTexture = target; camera.Render(); RenderTexture.active = target;
+                pixels.ReadPixels(new Rect(0f, 0f, 1280f, 720f), 0, 0); pixels.Apply();
+                System.IO.File.WriteAllBytes(path, pixels.EncodeToPNG());
+            }
+            finally
+            {
+                camera.targetTexture = previousTarget; RenderTexture.active = previousActive;
+                RenderTexture.ReleaseTemporary(target); Object.Destroy(pixels);
+            }
+        }
+
+        [UnityTest, Timeout(90000)]
         public IEnumerator OriginalApproachRoad_RKeyRecoversLocally()
         {
             yield return LoadOriginal();
